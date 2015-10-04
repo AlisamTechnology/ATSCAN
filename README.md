@@ -1,5 +1,9 @@
-# ATSCAN-V1
-#Server, Site and dork scanner
-#Alisam Technology
-#Thanks to: Black Hat
-#apt-get install libxml-simple-perl
+ATSCAN-V1.
+Alisam Technology.
+This this my first script im sure is full with mistakes.
+Dork scanner.
+XSS scanner.
+LFI scammer.
+Filter wordpress and Joomla sites in the server.
+Find Admin page.
+Decode / Encode MD5 + Base64.

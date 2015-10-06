@@ -1600,6 +1600,7 @@ if($task eq "3"){
 #########
 
 ##BEG ($IDS==2) #SITES IN THE SERVER
+#test.. test... still working to remove the span class!!!!
   if ($IDS==2) {
     npages5:;
     print color 'bold yellow';

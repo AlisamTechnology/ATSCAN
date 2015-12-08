@@ -653,7 +653,7 @@ if($task eq "2"){
   
     if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
       print color 'bold yellow';
-      print "    [+] Do You Want To Use an Exploit? (Y/N): ";
+      print "    [+] Do You Want To Use an Exploit? DEFAULT: N (Y/N): ";
       print color 'bold yellow', RESET;
       $usexploit=<STDIN>;
       chomp ($usexploit);
@@ -673,7 +673,7 @@ if($task eq "2"){
         };
 		
         print color 'bold yellow';
-        print "    [+] Do You Want To Validate Results? (Y/N): ";
+        print "    [+] Do You Want To Validate Results? DEFAULT: N (Y/N): ";
         print color 'bold yellow', RESET;
         $validate=<STDIN>;
         chomp ($validate);

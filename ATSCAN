@@ -637,70 +637,72 @@ if($task eq "2"){
   #XSS SCAN
   if ($ID==2){
     sleep (1);
-    id2:;
+	
     print color 'bold yellow';
-    print "\n    [+] Please Enter Target [http://www.site.com/search.php?id= ";
-    print "\n    [+] Target: ";
-    print color 'yellow', RESET;
-    $Target=<STDIN>;
-    chomp ($Target);
-    if (!$Target){ 
-      print color 'red';
-	  print "    [+] Uppss.. you have to set a Target!\n";
-      print color 'yellow', RESET;
-	  goto id2;
-    };
-  
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+    print "    [+] Do You Want To Use an Exploit? DEFAULT: N (Y/N): ";
+    print color 'bold yellow', RESET;
+    $usexploit=<STDIN>;
+    chomp ($usexploit);
+	
+    if ($usexploit =~ m/y/i || m/yes/i ){ ### BEG EXPLOIT
+	  id221:;
       print color 'bold yellow';
-      print "    [+] Do You Want To Use an Exploit? DEFAULT: N (Y/N): ";
+      print "    [+] Enter Exploit [Ex:/about.php?id=1%27]: ";
       print color 'bold yellow', RESET;
-      $usexploit=<STDIN>;
-      chomp ($usexploit);
-      if ($usexploit =~ m/y/i || m/yes/i ){
-	    id22:;
+      $exploit=<STDIN>;
+      chomp ($exploit);
+	  if (!$exploit){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to Enter your Exploit!\n";
+        print color 'yellow', RESET;
+	    goto id221;
+      };
+
+      id21:;
+      print color 'bold yellow';
+      print "\n    [+] Please Enter Target [http://www.site.com] ";
+      print "\n    [+] Target: ";
+      print color 'yellow', RESET;
+      $Target=<STDIN>;
+      chomp ($Target);
+      if (!$Target){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to set a Target!\n";
+        print color 'yellow', RESET;
+	    goto id21;
+      };
+      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+
+      print color 'bold yellow';
+      print "    [+] Do You Want To Validate Results? DEFAULT: N (Y/N): ";
+      print color 'bold yellow', RESET;
+      $validate=<STDIN>;
+	  
+      if ($validate =~ m/y/i || m/yes/i ){  ### BEG VALIDATION
+	    id2221:;
         print color 'bold yellow';
-        print "    [+] Enter Exploit: ";
+        print "    [+] Enter Text to Validate: ";
         print color 'bold yellow', RESET;
-        $exploit=<STDIN>;
-        chomp ($exploit);
+        $validation_text=<STDIN>;
+        chomp ($validation_text);
 		
-		if (!$exploit){ 
+		if (!$validation_text){ 
           print color 'red';
-	      print "    [+] Uppss.. you have to Enter your Exploit!\n";
+	      print "    [+] Uppss.. you have to Enter your Text to Validate!\n";
           print color 'yellow', RESET;
-	      goto id22;
+	      goto id2221;
         };
 		
-        print color 'bold yellow';
-        print "    [+] Do You Want To Validate Results? DEFAULT: N (Y/N): ";
-        print color 'bold yellow', RESET;
-        $validate=<STDIN>;
-        chomp ($validate);
-        if ($validate =~ m/y/i || m/yes/i ){
-		  id222:;
-          print color 'bold yellow';
-          print "    [+] Enter Text to Validate: ";
-          print color 'bold yellow', RESET;
-          $validation_text=<STDIN>;
-          chomp ($validation_text);
-		  if (!$validation_text){ 
-            print color 'red';
-	        print "    [+] Uppss.. you have to Enter your Text to Validate!\n";
-            print color 'yellow', RESET;
-	        goto id222;
-          };
-		}
-
         print color 'yellow';
         print "    [+] Please wait...";
         print color 'yellow', RESET;
         print" \n";
-		
+	  	
+	    my $URL = $Target.$exploit;
         $request = HTTP::Request->new('GET', $URL);
         $response = $ua->request($request);
         my $html = $response->content;
-	    if(($html =~ m/MySQL/i || m/error/i || m/syntax/i) || (($html =~ m/$validation_text/i) && ($validate =~ m/y/i || m/yes/i))){
+	    if($html =~ m/$validation_text/i){
 	      print color 'bold green';
           print "    [+] $URL\n";
 	      print color 'green', RESET;
@@ -708,94 +710,104 @@ if($task eq "2"){
           print TEXT "$URL\n";
           close (TEXT);
 	    }	 
-	  }else{
-        print color 'bold yellow';
-        print "    [+] Do You Want To Validate Results? (Y/N): ";
-        print color 'bold yellow', RESET;
-        $validate=<STDIN>;
-        chomp ($validate);
-        if ($validate =~ m/y/i || m/yes/i ){
-		
-		  id222:;
-          print color 'bold yellow';
-          print "    [+] Enter Text to Validate: ";
-          print color 'bold yellow', RESET;
-          $validation_text=<STDIN>;
-          chomp ($validation_text);
-		  if (!$validation_text){ 
-            print color 'red';
-	        print "    [+] Uppss.. you have to Enter your Text to Validate!\n";
-            print color 'yellow', RESET;
-	        goto id222;
-          };
-		}
+	  }else{ ### THEN NO VALIDATION
+	    my $URL = $Target.$exploit;
+        $request = HTTP::Request->new('GET', $URL);
+        $response = $ua->request($request);
+        my $html = $response->content;
+	    if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
+	      print color 'bold green';
+          print "    [+] $URL\n";
+	      print color 'green', RESET;
+          open (TEXT, '>>XSS_Scan.txt');
+          print TEXT "$URL\n";
+          close (TEXT);
+	    }	 
+	  }  ### END VALIDATION
+    }else{ ### THEN NO EXPLOIT
 
-	    print color 'yellow';
-        print "    [+] Please wait...";
-        print color 'yellow', RESET;
-        print" \n";
-
-        foreach $XSS(@XSS){
-          my $URL = $Target.$XSS;
-          $request = HTTP::Request->new('GET', $URL);
-          $response = $ua->request($request);
-          my $html = $response->content;
-	      if(($html =~ m/MySQL/i || m/error/i || m/syntax/i) || (($html =~ m/$validation_text/i) && ($validate =~ m/y/i || m/yes/i))){
-	        print color 'bold green';
-            print "    [+] $URL\n";
-	        print color 'green', RESET;
-            open (TEXT, '>>XSS_Scan.txt');
-            print TEXT "$URL\n";
-            close (TEXT);
-	      }	 
-        }
-	  }	
-
-      print color 'red';
-      print "    [!] SCAN FINISHED!\n";
-      print color 'red', RESET;
-      $list = "XSS_Scan.txt";
-	  if (-e $list){
-        print color 'yellow';
-        print "    [+] Do You Want To Save results? (Y/N): ";
-        print color 'yellow', RESET;
-        $save=<STDIN>;
-        chomp($save);
-        if ($save =~ m/n/i || m/no/i ){
-          unlink  'XSS_Scan.txt';
-        }else{
-          print color 'green';
-          print "    [+] Scan saved to XSS_Scan.txt\n";
-          print color 'yellow', RESET;
-        }
-       }else{
-         print color 'red';
-         print "    [!] No XSS Found!\n";
-	     print color 'red', RESET;
-	  }
-      after2:;
+      id2:;
       print color 'bold yellow';
-      print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
-	  print color 'yellow', RESET;
-      $after2=<STDIN>;
-      chomp ($after2);
-      if ($after2==1) {
-        goto ID;
+      print "\n    [+] Please Enter Target [http://www.site.com/search.php?id=] ";
+      print "\n    [+] Target: ";
+      print color 'yellow', RESET;
+      $Target=<STDIN>;
+      chomp ($Target);
+      if (!$Target){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to set a Target!\n";
+        print color 'yellow', RESET;
+	    goto id2;
+      };
+  
+      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+	
+      print color 'yellow';
+      print "    [+] Please wait...";
+      print color 'yellow', RESET;
+      print" \n";
+		
+      foreach $XSS(@XSS){
+        my $URL = $Target.$XSS;
+        $request = HTTP::Request->new('GET', $URL);
+        $response = $ua->request($request);
+        my $html = $response->content;
+	    if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
+	      print color 'bold green';
+          print "    [+] $URL\n";
+	      print color 'green', RESET;
+          open (TEXT, '>>XSS_Scan.txt');
+          print TEXT "$URL\n";
+          close (TEXT);
+	    }	 
       }
-      if ($after2==0) {
-        print color 'bold red';
-        print "    [!] Have A Good Time! Bye.\n";
-	    print color 'bold red', RESET;
-        exit;
+    } ### END EXPLOIT
+
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+    print color 'red', RESET;
+    $list = "XSS_Scan.txt";
+	if (-e $list){
+      print color 'yellow';
+      print "    [+] Do You Want To Save results? (Y/N): ";
+      print color 'yellow', RESET;
+      $save=<STDIN>;
+      chomp($save);
+      if ($save =~ m/n/i || m/no/i ){
+        unlink  'XSS_Scan.txt';
+      }else{
+        print color 'green';
+        print "    [+] Scan saved to XSS_Scan.txt\n";
+        print color 'yellow', RESET;
       }
-      if ($after2 != 1 or 0 ) {
-	    print color 'bold red';
-        print "    [!] Upsss.. Invalid Option!\n";
-	    print color 'bold red', RESET;
-        sleep(2);
-        goto after2;
-      }
+    }else{
+       print color 'red';
+       print "    [!] No XSS Found!\n";
+	   print color 'red', RESET;
+	}
+    after2:;
+    print color 'bold yellow';
+    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print color 'yellow', RESET;
+    $after2=<STDIN>;
+    chomp ($after2);
+    if ($after2==1) {
+      goto ID;
     }
+    if ($after2==0) {
+      print color 'bold red';
+      print "    [!] Have A Good Time! Bye.\n";
+	  print color 'bold red', RESET;
+      exit;
+    }
+    if ($after2 != 1 or 0 ) {
+	  print color 'bold red';
+      print "    [!] Upsss.. Invalid Option!\n";
+	  print color 'bold red', RESET;
+      sleep(2);
+      goto after2;
+    }
+  }
 ##########
 #LFI
 if ($ID==3){
@@ -1725,6 +1737,7 @@ if($task eq "3"){
       if ($save =~ m/n/i || m/no/i ){
         unlink  'Server_sites_Scan.txt';
       }else{
+
         print color 'green';
         print "    [+] Scan saved to Server_sites_Scan.txt\n";
         print color 'yellow', RESET;

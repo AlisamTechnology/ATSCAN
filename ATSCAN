@@ -377,7 +377,7 @@ print color 'bold magenta';
 print "[..][+] PRINCIPAL MENU\n";
 print color 'magenta', RESET;
 print "    ::::::::::::::::::::::::::::::::::::::";
-print "\n    [+] 1 = DORK SCANNER";
+print "\n    [+] 1 = DORK SCANNER (Test)";
 print "\n    [+] 2 = SITE SCANNER";
 print "\n    [+] 3 = SERVER SCANNER";
 print "\n    [+] 4 = MD5 / BASE 64";

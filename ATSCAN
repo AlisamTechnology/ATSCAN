@@ -491,7 +491,7 @@ if($task eq "1"){
     $list = "XSS_Search_Scan.txt";
 	if (-e $list){
       print color 'yellow';
-      print "    [+] Do You Want To Save results? (Y/N): ";
+      print "    [+] Do You Want To Save This vulnerable Url? (Y/N): ";
       print color 'yellow', RESET;
       $save=<STDIN>;
       chomp($save);
@@ -512,7 +512,7 @@ if($task eq "1"){
 	 }
   }else{
     print color 'bold yellow';
-    print "    [+] Do You Want To Save results? (Y/N): ";
+    print "    [+] Do You Want To Save This vulnerable Url? (Y/N): ";
     $save=<STDIN>;
     chomp ($save);
     if ($save =~ m/n/i || m/no/i ){
@@ -793,7 +793,7 @@ if($task eq "2"){
     $list = "XSS_Scan.txt";
 	if (-e $list){
       print color 'yellow';
-      print "    [+] Do You Want To Save results? (Y/N): ";
+      print "    [+] Do You Want To Save This vulnerable Url? (Y/N): ";
       print color 'yellow', RESET;
       $save=<STDIN>;
       chomp($save);
@@ -940,7 +940,7 @@ if ($ID==3){
     $list = "Joom_RFI_Scan.txt";
 	if (-e $list){
       print color 'yellow';
-      print "    [+] Do You Want To Save results? (Y/N): ";
+      print "    [+] Do You Want To Save This vulnerable Url? (Y/N): ";
       print color 'yellow', RESET;
       $save=<STDIN>;
       chomp($save);
@@ -1024,7 +1024,7 @@ if ($ID==3){
     $list = "WP_RFI_Scan.txt";
 	if (-e $list){
       print color 'yellow';
-      print "    [+] Do You Want To Save results? (Y/N): ";
+      print "    [+] Do You Want To Save This vulnerable Url? (Y/N): ";
       print color 'yellow', RESET;
       $save=<STDIN>;
       chomp($save);
@@ -1135,7 +1135,7 @@ if ($ID==3){
 	$list2 = "XSS_Scan.txt";
 	if ((-e $list) or (-e $list2)){
       print color 'yellow';
-      print "    [+] Do You Want To Save results? (Y/N): ";
+      print "    [+] Do You Want To Save This vulnerable Url? (Y/N): ";
       print color 'yellow', RESET;
       $save=<STDIN>;
       chomp($save);

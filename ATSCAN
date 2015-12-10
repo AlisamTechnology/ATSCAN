@@ -530,6 +530,9 @@ if($task eq "1"){
   $after6=<STDIN>;
   chomp ($after6);
   if ($after6==1) {
+    #restart script to Reset stdin value in Dork search when dooing other search.
+    exec( $^X, $0, $arg);
+    ##
     goto TASKS;
   }
   if ($after6==0) {

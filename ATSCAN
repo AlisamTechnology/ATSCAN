@@ -2399,7 +2399,7 @@ if($task eq "6"){
   print "\n    [+] SITE SCANNER";
   print color 'magenta', RESET;
   print "\n        - Check Httpd Version";
-  print "\n        - Xss Scan";
+  print "\n        - Xss Scan / Xss + Exploit + Validation";
   print "\n        - Lfi Scan";
   print "\n        - Rfi Scan (Joomla)";
   print "\n        - Rfi Scan (Wordpress)";

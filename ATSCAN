@@ -347,7 +347,6 @@ system(($^O eq 'MSWin32') ? 'cls' : 'clear');
 "/administratorlogin.php");
 #######################################################################
 #######################################################################
-
 print color 'bold cyan';
 print "
    ...........................................................................
@@ -359,7 +358,7 @@ print "
    .##.....##....##....##....##.##....##.##.....##.##...###......|| T ||......
    .##.....##....##.....######...######..##.....##.##....##...._.' `-' '._....
    ............................................................`-'-----`-'....
-   .....................................................V.1...................
+   ...............................................BETA..V.1...................
 \n";
 print color 'magenta', RESET;
 
@@ -371,6 +370,7 @@ if ( !$response->is_success ) {
   print "    [!] Upss.. Check your Internet connection it seems not active!\n";
   print color 'RESET';
 }
+
 sleep (1);
 TASKS:;
 print color 'bold magenta';
@@ -382,22 +382,21 @@ print "\n    [+] 2 = SITE SCANNER";
 print "\n    [+] 3 = SERVER SCANNER";
 print "\n    [+] 4 = MD5 / BASE 64";
 print "\n    [+] 5 = ABOUT";
-print "\n    [+] 6 = EXIT (->)";
+print "\n    [+] 6 = HELP";
+print "\n    [+] 7 = EXIT (->)";
 print "\n    ::::::::::::::::::::::::::::::::::::::";
 
 print color 'bold yellow';
 print "\n    [+] Please select a task: ";
 print color 'yellow', RESET;
-
 $task=<STDIN>;
 chomp($task);
 
 #DORK SEARCH
 if($task eq "1"){
   sleep (1);
-  dork:;
+  
   print color 'bold yellow';
-  print "    [+] This module is still in developement..!!!!";
   print "    [+] Please enter your Dork: ";
   print color 'yellow', RESET;
   chomp ($dork=<STDIN>);
@@ -433,6 +432,7 @@ if($task eq "1"){
       my @SEARCH;
       for($npages=1;$npages<=$nresult;$npages+=1){
         my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages);
+		my $ua = LWP::UserAgent->new;
         my $search=$ua->get("$google");
         $search->as_string;
         my $Res=$search->content;
@@ -530,10 +530,9 @@ if($task eq "1"){
   $after6=<STDIN>;
   chomp ($after6);
   if ($after6==1) {
-    #restart script to Reset stdin value in Dork search when dooing other search.
-    exec( $^X, $0, $arg);
-    ##
-    goto TASKS;
+    #restart script to reset stdin value
+     exec( $^X, $0, $arg);
+     goto TASKS;
   }
   if ($after6==0) {
     print color 'bold red';
@@ -548,8 +547,9 @@ if($task eq "1"){
     sleep(2);
     goto after6;
   }
-  system("$0")
+    system("$0");
 }
+
 #######################################################################
 #######################################################################
 #SITE SCANNER
@@ -1301,8 +1301,8 @@ if($task eq "3"){
   print "    ::::::::::::::::::::::::::::::::::::::\n";
   print "    [+] 1 = SCAN PORTS\n";
   print "    [+] 2 = GET SERVER SITES\n";
-  print "    [+] 3 = GET WORDPRESS SERVER SITES\n";
-  print "    [+] 4 = GET JOOMLA SERVER SITES\n";
+  print "    [+] 3 = GET SERVER WORDPRESS SITES\n";
+  print "    [+] 4 = GET SERVER JOOMLA SITES\n";
   print "    [+] 5 = GET UPLOAD FILES\n";
   print "    [+] 6 = GET ZIP FILES\n";
   print "    [+] 7 = BACK (<-)\n";
@@ -2387,8 +2387,69 @@ if($task eq "5"){
 }
 #######################################################################
 #######################################################################
-#Exit
+#Help
 if($task eq "6"){
+  print color 'bold magenta';
+  print "\n    [+] DORK SCANNER";
+  print color 'magenta', RESET;
+  print "\n        - Search Engine";
+  print "\n        - Scan Results for Xss";
+  
+  print color 'bold magenta';
+  print "\n    [+] SITE SCANNER";
+  print color 'magenta', RESET;
+  print "\n        - Check Httpd Version";
+  print "\n        - Xss Scan";
+  print "\n        - Lfi Scan";
+  print "\n        - Rfi Scan (Joomla)";
+  print "\n        - Rfi Scan (Wordpress)";
+  print "\n        - Xss + Lfi";
+  print "\n        - Find Admin Page";
+  
+  print color 'bold magenta';
+  print "\n    [+] SERVER SCANNER";
+  print color 'magenta', RESET;
+  print "\n        - Ports Scan";
+  print "\n        - Get Server Wordpress Sites";
+  print "\n        - Get Server Joomla Sites";
+  print "\n        - Get Upload Files";
+  print "\n        - Get Zip Files";
+  
+  print color 'bold magenta';
+  print "\n    [+] MD5 / BASE 64";
+  print color 'magenta', RESET;
+  print "\n        - MD5 Generator";
+  print "\n        - Encode Base64";
+  print "\n        - Decode Base64";
+  print "\n";
+  
+  after100:;
+  print color 'bold yellow';
+  print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+  print color 'yellow', RESET;
+  $after100=<STDIN>;
+  chomp ($after100);
+  if ($after100==1) {
+    goto TASKS;
+  }
+  if ($after100==0) {
+    print color 'bold red';
+    print "    [!] Have A Good Time! Bye.\n";
+    print color 'bold red', RESET;
+    exit;
+  }
+  if ($after100 != 0 or 1) {
+	print color 'bold red';
+    print "    [!] Upsss.. Invalid Option!\n";
+	print color 'bold red', RESET;
+    sleep(2);
+    goto after100;
+  }  
+}
+#######################################################################
+#######################################################################
+#Exit
+if($task eq "7"){
   print color 'bold red';
   print "[..][!] Have A Good Time! Bye.\n";
   print color 'red', RESET;
@@ -2398,7 +2459,7 @@ if($task eq "6"){
 #######################################################################
 #######################################################################
 ####END TASKS
-if ($TASKS != 1 or 2 or 3 or 4 or 5 or 6) {
+if ($TASKS != 1 or 2 or 3 or 4 or 5 or 6 or 7) {
   print color 'bold red';
   print "    [!] Upsss.. Invalid Option!\n";
   print color 'bold red', RESET;

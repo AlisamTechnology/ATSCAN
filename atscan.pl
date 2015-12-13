@@ -389,9 +389,10 @@ print "\n    [+] 1 = DORK SCANNER (Test)";
 print "\n    [+] 2 = SITE SCANNER";
 print "\n    [+] 3 = SERVER SCANNER";
 print "\n    [+] 4 = MD5 / BASE 64";
-print "\n    [+] 5 = ABOUT";
-print "\n    [+] 6 = HELP";
-print "\n    [+] 7 = EXIT (->)";
+print "\n    [+] 5 = TERMINAL";
+print "\n    [+] 6 = ABOUT";
+print "\n    [+] 7 = HELP";
+print "\n    [+] 8 = EXIT (->)";
 print "\n    ::::::::::::::::::::::::::::::::::::::";
 
 print color 'bold yellow';
@@ -3373,11 +3374,58 @@ if($task eq "4"){
     sleep(2);
     goto DECODE;
   }
-}  
+}
+
+#######################################################################
+#######################################################################
+#TERMINAL
+if($task eq "5"){
+
+  TERMINAL:;
+  print color 'bold yellow'; 
+  print "    [+] Enter Command: ";
+  print color 'bold yellow', RESET;
+  $command=<STDIN>;
+  chomp ($command);
+  if (!$command){ 
+    print color 'red';
+    print "    [+] Please set a Command!\n";
+    print color 'yellow', RESET;
+    goto TERMINAL;
+  };
+  system("$command");
+  
+  print color 'red';
+  print "    [!] SCAN FINISHED!\n";
+  print color 'red', RESET;
+  
+  after1:;
+  print color 'bold yellow';
+  print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+  print color 'yellow', RESET;
+  $after1=<STDIN>;
+  chomp ($after1);
+  if ($after1==1) {
+    goto TASKS;
+  }
+  if ($after1==0) {
+    print color 'bold red';
+    print "    [!] Have A Good Time! Bye.\n";
+    print color 'bold red', RESET;
+    exit;
+  }
+  if ($after1 != 0 or 1) {
+	print color 'bold red';
+    print "    [!] Upsss.. Invalid Option!\n";
+	print color 'bold red', RESET;
+    sleep(2);
+    goto after1;
+  }
+}
 #######################################################################
 #######################################################################
 #ABOUT
-if($task eq "5"){
+if($task eq "6"){
   print color 'bold cyan';
   print "
      [+]================================================================[+]
@@ -3426,7 +3474,7 @@ if($task eq "5"){
 #######################################################################
 #######################################################################
 #Help
-if($task eq "6"){
+if($task eq "7"){
   print color 'bold magenta';
   print "\n    [+] DORK SCANNER";
   print color 'magenta', RESET;
@@ -3461,6 +3509,12 @@ if($task eq "6"){
   print "\n        - Decode Base64";
   print "\n";
   
+  print color 'bold magenta';
+  print "\n    [+] TERMINAL";
+  print color 'magenta', RESET;
+  print "\n        - Execute commands";
+  print "\n";
+  
   after100:;
   print color 'bold yellow';
   print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
@@ -3487,7 +3541,7 @@ if($task eq "6"){
 #######################################################################
 #######################################################################
 #Exit
-if($task eq "7"){
+if($task eq "8"){
   print color 'bold red';
   print "[..][!] Have A Good Time! Bye.\n";
   print color 'red', RESET;
@@ -3497,7 +3551,7 @@ if($task eq "7"){
 #######################################################################
 #######################################################################
 ####END TASKS
-if ($TASKS != 1 or 2 or 3 or 4 or 5 or 6 or 7) {
+if ($TASKS != 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8) {
   print color 'bold red';
   print "    [!] Upsss.. Invalid Option!\n";
   print color 'bold red', RESET;

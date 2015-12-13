@@ -1,6 +1,10 @@
 <h1 align="center">ATSCAN-V2.</h1>
 <p align="center"> <b>Dork / Site / Server Scanner </b></p>
-<center>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!</center>
+<center>
+<table class="info" border="0" cellpadding="0" cellspacing="2" width="100%px">
+  <tr>
+    <td>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!</td>
+</center>
 <table class="info" border="0" cellpadding="0" cellspacing="2" width="100%px">
   <tr>
     <td width="30%">AUTHOR:</td><td>Ali MEHDIOUI</td>

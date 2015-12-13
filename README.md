@@ -1,6 +1,6 @@
 <h1 align="center">ATSCAN-V2.</h1>
 <p align="center"> <b>Dork / Site / Server Scanner </b></p>
-<table border="0" cellpadding="0" cellspacing="2" width="650" bgcolor="#CCCCCC">
+<table class="info" border="0" cellpadding="0" cellspacing="2" width="750px" bgcolor="#CCCCCC">
   <tr>
     <td width="30%">AUTHOR:</td><td>Ali MEHDIOUI</td>
   </tr>

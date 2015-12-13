@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 #Alisam Technology
 #Thanks to: Black Hat
+#Requiered libreries
 #apt-get install libxml-simple-perl
 use LWP::Simple;
 use Term::ANSIColor;

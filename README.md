@@ -1,25 +1,13 @@
 <h1 align="center">ATSCAN-V2.</h1>
 <p align="center"> <b>Dork / Site / Server Scanner </b></p>
-<table class="info" border="0" cellpadding="0" cellspacing="2" width="750px" bgcolor="#CCCCCC">
-  <tr>
-    <td width="30%">AUTHOR:</td><td>Ali MEHDIOUI</td>
-  </tr>
-  <tr>
-    <td width="30%">EMAIL:</td><td>ali_mehdioui@yahoo.fr</td>
-  </tr>
-  <tr>
-    <td width="30%">FACE</td><td>https://www.facebook.com/Forces.des.tempetes.marocaines</td>
-  </tr>
-  <tr>
-    <td width="30%">YOUTUBE:</td><td>http://www.youtube.com/c/AlisamTechnology</td>
-  </tr>
-  <tr>
-    <td width="30%">WITTER:</td><td>https://twitter.com/AlisamTechno</td>
-  </tr>
-  <tr>
-    <td width="30%">PLUS:</td><td>https://plus.google.com/+AlisamTechnology</td>
-  </tr>
-</table>
+<code>
+AUTHOR:        Ali MEHDIOUI
+EMAIL:         ali_mehdioui@yahoo.fr
+FACE:          https://www.facebook.com/Forces.des.tempetes.marocaines/
+YOUTUBE:       http://www.youtube.com/c/AlisamTechnology
+WITTER:        https://twitter.com/AlisamTechno
+GOOGLE PLUS:   https://plus.google.com/+AlisamTechnology
+</code>
 
 
 

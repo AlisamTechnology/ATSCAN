@@ -38,7 +38,7 @@ NOTE: Works in linux platforms.
 
 <p> <b>Permissions & Executution: </b></p>
 $chmod +x atscan.pl </br>
-Executar: ./atscan.pl
+Execute: perl ./atscan.pl
 
 <p> <b>Screenshots: </b></p>
 <img src="http://i.imgur.com/kAHDYnd.jpg" /><br />

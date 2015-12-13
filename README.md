@@ -41,4 +41,7 @@ $chmod +x atscan.pl </b>
 Executar: ./atscan.pl
 
 <p> <b>Screenshots: </b></p>
-<img src="http://i.imgur.com/LJ2m74H.jpg" />
+<img src="http://i.imgur.com/kAHDYnd.jpg" /><br />
+<img src="http://i.imgur.com/atgEOXR.jpg" /><br />
+<img src="http://i.imgur.com/dgvdZ6O.jpg" /><br />
+<img src="http://i.imgur.com/U1TA0iM.jpg" /><br />

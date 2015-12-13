@@ -38,3 +38,6 @@ NOTE: Works in linux platforms.
 <p> <b>Permissions & Executution: </b></p>
 $chmod +x atscan.pl </b>
 Executar: ./atscan.pl
+
+<p> <b>Screenshots: </b></p>
+<img src="http://i.imgur.com/LJ2m74H.jpg" />

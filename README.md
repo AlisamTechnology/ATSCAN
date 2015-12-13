@@ -27,7 +27,7 @@
     <td width="30%">PLUS:</td><td>plus.google.com/+AlisamTechnology</td>
   </tr>
 </table>
-<img src="http://i.imgur.com/SCdL4RF.jpg" />
+<img align="middle" src="http://i.imgur.com/SCdL4RF.jpg" />
 <p> <b>Description: </b></p>
 ATSCAN Version 2 <br /> Dork scanner. <br />XSS scanner. <br /> Sqlmap. <br /> LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64. <br />This this my first script im sure is full with mistakes!! 
 

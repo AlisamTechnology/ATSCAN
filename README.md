@@ -37,7 +37,7 @@ ap-get install libxml-simple-perl <br />
 NOTE: Works in linux platforms.
 
 <p> <b>Permissions & Executution: </b></p>
-$chmod +x atscan.pl </b>
+$chmod +x atscan.pl </br>
 Executar: ./atscan.pl
 
 <p> <b>Screenshots: </b></p>

@@ -3,7 +3,7 @@
 <center>
 <table class="info" border="0" cellpadding="0" cellspacing="2" width="100%px">
   <tr>
-    <td align="center">Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!</td>
+    <td bgcolor="#CCCCCC" align="center">Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!</td>
 </center>
 <table class="info" border="0" cellpadding="0" cellspacing="2" width="100%px">
   <tr>

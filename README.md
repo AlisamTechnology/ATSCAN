@@ -29,10 +29,8 @@
 </table>
 
 <p> <b>Description: </b></p>
-<table border="0" cellpadding="0" cellspacing="2" width="100%px">
-  <tr>
-    <td align="center">ATSCAN Version 2                 <br /> Dork scanner. <br />XSS scanner. LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64. <br />This this my first script im sure is full with mistakes. </td>
-  </tr>
-</table>
+ATSCAN Version 2 <br /> Dork scanner. <br />XSS scanner. LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64. <br />This this my first script im sure is full with mistakes!! 
 
-<p> <b>Screenshots: </b></p>
+<p> <b>Libreries to install: </b></p>
+ap-get install libxml-simple-perl
+<br />

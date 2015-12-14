@@ -9,10 +9,7 @@
 </center>
 <table border="0" cellpadding="0" cellspacing="2" width="100%px">
   <tr>
-    <td width="30%">AUTHOR:</td><td>Ali MEHDIOUI</td>
-  </tr>
-  <tr>
-    <td width="30%">EMAIL:</td><td>ali_mehdioui@yahoo.fr</td>
+    <td width="30%">AUTHOR:</td><td>Alisam@Technology</td>
   </tr>
   <tr>
     <td width="30%">FACE</td><td>facebook.com/Forces.des.tempetes.marocaines</td>

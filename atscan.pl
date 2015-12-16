@@ -407,7 +407,7 @@ print color 'bold magenta';
 print "[..][+] PRINCIPAL MENU\n";
 print color 'magenta', RESET;
 print "    ::::::::::::::::::::::::::::::::::::::";
-print "\n    [+] 1 = DORK SCANNER";
+print "\n    [+] 1 = SEARCH ENGINE (BING)";
 print "\n    [+] 2 = SITE SCANNER";
 print "\n    [+] 3 = SERVER SCANNER";
 print "\n    [+] 4 = MD5 / BASE 64";
@@ -423,7 +423,7 @@ print color 'yellow', RESET;
 $task=<STDIN>;
 chomp($task);
 
-#DORK SEARCH
+#SEARCH
 if($task eq "1"){
   sleep (1);
 
@@ -3536,7 +3536,7 @@ if($task eq "7"){
   print "\n        - Usage 2 : To set proxy: perl $0 socks://localhost:9050";
 
   print color 'bold magenta';
-  print "\n    [+] DORK SCANNER";
+  print "\n    [+] SEARCH ENGINE (BING)";
   print color 'magenta', RESET;
   print "\n        - Search Engine";
   print "\n        - Scan Results for Xss";

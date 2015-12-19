@@ -29,7 +29,15 @@ print "
 \n";
 print color 'magenta', RESET;
 
-if ((@ARGV > 0) && (@ARGV < 2)){
+if (@ARGV > 1){
+  print color 'yellow';
+  print " [!] Usage 1: ./",basename($0)," \n";
+  print " [!] Usage 2: ./",basename($0)," <proxy> \n";
+  print color RESET;
+  exit;
+}
+
+if (@ARGV > 0){
   foreach $arg(@ARGV){
     my $proxy = $arg;
     $ua->proxy([qw/ http https /] => $proxy);
@@ -389,21 +397,22 @@ my $URL = "http://www.google.com";
 $request = HTTP::Request->new('GET', $URL);
 $response = $ua->request($request);
 if ( !$response->is_success ) {
+  sleep(1);
   print color 'red';
   print "    [!] Upss.. Your Internet connection seems not active!\n";
   print "    [!] Check Your Connection OR Proxy Setting!\n";
   print color 'RESET';
 }else{
+  print color 'green';
+  print "    [!] OK! Connection Established!\n";
+  print color 'RESET';
   if (defined @ARGV){
     print color 'green';
     print "    [!] OK! Connection Established with proxy!\n";
     print color 'RESET';
   }else{
-    print color 'green';
-    print "    [!] OK! Connection Established!\n";
-    print color 'RESET';
     print color 'yellow';
-    print "    [!] To use Tor type [Ex: perl $0 socks://localhost:9050]\n";
+    print "    [!] To use Tor type [Ex: ./",basename($0)," socks://localhost:9050]\n";
     print color 'RESET';
   }
 }

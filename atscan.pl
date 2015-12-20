@@ -5,13 +5,13 @@
 #apt-get install libxml-simple-perl
 #aptitude install libio-socket-ssl-perl
 #aptitude install libcrypt-ssleay-perl
-
 use Term::ANSIColor;
 use IO::Socket::INET;
 use LWP::Simple;
 use LWP::UserAgent;
 my $ua = LWP::UserAgent->new;
 $ua->timeout(30);
+use File::Basename;
 system(($^O eq 'MSWin32') ? 'cls' : 'clear');
 
 print color 'bold cyan';

@@ -13,7 +13,7 @@ $ua->timeout(30);
 use File::Basename;
 system(($^O eq 'MSWin32') ? 'cls' : 'clear');
 
-print color 'bold blue';
+print color 'bold cyan';
 print "
    ...........................................................................
    ....###....########..######...######.....###....##....##......_....._......

@@ -44,39 +44,153 @@ Execute: perl ./atscan.pl
 <img src="http://i.imgur.com/U1TA0iM.jpg" /><br />
 
 <p> <b>HELP: </b></p>
-====================================================================================
-<br/>  --tor:      | tor proxy [DEFAULT:socks://localhost:9050] Change if needed!\n";
-<br/>  --help:     | help menu \n";
-<br/>  -s:         | serach engine \n";
-<br/>  --mp:       | number of page results \n";
-<br/>  --xss:      | xss scan \n";
-<br/>  -t:         | target \n";
-<br/>  -l:         | list \n";
-<br/>  --valid:    | text for validate results \n";
-<br/>  --exp:      | exploit";
-<br/>  --sqlmap:   | sqlmaping xss results \n";
-<br/>  --lfi:      | local file inclusion \n";
-<br/>  --joomrfi:  | get joomla sites with rfi in the server \n";
-<br/>  --shell:    | shell link [Ex: http://www.site.com/shell.txt] \n";
-<br/>  --wpadf:    | get wordpress sites with arbitery file download in the server\n";
-<br/>  --admin:    | get site admin page \n";
-<br/>  --shost:    | get site subdomains \n";
-<br/>  --ports:    | scan server ports \n";
-<br/>  --start:    | start scan port \n";
-<br/>  --end:      | end scan port \n";
-<br/>  --tcp:      | tcp ports \n";
-<br/>  --udp:      | udp ports \n";
-<br/>  --all:      | complete mode \n";
-<br/>  --basic:    | basic mode \n";
-<br/>  --sites:    | sites in the server \n";
-<br/>  --wp:       | wordpress sites in the server\n";
-<br/>  --joom:     | joomla sites in the server\n";
-<br/>  --upload:   | get sites with upload files in the server  \n";
-<br/>  --zip:      | get sites with zip files in the server \n";
-<br/>  --st:       | string \n";
-<br/>  --md5:      | convert to md5 \n";
-<br/>  --encode64: | encode base64 string \n";
-<br/>  --decode64: | decode base64 string \n";
-<br/>  --isup:     | check http status 200. \n";
-<br/>  --httpd:    | print site httpd version \n\n";
+<table cellpadding="0" cellspacing="2" border="0">
+  <tr>
+    <td width="20%">--tor</td>
+    <td>tor proxy [DEFAULT:socks://localhost:9050] Change if needed!</td>
+  </tr>
+  
+  <tr>
+    <td width="20%">-s</td>
+    <td>Search engine</td>
+  </tr>
+  
+  <tr>
+    <td width="20%">--mp</td>
+    <td>set number of page results to scan</td>
+  </tr>
+  
+  <tr>
+    <td width="20%">--xss</td>
+    <td>Xss scan</td>
+  </tr>
+  
+  
+  <tr>
+    <td width="20%">--lfi</td>
+    <td>lfi scan</td>
+  </tr>
+  
+  <tr>
+    <td width="20%">-t</td>
+    <td>Target</td>
+  </tr>
+  <tr>
+    <td width="20%">-l</td>
+    <td>List name</td>
+  </tr>
+  <tr>
+    <td width="20%">--exp</td>
+    <td>Set exploit</td>
+  </tr>
+  <tr>
+    <td width="20%">--valid</td>
+    <td>Text for validate results</td>
+  </tr>
+  <tr>
+    <td width="20%">--sqlmap</td>
+    <td>Sqlmaping xss results</td>
+  </tr>
+  <tr>
+    <td width="20%">--sqlmaptor</td>
+    <td>Sqlmaping xss results using tor proxy</td>
+  </tr>
+  <tr>
+    <td width="20%">--lfi</td>
+    <td>local file inclusion</td>
+  </tr>
+  <tr>
+    <td width="20%">--joomrfi</td>
+    <td>get joomla sites with rfi in the server</td>
+  </tr>
+  <tr>
+    <td width="20%">--shell</td>
+    <td>shell link [Ex: http://www.site.com/shell.txt]</td>
+  </tr>
+  <tr>
+    <td width="20%">--wpadf</td>
+    <td>get wordpress sites with arbitery file download in the server</td>
+  </tr>
+  <tr>
+    <td width="20%">--admin</td>
+    <td>get site admin page</td>
+  </tr>
+  <tr>
+    <td width="20%">--shost</td>
+    <td>get site subdomains</td>
+  </tr>
+  <tr>
+    <td width="20%">--ports</td>
+    <td>scan server ports</td>
+  </tr>
+  <tr>
+    <td width="20%">--start</td>
+    <td>start scan port</td>
+  </tr>
+  <tr>
+    <td width="20%">--end</td>
+    <td>end scan port</td>
+  </tr>
+  <tr>
+    <td width="20%">--tcp</td>
+    <td>tcp ports</td>
+  </tr>
+  <tr>
+    <td width="20%">--udp</td>
+    <td>udp ports</td>
+  </tr>
+  <tr>
+    <td width="20%">--all</td>
+    <td>complete mode</td>
+  </tr>
+  <tr>
+    <td width="20%">--basic</td>
+    <td>basic mode</td>
+  </tr>
+  <tr>
+    <td width="20%">--sites</td>
+    <td>sites in the server</td>
+  </tr>
+  <tr>
+    <td width="20%">--wp</td>
+    <td>wordpress sites in the server</td>
+  </tr>
+  <tr>
+    <td width="20%">--joom</td>
+    <td>joomla sites in the server</td>
+  </tr>
+  <tr>
+    <td width="20%">--upload</td>
+    <td>get sites with upload files in the server</td>
+  </tr>
+  <tr>
+    <td width="20%">--zip</td>
+    <td>get sites with zip files in the server</td>
+  </tr>
+  <tr>
+    <td width="20%">--st</td>
+    <td>string</td>
+  </tr>
+  <tr>
+    <td width="20%">--md5</td>
+    <td>convert to md5</td>
+  </tr>
+  <tr>
+    <td width="20%">--encode64</td>
+    <td>encode base64 string</td>
+  </tr>
+  <tr>
+    <td width="20%">--decode64</td>
+    <td>decode base64 string</td>
+  </tr>
+  <tr>
+    <td width="20%">--isup</td>
+    <td>check http status 200</td>
+  </tr>
+  <tr>
+    <td width="20%">--httpd</td>
+    <td>print site httpd version</td>
+  </tr>
+</table>
+
 

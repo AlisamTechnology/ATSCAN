@@ -192,5 +192,53 @@ Execute: perl ./atscan.pl
     <td>print site httpd version</td>
   </tr>
 </table>
+<p> <b>EXAMPLES: </b></p>
+<table cellpadding="0" cellspacing="2" border="0">
+  <tr>
+    <td>
+    <b>Simple search:</b><BR/>
+    -s <dork> --mp <number of page results to scan><BR/>
+    <B>Subscan from Serach Engine</B><BR/>
+    Xss: -s <dork> --mp <1> --xss<BR/>
+    Lfi: -s <dork> --mp <1> --lfi<BR/>
+    Search + Command: -s <dork> --mp <value> --command 'curl -v' --TARGET<BR/>
+    <b>Validation</b><BR/>
+    Xss: -s <dork> --mp <1> --xss --valid <txt><BR/>
+    Lfi: -s <dork> --mp <1> --lfi --valid <txt><BR/>
+    Xss: -s <dork> --mp <1> --xss --isup<BR/>
+    Lfi: -s <dork> --mp <1> --xss --isup<BR/>
+    <b>Use List / Target</b><BR/>
+    Xss: -t <target> --xss<BR/>
+    Lfi: -l <target> --lfi<BR/>
+    Xss + Validation: -t <target> --xss --valid <txt><BR/>
+    Lfi + Validation: -t <target> --lfi --valid <txt> <BR/>
+    Xss + Validation: -l <list.txt> --xss --isup<BR/>
+    Lfi + Validation: -l <list.txt> --lfi --isup <BR/>
+    Find admin page: -t <target> --admin <BR/>
+    Find subdomains: -t <target> --shost <BR/>
+    <b>Server:  </b><BR/>
+    Get Server sites: -t <ip> --mp <value> --sites <BR/>
+    Get Server wordpress sites: -t <ip> --mp <value> --wp  <BR/>
+    Get Server joomla sites: -t <ip> --mp <value> --joom  <BR/>
+    Get Server upload sites: -t <ip> --mp <value> --upload  <BR/>
+    Get Server zip sites files: -t <ip> --mp <value> --zip  <BR/>
+    WP Arbitry File Download: -t <ip> --mp <value> --wpadf  <BR/>
+    Joomla RFI: -t <ip> --mp <1> --joomfri --shell <shell link> <BR/>
+    Scan basic tcp (quick): -t <ip> --ports --basic --tcp <BR/>
+    Scan basic udp basic (quick): -t <ip> --ports --basic --udp <BR/>
+    Scan basic udp+tcp: -t <ip> --ports --basic --udp --tcp <BR/>
+    Scan complete tcp: -t <ip> --ports --all --tcp <BR/>
+    Scan complete udp: -t <ip> --ports --all --udp <BR/>
+    Scan complete tcp+udp: -t <ip> --ports --all --udp --tcp <BR/>
+    Scan rang tcp: -t <ip> --ports --start --end --tcp <BR/>
+    Scan rang udp: -t <ip> --ports --start --end --udp <BR/>
+    Scan rang udp + tcp: -t <ip> --ports --start <value> --end <value> --udp --tcp <BR/>
+    <b>Encode / Decode:  </b><BR/>
+    Generate MD5: -st <string> --md5  <BR/>
+    Encode base64: -st <string> --encode64  <BR/>
+    Decode base64: -st <string> --decode64  <BR/>
+    </td>
+  </tr>
+</table>
 
 

@@ -42,3 +42,41 @@ Execute: perl ./atscan.pl
 <img src="http://i.imgur.com/atgEOXR.jpg" /><br />
 <img src="http://i.imgur.com/dgvdZ6O.jpg" /><br />
 <img src="http://i.imgur.com/U1TA0iM.jpg" /><br />
+
+<p> <b>HELP: </b></p>
+====================================================================================
+<br/>  --tor:      | tor proxy [DEFAULT:socks://localhost:9050] Change if needed!\n";
+<br/>  --help:     | help menu \n";
+<br/>  -s:         | serach engine \n";
+<br/>  --mp:       | number of page results \n";
+<br/>  --xss:      | xss scan \n";
+<br/>  -t:         | target \n";
+<br/>  -l:         | list \n";
+<br/>  --valid:    | text for validate results \n";
+<br/>  --exp:      | exploit";
+<br/>  --sqlmap:   | sqlmaping xss results \n";
+<br/>  --lfi:      | local file inclusion \n";
+<br/>  --joomrfi:  | get joomla sites with rfi in the server \n";
+<br/>  --shell:    | shell link [Ex: http://www.site.com/shell.txt] \n";
+<br/>  --wpadf:    | get wordpress sites with arbitery file download in the server\n";
+<br/>  --admin:    | get site admin page \n";
+<br/>  --shost:    | get site subdomains \n";
+<br/>  --ports:    | scan server ports \n";
+<br/>  --start:    | start scan port \n";
+<br/>  --end:      | end scan port \n";
+<br/>  --tcp:      | tcp ports \n";
+<br/>  --udp:      | udp ports \n";
+<br/>  --all:      | complete mode \n";
+<br/>  --basic:    | basic mode \n";
+<br/>  --sites:    | sites in the server \n";
+<br/>  --wp:       | wordpress sites in the server\n";
+<br/>  --joom:     | joomla sites in the server\n";
+<br/>  --upload:   | get sites with upload files in the server  \n";
+<br/>  --zip:      | get sites with zip files in the server \n";
+<br/>  --st:       | string \n";
+<br/>  --md5:      | convert to md5 \n";
+<br/>  --encode64: | encode base64 string \n";
+<br/>  --decode64: | decode base64 string \n";
+<br/>  --isup:     | check http status 200. \n";
+<br/>  --httpd:    | print site httpd version \n\n";
+

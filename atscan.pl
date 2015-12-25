@@ -28,20 +28,12 @@ print "
 \n";
 print color RESET;
 
-if (@ARGV > 12){
-  print color 'yellow';
-  print " [!] Usage 1: ./",basename($0)," \n";
-  print " [!] Usage 2: ./",basename($0)," <option> <proxy> \n";
-  print color RESET;
-  exit;
-}
-
 sub advise {
   print color 'yellow';
   print "[!] Upss.. Invalid arguments! \n";
   print "[!] Usage 1: ./",basename($0)," \n";
   print "[!] Usage 2: ./",basename($0)," <option> \n";
-  print "[!] Help: ./",basename($0)," -help \n";
+  print "[!] Help: ./",basename($0)," --help \n";
   print color RESET;
   exit;
 }

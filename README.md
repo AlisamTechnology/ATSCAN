@@ -1,4 +1,4 @@
-<h1 align="center">ATSCAN-V3.1</h1>
+<h1 align="center">ATSCAN-V3.2</h1>
 <p align="center"> <b>Search / Site / Server Scanner </b></p>
 <center>
 <table border="0" cellpadding="0" cellspacing="2" width="100%px">

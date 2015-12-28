@@ -281,6 +281,8 @@ if (defined $mxss) {
         if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmaptor(); exit();}
         if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmaptor(); exit();}
 
+
+
 	  }else{
 
         if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmap(); exit();}
@@ -529,6 +531,7 @@ if (defined $mzipsites) {
   }
   if (!defined $mpages) {
     print color 'yellow';
+
     print "    [!] You have to set number of page results to scan [Ex: --mp 1]\n";
     print color 'RESET';
 	exit();
@@ -681,7 +684,6 @@ sub dorklist {
     close (FILE);
   }
 }
-
 sub mlistname {
   $listname = $listname;
 }
@@ -1175,6 +1177,21 @@ sub submsearch {
               open (TEXT, '>>Search_Scan.txt');
               print TEXT "http://$site\n";
               close (TEXT);
+			  
+			  my $file = 'Search_Scan.txt';
+              my %seen = ();
+              {
+                local @ARGV = ($file);
+                local $^I = '.bac';
+                while(<>){
+                  $seen{$_}++;
+                  next if $seen{$_} > 1;
+                  print;
+                  close (TEXT);
+				  unlink "Search_Scan.txt.bac";
+				  unlink "dorks.txt";
+                }
+              }
             }
           }
         }
@@ -2185,6 +2202,7 @@ if($task eq "2"){
 	if ($uselist =~ /^[Y]?$/i) {
     ####################################################
 	  LISTNAME3:;
+
       print color 'yellow';
       print "    [+] Enter List Name [Ex:list.txt]: ";
       print color RESET;
@@ -2459,6 +2477,7 @@ if($task eq "2"){
         print color RESET;
 	    goto id5;
       };
+
   
 #################################################################      
      sub mtwplfi {
@@ -3345,6 +3364,20 @@ sub submsites {
             open (TEXT, '>>Server_sites_Scan.txt');
             print TEXT "http://$site\n";
             close (TEXT);
+			
+			my $file = 'Server_sites_Scan.txt';
+            my %seen = ();
+            {
+              local @ARGV = ($file);
+              local $^I = '.bac';
+              while(<>){
+                $seen{$_}++;
+                next if $seen{$_} > 1;
+                print;
+                close (TEXT);
+				unlink "Server_sites_Scan.txt.bac";
+              }
+            }
           }
         }
       } 

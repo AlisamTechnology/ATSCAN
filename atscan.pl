@@ -11,6 +11,7 @@ use LWP::UserAgent;
 my $ua = LWP::UserAgent->new;
 $ua->timeout(30);
 use File::Basename;
+
 system(($^O eq 'MSWin32') ? 'cls' : 'clear');
 
 print color 'bold cyan';
@@ -24,15 +25,15 @@ print "
    .##.....##....##....##....##.##....##.##.....##.##...###......|| T ||......
    .##.....##....##.....######...######..##.....##.##....##...._.' `-' '._....
    ............................................................`-'-----`-'....
-   .............................................................. V.3.2 ......
+   .............................................................. V.3.3 ......
 \n";
 print color RESET;
-
+ 
 sub advise {
   print color 'yellow';
   print "[!] Upss.. Invalid arguments! \n";
-  print "[!] Usage 1: ./",basename($0)," \n";
-  print "[!] Usage 2: ./",basename($0)," <option> \n";
+  print "[!] Simple Usage: ./",basename($0)," \n";
+  print "[!] Command line Usage: ./",basename($0)," <option> \n";
   print "[!] Help: ./",basename($0)," --help \n";
   print color RESET;
   exit;
@@ -43,6 +44,7 @@ use Getopt::Long ();
 my $proxy;
 my $help;
 my $dork;
+my $listdork;
 my $mpages;
 my $mxss;
 my $Target;
@@ -73,11 +75,13 @@ my $mhttpd;
 my $mcommand;
 my $mtarget;
 my $misup;
+my $mabout;
 
 Getopt::Long::GetOptions(\my %OPT,
                         'tor' => \$proxy,
                         'help' => \$help,
                         's=s' => \$dork,
+						'ls=s' => \$listdork,
                         'mp=s' => \$mpages,
                         'xss' => \$mxss,
                         't=s' => \$Target,
@@ -111,6 +115,7 @@ Getopt::Long::GetOptions(\my %OPT,
 						'command=s' => \$mcommand,
 						'TARGET' => \$mtarget,
 						'isup' => \$misup,
+						'about' => \$mabout,
 ) or advise();
 
 if (@ARGV > 0){
@@ -118,6 +123,7 @@ if (@ARGV > 0){
   GetOptions(\my %com,
             'help',
             's',
+			'ls',
 			'tor',
 			'mp',
 			'xss',
@@ -153,9 +159,10 @@ if (@ARGV > 0){
 			'command',
 			'TARGET',
 			'isup',
+			'about',
   );
   
-  if (!exists $com{help || tor || s || mp || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup}) {
+  if (!exists $com{help || tor || s || mp || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || ls || about}) {
 	advise();
   }
 }
@@ -170,7 +177,7 @@ if (defined $proxy) {
 print color 'yellow';
 print "[!] Checking Connection Please Wait...\n";
 print color 'RESET';
-
+sleep(1);
 my $URL = "http://www.google.com";
 $request = HTTP::Request->new('GET', $URL);
 $response = $ua->request($request);
@@ -197,7 +204,7 @@ if ( !$response->is_success ) {
 
 if (defined $help) {help(); exit();}
 
-if ((defined $dork) && (defined $exploit)) {
+if (((defined $dork) || (defined $listdork)) && (defined $exploit)) {
   if ((!defined $misup) && (!defined $validation_text)){
       print color 'yellow';
       print "    [!] You have to set Validation Mode! [--isup / --valid <txt>]\n";
@@ -205,7 +212,7 @@ if ((defined $dork) && (defined $exploit)) {
 	  exit();
   }
 }
-if (defined $dork) {
+if ((defined $dork) || (defined $listdork)) {
   $listname = "Search_Scan.txt";
   if (!defined $mpages) {
     print color 'yellow';
@@ -213,6 +220,19 @@ if (defined $dork) {
     print color 'RESET';
 	exit();
   }
+}
+ 
+if (defined $listdork) {
+  $listname = "Search_Scan.txt";
+  if (!defined $mpages) {
+    print color 'yellow';
+    print "    [!] You have to set number of page results to scan!! [Ex: --mp 2]\n";
+    print color 'RESET';
+	exit();
+  }
+}
+  
+if ((defined $dork) || (defined $listdork)) {
   if (defined $mxss) {
     submsearch();
     if (defined $sqlmap) {
@@ -247,7 +267,7 @@ if (defined $dork) {
   }
 }
 
- if (defined $mxss) {
+if (defined $mxss) {
   if ((!defined $listname) && (!defined $Target)){
     print color 'yellow';
     print "    [!] You have to set Target/list! [Ex: -l list.txt/ -t target]\n";
@@ -261,6 +281,7 @@ if (defined $dork) {
         if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmaptor(); exit();}
         if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmaptor(); exit();}
 	  }else{
+
         if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmap(); exit();}
         if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmap(); exit();}
         if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmap(); exit();}
@@ -587,6 +608,10 @@ if (!defined $dork) {
   }
 }
 
+if (defined $mabout) {
+  mabout();
+  exit;
+}
 
 #######################################################
 #######################################################
@@ -640,382 +665,396 @@ sub ZIP {@ZIP = ("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip"
 
 #######################################################
 #######################################################
-		sub mlistname {
-		    $listname = $listname;
-		}
-		sub mexploit {
-		    $exploit = $exploit;
-		}
-		sub mvalidation_text {
-		    $validation_text = $validation_text;
-		}
-		sub Target {
-		  $Target = $Target;
-		  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-		}
-		sub server {
-		  $Target = $Target;
-	      if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-            print color 'red';
-            print "    [!] The given IP is not valid!\n";
-            print color RESET;
-		  }
-		}
-        sub forwait {
-          print color 'yellow';
-          print "    [+] Please wait...";
-          print color RESET;
-          print" \n";
-		  sleep(1);
-        }
-		sub listchekxss {
-		  $listcheck = "XSS_Site_Scan.txt";
-	      if (-e $listcheck){ unlink 'XSS_Site_Scan.txt'};
-        }
-		sub listchekvalidation {
-		  $listcheck = "Validated_Scan.txt";
-	      if (-e $listcheck){ unlink 'Validated_Scan.txt'};
-        }
-		sub listchekisup{
-		  $listcheck = "Validated_Scan.txt";
-	      if (-e $listcheck){ unlink 'Validated_Scan.txt'};
-        }
-		sub listchekjoomrfi {
-		  $listcheck = "Joom_RFI_Scan.txt";
-	      if (-e $listcheck){ unlink 'Joom_RFI_Scan.txt'};
-        }
-		sub listcheklfi {
-		  $listcheck = "LFI_Scan.txt";
-	      if (-e $listcheck){ unlink 'LFI_Scan.txt'};
-        }
-		sub listchekadmin {
-		  $listcheck = "Admin_page.txt";
-	      if (-e $listcheck){ unlink 'Admin_page.txt'};
-        }
-		sub listchekwplfi {
-		  $listcheck = "WP_ADF_Scan.txt";
-	      if (-e $listcheck){ unlink 'WP_ADF_Scan.txt'};
-        }
-		sub listcheksubdomain {
-		  $listcheck = "Subdomains_Scan.txt";
-	      if (-e $listcheck){ unlink 'Subdomains_Scan.txt'};
-        }
+sub dorklist {
+  $listcheck1 = "dorks.txt";
+  if (-e $listcheck1){ unlink 'dorks.txt'};
+  if ((defined $dork) && ($dork =~ m/,/i)) {
+    $dork =~ s/,/ /g;
+  }else{
+    $dork =~ s/,/ /g;
+  }
+  my @dorks = split / /, $dork;  
+  foreach my $dork (@dorks) {
+    open (FILE, '>>dorks.txt');
+    print FILE "$dork\n";
+    close (FILE);
+  }
+}
+
+sub mlistname {
+  $listname = $listname;
+}
+sub mexploit {
+  $exploit = $exploit;
+}
+sub mvalidation_text {
+  $validation_text = $validation_text;
+}
+sub Target {
+  $Target = $Target;
+  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+}
+sub server {
+  $Target = $Target;
+  if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+    print color 'red';
+    print "    [!] The given IP is not valid!\n";
+    print color RESET;
+    }
+}
+sub forwait {
+  print color 'yellow';
+  print "    [+] Please wait...";
+  print color RESET;
+  print" \n";
+  sleep(1);
+ }
+sub listchekxss {
+  $listcheck = "XSS_Site_Scan.txt";
+  if (-e $listcheck){ unlink 'XSS_Site_Scan.txt'};
+ }
+sub listchekvalidation {
+  $listcheck = "Validated_Scan.txt";
+  if (-e $listcheck){ unlink 'Validated_Scan.txt'};
+ }
+sub listchekisup{
+  $listcheck = "Validated_Scan.txt";
+  if (-e $listcheck){ unlink 'Validated_Scan.txt'};
+ }
+sub listchekjoomrfi {
+  $listcheck = "Joom_RFI_Scan.txt";
+  if (-e $listcheck){ unlink 'Joom_RFI_Scan.txt'};
+ }
+sub listcheklfi {
+   $listcheck = "LFI_Scan.txt";
+  if (-e $listcheck){ unlink 'LFI_Scan.txt'};
+ }
+sub listchekadmin {
+  $listcheck = "Admin_page.txt";
+  if (-e $listcheck){ unlink 'Admin_page.txt'};
+ }
+sub listchekwplfi {
+  $listcheck = "WP_ADF_Scan.txt";
+  if (-e $listcheck){ unlink 'WP_ADF_Scan.txt'};
+ }
+sub listcheksubdomain {
+  if (-e $listcheck){ unlink 'Subdomains_Scan.txt'};
+}
+sub negative {	
+  print color 'red';
+  print "    [!] No Results Found!\n";
+  print color RESET;
+  print color 'red';
+  print "    [!] SCAN FINISHED!\n";
+  print color RESET;
+}
+sub finxss {  
+  $list = "XSS_Site_Scan.txt";
+  if (-e $list){  
+    print" \n";
+    my $lc = 0;
+    my $file = "XSS_Site_Scan.txt";
+    open my $file, "<", "XSS_Site_Scan.txt";
+    $lc++ while <$file>;
+    print color 'green';
+    print "    [!] $lc Result(s) Found!\n";
+    print color RESET;
+    close $file;
+    print color 'yellow';
+    print "    [+] Results saved in $Bin XSS_Site_Scan.txt! \n";
+    print color RESET;
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+    print color RESET;
+  }else{
+    negative();
+  }	
+}
 		
-        sub negative {	
-          print color 'red';
-          print "    [!] No Results Found!\n";
-	      print color RESET;
-          print color 'red';
-          print "    [!] SCAN FINISHED!\n";
-          print color RESET;
-	    }
-        sub finxss {  
-          $list = "XSS_Site_Scan.txt";
-	      if (-e $list){  
-            print" \n";
-	        my $lc = 0;
-	        my $file = "XSS_Site_Scan.txt";
-            open my $file, "<", "XSS_Site_Scan.txt";
-            $lc++ while <$file>;
-	        print color 'green';
-	        print "    [!] $lc Result(s) Found!\n";
-	        print color RESET;
-	        close $file;
-	        print color 'yellow';
-            print "    [+] Results saved in XSS_Site_Scan.txt! \n";
-	        print color RESET;
-            print color 'red';
-            print "    [!] SCAN FINISHED!\n";
-            print color RESET;
-          }else{
-		    negative();
-		  }	
-        }
+sub finisup {  
+  $list = "Validated_Scan.txt";
+  if (-e $list){  
+    print" \n";
+    my $lc = 0;
+    my $file = "Validated_Scan.txt";
+    open my $file, "<", "Validated_Scan.txt";
+    $lc++ while <$file>;
+    print color 'green';
+    print "    [!] $lc Result(s) Found!\n";
+    print color RESET;
+    close $file;
+    print color 'yellow';
+    print "    [+] Results saved in $Bin Validated_Scan.txt! \n";
+    print color RESET;
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+    print color RESET;
+  }else{
+    negative();
+  }	
+}
+sub finvalidation {  
+  $list = "Validated_Scan.txt";
+
+if (-e $list){  
+    print" \n";
+    my $lc = 0;
+    my $file = "Validated_Scan.txt";
+    open my $file, "<", "Validated_Scan.txt";
+    $lc++ while <$file>;
+    print color 'green';
+    print "    [!] $lc Result(s) Found!\n";
+    print color RESET;
+    close $file;
+    print color 'yellow';
+    print "    [+] Results saved in $Bin Validated_Scan.txt! \n";
+    print color RESET;
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+    print color RESET;
+  }else{
+    negative();
+  }	
+}
 		
-        sub finisup {  
-          $list = "Validated_Scan.txt";
-	      if (-e $list){  
-            print" \n";
-	        my $lc = 0;
-	        my $file = "Validated_Scan.txt";
-            open my $file, "<", "Validated_Scan.txt";
-            $lc++ while <$file>;
-	        print color 'green';
-	        print "    [!] $lc Result(s) Found!\n";
-	        print color RESET;
-	        close $file;
-	        print color 'yellow';
-            print "    [+] Results saved in Validated_Scan.txt! \n";
-	        print color RESET;
-            print color 'red';
-            print "    [!] SCAN FINISHED!\n";
-            print color RESET;
-          }else{
-		    negative();
-		  }	
-        }
-        sub finvalidation {  
-          $list = "Validated_Scan.txt";
-	      if (-e $list){  
-            print" \n";
-	        my $lc = 0;
-	        my $file = "Validated_Scan.txt";
-            open my $file, "<", "Validated_Scan.txt";
-            $lc++ while <$file>;
-	        print color 'green';
-	        print "    [!] $lc Result(s) Found!\n";
-	        print color RESET;
-	        close $file;
-	        print color 'yellow';
-            print "    [+] Results saved in Validated_Scan.txt! \n";
-	        print color RESET;
-            print color 'red';
-            print "    [!] SCAN FINISHED!\n";
-            print color RESET;
-          }else{
-		    negative();
-		  }	
-        }
-		
-        sub finlfi {
-          $list = "LFI_Scan.txt";
-	      if (-e $list){  ### 
-            print" \n";
-	        my $lc = 0;
-	        my $file = "LFI_Scan.txt";
-            open my $file, "<", "LFI_Scan.txt";
-            $lc++ while <$file>;
-	        print color 'green';
-	        print "    [!] $lc Result(s) Found!\n";
-	        print color RESET;
-	        close $file;
-	        print color 'yellow';
-            print "    [+] Results saved in LFI_Scan.txt! \n";
-	        print color RESET;
-            print color 'red';
-            print "    [!] SCAN FINISHED!\n";
-            print color RESET;
-          }else{
-		    negative();
-		  }	
-        }
+sub finlfi {
+  $list = "LFI_Scan.txt";
+  if (-e $list){  ### 
+    print" \n";
+    my $lc = 0;
+    my $file = "LFI_Scan.txt";
+    open my $file, "<", "LFI_Scan.txt";
+    $lc++ while <$file>;
+    print color 'green';
+    print "    [!] $lc Result(s) Found!\n";
+    print color RESET;
+    close $file;
+    print color 'yellow';
+    print "    [+] Results saved in $Bin LFI_Scan.txt! \n";
+    print color RESET;
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+    print color RESET;
+  }else{
+    negative();
+  }	
+}
 	
-        sub finjomrfi {
-          $list = "Joom_RFI_Scan.txt";
-	      if (-e $list){  ### 
-            print" \n";
-	        my $lc = 0;
-	        my $file = "Joom_RFI_Scan.txt";
-            open my $file, "<", "Joom_RFI_Scan.txt";
-            $lc++ while <$file>;
-	        print color 'green';
-	        print "    [!] $lc Result(s) Found!\n";
-	        print color RESET;
-	        close $file;
-	        print color 'yellow';
-            print "    [+] Results saved in Joom_RFI_Scan.txt! \n";
-	        print color RESET;
-            print color 'red';
-            print "    [!] SCAN FINISHED!\n";
-            print color RESET;
-          }else{
-		    negative();
-		  }	
-        }
+sub finjomrfi {
+  $list = "Joom_RFI_Scan.txt";
+  if (-e $list){  ### 
+    print" \n";
+    my $lc = 0;
+    my $file = "Joom_RFI_Scan.txt";
+    open my $file, "<", "Joom_RFI_Scan.txt";
+    $lc++ while <$file>;
+    print color 'green';
+    print "    [!] $lc Result(s) Found!\n";
+    print color RESET;
+    close $file;
+    print color 'yellow';
+    print "    [+] Results saved in $Bin Joom_RFI_Scan.txt! \n";
+    print color RESET;
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+    print color RESET;
+  }else{
+    negative();
+  }	
+}
 		
-        sub finwpadf {
-          $list = "WP_ADF_Scan.txt";
-	      if (-e $list){  ### 
-            print" \n";
-	        my $lc = 0;
-	        my $file = "WP_ADF_Scan.txt";
-            open my $file, "<", "WP_ADF_Scan.txt";
-            $lc++ while <$file>;
-	        print color 'green';
-	        print "    [!] $lc Result(s) Found!\n";
-	        print color RESET;
-	        close $file;
-	        print color 'yellow';
-            print "    [+] Results saved in WP_ADF_Scan.txt! \n";
-	        print color RESET;
-            print color 'red';
-            print "    [!] SCAN FINISHED!\n";
-            print color RESET;
-          }else{
-		    negative();
-		  }	
-        }
+sub finwpadf {
+  $list = "WP_ADF_Scan.txt";
+  if (-e $list){  ### 
+    print" \n";
+    my $lc = 0;
+    my $file = "WP_ADF_Scan.txt";
+    open my $file, "<", "WP_ADF_Scan.txt";
+    $lc++ while <$file>;
+    print color 'green';
+    print "    [!] $lc Result(s) Found!\n";
+    print color RESET;
+    close $file;
+    print color 'yellow';
+    print "    [+] Results saved in $Bin WP_ADF_Scan.txt! \n";
+    print color RESET;
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+    print color RESET;
+  }else{
+    negative();
+  }	
+}
 		
-        sub finadmin {
-          $list = "Admin_page.txt";
-	      if (-e $list){  ### 
-            print" \n";
-	        my $lc = 0;
-	        my $file = "Admin_page.txt";
-            open my $file, "<", "Admin_page.txt";
-            $lc++ while <$file>;
-	        print color 'green';
-	        print "    [!] $lc Result(s) Found!\n";
-	        print color RESET;
-	        close $file;
-	        print color 'yellow';
-            print "    [+] Results saved in Admin_page.txt! \n";
-	        print color RESET;
-            print color 'red';
-            print "    [!] SCAN FINISHED!\n";
-            print color RESET;
-          }else{
-		    negative();
-		  }	
-        }
+sub finadmin {
+  $list = "Admin_page.txt";
+  if (-e $list){  ### 
+    print" \n";
+    my $lc = 0;
+    my $file = "Admin_page.txt";
+    open my $file, "<", "Admin_page.txt";
+    $lc++ while <$file>;
+    print color 'green';
+    print "    [!] $lc Result(s) Found!\n";
+    print color RESET;
+    close $file;
+    print color 'yellow';
+    print "    [+] Results saved in $Bin Admin_page.txt! \n";
+    print color RESET;
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+    print color RESET;
+  }else{
+    negative();
+  }	
+}
 		
-        sub finadomain {
-          $list = "Subdomains_Scan.txt";
-	      if (-e $list){  ### 
-            print" \n";
-	        my $lc = 0;
-	        my $file = "Subdomains_Scan.txt";
-            open my $file, "<", "Subdomains_Scan.txt";
-            $lc++ while <$file>;
-	        print color 'green';
-	        print "    [!] $lc Result(s) Found!\n";
-	        print color RESET;
-	        close $file;
-	        print color 'yellow';
-            print "    [+] Results saved in Subdomains_Scan.txt! \n";
-	        print color RESET;
-            print color 'red';
-            print "    [!] SCAN FINISHED!\n";
-            print color RESET;
-          }else{
-		    negative();
-		  }	
-        }
+sub finadomain {
+  $list = "Subdomains_Scan.txt";
+  if (-e $list){  ### 
+    print" \n";
+    my $lc = 0;
+    my $file = "Subdomains_Scan.txt";
+    open my $file, "<", "Subdomains_Scan.txt";
+    $lc++ while <$file>;
+    print color 'green';
+    print "    [!] $lc Result(s) Found!\n";
+    print color RESET;
+    close $file;
+    print color 'yellow';
+    print "    [+] Results saved in $Bin Subdomains_Scan.txt! \n";
+    print color RESET;
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+    print color RESET;
+  }else{
+    negative();
+  }	
+}
 		
-		sub targetorlist {
-	          if ($code =~ /200/) {
-	            print color 'green';
-                print "    [+] $site2\n";
-	            print color RESET;
+sub targetorlist {
+  if ($code =~ /200/) {
+    print color 'green';
+    print "    [+] $site2\n";
+    print color RESET;
 
-                open (TEXT, '>>Validated_Scan.txt');
-                print TEXT "$site2\n";
-                close (TEXT);
-	          }
-		}
+    open (TEXT, '>>Validated_Scan.txt');
+    print TEXT "$site2\n";
+    close (TEXT);
+  }
+}
 		
-        sub mlisup {
-	      listchekisup();
-	      mlistname();
-		  mexploit();
-          countargets();
-          forwait();
-          open (TEXT, $listname);
-	      while (my $Target = <TEXT>) { 
-	        chomp $Target;
-	        if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-            print "    [+] Checking $Target\n";
-	        my $URL = $Target.$exploit;
-		    $URL =~ s/ //g;
-            $useragent = LWP::UserAgent->new;
-            $resp = $useragent->head($URL);
-	        if (head($URL)) {
-	          print color 'green';
-              print "    [+] $URL\n";
-	          print color RESET;
+sub mlisup {
+  listchekisup();
+  mlistname();
+  mexploit();
+  countargets();
+  forwait();
+  open (TEXT, $listname);
+  while (my $Target = <TEXT>) { 
+    chomp $Target;
+    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+    print "    [+] Checking $Target\n";
+    my $URL = $Target.$exploit;
+    $URL =~ s/ //g;
+    $useragent = LWP::UserAgent->new;
+    $resp = $useragent->head($URL);
+    if (head($URL)) {
+      print color 'green';
+      print "    [+] $URL\n";
+      print color RESET;
 
-		      open (INFO, '>>Validated_Scan.txt');
-              print INFO "$URL\n";
-		      close (INFO);
-	        }	
-		  }
-		  finisup();
-        }
+	  open (INFO, '>>Validated_Scan.txt');
+      print INFO "$URL\n";
+	  close (INFO);
+    }	
+  }
+  finisup();
+}
 		
-        sub mtisup {
-	      listchekisup();
-	      Target();
-		  mexploit();
-          forwait();
-	      my $URL = $Target.$exploit;
-		  $URL =~ s/ //g;
-          $useragent = LWP::UserAgent->new;
-          $resp = $useragent->head($URL);
-	      if (head($URL)) {
-	        print color 'green';
-            print "    [+] $URL\n";
-	        print color RESET;
+sub mtisup {
+  listchekisup();
+  Target();
+  mexploit();
+  forwait();
+  my $URL = $Target.$exploit;
+  $URL =~ s/ //g;
+  $useragent = LWP::UserAgent->new;
+  $resp = $useragent->head($URL);
+  if (head($URL)) {
+    print color 'green';
+    print "    [+] $URL\n";
+    print color RESET;
 
-		    open (INFO, '>>Validated_Scan.txt');
-            print INFO "$URL\n";
-		    close (INFO);
-	      }	
-		  finisup();
-        }
+    open (INFO, '>>Validated_Scan.txt');
+    print INFO "$URL\n";
+    close (INFO);
+  }	
+  finisup();
+}
 		
-		
-        sub mlvalidation {
-	      listchekvalidation();
-	      mlistname();
-		  mexploit();
-          countargets();
-          forwait();
-          open (TEXT, $listname);
-	      while (my $Target = <TEXT>) { 
-	        chomp $Target;
-	        if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-            print "    [+] Checking $Target\n";
-	        my $URL = $Target.$exploit;
-		    $URL =~ s/ //g;
+sub mlvalidation {
+  listchekvalidation();
+  mlistname();
+  mexploit();
+  countargets();
+  forwait();
+  open (TEXT, $listname);
+  while (my $Target = <TEXT>) { 
+    chomp $Target;
+    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+    print "    [+] Checking $Target\n";
+    my $URL = $Target.$exploit;
+    $URL =~ s/ //g;
 			
-            $request = HTTP::Request->new('GET', $URL);
-            $response = $ua->request($request);
-            my $html = $response->content;
-	        if($html =~ m/$validation_text/i){
-	          print color 'green';
-              print "    [+] $URL\n";
-	          print color RESET;
+    $request = HTTP::Request->new('GET', $URL);
+    $response = $ua->request($request);
+    my $html = $response->content;
+    if($html =~ m/$validation_text/i){
+      print color 'green';
+      print "    [+] $URL\n";
+      print color RESET;
 
-		      open (INFO, '>>Validated_Scan.txt');
-              print INFO "$URL\n";
-		      close (INFO);
-	        }	
-		  }
-		  finvalidation();
-        }
+	  open (INFO, '>>Validated_Scan.txt');
+      print INFO "$URL\n";
+	  close (INFO);
+    }	
+  }
+  finvalidation();
+}
 		
-        sub mtvalidation {
-	      listchekisup();
-	      Target();
-		  mexploit();
-          forwait();
-	      my $URL = $Target.$exploit;
-		  $URL =~ s/ //g;
-          $request = HTTP::Request->new('GET', $URL);
-          $response = $ua->request($request);
-          my $html = $response->content;
-	      if($html =~ m/$validation_text/i){
-	        print color 'green';
-            print "    [+] $URL\n";
-	        print color RESET;
+sub mtvalidation {
+  listchekisup();
+  Target();
+  mexploit();
+  forwait();
+  my $URL = $Target.$exploit;
+  $URL =~ s/ //g;
+  $request = HTTP::Request->new('GET', $URL);
+  $response = $ua->request($request);
+  my $html = $response->content;
+  if($html =~ m/$validation_text/i){
+    print color 'green';
+    print "    [+] $URL\n";
+    print color RESET;
 
-		    open (INFO, '>>Validated_Scan.txt');
-            print INFO "$URL\n";
-		    close (INFO);
-	      }	
-		  finvalidation();
-        } 
+    open (INFO, '>>Validated_Scan.txt');
+    print INFO "$URL\n";
+    close (INFO);
+  }	
+  finvalidation();
+} 
 
-		sub countargets {
-          my $lc = 0;
-	      my $file = $listname;
-          open my $file, "<", $listname;
-          $lc++ while <$file>;
-	      print color 'yellow';
-	      print "   [!] $lc Result(s) Found in the List!\n";
-	      print color RESET;
-	      close $file;
-		}
+sub countargets {
+  my $lc = 0;
+  my $file = $listname;
+  open my $file, "<", $listname;
+  $lc++ while <$file>;
+  print color 'yellow';
+  print "   [!] $lc Result(s) Found in the List!\n";
+  print color RESET;
+  close $file;
+}
 		
 ##########################################
 ##########################################
@@ -1066,7 +1105,7 @@ if($task eq "1"){
     print color RESET;
 	goto dork;
   };
-
+  dorklist();
   nresult:;
   print color 'yellow';
   print "    [+] Number of page results to print: ";
@@ -1078,58 +1117,69 @@ if($task eq "1"){
     print color RESET;
 	goto nresult;
   };
-
-  my $s_results = $dork;
-  
     
 ##############################################################
 sub submsearch {
+  if (defined $dork) {
+    dorklist();
+  }	
   $nresult = $mpages;
-  $s_results = $dork;
   msearch();
 }
 ##############################################################
-  
 ##############################################################
 ## bgn sub msearch
    sub msearch {
 ##############################################################
-	
     print color 'yellow';
-    print "    [+] Searching, please wait...\n\n";
+    print "    [+] Searching, please wait...\n";
     print color RESET;
-
+    sleep(1);
     $listcheck = "Search_Scan.txt";
     if (-e $listcheck){ unlink 'Search_Scan.txt'};
-  
-    my @scanlist=&scan($s_results);
-    sub scan(){
-      my @search;
-      for($npages=1;$npages<=$nresult;$npages+=1){
-        my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages);
-        my $search=$ua->get("$google");
-        $search->as_string;
-        my $Res=$search->content;
-        while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
-          if($1 !~ /msn|live|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed/){
-            my $site=$1;
-            $site=~s/&(.*)/\ /g;
-			if ((defined $exploit) && ((defined $misup) || (defined $validation_text))) {
-	          if($site =~ /([^:]*:\/\/)?([^\/]*\.)*([^\/\.]+\.[^\/]+)/g) {
-		        $site=$3;
+	
+	if (defined $listdork) {
+      open (FILE, $listdork);
+	}else{  
+      open (FILE, "dorks.txt");
+	}
+    while (my $dork = <FILE>) {
+      print "\n";
+      print color 'bold';
+      print "    [+] checking $dork";
+	  print "    [ ].....................\n\n";
+      print color RESET;
+	  
+      $s_results = $dork;
+      my @scanlist=&scan($s_results);
+      sub scan(){
+        my @search;
+        for($npages=1;$npages<=$nresult;$npages+=1){
+          my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages);
+          my $search=$ua->get("$google");
+          $search->as_string;
+          my $Res=$search->content;
+          while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
+            if($1 !~ /msn|live|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed/){
+              my $site=$1;
+              $site=~s/&(.*)/\ /g;
+			  if ((defined $exploit) && ((defined $misup) || (defined $validation_text))) {
+	            if($site =~ /([^:]*:\/\/)?([^\/]*\.)*([^\/\.]+\.[^\/]+)/g) {
+		          $site=$3;
+			    }
 			  }
-			}
-	        print color 'green';
-            print "    [+] http://$site\n";
-	        print color RESET;
+	          print color 'green';
+              print "    [+] http://$site\n";
+	          print color RESET;
 
-            open (TEXT, '>>Search_Scan.txt');
-            print TEXT "http://$site\n";
-            close (TEXT);
+              open (TEXT, '>>Search_Scan.txt');
+              print TEXT "http://$site\n";
+              close (TEXT);
+            }
           }
         }
-      }
-    } 
+      }   
+    }
 
     $list = "Search_Scan.txt";
     if (-e $list){
@@ -1145,7 +1195,7 @@ sub submsearch {
 	  close $file;
 
       print color 'yellow';
-      print "    [!] Results saved in Search_Scan.txt\n";
+      print "    [!] Results saved in $Bin Search_Scan.txt\n";
       print color RESET;
     }else{
       print color 'yellow';
@@ -1159,6 +1209,7 @@ sub submsearch {
 	  print "    [!] ::: SUBPROCESS ... \n";
 	  print color RESET;
 	  print "    [+]::::::::::::::::::::::::::::::::::::::\n\n ";
+	  sleep(1);
 
 	  if (defined $mlfi) { mlistLfi(); exit(); }
       elsif ((defined $misup) && (defined $exploit)) { mlisup(); exit(); }
@@ -1620,6 +1671,7 @@ if($task eq "2"){
         if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
 	
         ###########################################
+
         ## bgn mtXss
         sub mtXss{
 	      listchekxss();
@@ -2065,7 +2117,7 @@ if($task eq "2"){
 	  close $file;
 	  
 	  print color 'yellow';
-      print "    [+] Results saved in LFI_Scan.txt! \n";
+      print "    [+] Results saved in $Bin LFI_Scan.txt! \n";
 	  print color RESET;
 	}else{ 
 	  print color 'red';
@@ -2278,7 +2330,7 @@ if($task eq "2"){
 	  close $file;
 	  
 	  print color 'yellow';
-      print "    [!] Results saved in Joom_RFI_Scan.txt! \n";
+      print "    [!] Results saved in $Bin Joom_RFI_Scan.txt! \n";
 	  print color RESET;
 	}else{ 
 	  print color 'red';
@@ -2457,7 +2509,7 @@ if($task eq "2"){
 	  close $file;
 
 	  print color 'yellow';
-      print "    [!] Results saved in WP_ADF_Scan.txt! \n";
+      print "    [!] Results saved in $Bin WP_ADF_Scan.txt! \n";
 	  print color RESET;
 	}else{ 
 	  print color 'red';
@@ -2657,7 +2709,7 @@ if($task eq "2"){
 	  close $file;
 	  
 	  print color 'green';
-      print "    [!] Results saved in Admin_page.txt! \n";
+      print "    [!] Results saved in $Bin Admin_page.txt! \n";
 	  print color RESET;
 	}else{ 
 	  print color 'red';
@@ -2844,7 +2896,7 @@ if($task eq "2"){
 	  close $file;
 	  
 	  print color 'yellow';
-      print "    [!] Results saved in Subdomains_Scan.txt! \n";
+      print "    [!] Results saved in $Bin Subdomains_Scan.txt! \n";
 	  print color RESET;
 	}else{
       print color 'red';
@@ -3010,6 +3062,7 @@ if($task eq "3"){
 	  print color 'yellow';
       print "    [+] Processing ...\n";
 	  print color ' yellow', RESET;
+	  sleep(1);
       $closed1=0;
       @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
       foreach $port1(@PORTS){
@@ -3035,6 +3088,7 @@ if($task eq "3"){
 	  print color 'yellow';
       print "    [+] Processing ...\n";
 	  print color ' yellow', RESET;
+	  sleep(1);
       $closed2=0;
       $closed3=0;
       @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
@@ -3069,6 +3123,7 @@ if($task eq "3"){
 	  print color 'yellow';
       print "    [+] Processing ...\n";
 	  print color ' yellow', RESET;
+	  sleep(1);
       $closed3=0;
       $port3=1;
       while ($port3<=65535){
@@ -3093,6 +3148,7 @@ if($task eq "3"){
 	  print color 'yellow';
       print "    [+] Processing ...\n";
 	  print color ' yellow', RESET;
+	  sleep(1);
       $closed4=0;
       $closed5=0;
       $port4=1;
@@ -3145,6 +3201,7 @@ if($task eq "3"){
 	  print color 'yellow';
       print "    [+] Processing ...\n";
 	  print color ' yellow', RESET;
+	  sleep(1);
       $closed6=0;
       while ($start<=$end){
         $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$start",Proto=>"$type3") or $closed6++;
@@ -3168,6 +3225,7 @@ if($task eq "3"){
  	  print color 'yellow';
       print "    [+] Processing ...\n";
       print color ' yellow', RESET;
+	  sleep(1);
       $closed7=0;
       $closed8=0;
       while ($start<=$end){
@@ -3258,7 +3316,7 @@ sub submsites {
   print color 'yellow';
   print "    [+] Searching sites in the server please wait...\n\n";
   print color RESET;
-
+  sleep(1);
   $listcheck = "Server_sites_Scan.txt";
   if (-e $listcheck){ unlink 'Server_sites_Scan.txt'};
 
@@ -3305,7 +3363,7 @@ sub submsites {
 	  close $file;
 	  
 	  print color 'green';
-      print "    [!] Results saved in Server_sites_Scan.txt! \n";
+      print "    [!] Results saved in $Bin Server_sites_Scan.txt! \n";
 	  print color RESET;
 	}else{ 
       print color 'red';
@@ -3319,6 +3377,7 @@ sub submsites {
 	  print "    [!] ::: SUBPROCESS ... \n";
 	  print color RESET;
 	  print "   [+]::::::::::::::::::::::::::::::::::::::\n\n ";
+	  sleep(1);
 	}else{
       print color 'red';
       print "    [!] SCAN FINISHED!\n";
@@ -3381,7 +3440,7 @@ sub submsites {
       print color 'yellow';
 	  print "    [+] Scaning Results Please wait...\n";
       print color RESET;
-    
+      sleep(1);
       $listcheck2 = "Server_sites_Scan.txt";
       if (!-e $listcheck2){
 	    sleep(1);
@@ -3431,7 +3490,7 @@ sub submsites {
 	    close $file;
 	  
 	    print color 'green';
-        print "    [!] Results saved in WP_server_sites_Scan.txt! \n";
+        print "    [!] Results saved in $Bin WP_server_sites_Scan.txt! \n";
 	    print color RESET;
 	  }else{ 
         print color 'red';
@@ -3495,7 +3554,7 @@ sub submsites {
       print color 'yellow';
 	  print "    [+] Scaning Results Please wait...\n";
       print color RESET;
-    
+      sleep(1);
       $listcheck2 = "Server_sites_Scan.txt";
       if (!-e $listcheck2){
 	    sleep(1);
@@ -3545,7 +3604,7 @@ sub submsites {
 	    close $file;
 	  
 	    print color 'green';
-        print "    [!] Results saved in Joom_server_sites_Scan.txt! \n";
+        print "    [!] Results saved in $Bin Joom_server_sites_Scan.txt! \n";
 	    print color RESET;
 	  }else{ 
         print color 'red';
@@ -3607,7 +3666,7 @@ sub submsites {
       print color 'yellow';
 	  print "    [+] Scaning Results Please wait...\n";
       print color RESET;
-    
+      sleep(1);
       $listcheck2 = "Server_sites_Scan.txt";
       if (!-e $listcheck2){
 	    sleep(1);
@@ -3658,7 +3717,7 @@ sub submsites {
 	    close $file;
 	  
 	    print color 'green';
-        print "    [!] Results saved in Upload_server_files_Scan.txt! \n";
+        print "    [!] Results saved in $Bin Upload_server_files_Scan.txt! \n";
 	    print color RESET;
 	  }else{ 
         print color 'red';
@@ -3720,7 +3779,7 @@ sub submsites {
       print color 'yellow';
 	  print "    [+] Scaning Results Please wait...\n";
       print color RESET;
-    
+      sleep(1);
       $listcheck2 = "Server_sites_Scan.txt";
       if (!-e $listcheck2){
 	    sleep(1);
@@ -3771,7 +3830,7 @@ sub submsites {
 	    close $file;
 	  
 	    print color 'green';
-        print "    [!] Results saved in Zip_server_files_Scan.txt! \n";
+        print "    [!] Results saved in $Bin Zip_server_files_Scan.txt! \n";
 	    print color RESET;
 	  }else{ 
         print color 'red';
@@ -4028,7 +4087,7 @@ if($task eq "5"){
     goto TERMINAL;
   };
   sub mcommand {
-    if (defined $dork) {
+    if ((defined $dork) || (defined $listdork)) {
 	  if (defined $mtarget) {
 	    submsearch();
 	    $listname="Search_Scan.txt";
@@ -4085,7 +4144,7 @@ if($task eq "6"){
   print color 'bold cyan';
   print "
      [+]================================================================[+]
-     [+]--------------            ATscanner - V 3.2       --------------[+]
+     [+]--------------            ATscanner - V 3.3       --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]
@@ -4138,8 +4197,8 @@ if($task eq "7"){
     print color 'bold';
     print "       SEARCH ENGINE (BING) \n";
     print color RESET;
-    print "        - Usage 1 : perl ./ ",basename($0),"  \n";
-    print "        - Usage 2 : perl ./",basename($0)," <option> \n";
+    print "        - Simple Usage : perl ./ ",basename($0),"  \n";
+    print "        - Command line Usage : perl ./",basename($0)," <option> \n";
     print color 'bold';
     print "       SEARCH ENGINE (BING) \n";
     print color RESET;
@@ -4177,7 +4236,8 @@ if($task eq "7"){
     print color RESET;
     print "       --tor:      | tor proxy [DEFAULT:socks://localhost:9050] Change if needed!\n";
     print "       --help:     | help menu \n";
-    print "       -s:         | serach engine \n";
+    print "       -s:         | dork to search [Ex: house,cars,hotel] \n";
+    print "       -ls:        | dork list to search [Ex: somelist.txt] \n";
     print "       --mp:       | number of page results \n";
     print "       --xss:      | xss scan \n";
     print "       -t:         | target \n";
@@ -4221,6 +4281,7 @@ if($task eq "7"){
 	print "       Search engine: \n";
     print color RESET;
     print "       Simple search: [-s <dork> --mp <number of page results to scan>] \n";
+    print "                      [-s <dork1,dork2,dork3> --mp <number of page results to scan>] \n";
     print color 'bold';
 	print "       Subscan from Serach Engine: \n";
     print color RESET;

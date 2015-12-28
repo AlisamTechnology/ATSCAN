@@ -28,7 +28,7 @@ print "
    .............................................................. V.3.3 ......
 \n";
 print color RESET;
- 
+
 sub advise {
   print color 'yellow';
   print "[!] Upss.. Invalid arguments! \n";
@@ -280,6 +280,7 @@ if (defined $mxss) {
         if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmaptor(); exit();}
         if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmaptor(); exit();}
         if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmaptor(); exit();}
+
 	  }else{
 
         if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmap(); exit();}
@@ -1132,7 +1133,7 @@ sub submsearch {
    sub msearch {
 ##############################################################
     print color 'yellow';
-    print "    [+] Searching, please wait...\n";
+    print "    [+] Searching, please wait...\n\n";
     print color RESET;
     sleep(1);
     $listcheck = "Search_Scan.txt";
@@ -1146,8 +1147,7 @@ sub submsearch {
     while (my $dork = <FILE>) {
       print "\n";
       print color 'bold';
-      print "    [+] checking $dork";
-	  print "    [ ].....................\n\n";
+      print "    [+] checking $dork \n";
       print color RESET;
 	  
       $s_results = $dork;

@@ -11,7 +11,7 @@ use LWP::UserAgent;
 my $ua = LWP::UserAgent->new;
 $ua->timeout(30);
 use File::Basename;
-
+use FindBin '$Bin';
 system(($^O eq 'MSWin32') ? 'cls' : 'clear');
 
 print color 'bold cyan';

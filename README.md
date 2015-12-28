@@ -30,7 +30,7 @@
 ATSCAN Version 3 <br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap. <br /> LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64. <br />This this my first script im sure is full with mistakes!! 
 
 <p> <b>Libreries to install: </b></p>
-ap-get install libxml-simple-perl <br />
+ap-get install libxml-simple-perl                                                                                               <br />
 NOTE: Works in linux platforms.
 
 <p> <b>Permissions & Executution: </b></p>

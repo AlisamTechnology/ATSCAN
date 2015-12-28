@@ -198,6 +198,8 @@ Execute: perl ./atscan.pl
     <td>
     <b>Simple search:</b><BR/>
     -s <dork> --mp <number of page results to scan><BR/>
+    -s <dork1,dork2,dork3..> --mp <number of page results to scan><BR/> 
+    -ls <dork.txt> --mp <number of page results to scan> to scan from list<BR/>
     <B>Subscan from Serach Engine</B><BR/>
     Xss: -s <dork> --mp <1> --xss<BR/>
     Lfi: -s <dork> --mp <1> --lfi<BR/>

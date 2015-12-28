@@ -36,6 +36,7 @@ NOTE: Works in linux platforms.
 <p> <b>Permissions & Executution: </b></p>
 $chmod +x atscan.pl </br>
 Execute: perl ./atscan.pl
+Execute: perl ./atscan.pl --help
 
 <p> <b>Screenshots: </b></p>
 <img src="http://i.imgur.com/kAHDYnd.jpg" /><br />
@@ -51,7 +52,7 @@ Execute: perl ./atscan.pl
   </tr>
   
   <tr>
-    <td width="20%">-s</td>
+    <td width="20%">-s / -ls</td>
     <td>Search engine</td>
   </tr>
   

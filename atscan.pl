@@ -280,11 +280,7 @@ if (defined $mxss) {
         if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmaptor(); exit();}
         if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmaptor(); exit();}
         if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmaptor(); exit();}
-
-
-
 	  }else{
-
         if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmap(); exit();}
         if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmap(); exit();}
         if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmap(); exit();}
@@ -672,10 +668,17 @@ sub ZIP {@ZIP = ("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip"
 sub dorklist {
   $listcheck1 = "dorks.txt";
   if (-e $listcheck1){ unlink 'dorks.txt'};
-  if ((defined $dork) && ($dork =~ m/,/i)) {
-    $dork =~ s/,/ /g;
+  if (defined $dork) {
+    if ($dork =~ m/,/i) {
+      $dork =~ s/,/ /g;
+	}elsif ($dork =~ m/ /i) {
+      $dork =~ s/ /+/g;
+	}
   }else{
     $dork =~ s/,/ /g;
+	if ($dork =~ m/ /i) {
+      $dork =~ s/ /+/g;
+	}
   }
   my @dorks = split / /, $dork;  
   foreach my $dork (@dorks) {
@@ -2024,6 +2027,7 @@ if($task eq "2"){
       sleep(1);
       
 ############################## 
+
       sub mlistLfi {
 	     listcheklfi();
 	     mlistname();

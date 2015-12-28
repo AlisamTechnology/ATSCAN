@@ -40,10 +40,10 @@ git clone https://github.com/AlisamTechnology/ATSCAN</br>
 cd ATSCAN</br>
 chmod +x ATSCAN</br>
 ./ATSCAN</br>
-OR
+OR</br>
 $chmod +x atscan.pl </br>
-Execute: perl ./atscan.pl
-Execute: perl ./atscan.pl --help
+Execute: perl ./atscan.pl</br>
+Execute: perl ./atscan.pl --help</br>
 
 <p> <b>Screenshots: </b></p>
 <img src="http://i.imgur.com/kAHDYnd.jpg" /><br />

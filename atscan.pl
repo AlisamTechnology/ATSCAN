@@ -280,6 +280,7 @@ if (defined $mxss) {
         if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmaptor(); exit();}
         if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmaptor(); exit();}
         if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmaptor(); exit();}
+
 	  }else{
         if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmap(); exit();}
         if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmap(); exit();}
@@ -763,7 +764,7 @@ sub finxss {
     open my $file, "<", "XSS_Site_Scan.txt";
     $lc++ while <$file>;
     print color 'green';
-    print "    [!] $lc Result(s) Found!\n";
+    print "    [!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
@@ -786,7 +787,7 @@ sub finisup {
     open my $file, "<", "Validated_Scan.txt";
     $lc++ while <$file>;
     print color 'green';
-    print "    [!] $lc Result(s) Found!\n";
+    print "    [!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
@@ -809,7 +810,7 @@ if (-e $list){
     open my $file, "<", "Validated_Scan.txt";
     $lc++ while <$file>;
     print color 'green';
-    print "    [!] $lc Result(s) Found!\n";
+    print "    [!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
@@ -832,7 +833,7 @@ sub finlfi {
     open my $file, "<", "LFI_Scan.txt";
     $lc++ while <$file>;
     print color 'green';
-    print "    [!] $lc Result(s) Found!\n";
+    print "    [!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
@@ -855,7 +856,7 @@ sub finjomrfi {
     open my $file, "<", "Joom_RFI_Scan.txt";
     $lc++ while <$file>;
     print color 'green';
-    print "    [!] $lc Result(s) Found!\n";
+    print "    [!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
@@ -878,7 +879,7 @@ sub finwpadf {
     open my $file, "<", "WP_ADF_Scan.txt";
     $lc++ while <$file>;
     print color 'green';
-    print "    [!] $lc Result(s) Found!\n";
+    print "    [!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
@@ -901,7 +902,7 @@ sub finadmin {
     open my $file, "<", "Admin_page.txt";
     $lc++ while <$file>;
     print color 'green';
-    print "    [!] $lc Result(s) Found!\n";
+    print "    [!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
@@ -924,7 +925,7 @@ sub finadomain {
     open my $file, "<", "Subdomains_Scan.txt";
     $lc++ while <$file>;
     print color 'green';
-    print "    [!] $lc Result(s) Found!\n";
+    print "    [!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
@@ -1210,7 +1211,7 @@ sub submsearch {
       open my $file, "<", "Search_Scan.txt";
       $lc++ while <$file>;
 	  print color 'green';
-	  print "    [!] $lc Result(s) Found!\n";
+	  print "    [!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
 
@@ -2133,7 +2134,7 @@ if($task eq "2"){
       open my $file, "<", "LFI_Scan.txt";
       $lc++ while <$file>;
 	  print color 'green';
-	  print "    [!] $lc Result(s) Found!\n";
+	  print "    [!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
 	  
@@ -2347,7 +2348,7 @@ if($task eq "2"){
       open my $file, "<", "Joom_RFI_Scan.txt";
       $lc++ while <$file>;
 	  print color 'green';
-	  print "    [!] $lc Result(s) Found!\n";
+	  print "    [!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
 	  
@@ -2527,7 +2528,7 @@ if($task eq "2"){
       open my $file, "<", "WP_ADF_Scan.txt";
       $lc++ while <$file>;
 	  print color 'green';
-	  print "    [!] $lc Result(s) Found!\n";
+	  print "    [!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
 
@@ -2727,7 +2728,7 @@ if($task eq "2"){
       open my $file, "<", "Admin_page.txt";
       $lc++ while <$file>;
 	  print color 'green';
-	  print "    [!] $lc Result(s) Found!\n";
+	  print "    [!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
 	  
@@ -2914,7 +2915,7 @@ if($task eq "2"){
       open my $file, "<", "Subdomains_Scan.txt";
       $lc++ while <$file>;
 	  print color 'green';
-	  print "    [!] $lc Result(s) Found!\n";
+	  print "    [!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
 	  
@@ -3395,7 +3396,7 @@ sub submsites {
       open my $file, "<", "Server_sites_Scan.txt";
       $lc++ while <$file>;
 	  print color 'green';
-	  print "    [!] $lc Result(s) Found!\n";
+	  print "    [!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
 	  
@@ -3522,7 +3523,7 @@ sub submsites {
         open my $file, "<", "WP_server_sites_Scan.txt";
         $lc++ while <$file>;
 	    print color 'green';
-	    print "    [!] $lc Result(s) Found!\n";
+	    print "    [!] $lc Unique Result(s) Found!\n";
 	    print color RESET;
 	    close $file;
 	  
@@ -3636,7 +3637,7 @@ sub submsites {
         open my $file, "<", "Joom_server_sites_Scan.txt";
         $lc++ while <$file>;
 	    print color 'green';
-	    print "    [!] $lc Result(s) Found!\n";
+	    print "    [!] $lc Unique Result(s) Found!\n";
 	    print color RESET;
 	    close $file;
 	  
@@ -3749,7 +3750,7 @@ sub submsites {
         open my $file, "<", "Upload_server_files_Scan.txt";
         $lc++ while <$file>;
 	    print color 'green';
-	    print "    [!] $lc Result(s) Found!\n";
+	    print "    [!] $lc Unique Result(s) Found!\n";
 	    print color RESET;
 	    close $file;
 	  
@@ -3862,7 +3863,7 @@ sub submsites {
         open my $file, "<", "Zip_server_files_Scan.txt";
         $lc++ while <$file>;
 	    print color 'green';
-	    print "    [!] $lc Result(s) Found!\n";
+	    print "    [!] $lc Unique Result(s) Found!\n";
 	    print color RESET;
 	    close $file;
 	  

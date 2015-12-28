@@ -1,4 +1,4 @@
-<h1 align="center">ATSCAN-V3.3</h1>
+<h1 align="center">ATSCAN</h1>
 <p align="center"> <b>Search / Site / Server Scanner </b></p>
 <center>
 <img src="http://i.imgur.com/jUt3Gn7.png" />
@@ -26,13 +26,21 @@
   </tr>
 </table>
 <p> <b>Description: </b></p>
-ATSCAN Version 3.3 <br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap. <br /> LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64. <br />This this my first script im sure is full with mistakes!! 
+ATSCAN <br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap. <br /> LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64. <br />This this my first script im sure is full with mistakes!! 
 
 <p> <b>Libreries to install: </b></p>
-ap-get install libxml-simple-perl                                                                                               <br />
-NOTE: Works in linux platforms.
+ap-get install libxml-simple-perl<br />
+aptitude install libio-socket-ssl-perl<br />
+aptitude install libcrypt-ssleay-perl<br />
 
-<p> <b>Permissions & Executution: </b></p>
+NOTE: Works in linux platforms. Best Run on Ubuntu 14.04, Kali Linux 2.0, Arch Linux, Fedora Linux, Centos | if you use a windows you can download manualy<br />
+
+<p> <b>Download & Executution: </b></p>
+git clone https://github.com/AlisamTechnology/ATSCAN</br>
+cd ATSCAN</br>
+chmod +x ATSCAN</br>
+./ATSCAN</br>
+--------------------------
 $chmod +x atscan.pl </br>
 Execute: perl ./atscan.pl
 Execute: perl ./atscan.pl --help

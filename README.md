@@ -94,7 +94,7 @@ Execute: perl ./atscan.pl --help
   </tr>
   <tr>
     <td width="20%">--sqlmaptor</td>
-    <td>Sqlmaping xss results using tor proxy</td>
+    <td>Sqlmaping xss results using tor proxy                                                                                    </td>
   </tr>
   <tr>
     <td width="20%">--lfi</td>
@@ -197,7 +197,7 @@ Execute: perl ./atscan.pl --help
 <table cellpadding="0" cellspacing="2" border="0">
   <tr>
     <td>
-    <b>Simple search:</b><BR/>
+    <b>Simple search:                                                                                                       </b><BR/>
     -s DORK --mp number of page results to scan<BR/>
     -s <DORK1,DORK2,DORK3..> --mp NUM OF PAGE ERSULTS TO SCAN<BR/> 
     -ls <DORK.txt> --mp NUM OF PAGE ERSULTS TO SCAN to scan from list<BR/>

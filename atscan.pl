@@ -238,6 +238,18 @@ if (defined $dork) {
       if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); exit();}
     }
   }
+  
+  if (defined $mlfi) {
+      submsearch();
+      if (!defined $validation_text) { mlistLf(); exit();}
+      if (defined $validation_text) { mlistLf(); mlvalidation(); exit();}
+      if (defined $misup) { mlistLf();mlisup; exit();}
+
+  }
+  if ((defined $misup) && (defined $exploit)) {submsearch(); mlisup(); exit(); }
+  if ((defined $validation_text) && (defined $exploit)) { submsearch(); mlvalidation(); exit(); }
+  if (defined $validation_text) { submsearch(); mlvalidation(); exit(); }
+  
   if ((defined $command) && (defined $dork)){
     if (!defined $mtarget) {
       print color 'yellow';
@@ -253,6 +265,8 @@ if (defined $dork) {
     exit();
   }
 }
+############
+
 
 if ((defined $command) && ((!defined $dork) && (!defined $mtarget))){
   mcommandfin(); exit();
@@ -692,6 +706,16 @@ sub dorklist {
       }
 	}  
   }	
+}
+
+
+sub pro {
+  print "\n    [+]::::::::::::::::::::::::::::::::::::::\n";
+  print color 'bold';
+  print "    [!] ::: SUBPROCESS ... \n";
+  print color RESET;
+  print "    [+]::::::::::::::::::::::::::::::::::::::\n\n ";
+  sleep(1);
 }
 
 
@@ -1174,7 +1198,7 @@ sub submsearch {
     while (my $dork = <FILE>) {
       print "\n";
       print color 'bold';
-      print "    [+] checking [$dork]... \n";
+      print "    [+] checking $dork \n";
       print color RESET;
 	  
       $s_results = $dork;
@@ -1191,9 +1215,12 @@ sub submsearch {
               my $site=$1;
               $site=~s/&(.*)/\ /g;
 			  if ((defined $exploit) && ((defined $misup) || (defined $validation_text))) {
-	            if($site =~ /([^:]*:\/\/)?([^\/]*\.)*([^\/\.]+\.[^\/]+)/g) {
-		          $site=$3;
-			    }
+			  
+				  $site =~ s/\/.*//s;
+			  
+	            #if($site =~ /([^:]*:\/\/)?([^\/]*\.)*([^\/\.]+\.[^\/]+)/g) {
+		          #$site=$3;
+			    #}
 			  }
 	          print color 'green';
               print "    [+] http://$site\n";
@@ -1244,28 +1271,11 @@ sub submsearch {
       print "    [+] No Results Found!\n";
       print color RESET;
     }
+    print color 'red';
+    print "    [!] SCAN FINISHED!\n";
+	print color RESET;
 	
-	if ((defined $mxss) || (defined $mlfi) || (defined $command) || (defined $misup) || (defined $validation_text)) {
-	  print "\n    [+]::::::::::::::::::::::::::::::::::::::\n";
-	  print color 'bold';
-	  print "    [!] ::: SUBPROCESS ... \n";
-	  print color RESET;
-	  print "    [+]::::::::::::::::::::::::::::::::::::::\n\n ";
-	  sleep(1);
-
-	  if (defined $mlfi) { mlistLfi(); exit(); }
-      elsif ((defined $misup) && (defined $exploit)) { mlisup(); exit(); }
-      elsif ((defined $validation_text) && (defined $exploit)) { mlvalidation(); exit(); }
-	  
-	  
-      ##elsif ((defined $exploit) && (defined $misup)) { mlisup(); exit(); }
-      ##elsif ((defined $exploit) && (defined $validation_text)) { mvalidation(); exit(); }
-	  
-    }else{
-      print color 'red';
-      print "    [!] SCAN FINISHED!\n";
-	  print color RESET;
-    }
+    if ((defined $mxss) || (defined $mlfi) || (defined $command) || (defined $misup) || (defined $validation_text)) { pro();}
 
 ##############################################################
   } ## end sub msearch
@@ -2069,16 +2079,23 @@ if($task eq "2"){
           my $URL = $Target.$LFI;
           my $Source = get $URL;
           die "Can not get $URL" unless defined $URL;
-        
-	      if ($Source =~ m/root:x:0:0:root:/i) {
-	        print color 'green';
-            print "    [!] $URL\n";
-	        print color RESET;
-            
-		    open (INFO, '>>LFI_Scan.txt');
-            print INFO "$URL\n";
-		    close (INFO);
-	      }  
+		  
+		  if (defined $validation_txt) {
+	        if ($Source =~ m/$validation_txt/i) {
+	          print color 'green';
+              print "    [!] $URL\n";
+	          print color RESET;
+			}
+		  }else{
+	        if ($Source =~ m/root:x:0:0:root:/i) {
+	          print color 'green';
+              print "    [!] $URL\n";
+	          print color RESET;
+		    }
+          } 
+		  open (INFO, '>>LFI_Scan.txt');
+          print INFO "$URL\n";
+		  close (INFO);
         } ### END FOREACH
 	  } ### END WHILE 
       finlfi();
@@ -2123,15 +2140,22 @@ if($task eq "2"){
         my $Source = get $URL;
         die "Can not get $URL" unless defined $URL;
 	
-	    if ($Source =~ m/root:x:0:0:root:/i) {
-	      print color 'green';
-          print "    [!] $URL\n";
-	      print color RESET;
-		  
-		  open (INFO, '>>LFI_Scan.txt');
-          print INFO "$URL\n";
-		  close (INFO);
-	    }  
+		if (defined $validation_txt) {
+	      if ($Source =~ m/$validation_txt/i) {
+	        print color 'green';
+            print "    [!] $URL\n";
+	        print color RESET;
+		  }
+	    }else{
+	      if ($Source =~ m/root:x:0:0:root:/i) {
+	        print color 'green';
+            print "    [!] $URL\n";
+	        print color RESET;
+		  }
+	    } 
+		open (INFO, '>>LFI_Scan.txt');
+        print INFO "$URL\n";
+		close (INFO);
       }### END FOREACH
       finlfi();
 ############################## 
@@ -3303,6 +3327,7 @@ if($task eq "3"){
    sub user2 {
       subuser();
       forwait();
+
       open (TEXT, "servers.txt");
 	  while (my $Target = <TEXT>) { ###
 	    chomp $Target;
@@ -3405,7 +3430,7 @@ sub submsites {
     while (my $Target = <FILE>) {
       print "\n";
       print color 'bold';
-      print "    [+] checking [$Target ]...\n";
+      print "    [+] checking $Target\n";
       print color RESET;
 	  
       $s_results3 = $Target;
@@ -3729,6 +3754,7 @@ sub submsites {
 	print color RESET;
     $after1=<STDIN>;
     chomp ($after1);
+
     if ($after1==1) {
       goto IDS;
     }

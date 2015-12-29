@@ -71,7 +71,7 @@ my $muploadsites;
 my $mzipsites;
 my $string;
 my $mhttpd;
-my $mcommand;
+my $command;
 my $mtarget;
 my $misup;
 my $mabout;
@@ -110,7 +110,7 @@ Getopt::Long::GetOptions(\my %OPT,
 						'encode64' => \$mencode64,
 						'decode64' => \$mencode64,
 						'httpd' => \$mhttpd,
-						'command=s' => \$mcommand,
+						'command=s' => \$command,
 						'TARGET' => \$mtarget,
 						'isup' => \$misup,
 						'about' => \$mabout,
@@ -238,7 +238,7 @@ if (defined $dork) {
       if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); exit();}
     }
   }
-  if (defined $mcommand) {
+  if ((defined $command) && (defined $dork)){
     if (!defined $mtarget) {
       print color 'yellow';
       print "    [!] You have to set Target!! [Ex: --command <your command> --TARGET]\n";
@@ -248,10 +248,14 @@ if (defined $dork) {
     mcommand();
 	exit();
   }
-  if ((!defined $mxss) && (!defined $mcommand)) {
+  if ((!defined $mxss) && (!defined $command)) {
     submsearch();
-	exit();
+    exit();
   }
+}
+
+if ((defined $command) && ((!defined $dork) && (!defined $mtarget))){
+  mcommandfin(); exit();
 }
 
 if (defined $mxss) {
@@ -665,6 +669,7 @@ sub ZIP {@ZIP = ("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip"
 
 #######################################################
 #######################################################
+
 sub dorklist {
   $listcheck1 = "dorks.txt";
   if (-e $listcheck1){ unlink 'dorks.txt'};
@@ -1240,7 +1245,7 @@ sub submsearch {
       print color RESET;
     }
 	
-	if ((defined $mxss) || (defined $mlfi) || (defined $mcommand) || (defined $misup) || (defined $validation_text)) {
+	if ((defined $mxss) || (defined $mlfi) || (defined $command) || (defined $misup) || (defined $validation_text)) {
 	  print "\n    [+]::::::::::::::::::::::::::::::::::::::\n";
 	  print color 'bold';
 	  print "    [!] ::: SUBPROCESS ... \n";
@@ -4178,39 +4183,51 @@ if($task eq "5"){
   print color RESET;
   $command=<STDIN>;
   chomp ($command);
+  $command =~ s/\"//g;
   if (!$command){ 
     print color 'red';
     print "    [+] Please set a Command!\n";
     print color RESET;
     goto TERMINAL;
   };
-  sub mcommand {
-    if (defined $dork) {
-	  if (defined $mtarget) {
-	    submsearch();
-	    $listname="Search_Scan.txt";
-        countargets();
-	    forwait();
-        open (TEXT, $listname);
-	    while (my $Target = <TEXT>) { 
-	      chomp $Target;
-	      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-          print color 'yellow'; 
-          print "\n    [+] $Target";
-          print "\n    ===========================================\n";
-          print color RESET;
-		  system("$mcommand $Target");
-	    }
-	  }
-	}else{
-      system("$command");
-	}
-    print color 'red';
-    print "    [!] SCAN FINISHED!\n";
-    print color RESET;
-  }
-  mcommand();
   
+############################
+sub mcommand {
+  submsearch();
+  $listname="Search_Scan.txt";
+  countargets();
+  forwait();
+  open (TEXT, $listname);
+  while (my $Target = <TEXT>) { 
+    chomp $Target;
+    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+    print color 'yellow'; 
+    print "\n    [+] $Target";
+    print "\n    ===========================================\n";
+    print color RESET;
+	my $command = $command.' '.$Target;
+	print "$command \n";
+    system($command);
+  }
+}
+
+############################
+
+sub mcommandfin {
+  if (defined $command) {
+    if ((defined $dork) && (defined $mtarget)) {
+      mcommand();
+	}else{
+	  $command =~ s/\"//g; 
+      system($command);
+	}
+  }
+}
+ mcommandfin();
+  
+  print color 'red';
+  print "    [!] SCAN FINISHED!\n";
+  print color RESET;
   after1:;
   print color 'yellow';
   print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";

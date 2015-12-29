@@ -206,11 +206,11 @@ Execute: perl ./atscan.pl --help</br>
     <td>
     <b>Simple search:                                                                                                       </b><BR/>
     -s DORK --mp [number of page results to scan]<BR/>
-    -s <DORK1,DORK2,DORK3..> --mp [number of page results to scan]<BR/> 
-    -ls <DORK.txt> --mp [number of page results to scan from list]<BR/>
+    -s [DORK1,DORK2,DORK3..] --mp [number of page results to scan]<BR/> 
+    -s [DORK.txt] --mp [number of page results to scan from list]<BR/>
     <B>Subscan from Serach Engine</B><BR/>
     Xss: -s DORK --mp 1 --xss<BR/>
-    Xss: -ls DORKS.TXT --mp 1 --xss<BR/>
+    Xss: -s DORKS.TXT --mp 1 --xss<BR/>
     Lfi: -s DORK --mp 1 --lfi<BR/>
     Search + Command: -s DORK --mp VALUE --command 'curl -v' --TARGET<BR/>
     <b>Validation</b><BR/>
@@ -232,12 +232,13 @@ Execute: perl ./atscan.pl --help</br>
     Find admin page: -t TARGET --admin <BR/>
     Find subdomains: -t TARGET --shost <BR/>
     <b>Server:  </b><BR/>
-    Get Server sites: -t IP --mp VALUE --sites <BR/>
-    Get Server wordpress sites: -t IP --mp VALUE --wp  <BR/>
-    Get Server joomla sites: -t IP --mp VALUE --joom  <BR/>
-    Get Server upload sites: -t IP --mp VALUE --upload  <BR/>
-    Get Server zip sites files: -t IP --mp VALUE --zip  <BR/>
-    WP Arbitry File Download: -t IP --mp VALUE --wpadf  <BR/>
+    Get Server sites: -t IP --mp [VALUE] --sites <BR/>
+    Get Server sites: -t IP.txt --mp [VALUE] --sites <BR/>
+    Get Server wordpress sites: -t IP --mp [VALUE] --wp  <BR/>
+    Get Server joomla sites: -t IP --mp [VALUE] --joom  <BR/>
+    Get Server upload sites: -t IP --mp [VALUE] --upload  <BR/>
+    Get Server zip sites files: -t IP --mp [VALUE] --zip  <BR/>
+    WP Arbitry File Download: -t IP --mp [VALUE] --wpadf  <BR/>
     Joomla RFI: -t IP --mp <1> --joomfri --shell SHELL LINK <BR/>
     Scan basic tcp (quick): -t IP --ports --basic --tcp <BR/>
     Scan basic udp basic (quick): -t IP --ports --basic --udp <BR/>

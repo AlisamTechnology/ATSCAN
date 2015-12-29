@@ -1174,7 +1174,7 @@ sub submsearch {
     while (my $dork = <FILE>) {
       print "\n";
       print color 'bold';
-      print "    [+] checking $dork \n";
+      print "    [+] checking [$dork]... \n";
       print color RESET;
 	  
       $s_results = $dork;
@@ -3405,7 +3405,7 @@ sub submsites {
     while (my $Target = <FILE>) {
       print "\n";
       print color 'bold';
-      print "    [+] checking $Target \n";
+      print "    [+] checking [$Target ]...\n";
       print color RESET;
 	  
       $s_results3 = $Target;
@@ -4316,6 +4316,7 @@ if($task eq "7"){
     print "        - Command line Usage : perl ./",basename($0)," <option> \n";
     print color 'bold';
     print "       SEARCH ENGINE (BING) \n";
+
     print color RESET;
     print "        - Search Engine \n";
     print color 'bold';

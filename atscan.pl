@@ -44,7 +44,6 @@ use Getopt::Long ();
 my $proxy;
 my $help;
 my $dork;
-my $listdork;
 my $mpages;
 my $mxss;
 my $Target;
@@ -81,7 +80,6 @@ Getopt::Long::GetOptions(\my %OPT,
                         'tor' => \$proxy,
                         'help' => \$help,
                         's=s' => \$dork,
-						'ls=s' => \$listdork,
                         'mp=s' => \$mpages,
                         'xss' => \$mxss,
                         't=s' => \$Target,
@@ -123,7 +121,6 @@ if (@ARGV > 0){
   GetOptions(\my %com,
             'help',
             's',
-			'ls',
 			'tor',
 			'mp',
 			'xss',
@@ -162,7 +159,7 @@ if (@ARGV > 0){
 			'about',
   );
   
-  if (!exists $com{help || tor || s || mp || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || ls || about}) {
+  if (!exists $com{help || tor || s || mp || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about}) {
 	advise();
   }
 }
@@ -204,7 +201,7 @@ if ( !$response->is_success ) {
 
 if (defined $help) {help(); exit();}
 
-if (((defined $dork) || (defined $listdork)) && (defined $exploit)) {
+if ((defined $dork) && (defined $exploit)) {
   if ((!defined $misup) && (!defined $validation_text)){
       print color 'yellow';
       print "    [!] You have to set Validation Mode! [--isup / --valid <txt>]\n";
@@ -212,7 +209,7 @@ if (((defined $dork) || (defined $listdork)) && (defined $exploit)) {
 	  exit();
   }
 }
-if ((defined $dork) || (defined $listdork)) {
+if (defined $dork) {
   $listname = "Search_Scan.txt";
   if (!defined $mpages) {
     print color 'yellow';
@@ -221,18 +218,8 @@ if ((defined $dork) || (defined $listdork)) {
 	exit();
   }
 }
- 
-if (defined $listdork) {
-  $listname = "Search_Scan.txt";
-  if (!defined $mpages) {
-    print color 'yellow';
-    print "    [!] You have to set number of page results to scan!! [Ex: --mp 2]\n";
-    print color 'RESET';
-	exit();
-  }
-}
-  
-if ((defined $dork) || (defined $listdork)) {
+   
+if (defined $dork) {
   if (defined $mxss) {
     submsearch();
     if (defined $sqlmap) {
@@ -331,7 +318,7 @@ if (defined $mjoomrfi) {
 	exit();
   }
   if ((defined $listname) && (defined $shell)) { mljoomrfi(); exit(); }
-  if ((defined $Target)  && (defined $shell)){ mtjoomrfi(); exit(); }
+  if ((defined $Target) && (defined $shell)){ mtjoomrfi(); exit(); }
 }
 
 if (defined $mwpadf) {
@@ -385,11 +372,13 @@ if (defined $mports) {
     print color 'RESET';
 	exit();
   }
-  if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-    print color 'red';
-    print "    [!] The given IP is not valid!\n";
-    print color RESET;
-	exit();
+  if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
+    if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+      print color 'red';
+      print "    [!] The given IP is not valid!\n";
+      print color RESET;
+	  exit();
+	}
   }
   if (defined $Target) {
     if (defined $mbasic) {
@@ -432,11 +421,13 @@ if (defined $msites) {
     print color 'RESET';
 	exit();
   }
-  if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-    print color 'red';
-    print "    [!] The given IP is not valid!\n";
-    print color RESET;
-	exit();
+  if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
+    if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+      print color 'red';
+      print "    [!] The given IP is not valid!\n";
+      print color RESET;
+	  exit();
+    }
   }
   if (!defined $mpages) {
     print color 'yellow';
@@ -448,17 +439,19 @@ if (defined $msites) {
 }
 
 if (defined $mwpsites) {
-  if (!defined $Target) {
+  if (!defined $Target){
     print color 'yellow';
     print "    [!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
     print color 'RESET';
 	exit();
   }
-  if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-    print color 'red';
-    print "    [!] The given IP is not valid!\n";
-    print color RESET;
-	exit();
+  if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
+    if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+      print color 'red';
+      print "    [!] The given IP is not valid!\n";
+      print color RESET;
+	  exit();
+    }
   }
   if (!defined $mpages) {
     print color 'yellow';
@@ -476,11 +469,13 @@ if (defined $mjoomsites) {
     print color 'RESET';
 	exit();
   }
-  if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-    print color 'red';
-    print "    [!] The given IP is not valid!\n";
-    print color RESET;
-	exit();
+  if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
+    if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+      print color 'red';
+      print "    [!] The given IP is not valid!\n";
+      print color RESET;
+	  exit();
+    }
   }
   if (!defined $mpages) {
     print color 'yellow';
@@ -498,11 +493,13 @@ if (defined $muplodsites) {
     print color 'RESET';
 	exit();
   }
-  if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-    print color 'red';
-    print "    [!] The given IP is not valid!\n";
-    print color RESET;
-	exit();
+  if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
+    if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+      print color 'red';
+      print "    [!] The given IP is not valid!\n";
+      print color RESET;
+	  exit();
+    }
   }
   if (!defined $mpages) {
     print color 'yellow';
@@ -520,11 +517,13 @@ if (defined $mzipsites) {
     print color 'RESET';
 	exit();
   }
-  if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-    print color 'red';
-    print "    [!] The given IP is not valid!\n";
-    print color RESET;
-	exit();
+  if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
+    if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+      print color 'red';
+      print "    [!] The given IP is not valid!\n";
+      print color RESET;
+	  exit();
+    }
   }
   if (!defined $mpages) {
     print color 'yellow';
@@ -669,25 +668,28 @@ sub ZIP {@ZIP = ("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip"
 sub dorklist {
   $listcheck1 = "dorks.txt";
   if (-e $listcheck1){ unlink 'dorks.txt'};
+  
   if (defined $dork) {
-    if ($dork =~ m/,/i) {
-      $dork =~ s/,/ /g;
-	}elsif ($dork =~ m/ /i) {
-      $dork =~ s/ /+/g;
-	}
-  }else{
-    $dork =~ s/,/ /g;
-	if ($dork =~ m/ /i) {
-      $dork =~ s/ /+/g;
-	}
-  }
-  my @dorks = split / /, $dork;  
-  foreach my $dork (@dorks) {
-    open (FILE, '>>dorks.txt');
-    print FILE "$dork\n";
-    close (FILE);
-  }
+    if (($dork =~ m/.txt/i) || ($dork =~ m/.log/i)) {
+	  use File::Copy qw(copy);
+	  copy $dork, 'dorks.txt';
+    }else{
+	  if ($dork =~ m/,/i) {
+        $dork =~ s/,/ /g;
+  	  }elsif ($dork =~ m/ /i) {
+        $dork =~ s/ /+/g;
+	  }
+      my @dorks = split / /, $dork;  
+      foreach my $dork (@dorks) {
+        open (FILE, '>>dorks.txt');
+        print FILE "$dork\n";
+        close (FILE);
+      }
+	}  
+  }	
 }
+
+
 sub mlistname {
   $listname = $listname;
 }
@@ -701,13 +703,32 @@ sub Target {
   $Target = $Target;
   if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
 }
+
 sub server {
-  $Target = $Target;
-  if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-    print color 'red';
-    print "    [!] The given IP is not valid!\n";
-    print color RESET;
+  $listcheck3 = "servers.txt";
+  if (-e $listcheck3){ unlink 'servers.txt'};
+  if (defined $Target) {
+    if (($Target =~ m/.txt/i) || ($Target =~ m/.log/i)) {
+	  use File::Copy qw(copy);
+	  copy $Target, 'servers.txt';
+	}else{
+      $Target =~ s/,/ /g;
+      my @servers = split / /, $Target;  
+      foreach my $Target (@servers) {
+        open (FILE, '>>servers.txt');
+        print FILE "$Target\n";
+        close (FILE);
+      }
+	}
+  }
+  if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
+    if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+      print color 'red';
+      print "    [!] The given IP is not valid!\n";
+      print color RESET;
+	  exit();
     }
+  }
 }
 sub forwait {
   print color 'yellow';
@@ -1062,7 +1083,7 @@ sub countargets {
   print color RESET;
   close $file;
 }
-		
+
 ##########################################
 ##########################################
 
@@ -1105,7 +1126,8 @@ if($task eq "1"){
   print "    [+] Please enter your Dork: ";
   print color RESET;
   $dork=<STDIN>;
-  chomp ($dork);  
+  chomp ($dork); 
+   
   if (!$dork){
     print color 'red';
 	print "    [+] Uppss.. you have to set a value!\n";
@@ -1127,9 +1149,7 @@ if($task eq "1"){
     
 ##############################################################
 sub submsearch {
-  if (defined $dork) {
-    dorklist();
-  }	
+  dorklist();
   $nresult = $mpages;
   msearch();
 }
@@ -1145,11 +1165,7 @@ sub submsearch {
     $listcheck = "Search_Scan.txt";
     if (-e $listcheck){ unlink 'Search_Scan.txt'};
 	
-	if (defined $listdork) {
-      open (FILE, $listdork);
-	}else{  
-      open (FILE, "dorks.txt");
-	}
+    open (FILE, "dorks.txt");
     while (my $dork = <FILE>) {
       print "\n";
       print color 'bold';
@@ -2995,13 +3011,16 @@ if($task eq "3"){
   print color RESET;
   $Target=<STDIN>;
   chomp($Target);
-
-  if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-    print color 'red';
-    print "    [!] The given IP is not valid!\n";
-    print color RESET;
-	goto VUELTA;
+  server();
+  if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
+    if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+      print color 'red';
+      print "    [!] The given IP is not valid!\n";
+      print color RESET;
+	  goto VUELTA;
+    }
   }
+  
   sleep (1);
   IDS:;
   print color 'bold magenta';
@@ -3083,23 +3102,29 @@ if($task eq "3"){
     sub basic {
       server();
       $type=$_[0];
-	  print color 'yellow';
-      print "    [+] Processing ...\n";
-	  print color ' yellow', RESET;
-	  sleep(1);
-      $closed1=0;
-      @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
-      foreach $port1(@PORTS){
-        $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port1",Proto=>"$type",Timeout=>"0.5") or $closed1++;
-        close $socket;
-        if ($closed1==0){
-	      print color 'green';
-          print "\n    [!] Open '$type' Port -> ";
-          print "$port1";
-		  print color RESET;
-        }
+      forwait();
+      open (TEXT, "servers.txt");
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+		print" \n";        
+        print "    [+] Checking $Target \n";
+
+	    $Target=$Target;
+	    sleep(1);
         $closed1=0;
-      }
+        @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
+        foreach $port1(@PORTS){
+          $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port1",Proto=>"$type",Timeout=>"0.5") or $closed1++;
+          close $socket;
+          if ($closed1==0){
+	        print color 'green';
+            print "\n    [!] Open '$type' Port -> ";
+            print "$port1";
+		    print color RESET;
+          }
+          $closed1=0;
+        }
+	  }
       print color 'red';
       print "\n    [!] SCAN FINISHED!\n";
 	  print color RESET;
@@ -3109,33 +3134,40 @@ if($task eq "3"){
     ################################
     sub basic2 {
       server();
-	  print color 'yellow';
-      print "    [+] Processing ...\n";
-	  print color ' yellow', RESET;
-	  sleep(1);
-      $closed2=0;
-      $closed3=0;
-      @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
-      foreach $port2(@PORTS){
-        $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port2",Proto=>"tcp",Timeout=>"0.5") or $closed2++;
-        close $socket;
-        $socket2 = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port2",Proto=>"udp",Timeout=>"0.5") or $closed3++;
-        close $socket2;
-        if ($closed2==0){
-	      print color 'green';
-          print "\n    [!] Open TCP Port -> ";
-          print "$port2";
-		  print color RESET;
-        }
-        if ($closed3==0){
-	      print color 'green';
-          print "\n    [!] Open UDP Port -> ";
-          print "$port2";
-		  print color RESET;
-        }
+      forwait();
+      open (TEXT, "servers.txt");
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+		print" \n";        
+        print "    [+] Checking $Target \n";
+
+	    $Target=$Target;
+	  
+	    sleep(1);
         $closed2=0;
         $closed3=0;
-      }
+        @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
+        foreach $port2(@PORTS){
+          $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port2",Proto=>"tcp",Timeout=>"0.5") or $closed2++;
+          close $socket;
+          $socket2 = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port2",Proto=>"udp",Timeout=>"0.5") or $closed3++;
+          close $socket2;
+          if ($closed2==0){
+	        print color 'green';
+            print "\n    [!] Open TCP Port -> ";
+            print "$port2";
+		    print color RESET;
+          }
+          if ($closed3==0){
+	        print color 'green';
+            print "\n    [!] Open UDP Port -> ";
+            print "$port2";
+		    print color RESET;
+          }
+          $closed2=0;
+          $closed3=0;
+        }
+	  }
       print color 'red';
       print "\n    [!] SCAN FINISHED!\n";
 	  print color RESET;
@@ -3144,21 +3176,28 @@ if($task eq "3"){
     sub complete {
       server();
       $type2=$_[0];
-	  print color 'yellow';
-      print "    [+] Processing ...\n";
-	  print color ' yellow', RESET;
-	  sleep(1);
-      $closed3=0;
-      $port3=1;
-      while ($port3<=65535){
-        $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port3",Proto=>"$type2") or $closed3++;
-        close $socket;
-        if ($closed3==0){
-	      print color 'green';
-          print "\n    [!] Open $type2 Port -> ";
-          print "$port3";
-		  print color RESET;
-        }
+	  
+      forwait();
+      open (TEXT, "servers.txt");
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+		print" \n";        
+        print "    [+] Checking $Target \n";
+
+	    $Target=$Target;
+	    sleep(1);
+        $closed3=0;
+        $port3=1;
+        while ($port3<=65535){
+          $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port3",Proto=>"$type2") or $closed3++;
+          close $socket;
+          if ($closed3==0){
+	        print color 'green';
+            print "\n    [!] Open $type2 Port -> ";
+            print "$port3";
+		    print color RESET;
+          }
+		}
         $closed3=0;
         $port3++;
       }
@@ -3169,32 +3208,37 @@ if($task eq "3"){
     #####################################
     sub complete2 {
       server();
-	  print color 'yellow';
-      print "    [+] Processing ...\n";
-	  print color ' yellow', RESET;
-	  sleep(1);
-      $closed4=0;
-      $closed5=0;
-      $port4=1;
-      while ($port4<=65535){
-        $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port4",Proto=>"tcp") or $closed4++;
-        close $socket;
-        $socket2 = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port4",Proto=>"udp") or $closed5++;
-        close $socket2;
-        if ($closed4==0){
-	      print color 'green';
-          print "\n    [!] Found TCP An Open Port -> ";
-          print "$port4";
-	      print color RESET;
-        }
+      forwait();
+      open (TEXT, "servers.txt");
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+		print" \n";        
+        print "    [+] Checking $Target \n";
 
-        if ($closed5==0){
-	      print color 'green';
-          print "\n    [!] Found UDP An Open Port -> ";
-          print "$port4";
-	      print color RESET;
-        }
+	    $Target=$Target;
+	    sleep(1);
+        $closed4=0;
+        $closed5=0;
+        $port4=1;
+        while ($port4<=65535){
+          $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port4",Proto=>"tcp") or $closed4++;
+          close $socket;
+          $socket2 = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port4",Proto=>"udp") or $closed5++;
+          close $socket2;
+          if ($closed4==0){
+	        print color 'green';
+            print "\n    [!] Found TCP An Open Port -> ";
+            print "$port4";
+	        print color RESET;
+          }
 
+          if ($closed5==0){
+	        print color 'green';
+            print "\n    [!] Found UDP An Open Port -> ";
+            print "$port4";
+	        print color RESET;
+          }
+        }
         $closed4=0;
         $closed5=0;
         $port4++;
@@ -3222,22 +3266,29 @@ if($task eq "3"){
     sub user {
       subuser();
       $type3=$_[0];
-	  print color 'yellow';
-      print "    [+] Processing ...\n";
-	  print color ' yellow', RESET;
-	  sleep(1);
-      $closed6=0;
-      while ($start<=$end){
-        $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$start",Proto=>"$type3") or $closed6++;
-        close $socket;
-        if ($closed6==0){
-	      print color 'green';
-          print "\n    [!] Open $type3 Port -> ";
-          print "$start";
-		  print color RESET;
-        }
+	  
+      forwait();
+      open (TEXT, "servers.txt");
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+		print" \n";        
+        print "    [+] Checking $Target \n";
+
+	    $Target=$Target;
+	    sleep(1);
         $closed6=0;
-        $start++;
+        while ($start<=$end){
+          $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$start",Proto=>"$type3") or $closed6++;
+          close $socket;
+          if ($closed6==0){
+	        print color 'green';
+            print "\n    [!] Open $type3 Port -> ";
+            print "$start";
+		    print color RESET;
+          }
+          $closed6=0;
+          $start++;
+		}
       }
       print color 'red';
       print "\n    [!] SCAN FINISHED!\n";
@@ -3246,32 +3297,38 @@ if($task eq "3"){
    ##################################
    sub user2 {
       subuser();
- 	  print color 'yellow';
-      print "    [+] Processing ...\n";
-      print color ' yellow', RESET;
-	  sleep(1);
-      $closed7=0;
-      $closed8=0;
-      while ($start<=$end){
-        $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$start",Proto=>"tcp") or $closed7++;
-        close $socket;
-        $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$start",Proto=>"udp") or $closed8++;
-        close $socket;
-        if ($closed7==0){
-	      print color 'green';
-          print "\n    [!] Open TCP Port -> ";
-          print "$start";
-          print color RESET;
-        }
-        if ($closed8==0){
-	      print color 'green';
-          print "\n    [!] Open UDP Port -> ";
-          print "$start";
-	      print color RESET;
-        }
+      forwait();
+      open (TEXT, "servers.txt");
+	  while (my $Target = <TEXT>) { ###
+	    chomp $Target;
+		print" \n";        
+        print "    [+] Checking $Target \n";
+
+	    $Target=$Target;
+	    sleep(1);
         $closed7=0;
         $closed8=0;
-        $start++;
+        while ($start<=$end){
+          $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$start",Proto=>"tcp") or $closed7++;
+          close $socket;
+          $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$start",Proto=>"udp") or $closed8++;
+          close $socket;
+          if ($closed7==0){
+	        print color 'green';
+            print "\n    [!] Open TCP Port -> ";
+            print "$start";
+          print color RESET;
+          }  
+          if ($closed8==0){
+	        print color 'green';
+            print "\n    [!] Open UDP Port -> ";
+            print "$start";
+	        print color RESET;
+          }
+          $closed7=0;
+          $closed8=0;
+          $start++;
+		}
       }
       print color 'red';
       print "\n    [!] SCAN FINISHED!\n";
@@ -3311,50 +3368,51 @@ if($task eq "3"){
 #SITES IN THE SERVER
   if ($IDS==2) {
   
-    nresults:;
+    nresult3:;
     print color 'yellow';
     print "    [+] Number of results (must be <= existants search results!): ";
     print color RESET;
-    $nresults2 = <STDIN>;
-    chomp($nresults2);
+    $nresult3 = <STDIN>;
+    chomp($nresult3);
 	
-	if (!$nresults2){ 
+	if (!$nresult3){ 
       print color 'red';
 	  print "    [+] Uppss.. you have to set a value!\n";
       print color RESET;
-	  goto $nresults2;
+	  goto nresult3;
 	};
 ##############################################################
 sub submsites {
-  $nresults2 = $mpages;
-  $s_res2 = $Target;
+  server();
+  $nresult3 = $mpages;
   msites();
 }
 ##############################################################
-  
 ##############################################################
 ## bgn sub msites
    sub msites {
 ##############################################################
+    forwait();
+    $listcheck = "Server_sites_Scan.txt";
+    if (-e $listcheck){ unlink 'Server_sites_Scan.txt'};
 	
-  print color 'yellow';
-  print "    [+] Searching sites in the server please wait...\n\n";
-  print color RESET;
-  sleep(1);
-  $listcheck = "Server_sites_Scan.txt";
-  if (-e $listcheck){ unlink 'Server_sites_Scan.txt'};
-
-    my $s_res2=$Target;
-    my @scanlist22=&scan22($s_res2);
-    sub scan22(){
-      my @search22;
-      for($npages=1;$npages<=$nresults2;$npages+=1){
-        my $bing=("http://www.bing.com/search?q=ip%3A".$s_res2."&first=".$npages);
-		#my $ua = LWP::UserAgent->new;
-        my $search22=$ua->get("$bing");
-        $search22->as_string;
-        my $Resultas2=$search22->content;
-        while($Resultas2 =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
+	open (FILE, "servers.txt");
+    while (my $Target = <FILE>) {
+      print "\n";
+      print color 'bold';
+      print "    [+] checking $Target \n";
+      print color RESET;
+	  
+      $s_results3 = $Target;
+      my @scanlist3=&scan3($s_results3);
+      sub scan3(){
+        my @search3;
+        for($npages3=1;$npages3<=$nresult3;$npages3+=1){
+          my $google3=("http://www.bing.com/search?q=ip%3A".$s_results3."&first=".$npages3);
+          my $search3=$ua->get("$google3");
+          $search3->as_string;
+          my $Res3=$search3->content;
+          while($Res3 =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
           if($1 !~ /msn|live|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed/){
             my $domain2=$1;
             $domain2=~s/&(.*)/\ /g;
@@ -3362,31 +3420,33 @@ sub submsites {
             if($domain2 =~ /([^:]*:\/\/)?([^\/]+\.[^\/]+)/g) {
               $site = $2;
             }			
-	        print color 'green';
-            print "    [+] http://$site\n";
-	        print color RESET;
+	          print color 'green';
+              print "    [+] http://$site\n";
+	          print color RESET;
 
-            open (TEXT, '>>Server_sites_Scan.txt');
-            print TEXT "http://$site\n";
-            close (TEXT);
-			
-			my $file = 'Server_sites_Scan.txt';
-            my %seen = ();
-            {
-              local @ARGV = ($file);
-              local $^I = '.bac';
-              while(<>){
-                $seen{$_}++;
-                next if $seen{$_} > 1;
-                print;
-                close (TEXT);
-				unlink "Server_sites_Scan.txt.bac";
+              open (TEXT, '>>Server_sites_Scan.txt');
+              print TEXT "http://$site\n";
+              close (TEXT);
+			  
+			  my $file = 'Server_sites_Scan.txt';
+              my %seen = ();
+              {
+                local @ARGV = ($file);
+                local $^I = '.bac';
+                while(<>){
+                  $seen{$_}++;
+                  next if $seen{$_} > 1;
+                  print;
+                  close (TEXT);
+				  unlink "Server_sites_Scan.txt.bac";
+				  unlink "servers.txt";
+                }
               }
             }
           }
         }
-      } 
-    } 
+      }   
+    }
 	
     $list = "Server_sites_Scan.txt";
 	if (-e $list){
@@ -4125,7 +4185,7 @@ if($task eq "5"){
     goto TERMINAL;
   };
   sub mcommand {
-    if ((defined $dork) || (defined $listdork)) {
+    if (defined $dork) {
 	  if (defined $mtarget) {
 	    submsearch();
 	    $listname="Search_Scan.txt";
@@ -4275,7 +4335,6 @@ if($task eq "7"){
     print "       --tor:      | tor proxy [DEFAULT:socks://localhost:9050] Change if needed!\n";
     print "       --help:     | help menu \n";
     print "       -s:         | dork to search [Ex: house,cars,hotel] \n";
-    print "       -ls:        | dork list to search [Ex: somelist.txt] \n";
     print "       --mp:       | number of page results \n";
     print "       --xss:      | xss scan \n";
     print "       -t:         | target \n";
@@ -4320,19 +4379,20 @@ if($task eq "7"){
     print color RESET;
     print "       Simple search: [-s <dork> --mp <number of page results to scan>] \n";
     print "                      [-s <dork1,dork2,dork3> --mp <number of page results to scan>] \n";
+    print "                      [-s <dorks.txt> --mp <number of page results to scan>] \n";
     print color 'bold';
 	print "       Subscan from Serach Engine: \n";
     print color RESET;
-    print "       Xss: -s <dork> --mp <1> --xss \n";
-    print "       Lfi: -s <dork> --mp <1> --lfi \n";
-	print "       Search + Command: -s <dork> --mp <value> --command 'curl -v' --TARGET \n";
+    print "       Xss: -s <dork/dork.txt> --mp <1> --xss \n";
+    print "       Lfi: -s <dork/dork.txt> --mp <1> --lfi \n";
+	print "       Search + Command: -s <dork/dork.txt> --mp <value> --command 'curl -v' --TARGET \n";
     print color 'bold';
 	print "       Validation: \n";
     print color RESET;
-    print "       Xss: -s <dork> --mp <1> --xss --valid <txt>\n";
-    print "       Lfi: -s <dork> --mp <1> --lfi --valid <txt> \n";
-    print "       Xss: -s <dork> --mp <1> --xss --isup\n";
-    print "       Lfi: -s <dork> --mp <1> --lfi --isup \n";
+    print "       Xss: -s <dork/dork.txt> --mp <1> --xss --valid <txt>\n";
+    print "       Lfi: -s <dork/dork.txt> --mp <1> --lfi --valid <txt> \n";
+    print "       Xss: -s <dork/dork.txt> --mp <1> --xss --isup\n";
+    print "       Lfi: -s <dork/dork.txt> --mp <1> --lfi --isup \n";
     print color 'bold';
 	print "       Use List / Target: \n";
     print color RESET;

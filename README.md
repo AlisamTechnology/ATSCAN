@@ -30,8 +30,6 @@
     <td width="100px" class="main2">PLUS:</td><td>plus.google.com/+AlisamTechnology</td>
   </tr>
 </table>
-<br />
-
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
     <td class="main3">Description:</td>
@@ -56,7 +54,6 @@
     </td>
   </tr>
 </table>
-<br />
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
     <td class="main3">Download & Executution:</td>
@@ -74,7 +71,6 @@
     </td>
   </tr>
 </table>
-<br />
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
     <td class="main3">Screenshots:</td>
@@ -88,7 +84,6 @@
     </td>
   </tr>
 </table>
-<br />
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
     <td class="main3">Help:</td>
@@ -242,7 +237,6 @@
     </table></td>
   </tr>
 </table>
-<br />
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
     <td class="main3">Examples:</td>

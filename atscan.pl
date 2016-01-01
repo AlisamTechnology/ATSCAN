@@ -271,12 +271,36 @@ sub timer {
 }
 sub osinfo {
   use Config;
-  print "    [+] GROUP:: Alisam Technology\n";
-  print "    [+] SCRIPT:: ",basename($0),"\n";
-  print "    [+] PATH:: $Bin/",basename($0),"\n";
-  print "    [+] PERL VERSION:: $^V \n";
-  print "    [+] PLATFORM:: $Config{osname} ";
+  print "    [+] GROUP:: ";
+  print color RESET;
+  print color 'red';
+  print "Alisam Technology\n";
+  print color RESET;
+  print color 'bold yellow';
+  print "    [+] SCRIPT:: ";
+  print color RESET;
+  print color 'red';
+  print "",basename($0)," \n";
+  print color RESET;
+  print color 'bold yellow';
+  print "    [+] PATH:: ";
+  print color RESET;
+  print color 'red';
+  print "$Bin/",basename($0)," \n";
+  print color RESET;
+  print color 'bold yellow';
+  print "    [+] PERL VERSION:: ";
+  print color RESET;
+  print color 'red';
+  print "$^V \n";
+  print color RESET;
+  print color 'bold yellow';
+  print "    [+] PLATFORM:: ";
+  print color RESET;
+  print color 'red';
+  print "$Config{osname} ";
   print "$Config{archname}\n";
+  print color RESET;
 }
 sub advise {
   print color 'yellow';
@@ -469,6 +493,7 @@ sub scandetail {
   if (defined $mzipsites) {
     print "    [+] EXPLOITATION:: Get Zip Files\n";
   }
+  print color RESET;
 }
 
 sub listchekxss {

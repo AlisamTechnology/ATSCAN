@@ -162,7 +162,7 @@ my $mabout;
 Getopt::Long::GetOptions(\my %OPT,
                         'tor' => \$proxy,
                         'help' => \$help,
-                        's=s' => \$dork,
+                        'dork=s' => \$dork,
                         'mp=s' => \$mpages,
                         'xss' => \$mxss,
                         't=s' => \$Target,
@@ -205,7 +205,7 @@ if (@ARGV > 0){
   use Getopt::Long;
   GetOptions(\my %com,
             'help',
-            's',
+            'dork',
 			'tor',
 			'mp',
 			'xss',
@@ -246,7 +246,7 @@ if (@ARGV > 0){
 			'select',
   );
   
-  if (!exists $com{help || tor || s || mp || xss || t || l || xss || valid || exp || sqlmap || sqlmaptor || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select}) {
+  if (!exists $com{help || tor || dork || mp || xss || t || l || xss || valid || exp || sqlmap || sqlmaptor || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select}) {
 	advise();
   }
 }
@@ -256,11 +256,9 @@ sub desclaimer {
   print "    [ ] ---------------------------------------------------------- [ ]\n";
   print "    [ ]    We will not be responsible or liable, directly or       [ ]\n";
   print "    [ ]  indirectly in any way for any loss or damage of any kind  [ ]\n";
-  print "    [ ]       incurred as a result of use of our material !!       [ ]\n";
+  print "    [ ]          incurred as result of our program use !!          [ ]\n";
   print "    [ ] ---------------------------------------------------------- [ ]\n";
-  print color 'bold yellow';
-    osinfo();
-  print color RESET;
+  osinfo();
 }
 
 sub timer {
@@ -271,6 +269,7 @@ sub timer {
 }
 sub osinfo {
   use Config;
+  print color 'bold yellow';
   print "    [+] GROUP:: ";
   print color RESET;
   print color 'red';
@@ -403,97 +402,143 @@ sub progressbar {
   }
   print" \n\n";
 }
+
 sub scandetail {
-  print color 'bold yellow';
-  if (defined $Target) {
-    print "    [+] TARGET:: ". $Target . "\n";
-  }
-  if (defined $mtarget) {
-    print "    [+] TARGET:: ". $mtarget . "\n";
-  }
+  if ((defined $Target) || (defined $mtarget)) {
+    print color 'bold yellow';
+    print "    [+] TARGET:: ";
+    print color RESET;
+    print color 'red';
+    if (defined $Target) {
+      print "$Target \n";
+    }
+    if (defined $mtarget) {
+      print "$mtarget \n";
+    }
+    print color RESET;
+  }  
+
   if (defined $mpages) {
-    print "    [+] NUM PAGE RESUALTS:: ". $mpages . "\n";
+    print color 'bold yellow';
+    print "    [+] NUM PAGE RESUALTS:: ";
+    print color RESET;
+    print color 'red';
+    print "$mpages \n";
+    print color RESET;
   }
-  if ((defined $listname) && (!defined $dork)) {
-    print "    [+] LIST:: ". $listname . "\n";
+  if (defined $listname) {
+    print color 'bold yellow';
+    print "    [+] LIST:: ";
+    print color RESET;
+    print color 'red';
+    print "$listname \n";
+    print color RESET;
   }
-  if (defined $exploit) {
-    print "    [+] EXPLOIT:: ". $exploit . "\n";
+  if ((defined $mxss) || (defined $mlfi)){
+    print color 'bold yellow';
+    print "    [+] SCAN:: ";
+    print color RESET;
+    print color 'red';
+    if (defined $mlfi) {
+      print "Lfi\n";
+    }
+    if (defined $mxss) {
+      print "Xss\n";
+    }
+    print color RESET;
+  }  
+
+  if ((defined $validation_text) || (defined $misup)) {
+    print color 'bold yellow';
+    print "    [+] VALIDATION:: ";
+    print color RESET;
+    print color 'red';
+    if (defined $validation_text) { 
+      print "$validation_text \n";
+    }
+    if (defined $misup) { 
+      print "Code 200\n";
+    }
+    print color RESET;
   }
-  if (defined $mxss) {
-    print "    [+] SCAN:: Xss\n";
-  }elsif (defined $mlfi) { 
-    print "    [+] SCAN:: Lfi\n";
+  
+  if ((defined $sqlmaptor) || (defined $sqlmap) || (defined $mjoomrfi) || (defined $mcommand) || (defined $mwpadf) || (defined $madmin) || (defined $msites) || (defined $msubdomain) || (defined $mports) || (defined $exploit)) {
+    print color 'bold yellow';
+    print "    [+] EXPLOITATION:: ";
+    print color RESET;
+    
+    print color 'red';
+    if (defined $Sqlmap) {
+      print "Sqlmap \n";
+    }
+    if (defined $Sqlmaptor) {
+      print "Sqlmap Tor\n";
+    }
+    if (defined $exploit) {
+      print "$exploit \n";
+    }
+    if (defined $mjoomrfi) {
+      print "Rfi Joomla \n";
+    }
+    if (defined $mcommand) {
+      print "$mcommand \n";
+    }
+    if (defined $mwpadf) {
+      print "ADF Wordpress \n";
+    }
+    if (defined $madmin) {
+      print "Get Admin Page \n";
+    }
+    if (defined $msites) {
+      print "Get Server Sites \n";
+    }
+    if (defined $msubdomain) {
+      print "Get Subdomains \n";
+    }
+    if (defined $mhttpd) {
+      print "Get Httpd Version\n";
+    }
+    if (defined $mwpsites) {
+      print "Get Worpress Sites\n";
+    }
+    if (defined $mjoomsites) {
+      print "Get Joomla Sites\n";
+    }
+    if (defined $shell) {
+      print "$shell \n";
+    }
+    if (defined $muploadsites) {
+      print "Get Upload Files\n";
+    }
+    if (defined $mzipsites) {
+      print "Get Zip Files\n";
+    }
+    if (defined $mports) {
+      print "Ports ";
+    }
+    if (defined $mbasic) {
+	  print "Basic Scan ";
+    }
+    if (defined $mall) {
+      print "Complete Scan ";
+    }
+    if (defined $muser) {
+      print "Select Scan ";
+    }
+    if ((defined $mstart) && (defined $mend)) {
+      print "[$mstart To $mend] ";
+    }
+    if ((defined $mtcp) && (defined $mudp)) {
+      print "Tcp+Udp \n";
+    }
+    if ((!defined $mtcp) && (defined $mudp)) {
+      print "Udp \n";
+    }
+    if ((defined $mtcp) && (!defined $mudp)) {
+      print "Tcp \n";
+    }
+    print color RESET;
   }
-  if (defined $validation_text) {
-    print "    [+] VALIDATION:: ". $validation_text . "\n";
-  }elsif (defined $misup) { 
-    print "    [+] VALIDATION:: Code 200\n";
-  }
-  if ((defined $sqlmap) || (defined $sqlmap)) {
-    print "    [+] EXPLOITATION:: Sqlmap\n";
-  }
-  if (defined $mjoomrfi) {
-    print "    [+] EXPLOITATION:: Rfi Joomla\n";
-  }
-  if (defined $mcommand) {
-    print "    [+] EXPLOITATION:: ". $mcommand . "\n";
-  }
-  if (defined $mwpadf) {
-    print "    [+] EXPLOITATION:: ADF Wordpress\n";
-  }
-  if (defined $madmin) {
-    print "    [+] EXPLOITATION:: Get Admin Page\n";
-  }
-  if (defined $msites) {
-    print "    [+] EXPLOITATION:: Get Server Sites\n";
-  }
-  if (defined $msubdomain) {
-    print "    [+] EXPLOITATION:: Get Subdomains\n";
-  }
-  if (defined $mports) {
-    print "    [+] EXPLOITATION:: Ports ";
-  } 
-  if (defined $mbasic) {
-	print "Basic Scan ";
-  }
-  if (defined $mall) {
-    print "Complete Scan ";
-  }
-  if (defined $muser) {
-    print "Select Scan ";
-  }
-  if ((defined $mstart) && (defined $mend)) {
-    print "[$mstart To $mend] ";
-  }
-  if ((defined $mtcp) && (defined $mudp)) {
-    print "Tcp+Udp \n";
-  }
-  if ((!defined $mtcp) && (defined $mudp)) {
-    print "Udp \n";
-  }
-  if ((defined $mtcp) && (!defined $mudp)) {
-    print "Tcp \n";
-  }
-  if (defined $mhttpd) {
-    print "    [+] EXPLOITATION:: Get Httpd Version\n";
-  }
-  if (defined $mwpsites) {
-    print "    [+] EXPLOITATION:: Get Worpress Sites\n";
-  }
-  if (defined $mjoomsites) {
-    print "    [+] EXPLOITATION:: Get Joomla Sites\n";
-  }
-  if (defined $shell) {
-    print "    [+] EXPLOITATION:: ". $shell . "\n";
-  }
-  if (defined $muploadsites) {
-    print "    [+] EXPLOITATION:: Get Upload Files\n";
-  }
-  if (defined $mzipsites) {
-    print "    [+] EXPLOITATION:: Get Zip Files\n";
-  }
-  print color RESET;
 }
 
 sub listchekxss {
@@ -982,9 +1027,16 @@ sub msearch {
   print color 'bold yellow';
   scandetail();
   print color 'bold yellow';
-  print "    [+] Random Search:: BING [". $myrand . "]\n";
+  print "    [+] Random Search:: ";
+  print color RESET;
+  print color 'red';
+  print "BING [". $myrand . "]\n";
+  print color RESET;
   print color 'bold yellow';
-  print "    [+] DORK:: $dork \n";
+  print "    [+] DORK:: ";
+  print color RESET;
+  print color 'red';
+  print "$dork \n";
   print color RESET;
   print color 'bold';
   print "    [ ] --------------------------------------------------------------\n";
@@ -2866,7 +2918,7 @@ sub help {
   print color RESET;
   print "       --tor:      | tor proxy [DEFAULT:socks://localhost:9050] Change if needed!\n";
   print "       --help:     | help menu \n";
-  print "       -s:         | dork to search [Ex: house,cars,hotel] \n";
+  print "       -dork:      | dork to search [Ex: house,cars,hotel] \n";
   print "       --mp:       | number of page results \n";
   print "       --xss:      | xss scan \n";
   print "       -t:         | target \n";
@@ -2910,22 +2962,22 @@ sub help {
   print color 'bold';
   print "       Search engine: \n";
   print color RESET;
-  print "       Simple search: [-s <dork> --mp <number of page results to scan>] \n";
-  print "                      [-s <dork1,dork2,dork3> --mp <number of page results to scan>] \n";
-  print "                      [-s <dorks.txt> --mp <number of page results to scan>] \n";
+  print "       Simple search: [--dork <dork> --mp <number of page results to scan>] \n";
+  print "                      [--dork <dork1,dork2,dork3> --mp <number of page results to scan>] \n";
+  print "                      [--dork <dorks.txt> --mp <number of page results to scan>] \n";
   print color 'bold';
   print "       Subscan from Serach Engine: \n";
   print color RESET;
-  print "       Xss: -s <dork/dork.txt> --mp <1> --xss \n";
-  print "       Lfi: -s <dork/dork.txt> --mp <1> --lfi \n";
-  print "       Search + Command: -s <dork/dork.txt> --mp <value> --command 'curl -v' --TARGET \n";
+  print "       Xss: --dork <dork/dork.txt> --mp <1> --xss \n";
+  print "       Lfi: --dork <dork/dork.txt> --mp <1> --lfi \n";
+  print "       Search + Command: --dork <dork/dork.txt> --mp <value> --command 'curl -v' --TARGET \n";
   print color 'bold';
   print "       Validation: \n";
   print color RESET;
-  print "       Xss: -s <dork/dork.txt> --mp <1> --xss --valid <txt>\n";
-  print "       Lfi: -s <dork/dork.txt> --mp <1> --lfi --valid <txt> \n";
-  print "       Xss: -s <dork/dork.txt> --mp <1> --xss --isup\n";
-  print "       Lfi: -s <dork/dork.txt> --mp <1> --lfi --isup \n";
+  print "       Xss: --dork <dork/dork.txt> --mp <1> --xss --valid <txt>\n";
+  print "       Lfi: --dork <dork/dork.txt> --mp <1> --lfi --valid <txt> \n";
+  print "       Xss: --dork <dork/dork.txt> --mp <1> --xss --isup\n";
+  print "       Lfi: --dork <dork/dork.txt> --mp <1> --lfi --isup \n";
   print color 'bold';
   print "       Use List / Target: \n";
   print color RESET;
@@ -4821,7 +4873,7 @@ if($task eq "6"){
      [+]======================    DISCLAIMER !!!  ======================[+]
      [+]  We will not be responsible or liable, directly or indirectly  [+]
      [+]  in any way for any loss or damage of any kind incurred as     [+]
-     [+]                  a result of use of our material !!            [+]
+     [+]                a result of our program use !!                 [+]
      [+]================================================================[+]
      [+]                      NO SYSTEM IS SAFE !!!                     [+]
      [+]       If you like my tool you must know that i never           [+]

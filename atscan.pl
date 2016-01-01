@@ -2940,6 +2940,7 @@ sub help {
   print "       --udp:      | udp ports \n";
   print "       --all:      | complete mode \n";
   print "       --basic:    | basic mode \n";
+  print "       --select:   | Select mode you can set rang of ports \n";
   print "       --sites:    | sites in the server \n";
   print "       --wp:       | wordpress sites in the server\n";
   print "       --joom:     | joomla sites in the server\n";
@@ -3004,9 +3005,9 @@ sub help {
   print "       Scan complete tcp: -t <ip> --ports --all --tcp\n";
   print "       Scan complete udp: -t <ip> --ports --all --udp\n";
   print "       Scan complete tcp+udp: -t <ip> --ports --all --udp --tcp\n";
-  print "       Scan rang tcp: -t <ip> --ports --start --end --tcp\n";
-  print "       Scan rang udp: -t <ip> --ports --start --end --udp\n";
-  print "       Scan rang udp + tcp: -t <ip> --ports --start <value> --end <value> --udp --tcp\n";
+  print "       Scan rang tcp: -t <ip> --ports --select --start --end --tcp\n";
+  print "       Scan rang udp: -t <ip> --ports --select --start --end --udp\n";
+  print "       Scan rang udp + tcp: -t <ip> --ports --select --start <value> --end <value> --udp --tcp\n";
   print color 'bold';
   print "       Encode / Decode: \n";
   print color RESET;

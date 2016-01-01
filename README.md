@@ -1,8 +1,4 @@
-
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
 <body>
 <h1 align="center">ATSCAN</h1>
 <p align="center"> <b>Search / Site / Server Scanner </b></p>
@@ -12,27 +8,26 @@
     <td align="center" class="main3"><b>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!<b></td>
   </tr>
 </table>
-<br />
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2">AUTHOR:</td><td>Alisam@Technology</td>
+    <td width="100px" class="main2"><b>AUTHOR:</b></td><td>Alisam@Technology</td>
   </tr>
   <tr>
-    <td width="100px" class="main2">FACE:</td><td>facebook.com/Forces.des.tempetes.marocaines</td>
+    <td width="100px" class="main2"><b>FACE:</b></td><td>facebook.com/Forces.des.tempetes.marocaines</td>
   </tr>
   <tr>
-    <td width="100px" class="main2">YOUTUBE:</td><td>youtube.com/c/AlisamTechnology</td>
+    <td width="100px" class="main2"><b>YOUTUBE:</b></td><td>youtube.com/c/AlisamTechnology</td>
   </tr>
   <tr>
-    <td width="100px" class="main2">WITTER:</td><td>twitter.com/AlisamTechno</td>
+    <td width="100px" class="main2"><b>WITTER:</b></td><td>twitter.com/AlisamTechno</td>
   </tr>
   <tr>
-    <td width="100px" class="main2">PLUS:</td><td>plus.google.com/+AlisamTechnology</td>
+    <td width="100px" class="main2"><b>PLUS:</b></td><td>plus.google.com/+AlisamTechnology</td>
   </tr>
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3">Description:</td>
+    <td class="main3"><b>Description:</b></td>
   </tr>
   <tr>
     <td class="main">ATSCAN <br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
@@ -40,10 +35,9 @@
     </td>
   </tr>
 </table>
-<br />
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3"> Libreries to install:</td>
+    <td class="main3"> <b>Libreries to install:</b></td>
   </tr>
   <tr>
     <td class="main">
@@ -56,7 +50,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3">Download & Executution:</td>
+    <td class="main3"><b>Download & Executution:</b></td>
   </tr>
   <tr>
     <td class="main">
@@ -73,7 +67,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3">Screenshots:</td>
+    <td class="main3"><b>Screenshots:</b></td>
   </tr>
   <tr>
     <td align="center">
@@ -86,7 +80,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3">Help:</td>
+    <td class="main3"><b>Help:</b></td>
   </tr>
   <tr>
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
@@ -239,7 +233,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3">Examples:</td>
+    <td class="main3"><b>Examples:</b></td>
   </tr>
   <tr>
     <td class="main">

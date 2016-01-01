@@ -1,3 +1,6 @@
+.gist {
+    font-size: 10px;
+}
 
 <h1 align="center">ATSCAN</h1>
 <p align="center"> <b>Search / Site / Server Scanner </b></p>

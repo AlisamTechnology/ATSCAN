@@ -9,13 +9,13 @@
 <h1 align="center">ATSCAN</h1>
 <p align="center"> <b>Search / Site / Server Scanner </b></p>
 <center><img src="http://i.imgur.com/jUt3Gn7.png" /></center>
-<table border="0" cellpadding="2" cellspacing="2" width="100%">
+<table border="0" cellpadding="2" cellspacing="2" width="885px">
   <tr>
     <td align="center" class="main3"><b>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!<b></td>
   </tr>
 </table>
 <br />
-<table border="0" cellpadding="0" cellspacing="2" width="100%">
+<table border="0" cellpadding="0" cellspacing="2" width="885px">
   <tr>
     <td width="100px" class="main2">AUTHOR:</td><td>Alisam@Technology</td>
   </tr>
@@ -34,7 +34,7 @@
 </table>
 <br />
 
-<table border="0" cellpadding="2" cellspacing="5" width="100%">
+<table border="0" cellpadding="2" cellspacing="5" width="885px">
   <tr>
     <td class="main3">Description:</td>
   </tr>
@@ -45,7 +45,7 @@
   </tr>
 </table>
 <br />
-<table border="0" cellpadding="2" cellspacing="5" width="100%">
+<table border="0" cellpadding="2" cellspacing="5" width="885px">
   <tr>
     <td class="main3"> Libreries to install:</td>
   </tr>
@@ -59,7 +59,7 @@
   </tr>
 </table>
 <br />
-<table border="0" cellpadding="2" cellspacing="5" width="100%">
+<table border="0" cellpadding="2" cellspacing="5" width="885px">
   <tr>
     <td class="main3">Download & Executution:</td>
   </tr>
@@ -77,7 +77,7 @@
   </tr>
 </table>
 <br />
-<table border="0" cellpadding="2" cellspacing="5" width="100%">
+<table border="0" cellpadding="2" cellspacing="5" width="885px">
   <tr>
     <td class="main3">Screenshots:</td>
   </tr>
@@ -91,12 +91,12 @@
   </tr>
 </table>
 <br />
-<table border="0" cellpadding="2" cellspacing="5" width="100%">
+<table border="0" cellpadding="2" cellspacing="5" width="885px">
   <tr>
     <td class="main3">Help:</td>
   </tr>
   <tr>
-    <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
+    <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="885px">
       <tr>
         <td width="100px" class="main">--tor</td>
         <td class="main">tor proxy [DEFAULT:socks://localhost:9050] Change if needed!</td>
@@ -245,7 +245,7 @@
   </tr>
 </table>
 <br />
-<table border="0" cellpadding="2" cellspacing="5" width="100%">
+<table border="0" cellpadding="2" cellspacing="5" width="885px">
   <tr>
     <td class="main3">Examples:</td>
   </tr>

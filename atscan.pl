@@ -50,7 +50,7 @@ print color 'bold cyan';
 print "     ##     ##    ##     ######   ######  ##     ## ##    ##    ";
 print color 'red';
 print "`-'--^--`-'\n";
-print "     _________________________________________________________/-------------/\n";
+print "     ______________( No monopoly for knowledge )_______________/-------------/\n";
 print color RESET;
 print "\n";
 

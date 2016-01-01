@@ -2,12 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<style>
-TD.main { font-family:Verdana, Geneva, sans-serif; font-size:12px;}
-TD.main1 { font-family:Verdana, Geneva, sans-serif; font-size:13px;}
-TD.main2 { font-family:Verdana, Geneva, sans-serif; font-size:13px; font-weight:bold;}
-TD.main3 { font-family:Verdana, Geneva, sans-serif; font-size:15px; font-weight:bold;}
-</style>
 </head>
 <body>
 <h1 align="center">ATSCAN</h1>

@@ -59,7 +59,7 @@ Execute: perl ./atscan.pl --help</br>
   </tr>
   
   <tr>
-    <td width="20%">-s</td>
+    <td width="20%">--dork</td>
     <td>Search engine</td>
   </tr>
   
@@ -205,23 +205,23 @@ Execute: perl ./atscan.pl --help</br>
   <tr>
     <td>
     <b>Simple search:                                                                                                       </b><BR/>
-    -s DORK --mp [number of page results to scan]<BR/>
-    -s [DORK1,DORK2,DORK3..] --mp [number of page results to scan]<BR/> 
-    -s [DORK.txt] --mp [number of page results to scan from list]<BR/>
+    --dork DORK --mp [number of page results to scan]<BR/>
+    --dork [DORK1,DORK2,DORK3..] --mp [number of page results to scan]<BR/> 
+    --dork [DORK.txt] --mp [number of page results to scan from list]<BR/>
     <B>Subscan from Serach Engine</B><BR/>
-    Xss: -s DORK --mp 1 --xss<BR/>
-    Xss: -s DORKS.TXT --mp 1 --xss<BR/>
-    Lfi: -s DORK --mp 1 --lfi<BR/>
+    Xss: --dork DORK --mp 1 --xss<BR/>
+    Xss: --dork DORKS.TXT --mp 1 --xss<BR/>
+    Lfi: --dork DORK --mp 1 --lfi<BR/>
     Search + Command: -s DORK --mp VALUE --command 'curl -v' --TARGET<BR/>
     <b>Validation</b><BR/>
-    Xss: -s DORK --mp 1 --xss --valid TEXT<BR/>
-    Lfi: -s DORK --mp 1 --lfi --valid TEXT<BR/>
-    Xss: -s DORK --mp 1 --xss --isup<BR/>
-    Lfi: -s DORK --mp 1 --xss --isup<BR/>
-    Xss: -s DORKS.TXT --mp 1 --xss --valid TEXT<BR/>
-    Lfi: -s DORKS.TXT --mp 1 --lfi --valid TEXT<BR/>
-    Xss: -s DORKS.TXT --mp 1 --xss --isup<BR/>
-    Lfi: -s DORKS.TXT --mp 1 --xss --isup<BR/>
+    Xss: --dork DORK --mp 1 --xss --valid TEXT<BR/>
+    Lfi: --dork DORK --mp 1 --lfi --valid TEXT<BR/>
+    Xss: --dork DORK --mp 1 --xss --isup<BR/>
+    Lfi: --dork DORK --mp 1 --xss --isup<BR/>
+    Xss: --dork DORKS.TXT --mp 1 --xss --valid TEXT<BR/>
+    Lfi: --dork DORKS.TXT --mp 1 --lfi --valid TEXT<BR/>
+    Xss: --dork DORKS.TXT --mp 1 --xss --isup<BR/>
+    Lfi: --dork DORKS.TXT --mp 1 --xss --isup<BR/>
     <b>Use List / Target</b><BR/>
     Xss: -t TARGET --xss<BR/>
     Lfi: -l TARGET --lfi<BR/>

@@ -1,10 +1,12 @@
 <html>
+<HEAD>
 <style>
-.main { font-family:Verdana, Geneva, sans-serif; font-size:12px;}
-.main1 { font-family:Verdana, Geneva, sans-serif; font-size:13px;}
-.main2 { font-family:Verdana, Geneva, sans-serif; font-size:13px; font-weight:bold;}
-.main3 { font-family:Verdana, Geneva, sans-serif; font-size:15px; font-weight:bold;}
+TD.main { font-family:Verdana, Geneva, sans-serif; font-size:12px;}
+TD.main1 { font-family:Verdana, Geneva, sans-serif; font-size:13px;}
+TD.main2 { font-family:Verdana, Geneva, sans-serif; font-size:13px; font-weight:bold;}
+TD.main3 { font-family:Verdana, Geneva, sans-serif; font-size:15px; font-weight:bold;}
 </style>
+</HEAD>
 <body>
 <h1 align="center">ATSCAN</h1>
 <p align="center"> <b>Search / Site / Server Scanner </b></p>

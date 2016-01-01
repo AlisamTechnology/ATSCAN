@@ -1,9 +1,9 @@
 <html>
 <style>
-.main { font-family:Verdana, Geneva, sans-serif; font-size:12px;}
-.main1 { font-family:Verdana, Geneva, sans-serif; font-size:13px;}
-.main2 { font-family:Verdana, Geneva, sans-serif; font-size:13px; font-weight:bold;}
-.main3 { font-family:Verdana, Geneva, sans-serif; font-size:15px; font-weight:bold;}
+main { font-family:Verdana, Geneva, sans-serif; font-size:12px;}
+main1 { font-family:Verdana, Geneva, sans-serif; font-size:13px;}
+main2 { font-family:Verdana, Geneva, sans-serif; font-size:13px; font-weight:bold;}
+main3 { font-family:Verdana, Geneva, sans-serif; font-size:15px; font-weight:bold;}
 </style>
 <body>
 <h1 align="center">ATSCAN</h1>

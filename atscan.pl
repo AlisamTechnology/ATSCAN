@@ -419,7 +419,7 @@ sub scandetail {
 
   if (defined $mpages) {
     print color 'bold yellow';
-    print "    [+] NUM PAGE RESUALTS:: ";
+    print "    [+] NUM PAGE RESULTS:: ";
     print color RESET;
     print color 'red';
     print "$mpages \n";
@@ -1026,7 +1026,7 @@ sub msearch {
   print color 'bold yellow';
   scandetail();
   print color 'bold yellow';
-  print "    [+] Random Search:: ";
+  print "    [+] RANDOM SEARCH:: ";
   print color RESET;
   print color 'red';
   print "BING [". $myrand . "]\n";
@@ -4866,14 +4866,14 @@ if($task eq "6"){
      [+]================================================================[+]
      [+]--------------               ATscanner            --------------[+]
      [+]================================================================[+]
-     [+]--------------           AlisamTechnology         --------------[+]
+     [+]--------------          Alisam Technology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]
      [+]------        https://www.youtube.com/user/aliartes       ------[+]
      [+]================================================================[+]
      [+]======================    DISCLAIMER !!!  ======================[+]
      [+]  We will not be responsible or liable, directly or indirectly  [+]
      [+]  in any way for any loss or damage of any kind incurred as     [+]
-     [+]                a result of our program use !!                 [+]
+     [+]                a result of our program use !!                  [+]
      [+]================================================================[+]
      [+]                      NO SYSTEM IS SAFE !!!                     [+]
      [+]       If you like my tool you must know that i never           [+]

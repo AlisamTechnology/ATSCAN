@@ -1,3 +1,32 @@
+// ==UserScript==
+// @name        Github font changer
+// @namespace   local.greasemonkey.githubfontchanger
+// @include     https://github.com/*
+// @version     1
+// @grant       none
+// ==/UserScript==
+
+var fontdef ="Monaco, Monospace ! important"; // Set your font here.
+
+// Function helper to inject css
+function addGlobalStyle(css) {
+    var head, style;
+    head = document.getElementsByTagName('head')[0];
+    if (!head) { return; }
+    style = document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = css;
+    head.appendChild(style);
+}
+
+// Apply the font-family definition to code styles.
+addGlobalStyle(
+  '.blob-code { font-family: ' + fontdef + '; } ' +
+  '.blob-num { font-family: ' + fontdef + '; } ' +
+  '');
+
+
+
 <h1 align="center">ATSCAN</h1>
 <p align="center"> <b>Search / Site / Server Scanner </b></p>
 <center>

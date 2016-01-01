@@ -158,6 +158,10 @@ Execute: perl ./atscan.pl --help</br>
     <td>basic mode</td>
   </tr>
   <tr>
+    <td width="20%">--select</td>
+    <td>Select mode you can set rang of ports</td>
+  </tr>
+  <tr>
     <td width="20%">--sites</td>
     <td>sites in the server</td>
   </tr>
@@ -248,9 +252,9 @@ Execute: perl ./atscan.pl --help</br>
     Scan complete tcp: -t IP --ports --all --tcp <BR/>
     Scan complete udp: -t IP --ports --all --udp <BR/>
     Scan complete tcp+udp: -t IP --ports --all --udp --tcp <BR/>
-    Scan rang tcp: -t IP --ports --start --end --tcp <BR/>
-    Scan rang udp: -t IP --ports --start --end --udp <BR/>
-    Scan rang udp + tcp: -t IP --ports --start VALUE --end VALUE --udp --tcp <BR/>
+    Scan rang tcp: -t IP --ports --select --start --end --tcp <BR/>
+    Scan rang udp: -t IP --ports --select --start --end --udp <BR/>
+    Scan rang udp + tcp: -t IP --ports --select --start VALUE --end VALUE --udp --tcp <BR/>
     <b>Encode / Decode:  </b><BR/>
     Generate MD5: -st STRING --md5  <BR/>
     Encode base64: -st STRING --encode64  <BR/>

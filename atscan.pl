@@ -131,7 +131,6 @@ my $listname;
 my $validation_text;
 my $exploit;
 my $sqlmap;
-my $sqlmaptor;
 my $mlfi;
 my $mjoomrfi;
 my $shell;
@@ -169,7 +168,6 @@ Getopt::Long::GetOptions(\my %OPT,
                         'valid=s' => \$validation_text,
                         'exp=s' => \$exploit,
                         'sqlmap' => \$sqlmap,
-                        'sqlmaptor' => \$sqlmaptor,
                         'lfi' => \$mlfi,
                         'joomrfi' => \$mjoomrfi,
                         'shell=s' => \$shell,
@@ -214,7 +212,6 @@ if (@ARGV > 0){
 			'valid',
 			'exp',
 			'sqlmap',
-			'sqlmaptor',
 			'lfi',
 			'joomrfi',
 			'shell',
@@ -245,7 +242,7 @@ if (@ARGV > 0){
 			'select',
   );
   
-  if (!exists $com{help || tor || dork || mp || xss || t || l || xss || valid || exp || sqlmap || sqlmaptor || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select}) {
+  if (!exists $com{help || tor || dork || mp || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select}) {
 	advise();
   }
 }
@@ -1005,6 +1002,18 @@ sub testconection {
     print "    [!] Check Your Connection OR Proxy Setting!\n";
     print color 'RESET';
 	exit();
+  }else{
+    print color 'bold yellow';
+    print "    [+] PROXY:: ";
+    print color RESET;
+    if ((defined $proxy) || (defined $sqlmaptor)) {
+      print color 'red';
+	  print "Yes \n";
+	}else{ 
+      print color 'red';
+      print "No \n";
+      print color RESET;
+    }
   }
 }
 ##############################################################
@@ -2926,7 +2935,6 @@ sub help {
   print "     --exp:      | exploit\n";
   print "     --command:  | Extern Command to execute\n";
   print "     --sqlmap:   | sqlmaping xss results \n";
-  print "     --sqlmaptor:| sqlmaping xss results using tor proxy\n";
   print "     --lfi:      | local file inclusion \n";
   print "     --joomrfi:  | get joomla sites with rfi in the server \n";
   print "     --shell:    | shell link [Ex: http://www.site.com/shell.txt] \n";
@@ -3067,13 +3075,11 @@ if (defined $dork) {
       if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); exit();}
     }
   }
-  
   if (defined $mlfi) {
       submsearch();
       if (!defined $validation_text) { mlistLfi(); exit();}
       if (defined $validation_text) { mlistLfi(); mlvalidation(); exit();}
       if (defined $misup) { mlistLfi();mlisup; exit();}
-
   }
   if ((defined $misup) && (defined $exploit)) {submsearch(); mlisup(); exit(); }
   if ((defined $validation_text) && (defined $exploit)) { submsearch(); mlvalidation(); exit(); }

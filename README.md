@@ -70,7 +70,7 @@
     <td class="main3"><b>Screenshots:</b></td>
   </tr>
   <tr>
-    <td align="center">
+    <td align="center" width="890px">
     <img src="http://i.imgur.com/J0fM1PB.jpg" /><br/><br/>
     <img src="http://i.imgur.com/JGBKRGw.jpg" /><br/><br/>
     <img src="http://i.imgur.com/HxdjrM8.jpg" /><br/><br/>

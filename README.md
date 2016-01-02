@@ -30,14 +30,14 @@
     <td class="main3"><b>Description:</b></td>
   </tr>
   <tr>
-    <td class="main" width="880px">ATSCAN <br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
+    <td class="main" width="890px">ATSCAN <br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
         LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.
     </td>
   </tr>
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="800px"> <b>Libreries to install:</b></td>
+    <td class="main3" width="890px"> <b>Libreries to install:</b></td>
   </tr>
   <tr>
     <td class="main">
@@ -50,7 +50,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="800px"><b>Download & Executution:</b></td>
+    <td class="main3" width="890px"><b>Download & Executution:</b></td>
   </tr>
   <tr>
     <td class="main">
@@ -80,7 +80,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="80px"><b>Help:</b></td>
+    <td class="main3" width="890px"><b>Help:</b></td>
   </tr>
   <tr>
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">

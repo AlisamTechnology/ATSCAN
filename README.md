@@ -5,12 +5,12 @@
 <center><img src="http://i.imgur.com/jUt3Gn7.png" /></center>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>
-    <td align="center" width="850px"><b>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!<b></td>
+    <td align="center"><b>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!<b></td>
   </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2"><b>AUTHOR:</b></td><td width="730px">Alisam@Technology</td>
+    <td width="100px" class="main2"><b>AUTHOR:</b></td><td width="740px">Alisam@Technology</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>FACE:</b></td><td>facebook.com/Forces.des.tempetes.marocaines </td>

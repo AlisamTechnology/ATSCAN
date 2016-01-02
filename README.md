@@ -8,7 +8,7 @@
     <td align="center" class="main3"><b>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!<b></td>
   </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="2" width="100%">
+<table border="0" cellpadding="0" cellspacing="2" width="600px">
   <tr>
     <td width="100px" class="main2"><b>AUTHOR:</b></td><td>Alisam@Technology</td>
   </tr>

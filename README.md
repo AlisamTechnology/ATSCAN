@@ -10,7 +10,7 @@
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2"><b>AUTHOR:</b></td><td>Alisam@Technology</td>
+    <td width="100px" class="main2"><b>AUTHOR:</b></td width="650px"><td>Alisam@Technology</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>FACE:</b></td><td>facebook.com/Forces.des.tempetes.marocaines </td>

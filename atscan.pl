@@ -458,17 +458,14 @@ sub scandetail {
     print color RESET;
   }
   
-  if ((defined $sqlmaptor) || (defined $sqlmap) || (defined $mjoomrfi) || (defined $mcommand) || (defined $mwpadf) || (defined $madmin) || (defined $msites) || (defined $msubdomain) || (defined $mports) || (defined $exploit)) {
+  if ((defined $sqlmap) || (defined $mjoomrfi) || (defined $mcommand) || (defined $mwpadf) || (defined $madmin) || (defined $msites) || (defined $msubdomain) || (defined $mports) || (defined $exploit)) {
     print color 'bold yellow';
     print "    [+] EXPLOITATION:: ";
     print color RESET;
     
     print color 'red';
-    if (defined $Sqlmap) {
+    if (defined $sqlmap) {
       print "Sqlmap \n";
-    }
-    if (defined $Sqlmaptor) {
-      print "Sqlmap Tor\n";
     }
     if (defined $exploit) {
       print "$exploit \n";

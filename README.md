@@ -125,10 +125,6 @@
         <td class="main">Sqlmaping xss results</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--sqlmaptor</td>
-        <td class="main">Sqlmaping xss results using tor proxy</td>
-      </tr>
-      <tr>
         <td width="200px" class="main">--lfi</td>
         <td class="main">local file inclusion</td>
       </tr>
@@ -243,6 +239,7 @@
     --dork [DORK.txt] --mp [number of page results to scan from list]<br/><br/>
     <b>Subscan from Serach Engine: </b><br/>
     Xss: --dork DORK --mp 1 --xss<br/>
+    Xss: --dork DORK --mp 1 --xss --sqlmap<br/>
     Xss: --dork DORKS.TXT --mp 1 --xss <br/>
     Lfi: --dork DORK --mp 1 --lfi<br/>
     Search + Command: --dork DORK --mp VALUE --command 'curl -v' --TARGET<br/><br/>
@@ -253,6 +250,7 @@
     Lfi: --dork DORK --mp 1 --xss --isup <br/>
     Xss: --dork DORKS.TXT --mp 1 --xss --valid TEXT <br/>
     Lfi: --dork DORKS.TXT --mp 1 --lfi --valid TEXT <br/>
+    Xss: --dork DORKS.TXT --mp 1 --xss --sqlmap <br/>
     Xss: --dork DORKS.TXT --mp 1 --xss --isup <br/>
     Lfi: --dork DORKS.TXT --mp 1 --xss --isup <br/><br/>
     <b>Use List / Target: </b><br/>

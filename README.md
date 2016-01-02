@@ -13,7 +13,7 @@
     <td width="100px" class="main2"><b>AUTHOR:</b></td><td>Alisam@Technology</td>
   </tr>
   <tr>
-    <td width="100px" class="main2"><b>FACE:</b></td><td>facebook.com/Forces.des.tempetes.marocaines &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td width="100px" class="main2"><b>FACE:</b></td><td>facebook.com/Forces.des.tempetes.marocaines </td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>YOUTUBE:</b></td><td>youtube.com/c/AlisamTechnology</td>
@@ -31,7 +31,7 @@
   </tr>
   <tr>
     <td class="main">ATSCAN <br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
-        LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64. <br />This this my first script im sure is full with bugs!! 
+        LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64. <br />This this my first script im sure is full with bugs!! Any help will be well apreciated. Enjoy..!!
     </td>
   </tr>
 </table>

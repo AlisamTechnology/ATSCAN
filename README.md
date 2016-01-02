@@ -85,147 +85,147 @@
   <tr>
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
       <tr>
-        <td width="100px" class="main">--tor</td>
+        <td width="200px" class="main">--tor</td>
         <td class="main">tor proxy [DEFAULT:socks://localhost:9050] Change if needed!</td>
       </tr>
       <tr>
-         <td width="100px" class="main">--dork</td>
+         <td width="200px" class="main">--dork</td>
         <td class="main">Search engine</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--mp</td>
+        <td width="200px" class="main">--mp</td>
         <td class="main">set number of page results to scan</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--xss</td>
+        <td width="200px" class="main">--xss</td>
         <td class="main">Xss scan</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--lfi</td>
+        <td width="200px" class="main">--lfi</td>
         <td class="main">lfi scan</td>
       </tr>
       <tr>
-        <td width="100px" class="main">-t</td>
+        <td width="200px" class="main">-t</td>
         <td class="main">Target</td>
       </tr>
       <tr>
-        <td width="100px" class="main">-l</td>
+        <td width="200px" class="main">-l</td>
         <td class="main">List name</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--exp</td>
+        <td width="200px" class="main">--exp</td>
         <td class="main">Set exploit</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--valid</td>
+        <td width="200px" class="main">--valid</td>
         <td class="main">Text for validate results</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--sqlmap</td>
+        <td width="200px" class="main">--sqlmap</td>
         <td class="main">Sqlmaping xss results</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--sqlmaptor</td>
+        <td width="200px" class="main">--sqlmaptor</td>
         <td class="main">Sqlmaping xss results using tor proxy</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--lfi</td>
+        <td width="200px" class="main">--lfi</td>
         <td class="main">local file inclusion</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--joomrfi</td>
+        <td width="200px" class="main">--joomrfi</td>
         <td class="main">get joomla sites with rfi in the server</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--shell</td>
+        <td width="200px" class="main">--shell</td>
         <td class="main">shell link [Ex: http://www.site.com/shell.txt]</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--wpadf</td>
+        <td width="200px" class="main">--wpadf</td>
         <td class="main">get wordpress sites with arbitery file download in the server</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--admin</td>
+        <td width="200px" class="main">--admin</td>
         <td class="main">get site admin page</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--shost</td>
+        <td width="200px" class="main">--shost</td>
         <td class="main">get site subdomains</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--ports</td>
+        <td width="200px" class="main">--ports</td>
         <td class="main">scan server ports</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--start</td>
+        <td width="200px" class="main">--start</td>
         <td class="main">start scan port</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--end</td>
+        <td width="200px" class="main">--end</td>
         <td class="main">end scan port</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--tcp</td>
+        <td width="200px" class="main">--tcp</td>
         <td class="main">tcp ports</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--udp</td>
+        <td width="200px" class="main">--udp</td>
         <td class="main">udp ports</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--all</td>
+        <td width="200px" class="main">--all</td>
         <td class="main">complete mode</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--basic</td>
+        <td width="200px" class="main">--basic</td>
         <td class="main">basic mode</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--select</td>
+        <td width="200px" class="main">--select</td>
         <td class="main">Select mode you can set rang of ports</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--sites</td>
+        <td width="200px" class="main">--sites</td>
         <td class="main">sites in the server</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--wp</td>
+        <td width="200px" class="main">--wp</td>
         <td class="main">wordpress sites in the server</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--joom</td>
+        <td width="200px" class="main">--joom</td>
         <td class="main">joomla sites in the server</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--upload</td>
+        <td width="200px" class="main">--upload</td>
         <td class="main">get sites with upload files in the server</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--zip</td>
+        <td width="200px" class="main">--zip</td>
         <td class="main">get sites with zip files in the server</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--st</td>
+        <td width="200px" class="main">--st</td>
         <td class="main">string</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--md5</td>
+        <td width="200px" class="main">--md5</td>
         <td class="main">convert to md5</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--encode64</td>
+        <td width="200px" class="main">--encode64</td>
         <td class="main">encode base64 string</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--decode64</td>
+        <td width="200px" class="main">--decode64</td>
         <td class="main">decode base64 string</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--isup</td>
+        <td width="200px" class="main">--isup</td>
         <td class="main">check http status 200</td>
       </tr>
       <tr>
-        <td width="100px" class="main">--httpd</td>
+        <td width="200px" class="main">--httpd</td>
         <td class="main">print site httpd version</td>
       </tr>
     </table></td>

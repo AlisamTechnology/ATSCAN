@@ -96,7 +96,7 @@
         <td class="main">Search engine</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--mp</td>
+        <td width="200px" class="main">--level</td>
         <td class="main">set number of page results to scan</td>
       </tr>
       <tr>
@@ -237,25 +237,25 @@
   <tr>
     <td class="main">
     <b>Simple search: </b><br/>
-    --dork DORK --mp [number of page results to scan]<br/>
-    --dork [DORK1,DORK2,DORK3..] --mp [number of page results to scan]<br/>
-    --dork [DORK.txt] --mp [number of page results to scan from list]<br/><br/>
+    --dork DORK --level [Scan level more big more results]<br/>
+    --dork [DORK1,DORK2,DORK3..] --level [ex:100]<br/>
+    --dork [DORK.txt] --level [Scan level ex: 50]<br/><br/>
     <b>Subscan from Serach Engine: </b><br/>
-    Xss: --dork DORK --mp 1 --xss<br/>
-    Xss: --dork DORK --mp 1 --xss --sqlmap<br/>
-    Xss: --dork DORKS.TXT --mp 1 --xss <br/>
-    Lfi: --dork DORK --mp 1 --lfi<br/>
-    Search + Command: --dork DORK --mp VALUE --command 'curl -v' --TARGET<br/><br/>
+    Xss: --dork DORK --level 50 --xss<br/>
+    Xss: --dork DORK --level 50 --xss --sqlmap<br/>
+    Xss: --dork DORKS.TXT --level 50 --xss <br/>
+    Lfi: --dork DORK --level 50 --lfi<br/>
+    Search + Command: --dork DORK --level VALUE --command 'curl -v' --TARGET<br/><br/>
     <b>Validation: </b><br/>
-    Xss: --dork DORK --mp 1 --xss --valid TEXT <br/>
-    Lfi: --dork DORK --mp 1 --lfi --valid TEXT <br/>
-    Xss: --dork DORK --mp 1 --xss --isup <br/>
-    Lfi: --dork DORK --mp 1 --xss --isup <br/>
-    Xss: --dork DORKS.TXT --mp 1 --xss --valid TEXT <br/>
-    Lfi: --dork DORKS.TXT --mp 1 --lfi --valid TEXT <br/>
-    Xss: --dork DORKS.TXT --mp 1 --xss --sqlmap <br/>
-    Xss: --dork DORKS.TXT --mp 1 --xss --isup <br/>
-    Lfi: --dork DORKS.TXT --mp 1 --xss --isup <br/><br/>
+    Xss: --dork DORK --level 50 --xss --valid TEXT <br/>
+    Lfi: --dork DORK --level 50 --lfi --valid TEXT <br/>
+    Xss: --dork DORK --level 50 --xss --isup <br/>
+    Lfi: --dork DORK --level 50 --xss --isup <br/>
+    Xss: --dork DORKS.TXT --level 50 --xss --valid TEXT <br/>
+    Lfi: --dork DORKS.TXT --level 50 --lfi --valid TEXT <br/>
+    Xss: --dork DORKS.TXT --level 50 --xss --sqlmap <br/>
+    Xss: --dork DORKS.TXT --level 50 --xss --isup <br/>
+    Lfi: --dork DORKS.TXT --level 50 --xss --isup <br/><br/>
     <b>Use List / Target: </b><br/>
     Xss: -t TARGET --xss <br/>
     Lfi: -l TARGET --lfi <br/>
@@ -267,14 +267,14 @@
     Find subdomains: -t TARGET --shost  <br/><br/>
     
     <b>Server: </b>  <br/>
-    Get Server sites: -t IP --mp [VALUE] --sites   <br/>
-    Get Server sites: -t IP.txt --mp [VALUE] --sites   <br/>
-    Get Server wordpress sites: -t IP --mp [VALUE] --wp   <br/>
-    Get Server joomla sites: -t IP --mp [VALUE] --joom   <br/>
-    Get Server upload sites: -t IP --mp [VALUE] --upload   <br/>
-    Get Server zip sites files: -t IP --mp [VALUE] --zip   <br/>
-    WP Arbitry File Download: -t IP --mp [VALUE] --wpadf   <br/>
-    Joomla RFI: -t IP --mp <1> --joomfri --shell SHELL LINK   <br/>
+    Get Server sites: -t IP --level [VALUE] --sites   <br/>
+    Get Server sites: -t IP.txt --level [VALUE] --sites   <br/>
+    Get Server wordpress sites: -t IP --level [VALUE] --wp   <br/>
+    Get Server joomla sites: -t IP --level [VALUE] --joom   <br/>
+    Get Server upload sites: -t IP --level [VALUE] --upload   <br/>
+    Get Server zip sites files: -t IP --level [VALUE] --zip   <br/>
+    WP Arbitry File Download: -t IP --level [VALUE] --wpadf   <br/>
+    Joomla RFI: -t IP --level <100> --joomfri --shell SHELL LINK   <br/>
     Scan basic tcp (quick): -t IP --ports --basic --tcp   <br/>
     Scan basic udp basic (quick): -t IP --ports --basic --udp   <br/>
     Scan basic udp+tcp: -t IP --ports --basic --udp --tcp   <br/>

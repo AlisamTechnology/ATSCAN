@@ -1241,7 +1241,7 @@ sub msearch {
   open (FILE, "dorks.txt");
   while (my $dork = <FILE>) {
     print color 'bold';
-	if ((!defined $exploit) || ((!defined $replaceme) && (!defined $withme))) {
+	if ((!defined $exploit) && (!defined $replaceme) && (!defined $withme)  && (!defined $validation_text) && (!defined $misup)) {
       print "[+] DORK:: $dork \n";
       print color RESET;
 	}

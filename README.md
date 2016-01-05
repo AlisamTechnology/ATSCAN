@@ -71,7 +71,7 @@
   </tr>
   <tr>
     <img src="<td align="center" width="890px">
-    <img src="http://imgur.com/cydQiB9" /><br/><br/>
+    <img src="http://imgur.com/cydQiB9.jpg" /><br/><br/>
     <img src="http://i.imgur.com/4cqbGNW.jpg" /><br/><br/>
     <img src="http://i.imgur.com/c7ePRIq.jpg" /><br/><br/>
     <img src="http://i.imgur.com/GlsitTn.jpg" /><br/><br/>

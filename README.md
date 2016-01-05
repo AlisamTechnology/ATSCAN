@@ -97,7 +97,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--level</td>
-        <td class="main">set number of page results to scan</td>
+        <td class="main">set scan level (more hight more sersults)</td>
       </tr>
       <tr>
         <td width="200px" class="main">--xss</td>

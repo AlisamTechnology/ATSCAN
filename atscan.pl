@@ -123,6 +123,8 @@ sub ZIP {@ZIP = ("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip"
 use Getopt::Long ();
 my $proxy;
 my $help;
+my $replaceme;
+my $withme;
 my $dork;
 my $mlevel;
 my $mxss;
@@ -196,6 +198,8 @@ Getopt::Long::GetOptions(\my %OPT,
 						'TARGET' => \$mtarget,
 						'isup' => \$misup,
 						'about' => \$mabout,
+						'replaceme=s' => \$replaceme,
+						'withme=s' => \$withme,
 ) or advise();
 
 if (@ARGV > 0){
@@ -240,9 +244,11 @@ if (@ARGV > 0){
 			'isup',
 			'about',
 			'select',
+			'replaceme',
+			'withme',
   );
   
-  if (!exists $com{help || tor || dork || level || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select}) {
+  if (!exists $com{help || tor || dork || level || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select || replaceme || withme}) {
 	advise();
   }
 }
@@ -330,6 +336,14 @@ sub dorklist {
 	}  
   }	
 }
+
+sub replacement {
+  my $replaceme = $replaceme;
+  my $withme = $withme;
+  my $URL = $URL;
+  $URL=~s/$replaceme/$withme/g;
+}
+
 
 sub pro {
   print "[+]======================================\n";
@@ -470,9 +484,8 @@ sub scandetail {
     print "$exploit \n";
     print color RESET;
   }
-
   
-  if ((defined $sqlmap) || (defined $mjoomrfi) || (defined $mjoomsites) || (defined $mwpsites) || (defined $mcommand) || (defined $mwpadf) || (defined $madmin) || (defined $msites) || (defined $msubdomain) || (defined $mports)) {
+  if ((defined $sqlmap) || (defined $mjoomrfi) || (defined $mjoomsites) || (defined $mwpsites) || (defined $mcommand) || (defined $mwpadf) || (defined $madmin) || (defined $msites) || (defined $msubdomain) || (defined $mports) || ((defined $replaceme) && (defined $withme))) {
   
   if (defined $mwpsites) {
     print color 'bold yellow';
@@ -490,6 +503,9 @@ sub scandetail {
     if (defined $sqlmap) {
       print "Sqlmap \n";
     }
+    if ((defined $replaceme) && (defined $withme)) {
+      print "$replaceme To $withme \n";
+	}	
     if (defined $mjoomrfi) {
       print "Rfi Joomla \n";
     }
@@ -902,26 +918,48 @@ sub mlisup {
   listchekisup();
   mlistname();
   mexploit();
-  infocountargets();
-  forwait();
+  countargets();
   open (TEXT, $listname);
-  while (my $Target = <TEXT>) { 
-    chomp $Target;
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print "[+] Checking $Target\n";
-    my $URL = $Target.$exploit;
+  while (my $URL = <TEXT>) { 
+    chomp $URL;
+    if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+	
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$URL \n";
+	
+	print color 'bold yellow';
+	print "[!] VULN: ";
+	print color RESET;
+
+    my $URL = $URL;
     $URL =~ s/ //g;
     $useragent = LWP::UserAgent->new;
     $resp = $useragent->head($URL);
-    if (head($URL)) {
+    if ((head($URL)) && ($resp !~ not found)) {
       print color 'green';
       print "[+] $URL\n";
       print color RESET;
-
-	  open (INFO, '>>Validated_Scan.txt');
-      print INFO "$URL\n";
-	  close (INFO);
-    }	
+	  
+      use Socket;
+      my $URL=$URL;	 
+      $URL =~ s/\/.*//s;
+      $ip = gethostbyname($URL);
+      if ($ip) {
+        printf "%s", "IP: ".inet_ntoa($ip);
+        undef $ip;
+        print "\n";
+	  }
+    }else{
+      print color 'red';
+      print "[+] Not Vulnerable! \n";
+      print color RESET;
+	}
+	open (INFO, '>>Validated_Scan.txt');
+    print INFO "$URL\n";
+	close (INFO);
+    print "[ ]............................................................................ \n";
   }
   finisup();
 }
@@ -931,19 +969,44 @@ sub mtisup {
   Target();
   mexploit();
   forwait();
-  my $URL = $Target.$exploit;
+  my $URL = $Target;
   $URL =~ s/ //g;
+  
+  print color 'bold yellow';
+  print "[!] TARGET: ";
+  print color RESET;
+  print "$URL \n";
+	
+  print color 'bold yellow';
+  print "[!] VULN: ";
+  print color RESET;
+  
   $useragent = LWP::UserAgent->new;
   $resp = $useragent->head($URL);
-  if (head($URL)) {
+  if ((head($URL)) && ($resp !~ not found)) {
     print color 'green';
     print "[+] $URL\n";
     print color RESET;
 
-    open (INFO, '>>Validated_Scan.txt');
-    print INFO "$URL\n";
-    close (INFO);
-  }	
+    use Socket;
+    my $URL=$URL;	 
+    $URL =~ s/\/.*//s;
+    $ip = gethostbyname($URL);
+    if ($ip) {
+      printf "%s", "IP: ".inet_ntoa($ip);
+      undef $ip;
+      print "\n";
+	}
+  }else{
+    print color 'red';
+    print "[+] Not Vulnerable! \n";
+    print color RESET;
+  }
+
+  open (INFO, '>>Validated_Scan.txt');
+  print INFO "$URL\n";
+  close (INFO);
+  print "[ ]............................................................................ \n";
   finisup();
 }
 
@@ -975,13 +1038,21 @@ sub mlvalidation {
   mexploit();
   countargets();
   open (TEXT, $listname);
-  while (my $Target = <TEXT>) { 
-    chomp $Target;
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-    print "[+] Checking $Target\n";
-    my $URL = $Target.$exploit;
+  while (my $URL= <TEXT>) { 
+    chomp $URL;
+    if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+	
+    print color 'bold yellow';
+    print "[!] TARGET: ";
+    print color RESET;
+    print "$URL \n";
+	
+    print color 'bold yellow';
+    print "[!] VULN: ";
+    print color RESET;
+	
+    my $URL = $URL;
     $URL =~ s/ //g;
-			
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
     my $html = $response->content;
@@ -989,11 +1060,26 @@ sub mlvalidation {
       print color 'green';
       print "[+] $URL\n";
       print color RESET;
+	  
+      use Socket;
+      my $URL=$URL;	 
+      $URL =~ s/\/.*//s;
+      $ip = gethostbyname($URL);
+      if ($ip) {
+        printf "%s", "IP: ".inet_ntoa($ip);
+        undef $ip;
+        print "\n";
+	  }
 
 	  open (INFO, '>>Validated_Scan.txt');
       print INFO "$URL\n";
 	  close (INFO);
-    }	
+    }else{
+      print color 'bold yellow';
+      print "[!] Not Vulnerable! \n";
+      print color RESET;
+	}
+	print "[ ]............................................................................ \n";
   }
   finvalidation();
 }
@@ -1003,7 +1089,17 @@ sub mtvalidation {
   Target();
   mexploit();
   forwait();
-  my $URL = $Target.$exploit;
+  
+  print color 'bold yellow';
+  print "[!] TARGET: ";
+  print color RESET;
+  print "$URL \n";
+	
+  print color 'bold yellow';
+  print "[!] VULN: ";
+  print color RESET;
+
+  my $URL = $Target;
   $URL =~ s/ //g;
   $request = HTTP::Request->new('GET', $URL);
   $response = $ua->request($request);
@@ -1012,11 +1108,26 @@ sub mtvalidation {
     print color 'green';
     print "[+] $URL\n";
     print color RESET;
+	
+    use Socket;
+    my $URL=$URL;	 
+    $URL =~ s/\/.*//s;
+    $ip = gethostbyname($URL);
+    if ($ip) {
+      printf "%s", "IP: ".inet_ntoa($ip);
+      undef $ip;
+      print "\n";
+	}
 
     open (INFO, '>>Validated_Scan.txt');
     print INFO "$URL\n";
     close (INFO);
-  }	
+  }else{
+    print color 'bold yellow';
+    print "[!] Not Vulnerable! \n";
+    print color RESET;
+  }
+  print "[ ]............................................................................ \n";
   finvalidation();
 } 
 
@@ -1090,6 +1201,7 @@ sub testconection {
     }
   }
 }
+
 ##############################################################
 
 sub submsearch {
@@ -1129,8 +1241,10 @@ sub msearch {
   open (FILE, "dorks.txt");
   while (my $dork = <FILE>) {
     print color 'bold';
-    print "[+] DORK:: $dork \n";
-    print color RESET;
+	if ((!defined $exploit) || ((!defined $replaceme) && (!defined $withme))) {
+      print "[+] DORK:: $dork \n";
+      print color RESET;
+	}
 	sleep(1);
 	
 	my $mlevel = $mlevel;
@@ -1145,20 +1259,26 @@ sub msearch {
         my $Res=$search->content;
         while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
           if($1 !~ /msn|live|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed/){
-             my $site=$1;
-            $site=~s/&(.*)/\ /g;
-			#if ((defined $exploit) && ((defined $misup) || (defined $validation_text))) {
-			  #$site =~ s/\/.*//s;
-			#}
-			if (!defined $mxss){
+            my $URL=$1;
+            $URL=~s/&(.*)/\ /g;
+			
+			if (defined $replaceme){
+			  $URL =~ s/\/.*//s;
+			  $URL = $URL.$withme;
+			}
+			if ((defined $exploit) && ((defined $misup) || (defined $validation_text))) {
+			  $URL =~ s/\/.*//s;
+			}
+
+			if ((!defined $mxss) && (!defined $misup) && (!defined $validation_text)){
 			  print color 'bold yellow';
 			  print "[!] TARGET: ";
 	          print color RESET;
 	          print color 'green';
-              print "[+] http://$site \n";
+              print "[+] http://$URL \n";
 	          print color RESET;
 		   
-              my $URL = $site;
+              my $URL = $URL;
               $request = HTTP::Request->new('GET', $URL);
               $response = $ua->request($request);
 			  print color 'bold yellow';
@@ -1167,7 +1287,7 @@ sub msearch {
               if($response = RC_OK){
                 print "HTTP/1.1 200 OK  ";
                 use Socket;
-                my $URL=$site;	 
+                my $URL=$URL;	 
                 $URL =~ s/\/.*//s;
                 $ip = gethostbyname($URL);
                 if ($ip) {
@@ -1179,18 +1299,17 @@ sub msearch {
                 }
               }  
 	          if (defined $mhttpd) {
-                $Target=$site;	 
+                $Target=$URL;	 
                 $Target =~ s/\/.*//s;
 		        mhttpd();
               }
-			  
-		  	  print "[ ]............................................................................ \n";
-			  
-			}  
+		  	print "[ ]............................................................................ \n";
+			}
+			
             open (TEXT, '>>Search_Scan.txt');
-            print TEXT "http://$site\n";
+            print TEXT "http://$URL\n";
             close (TEXT);
-			  
+			
 			my $file = 'Search_Scan.txt';
             my %seen = ();
             {
@@ -1244,6 +1363,7 @@ sub msearch {
     print "[+] No Results Found!\n";
     print color RESET;
   }
+
   if ((defined $mxss) || (defined $mlfi) || (defined $command) || (defined $misup) || (defined $validation_text) || (defined $sqlmap) || (defined $sqlmaptor)) {
   }else{
     print color 'red';
@@ -3639,8 +3759,8 @@ if (defined $dork) {
 	exit();
   }
 }
-   
-if (defined $dork) {
+
+if (defined $dork){
   if (defined $mxss) {
     if ((!defined $exploit) && ((defined $misup) || (defined $validation_text))) {
       print color 'yellow';
@@ -3671,6 +3791,7 @@ if (defined $dork) {
       if (defined $validation_text) { mlistLfi(); mlvalidation(); exit();}
       if (defined $misup) { mlistLfi();mlisup; exit();}
   }
+  if ((defined $misup) && (defined $replaceme)) {submsearch(); mlisup(); exit(); }
   if ((defined $misup) && (defined $exploit)) {submsearch(); mlisup(); exit(); }
   if ((defined $validation_text) && (defined $exploit)) { submsearch(); mlvalidation(); exit(); }
   if (defined $validation_text) { submsearch(); mlvalidation(); exit(); }

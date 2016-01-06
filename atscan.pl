@@ -4266,6 +4266,9 @@ if (defined $checkversion) {
 #######################################################
 sleep (1);
 TASKS:;
+print color 'bold';
+print "[ ] ---------------------------------------------------------------------------\n";
+print color RESET;
 print color 'bold magenta';
 print "[..][+] PRINCIPAL MENU \n";
 print color 'magenta', RESET;

@@ -257,11 +257,11 @@
     Xss: --dork DORK --level 50 --xss --sqlmap<br/>
     Xss: --dork DORKS.TXT --level 50 --xss <br/>
     Lfi: --dork DORK --level 50 --lfi<br/>
-    Search + Command:<br/><br/>
-      --dork DORK --level VALUE --command 'curl -v' --TARGET<br/><br/>
-      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2<br/><br/>
-      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2 --isup<br/><br/>
-      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2 --valid <txt><br/><br/>
+    Search + Command:<br/>
+      --dork DORK --level VALUE --command 'curl -v' --TARGET<br/>
+      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2<br/>
+      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2 --isup<br/>
+      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2 --valid <txt><br/>
     <b>Validation: </b><br/>
     Xss: --dork DORK --level 50 --xss --valid TEXT <br/>
     Lfi: --dork DORK --level 50 --lfi --valid TEXT <br/>

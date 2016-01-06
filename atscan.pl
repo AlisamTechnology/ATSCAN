@@ -1190,7 +1190,10 @@ sub checkversion {
 	chomp $existantversion;
 	if ($gitversion !~ m/$existantversion/i) {
 	  print color 'red';
-	  print "$existantversion Update Needed! please update to$gitversion!\n";
+	  print "$existantversion Update Needed! please update to";
+	  print color RESET;
+	  print color 'green';
+	  print "version $gitversion!\n";
 	  print color RESET;
 	}else{
 	  print color 'green';
@@ -3689,6 +3692,11 @@ sub help {
   print "     --decode64: | decode base64 string \n";
   print "     --isup:     | check http status 200. \n";
   print "     --httpd:    | print site httpd version \n\n";
+ 
+  print "     --update:   | check tool version \n\n";
+  print "     --replaceme:| string to replace \n\n";
+  print "     --withme:   | string to replace with \n\n";
+
   print color 'bold yellow';
   print "[..] EXAMPLES: \n\n";
   print color RESET;
@@ -3705,9 +3713,11 @@ sub help {
   print color 'bold';
   print "     Subscan from Serach Engine: \n";
   print color RESET;
-  print "       Xss: --dork <dork/dork.txt> --level <1> --xss \n";
-  print "       Lfi: --dork <dork/dork.txt> --level <1> --lfi \n";
-  print "       Search + Command: --dork <dork/dork.txt> --level <value> --command 'curl -v' --TARGET \n";
+  print "       --dork <dork/dork.txt> --level <1> --xss \n";
+  print "       --dork <dork/dork.txt> --level <1> --lfi \n";
+  print "       --dork <dork/dork.txt> --level <value> --replaceme <string> --withme <string>\n";
+  print "       --dork <dork/dork.txt> --level <value> --replaceme <string> --withme <string> --isup\n";
+  print "       --dork <dork/dork.txt> --level <value> --replaceme <string> --withme <string> --valid <txt>\n";
   print color 'bold';
   print "     Validation: \n";
   print color RESET;

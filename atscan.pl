@@ -5309,7 +5309,6 @@ if($task eq "3"){
   }
 ##END ($IDS==3)
 #########
-#########
 ##BEG ($IDS==4) #JOOMLA SITES
   if ($IDS==4) {
     $listcheck2 = "Server_sites_Scan.txt";

@@ -285,7 +285,7 @@ sub osinfo {
   print "[+] TOOL:: ";
   print color RESET;
   print color 'red';
-  print "ATSCAN Version: ";
+  print "ATSCAN ";
   print color RESET;
   checkversion();
   print color 'bold yellow';
@@ -1166,7 +1166,7 @@ sub infocounservertargets {
   forwait();
 }
 
-sub infoinfocountargets {
+sub infocountargets {
   my $lc = 0;
   my $file = $listname;
   open my $file, "<", $listname;
@@ -1181,30 +1181,49 @@ sub infoinfocountargets {
 }
 
 sub checkversion {
-  my $url = 'http://github.com/AlisamTechnology/ATSCAN/blob/master/version.log';
-  my $content = get $url;
-  ($gitversion)= ($content =~ /version(.*)Stable/);
-
-  open (TEXT, 'version.log');
-  while (my $existantversion = <TEXT>) { 
-	chomp $existantversion;
-	if ($gitversion !~ m/$existantversion/i) {
-	  print color 'red';
-	  print "$existantversion Update Needed! please update to";
-	  print color RESET;
-	  print color 'green';
-	  print "version $gitversion!\n";
-	  print color RESET;
-	}else{
-	  print color 'green';
-	  print "OK!$gitversion is the last version!\n";
-	  print color RESET;
+  $versionck = "version.log";
+  if (-e $versionck) {
+  
+    my $URL = "http://www.google.com";
+    $request = HTTP::Request->new('GET', $URL);
+    $response = $ua->request($request);
+	
+    if ($response->is_success) {
+      my $url = 'http://github.com/AlisamTechnology/ATSCAN/blob/master/version.log';
+      my $content = get $url;
+      ($gitversion)= ($content =~ /version(.*)Stable/);
+      $gitversion = "version".$gitversion."Stable";
+  
+      open (TEXT, 'version.log');
+      while (my $existantversion = <TEXT>) { 
+	    chomp $existantversion;
+	    if ($gitversion eq $existantversion) {
+	      print color 'green';
+	      print "OK!$gitversion is the last version!\n";
+	      print color RESET;
+	    }else{
+	      print color 'red';
+	      print "$existantversion Update Needed to ";
+	      print color RESET;
+	      print color 'green';
+	      print "$gitversion!\n";
+	      print color RESET;
+	    }
+	  }
+      close (TEXT);
+    }else{
+      print color 'red';
+      print "No Internet connection! Cannot check version!\n";
+      print color 'RESET';
 	}
-  }	
+  }else{
+    print color 'red';
+	print "version.log not exists cannot check version! \n";
+	print color RESET;
+  }
 }
 
 sub testconection {
-  print color 'yellow';
   my $URL = "http://www.google.com";
   $request = HTTP::Request->new('GET', $URL);
   $response = $ua->request($request);
@@ -4241,6 +4260,7 @@ if (defined $mabout) {
 }
 
 if (defined $checkversion) {
+  print "[!] ";
   checkversion();
   exit;
 }

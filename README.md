@@ -227,6 +227,18 @@
         <td width="200px" class="main">--httpd</td>
         <td class="main">print site httpd version</td>
       </tr>
+      <tr>
+        <td width="200px" class="main">--update</td>
+        <td class="main">Check for update</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--replaceme</td>
+        <td class="main">string to replace</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--withme</td>
+        <td class="main">string to replace with</td>
+      </tr>
     </table></td>
   </tr>
 </table>
@@ -292,7 +304,7 @@
     Generate MD5: -st STRING --md5 <br/>
     Encode base64: -st STRING --encode64  <br/> 
     Decode base64: -st STRING --decode64 <br/><br/>
-    <b>Update: </b>  <br/>
+    <b>Check for update: </b>  <br/>
       --update
     </td>
   </tr>

@@ -1182,8 +1182,11 @@ sub infocountargets {
 
 sub checkversion {
   $versionck = "version.log";
-  if (-e $versionck) {
-  
+  if (!-e $versionck) {
+    print color 'red';
+	print "version.log not exists cannot check version! \n";
+	print color RESET;
+  }else{
     my $URL = "http://www.google.com";
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
@@ -1216,10 +1219,6 @@ sub checkversion {
       print "No Internet connection! Cannot check version!\n";
       print color 'RESET';
 	}
-  }else{
-    print color 'red';
-	print "version.log not exists cannot check version! \n";
-	print color RESET;
   }
 }
 
@@ -5308,6 +5307,7 @@ if($task eq "3"){
     }
   }
 ##END ($IDS==3)
+#########
 #########
 ##BEG ($IDS==4) #JOOMLA SITES
   if ($IDS==4) {

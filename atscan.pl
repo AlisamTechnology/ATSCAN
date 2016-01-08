@@ -1314,12 +1314,14 @@ sub msearch {
   print color 'red';
   print "BING [bing.". $myrand . "]\n";
   print color RESET;
-  print color 'bold yellow';
-  print "[+] DORK:: ";
-  print color RESET;
-  print color 'red';
-  print "$dork \n";
-  print color RESET;
+  if (defined $dork){
+    print color 'bold yellow';
+    print "[+] DORK:: ";
+    print color RESET;
+    print color 'red';
+    print "$dork \n";
+    print color RESET;
+  }
   print color 'bold';
   print "[ ] ---------------------------------------------------------------------------\n";
   print color RESET;
@@ -1444,8 +1446,9 @@ sub msearch {
     }
     open my $file, "<", "Search_Scan.txt";
     $lc++ while <$file>;
-	print color 'yellow';
+
 	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $musbdomain)) {
+	  print color 'yellow';
 	  print "[!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
@@ -1453,13 +1456,12 @@ sub msearch {
       print color 'yellow';
       print "[!] Results saved in $Bin/Search_Scan.txt\n";
       print color RESET;
-	} 
-  }else{
-    print color 'yellow';
-    print "[+] No Results Found!\n";
-    print color RESET;
-  }
-
+    }else{
+      print color 'yellow';
+      print "[+] No Results Found!\n";
+      print color RESET;
+    }
+  } 
   if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $msubdomain) || (defined $command) || (defined $misup) || (defined $validation_text) || (defined $sqlmap)) {
   }else{
     print color 'red';
@@ -1476,9 +1478,6 @@ sub mLXss  {
   listchekxss();
   XSS();
   mlistname();
-  if (!defined $dork) {
-    scandetail();
-  }
   countargets();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
@@ -1817,9 +1816,6 @@ sub mlistLfi {
   listcheklfi();
   LFI();
   mlistname();
-  if (!defined $dork) {
-    scandetail();
-  }
   countargets();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
@@ -3988,45 +3984,50 @@ if (defined $dork) {
 if ((defined $dork) && ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $command) && (!defined $validation_text))){
   submsearch();
   exit();
-}
-if ((defined $dork) && (defined $madmin)){
+}else{
   submsearch();
-  mladmin(); exit();
-}
-if ((defined $dork) && ((defined $misup) && (defined $exploit))){
-  submsearch();
-  mlisup(); exit();
-}
-if ((defined $dork) && (defined $validation_text)){
-  submsearch();
+  if (defined $madmin) {
+    mladmin(); exit();
+  }
+  if (defined $msubdomain) {
+    mlsubdomain(); exit();
+  }
+  if ((defined $misup) && (defined $exploit)) {
+    mlisup(); exit();
+  }
+  if (defined $validation_text) {
     mlvalidation(); exit();
   }
-if ((defined $dork) && (defined $mxss)){
-  submsearch();
-  if (defined $sqlmap) {
-     if (defined $proxy) {
-	   mLXss(); sqlmaptor(); exit();
-	 }else{
-	   mLXss(); sqlmap(); exit();
-	 }
-   }else{
-     mLXss(); exit();
+  if (defined $mxss) {
+    if (defined $sqlmap) {
+      if (defined $proxy) {
+	    mLXss(); sqlmaptor(); exit();
+	  }else{
+	    mLXss(); sqlmap(); exit();
+	  }
+    }else{
+      mLXss(); exit();
+	}
   }
-}
-if ((defined $dork) && (defined $mlfi)){
-  submsearch();
-  mlistLfi(); exit();
-}
-if ((defined $dork) && (defined $command)){
-  if (!defined $mtarget) {
-    print color 'yellow';
-    print "[!] You have to set Target!! [Ex: --command <your command> --TARGET]\n";
-    print color 'RESET';
+  
+  if (defined $mlfi) {
+    mlistLfi(); exit();
+  }
+  
+  if ((defined $command) && (defined $dork)){
+    if (!defined $mtarget) {
+      print color 'yellow';
+      print "[!] You have to set Target!! [Ex: --command <your command> --TARGET]\n";
+      print color 'RESET';
+	  exit();
+    }
+    mcommand();
 	exit();
   }
-  submsearch();
-  mcommand();
-  exit();
+  if ((!defined $mxss) && (!defined $command)) {
+    submsearch();
+    exit();
+  }
 }
 
 if ((defined $command) && ((!defined $dork) && (!defined $mtarget))){

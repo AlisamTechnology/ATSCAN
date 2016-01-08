@@ -1487,7 +1487,7 @@ sub mLXss  {
     $request = HTTP::Request->new('GET', $Target);
     $response = $ua->request($request);
     print color 'bold yellow';
-	print "  [+] INFO: ";
+	print "  [+] INFO:   ";
     print color RESET;
     if($response = RC_OK){
       print "HTTP/1.1 200 OK  ";

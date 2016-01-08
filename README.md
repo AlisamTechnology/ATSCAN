@@ -164,14 +164,6 @@
         <td class="main">end scan port</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--tcp</td>
-        <td class="main">tcp ports</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--udp</td>
-        <td class="main">udp ports</td>
-      </tr>
-      <tr>
         <td width="200px" class="main">--all</td>
         <td class="main">complete mode</td>
       </tr>
@@ -263,22 +255,17 @@
       --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2 --isup<br/>
       --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2 --valid <txt><br/>
     <b>Validation: </b><br/>
-    Xss: --dork DORK --level 50 --xss --valid TEXT <br/>
-    Lfi: --dork DORK --level 50 --lfi --valid TEXT <br/>
-    Xss: --dork DORK --level 50 --xss --isup <br/>
-    Lfi: --dork DORK --level 50 --xss --isup <br/>
-    Xss: --dork DORKS.TXT --level 50 --xss --valid TEXT <br/>
-    Lfi: --dork DORKS.TXT --level 50 --lfi --valid TEXT <br/>
-    Xss: --dork DORKS.TXT --level 50 --xss --sqlmap <br/>
-    Xss: --dork DORKS.TXT --level 50 --xss --isup <br/>
-    Lfi: --dork DORKS.TXT --level 50 --xss --isup <br/><br/>
+    --dork DORK --level 50 --exp --valid TEXT <br/>
+    --dork DORK --level 50 --exp --isup <br/>
+    --dork DORKS.TXT --level 50 --exp --valid TEXT <br/>
+    --dork DORKS.TXT --level 50 --xss --sqlmap <br/>
+    --dork DORKS.TXT --level 50 --xss --sqlmaptor<br/>
+    --dork DORKS.TXT --level 50 --exp --isup <br/><br/>
     <b>Use List / Target: </b><br/>
     Xss: -t TARGET --xss <br/>
     Lfi: -l TARGET --lfi <br/>
-    Xss + Validation: -t TARGET --xss --valid TEXT <br/>
-    Lfi + Validation: -t TARGET --lfi --valid TEXT  <br/>
-    Xss + Validation: -l list.txt --xss --isup <br/>
-    Lfi + Validation: -l list.txt --lfi --isup  <br/>
+    Validation: -t TARGET --exp --valid TEXT <br/>
+    Validation: -l list.txt --exp --isup <br/>
     Find admin page: -t TARGET --admin  <br/>
     Find subdomains: -t TARGET --shost  <br/><br/>
     
@@ -291,15 +278,15 @@
     Get Server zip sites files: -t IP --level [VALUE] --zip   <br/>
     WP Arbitry File Download: -t IP --level [VALUE] --wpadf   <br/>
     Joomla RFI: -t IP --level <100> --joomfri --shell SHELL LINK   <br/>
-    Scan basic tcp (quick): -t IP --ports --basic --tcp   <br/>
-    Scan basic udp basic (quick): -t IP --ports --basic --udp   <br/>
-    Scan basic udp+tcp: -t IP --ports --basic --udp --tcp   <br/>
-    Scan complete tcp: -t IP --ports --all --tcp   <br/>
-    Scan complete udp: -t IP --ports --all --udp   <br/>
-    Scan complete tcp+udp: -t IP --ports --all --udp --tcp   <br/>
-    Scan rang tcp: -t IP --ports --select --start --end --tcp   <br/>
-    Scan rang udp: -t IP --ports --select --start --end --udp   <br/>
-    Scan rang udp + tcp: -t IP --ports --select --start VALUE --end VALUE --udp --tcp<br/>
+    Scan basic tcp (quick): -t IP --ports --basic tcp   <br/>
+    Scan basic udp basic (quick): -t IP --ports --basic udp   <br/>
+    Scan basic udp+tcp: -t IP --ports --basic udp+tcp   <br/>
+    Scan complete tcp: -t IP --ports --all tcp   <br/>
+    Scan complete udp: -t IP --ports --all udp   <br/>
+    Scan complete tcp+udp: -t IP --ports --all udp+tcp   <br/>
+    Scan rang tcp: -t IP --ports --select tcp --start --end    <br/>
+    Scan rang udp: -t IP --ports --select udp --start VALUE --end VALUE   <br/>
+    Scan rang udp + tcp: -t IP --ports --select udp+tcp --start VALUE --end VALUE <br/>
     <b>Encode / Decode:  </b> <br/>
     Generate MD5: -st STRING --md5 <br/>
     Encode base64: -st STRING --encode64  <br/> 

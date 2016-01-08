@@ -267,12 +267,6 @@ sub timer {
   print "$hr:$min:$sec";
   print "] ";
 }
-### set tor proxy
-if (defined $proxy) {
-  my $proxy="socks://127.0.0.1:9050";
-  $ua->proxy([qw/ http https /] => $proxy);
-  $ua->cookie_jar({});
-}
 
 sub osinfo {
   use Config;
@@ -433,7 +427,7 @@ sub scandetail {
       print "$mtarget \n";
     }
     print color RESET;
-  }
+  }  
   print color 'bold yellow';
   print "[+] PROXY:: ";
   print color RESET;
@@ -446,7 +440,6 @@ sub scandetail {
     print "No! \n";
     print color RESET;
   }
-
   if (defined $mlevel) {
     print color 'bold yellow';
     print "[+] SCAN LEVEL:: ";
@@ -455,7 +448,7 @@ sub scandetail {
     print "$mlevel \n";
     print color RESET;
   }
-  if (defined $sqlmap){
+  if ((defined $sqlmap) || (defined $sqlmaptor)){
     print color 'bold yellow';
     print "[+] EXPLOIT:: ";
     print color RESET;
@@ -1280,21 +1273,21 @@ sub checkversion {
 sub testconection {
   my $URL = "http://www.google.com";
   $request = HTTP::Request->new('GET', $URL);
-  $respons = $ua->request($request);
-  if (!$respons->is_success){
+  $response = $ua->request($request);
+  if ( !$response->is_success ) {
     print color 'red';
     print "[!] Upss.. Your Internet connection seems not active!\n";
     print "[!] Check Your Connection OR Proxy Setting!\n";
     print color 'RESET';
-    exit(); 
+	exit();
   }
 }
 
 ##############################################################
 
 sub submsearch {
-  dorklist();
   testconection();
+  dorklist();
   $mlevel = $mlevel;
   msearch();
 }
@@ -1314,14 +1307,12 @@ sub msearch {
   print color 'red';
   print "BING [bing.". $myrand . "]\n";
   print color RESET;
-  if (defined $dork){
-    print color 'bold yellow';
-    print "[+] DORK:: ";
-    print color RESET;
-    print color 'red';
-    print "$dork \n";
-    print color RESET;
-  }
+  print color 'bold yellow';
+  print "[+] DORK:: ";
+  print color RESET;
+  print color 'red';
+  print "$dork \n";
+  print color RESET;
   print color 'bold';
   print "[ ] ---------------------------------------------------------------------------\n";
   print color RESET;
@@ -1446,9 +1437,8 @@ sub msearch {
     }
     open my $file, "<", "Search_Scan.txt";
     $lc++ while <$file>;
-
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $musbdomain)) {
-	  print color 'yellow';
+	print color 'yellow';
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $sqlmaptor) && (!defined $madmin) && (!defined $musbdomain)) {
 	  print "[!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
@@ -1456,13 +1446,14 @@ sub msearch {
       print color 'yellow';
       print "[!] Results saved in $Bin/Search_Scan.txt\n";
       print color RESET;
-    }else{
-      print color 'yellow';
-      print "[+] No Results Found!\n";
-      print color RESET;
-    }
-  } 
-  if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $msubdomain) || (defined $command) || (defined $misup) || (defined $validation_text) || (defined $sqlmap)) {
+	} 
+  }else{
+    print color 'yellow';
+    print "[+] No Results Found!\n";
+    print color RESET;
+  }
+
+  if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $msubdomain) || (defined $command) || (defined $misup) || (defined $validation_text) || (defined $sqlmap) || (defined $sqlmaptor)) {
   }else{
     print color 'red';
     timer();
@@ -1475,9 +1466,13 @@ sub msearch {
 ###################################################################		
 ## bgn mLXss
 sub mLXss  {
+  testconection();
   listchekxss();
   XSS();
   mlistname();
+  if (!defined $dork) {
+    scandetail();
+  }
   countargets();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
@@ -1506,12 +1501,12 @@ sub mLXss  {
       my $html = $response->content;
 	  
 	  print color 'bold yellow';
-	  print "  [+] EXPL: ";
+	  print "  [+] EXPL:   ";
 	  print color RESET;
       print "$XSS \n";
 		
 	  print color 'bold yellow';
-	  print "  [+] VULN: ";
+	  print "  [+] VULN:   ";
 	  print color RESET;
 
 	  if($html =~ m/MySQL/i || m/error/i || m/syntax/i){
@@ -1536,6 +1531,7 @@ sub mLXss  {
 ###################################################################		
 ## bgn mtXss
 sub mtXss{
+  testconection();
   listchekxss();
   XSS();
   Target();
@@ -1591,7 +1587,7 @@ sub mtXss{
 
 ###################################################################		
 sub sqlmaptor {
-  #osinfo();
+  testconection();
   sleep(1);
   open (INFO, 'XSS_Site_Scan.txt');
   while (my $Target = <INFO>) {
@@ -1702,7 +1698,7 @@ sub sqlmaptor {
 ###################################################################		
 ##bgn sqlmap without tor 
 sub sqlmap {
-  #osinfo();
+  testconection();
   sleep(1);
   open (INFO, 'XSS_Site_Scan.txt');
   while (my $Target = <INFO>) {
@@ -1813,9 +1809,13 @@ sub sqlmap {
 
 ###################################################################		
 sub mlistLfi {
+  testconection();
   listcheklfi();
   LFI();
   mlistname();
+  if (!defined $dork) {
+    scandetail();
+  }
   countargets();
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
@@ -1872,6 +1872,7 @@ sub mlistLfi {
 
 ###################################################################		
 sub mtLfi {
+  testconection();
   listcheklfi();
   LFI();
   Target();
@@ -1967,6 +1968,7 @@ sub finlfi {
 
 ###################################################################		
 sub mljoomrfi {
+  testconection();
   listchekjoomrfi();
   RFI();
   mlistname();
@@ -2029,6 +2031,7 @@ sub mljoomrfi {
 
 ###################################################################		
 sub mtjoomrfi {
+  testconection();
   listchekjoomrfi();
   RFI();
   Target();
@@ -2124,6 +2127,7 @@ sub finjoomrfi {
 
 #################################################################      
 sub mlwprfi {
+  testconection();
   listchekwplfi();
   ADFWP();
   mlistname();
@@ -2186,6 +2190,7 @@ sub mlwprfi {
 
 #################################################################      
 sub mtwprfi {
+  testconection();
   listchekwplfi();
   ADFWP();
   Target();
@@ -2241,6 +2246,7 @@ sub mtwprfi {
 
 #################################################################      
 sub finwpadf {
+  testconection();
   $list = "WP_ADF_Scan.txt";
   if (-e $list){ 
 
@@ -2282,6 +2288,7 @@ sub finwpadf {
 
 ###################################################################		
 sub mladmin {
+  testconection();
   listchekadmin();
   ADMIN();
   mlistname();
@@ -2355,6 +2362,7 @@ sub mladmin {
 
 #################################################################      
 sub mtadmin {
+  testconection();
   listchekadmin();
   ADMIN();
   Target();
@@ -2422,6 +2430,7 @@ sub mtadmin {
 
 #################################################################      
 sub finadmin {
+  testconection();
   $list = "Admin_page.txt";
   if (-e $list){ 
 	print "\n";
@@ -2462,6 +2471,76 @@ sub finadmin {
 
 #################################################################      
 sub mlsubdomain {
+  testconection();
+  listcheksubdomain();
+  SUBDOMAIN();
+  mlistname();
+  if (!defined $dork) {
+    scandetail();
+  }
+  countargets();
+
+  open (TEXT, $listname);
+  while (my $Target = <TEXT>) {
+	chomp $Target;
+	if (index($Target, 'http://www.') != -1) {
+	  $Target =~ s/http:\/\/www.//g;
+	}
+	if (index($Target, 'www.') != -1) {
+	  $Target =~ s/www.//g;
+	}
+
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+    print "$Target\n";
+	
+    my $Target = $Target;
+    $request = HTTP::Request->new('GET', $Target);
+    $response = $ua->request($request);
+    print color 'bold yellow';
+	print "  [+] INFO:   ";
+    print color RESET;
+    if($response = RC_OK){
+      print "HTTP/1.1 200 OK \n";
+    }
+	  
+	foreach $SUBDOMAIN(@SUBDOMAIN){
+	  print color 'bold yellow';
+	  print "  [+] EXPL:   ";
+	  print color RESET;
+      print "$SUBDOMAIN \n";
+	
+      my $URL = $SUBDOMAIN.$Target;
+	  my $socket=IO::Socket::INET->new(
+      PeerAddr=>"$URL",
+      Proto=>'icmp',
+      timeout=>1);
+	  
+	  print color 'bold yellow';
+	  print "  [+] VULN:   ";
+	  print color RESET;
+	  if ($socket ne "") { 
+	    print color 'green';
+        print "$URL\n";
+	    print color RESET;
+	    open (INFO, '>>Subdomains_Scan.txt');
+        print INFO "$URL\n";
+	    close (INFO);
+	  }else{
+	    print color 'red';
+        print "Not Vulnerable! \n";
+	    print color RESET;
+	  }
+    }
+	print "[ ]............................................................................ \n";
+  }
+  finxss();
+}
+
+#################################################################      
+sub mtsubdomain {
+  testconection();
   listcheksubdomain();
   SUBDOMAIN();
   mlistname();
@@ -2527,67 +2606,6 @@ sub mlsubdomain {
   finxss();
 }
 
-#################################################################      
-sub mtsubdomain {
-  listchekadmin();
-  SUBDOMAIN();
-  Target();
-  scandetail();
-  print "[ ]............................................................................ \n";
-  
-  if (index($Target, 'http://www.') != -1) {
-	$Target =~ s/http:\/\/www.//g;
-  }
-  if (index($Target, 'www.') != -1) {
-	$Target =~ s/www.//g;
-  }
-  if($Target !~ /http:\/\//) { $Target = "$Target"; };
-  print color 'bold yellow';
-  print "[!] TARGET: ";
-  print color RESET;
-  print "$Target\n";
-  
-  my $URL1 = $Target;
-  $request = HTTP::Request->new('GET', $URL1);
-  $response = $ua->request($request);
-  print color 'bold yellow';
-  print "  [+] INFO: ";
-  print color RESET;
-  if($response = RC_OK){
-    print "HTTP/1.1 200 OK  ";
-    print "\n";
-  }  
-	foreach $SUBDOMAIN(@SUBDOMAIN){
-	  print color 'bold yellow';
-	  print "  [+] EXPL:   ";
-	  print color RESET;
-      print "$SUBDOMAIN \n";
-	
-      my $URL = $SUBDOMAIN.$Target;
-	  my $socket=IO::Socket::INET->new(
-      PeerAddr=>"$URL",
-      Proto=>'icmp',
-      timeout=>1);
-	  
-	  print color 'bold yellow';
-	  print "  [+] VULN:   ";
-	  print color RESET;
-	  if ($socket ne "") { 
-	    print color 'green';
-        print "$URL\n";
-	    print color RESET;
-	    open (INFO, '>>Subdomains_Scan.txt');
-        print INFO "$URL\n";
-	    close (INFO);
-	  }else{
-	  print color 'red';
-      print "Not Subdomain! \n";
-	  print color RESET;
-    }
-  }
-  print "[ ]............................................................................ \n";
-  finsubdomain();
-}
 
 #################################################################
 sub finsubdomain {
@@ -2658,6 +2676,7 @@ sub finports {
 
 ##################################
 sub basic {
+  testconection();
   server();
   scandetail();
   print color 'bold';
@@ -2716,6 +2735,7 @@ sub basic {
 
 ################################
 sub basic2 {
+  testconection();
   server();
   scandetail();
   print color 'bold';
@@ -2799,7 +2819,7 @@ sub basic2 {
         print "INFO:  ";
         print color RESET;
 		print color 'red';
-        print "Closed!\n\n";
+        print "Closed!\n";
         print color RESET;
 	  }
 	  $closed2=0;
@@ -2816,6 +2836,7 @@ sub basic2 {
 
 #########################################
 sub complete {
+  testconection();
   server();
   if (defined $mall){
     $type2=$mall;
@@ -2880,6 +2901,7 @@ sub complete {
 
 #####################################
 sub complete2 {
+  testconection();
   server();
   scandetail();
   print color 'bold';
@@ -2918,7 +2940,7 @@ sub complete2 {
         print "INFO:  ";
         print color RESET;
 		print color 'green';
-        print "Open\n\n";
+        print "Open\n";
         print color RESET;
 	  }else{
 	    print color 'bold yellow';
@@ -2933,7 +2955,7 @@ sub complete2 {
         print "INFO:  ";
         print color RESET;
 		print color 'red';
-        print "Closed\n\n";
+        print "Closed\n";
         print color RESET;
 	  }
 	  
@@ -2950,7 +2972,7 @@ sub complete2 {
         print "INFO:  ";
         print color RESET;
 		print color 'green';
-        print "Open\n\n";
+        print "Open\n";
         print color RESET;
 	  }else{
 	    print color 'bold yellow';
@@ -2965,7 +2987,7 @@ sub complete2 {
         print "INFO:  ";
         print color RESET;
 		print color 'red';
-        print "Closed\n\n";
+        print "Closed\n";
         print color RESET;
 	  }
     }
@@ -2984,6 +3006,7 @@ sub complete2 {
 
 #########################################
 sub subuser {
+  testconection();
   server();
   if ((!defined $mstart) || (!defined $mend)) {
     print color 'yellow';
@@ -3063,6 +3086,7 @@ sub user {
 
 ##################################
 sub user2 {
+  testconection();
   subuser();
   scandetail();
   mlistname();
@@ -3116,7 +3140,7 @@ sub user2 {
         print "INFO:  ";
         print color RESET;
 		print color 'red';
-        print "Closed!\n\n";
+        print "Closed!\n";
         print color RESET;
 	  }
 	  
@@ -3148,7 +3172,7 @@ sub user2 {
         print "INFO:  ";
         print color RESET;
 		print color 'red';
-        print "Closed!\n\n";
+        print "Closed!\n";
         print color RESET;
 	  }
     }
@@ -3166,6 +3190,7 @@ sub user2 {
 
 ##############################################################
 sub submsites {
+  testconection();
   server();
   $mlevel = $mlevel;
   msites();
@@ -3320,6 +3345,7 @@ sub msites {
 
 ###################################################################		
 sub mwpsites {
+  testconection();
   submsites();
   infocounservertargets();
 
@@ -3422,6 +3448,7 @@ sub mwpsites {
 
 ###################################################################		
 sub mjoomsites {
+  testconection();
   submsites();
   infocounservertargets();
 
@@ -3524,6 +3551,7 @@ sub mjoomsites {
 
 ###################################################################		
 sub muploadsites {
+  testconection();
   submsites();
   UPLOAD();
   infocounservertargets();
@@ -3632,6 +3660,7 @@ sub muploadsites {
 
 ###################################################################		
 sub mzipsites {
+  testconection();
   ZIP();
   infocounservertargets();
 
@@ -3711,6 +3740,7 @@ sub mzipsites {
         next if $seen{$_} > 1;
         print;
         close (TEXT);
+
 	    unlink "Zip_server_files_Scan.txt.bac";
 	    unlink "Server_sites_Scan.txt";
 	  }
@@ -3937,9 +3967,9 @@ sub help {
   print "       Scan complete tcp: -t <ip> --ports --all tcp\n";
   print "       Scan complete udp: -t <ip> --ports --all udp\n";
   print "       Scan complete udp+tcp: -t <ip> --ports --all udp+tcp\n";
-  print "       Scan rang tcp: -t <ip> --ports --select --start <value> --end <value> tcp\n";
-  print "       Scan rang udp: -t <ip> --ports --select --start <value> --end <value> udp\n";
-  print "       Scan rang udp + tcp: -t <ip> --ports --select --start <value> --end <value> udp+tcp\n";
+  print "       Scan rang tcp: -t <ip> --ports --select  tcp --start <value> --end <value>\n";
+  print "       Scan rang udp: -t <ip> --ports --select  udp--start <value> --end <value>\n";
+  print "       Scan rang udp + tcp: -t <ip> --ports --select  udp+tcp --start <value> --end <value>\n";
   print color 'bold';
   print "     Encode / Decode: \n";
   print color RESET;
@@ -3948,7 +3978,14 @@ sub help {
   print "       Decode base64: -st <string> --decode64 \n";
 }
 
+
 ##############################################################
+### set tor proxy
+if (defined $proxy) {
+  my $proxy="socks://localhost:9050";
+  $ua->proxy([qw/ http https /] => $proxy);
+  $ua->cookie_jar({});
+}
 
 if (defined $help) {help(); exit();}
 
@@ -3984,7 +4021,8 @@ if (defined $dork) {
 if ((defined $dork) && ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $command) && (!defined $validation_text))){
   submsearch();
   exit();
-}else{
+}
+if (defined $dork){
   submsearch();
   if (defined $madmin) {
     mladmin(); exit();
@@ -4130,7 +4168,17 @@ if ((defined $madmin) && (!defined $dork)) {
   if (defined $Target){ mtadmin(); exit(); }
 }
 
-if ((defined $msubdomain) && (!defined $dork)) {
+if (defined $msubdomain) {
+  if (($Target =~ m/.txt/i) || ($dork =~ m/.log/i)){
+    print color 'yellow';
+    print "[!] You have to set Target/list! [Ex: -l list.txt/ -t target]\n";
+    print color 'RESET';
+    exit();
+  }
+}
+
+
+if (defined $msubdomain) {
   if ((!defined $listname) && (!defined $Target)) {
     print color 'yellow';
     print "[!] You have to set Target/list! [Ex: -l list.txt/-t target]\n";
@@ -4173,8 +4221,6 @@ if (defined $validation_text) {
 	exit();
   }
 }
-
-
 if (defined $mports) {
   if (!defined $Target) {
     print color 'yellow';
@@ -4241,7 +4287,7 @@ if (defined $mports) {
 }
 
 if (defined $mbasic) {
-  my $mbasic = $ARGV[0];
+  my $mbasic = $mbasic;
   if (($mbasic ne "udp") || ($mbasic ne "tcp") || ($mbasic ne "udp+tcp")) {
     print color 'yellow';
     print "\n Use port type! [EX: --basic tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
@@ -4250,7 +4296,7 @@ if (defined $mbasic) {
   }
 }
 if (defined $mall) {
-  my $mall = $ARGV[0];
+  my $mall = $mall;
   if (($mall ne "udp") || ($mall ne "tcp") || ($mall ne "udp+tcp")) {
     print color 'yellow';
     print "\n Use port type! [EX: --all tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
@@ -4259,7 +4305,7 @@ if (defined $mall) {
   }
 }
 if (defined $muser) {
-  my $muser = $ARGV[0];
+  my $muser = $muser;
   if (($muser ne "udp") || ($muser ne "tcp") || ($muser ne "udp+tcp")) {
     print color 'yellow';
     print "\n Use port type! [EX: --select tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";

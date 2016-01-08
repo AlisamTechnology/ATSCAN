@@ -160,7 +160,7 @@ my $mabout;
 my $checkversion;
 
 Getopt::Long::GetOptions(\my %OPT,
-                        'tor' => \$proxy,
+                        'proxy' => \$proxy,
                         'help' => \$help,
                         'dork=s' => \$dork,
                         'level=s' => \$mlevel,
@@ -206,7 +206,7 @@ if (@ARGV > 0){
   GetOptions(\my %com,
             'help',
             'dork',
-			'tor',
+			'proxy',
 			'level',
 			'xss',
 			't',
@@ -246,7 +246,7 @@ if (@ARGV > 0){
 			'update',
   );
   
-  if (!exists $com{help || tor || dork || level || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select || replaceme || withme || update}) {
+  if (!exists $com{help || proxy || dork || level || xss || t || l || xss || valid || exp || sqlmap || lfi || joomrfi || shell || wpadf || admin || shost || ports || start || end || basic || all || sites || wp || joom || zip || upload || md5 || decode64 || encode64 || st || httpd || command || TARGET || isup || about || select || replaceme || withme || update}) {
 	advise();
   }
 }
@@ -266,6 +266,12 @@ sub timer {
   print "[!] [";
   print "$hr:$min:$sec";
   print "] ";
+}
+### set tor proxy
+if (defined $proxy) {
+  my $proxy="socks://127.0.0.1:9050";
+  $ua->proxy([qw/ http https /] => $proxy);
+  $ua->cookie_jar({});
 }
 
 sub osinfo {
@@ -302,7 +308,6 @@ sub osinfo {
   print "$Config{osname} ";
   print "$Config{archname}\n";
   print color RESET;
-  checkproxy();
 }
 
 sub advise {
@@ -428,7 +433,19 @@ sub scandetail {
       print "$mtarget \n";
     }
     print color RESET;
-  }  
+  }
+  print color 'bold yellow';
+  print "[+] PROXY:: ";
+  print color RESET;
+  if (defined $proxy) {
+    print color 'green';
+    print "Yes! \n";
+    print color RESET;
+  }else{
+    print color 'red';
+    print "No! \n";
+    print color RESET;
+  }
 
   if (defined $mlevel) {
     print color 'bold yellow';
@@ -438,7 +455,7 @@ sub scandetail {
     print "$mlevel \n";
     print color RESET;
   }
-  if ((defined $sqlmap) || (defined $sqlmaptor)){
+  if (defined $sqlmap){
     print color 'bold yellow';
     print "[+] EXPLOIT:: ";
     print color RESET;
@@ -1263,45 +1280,13 @@ sub checkversion {
 sub testconection {
   my $URL = "http://www.google.com";
   $request = HTTP::Request->new('GET', $URL);
-  $response = $ua->request($request);
-  if ( !$response->is_success ) {
+  $respons = $ua->request($request);
+  if (!$respons->is_success){
     print color 'red';
     print "[!] Upss.. Your Internet connection seems not active!\n";
     print "[!] Check Your Connection OR Proxy Setting!\n";
     print color 'RESET';
-	exit();
-  }else{
-    print color 'bold yellow';
-    print "[+] PROXY:: ";
-    print color RESET;
-    if ((defined $proxy) || (defined $sqlmaptor)) {
-      print color 'green';
-	  print "Yes \n";
-	}else{ 
-      print color 'red';
-      print "No \n";
-      print color RESET;
-    }
-  }
-}
-
-sub checkproxy {
-  my $URL = "http://www.google.com";
-  $request = HTTP::Request->new('GET', $URL);
-  $response = $ua->request($request);
-  print color 'bold yellow';
-  print "[+] PROXY:: ";
-  print color RESET;
-
-  if ( $response->is_success ) {
-    if ((defined $proxy) || (defined $sqlmaptor)) {
-      print color 'green';
-	  print "Yes \n";
-	}else{ 
-      print color 'red';
-      print "No \n";
-      print color RESET;
-    }
+    exit(); 
   }
 }
 
@@ -1309,6 +1294,7 @@ sub checkproxy {
 
 sub submsearch {
   dorklist();
+  testconection();
   $mlevel = $mlevel;
   msearch();
 }
@@ -1387,6 +1373,10 @@ sub msearch {
 	          print color 'green';
               print "[+] http://$URL \n";
 	          print color RESET;
+			  
+              open (TEXT, '>>Search_Scan.txt');
+              print TEXT "http://$URL\n";
+              close (TEXT);
 		   
               my $URL = $URL;
               $request = HTTP::Request->new('GET', $URL);
@@ -1415,11 +1405,7 @@ sub msearch {
               }
 		  	print "[ ]............................................................................ \n";
 			}
-			
-            open (TEXT, '>>Search_Scan.txt');
-            print TEXT "http://$URL\n";
-            close (TEXT);
-			
+						
 			my $file = 'Search_Scan.txt';
             my %seen = ();
             {
@@ -1459,7 +1445,7 @@ sub msearch {
     open my $file, "<", "Search_Scan.txt";
     $lc++ while <$file>;
 	print color 'yellow';
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $sqlmaptor) && (!defined $madmin) && (!defined $musbdomain)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $musbdomain)) {
 	  print "[!] $lc Unique Result(s) Found!\n";
 	  print color RESET;
 	  close $file;
@@ -1474,7 +1460,7 @@ sub msearch {
     print color RESET;
   }
 
-  if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $msubdomain) || (defined $command) || (defined $misup) || (defined $validation_text) || (defined $sqlmap) || (defined $sqlmaptor)) {
+  if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $msubdomain) || (defined $command) || (defined $misup) || (defined $validation_text) || (defined $sqlmap)) {
   }else{
     print color 'red';
     timer();
@@ -3866,7 +3852,7 @@ sub help {
   print color 'bold yellow';
   print "[..] COMMANDLINE USE: \n\n";
   print color RESET;
-  print "     --tor:      | tor proxy [DEFAULT:socks://localhost:9050] Change if needed!\n";
+  print "     --proxy:    | tor proxy [DEFAULT:socks://localhost:9050] Change if needed!\n";
   print "     --help:     | help menu \n";
   print "     -dork:      | dork to search [Ex: house,cars,hotel] \n";
   print "     --level:    | Scan level (when the scan must stop) \n";
@@ -3910,7 +3896,7 @@ sub help {
   print color 'bold';
   print "     Tor:   ";
   print color RESET;
-  print "--tor \n";
+  print "--proxy \n";
   print color 'bold';
   print "     Search engine: \n";
   print color RESET;
@@ -3967,12 +3953,6 @@ sub help {
 }
 
 ##############################################################
-### set tor proxy
-if (defined $proxy) {
-  my $proxy="socks://localhost:9050";
-  $ua->proxy([qw/ http https /] => $proxy);
-  $ua->cookie_jar({});
-}
 
 if (defined $help) {help(); exit();}
 
@@ -4007,6 +3987,8 @@ if (defined $dork) {
 
 if (defined $dork){
   submsearch();
+  exit();
+
   if (defined $madmin) {
     mladmin(); exit();
   }
@@ -4049,7 +4031,7 @@ if (defined $dork){
     submsearch();
     exit();
   }
-}
+ }
 
 if ((defined $command) && ((!defined $dork) && (!defined $mtarget))){
   mcommandfin(); exit();

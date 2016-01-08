@@ -1372,12 +1372,7 @@ sub msearch {
 	          print color RESET;
 	          print color 'green';
               print "[+] http://$URL \n";
-	          print color RESET;
-			  
-              open (TEXT, '>>Search_Scan.txt');
-              print TEXT "http://$URL\n";
-              close (TEXT);
-		   
+	          print color RESET;		   
               my $URL = $URL;
               $request = HTTP::Request->new('GET', $URL);
               $response = $ua->request($request);
@@ -1405,7 +1400,9 @@ sub msearch {
               }
 		  	print "[ ]............................................................................ \n";
 			}
-						
+            open (TEXT, '>>Search_Scan.txt');
+            print TEXT "http://$URL\n";
+            close (TEXT);
 			my $file = 'Search_Scan.txt';
             my %seen = ();
             {

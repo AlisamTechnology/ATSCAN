@@ -88,7 +88,7 @@
   <tr>
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
       <tr>
-        <td width="200px" class="main">--tor</td>
+        <td width="200px" class="main">--proxy</td>
         <td width="680px">tor proxy [DEFAULT:socks://localhost:9050] Change if needed!</td>
       </tr>
       <tr>
@@ -259,7 +259,6 @@
     --dork DORK --level 50 --exp --isup <br/>
     --dork DORKS.TXT --level 50 --exp --valid TEXT <br/>
     --dork DORKS.TXT --level 50 --xss --sqlmap <br/>
-    --dork DORKS.TXT --level 50 --xss --sqlmaptor<br/>
     --dork DORKS.TXT --level 50 --exp --isup <br/><br/>
     <b>Use List / Target: </b><br/>
     Xss: -t TARGET --xss <br/>

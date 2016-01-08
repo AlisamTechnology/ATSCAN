@@ -2487,7 +2487,6 @@ sub mlsubdomain {
     scandetail();
   }
   countargets();
-
   open (TEXT, $listname);
   while (my $Target = <TEXT>) {
 	chomp $Target;
@@ -3730,7 +3729,6 @@ sub mzipsites {
         next if $seen{$_} > 1;
         print;
         close (TEXT);
-
 	    unlink "Zip_server_files_Scan.txt.bac";
 	    unlink "Server_sites_Scan.txt";
 	  }
@@ -4263,23 +4261,32 @@ if (defined $mports) {
   }
 }
 
-if ((defined $mbasic) && (($mbasic eq "udp") || ($mbasic eq "tcp") || ($mbasic eq "udp+tcp"))) {}else{
-  print color 'yellow';
-  print "\n Use port type! [EX: --basic tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
-  print color RESET;
-  exit();
+if (defined $mbasic) {
+  my $mbasic = $ARGV[0];
+  if (($mbasic ne "udp") || ($mbasic ne "tcp") || ($mbasic ne "udp+tcp")) {
+    print color 'yellow';
+    print "\n Use port type! [EX: --basic tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
+    print color RESET;
+    exit();
+  }
 }
-if ((defined $mall) && (($mall eq "udp") || ($mall eq "tcp") || ($mall eq "udp+tcp"))) {}else{
-  print color 'yellow';
-  print "\n Use port type! [EX: --all tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
-  print color RESET;
-  exit();
+if (defined $mall) {
+  my $mall = $ARGV[0];
+  if (($mall ne "udp") || ($mall ne "tcp") || ($mall ne "udp+tcp")) {
+    print color 'yellow';
+    print "\n Use port type! [EX: --all tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
+    print color RESET;
+    exit();
+  }
 }
-if ((defined $muser) && (($muser eq "udp") || ($muser eq "tcp") || ($muser eq "udp+tcp"))) {}else{
-  print color 'yellow';
-  print "\n Use port type! [EX: --select tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
-  print color RESET;
-  exit();
+if (defined $muser) {
+  my $muser = $ARGV[0];
+  if (($muser ne "udp") || ($muser ne "tcp") || ($muser ne "udp+tcp")) {
+    print color 'yellow';
+    print "\n Use port type! [EX: --select tcp/udp/udp+tcp --all tcp/udp/udp+tcp --select tcp/udp/udp+tcp]\n";
+    print color RESET;
+    exit();
+  }
 }
 
 if (defined $msites) {

@@ -93,11 +93,11 @@
       </tr>
       <tr>
          <td width="200px" class="main">--dork</td>
-        <td class="main">Search engine</td>
+        <td class="main">dork to search [Ex: house,cars,hotel]</td>
       </tr>
       <tr>
         <td width="200px" class="main">--level</td>
-        <td class="main">set scan level (more hight more sersults)</td>
+        <td class="main">Scan level (+- Number of page results to scan)</td>
       </tr>
       <tr>
         <td width="200px" class="main">--xss</td>
@@ -111,9 +111,14 @@
         <td width="200px" class="main">-t</td>
         <td class="main">Target</td>
       </tr>
+      
       <tr>
-        <td width="200px" class="main">-l</td>
-        <td class="main">List name</td>
+        <td width="200px" class="main">--TARGET</td>
+        <td class="main">Captured Target</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--FULL_TARGET</td>
+        <td class="main">Captured Full Target</td>
       </tr>
       <tr>
         <td width="200px" class="main">--exp</td>
@@ -196,8 +201,8 @@
         <td class="main">get sites with zip files in the server</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--st</td>
-        <td class="main">string</td>
+        <td width="200px" class="main">--save</td>
+        <td class="main">file to save results (if not set tool sets one)</td>
       </tr>
       <tr>
         <td width="200px" class="main">--md5</td>
@@ -212,6 +217,14 @@
         <td class="main">decode base64 string</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--ip</td>
+        <td class="main">add ip to engine results</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--server</td>
+        <td class="main">add server software to engine results</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--isup</td>
         <td class="main">check http status 200</td>
       </tr>
@@ -220,15 +233,15 @@
         <td class="main">print site httpd version</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--update</td>
-        <td class="main">Check for update</td>
+        <td width="200px" class="main">--command</td>
+        <td class="main">External Command</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--replaceme</td>
+        <td width="200px" class="main">--replace</td>
         <td class="main">string to replace</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--withme</td>
+        <td width="200px" class="main">--with</td>
         <td class="main">string to replace with</td>
       </tr>
     </table></td>
@@ -240,58 +253,57 @@
   </tr>
   <tr>
     <td class="main">
-    <b>Simple search: </b><br/>
-    --dork DORK --level [Scan level more big more results]<br/>
-    --dork [DORK1,DORK2,DORK3..] --level [ex:100]<br/>
-    --dork [DORK.txt] --level [Scan level ex: 50]<br/><br/>
-    <b>Subscan from Serach Engine: </b><br/>
-    Xss: --dork DORK --level 50 --xss<br/>
-    Xss: --dork DORK --level 50 --xss --sqlmap<br/>
-    Xss: --dork DORKS.TXT --level 50 --xss <br/>
-    Lfi: --dork DORK --level 50 --lfi<br/>
-    Search + Command:<br/>
-      --dork DORK --level VALUE --command 'curl -v' --TARGET<br/>
-      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2<br/>
-      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2 --isup<br/>
-      --dork <dork/dork.txt> --level <value> --replaceme STRING1 --withme STRING2 --valid <txt><br/>
-    <b>Validation: </b><br/>
-    --dork DORK --level 50 --exp --valid TEXT <br/>
-    --dork DORK --level 50 --exp --isup <br/>
-    --dork DORKS.TXT --level 50 --exp --valid TEXT <br/>
-    --dork DORKS.TXT --level 50 --xss --sqlmap <br/>
-    --dork DORKS.TXT --level 50 --exp --isup <br/><br/>
-    <b>Use List / Target: </b><br/>
-    Xss: -t TARGET --xss <br/>
-    Lfi: -l TARGET --lfi <br/>
-    Validation: -t TARGET --exp --valid TEXT <br/>
-    Validation: -l list.txt --exp --isup <br/>
-    Find admin page: -t TARGET --admin  <br/>
-    Find subdomains: -t TARGET --shost  <br/><br/>
-    
-    <b>Server: </b>  <br/>
-    Get Server sites: -t IP --level [VALUE] --sites   <br/>
-    Get Server sites: -t IP.txt --level [VALUE] --sites   <br/>
-    Get Server wordpress sites: -t IP --level [VALUE] --wp   <br/>
-    Get Server joomla sites: -t IP --level [VALUE] --joom   <br/>
-    Get Server upload sites: -t IP --level [VALUE] --upload   <br/>
-    Get Server zip sites files: -t IP --level [VALUE] --zip   <br/>
-    WP Arbitry File Download: -t IP --level [VALUE] --wpadf   <br/>
-    Joomla RFI: -t IP --level <100> --joomfri --shell SHELL LINK   <br/>
-    Scan basic tcp (quick): -t IP --ports --basic tcp   <br/>
-    Scan basic udp basic (quick): -t IP --ports --basic udp   <br/>
-    Scan basic udp+tcp: -t IP --ports --basic udp+tcp   <br/>
-    Scan complete tcp: -t IP --ports --all tcp   <br/>
-    Scan complete udp: -t IP --ports --all udp   <br/>
-    Scan complete tcp+udp: -t IP --ports --all udp+tcp   <br/>
-    Scan rang tcp: -t IP --ports --select tcp --start --end    <br/>
-    Scan rang udp: -t IP --ports --select udp --start VALUE --end VALUE   <br/>
-    Scan rang udp + tcp: -t IP --ports --select udp+tcp --start VALUE --end VALUE <br/>
-    <b>Encode / Decode:  </b> <br/>
-    Generate MD5: -st STRING --md5 <br/>
-    Encode base64: -st STRING --encode64  <br/> 
-    Decode base64: -st STRING --decode64 <br/><br/>
-    <b>Check for update: </b>  <br/>
-      --update
+<b>Simple search: </b><br/>
+  Search: --dork [dork] --level [level] <br/>
+  Search + get ip: --dork [dork] --level [level] --ip <br/>
+  Search + get ip + server: --dork [dork] --level [level] --ip --server <br/>
+  Search with many dorks: --dork [dork1,dork2,dork3] --level [level] <br/>
+  Search + get ip+server: --dork [dorks.txt] --level [level] <br/>
+  Search + set save file: --dork [dorks.txt] --level [level] --save myfile.txt <br/>
+  Search + Replace + Exploit: --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/><br/>
+
+<b>Subscan from Serach Engine: </b><br/>
+  Search + Exploitation: --dork [dork] --level [10] --xss/--lfi/--wp ... <br/>
+  Search + Server Exploitation: -t [ip] --level [10] --xss/--lfi/--wp ... <br/>
+  Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] --xss/--lfi/--wp ... <br/><br/>
+
+<b>Validation: </b><br/>
+  Search + Exploit + Validation: --dork [dork] --level [10] --exp --isup/--valid [string] <br/>
+  Search + Server Exploit + Validation: -t [ip] --level [10] --exp --isup/--valid [string] <br/>
+  Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --isup/--valid [string] <br/><br/>
+
+<b>Use List / Target: </b><br/>
+  -t [target/targets.txt] --exp --isup/--valid [string] <br/>
+  -t [target/targets.txt] --xss/--lfi ..  <br/><br/>
+
+<b>Server: </b><br/>
+  Get Server sites: -t [ip] --level [value] --sites <br/>
+  Get Server wordpress sites: -t [ip] --level [value] --wp <br/>
+  Get Server joomla sites: -t [ip] --level [value] --joom <br/>
+  Get Server upload sites: -t [ip] --level [value] --upload <br/>
+  Get Server zip sites files: -t [ip] --level [value] --zip <br/>
+  WP Arbitry File Download: -t [ip] --level [value] --wpadf <br/>
+  Joomla RFI: -t [ip] --level [1] --joomfri --shell [shell link] <br/>
+  Scan basic tcp (quick): -t [ip] --ports --basic tcp <br/>
+  Scan basic udp basic (quick): -t [ip] --ports --basic udp <br/>
+  Scan basic udp+tcp: -t [ip] --ports --basic udp+tcp <br/>
+  Scan complete tcp: -t [ip] --ports --all tcp <br/>
+  Scan complete udp: -t [ip] --ports --all udp <br/>
+  Scan complete udp+tcp: -t [ip] --ports --all udp+tcp <br/>
+  Scan rang tcp: -t [ip] --ports --select  tcp --start [value] --end [value] <br/>
+  Scan rang udp: -t [ip] --ports --select  udp--start [value] --end [value] <br/>
+  Scan rang udp + tcp: -t [ip] --ports --select  udp+tcp --start [value] --end [value] <br/><br/>
+
+<b>Encode / Decode: </b<br/>
+  Generate MD5: --md5 [string] <br/>
+  Encode base64: --encode64 [string]  <br/>
+  Decode base64: --decode64 [string]  <br/><br/>
+
+<b>External Command: </b><br/>
+ --dork [dork/dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
+ --dork [dork/dorks.txt] --level [level] --command "curl -v --FULL_TARGET" <br/>
+ -t [target/targets.txt] --level [level] --command "curl -v --TARGET" <br/>
+ -t [target/targets.txt] --command "curl -v --FULL_TARGET" <br/><br/>
     </td>
   </tr>
 </table>  

@@ -2233,7 +2233,7 @@ sub mcommand {
 	
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc] COMMAND SUBPROCESS STARTING...\n";
+	print "[$count/$lc]\n";
 	print color RESET;
 	print color 'bold yellow';
 	print "[+] TARGET: ";

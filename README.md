@@ -294,7 +294,7 @@
   Scan rang udp: -t [ip] --ports --select  udp--start [value] --end [value] <br/>
   Scan rang udp + tcp: -t [ip] --ports --select  udp+tcp --start [value] --end [value] <br/><br/>
 
-<b>Encode / Decode: </b<br/>
+<b>Encode / Decode: </b><br/>
   Generate MD5: --md5 [string] <br/>
   Encode base64: --encode64 [string]  <br/>
   Decode base64: --decode64 [string]  <br/><br/>

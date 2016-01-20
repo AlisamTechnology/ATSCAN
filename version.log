@@ -4,4 +4,4 @@ version 5.0 Stable
 #####################
 Add define sql errors.
 Add scan e-mails option.
-
+Add user agent random.

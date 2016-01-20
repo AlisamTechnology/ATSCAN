@@ -1,1 +1,7 @@
 version 5.0 Stable
+
+##changelog 20-01-16
+#####################
+Add define sql errors.
+Add scan e-mails option.
+

@@ -233,6 +233,10 @@
         <td class="main">print site httpd version</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--email</td>
+        <td class="main">Extract e-mails</td>
+      </tr> 
+      <tr>
         <td width="200px" class="main">--command</td>
         <td class="main">External Command</td>
       </tr>
@@ -260,10 +264,13 @@
   Search with many dorks: --dork [dork1,dork2,dork3] --level [level] <br/>
   Search + get ip+server: --dork [dorks.txt] --level [level] <br/>
   Search + set save file: --dork [dorks.txt] --level [level] --save myfile.txt <br/>
-  Search + Replace + Exploit: --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/><br/>
+  Search + Replace + Exploit: --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/>
+  Search + Extract e-mails: --dork [dorks.txt] --level [level] --email <br/>
+  <br/>
 
 <b>Subscan from Serach Engine: </b><br/>
   Search + Exploitation: --dork [dork] --level [10] --xss/--lfi/--wp ... <br/>
+  Search + xss + sqlmap: --dork [dork] --level [10] --xss --sqlmap <br/>
   Search + Server Exploitation: -t [ip] --level [10] --xss/--lfi/--wp ... <br/>
   Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] --xss/--lfi/--wp ... <br/><br/>
 

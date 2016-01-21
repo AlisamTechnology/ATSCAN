@@ -71,9 +71,9 @@
   </tr>
   <tr>
     <td align="center" width="890px">
-    <img src="http://i.imgur.com/GlsitTn.jpg" /><br/><br/>
-    <img src="http://imgur.com/cydQiB9.jpg" /><br/><br/>
-    <img src="http://i.imgur.com/4cqbGNW.jpg" /><br/><br/>
+    <img src="http://i.imgur.com/hxyWRb2.jpg" /><br/><br/>
+    <img src="http://i.imgur.com/Utw0lZj.jpg" /><br/><br/>
+    <img src="http://i.imgur.com/Oip7YDu.jpg" /><br/><br/>
     <img src="http://i.imgur.com/c7ePRIq.jpg" /><br/><br/>
     <img src="http://i.imgur.com/YtPr5OF.jpg" /><br/><br/>
     <img src="http://i.imgur.com/Ppg5Pez.jpg" /><br/><br/>

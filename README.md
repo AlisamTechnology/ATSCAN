@@ -316,7 +316,7 @@
 </table>  
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td width="890px"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QFG4VKCYFMSB8"><img src="http://i.imgur.com/ewuSvSh.jpg" border="0"></a> 
+    <td width="890px"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QFG4VKCYFMSB8" target="_blank"><img src="http://i.imgur.com/ewuSvSh.jpg" border="0"></a> 
 </td>
   </tr>
   </table>

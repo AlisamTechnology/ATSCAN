@@ -31,7 +31,7 @@
   </tr>
   <tr>
     <td class="main" width="890px">ATSCAN <br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
-        LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.
+        LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports san. <br/> Scam E-mails un sites. <br/> Use proxy. <br/> Random user agent. <br/> Fandom search engine.
     </td>
   </tr>
 </table>

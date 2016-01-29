@@ -31,7 +31,7 @@
   </tr>
   <tr>
     <td class="main" width="890px">ATSCAN <br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
-        LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Fandom search engine.
+        LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Fandom search engine. <br/>Multiple instant scan.
     </td>
   </tr>
 </table>
@@ -250,6 +250,14 @@
         <td width="200px" class="main">--with</td>
         <td class="main">string to replace with</td>
       </tr>
+      <tr>
+        <td width="200px" class="main">--save</td>
+        <td class="main">Set prefix to saved files</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--hide</td>
+        <td class="main">Hide validation process</td>
+      </tr>
     </table></td>
   </tr>
 </table>
@@ -313,6 +321,15 @@
  --dork [dork/dorks.txt] --level [level] --command "curl -v --FULL_TARGET" <br/>
  -t [target/targets.txt] --level [level] --command "curl -v --TARGET" <br/>
  -t [target/targets.txt] --command "curl -v --FULL_TARGET" <br/><br/>
+ 
+<b>Multiple Scan: </b><br/>
+  --dork <dork> --level <10> --xss/--lfi/--wp ... <br/>
+  --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> --xss --lfi --wp ... <br/>
+  -t <ip> --level <10> --xss --lfi --wp ... <br/>
+  -t <targets> --xss --lfi --wp ...<br/><br/>
+  .....
+<b>Hide Validation process: </b><br/>
+  --hide</b><br/>
     </td>
   </tr>
 </table>  
@@ -324,3 +341,4 @@
   </table>
 </body>
 </html>
+

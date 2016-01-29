@@ -323,10 +323,10 @@
  -t [target/targets.txt] --command "curl -v --FULL_TARGET" <br/><br/>
  
 <b>Multiple Scan: </b><br/>
-  --dork <dork> --level <10> --xss/--lfi/--wp ... <br/>
-  --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> --xss --lfi --wp ... <br/>
-  -t <ip> --level <10> --xss --lfi --wp ... <br/>
-  -t <targets> --xss --lfi --wp ...<br/><br/>
+  --dork [dork] --level [10] --xss/--lfi/--wp ... <br/>
+  --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] --xss --lfi --wp ... <br/>
+  -t [ip] --level [10] --xss --lfi --wp ... <br/>
+  -t [targets] --xss --lfi --wp ...<br/><br/>
   .....<br/><br/>
 <b>Hide Validation process: </b><br/>
   --hide</b><br/>

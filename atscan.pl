@@ -685,13 +685,13 @@ if (defined $mlevel) {
   print "$mlevel \n";
   print color RESET;
 }
-if ((defined $mcommand) || (defined $sqlmap)){
+if ((defined $command) || (defined $sqlmap)){
   print color 'bold yellow';
   print "[+] EXTERN CMD:: ";
   print color RESET;
   print color 'red';
-  if (defined $mcommand){
-    print "Command ";
+  if (defined $command){
+    print "External Command ";
   }
   if (defined $sqlmap){
     print "Sqlmap ";
@@ -875,7 +875,7 @@ sub countsearchlist {
 sub control {
   $URL=$_[0];
   if (defined $mfulltarget) {
-    $URL=~s/&(.*)/\ /g;
+    $URL=$URL;
   }
   if (defined $mtarget) {
 	$URL =~ s/\/.*//s;
@@ -1009,7 +1009,7 @@ sub msearch {
   }
   if ((defined $mip) || (defined $mserver)){
     print color 'bold yellow';
-    print "    INFO:: ";
+    print "[+] INFO:: ";
     print color RESET;
     print color 'red';
 	if (defined $mip){
@@ -1069,7 +1069,7 @@ sub msearch {
 	            print color RESET;
 				if ((defined $mip) || (defined $mserver)){
                   print color 'bold yellow';
-	              print "[+] INFO:   ";
+	              print "    INFO:   ";
 	              print color RESET;	
 
 			      if (defined $mip) {
@@ -1410,7 +1410,7 @@ sub mcommand {
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
-  print "STARTING COMMAND EXTERN SUBPROCESS...\n";
+  print "STARTING EXTERNAL COMMAND SUBPROCESS...\n";
   print "[ ]............................................................................ \n";
   print color RESET;
   forwait();

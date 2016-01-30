@@ -397,22 +397,7 @@ if (@ARGV > 0){
 ##############################################################
 ### set tor proxy
 if (defined $proxy) {
-   if ($proxy =~ m/http:\/\//) {
-	$proxy =~ s/http:\/\///g;
-   }
-  if (($proxy !~ m/^[a-zA-Z0-9\.]+(?:\:\d+)/) || ($proxy !~ m/^[a-zA-Z0-9\.]+[a-zA-Z0-9]+(?:\:\d+)/)) {
-    print color 'bold';
-    print "[ ] ----------------------------------------------------------------------- [ ]\n";
-    print color 'RESET';
-    print color 'yellow';
-    print "[!] Proxy use <proxy>:<port>! [Ex:localhost:9050]\n";
-    print color 'RESET';
-	exit();
-  }
-  $ENV{HTTPS_PROXY} = $proxy;
-  $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0; 
-  $ENV{HTTPS_DEBUG} = 1;
-  my $proxy="socks://$proxy";
+  my $proxy=$proxy;
   $ua->proxy([qw/ http https /] => $proxy);
   $ua->cookie_jar({});
 }
@@ -830,7 +815,22 @@ sub checkurltype{
     return $URL;
   }
 }	
+###################################################################	
+###################################################################	
+sub checkip{
+  $URL=$_[0];
+  if ($URL!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+	print "[ ] ----------------------------------------------------------------------- [ ]\n";
+    print color 'red';
+	print "[!] $URL is an IP [Use: -t <ip> --level 20 <opcion>]! \n";
+    print color RESET;
+    exit();
+  }else{
+    return $URL;
+  }
+}	
 ###################################################################		
+	
 sub countdorks {
   my $lc = 0;
   my $file = $dork;
@@ -2913,6 +2913,7 @@ sub basic {
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
+	$URL = checkip($URL);
 	print color 'bold magenta';
 	timer();
 	print "[$count/";
@@ -2982,6 +2983,7 @@ sub basic2 {
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
+	$URL = checkip($URL);
 	print color 'bold magenta';
 	timer();
 	print "[$count/";
@@ -3102,6 +3104,7 @@ sub complete {
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
+	$URL = checkip($URL);
 	$closed3=0;
     $port3=1;
 	print color 'bold magenta';
@@ -3178,6 +3181,7 @@ sub complete2 {
     while (my $URL = <TEXT>) {
       $count++;
 	  chomp $URL;
+	  $URL = checkip($URL);
 	  print color 'bold magenta';
 	  timer();
 	  print "[$count/";
@@ -3312,10 +3316,11 @@ sub user {
   $type3=$_[0];
   $closed6=0;
   while ($mstart<=$mend){
-      open (TEXT, 'search.txt');
+  open (TEXT, 'search.txt');
     while (my $URL = <TEXT>) {
       $count++;
 	  chomp $URL;
+	  $URL = checkip($URL);
 	  print color 'bold magenta';
 	  timer();
 	  print "[$count/";
@@ -3386,6 +3391,7 @@ sub user2 {
   open (TEXT, 'search.txt');
     while (my $URL = <TEXT>) { ###
 	  chomp $URL;
+	  $URL = checkip($URL);
 	  $count++;
   	  print color 'bold magenta';
 	  timer();
@@ -3516,7 +3522,7 @@ sub help {
   print color 'bold yellow';
   print "[..] HELP:: \n";
   print color RESET;
-  print "   --proxy       | set tor proxy [EX: http://localhost:9050]\n";
+  print "   --proxy       | set tor proxy [EX: socks://localhost:9050]\n";
   print "   -dork         | dork to search [Ex: house,cars,hotel] \n";
   print "   --level       | Scan level (+- Number of page results to scan) \n";
   print "   -t            | target \n";
@@ -3563,7 +3569,7 @@ sub help {
   print color 'bold';
   print "  Tor: ";
   print color RESET;
-  print "--proxy \n\n";
+  print "--proxy <proxy>\n\n";
   print color 'bold';
   print "  Search engine: \n";
   print color RESET;
@@ -3657,7 +3663,7 @@ if (defined $msites){
 	exit();
   }
 }
-if ((defined $sqlmap) || (!defined $mxss)) {
+if ((defined $sqlmap) && (!defined $mxss)) {
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color 'RESET';

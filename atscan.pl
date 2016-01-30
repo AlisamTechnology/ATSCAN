@@ -714,15 +714,6 @@ if ((defined $mcommand) || (defined $sqlmap)){
   print "\n";
   print color RESET;
 }
-if (defined $noshow){
-  print color 'bold yellow';
-  print "[+] EXTRAT:: ";
-  print color RESET;
-  print color 'red';
-  print "Hide process ";
-  print "\n";
-  print color RESET;
-}
 
 ##############################################################
 sub testconection {
@@ -941,7 +932,7 @@ sub finmodule {
     print color RESET;
     print color 'red';
 	timer();
-    print "[!] SCAN FINISHED!\n";
+    print "SCAN FINISHED!\n";
     print color RESET;
 	  
   }else{
@@ -970,7 +961,7 @@ sub negative {
   print color RESET;
   print color 'red';
   timer();
-  print "[!] SCAN FINISHED!\n";
+  print "SCAN FINISHED!\n";
   print color RESET;
 }
 ###################################################################		
@@ -1164,7 +1155,7 @@ sub msearch {
       print color RESET;
       print color 'red';
       timer();
-      print "[!] SCAN FINISHED!\n";
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}else{
 	  if (-e 'scan.txt'){ unlink 'scan.txt'};
@@ -1178,7 +1169,7 @@ sub msearch {
     print color RESET;
     print color 'red';
     timer();
-    print "[!] SCAN FINISHED!\n";
+    print "SCAN FINISHED!\n";
     print color RESET;
   }
 } ## end sub msearch
@@ -1200,6 +1191,11 @@ sub misup {
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
   forwait();
+  if (defined $mnoshow) {
+    print color 'yellow';
+    print "[!] Please wait...\n";
+    print color RESET;
+  }
   $count=0;
   open (TEXT, 'search.txt');
   while (my $URL = <TEXT>) {
@@ -1208,7 +1204,7 @@ sub misup {
     $URL = checkurltype($URL);
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	my $printarget = $URL;
-	if (!defined $noshow) {
+    if (defined $mnoshow) {
 	  print color 'bold magenta';
 	  timer();
 	  print "[$count/";
@@ -1221,13 +1217,15 @@ sub misup {
 	  print color 'yellow';
 	  print "$printarget\n";
 	  print color RESET;
-      $URL = control($URL);
-	  print color 'bold yellow';
+	}
+    $URL = control($URL);
+    if (!defined $mnoshow) {
+  	  print color 'bold yellow';
 	  if (defined $exploit){
 	    print color 'bold yellow';
 	    print "    EXPL:   ";
 	    print color RESET;
-	   print "$exploit\n";
+	    print "$exploit\n";
 	  }	
 	  if (defined $replace){
 	    print color 'bold yellow';
@@ -1238,7 +1236,7 @@ sub misup {
 	  print color 'bold yellow';
 	  print "    VALID:  ";
 	  print color RESET;
-	} 
+	}
     $URL1 = $URL;
 	$URL1 =~ s/ //g;
     $request = HTTP::Request->new('GET', $URL1);
@@ -1247,22 +1245,24 @@ sub misup {
     my $status = $response->code;
 	my $pattern='not found|404|error';
     if (($status==200) && (!$response->previous) && ($html !~ m/$pattern/i)){
-	  if (!defined $noshow) {
+      if (!defined $mnoshow) {
 	    print color 'green';
         print "Valid! HTTP: $status\n";
 	    print color RESET;
-      }
+	  }
       open (INFO, '>>scan.txt');
       print INFO "$printarget\n";
       close (INFO);
 	}else{
-	  if (!defined $noshow) {
+      if (!defined $mnoshow) {
 	    print color 'red';
         print "Not Valid!\n";
 	    print color RESET;
-	  }	
+      }
     }
-    print "[ ]............................................................................ \n";
+    if (!defined $mnoshow) {
+      print "[ ]............................................................................ \n";
+	}
   }
   close(TEXT);
   if ((!defined $validation_text) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $mmails)) {
@@ -1302,6 +1302,11 @@ sub mvalidation {
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
   forwait();
+  if (defined $mnoshow) {
+    print color 'yellow';
+    print "[!] Please wait...\n";
+    print color RESET;
+  }
   $count=0;
   open (TEXT, 'search.txt');
   while (my $URL = <TEXT>) {
@@ -1310,7 +1315,7 @@ sub mvalidation {
     $URL = checkurltype($URL);
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	my $printarget = $URL;
-	if (!defined $noshow) {
+    if (!defined $mnoshow) {
 	  print color 'bold magenta';
 	  timer();
 	  print "[$count/";
@@ -1321,8 +1326,9 @@ sub mvalidation {
 	  print "[!] TARGET: ";
 	  print color RESET;
 	  print "$printarget\n";
-      $URL = control($URL);
-	
+	}  
+    $URL = control($URL);
+    if (!defined $mnoshow) {
 	  if (defined $exploit){
 	    print color 'bold yellow';
 	    print "    EXPL:   ";
@@ -1346,28 +1352,30 @@ sub mvalidation {
     my $html = $response->content;
     my $status = $response->code;
     if ($html =~ m/$validation_text/i){
-	  if (!defined $noshow) {
+      if (!defined $mnoshow) {
 	    print color 'green';
         print "Valid!\n";
 	    print color RESET;
+	    print color 'bold yellow';
+	    print "    HTTP:   ";
+	    print color RESET;
+	    print color 'green';
+	    print "HTTP/1.1 $status\n";
+	    print color RESET;
 	  }
-	  print color 'bold yellow';
-	  print "    HTTP:   ";
-	  print color RESET;
-	  print color 'green';
-	  print "HTTP/1.1 $status\n";
-	  print color RESET;
       open (INFO, '>>scan.txt');
       print INFO "$printarget\n";
       close (INFO);
 	}else{
-	  if (!defined $noshow) {
+      if (!defined $mnoshow) {
 	    print color 'red';
         print "Not Valid!\n";
 	    print color RESET;
 	  }
 	}
-    print "[ ]............................................................................ \n";
+    if (!defined $mnoshow) {
+      print "[ ]............................................................................ \n";
+	}
   }
   close(TEXT);
   if ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $mmails)) {
@@ -1657,9 +1665,9 @@ sub mxss {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	  if (defined $sqlmap) {
         finmodule();
@@ -1802,7 +1810,7 @@ sub sqlmap {
   if ((!defined $mwpadf) && (!defined $mlfi) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
     print color 'red';
 	timer();
-    print "[!] SCAN FINISHED!\n";
+    print "SCAN FINISHED!\n";
     print color RESET;
 	exit();
   }
@@ -1896,9 +1904,9 @@ sub mlfi {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}
 	unlink 'scan.txt';
@@ -2003,9 +2011,9 @@ sub mjoomrfi {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}
 	unlink 'scan.txt';
@@ -2105,9 +2113,9 @@ sub mwpadf {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}
 	unlink 'scan.txt';
@@ -2224,9 +2232,9 @@ sub madmin {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}
 	unlink 'scan.txt';
@@ -2323,9 +2331,9 @@ sub msubdomain {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}
 	unlink 'scan.txt';
@@ -2417,9 +2425,9 @@ sub mwpsites {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}
 	unlink 'scan.txt';
@@ -2510,9 +2518,9 @@ sub mjoomsites {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}
 	unlink 'scan.txt';
@@ -2609,9 +2617,9 @@ sub muploadsites {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}
 	unlink 'scan.txt';
@@ -2709,9 +2717,9 @@ sub mzipsites {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}
 	unlink 'scan.txt';
@@ -2795,9 +2803,9 @@ sub mmails {
 	  print color RESET;
 	}else{
       print color 'red';
-	  timer();
       print "No Results Found!\n";
-      print "[!] SCAN FINISHED!\n";
+	  timer();
+      print "SCAN FINISHED!\n";
       print color RESET;
 	}
 	unlink 'scan.txt';
@@ -2952,7 +2960,7 @@ sub basic {
   print "\n";
   print color 'red';
   timer();
-  print "[!] SCAN FINISHED!\n";
+  print "SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -3070,7 +3078,7 @@ sub basic2 {
   print "\n";
   print color 'red';
   timer();
-  print "[!] SCAN FINISHED!\n";
+  print "SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -3143,7 +3151,7 @@ sub complete {
   print "\n";
   print color 'red';
   timer();
-  print "[!] SCAN FINISHED!\n";
+  print "SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -3261,7 +3269,7 @@ sub complete2 {
   print "\n";
   print color 'red';
   timer();
-  print "[!] SCAN FINISHED!\n";
+  print "SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -3353,7 +3361,7 @@ sub user {
   print "\n";
   print color 'red';
   timer();
-  print "[!] SCAN FINISHED!\n";
+  print "SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -3469,7 +3477,7 @@ sub user2 {
   print "\n";
   print color 'red';
   timer();
-  print "[!] SCAN FINISHED!\n";
+  print "SCAN FINISHED!\n";
   print color RESET;
 }
 

@@ -862,6 +862,16 @@ sub countinicialtargets {
   close $file;
 }
 ###################################################################		
+sub countsqllist {
+  my $lc = 0;
+  open $file, "<", "scan.txt";
+  $lc++ while <$file>;
+  print "$lc"; 
+  close $file;
+}
+
+###################################################################
+###################################################################		
 sub countsearchlist {
   my $lc = 0;
   open $file, "<", "search.txt";
@@ -931,7 +941,7 @@ sub finmodule {
     print color RESET;
     print color 'red';
 	timer();
-    print "SCAN FINISHED!\n";
+    print "[!] SCAN FINISHED!\n";
     print color RESET;
 	  
   }else{
@@ -960,7 +970,7 @@ sub negative {
   print color RESET;
   print color 'red';
   timer();
-  print "SCAN FINISHED!\n";
+  print "[!] SCAN FINISHED!\n";
   print color RESET;
 }
 ###################################################################		
@@ -1031,7 +1041,7 @@ sub msearch {
   open (FILE, "dorks.txt");
   while (my $dork = <FILE>) {
     chomp $dork;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $sqlmaptor) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mhttpd) && (!defined $mmails)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mhttpd) && (!defined $mmails)) {
       print color 'bold magenta';
 	  timer();
 	  print "SCAN:: $dork \n\n";
@@ -1059,7 +1069,7 @@ sub msearch {
 			if (defined $Target) { $URL=~s/\/.*//s; }
 			if ($repeat{$URL}) {
 			}else{
-	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $sqlmaptor) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
+	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
 	            print color 'bold yellow';
 			    print "[!] TARGET: ";
 	            print color RESET;
@@ -1154,7 +1164,7 @@ sub msearch {
       print color RESET;
       print color 'red';
       timer();
-      print "SCAN FINISHED!\n";
+      print "[!] SCAN FINISHED!\n";
       print color RESET;
 	}else{
 	  if (-e 'scan.txt'){ unlink 'scan.txt'};
@@ -1168,7 +1178,7 @@ sub msearch {
     print color RESET;
     print color 'red';
     timer();
-    print "SCAN FINISHED!\n";
+    print "[!] SCAN FINISHED!\n";
     print color RESET;
   }
 } ## end sub msearch
@@ -1380,6 +1390,67 @@ sub mvalidation {
   }
 }
 
+####################################################################
+####################################################################
+## bgn mcommand
+sub mcommand {
+  testconection();
+  if (!defined $mlevel) {
+    targetlist();
+	scandetail();
+  }
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  timer();
+  print "STARTING COMMAND EXTERN SUBPROCESS...\n";
+  print "[ ]............................................................................ \n";
+  print color RESET;
+  forwait();
+  $count=0;
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
+    $count++;
+	chomp $URL;
+	$URL=control($URL);
+    if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
+	print color 'bold yellow';
+	print "[!] TARGET: ";
+	print color RESET;
+	print color 'yellow';
+    print "$URL \n";
+	
+	print color 'bold yellow';
+	print "    CMD:    ";
+	print color RESET;
+	
+	$commandfull = $command;
+	if ($commandfull =~ m/--TARGET/i) {
+	  $commandfull =~ s/--TARGET/$URL/g;
+	}elsif ($commandfull =~ m/--FULL_TARGET/i) {
+	  $commandfull =~ s/--FULL_TARGET/$URL/g;
+    }
+    #$commandfull = $command." ".$URL;
+
+	print "$commandfull\n";
+    system($commandfull); 
+    
+    print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
+  }
+  print color 'red';
+  timer();
+  print "SCAN FINISHED!\n";
+  print color RESET;
+  
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
+    exit();
+  }
+}
 ###################################################################	
 ###################################################################		
 ## bgn mhttpd
@@ -1584,8 +1655,17 @@ sub mxss {
 	  print color 'green';
       print "[!] Results saved in $Bin/xss_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
+	  if (defined $sqlmap) {
+        finmodule();
+	  }
 	}
-	unlink 'scan.txt';
+	unlink 'scan.txt' if !defined $sqlmap;
   }
 }
 ###################################################################		
@@ -1593,9 +1673,21 @@ sub mxss {
 ##bgn sqlmap 
 sub sqlmap {
   testconection();
-  sleep(1);
-  open (INFO, 'scan.txt');
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
+    targetlist();
+	scandetail();
+  }
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  timer();
+  print "STARTING SQLMAP SCAN ...\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
+  forwait();
+  $count=0;
+  open (INFO, 'xss_scan.txt');
   while (my $URL = <INFO>) {
+    $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
 	$URL =~ s/\%.*//s;
@@ -1604,13 +1696,12 @@ sub sqlmap {
 	}else{
 	  $tor = "";
 	}
-    print color 'bold';
-    print "[ ]............................................................................ \n";
-    timer();
-    print "STARTING SQLMAP...\n";
-    print "[ ]............................................................................ \n";
-    print color RESET;
-    forwait();
+	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsqllist();
+	print "]\n";
+	print color RESET;
 	print color 'bold yellow';
 	print "[!] TARGET: ";
 	print color RESET;
@@ -1621,7 +1712,6 @@ sub sqlmap {
     print "[+] EXPLOITATION: ";
     print color RESET;
 	print "Sqlmap \n\n";
-	forwait();
     print color 'yellow';
     print "[+] Checking databases...\n";
     print color RESET;
@@ -1707,6 +1797,15 @@ sub sqlmap {
 	  }
 	}
   }
+  close(TEXT);
+  print "[ ]............................................................................ \n";
+  if ((!defined $mwpadf) && (!defined $mlfi) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    print color 'red';
+	timer();
+    print "[!] SCAN FINISHED!\n";
+    print color RESET;
+	exit();
+  }
 }
 ###################################################################		
 ## bgn mlfi
@@ -1784,7 +1883,7 @@ sub mlfi {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $mxss) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
     finmodule();
   }else{
 	if (-e 'scan.txt') {
@@ -1795,6 +1894,12 @@ sub mlfi {
 	  print color 'green';
       print "[!] Results saved in $Bin/lfi_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
 	}
 	unlink 'scan.txt';
   }
@@ -1896,6 +2001,12 @@ sub mjoomrfi {
 	  print color 'green';
       print "[!] Results saved in $Bin/rfi_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
 	}
 	unlink 'scan.txt';
   }
@@ -1992,6 +2103,12 @@ sub mwpadf {
 	  print color 'green';
       print "[!] Results saved in $Bin/adf_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
 	}
 	unlink 'scan.txt';
   }
@@ -2105,6 +2222,12 @@ sub madmin {
 	  print color 'green';
       print "[!] Results saved in $Bin/admin_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
 	}
 	unlink 'scan.txt';
   }
@@ -2198,6 +2321,12 @@ sub msubdomain {
 	  print color 'green';
       print "[!] Results saved in $Bin/subdomains_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
 	}
 	unlink 'scan.txt';
   }
@@ -2286,6 +2415,12 @@ sub mwpsites {
 	  print color 'green';
       print "[!] Results saved in $Bin/wp_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
 	}
 	unlink 'scan.txt';
   }
@@ -2373,6 +2508,12 @@ sub mjoomsites {
 	  print color 'green';
       print "[!] Results saved in $Bin/joom_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
 	}
 	unlink 'scan.txt';
   }
@@ -2466,6 +2607,12 @@ sub muploadsites {
 	  print color 'green';
       print "[!] Results saved in $Bin/upload_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
 	}
 	unlink 'scan.txt';
   }
@@ -2560,6 +2707,12 @@ sub mzipsites {
 	  print color 'green';
       print "[!] Results saved in $Bin/zip_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
 	}
 	unlink 'scan.txt';
   }
@@ -2640,9 +2793,15 @@ sub mmails {
 	  print color 'green';
       print "[!] Results saved in $Bin/mails_".getlist()."!\n";
 	  print color RESET;
+	}else{
+      print color 'red';
+	  timer();
+      print "No Results Found!\n";
+      print "[!] SCAN FINISHED!\n";
+      print color RESET;
 	}
 	unlink 'scan.txt';
-	unlink 'scan2.txt';
+    unlink 'scan2.txt';
   }
 }
 ################################################################
@@ -2695,62 +2854,6 @@ sub mdecode64 {
   print color RESET;
 }
 
-###################################################################
-## bgn mcommand
-sub mcommand {
-  testconection();
-  if (!defined $mlevel) {
-    targetlist();
-	scandetail();
-  }
-  print color 'bold';
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  timer();
-  print "STARTING COMMAND EXTERN SUBPROCESS...\n";
-  print "[ ]............................................................................ \n";
-  print color RESET;
-  forwait();
-  $count=0;
-  open (TEXT, 'search.txt');
-  while (my $URL = <TEXT>) {
-    $count++;
-	chomp $URL;
-	$URL=control($URL);
-    if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
-	print color 'bold magenta';
-	timer();
-	print "[$count/";
-	countsearchlist();
-	print "]\n";
-	print color RESET;
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
-	print color 'yellow';
-    print "$URL \n";
-	
-	print color 'bold yellow';
-	print "    CMD:    ";
-	print color RESET;
-	
-	$commandfull = $command;
-	if ($commandfull =~ m/--TARGET/i) {
-	  $commandfull =~ s/--TARGET/$URL/g;
-	}elsif ($commandfull =~ m/--FULL_TARGET/i) {
-	  $commandfull =~ s/--FULL_TARGET/$URL/g;
-    }
-    #$commandfull = $command." ".$URL;
-
-	print "$commandfull\n";
-    system($commandfull); 
-    
-    print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
-  }
-  print color 'red';
-  timer();
-  print "SCAN FINISHED!\n";
-  print color RESET;
-}
 ###################################################################		
 ###################################################################		
 sub resumeportscan {
@@ -2849,7 +2952,7 @@ sub basic {
   print "\n";
   print color 'red';
   timer();
-  print "SCAN FINISHED!\n";
+  print "[!] SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -2967,7 +3070,7 @@ sub basic2 {
   print "\n";
   print color 'red';
   timer();
-  print "SCAN FINISHED!\n";
+  print "[!] SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -3040,7 +3143,7 @@ sub complete {
   print "\n";
   print color 'red';
   timer();
-  print "SCAN FINISHED!\n";
+  print "[!] SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -3158,7 +3261,7 @@ sub complete2 {
   print "\n";
   print color 'red';
   timer();
-  print "SCAN FINISHED!\n";
+  print "[!] SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -3250,7 +3353,7 @@ sub user {
   print "\n";
   print color 'red';
   timer();
-  print "SCAN FINISHED!\n";
+  print "[!] SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -3366,7 +3469,7 @@ sub user2 {
   print "\n";
   print color 'red';
   timer();
-  print "SCAN FINISHED!\n";
+  print "[!] SCAN FINISHED!\n";
   print color RESET;
 }
 
@@ -3530,7 +3633,7 @@ sub help {
 ##############################################################
 ##############################################################
 if (defined $Target) {
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $sqlmaptor) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mip) && (!defined $mserver) && (!defined $msites) && (!defined $mmails)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mip) && (!defined $mserver) && (!defined $msites) && (!defined $mmails)) {
   advise();
   }
 } 
@@ -3545,6 +3648,15 @@ if (defined $msites){
     print color 'RESET';
 	exit();
   }
+}
+if ((defined $sqlmap) || (!defined $mxss)) {
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color 'RESET';
+  print color 'yellow';
+  print "[!] You have to make a xss scan first! [Ex: --xss --sqlmap] OR use Command!\n";
+  print color 'RESET';
+  exit();
 }
 
 if ((defined $dork) && (!defined $mlevel)) {
@@ -3580,7 +3692,7 @@ if ((defined $dork) || (defined $Target)) {
 }
 if (defined $mlevel) {
   if ((defined $dork) || (defined $Target)){
-    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $sqlmaptor) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mhttpd) && (!defined $mmails)) {
+    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mhttpd) && (!defined $mmails)) {
       submsearch();
       exit();
     }else{
@@ -3588,6 +3700,7 @@ if (defined $mlevel) {
 	  if (defined $dork) {
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
+        if (defined $command) {mcommand();}
 	    if (defined $mhttpd) { mhttpd();}
         if (defined $mxss) {
           if (defined $sqlmap) {
@@ -3606,10 +3719,10 @@ if (defined $mlevel) {
 		if (defined $mupload) { muploadsites();}
 		if (defined $mzip) { mzipsites();}
 	    if (defined $mmails) { mmails();}
-	    if (defined $command) { mcommand();}
 	  }elsif (defined $Target) {
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
+        if (defined $command) {mcommand();}
 	    if (defined $mhttpd) { mhttpd();}
         if (defined $mxss) {
           if (defined $sqlmap) {
@@ -3628,7 +3741,6 @@ if (defined $mlevel) {
 		if (defined $mupload) { muploadsites();}
 		if (defined $mzip) { mzipsites();}
 	    if (defined $mmails) { mmails();}
-	    if (defined $command) { mcommand();}
 	  }
     }
    exit();
@@ -3637,6 +3749,7 @@ if (defined $mlevel) {
   if (defined $Target) {
     if (defined $misup) {misup();}
     if (defined $validation_text) { mvalidation();}
+    if (defined $command) {mcommand();}
 	if (defined $mhttpd) { mhttpd();}
     if (defined $mxss) {
       if (defined $sqlmap) {
@@ -3680,7 +3793,6 @@ if (defined $mlevel) {
 		}
 	  }
 	}
-    if (defined $command) {mcommand();}
 	exit();
   }
 }

@@ -91,7 +91,7 @@
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
       <tr>
         <td width="200px" class="main">--proxy</td>
-        <td width="680px">Set tor proxy [Ex: http://localhost:9050]</td>
+        <td width="680px">Set tor proxy [Ex: socks://localhost:9050]</td>
       </tr>
       <tr>
          <td width="200px" class="main">--dork</td>

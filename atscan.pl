@@ -570,6 +570,9 @@ sub scandetail {
     if (defined $misup) { 
       print "HTTP/1.1 200 ";
     }
+    if (defined $noshow) { 
+      print "Hide Process ";
+    }
     print color RESET;
     print "\n";
   }

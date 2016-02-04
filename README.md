@@ -219,10 +219,6 @@
         <td class="main">decode base64 string</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--ip</td>
-        <td class="main">add ip to engine results</td>
-      </tr>
-      <tr>
         <td width="200px" class="main">--isup</td>
         <td class="main">check http status 200</td>
       </tr>
@@ -245,10 +241,6 @@
       <tr>
         <td width="200px" class="main">--save</td>
         <td class="main">Set prefix to saved files</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--hide</td>
-        <td class="main">Hide validation process</td>
       </tr>
     </table></td>
   </tr>

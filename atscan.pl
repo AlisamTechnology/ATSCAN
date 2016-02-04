@@ -3324,9 +3324,9 @@ sub help {
   print "   --sqlmap      | Sqlmaping xss results \n";
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";
-  print "   --joomrfi     | Get joomla sites with rfi in the server \n";
+  print "   --joomrfi     | Scan for joomla local file inclusion\n";
   print "   --shell       | Shell link [Ex: http://www.site.com/shell.txt] \n";
-  print "   --wpadf       | Get wordpress sites with arbitery file download in the server\n";
+  print "   --wpadf       | Scan wordpress sites for arbitery file download\n";
   print "   --admin       | Get site admin page \n";
   print "   --shost       | Get site subdomains \n";
   print "   --ports       | Scan server ports \n";
@@ -3352,7 +3352,7 @@ sub help {
   print "   --replace     | String to replace \n";
   print "   --with        | String to replace with \n";
   print "   --email       | Get emails \n";
-  print "   --save        | File to save scan [by defaut the tool create one if not set!]\n";
+  print "   --save        | File Prefix to save scan [by defaut the tool create one if not set!]\n";
   print "   --update      | Check tool update \n\n";
 
   print color 'bold yellow';

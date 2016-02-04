@@ -106,8 +106,8 @@
         <td class="main">Xss scan</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--lfi</td>
-        <td class="main">lfi scan</td>
+        <td width="200px" class="main">--rfi</td>
+        <td class="main">joomla local file inclusion scan</td>
       </tr>
       <tr>
         <td width="200px" class="main">-t</td>
@@ -136,7 +136,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--lfi</td>
-        <td class="main">local file inclusion</td>
+        <td class="main">local file inclusion (general)</td>
       </tr>
       <tr>
         <td width="200px" class="main">--joomrfi</td>

@@ -57,14 +57,11 @@
       git clone https://github.com/AlisamTechnology/ATSCAN <br/>
       cd ATSCAN <br/>
       chmod +x ATSCAN <br/>
-      ./ATSCAN <br/>
       OR <br/>
       $chmod +x atscan.pl  <br/>
       Execute: perl ./atscan.pl <br/>
-      Execute: perl ./atscan.pl --help<br/>
+      Help: perl ./atscan.pl --help<br/>
       Update:<br/>
-      cd ATSCAN<br/>
-      git pull<br/>
     </td>
   </tr>
 </table>

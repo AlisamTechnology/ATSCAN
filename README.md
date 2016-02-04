@@ -128,7 +128,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--valid</td>
-        <td class="main">Text for validate results</td>
+        <td class="main">Text to validate results</td>
       </tr>
       <tr>
         <td width="200px" class="main">--sqlmap</td>
@@ -136,11 +136,11 @@
       </tr>
       <tr>
         <td width="200px" class="main">--lfi</td>
-        <td class="main">local file inclusion (general)</td>
+        <td class="main">local file inclusion</td>
       </tr>
       <tr>
         <td width="200px" class="main">--joomrfi</td>
-        <td class="main">get joomla sites with rfi in the server</td>
+        <td class="main">get joomla sites with rfi</td>
       </tr>
       <tr>
         <td width="200px" class="main">--shell</td>
@@ -148,7 +148,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--wpadf</td>
-        <td class="main">get wordpress sites with arbitery file download in the server</td>
+        <td class="main">get wordpress sites with arbitery file download</td>
       </tr>
       <tr>
         <td width="200px" class="main">--admin</td>
@@ -188,23 +188,23 @@
       </tr>
       <tr>
         <td width="200px" class="main">--wp</td>
-        <td class="main">wordpress sites in the server</td>
+        <td class="main">get wordpress sites</td>
       </tr>
       <tr>
         <td width="200px" class="main">--joom</td>
-        <td class="main">joomla sites in the server</td>
+        <td class="main">Getjoomla sites</td>
       </tr>
       <tr>
         <td width="200px" class="main">--upload</td>
-        <td class="main">get sites with upload files in the server</td>
+        <td class="main">get sites with upload files</td>
       </tr>
       <tr>
         <td width="200px" class="main">--zip</td>
-        <td class="main">get sites with zip files in the server</td>
+        <td class="main">get sites with zip files</td>
       </tr>
       <tr>
         <td width="200px" class="main">--save</td>
-        <td class="main">file to save results (if not set tool sets one)</td>
+        <td class="main">file prefix to save results (if not set tool sets one)</td>
       </tr>
       <tr>
         <td width="200px" class="main">--md5</td>

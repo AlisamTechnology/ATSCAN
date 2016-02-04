@@ -223,16 +223,8 @@
         <td class="main">add ip to engine results</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--server</td>
-        <td class="main">add server software to engine results</td>
-      </tr>
-      <tr>
         <td width="200px" class="main">--isup</td>
         <td class="main">check http status 200</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--httpd</td>
-        <td class="main">print site httpd version</td>
       </tr>
       <tr>
         <td width="200px" class="main">--email</td>
@@ -269,10 +261,7 @@
     <td class="main">
 <b>Simple search: </b><br/>
   Search: --dork [dork] --level [level] <br/>
-  Search + get ip: --dork [dork] --level [level] --ip <br/>
-  Search + get ip + server: --dork [dork] --level [level] --ip --server <br/>
   Search with many dorks: --dork [dork1,dork2,dork3] --level [level] <br/>
-  Search + get ip+server: --dork [dorks.txt] --level [level] <br/>
   Search + set save file: --dork [dorks.txt] --level [level] --save myfile.txt <br/>
   Search + Replace + Exploit: --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/>
   Search + Extract e-mails: --dork [dorks.txt] --level [level] --email <br/>
@@ -328,8 +317,8 @@
   -t [ip] --level [10] --xss --lfi --wp ... <br/>
   -t [targets] --xss --lfi --wp ...<br/><br/>
   .....<br/><br/>
-<b>Hide Validation process: </b><br/>
-  --hide</b><br/>
+<b>Check for updates: </b><br/>
+  --update</b><br/>
     </td>
   </tr>
 </table>  

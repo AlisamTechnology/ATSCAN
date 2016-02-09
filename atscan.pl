@@ -960,14 +960,15 @@ sub control {
 	$URL =~ s/\/.*//s;
   }
   if ((defined $replace) && (defined $with)) {
-    if ($URL =~ m/$replace/i) {
-	  $URL =~ s/$replace(.*)/$with/g;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
 	}
+	$URL =~ s/\/.*/\/$with/g;
   }
   if (defined $exploit) {
     $URL = $URL.$exploit;
   }
-  $URL =~ s/ //g;
+  if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
   return $URL;
 }	
 ############################################################################################################################################################################################
@@ -1007,6 +1008,10 @@ sub checkextrainfo {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 sub checkedurl {
+
+    $URL1 = control($URL1);
+
+
   $request = HTTP::Request->new('GET', $URL1);
   my $response = $ua->request($request);
   my $html = $response->content;
@@ -1510,7 +1515,6 @@ sub mvalidation {
 	print color RESET;
     $URL = control($URL);
     $URL1 = $URL;
-	$URL1 =~ s/ //g;
     $yes = $validation_text;
     $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	checkedurl();

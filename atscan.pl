@@ -1008,10 +1008,6 @@ sub checkextrainfo {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 sub checkedurl {
-
-    $URL1 = control($URL1);
-
-
   $request = HTTP::Request->new('GET', $URL1);
   my $response = $ua->request($request);
   my $html = $response->content;
@@ -1211,6 +1207,19 @@ sub subfin {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+sub searchexitstargets {
+  if (!-e 'search.txt'){
+    print color 'bold';
+    print "[ ] ----------------------------------------------------------------------- [ ]\n";
+    print color 'RESET';
+    print color 'yellow';
+    print "[!] No Target list found!\n";
+    print color 'RESET';
+	exit();
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub desclaimer {
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print "[ ] This is a pentest tool! We will not be responsible or liable, directly  [ ]\n";
@@ -1407,9 +1416,10 @@ sub misup {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   if (-e 'validated.txt'){ unlink 'validated.txt';}
   testconection();
- if (!defined $mlevel){
+  if (!defined $mlevel){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -1467,6 +1477,7 @@ sub misup {
 	print color 'red';
     print "[!] No Results Found!\n";
     subfin();
+	exit();
   }
   if ((!defined $validation_text) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails)) {
     exit();
@@ -1478,9 +1489,10 @@ sub misup {
 sub mvalidation {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
   testconection();
- if (!defined $mlevel){
+  if (!defined $mlevel){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -1537,6 +1549,7 @@ sub mvalidation {
 	print color 'red';
     print "[!] No Results Found!\n";
     subfin();
+	exit();
   }
   if ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails)) {
     exit();
@@ -1550,6 +1563,7 @@ sub mcommand {
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -1582,7 +1596,9 @@ sub mcommand {
 	print "    CMD:    ";
 	print color RESET;
 	
-	$URL = control($URL);
+	if ((!defined $misup) && (!defined $validation_text)) {
+      $URL = control($URL);
+	}
 	
 	if ($command =~ /--TARGET/) {
 	  if (index($URL, 'http://') != -1) {
@@ -1618,6 +1634,7 @@ sub mxss {
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -1645,9 +1662,8 @@ sub mxss {
 	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    $URL = control($URL);
-	if (defined $exploit) {
-	  $URL =~ s/%27//g if $URL =~ /%27/;
+	if ((!defined $misup) && (!defined $validation_text)) {
+      $URL = control($URL);
 	}
 	foreach $XSS(@XSS){
       $URL1 = $URL.$XSS;
@@ -1685,6 +1701,7 @@ sub sqlmap {
   if (!defined $mlevel){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -1825,6 +1842,7 @@ sub mlfi {
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -1854,7 +1872,6 @@ sub mlfi {
 	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    #$URL = control($URL);
 	foreach $LFI(@LFI){
 	  print color 'bold';
 	  print "    EXPL:   ";
@@ -1898,6 +1915,7 @@ sub mjoomrfi {
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -1930,7 +1948,6 @@ sub mjoomrfi {
 	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    #$URL = control($URL);
 	foreach $RFI(@RFI){
 	  print color 'bold';
 	  print "    EXPL:   ";
@@ -1973,6 +1990,7 @@ sub mwpadf {
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -2005,7 +2023,6 @@ sub mwpadf {
 	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    #$URL = control($URL);
 	foreach $ADFWP(@ADFWP){
 	  print color 'bold';
 	  print "    EXPL:   ";
@@ -2049,6 +2066,7 @@ sub madmin {
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -2081,7 +2099,6 @@ sub madmin {
 	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    #$URL = control($URL);
 	foreach $ADMIN(@ADMIN){
 	  print color 'bold';
 	  print "    EXPL:   ";
@@ -2254,7 +2271,6 @@ sub mwpsites {
 	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    $URL = control($URL);
 	foreach $WPCMS(@WPCMS){
       $URL1 = $URL.$WPCMS;
 	  $URL1 =~ s/ //g;
@@ -2327,7 +2343,6 @@ sub mjoomsites {
 	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    $URL = control($URL);
 	foreach $JOOMCMS(@JOOMCMS){
       $URL1 = $URL.$JOOMCMS;
 	  $URL1 =~ s/ //g;
@@ -2368,6 +2383,7 @@ sub muploadsites {
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -2397,7 +2413,6 @@ sub muploadsites {
 	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    #$URL = control($URL);
 	foreach $UPLOAD(@UPLOAD){
 	  print color 'bold';
 	  print "    EXPL:   ";
@@ -2441,6 +2456,7 @@ sub mzipsites {
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -2470,7 +2486,6 @@ sub mzipsites {
 	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    #$URL = control($URL);
 	foreach $ZIP(@ZIP){
 	  print color 'bold';
 	  print "    EXPL:   ";
@@ -2514,6 +2529,7 @@ sub mmails {
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -2685,6 +2701,7 @@ sub basic {
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -2756,6 +2773,7 @@ sub basic2 {
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -2874,9 +2892,10 @@ sub basic2 {
 ############################################################################################################################################################################################
 sub complete {
   testconection();
- if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -2949,9 +2968,10 @@ sub complete {
 ############################################################################################################################################################################################
 sub complete2 {
   testconection();
- if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -3086,9 +3106,10 @@ sub subuser {
 ############################################################################################################################################################################################
 sub user {
   testconection();
- if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -3165,9 +3186,10 @@ sub user {
 ############################################################################################################################################################################################
 sub user2 {
   testconection();
- if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
+  searchexitstargets();
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -3518,6 +3540,16 @@ if ((defined $dork) || (defined $Target)) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 if (defined $mlevel) {
+  if ($mlevel < 10) {
+    print color 'bold';
+    print "[ ] ----------------------------------------------------------------------- [ ]\n";
+    print color 'RESET';
+    print color 'yellow';
+    print "[!] Min level is 10 [--level >=10]\n";
+    print color 'RESET';
+	exit();
+  }
+
   if ((defined $dork) || (defined $Target)){
     if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
       submsearch();

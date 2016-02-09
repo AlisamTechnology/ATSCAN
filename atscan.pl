@@ -957,6 +957,9 @@ sub control {
     $URL=$URL;
   }
   if (defined $mtarget) {
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
+	}
 	$URL =~ s/\/.*//s;
   }
   if ((defined $replace) && (defined $with)) {
@@ -986,6 +989,7 @@ sub checkextrainfo {
   }
   use Socket;
   $checkip=~ s/\/.*//s;
+  #if($checkip !~ /http:\/\//) { $checkip = "http://$checkip"; };	
   $ip = Socket::inet_ntoa(inet_aton($checkip));
   print color 'bold';
   print "    IP:     ";

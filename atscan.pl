@@ -2256,9 +2256,6 @@ sub mwpsites {
 	print color RESET;
     $URL = control($URL);
 	foreach $WPCMS(@WPCMS){
-	  print color 'bold';
-	  print "    CMS:    ";
-	  print color RESET;
       $URL1 = $URL.$WPCMS;
 	  $URL1 =~ s/ //g;
 	  $cms="Wordpress!";
@@ -2332,9 +2329,6 @@ sub mjoomsites {
 	print color RESET;
     $URL = control($URL);
 	foreach $JOOMCMS(@JOOMCMS){
-	  print color 'bold';
-	  print "    CMS:    ";
-	  print color RESET;
       $URL1 = $URL.$JOOMCMS;
 	  $URL1 =~ s/ //g;
 	  $cms="Joomla!";

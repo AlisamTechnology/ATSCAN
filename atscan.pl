@@ -539,7 +539,7 @@ sub scandetail {
     print "[!] TARGET:: ";
     print color RESET;
     print color 'cyan';
-	print "$rangip\n";
+	print "Range [$rangip]\n";
     print color RESET;
   }
   #########################################
@@ -935,6 +935,16 @@ sub countdorks {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+sub countdorkslist {
+  my $lc = 0;
+  my $file = "dorks.txt";
+  open $file, "<", $file;
+  $lc++ while <$file>;
+  print "$lc";
+  close $file;
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 sub countinicialtargets {
   my $lc = 0;
   my $file = $Target;
@@ -1284,7 +1294,7 @@ sub msearch {
     print "[+] SEARCH:: ";
     print color RESET;
     print color 'cyan';
-    print "$dork ";
+    print "[$dork] ";
     print color RESET;
 	my $pattern = '.txt|.log';
 	if ($dork =~ m/$pattern/i){
@@ -1300,13 +1310,19 @@ sub msearch {
   print color RESET;
   
   forwait();
+  $count=0;
   open (FILE, "dorks.txt");
   while (my $dork = <FILE>) {
     chomp $dork;
+	$count++;
+
 	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
       print color 'bold magenta';
 	  timer();
-	  print "SCAN:: $dork \n\n";
+	  print "[$count/";
+	  countdorkslist();
+	  print "] ";
+	  print "[SCAN:: $dork]\n";
       print color RESET;
 	}
 	$mlevel = $mlevel;
@@ -1323,16 +1339,22 @@ sub msearch {
 		my $search=$ua->get("$google");
         $search->as_string;
         my $Res=$search->content;
+		$count=0;
         while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
           if($1 !~ /msn|live|bing|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
             my $URL=$1;
+			$count++;
             $URL=~s/&(.*)/\ /g;
 			if ($repeat{$URL}) {
 			}else{
 			  if (($URL !~ /http:\/\//) && ($URL !~ /https:\/\//)) { $URL = "http://$URL"; };
 	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with)) {
+	            print color 'bold magenta';
+	            timer();
+	            print "[$count]\n";
+	            print color RESET;
 	            print color 'bold';
-			    print "[!] TARGET: ";
+			    print "    TARGET: ";
 	            print color RESET;
 	            print color 'blue';
                 print "$URL\n";
@@ -1382,7 +1404,6 @@ sub msearch {
   }
   $list = "search.txt";
   if (-e $list){
-    print" \n";
     my $lc = 0;
 	my $file = "search.txt";
     my %seen = ();
@@ -1455,11 +1476,6 @@ sub misup {
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
   forwait();
-  if (defined $mnoshow) {
-    print color 'yellow';
-    print "[!] Please wait...\n";
-    print color RESET;
-  }
   $count=0;
   open (TEXT, 'search.txt');
   while (my $URL = <TEXT>) {

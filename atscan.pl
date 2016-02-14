@@ -3418,6 +3418,7 @@ sub help {
   print "   --with        | String to replace with \n";
   print "   --email       | Get emails \n";
   print "   --save        | File Prefix to save scan [by defaut the tool create one if not set!]\n";
+  print "   --rang        | Set ip range [Ex: --rang 124.12.10.144-22.36.14.152]\n";
   print "   --update      | Check tool update \n\n";
 
   print color 'bold yellow';

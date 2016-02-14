@@ -343,6 +343,7 @@ my $mmd5;
 my $mencode64;
 my $mdecode64;
 my $mmails;
+my $rangip;
 
 Getopt::Long::GetOptions(\my %OPT,
                         'proxy=s' => \$proxy,
@@ -386,56 +387,8 @@ Getopt::Long::GetOptions(\my %OPT,
 						'decode64=s' => \$mdecode64,
 						'email' => \$mmails,
 						'update' => \$checkversion,
+						'rang=s' => \$rangip,
 ) or advise();
-
-if (@ARGV > 0){
-  use Getopt::Long;
-  GetOptions(\my %com,
-            'help',
-            'save',
-            'dork',
-			'proxy',
-			'level',
-			't',
-			'xss',
-			'valid',
-			'exp',
-			'sqlmap',
-			'lfi',
-			'joomrfi',
-			'shell',
-			'wpadf',
-			'admin',
-			'shost',
-			'ports',
-			'start',
-			'end',
-			'basic',
-			'all',
-			'sites',
-			'wp',
-			'joom',
-			'uplod',
-			'zip',
-			'encode64',
-			'decode64',
-			'md5',
-			'command',
-			'TARGET',
-			'FULL_TARGET',
-			'isup',
-			'about',
-			'select',
-			'replace',
-			'with',
-			'email',
-			'update',
-  );
-  
-  if (!exists $com{"save" || "help" || "proxy" || "dork" || "level" || "xss" || "valid" || "exp" || "sqlmap" || "lfi" || "joomrfi" || "shell" || "wpadf" || "admin" || "shost" || "ports" || "start" || "end" || "basic" || "all" || "sites" || "wp" || "joom" || "zip" || "upload" || "md5" || "decode64" || "encode64" || "command" || "TARGET" || "FULL_TARGET" || "isup" || "about" || "select" || "replace" || "with" || "email" || "update"}) {
-	advise();
-  }
-}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ### set tor proxy
@@ -447,7 +400,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 sub existantversion {
-  $existantversion='version 6.0 Stable';
+  $existantversion='version 6.1 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -577,6 +530,16 @@ sub scandetail {
 	  countinicialtargets();
     }
 	print "\n";
+    print color RESET;
+  }
+  #########################################
+  #########################################
+  if (defined $rangip) {
+    print color 'bold yellow';
+    print "[!] TARGET:: ";
+    print color RESET;
+    print color 'cyan';
+	print "$rangip\n";
     print color RESET;
   }
   #########################################
@@ -792,7 +755,37 @@ sub dorklist {
         print FILE "$dork\n";
         close (FILE);
       }
-	} 
+	}
+  }elsif (defined $rangip) {
+    if (($rangip =~ /(\d+)\.(\d+)\.(\d+)\.(\d+)\-(\d+)\.(\d+)\.(\d+)\.(\d+)/) && ($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
+      my $startIp = $1.".".$2.".".$3.".".$4;
+      my $endIp = $5.".".$6.".".$7.".".$8;
+	  
+      my (@ip,@newIp,$i,$newIp,$j,$k,$l);
+      open (FILE, '>>dorks.txt');
+      @ip = split(/\./,$startIp);
+      for($i=$ip[0];$i<=$5;$i++) {
+	    $ip[0]=0 if($i == $5);
+        for($j=$ip[1];$j<=$6;$j++) {
+          $ip[1]=0 if($j == $6);
+          for($k=$ip[2];$k<=$7;$k++) {
+            $ip[2]=0 if($k == $7);
+            for($l=$ip[3];$l<=$8;$l++) {
+              $ip[3]=0 if($l == $8);
+              @newIp = $newIp = join('.',$i,$j,$k,$l);
+              print FILE "$newIp \n";
+            }
+	      }
+		}
+      }
+	  close (FILE);
+	}else{
+	  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+      print color 'red';
+	  print "[!] $rangip is not a valid range! [Ex: --rang 15.24.123.142-142.11.10.101]\n";
+      print color RESET;
+      exit();
+	}
   }elsif (defined $Target){
 	if (-e 'dorks.txt'){ unlink 'dorks.txt'};
     my $pattern = '.txt|.log';
@@ -827,7 +820,39 @@ sub dorklist {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 sub targetlist {
-  if (defined $Target) {
+  $checkdorklist = "search.txt";
+  if (-e $checkdorklist){ unlink 'search.txt'};
+  if (defined $rangip) {
+    if (($rangip =~ /(\d+)\.(\d+)\.(\d+)\.(\d+)\-(\d+)\.(\d+)\.(\d+)\.(\d+)/) && ($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
+      my $startIp = $1.".".$2.".".$3.".".$4;
+      my $endIp = $5.".".$6.".".$7.".".$8;
+		
+      my (@ip,@newIp,$i,$newIp,$j,$k,$l);
+      open (FILE, '>>search.txt');
+      @ip = split(/\./,$startIp);
+      for($i=$ip[0];$i<=$5;$i++) {
+	    $ip[0]=0 if($i == $5);
+        for($j=$ip[1];$j<=$6;$j++) {
+          $ip[1]=0 if($j == $6);
+          for($k=$ip[2];$k<=$7;$k++) {
+            $ip[2]=0 if($k == $7);
+            for($l=$ip[3];$l<=$8;$l++) {
+              $ip[3]=0 if($l == $8);
+              @newIp = $newIp = join('.',$i,$j,$k,$l);
+              print FILE "$newIp \n";
+            }
+          }
+	    }
+      }
+	  close (FILE);
+	}else{
+	  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+      print color 'red';
+	  print "[!] $rangip is not a valid range! [Ex: --rang 15.24.123.142-142.11.10.101]\n";
+      print color RESET;
+      exit();
+	}
+  }elsif (defined $Target) {
     my $pattern = '.txt|.log';
     if ($Target =~ m/$pattern/i) {
       if ($Target =~ m/search.txt/i ) {
@@ -1286,7 +1311,7 @@ sub msearch {
 	}
 	$mlevel = $mlevel;
     $s_results = $dork;
-	if (defined $Target){
+	if ((defined $Target) || (defined $rangip)) {
       $s_results = "ip%3A".$dork;
       $s_results =~ s/ //g;
 	}
@@ -1302,19 +1327,18 @@ sub msearch {
           if($1 !~ /msn|live|bing|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
             my $URL=$1;
             $URL=~s/&(.*)/\ /g;
-			if (defined $Target) { $URL=~s/\/.*//s; }
 			if ($repeat{$URL}) {
 			}else{
+			  if (($URL !~ /http:\/\//) && ($URL !~ /https:\/\//)) { $URL = "http://$URL"; };
 	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with)) {
 	            print color 'bold';
 			    print "[!] TARGET: ";
 	            print color RESET;
 	            print color 'blue';
-                print "http://$URL\n";
+                print "$URL\n";
 	            print color RESET;
 			    $URL1=$URL;
 				checkextrainfo();
-				if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
 				$request = HTTP::Request->new('GET', $URL);
                 my $response = $ua->request($request);
                 my $html = $response->content;
@@ -1752,6 +1776,7 @@ sub sqlmap {
     print "[+] Do You Want To Exploit DATABASE? (Y/n): ";
     print color RESET;
     $sqldatabase=<STDIN>;
+
     chomp ($sqldatabase);
 		
 	if ($sqldatabase =~ /^[Y]?$/i) {
@@ -2742,7 +2767,7 @@ sub basic {
         close $socket;
 	  }
 	  print color 'bold';
-      print "        TYPE:  ";
+      print "    TYPE:  ";
       print color RESET;
       print "$type  ";
 	  print color 'bold';
@@ -2820,7 +2845,7 @@ sub basic2 {
 	    }	
 	    if ($closed2==0){
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold';
@@ -2835,7 +2860,7 @@ sub basic2 {
         print color RESET;
 	  }else{
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold';
@@ -2852,7 +2877,7 @@ sub basic2 {
 	  
       if ($closed3==0){
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold';
@@ -2867,7 +2892,7 @@ sub basic2 {
         print color RESET;
 	  }else{
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold';
@@ -2935,7 +2960,7 @@ sub complete {
         close $socket;
 	  }
 	  print color 'bold';
-      print "        TYPE:  ";
+      print "    TYPE:  ";
       print color RESET;
       print "$type2  ";
 
@@ -3016,7 +3041,7 @@ sub complete2 {
 	  }
       if ($closed4==0){
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold';
@@ -3032,7 +3057,7 @@ sub complete2 {
         print color RESET;
 	  }else{
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold';
@@ -3048,7 +3073,7 @@ sub complete2 {
 	  }
       if ($closed5==0){
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold';
@@ -3063,7 +3088,7 @@ sub complete2 {
         print color RESET;
 	  }else{
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold';
@@ -3153,7 +3178,7 @@ sub user {
         close $socket;
 	  }
 	  print color 'bold';
-      print "        TYPE:  ";
+      print "    TYPE:  ";
       print color RESET;
       print "$type3  ";
 
@@ -3233,7 +3258,7 @@ sub user2 {
 	  }
       if ($closed7==0){
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold';
@@ -3248,7 +3273,7 @@ sub user2 {
         print color RESET;
 	  }else{
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "tcp  ";
 	    print color 'bold';
@@ -3264,7 +3289,7 @@ sub user2 {
 	  }
       if ($closed8==0){
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold';
@@ -3279,7 +3304,7 @@ sub user2 {
         print color RESET;
 	  }else{
 	    print color 'bold';
-        print "        TYPE:  ";
+        print "    TYPE:  ";
         print color RESET;
         print "udp  ";
 	    print color 'bold';
@@ -3470,7 +3495,7 @@ sub help {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-if (defined $Target) {
+if ((defined $Target) || (defined $rangip)) {
   if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails)) {
   advise();
   }
@@ -3519,7 +3544,7 @@ if ((defined $dork) && (!defined $mlevel)) {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-if ((defined $dork) || (defined $Target)) {
+if ((defined $dork) || (defined $Target) || (defined $rangip)) {
   if (defined $mjoomrfi) {
 	if (!defined $shell) {
       print color 'bold';
@@ -3554,7 +3579,7 @@ if (defined $mlevel) {
 	exit();
   }
 
-  if ((defined $dork) || (defined $Target)){
+  if ((defined $dork) || (defined $Target) || (defined $rangip)){
     if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
       submsearch();
       exit();
@@ -3607,7 +3632,7 @@ if (defined $mlevel) {
    exit();
   }
 }else{
-  if (defined $Target) {
+  if ((defined $Target)  || (defined $rangip)){
     scandetail();
 	forwait();
     if (defined $misup) {misup();}

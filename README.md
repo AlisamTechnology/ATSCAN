@@ -237,6 +237,10 @@
         <td width="200px" class="main">--save</td>
         <td class="main">Set prefix to saved files</td>
       </tr>
+        <tr>
+        <td width="200px" class="main">--rang</td>
+        <td class="main">Set range of ip</td>
+      </tr>    
     </table></td>
   </tr>
 </table>
@@ -258,6 +262,7 @@
   Search + Exploitation: --dork [dork] --level [10] --xss/--lfi/--wp ... <br/>
   Search + xss + sqlmap: --dork [dork] --level [10] --xss --sqlmap <br/>
   Search + Server Exploitation: -t [ip] --level [10] --xss/--lfi/--wp ... <br/>
+  Search + Server Exploitation: --rang 133.21.10.155-19.102.25.14 --level [10] --xss/--lfi/--wp ... <br/>
   Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] --xss/--lfi/--wp ... <br/><br/>
 
 <b>Validation: </b><br/>

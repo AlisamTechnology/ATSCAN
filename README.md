@@ -237,9 +237,13 @@
         <td width="200px" class="main">--save</td>
         <td class="main">Set prefix to saved files</td>
       </tr>
-        <tr>
+      <tr>
         <td width="200px" class="main">--rang</td>
         <td class="main">Set range of ip</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--nobanner</td>
+        <td class="main">Hide tool banner</td>
       </tr>    
     </table></td>
   </tr>

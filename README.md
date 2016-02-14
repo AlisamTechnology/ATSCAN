@@ -30,7 +30,7 @@
     <td class="main3"><b>Description:</b></td>
   </tr>
   <tr>
-    <td class="main" width="890px">ATSCAN version 6.0<br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
+    <td class="main" width="890px"><b>ATSCAN version 6.1</b><br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
         LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Fandom search engine. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan.
     </td>
   </tr>

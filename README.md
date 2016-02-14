@@ -74,7 +74,7 @@
     <img src="http://i.imgur.com/UmU9sBZ.jpg" /><br/><br/>
     <img src="http://i.imgur.com/E4aqmZf.jpg" /><br/><br/>
     <img src="http://i.imgur.com/muppdYP.jpg" /><br/><br/>
-    <img src="http://i.imgur.com/yee0JL1.jpg" /><br/><br/>
+    <img src="http://i.imgur.com/YlRj5xK.jpg" /><br/><br/>
     </td>
   </tr>
 </table>

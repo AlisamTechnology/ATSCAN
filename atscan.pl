@@ -180,44 +180,46 @@ use FindBin '$Bin';
 system(($^O eq 'MSWin32') ? 'cls' : 'clear');
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-print color 'bold cyan';
-print "\n";
-print "        ###    ########  ######   ######     ###    ##    ##     ";
-print color 'red';
-print "(^).-.(^)\n";
-print color RESET;
-print color 'bold cyan';
-print "       ## ##      ##    ##    ## ##    ##   ## ##   ###   ##      ";
-print color 'red';
-print "(.O_O.)\n";
-print color RESET;
-print color 'bold cyan';
-print "      ##   ##     ##    ##       ##        ##   ##  ####  ##    ";
-print color 'red';
-print "__(( A ))__\n";
-print color RESET;
-print color 'bold cyan';
-print "     ##     ##    ##     ######  ##       ##     ## ## ## ##   ";
-print color 'red';
-print "(_.-('-')-._)\n";
-print color RESET;
-print color 'bold cyan';
-print "     #########    ##          ## ##       ######### ##  ####      ";
-print color 'red';
-print "|| T ||\n";
-print color RESET;
-print color 'bold cyan';
-print "     ##     ##    ##    ##    ## ##    ## ##     ## ##   ###    ";
-print color 'red';
-print "_.' `-' '._\n";
-print color RESET;
-print color 'bold cyan';
-print "     ##     ##    ##     ######   ######  ##     ## ##    ##    ";
-print color 'red';
-print "`-'--^--`-'\n";
-print "___________________( No monopoly for knowledge )_______________/-------------/\n";
-print color RESET;
-print "\n";
+if (defined $nobanner) {
+  print color 'bold cyan';
+  print "\n";
+  print "        ###    ########  ######   ######     ###    ##    ##     ";
+  print color 'red';
+  print "(^).-.(^)\n";
+  print color RESET;
+  print color 'bold cyan';
+  print "       ## ##      ##    ##    ## ##    ##   ## ##   ###   ##      ";
+  print color 'red';
+  print "(.O_O.)\n";
+  print color RESET;
+  print color 'bold cyan';
+  print "      ##   ##     ##    ##       ##        ##   ##  ####  ##    ";
+  print color 'red';
+  print "__(( A ))__\n";
+  print color RESET;
+  print color 'bold cyan';
+  print "     ##     ##    ##     ######  ##       ##     ## ## ## ##   ";
+  print color 'red';
+  print "(_.-('-')-._)\n";
+  print color RESET;
+  print color 'bold cyan';
+  print "     #########    ##          ## ##       ######### ##  ####      ";
+  print color 'red';
+  print "|| T ||\n";
+  print color RESET;
+  print color 'bold cyan';
+  print "     ##     ##    ##    ##    ## ##    ## ##     ## ##   ###    ";
+  print color 'red';
+  print "_.' `-' '._\n";
+  print color RESET;
+  print color 'bold cyan';
+  print "     ##     ##    ##     ######   ######  ##     ## ##    ##    ";
+  print color 'red';
+  print "`-'--^--`-'\n";
+  print "___________________( No monopoly for knowledge )_______________(O^^^)___(^^^O)\n";
+  print color RESET;
+  print "\n";
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 if (!@ARGV) {
@@ -344,6 +346,7 @@ my $mencode64;
 my $mdecode64;
 my $mmails;
 my $rangip;
+my $nobanner;
 
 Getopt::Long::GetOptions(\my %OPT,
                         'proxy=s' => \$proxy,
@@ -388,6 +391,7 @@ Getopt::Long::GetOptions(\my %OPT,
 						'email' => \$mmails,
 						'update' => \$checkversion,
 						'rang=s' => \$rangip,
+						'nobanner' => \$nobanner,
 ) or advise();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1349,7 +1353,7 @@ sub msearch {
 			}else{
 			  if (($URL !~ /http:\/\//) && ($URL !~ /https:\/\//)) { $URL = "http://$URL"; };
 	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with)) {
-	            print color 'bold magenta';
+	            print color 'bold';
 	            timer();
 	            print "[$count]\n";
 	            print color RESET;
@@ -3419,6 +3423,7 @@ sub help {
   print "   --email       | Get emails \n";
   print "   --save        | File Prefix to save scan [by defaut the tool create one if not set!]\n";
   print "   --rang        | Set ip range [Ex: --rang 124.12.10.144-22.36.14.152]\n";
+  print "   --nobanner    | Hide tool banner\n";
   print "   --update      | Check tool update \n\n";
 
   print color 'bold yellow';

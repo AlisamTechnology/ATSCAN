@@ -71,12 +71,10 @@
   </tr>
   <tr>
     <td align="center" width="890px">
-    <img src="http://i.imgur.com/hxyWRb2.jpg" /><br/><br/>
-    <img src="http://i.imgur.com/Utw0lZj.jpg" /><br/><br/>
-    <img src="http://i.imgur.com/Oip7YDu.jpg" /><br/><br/>
-    <img src="http://i.imgur.com/YtPr5OF.jpg" /><br/><br/>
-    <img src="http://i.imgur.com/Ppg5Pez.jpg" /><br/><br/>
-    <img src="http://i.imgur.com/MKDYjVo.jpg" /><br/><br/>
+    <img src="http://i.imgur.com/UmU9sBZ.jpg" /><br/><br/>
+    <img src="http://i.imgur.com/E4aqmZf.jpg" /><br/><br/>
+    <img src="http://i.imgur.com/muppdYP.jpg" /><br/><br/>
+    <img src="http://i.imgur.com/yee0JL1.jpg" /><br/><br/>
     </td>
   </tr>
 </table>

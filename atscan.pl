@@ -450,16 +450,17 @@ sub checkversion {
 		open (FILE, '>>atscan.pl');
         print FILE $response->content;
         close (FILE);
-	  }
-	  print color 'green';
-	  print "[!] Tool updeted with success!\n";
-	  print color RESET;
-	  system("chmod +x atscan.pl | perl ./atscan.pl");
-	  exit();
-    }else{
-	  print color 'red';
-	  print "[!] Can not connect to the server!\n";
-	  print color RESET;
+	 
+	    print color 'green';
+	    print "[!] Tool updeted with success!\n";
+	    print color RESET;
+	    system("chmod +x atscan.pl | perl ./atscan.pl");
+	    exit();
+      }else{
+	    print color 'red';
+	    print "[!] Can not connect to the server!\n";
+	    print color RESET;
+      }
 	}
   }
 }

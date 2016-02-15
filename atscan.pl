@@ -3458,7 +3458,7 @@ sub help {
   print "   --save        | File Prefix to save scan [by defaut the tool create one if not set!]\n";
   print "   --rang        | Set ip range [Ex: --rang 124.12.10.144-22.36.14.152]\n";
   print "   --nobanner    | Hide tool banner\n";
-  print "   --update      | Check tool update \n\n";
+  print "   --update      | Check and update tool\n\n";
 
   print color 'bold yellow';
   print "[..] EXAMPLES: \n\n";
@@ -3541,7 +3541,7 @@ sub help {
   print "    -t <targets> --xss --lfi --wp ... \n";
   
   print color 'bold';
-  print "  Check for updates: \n";
+  print "  Check and update: \n";
   print color RESET;
   print "    --update\n\n";
 

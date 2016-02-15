@@ -403,7 +403,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 sub existantversion {
-  $existantversion='version 6.1 Stable';
+  $existantversion='version 6.0 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -422,7 +422,7 @@ sub checkversion {
   $gitversion = "version".$gitversion."Stable";
   if ($gitversion eq $existantversion) {
 	print color 'green';
-	print "[!] OK! Last $gitversion!\n";
+	print "[!] OK! Last $gitversion No need to update!\n";
 	print color RESET;
   }else{	
 	print color 'red';
@@ -431,6 +431,34 @@ sub checkversion {
 	print color 'green';
 	print "$gitversion!\n";
 	print color RESET;
+	
+    print color 'yellow';
+    print "[!] Do you want to update tool? [Y/n]: ";
+    print color RESET;
+    $resp=<STDIN>;
+    chomp ($resp);
+	my $yes ='Y|y|yes|YES|Yes';
+	if ($resp =~ /$yes/) {
+      my $URL = "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
+      $request = HTTP::Request->new('GET', $URL);
+      my $response = $ua->request($request);
+      my $html = $response->content;
+	  if ($response->is_success) {
+		unlink 'atscan.pl';
+		open (FILE, '>>atscan.pl');
+        print FILE $response->content;
+        close (FILE);
+	  }
+	  print color 'green';
+	  print "[!] Tool updeted with success!\n";
+	  print color RESET;
+	  system("chmod +x atscan.pl | perl ./atscan.pl");
+	  exit();
+    }else{
+	  print color 'red';
+	  print "[!] Can not connect to the server!\n";
+	  print color RESET;
+	}
   }
 }
 ############################################################################################################################################################################################

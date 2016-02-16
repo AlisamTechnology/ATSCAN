@@ -354,7 +354,11 @@ my @ERROR = ("root:x", "You have an error in your SQL syntax", "Warning: mysql",
 my @MODULETYPE = ("<a href=\"https:\/\/wordpress.org\/\">Proudly powered by WordPress", "<meta name=\"generator\" content=\"Joomla", "Powered by <a href=\"http:\/\/www.textpattern.com\" title=\"Textpattern", "<a href=\"http:\/\/www.simplemachines.org/about/copyright.php\" title=\"Free Forum Software\" target=\"_blank\">SMF", "Powered by <a href=\"http:\/\/www.phpbb.com/\">phpBB", "<a href=\"https:\/\/www.vbulletin.com\" id=\"vbulletinlink\">vBulletin", "vBulletin Solutions\, Inc\. All rights reserved", "Powered By <a href=\"http:\/\/www.mybboard.net\" target=\"_blank\">MyBB", "<a href=\"http:\/\/www.cloudflare.com\/\" target=\"_blank\" style", "DDoS protection by CloudFlare", "name=\"Generator\" content=\"Drupal", "<meta name=\"generator\" content=\"PostNuke", "<a href=\"/about.php\">About ATutor", "<META NAME=\"GENERATOR\" CONTENT=\"PHP-Nuke", "Powered by <a href=\"http:\/\/moodle.org\" title=\"Moodle\">Moodle", "<meta name=\"key words\" content=\"moodle", "Powered by <a href=\"http:\/\/www.adaptcms.com\">AdaptCMS", "<meta name=\"generator\" content=\"SilverStripe - http:\/\/silverstripe.org\" \/>", "<a href=\"http:\/\/www.modx.com\" target=\"_blank\"> Powered by MODx", "<meta name=\"generator\" content=\"XOOPS", "Powered by osCommerce", "<a href=\"http:\/\/www.oscommerce.com\" target=\"_blank\">osCommerce", "<a class=\"_blank_blank\" href=\"http:\/\/www.prestashop.com\" target=\"_blank", "Software para Ecommerce de PrestaShop", "<meta name=\"generator\" content=\"b2evolution", "MAGENTO\, INC\. ALL RIGHTS RESERVED", "Magento Ecommerce by Smart Solutions", "all rights reserved Zen Cart", "<a href=\"http:\/\/www.zen-cart.com\" target=\"_blank\">Zen Cart", "Powered by concrete5", "<meta name=\"generator\" content=\"concrete", "Powered By OpenCart");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+my @CODENAME = ("No monopoly for knowledge", "! Love Mezguida H4ckers !", "No Pe4ce betwin systems !", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !", "Hacking is not Fucking !!", "No h4y sistem4 4 s4lvo !!", "When is brocken u hair it");
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 if (!defined $nobanner) {
+  $CODENAME = $CODENAME[int rand @CODENAME];
   print color 'bold cyan';
   print "\n";
   print "        ###    ########  ######   ######     ###    ##    ##     ";
@@ -390,7 +394,7 @@ if (!defined $nobanner) {
   print "     ##     ##    ##     ######   ######  ##     ## ##    ##    ";
   print color 'red';
   print "`-'--^--`-'\n";
-  print "___________________( No monopoly for knowledge )_______________(O^^^)___(^^^O)\n";
+  print "__________________( $CODENAME )_______________(O^^^)___(^^^O)\n";
   print color RESET;
   print "\n";
 }

@@ -1398,7 +1398,7 @@ sub msearch {
             $URL=~s/&(.*)/\ /g;
 			if ($repeat{$URL}) {
 			}else{
-			  if (($URL !~ /http:\/\//) && ($URL !~ /https:\/\//)) { $URL = "http://$URL"; };
+			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };
 	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with)) {
 	            print color 'bold';
 	            timer();

@@ -589,7 +589,7 @@ sub scandetail {
   print color RESET;
   if (defined $proxy) {
     print color 'green';
-    print "Yes! \n";
+    print "[$proxy]\n";
     print color RESET;
   }else{
     print color 'cyan';
@@ -1065,11 +1065,12 @@ sub checkextrainfo {
   my $checkip=$URL1;	 
   if (index($checkip, 'http://') != -1) {
 	$checkip =~ s/http:\/\///g;
+  }elsif (index($checkip, 'https://') != -1) {
+	$checkip =~ s/https:\/\///g;
   }
-  use Socket;
   $checkip=~ s/\/.*//s;
-  #if($checkip !~ /http:\/\//) { $checkip = "http://$checkip"; };	
-  $ip = Socket::inet_ntoa(inet_aton($checkip));
+  use Socket;
+  my $ip = Socket::inet_ntoa(inet_aton($checkip));
   print color 'bold';
   print "    IP:     ";
   print color RESET;
@@ -3713,7 +3714,6 @@ if (defined $mlevel) {
 }else{
   if ((defined $Target)  || (defined $rangip)){
     scandetail();
-	forwait();
     if (defined $misup) {misup();}
     if (defined $validation_text) { mvalidation();}
     if (defined $command) {mcommand();}

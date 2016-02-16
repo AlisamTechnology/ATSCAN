@@ -245,6 +245,10 @@
         <td width="200px" class="main">--nobanner</td>
         <td class="main">Hide tool banner</td>
       </tr>    
+      <tr>
+        <td width="200px" class="main">--beep</td>
+        <td class="main">Produce beep sount if positive scan found</td>
+      </tr>    
     </table></td>
   </tr>
 </table>

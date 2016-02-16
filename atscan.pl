@@ -161,6 +161,7 @@ my $mdecode64;
 my $mmails;
 my $rangip;
 my $nobanner;
+my $beep;
 
 Getopt::Long::GetOptions(\my %OPT,
                         'proxy=s' => \$proxy,
@@ -206,6 +207,7 @@ Getopt::Long::GetOptions(\my %OPT,
 						'update' => \$checkversion,
 						'rang=s' => \$rangip,
 						'nobanner' => \$nobanner,
+						'beep' => \$beep,
 ) or advise();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1123,6 +1125,7 @@ sub checkedurl {
   print "    SCAN:   ";
   print color RESET;
   if (($response->is_success and !$response->previous) && ($html =~ m/$yes/i) && ($html !~ m/$no/i)){
+    if (defined $beep) {print chr(7);}
 	print color 'green';
 	if (defined $cms) {
       print "$cms\n";
@@ -1160,6 +1163,7 @@ sub checkerrortype {
   print color 'yellow';
   for my $ERROR (@ERROR) {
   	if ($ERROR1 eq $ERROR){
+	  if (defined $beep) {print chr(7);}
       if ($ERROR eq $ERROR[0]){
 	    print "Possible Lfi Vulnerability!\n";
       }else{
@@ -1178,6 +1182,7 @@ sub checkcmstype {
   print color 'yellow';
   for my $MODULETYPE (@MODULETYPE) {
   	if ($MODULETYPE1 eq $MODULETYPE){
+	  if (defined $beep) {print chr(7);}
       if ($MODULETYPE eq $MODULETYPE[0]){ print "WordPress\n";
       }elsif ($MODULETYPE eq $MODULETYPE[1]){ print "Joomla\n";
       }elsif ($MODULETYPE eq $MODULETYPE[2]){ print "Textpattern\n";
@@ -2280,6 +2285,7 @@ sub msubdomain {
 	  print color RESET;
 	  
 	  if (defined $socket and $socket ne "") { 
+	  	if (defined $beep) {print chr(7);}
 	    print color 'green';
         print "http://$URL1\n";
 	    print color RESET;
@@ -2835,6 +2841,7 @@ sub basic {
       print "INFO:  ";
       print color RESET;
       if ($closed1==0){
+	    if (defined $beep) {print chr(7);}
 	    print color 'green';
         print "Open!\n";
 		print color RESET;
@@ -2912,6 +2919,7 @@ sub basic2 {
 	    print color 'bold';
         print "INFO:  ";
         print color RESET;
+		if (defined $beep) {print chr(7);}
 		print color 'green';
         print "Open!\n";
         print color RESET;
@@ -2944,6 +2952,7 @@ sub basic2 {
 	    print color 'bold';
         print "INFO:  ";
         print color RESET;
+		if (defined $beep) {print chr(7);}
 		print color 'green';
         print "Open!\n";
         print color RESET;
@@ -3031,6 +3040,7 @@ sub complete {
       print color RESET;
 	  
       if ($closed3==0){
+	    if (defined $beep) {print chr(7);}
 	    print color 'green';
         print "Open!\n";
 		print color RESET;
@@ -3109,6 +3119,7 @@ sub complete2 {
 	    print color 'bold';
         print "INFO:  ";
         print color RESET;
+		if (defined $beep) {print chr(7);}
 		print color 'green';
         print "Open!\n";
         print color RESET;
@@ -3140,6 +3151,7 @@ sub complete2 {
 	    print color 'bold';
         print "INFO:  ";
         print color RESET;
+		if (defined $beep) {print chr(7);}
 		print color 'green';
         print "Open!\n";
         print color RESET;
@@ -3248,6 +3260,7 @@ sub user {
       print "INFO:  ";
       print color RESET;
       if ($closed6==0){
+	    if (defined $beep) {print chr(7);}
 	    print color 'green';
         print "Open!\n";
 	    print color RESET;
@@ -3325,6 +3338,7 @@ sub user2 {
 	    print color 'bold';
         print "INFO:  ";
         print color RESET;
+		if (defined $beep) {print chr(7);}
 		print color 'green';
         print "Open!\n";
         print color RESET;
@@ -3356,6 +3370,7 @@ sub user2 {
 	    print color 'bold';
         print "INFO:  ";
         print color RESET;
+		if (defined $beep) {print chr(7);}
 		print color 'green';
         print "Open!\n";
         print color RESET;
@@ -3461,6 +3476,7 @@ sub help {
   print "   --save        | File Prefix to save scan [by defaut the tool create one if not set!]\n";
   print "   --rang        | Set ip range [Ex: --rang 124.12.10.144-22.36.14.152]\n";
   print "   --nobanner    | Hide tool banner\n";
+  print "   --beep        | Make a beep sound when positive result.\n";
   print "   --update      | Check and update tool\n\n";
 
   print color 'bold yellow';

@@ -3476,7 +3476,7 @@ sub help {
   print "   --save        | File Prefix to save scan [by defaut the tool create one if not set!]\n";
   print "   --rang        | Set ip range [Ex: --rang 124.12.10.144-22.36.14.152]\n";
   print "   --nobanner    | Hide tool banner\n";
-  print "   --beep        | Make a beep sound when positive result.\n";
+  print "   --beep        | Produce beep sount if positive scan found.\n";
   print "   --update      | Check and update tool\n\n";
 
   print color 'bold yellow';

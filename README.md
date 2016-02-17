@@ -247,7 +247,7 @@
       </tr>    
       <tr>
         <td width="200px" class="main">--beep</td>
-        <td class="main">Produce beep sount if positive scan found</td>
+        <td class="main">Produce beep sound if positive scan found</td>
       </tr>    
     </table></td>
   </tr>

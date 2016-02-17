@@ -1763,7 +1763,7 @@ sub mxss {
 	foreach $XSS(@XSS){
       $URL1 = $URL.$XSS;
 	  $URL1 =~ s/ //g;
-      $yes = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error';
+      $yes = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error|You have an error in your SQL syntax';
       $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	  checkedurl();
     }

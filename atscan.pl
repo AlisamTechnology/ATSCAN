@@ -219,6 +219,10 @@ use IO::Socket::INET;
 use LWP::UserAgent;
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+my @strings=('ar_JO', 'ar_KW', 'ar_LB', 'ar_LY', 'ar_MA', 'ar_OM', 'ar_QA', 'ar_SA', 'ar_SD', 'el_GR', 'el', 'iw_IL', 'iw', 'hi_IN', 'hu_HU', 'hu', 'is_IS', 'is', 'in_ID', 'cs-CZ', 'uk', 'vi_VN', 'vi', 'en-US', 'sk-SK', 'pt-BR', 'sq_AL', 'sq', 'ar_DZ', 'ar_BH', 'ar_EG', 'ar_IQ', 'be_BY', 'be', 'bg_BG', 'bg', 'ca_ES', 'ca', 'zh_CN', 'zh_HK', 'zh_SG', 'zh_TW', 'zh', 'hr_HR', 'hr', 'cs_CZ', 'cs', 'da_DK', 'da', 'nl_BE', 'nl_NL', 'nl', 'en_AU', 'en_CA', 'en_IN', 'en_IE', 'en_MT', 'en_NZ', 'en_PH', 'en_SG', 'en_ZA', 'en_GB', 'en_US', 'en', 'et_EE', 'et', 'fi_FI', 'fi', 'fr_BE', 'fr_CA', 'fr_FR', 'fr_LU', 'fr_CH', 'fr', 'de_AT', 'de_DE', 'de_LU', 'de_CH', 'de', 'el_CY', 'in', 'ga_IE', 'ga', 'it_IT', 'it_CH', 'it', 'ja_JP', 'ja_JP_JP', 'ja', 'ko_KR', 'ko', 'lv_LV', 'lv', 'lt_LT', 'lt', 'mk_MK', 'mk', 'ms_MY', 'ms', 'mt_MT', 'mt', 'no_NO', 'no_NO_NY', 'no', 'pl_PL', 'pl', 'pt_PT', 'pt', 'ro_RO', 'ro', 'ru_RU', 'ru', 'sr_BA', 'sr_ME', 'sr_CS', 'sr_RS', 'sr', 'sk_SK', 'sk', 'sl_SI', 'sl', 'es_AR', 'es_BO', 'es_CL', 'es_CO', 'es_CR', 'es_DO', 'es_EC', 'es_SV', 'es_GT', 'es_HN', 'es_MX', 'es_NI', 'es_PA', 'es_PY', 'es_PE', 'es_PR', 'es_ES', 'es_US', 'es_UY', 'es_VE', 'es', 'sv_SE', 'sv', 'th_TH', 'th_TH_TH', 'th', 'tr_TR', 'tr', 'uk_UA', 'uk');
+$myrand = $strings[int rand @strings];
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## SYSTEM RANDOM
 my @sys=(
 "",
@@ -590,7 +594,7 @@ sub scandetail {
     print color RESET;
     print color 'cyan';
     print "$Target ";
-	if (($Target =~ m/.txt/i) || ($Target=~ m/.log/i)){
+	if ($Target =~ m/.txt/i){
 	  countinicialtargets();
     }
 	print "\n";
@@ -803,14 +807,15 @@ sub testconection {
 sub dorklist {
   $checkdorklist = "dorks.txt";
   if (-e $checkdorklist){ unlink 'dorks.txt'};
-  if (defined $dork){
+  my $pat2 = 'inurl:|intitle:|intext:|index of|allinurl';
+  my $pat3 = ",";
   
-    my $pattern = '.txt|.log';
-    if ($dork =~ m/$pattern/i) {
-      if ($dork =~ m/dorks.txt/i ) {
+  if (defined $dork){
+	if (substr($dork, -4) eq '.txt') {
+      if ($dork eq 'dorks.txt') {
 	    print color RESET;
         print color 'bold';
-        print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
+        print "[ ] ----------------------------------------------------------------------- [ ]\n";
 	    print color RESET;
 	    print color 'red';
 	    print "[!] Rename your list [$dork] I use the same name!\n";
@@ -820,13 +825,12 @@ sub dorklist {
 	  use File::Copy qw(copy);
 	  copy $dork, 'dorks.txt';
     }else{
-      my $pat = 'inurl:|intitle:|intext:|index of|allinurl';
-      if ($dork =~ m/$pat/i) {
-	    $dork =~ s/$pat//g;
+	  if ($dork =~ m/$pat2/) {
+	    $dork =~ s/$pat2//g;
         $dork =~ s/ /+/g;
-	  }elsif ($dork =~ m/,/i) {
-        $dork =~ s/,/ /g;
-  	  }elsif ($dork =~ m/ /i) {
+      }elsif ($dork =~ m/$pat3/) {
+        $dork =~ s/$pat3/ /g;
+      }elsif ($dork =~ m/ /) {
         $dork =~ s/ /+/g;
 	  }
       my @dorks = split / /, $dork;  
@@ -867,12 +871,11 @@ sub dorklist {
 	}
   }elsif (defined $Target){
 	if (-e 'dorks.txt'){ unlink 'dorks.txt'};
-    my $pattern = '.txt|.log';
-    if ($Target =~ m/$pattern/i) {
-      if ($Target =~ m/dorks.txt/i ) {
+	if (substr($Target, -4) eq '.txt') {
+      if ($Target eq 'dorks.txt' ) {
 	    print color RESET;
         print color 'bold';
-        print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
+        print "[ ] ----------------------------------------------------------------------- [ ]\n";
 	    print color RESET;
 	    print color 'red';
 	    print "[!] Rename your list [$dork] I use the same name!\n";
@@ -882,11 +885,14 @@ sub dorklist {
 	  use File::Copy qw(copy);
 	  copy $Target, 'dorks.txt';
     }else{
-	  if ($Target =~ m/,/i) {
-        $Target =~ s/,/ /g;
-  	  }elsif ($Target =~ m/ /i) {
+	  if ($Target =~ m/$pat2/) {
+	    $Target =~ s/$pat2//g;
         $Target =~ s/ /+/g;
-      }
+      }elsif ($dork =~ m/$pat3/) {
+        $Target =~ s/$pat3/ /g;
+      }elsif ($dork =~ m/ /) {
+        $Target =~ s/ /+/g;
+	  }
       my @targets = split / /, $Target;
       foreach my $Target (@targets) {
         open (FILE, '>dorks.txt');
@@ -902,11 +908,13 @@ sub dorklist {
 sub targetlist {
   $checkdorklist = "search.txt";
   if (-e $checkdorklist){ unlink 'search.txt'};
+  my $pat2 = 'inurl:|intitle:|intext:|index of|allinurl';
+  my $pat3 = ",";
+
   if (defined $rangip) {
     if (($rangip =~ /(\d+)\.(\d+)\.(\d+)\.(\d+)\-(\d+)\.(\d+)\.(\d+)\.(\d+)/) && ($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
       my $startIp = $1.".".$2.".".$3.".".$4;
       my $endIp = $5.".".$6.".".$7.".".$8;
-		
       my (@ip,@newIp,$i,$newIp,$j,$k,$l);
       open (FILE, '>>search.txt');
       @ip = split(/\./,$startIp);
@@ -933,12 +941,11 @@ sub targetlist {
       exit();
 	}
   }elsif (defined $Target) {
-    my $pattern = '.txt|.log';
-    if ($Target =~ m/$pattern/i) {
-      if ($Target =~ m/search.txt/i ) {
+	if (substr($Target, -4) eq '.txt') {
+      if ($Target eq 'search.txt') {
 	    print color RESET;
         print color 'bold';
-        print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
+        print "[ ] ----------------------------------------------------------------------- [ ]\n";
 	    print color RESET;
 	    print color 'red';
 	    print "[!] Rename your list [$Target] I use the same name!\n";
@@ -948,12 +955,14 @@ sub targetlist {
 	  use File::Copy qw(copy);
 	  copy $Target, 'search.txt';
     }else{
-	  if ($Target =~ m/,/i) {
-        $Target =~ s/,/ /g;
-  	  }elsif ($Target =~ m/ /i) {
+	  if ($Target =~ m/$pat2/) {
+	    $Target =~ s/$pat2//g;
         $Target =~ s/ /+/g;
-      }
-	  if (-e 'search.txt'){ unlink 'search.txt'};
+      }elsif ($dork =~ m/$pat3/) {
+        $Target =~ s/$pat3/ /g;
+      }elsif ($dork =~ m/ /) {
+        $Target =~ s/ /+/g;
+	  }
       my @targets = split / /, $Target;
       foreach my $Target (@targets) {
         open (FILE, '>search.txt');
@@ -1402,7 +1411,7 @@ sub msearch {
     print color 'cyan';
     print "[$dork] ";
     print color RESET;
-	my $pattern = '.txt|.log';
+	my $pattern = '.txt';
 	if ($dork =~ m/$pattern/i){
 	  countdorks();
 	}else{

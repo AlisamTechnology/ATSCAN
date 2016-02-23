@@ -1152,20 +1152,29 @@ sub getlist {
 ############################################################################################################################################################################################
 ## EXTRAT INFO PROCESS SCAN
 sub checkextrainfo {
-  my $checkip=$URL1;	 
-  if (index($checkip, 'http://') != -1) {
-	$checkip =~ s/http:\/\///g;
-  }elsif (index($checkip, 'https://') != -1) {
-	$checkip =~ s/https:\/\///g;
-  }
-  $checkip=~ s/\/.*//s;
-  use Socket;
-  my $ip = Socket::inet_ntoa(inet_aton($checkip));
+  my $checkip=$URL1;
+  $req = HTTP::Request->new('GET', $checkip);
+  my $re = $ua->request($req);
+  my $st = $re->code;
+
   print color 'bold';
   print "    IP:     ";
   print color RESET;
-  print "$ip\n";
 
+  if ($st==200) {
+    if (index($checkip, 'http://') != -1) {
+	  $checkip =~ s/http:\/\///g;
+    }elsif (index($checkip, 'https://') != -1) {
+	  $checkip =~ s/https:\/\///g;
+    }
+    $checkip=~ s/\/.*//s;
+  
+    use Socket;
+    my $ip = Socket::inet_ntoa(inet_aton($checkip));
+    print "$ip\n";
+  }else{
+    print "Undefined!\n";
+  }
   if ((defined $replace) && (defined $with)) {
 	print color 'bold';
 	print "    REPLC:  ";
@@ -1494,8 +1503,11 @@ sub msearch {
         while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
           if($1 !~ /msn|live|bing|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
             my $URL=$1;
-			$count++;
             $URL=~s/&(.*)/\ /g;
+			if (defined $msites) {
+              $URL=~s/\/.*//s;
+			}
+			$count++;
 			if ($repeat{$URL}) {
 			}else{
 			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };

@@ -30,7 +30,7 @@
     <td class="main3"><b>Description:</b></td>
   </tr>
   <tr>
-    <td class="main" width="890px"><b>ATSCAN version 6.2</b><br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
+    <td class="main" width="890px"><b>ATSCAN version 6.3</b><br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
         LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Fandom search engine. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan.<br/>Disponible on BlackArch Linux Platform.
     </td>
   </tr>
@@ -242,6 +242,23 @@
         <td class="main">Set range of ip</td>
       </tr>
       <tr>
+      <tr>
+        <td width="200px" class="main">--wpbf</td>
+        <td class="main">Wordpress admin login brute force</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--joombf</td>
+        <td class="main">Joomla admin login brute force</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--user</td>
+        <td class="main">Set username Wordpress/Joomla login brute force</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--pass</td>
+        <td class="main">Set password list Wordpress/Joomla login brute force</td>
+      </tr>
+      
         <td width="200px" class="main">--nobanner</td>
         <td class="main">Hide tool banner</td>
       </tr>    
@@ -264,6 +281,7 @@
   Search + set save file: --dork [dorks.txt] --level [level] --save myfile.txt <br/>
   Search + Replace + Exploit: --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/>
   Search + Extract e-mails: --dork [dorks.txt] --level [level] --email <br/>
+  Search + Brute Force: --dork [dorks.txt] --level [10] --wpbf/--joombf --user [username] --pass [list.txt] <br/>
   <br/>
 
 <b>Subscan from Serach Engine: </b><br/>
@@ -271,6 +289,7 @@
   Search + xss + sqlmap: --dork [dork] --level [10] --xss --sqlmap <br/>
   Search + Server Exploitation: -t [ip] --level [10] --xss/--lfi/--wp ... <br/>
   Search + Server Exploitation: --rang 133.21.10.155-19.102.25.14 --level [10] --xss/--lfi/--wp ... <br/>
+  Search + Server Exploitation: -t [ip] --level [10] --wpbf/--joombf --user [username] --pass [list.txt] <br/>
   Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] --xss/--lfi/--wp ... <br/><br/>
 
 <b>Validation: </b><br/>

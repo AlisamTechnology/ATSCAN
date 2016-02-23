@@ -31,7 +31,7 @@
   </tr>
   <tr>
     <td class="main" width="890px"><b>ATSCAN version 6.3</b><br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
-        LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Fandom search engine. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan.<br/>Disponible on BlackArch Linux Platform.
+        LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Fandom search engine. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan. <br/> Brute force.<br/>Disponible on BlackArch Linux Platform.
     </td>
   </tr>
 </table>

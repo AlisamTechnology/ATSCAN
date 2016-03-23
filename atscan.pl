@@ -2,8 +2,7 @@
 #
 ############################################################################################################################################################################################
 ## License   ###############################################################################################################################################################################
-# This software is Copyright (c) 2015 Alisam Technology
-# Coded by Ali Mehdioui.
+# This software is Copyright (c) 2015 coded by Ali Mehdioui.
 #
 # This is free software, licensed under:
 #
@@ -171,6 +170,7 @@ my $wpbf;
 my $username;
 my $password;
 my $joombf;
+my $ifinurl;
 
 Getopt::Long::GetOptions(\my %OPT,
                         'proxy=s' => \$proxy,
@@ -221,6 +221,7 @@ Getopt::Long::GetOptions(\my %OPT,
 						'joombf' => \$joombf,
 						'user=s' => \$username,
 						'pass=s' => \$password,
+						'ifinurl=s' => \$ifinurl,
 ) or advise();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -441,7 +442,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 6.3 Stable';
+  $existantversion='version 6.4 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -647,7 +648,7 @@ sub scandetail {
   }
   #########################################
   #########################################
-  if ((defined $misup) || (defined $validation_text)) {
+  if ((defined $misup) || (defined $validation_text) || (defined $ifinurl) || (defined $mnoshow)) {
     print color 'bold yellow';
     print "[+] VALIDATION:: ";
     print color RESET;
@@ -657,6 +658,9 @@ sub scandetail {
     }
     if (defined $misup) { 
       print "/HTTP/1.1 200 ";
+    }
+	if (defined $ifinurl) { 
+      print "/Validate Url ";
     }
     if (defined $mnoshow) { 
       print "/Hidden Process ";
@@ -1476,7 +1480,7 @@ sub msearch {
   while (my $dork = <FILE>) {
     chomp $dork;
 	$count++;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
       print color 'bold magenta';
 	  timer();
 	  print "[$count/";
@@ -1510,8 +1514,8 @@ sub msearch {
 			if ($repeat{$URL}) {
 			}else{
 			  $count2++;
-			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };
-	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with) && (!defined $wpbf) && (!defined $joombf)) {
+			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };			 
+	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with) && (!defined $wpbf) && (!defined $joombf)) {
 	            print color 'bold';
 	            timer();
 	            print "[$count2]\n";
@@ -1588,7 +1592,7 @@ sub msearch {
 	print color RESET;
 	close $file;
     print color RESET;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with) && (!defined $wpbf) && (!defined $joombf)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with) && (!defined $wpbf) && (!defined $joombf)) {
       print color 'green';
 	  if (defined $output) {
 		if (-e $output){ unlink $output};
@@ -1623,6 +1627,108 @@ sub msearch {
 } ## end sub msearch
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## VALIDATION IFINURL
+sub ifinurl {
+  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e 'validated.txt'){ unlink 'validated.txt';}
+  testconection();
+  if (!defined $mlevel){
+    targetlist();
+  }
+  searchexitstargets();
+  print color 'bold';
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  timer();
+  print "STARTING IFINURL VALIDATION SCAN ...\n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
+  forwait();
+  $count=0;
+  open (TEXT, 'search.txt');
+  while (my $URL = <TEXT>) {
+	chomp $URL;
+    $URL = checkurltype($URL);
+	my $printarget = $URL;
+
+	if (index($URL, $ifinurl) != -1) {
+	  $count++;
+	  print color 'bold magenta';
+	  timer();
+	  print "[$count]\n";
+	  print "    TARGET: ";
+	  print color RESET;
+	  print color 'green';
+      print "$URL\n";
+	  print color RESET;
+      $URL1=$URL; 
+	  if (index($URL1, 'http://') != -1) {
+	    $URL1 =~ s/http:\/\///g;
+	  }	  
+	  $URL1=~s/\/.*//s;
+	  if($URL1 !~ /http:\/\//) { $URL1 = "http://$URL1"; };	
+	  checkextrainfo();
+	  $request = HTTP::Request->new('GET', $URL1);
+      my $response = $ua->request($request);
+      my $html = $response->content;
+      my $status = $response->code;
+      my $serverheader = $response->server;
+	  print color 'bold';
+	  print "    HTTP:   ";
+	  print color RESET;
+	  print "HTTP/1.1 $status\n";
+      print color 'bold';
+      print "    SERVER: ";
+      print color RESET;
+      if (defined $serverheader) {
+        print "$serverheader\n";
+      }else{
+	    print "Undefined\n";
+      }
+      for my $ERROR (@ERROR) {
+	    if ( $html =~ /$ERROR/ ){
+	      $ERROR1=$ERROR;
+	      checkerrortype();
+	    }
+      }
+      for my $MODULETYPE (@MODULETYPE) {
+	    if ( $html =~ /$MODULETYPE/ ){
+	      $MODULETYPE1=$MODULETYPE;
+	      checkcmstype();
+	    }
+      }
+	  open (TXT, '>>scan.txt');
+	  print TXT "$URL\n";
+      close (TXT);
+	  print "[ ]............................................................................ \n";
+	  sleep(2);
+	}
+  }
+  close(TEXT);
+  if (-e "validated".getlist()) {unlink "validated_".getlist();}
+  if (-e 'scan.txt') {
+    unlink 'search.txt';
+    use File::Copy qw(copy);
+    copy 'scan.txt', "validated_".getlist();
+    use File::Copy qw(copy);
+    copy 'scan.txt', 'search.txt';
+	fincontinuemodule();
+	print color 'green';
+    print "[!] Results saved in $Bin/validated_".getlist()."!\n";
+	print color RESET;
+    subfin();
+  }else{
+	print color 'red';
+    print "[!] No Results Found!\n";
+    subfin();
+	exit();
+  }
+  if ((!defined $validation_text) && (!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+    exit();
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+
 ## VALIDATION IF STATUS 200
 sub misup {
   if (-e 'scan.txt'){ unlink 'scan.txt';}
@@ -3779,7 +3885,7 @@ sub mabout {
   print color 'bold cyan';
   print "
      [+]================================================================[+]
-     [+]--------------              ATSCAN V 6.3          --------------[+]
+     [+]--------------              ATSCAN V 6.4          --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]
@@ -3836,6 +3942,7 @@ sub help {
   print "   --TARGET      | Domain name [Ex: site.com] \n";
   print "   --FULL_TARGET | Full url [Ex: site.com/index.php?id=5] \n";
   print "   --valid       | Text for validate results \n";
+  print "   --ifinurl     | Text for validate target url \n";
   print "   --exp         | Exploit\n";
   print "   --command     | Extern Command to execute\n";
   print "   --isup        | Check http status 200. \n";
@@ -3882,6 +3989,7 @@ sub help {
   print color 'bold';
   print "  Validation: \n";
   print color RESET;
+  print "    Search + Url Validation: --dork <dork> --level <10> --ifinurl <string>\n";
   print "    Search + Exploit + Validation: --dork <dork> --level <10> --exp --isup/--valid <string>\n";
   print "    Search + Server Exploit + Validation: -t <ip> --level <10> --exp --isup/--valid <string>\n";
   print "    Search + Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> --isup/--valid <string>\n\n";
@@ -3946,7 +4054,7 @@ sub help {
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if ((defined $Target) || (defined $rangip)) {
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
   advise();
   }
 } 
@@ -3954,7 +4062,7 @@ if ((defined $Target) || (defined $rangip)) {
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (REPLACE)
 if ((defined $replace) && (defined $with)) {
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
   advise();
   }
 }
@@ -4033,12 +4141,13 @@ if (defined $mlevel) {
   }
 
   if ((defined $dork) || (defined $Target) || (defined $rangip)){
-    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $wpbf) && (!defined $joombf) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
+    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $wpbf) && (!defined $joombf) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
       submsearch();
       exit();
     }else{
       submsearch();
 	  if (defined $dork) {
+	    if (defined $ifinurl) {ifinurl();}
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
         if (defined $command) {mcommand();}
@@ -4062,6 +4171,7 @@ if (defined $mlevel) {
 	    if (defined $wpbf) { BFmwpsites();}
 	    if (defined $joombf) { BFmjoomsites();}
 	  }elsif (defined $Target) {
+	    if (defined $ifinurl) {ifinurl();}
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
         if (defined $command) {mcommand();}
@@ -4091,6 +4201,7 @@ if (defined $mlevel) {
 }else{
   if ((defined $Target)  || (defined $rangip)){
     scandetail();
+	if (defined $ifinurl) {ifinurl();}
     if (defined $misup) {misup();}
     if (defined $validation_text) { mvalidation();}
     if (defined $command) {mcommand();}

@@ -434,7 +434,7 @@ my @CODENAME = ("No monopoly for knowledge", "! Love Mezguida H4ckers !", "No Pe
 ############################################################################################################################################################################################
 ## PRINT DESCLAIMER
 desclaimer();
-if ((!defined $dork) && (!defined $mtarget) && (!defined $mtarget) && (!defined $rangip) && (!defined $mmd5) && (!defined $mencode64) && (!defined $checkversion) && (!defined $mdecode64){
+if ((!defined $dork) && (!defined $mtarget) && (!defined $mtarget) && (!defined $rangip) && (!defined $mmd5) && (!defined $mencode64) && (!defined $checkversion) && (!defined $mdecode64)) {
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;	

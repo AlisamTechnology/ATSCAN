@@ -56,7 +56,7 @@
     <td class="main">
       git clone https://github.com/AlisamTechnology/ATSCAN <br/>
       cd ATSCAN <br/>
-      chmod +x ATSCAN <br/>
+      chmod +x atscan.pl <br/>
       OR <br/>
       $chmod +x atscan.pl  <br/>
       Execute: perl ./atscan.pl <br/>
@@ -73,7 +73,7 @@
     <td class="main">
       git clone https://github.com/AlisamTechnology/ATSCAN <br/>
       cd ATSCAN <br/>
-      chmod +x ATSCAN <br/>
+      chmod +x install.sh <br/>
       ./install.sh<br/>
     </td>
   </tr>

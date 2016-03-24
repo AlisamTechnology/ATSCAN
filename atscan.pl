@@ -159,7 +159,7 @@ sub banner {
   print "\n";
 }
 ## OPTIONS VERIFICATION
-if (!@ARGV) {
+if (@ARGV<1) {
   banner();
   desclaimer();
   print "[ ] ----------------------------------------------------------------------- [ ]\n";

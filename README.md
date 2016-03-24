@@ -67,6 +67,16 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
+    <td class="main3" width="890px"><b>Tool Install:</b></td>
+  </tr>
+  <tr>
+    <td class="main">
+      ./install.sh<br/>
+    </td>
+  </tr>
+</table>
+<table border="0" cellpadding="2" cellspacing="5" width="100%">
+  <tr>
     <td class="main3"><b>Screenshots:</b></td>
   </tr>
   <tr>

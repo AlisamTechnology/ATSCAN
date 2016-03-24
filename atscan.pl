@@ -438,7 +438,7 @@ desclaimer();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## OPTIONS VERIFICATION
-if ((!@ARGV) || (!defined $dork) || (!defined $mtarget) || (!defined $rangip) || (!defined $checkversion) || (!defined $mmd5) || (!defined $mencode64) || (!defined $mdecode64)) {
+if ((!defined $dork) || (!defined $mtarget) || (!defined $rangip) || (!defined $checkversion) || (!defined $mmd5) || (!defined $mencode64) || (!defined $mdecode64)) {
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;

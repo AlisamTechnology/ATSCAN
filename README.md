@@ -71,6 +71,9 @@
   </tr>
   <tr>
     <td class="main">
+      git clone https://github.com/AlisamTechnology/ATSCAN <br/>
+      cd ATSCAN <br/>
+      chmod +x ATSCAN <br/>
       ./install.sh<br/>
     </td>
   </tr>

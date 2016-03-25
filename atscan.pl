@@ -567,7 +567,8 @@ sub advise {
   print color RESET;
   print color 'yellow';
   print "[!] Upss.. Invalid arguments! \n";
-  if (basename($0) =~ m/\/usr\/share\/doc/i) {
+  $lalwmali = ",basename($0),";
+  if ($lalwmali =~ m/\/usr\/share\/doc/i) {
     print color 'yellow';
     print "[!] Usage: atscan <option> \n";
     print "[!] Help: atscan --help \n";
@@ -583,7 +584,8 @@ sub advise {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 sub advise2 {
-  if (basename($0) =~ m/\/usr\/share\/doc/i) {
+  $lalwmali = ",basename($0),";
+  if ($lalwmali =~ m/\/usr\/share\/doc/i) {
     print color 'yellow';
     print "[!] Usage: atscan <option> \n";
     print "[!] Help: atscan --help \n";

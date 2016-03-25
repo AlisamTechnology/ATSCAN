@@ -483,16 +483,26 @@ sub checkversion {
       my $response = $ua->request($request);
       my $html = $response->content;
 	  if ($response->is_success) {
-		unlink 'atscan.pl';
-		open (FILE, '>>atscan.pl');
-        print FILE $response->content;
-        close (FILE);
-	 
+	    if (-e '/usr/share/doc/ATSCAN/atscan.pl') {
+		  unlink '/usr/share/doc/ATSCAN/atscan.pl';
+		  open (FILE, '>>/usr/share/doc/ATSCAN/atscan.pl');
+          print FILE $response->content;
+          close (FILE);
+		}else{
+		  unlink 'atscan.pl';
+		  open (FILE, '>>/usr/share/doc/ATSCAN/atscan.pl');
+          print FILE $response->content;
+          close (FILE);
+	    }
 	    print color 'green';
 	    print "[!] Tool updeted with success!\n";
 	    print color RESET;
-	    system("chmod +x atscan.pl | perl ./atscan.pl");
-	    exit();
+		if (-e '/usr/share/doc/ATSCAN/atscan.pl') {
+	      system("chmod +x /usr/share/doc/ATSCAN/atscan.pl | atscan");
+		}else{
+		  system("chmod +x atscan.pl | perl ./atscan.pl");
+		  exit();
+		}	     
       }else{
 	    print color 'red';
 	    print "[!] Can not connect to the server!\n";

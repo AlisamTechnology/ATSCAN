@@ -560,7 +560,7 @@ sub advise {
   print "[!] Help: ",basename($0)," --help \n";
   print color RESET;
   print "[!] OR With Tool installed: \n";
-  print color 'yellow bold';
+  print color 'yellow';
   print "[!] Usage: atscan <option> \n";
   print "[!] Help: atscan --help \n";
   print color RESET;
@@ -569,12 +569,12 @@ sub advise {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 sub advise2 {
-  print color 'bold yellow';
+  print color 'yellow';
   print "[!] Usage: ",basename($0)," <option> \n";
   print "[!] Help: ",basename($0)," --help \n";
   print color RESET;
   print "[!] OR With Tool installed: \n";
-  print color 'yellow bold';
+  print color 'bold';
   print "[!] Usage: atscan <option> \n";
   print "[!] Help: atscan --help \n";
   print color RESET;

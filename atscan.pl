@@ -556,9 +556,9 @@ sub advise {
   print color RESET;
   print color 'yellow';
   print "[!] Upss.. Invalid arguments! \n";
-  print "[!] Simple Usage: ./",basename($0)," \n";
-  print "[!] Command line Usage: ./",basename($0)," <option> \n";
-  print "[!] Help: ./",basename($0)," --help \n";
+  print "[!] Simple Usage: ",basename($0)," \n";
+  print "[!] Command line Usage: ",basename($0)," <option> \n";
+  print "[!] Help: ",basename($0)," --help \n";
   print color RESET;
   exit;
 }
@@ -566,8 +566,8 @@ sub advise {
 ############################################################################################################################################################################################
 sub advise2 {
   print color 'bold yellow';
-  print "[!] Usage ./",basename($0)," <option>\n";
-  print "[!] Usage ./",basename($0)," --help\n";
+  print "[!] Usage ",basename($0)," <option>\n";
+  print "[!] Usage ",basename($0)," --help\n";
   print color RESET;
   exit();
 }

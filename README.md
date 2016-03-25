@@ -10,7 +10,13 @@
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2"><b>AUTHOR:</b></td><td width="780px">Alisam@Technology</td>
+    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 7.0</td>
+  </tr>
+  <tr>
+    <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
+  </tr>
+  <tr>
+    <td width="100px" class="main2"><b>AUTHOR:</b></td><td width="780px">Alisam Technology Team</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>FACE:</b></td><td>facebook.com/Forces.des.tempetes.marocaines </td>
@@ -30,7 +36,7 @@
     <td class="main3"><b>Description:</b></td>
   </tr>
   <tr>
-    <td class="main" width="890px"><b>ATSCAN version 7.0</b><br /> Search engine <br />XSS scanner. <br /> Sqlmap.<br /> 
+    <td class="main" width="890px">Search engine <br />XSS scanner. <br /> Sqlmap.<br /> 
         LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Fandom search engine. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan. <br/> Brute force.<br/>Disponible on BlackArch Linux Platform.
     </td>
   </tr>

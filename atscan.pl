@@ -557,8 +557,8 @@ sub advise {
   print color RESET;
   print color 'yellow';
   print "[!] Upss.. Invalid arguments! \n";
-  print "[!] Usage: ",basename($0)," <option> \n";
-  print "[!] Help: ",basename($0)," --help \n";
+  print "[!] Usage: ./",basename($0)," <option> \n";
+  print "[!] Help: ./",basename($0)," --help \n";
   print color RESET;
   print "[!] OR With Tool installed: \n";
   print color 'yellow';
@@ -571,8 +571,8 @@ sub advise {
 ############################################################################################################################################################################################
 sub advise2 {
   print color 'yellow';
-  print "[!] Usage: ",basename($0)," <option> \n";
-  print "[!] Help: ",basename($0)," --help \n";
+  print "[!] Usage: ./",basename($0)," <option> \n";
+  print "[!] Help: ./",basename($0)," --help \n";
   print color RESET;
   print "[!] OR With Tool installed: \n";
   print color 'yellow';

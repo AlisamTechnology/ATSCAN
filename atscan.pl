@@ -490,7 +490,7 @@ sub checkversion {
           close (FILE);
 		}else{
 		  unlink 'atscan.pl';
-		  open (FILE, '>>/usr/share/doc/ATSCAN/atscan.pl');
+		  open (FILE, '>>atscan.pl');
           print FILE $response->content;
           close (FILE);
 	    }

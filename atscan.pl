@@ -575,7 +575,7 @@ sub advise2 {
   print "[!] Help: ",basename($0)," --help \n";
   print color RESET;
   print "[!] OR With Tool installed: \n";
-  print color 'bold';
+  print color 'yellow';
   print "[!] Usage: atscan <option> \n";
   print "[!] Help: atscan --help \n";
   print color RESET;

@@ -567,7 +567,7 @@ sub advise {
   print color RESET;
   print color 'yellow';
   print "[!] Upss.. Invalid arguments! \n";
-  if (basename($0) =~ /\/usr\/share\/doc/) {
+  if (basename($0) =~ m/\/usr\/share\/doc/i) {
     print color 'yellow';
     print "[!] Usage: atscan <option> \n";
     print "[!] Help: atscan --help \n";
@@ -583,7 +583,7 @@ sub advise {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 sub advise2 {
-  if (basename($0) =~ /\/usr\/share\/doc/) {
+  if (basename($0) =~ m/\/usr\/share\/doc/i) {
     print color 'yellow';
     print "[!] Usage: atscan <option> \n";
     print "[!] Help: atscan --help \n";

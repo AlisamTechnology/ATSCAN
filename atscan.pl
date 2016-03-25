@@ -567,28 +567,33 @@ sub advise {
   print color RESET;
   print color 'yellow';
   print "[!] Upss.. Invalid arguments! \n";
-  print "[!] Usage: ./",basename($0)," <option> \n";
-  print "[!] Help: ./",basename($0)," --help \n";
-  print color RESET;
-  print "[!] OR With Tool installed: \n";
-  print color 'yellow';
-  print "[!] Usage: atscan <option> \n";
-  print "[!] Help: atscan --help \n";
-  print color RESET;
+  if (basename($0) =~ /\/usr\/share\/doc/) {
+    print color 'yellow';
+    print "[!] Usage: atscan <option> \n";
+    print "[!] Help: atscan --help \n";
+    print color RESET;
+  }else{
+    print color 'yellow';
+    print "[!] Usage: perl ./",basename($0)," <option> \n";
+    print "[!] Help: perl ./",basename($0)," --help \n";
+    print color RESET;
+  } 
   exit;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 sub advise2 {
-  print color 'yellow';
-  print "[!] Usage: ./",basename($0)," <option> \n";
-  print "[!] Help: ./",basename($0)," --help \n";
-  print color RESET;
-  print "[!] OR With Tool installed: \n";
-  print color 'yellow';
-  print "[!] Usage: atscan <option> \n";
-  print "[!] Help: atscan --help \n";
-  print color RESET;
+  if (basename($0) =~ /\/usr\/share\/doc/) {
+    print color 'yellow';
+    print "[!] Usage: atscan <option> \n";
+    print "[!] Help: atscan --help \n";
+    print color RESET;
+  }else{
+    print color 'yellow';
+    print "[!] Usage: perl ./",basename($0)," <option> \n";
+    print "[!] Help: perl ./",basename($0)," --help \n";
+    print color RESET;
+  }
   exit();
 }
 ############################################################################################################################################################################################

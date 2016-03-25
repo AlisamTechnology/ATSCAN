@@ -1,8 +1,8 @@
 #!/bin/bash
-echo "[]====================================================================[]"
-echo "[]                     ALISAM  TECHNOLOGY                             []"
-echo "[]                  Atscan Tool Install Script                        []"
-echo "[]====================================================================[]"
+echo "[ ]====================================================================[ ]"
+echo "[ ]                     ALISAM  TECHNOLOGY                             [ ]"
+echo "[ ]                  Atscan Tool Install Script                        [ ]"
+echo "[ ]====================================================================[ ]"
 echo "[!] Install.sh will install atscan tool in the system!![y/n]" ; 
 read baba
 
@@ -12,6 +12,8 @@ then
 else
     exit
 fi
+
+echo "[ ] Checking directories..."
 
 if [ -d "/usr/share/doc/ATSCAN" ] ; 
 then
@@ -31,7 +33,8 @@ echo '#!/bin/bash
 perl /usr/share/doc/ATSCAN/atscan.pl "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"' > atscan
 chmod +x atscan
 sudo cp atscan /usr/bin/
-echo "[]====================================================================[]"
-echo "[]     All is done!! You can execute Atscan by typing atscan !        []" 
-echo "[]====================================================================[]"
+echo "[ ] Installing necessary libreries..."
+echo "[ ]====================================================================[ ]"
+echo "[ ]     All is done!! You can execute Atscan by typing atscan !        [ ]" 
+echo "[ ]====================================================================[ ]"
 rm atscan

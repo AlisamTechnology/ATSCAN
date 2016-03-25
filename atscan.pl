@@ -427,6 +427,7 @@ desclaimer();
 if ((!defined $dork) && (!defined $help) && (!defined $mtarget) && (!defined $mtarget) && (!defined $rangip) && (!defined $mmd5) && (!defined $mencode64) && (!defined $checkversion) && (!defined $mdecode64)) {
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
+  print color RESET;
   advise2();
 }
 ############################################################################################################################################################################################

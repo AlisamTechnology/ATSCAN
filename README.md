@@ -74,6 +74,7 @@
       git clone https://github.com/AlisamTechnology/ATSCAN <br/>
       cd ATSCAN <br/>
       chmod +x install.sh <br/>
+      Execute: atscan <br/>
       ./install.sh<br/>
     </td>
   </tr>

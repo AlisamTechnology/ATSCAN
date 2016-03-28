@@ -161,6 +161,7 @@ my $username;
 my $password;
 my $joombf;
 my $ifinurl;
+my $noinfo;
 
 Getopt::Long::GetOptions(\my %OPT,
                         'proxy=s' => \$proxy,
@@ -212,6 +213,7 @@ Getopt::Long::GetOptions(\my %OPT,
 						'user=s' => \$username,
 						'pass=s' => \$password,
 						'ifinurl=s' => \$ifinurl,
+                        'noinfo' => \$noinfo,
 ) or advise();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -848,6 +850,14 @@ if (defined $checkversion) {
   print "/Update Version\n";
   print color RESET;
 }
+if (defined $noinfo) {
+  print color 'bold yellow';
+  print "[+] EXTRA:: ";
+  print color RESET;
+  print color 'cyan';
+  print "/No results extra info\n";
+  print color RESET;
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## INTERNET CONNECTION VERIFICATION
@@ -870,8 +880,8 @@ sub testconection {
 ############################################################################################################################################################################################
 ## BUILD DORK LIST
 sub dorklist {
-  $checkdorklist = "dorks.txt";
-  if (-e $checkdorklist){ unlink 'dorks.txt'};
+  $checkdorklist = $Bin."/dorks.txt";
+  if (-e $checkdorklist){ unlink $checkdorklist};
   my $pat2 = 'inurl:|intitle:|intext:|index of|allinurl';
   my $pat3 = ",";
   
@@ -888,7 +898,7 @@ sub dorklist {
 	    exit();
       }
 	  use File::Copy qw(copy);
-	  copy $dork, 'dorks.txt';
+	  copy $dork, $Bin.'/dorks.txt';
     }else{
 	  if ($dork =~ m/$pat2/) {
 	    $dork =~ s/$pat2//g;
@@ -900,7 +910,7 @@ sub dorklist {
 	  }
       my @dorks = split / /, $dork;  
       foreach my $dork (@dorks) {
-        open (FILE, '>>dorks.txt');
+        open (FILE, '>>'.$Bin.'/dorks.txt');
         print FILE "$dork\n";
         close (FILE);
       }
@@ -910,7 +920,7 @@ sub dorklist {
       my $startIp = $1.".".$2.".".$3.".".$4;
       my $endIp = $5.".".$6.".".$7.".".$8;
       my (@ip,@newIp,$i,$newIp,$j,$k,$l);
-      open (FILE, '>>dorks.txt');
+      open (FILE, '>>'.$Bin.'/dorks.txt');
       @ip = split(/\./,$startIp);
       for($i=$ip[0];$i<=$5;$i++) {
 	    $ip[0]=0 if($i == $5);
@@ -935,7 +945,7 @@ sub dorklist {
       exit();
 	}
   }elsif (defined $Target){
-	if (-e 'dorks.txt'){ unlink 'dorks.txt'};
+	if (-e '$Bin/dorks.txt'){ unlink '$Bin/dorks.txt'};
 	if (substr($Target, -4) eq '.txt') {
       if ($Target eq 'dorks.txt' ) {
 	    print color RESET;
@@ -948,7 +958,7 @@ sub dorklist {
 	    exit();
       }
 	  use File::Copy qw(copy);
-	  copy $Target, 'dorks.txt';
+	  copy $Target, $Bin.'/dorks.txt';
     }else{
 	  if ($Target =~ m/$pat2/) {
 	    $Target =~ s/$pat2//g;
@@ -960,7 +970,7 @@ sub dorklist {
 	  }
       my @targets = split / /, $Target;
       foreach my $Target (@targets) {
-        open (FILE, '>dorks.txt');
+        open (FILE, '>'.$Bin.'/dorks.txt');
         print FILE "$Target\n";
         close (FILE);
 	  }
@@ -971,8 +981,8 @@ sub dorklist {
 ############################################################################################################################################################################################
 ## BUILD TARGET LIST
 sub targetlist {
-  $checkdorklist = "search.txt";
-  if (-e $checkdorklist){ unlink 'search.txt'};
+  $checkdorklist = $Bin."/search.txt";
+  if (-e $checkdorklist){ unlink $checkdorklist};
   my $pat2 = 'inurl:|intitle:|intext:|index of|allinurl';
   my $pat3 = ",";
 
@@ -981,7 +991,7 @@ sub targetlist {
       my $startIp = $1.".".$2.".".$3.".".$4;
       my $endIp = $5.".".$6.".".$7.".".$8;
       my (@ip,@newIp,$i,$newIp,$j,$k,$l);
-      open (FILE, '>>search.txt');
+      open (FILE, '>>'.$Bin.'/search.txt');
       @ip = split(/\./,$startIp);
       for($i=$ip[0];$i<=$5;$i++) {
 	    $ip[0]=0 if($i == $5);
@@ -1018,7 +1028,7 @@ sub targetlist {
 	    exit();
       }
 	  use File::Copy qw(copy);
-	  copy $Target, 'search.txt';
+	  copy $Target, $Bin.'/search.txt';
     }else{
 	  if ($Target =~ m/$pat2/) {
 	    $Target =~ s/$pat2//g;
@@ -1030,7 +1040,7 @@ sub targetlist {
 	  }
       my @targets = split / /, $Target;
       foreach my $Target (@targets) {
-        open (FILE, '>search.txt');
+        open (FILE, '>'.$Bin.'/search.txt');
         print FILE "$Target\n";
         close (FILE);
 	  }
@@ -1094,7 +1104,7 @@ sub countdorks {
 ############################################################################################################################################################################################
 sub countdorkslist {
   my $lc = 0;
-  my $file = "dorks.txt";
+  my $file = $Bin."/dorks.txt";
   open $file, "<", $file;
   $lc++ while <$file>;
   print "$lc";
@@ -1138,7 +1148,8 @@ sub countinicialtargets {
 ## COUNT TARGETS TO SQLMAP IN LIST
 sub countsqllist {
   my $lc = 0;
-  open $file, "<", "scan.txt";
+  my $file = $Bin."/scan.txt";
+  open $file, "<", $file;
   $lc++ while <$file>;
   print "$lc"; 
   close $file;
@@ -1149,7 +1160,8 @@ sub countsqllist {
 ## COUNT SERACH ENGINE RESULTS
 sub countsearchlist {
   my $lc = 0;
-  open $file, "<", "search.txt";
+  my $file = $Bin."/search.txt";
+  open $file, "<", $file;
   $lc++ while <$file>;
   print "$lc"; 
   close $file;
@@ -1238,33 +1250,36 @@ sub checkedurl {
   my $serverheader = $response->server;
   my $httpd = $response->headers_as_string;
   
-  checkextrainfo();
-  if($URL1 !~ /http:\/\//) { $URL1 = "http://$URL1"; };	
-  print color 'bold';
-  print "    HTTP:   ";
-  print color RESET;
-  print "HTTP/1.1 $status\n";
+  if (!defined $noinfo) {
+    checkextrainfo();
+    if($URL1 !~ /http:\/\//) { $URL1 = "http://$URL1"; };	
+    print color 'bold';
+    print "    HTTP:   ";
+    print color RESET;
+    print "HTTP/1.1 $status\n";
 
-  print color 'bold';
-  print "    SERVER: ";
-  print color RESET;
-  if (defined $serverheader) {
-    print "$serverheader \n";
-  }else{
-	print "Undefined\n";
-  } 
-  for my $ERROR (@ERROR) {
-	if ( $html =~ /$ERROR/ ){
-	  $ERROR1=$ERROR;
-	  checkerrortype();
-	}
+    print color 'bold';
+    print "    SERVER: ";
+    print color RESET;
+    if (defined $serverheader) {
+      print "$serverheader \n";
+    }else{
+	  print "Undefined\n";
+    } 
+    for my $ERROR (@ERROR) {
+	  if ( $html =~ /$ERROR/ ){
+	    $ERROR1=$ERROR;
+	    checkerrortype();
+	  }
+    }
+    for my $MODULETYPE (@MODULETYPE) {
+	  if ( $html =~ /$MODULETYPE/ ){
+	    $MODULETYPE1=$MODULETYPE;
+	    checkcmstype();
+	  }
+    }
   }
-  for my $MODULETYPE (@MODULETYPE) {
-	if ( $html =~ /$MODULETYPE/ ){
-	  $MODULETYPE1=$MODULETYPE;
-	  checkcmstype();
-	}
-  }
+  
   print color 'bold';
   print "    SCAN:   ";
   print color RESET;
@@ -1279,7 +1294,7 @@ sub checkedurl {
       print "$URL1\n";
 	}
     print color RESET;
-	open (INFO, '>>scan.txt');
+	open (INFO, '>>', $Bin.'/scan.txt');
 	if (defined $cmails) {
       print INFO "$1\n";
 	}else{
@@ -1287,7 +1302,7 @@ sub checkedurl {
 	}
     close (INFO);
 	if (defined $cmails){
-      open (LOG, '>>scan2.txt');
+      open (LOG, '>>', $Bin.'/scan2.txt');
       print LOG "$URL1\n   $1\n";
 	}
     close (LOG);
@@ -1361,11 +1376,11 @@ sub checkcmstype {
 ############################################################################################################################################################################################
 ## END SCAN PROCEDURE
 sub finmodule {
-  $list = "scan.txt";
+  $list = $Bin."/scan.txt";
   if (-e $list){  
     print" \n";
     my $lc = 0;
-    my $file = "scan.txt";
+    my $file = $Bin."/scan.txt";
     my %seen = ();
     {
       local @ARGV = ($file);
@@ -1375,10 +1390,10 @@ sub finmodule {
         next if $seen{$_} > 1;
         print;
         close (TEXT);
-	    unlink "scan.txt.bac";
+	    unlink $Bin."/scan.txt.bac";
 	  }
     }
-    open $file, "<", "scan.txt";
+    open $file, "<", $Bin."/scan.txt";
     $lc++ while <$file>;
     print color 'green';
     print "[!] $lc Unique Result(s) Found!\n";
@@ -1386,7 +1401,7 @@ sub finmodule {
     close $file;
     if (defined $output) {
 	  use File::Copy qw(copy);
-      copy 'scan.txt', getlist();
+      copy $Bin.'/scan.txt', $Bin.'/'.getlist();
 	}
 	$zatr= getlist();
     print color 'green';
@@ -1401,7 +1416,7 @@ sub finmodule {
   }else{
     negative();
   }
-  unlink 'serach.txt';
+  unlink $Bin.'/serach.txt';
   exit();
 }
 ############################################################################################################################################################################################
@@ -1409,7 +1424,7 @@ sub finmodule {
 ## END COUNT SCAN RESULTS
 sub fincontinuemodule {
   my $lc = 0;
-  open $file, "<", "scan.txt";
+  open $file, "<", $Bin."/scan.txt";
   $lc++ while <$file>;
   print color 'green';
   print "[!] $lc Target(s) Found!\n";
@@ -1441,7 +1456,7 @@ sub subfin {
 ############################################################################################################################################################################################
 ## CHECK TARGETS LIST
 sub searchexitstargets {
-  if (!-e 'search.txt'){
+  if (!-e $Bin.'/search.txt'){
     print color 'bold';
     print "[ ] ----------------------------------------------------------------------- [ ]\n";
     print color 'RESET';
@@ -1470,8 +1485,8 @@ sub desclaimer {
 ## SEARCH ENGINE
 sub submsearch {
   testconection();
-  $checksearchscanlist = "search.txt";
-  if (-e $checksearchscanlist){ unlink 'search.txt'};
+  $checksearchscanlist = $Bin."/search.txt";
+  if (-e $checksearchscanlist){ unlink $checksearchscanlist};
   dorklist();
   msearch();
 }
@@ -1510,7 +1525,7 @@ sub msearch {
   
   forwait();
   $count=0;
-  open (FILE, "dorks.txt");
+  open (FILE, $Bin."/dorks.txt");
   while (my $dork = <FILE>) {
     chomp $dork;
 	$count++;
@@ -1550,7 +1565,8 @@ sub msearch {
 			  $count2++;
 			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };			 
 	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with) && (!defined $wpbf) && (!defined $joombf)) {
-	            print color 'bold';
+	            print color 'bold magenta';
+                print "    ";
 	            timer();
 	            print "[$count2]\n";
 	            print color RESET;
@@ -1561,39 +1577,41 @@ sub msearch {
                 print "$URL\n";
 	            print color RESET;
 			    $URL1=$URL;
-				checkextrainfo();
-				$request = HTTP::Request->new('GET', $URL);
-                my $response = $ua->request($request);
-                my $html = $response->content;
-                my $status = $response->code;
-                my $serverheader = $response->server;
-	            print color 'bold';
-	            print "    HTTP:   ";
-	            print color RESET;
-	            print "HTTP/1.1 $status\n";
-                print color 'bold';
-                print "    SERVER: ";
-                print color RESET;
-                if (defined $serverheader) {
-                  print "$serverheader\n";
-                }else{
-	              print "Undefined\n";
+                if (!defined $noinfo) {
+                   checkextrainfo();
+				   $request = HTTP::Request->new('GET', $URL);
+                   my $response = $ua->request($request);
+                   my $html = $response->content;
+                   my $status = $response->code;
+                   my $serverheader = $response->server;
+	               print color 'bold';
+	               print "    HTTP:   ";
+	               print color RESET;
+	               print "HTTP/1.1 $status\n";
+                   print color 'bold';
+                   print "    SERVER: ";
+                   print color RESET;
+                   if (defined $serverheader) {
+                     print "$serverheader\n";
+                   }else{
+	                 print "Undefined\n";
+                   }
+                   for my $ERROR (@ERROR) {
+	                 if ( $html =~ /$ERROR/ ){
+	                   $ERROR1=$ERROR;
+	                   checkerrortype();
+	                 }
+                   }
+                   for my $MODULETYPE (@MODULETYPE) {
+	                 if ( $html =~ /$MODULETYPE/ ){
+	                   $MODULETYPE1=$MODULETYPE;
+	                   checkcmstype();
+				     }
+                   }		          
                 }
-                for my $ERROR (@ERROR) {
-	              if ( $html =~ /$ERROR/ ){
-	                $ERROR1=$ERROR;
-	                checkerrortype();
-	              }
-                }
-                for my $MODULETYPE (@MODULETYPE) {
-	              if ( $html =~ /$MODULETYPE/ ){
-	                $MODULETYPE1=$MODULETYPE;
-	                checkcmstype();
-				  }
-                }
-		        print "[ ]............................................................................ \n";
+                print "    [ ]........................................................................ \n";
 			  }
-              open (TEXT, '>>search.txt');
+              open (TEXT, '>>', $Bin.'/search.txt');
 			  print TEXT "$URL\n";
               close (TEXT);
 			  $repeat{$URL}++;
@@ -1603,10 +1621,10 @@ sub msearch {
       }
     }   
   }
-  $list = "search.txt";
+  $list = $Bin."/search.txt";
   if (-e $list){
     my $lc = 0;
-	my $file = "search.txt";
+	my $file = $Bin."/search.txt";
     my %seen = ();
     {
       local @ARGV = ($file);
@@ -1616,10 +1634,10 @@ sub msearch {
         next if $seen{$_} > 1;
         print;
         close (TEXT);
-		unlink "search.txt.bac";
+		unlink $Bin."/search.txt.bac";
       }
     }
-    open $file, "<", "search.txt";
+    open $file, "<", $Bin."/search.txt";
     $lc++ while <$file>;
 	print color 'green';
 	print "[!] $lc Unique Result(s) Found!\n";
@@ -1630,10 +1648,10 @@ sub msearch {
       print color 'green';
 	  if (defined $output) {
 		if (-e $output){ unlink $output};
-	    $listme = "search.txt";
+	    $listme = $Bin."/search.txt";
         use File::Copy qw(copy);
 	    copy $listme, $output;
-	    unlink 'search.txt';
+	    unlink $Bin.'/search.txt';
         print "[!] Results saved in $Bin/$output\n";
 	  }else{
         print "[!] Results saved in $Bin/search.txt\n";
@@ -1644,7 +1662,7 @@ sub msearch {
       print "SCAN FINISHED!\n";
       print color RESET;
 	}else{
-	  if (-e 'scan.txt'){ unlink 'scan.txt'};
+	  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt'};
 	  if (defined $output){
 	    if (-e $output){ unlink $output};
 	  }
@@ -1663,8 +1681,8 @@ sub msearch {
 ############################################################################################################################################################################################
 ## VALIDATION IFINURL
 sub ifinurl {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
-  if (-e 'validated.txt'){ unlink 'validated.txt';}
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
+  if (-e $Bin.'/validated.txt'){ unlink $Bin.'/validated.txt';}
   testconection();
   if (!defined $mlevel){
     targetlist();
@@ -1678,7 +1696,7 @@ sub ifinurl {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
 	chomp $URL;
     $URL = checkurltype($URL);
@@ -1730,7 +1748,7 @@ sub ifinurl {
 	      checkcmstype();
 	    }
       }
-	  open (TXT, '>>scan.txt');
+	  open (TXT, '>>', $Bin.'/scan.txt');
 	  print TXT "$URL\n";
       close (TXT);
 	  print "[ ]............................................................................ \n";
@@ -1738,13 +1756,13 @@ sub ifinurl {
 	}
   }
   close(TEXT);
-  if (-e "validated".getlist()) {unlink "validated_".getlist();}
-  if (-e 'scan.txt') {
-    unlink 'search.txt';
+  if (-e $Bin."/validated".getlist()) {unlink $Bin."/validated_".getlist();}
+  if (-e $Bin.'/scan.txt') {
+    unlink $Bin.'/search.txt';
     use File::Copy qw(copy);
-    copy 'scan.txt', "validated_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/validated_".getlist();
     use File::Copy qw(copy);
-    copy 'scan.txt', 'search.txt';
+    copy $Bin.'/scan.txt', $Bin.'/search.txt';
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/validated_".getlist()."!\n";
@@ -1765,8 +1783,8 @@ sub ifinurl {
 
 ## VALIDATION IF STATUS 200
 sub misup {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
-  if (-e 'validated.txt'){ unlink 'validated.txt';}
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
+  if (-e $Bin.'/validated.txt'){ unlink $Bin.'/validated.txt';}
   testconection();
   if (!defined $mlevel){
     targetlist();
@@ -1780,7 +1798,7 @@ sub misup {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -1808,13 +1826,13 @@ sub misup {
     print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "validated".getlist()) {unlink "validated_".getlist();}
-  if (-e 'scan.txt') {
-    unlink 'search.txt';
+  if (-e $Bin."/validated".getlist()) {unlink $Bin."/validated_".getlist();}
+  if (-e $Bin.'/scan.txt') {
+    unlink $Bin.'/search.txt';
     use File::Copy qw(copy);
-    copy 'scan.txt', "validated_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/validated_".getlist();
     use File::Copy qw(copy);
-    copy 'scan.txt', 'search.txt';
+    copy $Bin.'/scan.txt', $Bin.'/search.txt';
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/validated_".getlist()."!\n";
@@ -1834,7 +1852,7 @@ sub misup {
 ############################################################################################################################################################################################
 ## VALIDATION BY TEXT
 sub mvalidation {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   if (!defined $mlevel){
     targetlist();
@@ -1853,7 +1871,7 @@ sub mvalidation {
     print color RESET;
   }
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
 	chomp $URL;
     $count++;
@@ -1880,13 +1898,13 @@ sub mvalidation {
     print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "validated".getlist()) {unlink "validated_".getlist();}
-  if (-e 'scan.txt') {
-    unlink 'search.txt';
+  if (-e $Bin."/validated".getlist()) {unlink $Bin."/validated_".getlist();}
+  if (-e $Bin.'/scan.txt') {
+    unlink $Bin.'/search.txt';
     use File::Copy qw(copy);
-    copy 'scan.txt', "validated_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/validated_".getlist();
     use File::Copy qw(copy);
-    copy 'scan.txt', 'search.txt';
+    copy $Bin.'/scan.txt', $Bin.'/search.txt';
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/validated_".getlist()."!\n";
@@ -1919,7 +1937,7 @@ sub mcommand {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -1975,7 +1993,7 @@ sub mcommand {
 ############################################################################################################################################################################################
 ## XSS
 sub mxss {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   XSS();
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
@@ -1990,7 +2008,7 @@ sub mxss {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2022,10 +2040,10 @@ sub mxss {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "xss".getlist()) {unlink "xss_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/xss".getlist()) {unlink $Bin."/xss_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "xss_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/xss_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/xss_".getlist()."!\n";
@@ -2057,7 +2075,7 @@ sub sqlmap {
   print color RESET;
   forwait();
   $count=0;
-  open (INFO, 'xss_scan.txt');
+  open (INFO, $Bin.'/xss_scan.txt');
   while (my $URL = <INFO>) {
     $count++;
 	chomp $URL;
@@ -2184,7 +2202,7 @@ sub sqlmap {
 ############################################################################################################################################################################################
 ## LFI
 sub mlfi {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   LFI();
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
@@ -2199,7 +2217,7 @@ sub mlfi {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2235,10 +2253,10 @@ sub mlfi {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "lfi".getlist()) {unlink "lfi_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/lfi".getlist()) {unlink $Bin."/lfi_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "lfi_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/lfi_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/lfi_".getlist()."!\n";
@@ -2257,7 +2275,7 @@ sub mlfi {
 ############################################################################################################################################################################################
 ## RFI JOOMLA
 sub mjoomrfi {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   RFI();
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
@@ -2272,7 +2290,7 @@ sub mjoomrfi {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2310,10 +2328,10 @@ sub mjoomrfi {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "rfi".getlist()) {unlink "rfi_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/rfi".getlist()) {unlink $Bin."/rfi_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "rfi_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/rfi_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/rfi_".getlist()."!\n";
@@ -2332,7 +2350,7 @@ sub mjoomrfi {
 ############################################################################################################################################################################################
 ## WORDPRESS ADF
 sub mwpadf {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   ADFWP();
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
@@ -2347,7 +2365,7 @@ sub mwpadf {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2386,10 +2404,10 @@ sub mwpadf {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "adf".getlist()) {unlink "adf_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/adf".getlist()) {unlink $Bin."/adf_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "adf_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/adf_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/adf_".getlist()."!\n";
@@ -2408,7 +2426,7 @@ sub mwpadf {
 ############################################################################################################################################################################################
 ## GET ADMIN PAGE
 sub madmin {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   ADMIN();
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
@@ -2423,7 +2441,7 @@ sub madmin {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2462,10 +2480,10 @@ sub madmin {
     print "[ ] ----------------------------------------------------------------------- [ ]\n";
   }
   close(TEXT);
-  if (-e "admin".getlist()) {unlink "admin_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/admin".getlist()) {unlink $Bin."/admin_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "admin_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/admin_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/admin_".getlist()."!\n";
@@ -2484,7 +2502,7 @@ sub madmin {
 ############################################################################################################################################################################################
 ## GET SUBDOMAINS
 sub msubdomain {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   SUBDOMAIN();
   if (!defined $mlevel) {
@@ -2499,7 +2517,7 @@ sub msubdomain {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2560,10 +2578,10 @@ sub msubdomain {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "subdomains".getlist()) {unlink "subdomains_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/subdomains".getlist()) {unlink $Bin."/subdomains_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "subdomains_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/subdomains_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/subdomains_".getlist()."!\n";
@@ -2582,7 +2600,7 @@ sub msubdomain {
 ############################################################################################################################################################################################
 ## GET WORDPRESS SITES
 sub mwpsites {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   if (!defined $mlevel) {
     targetlist();
@@ -2596,7 +2614,7 @@ sub mwpsites {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2632,10 +2650,10 @@ sub mwpsites {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "wp".getlist()) {unlink "wp_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/wp".getlist()) {unlink $Bin."/wp_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "wp_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/wp_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/wp_".getlist()."!\n";
@@ -2654,7 +2672,7 @@ sub mwpsites {
 ############################################################################################################################################################################################
 ## GET JOOMLA SITES
 sub mjoomsites {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   if (!defined $mlevel) {
     targetlist();
@@ -2668,7 +2686,7 @@ sub mjoomsites {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2704,10 +2722,10 @@ sub mjoomsites {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "joom".getlist()) {unlink "joom_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/joom".getlist()) {unlink $Bin."/joom_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "joom_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/joom_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/joom_".getlist()."!\n";
@@ -2726,7 +2744,7 @@ sub mjoomsites {
 ############################################################################################################################################################################################
 ## GET UPLOAD FILES
 sub muploadsites {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   UPLOAD();
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
@@ -2741,7 +2759,7 @@ sub muploadsites {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2777,10 +2795,10 @@ sub muploadsites {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "upload".getlist()) {unlink "upload_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/upload".getlist()) {unlink $Bin."/upload_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "upload_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/upload_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/upload_".getlist()."!\n";
@@ -2799,7 +2817,7 @@ sub muploadsites {
 ############################################################################################################################################################################################
 ## GET ZIP FILES
 sub mzipsites {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   ZIP();
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
@@ -2814,7 +2832,7 @@ sub mzipsites {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2850,10 +2868,10 @@ sub mzipsites {
 	print "[ ]............................................................................ \n";
   }
   close(TEXT);
-  if (-e "zip".getlist()) {unlink "zip_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/zip".getlist()) {unlink $Bin."/zip_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "zip_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/zip_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/zip_".getlist()."!\n";
@@ -2872,7 +2890,7 @@ sub mzipsites {
 ############################################################################################################################################################################################
 ## GET E-MAILS
 sub mmails {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   if (-e "scan2.txt") {unlink "scan2.txt";}
   testconection();
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
@@ -2887,7 +2905,7 @@ sub mmails {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -2916,10 +2934,10 @@ sub mmails {
   }
   print "[ ]............................................................................ \n";
   close(TEXT);
-  if (-e "mails_".getlist()) {unlink "mails_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/mails_".getlist()) {unlink $Bin."/mails_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan2.txt', "mails_".getlist();
+    copy $Bin.'/scan2.txt', $Bin."/mails_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/mails_".getlist()."!\n";
@@ -3064,7 +3082,7 @@ sub basic {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -3138,7 +3156,7 @@ sub basic2 {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -3264,7 +3282,7 @@ sub complete {
   forwait();
   $type2=$_[0];
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -3345,7 +3363,7 @@ sub complete2 {
   $closed5=0;
   $port4=1;
   while ($port4<=65535){
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
     while (my $URL = <TEXT>) {
       $count++;
 	  chomp $URL;
@@ -3491,7 +3509,7 @@ sub user {
   $type3=$_[0];
   $closed6=0;
   while ($mstart<=$mend){
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
     while (my $URL = <TEXT>) {
       $count++;
 	  chomp $URL;
@@ -3568,7 +3586,7 @@ sub user2 {
   $closed7=0;
   $closed8=0;
   while ($mstart<=$mend){
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
     while (my $URL = <TEXT>) { ###
 	  chomp $URL;
 	  $URL = checkip($URL);
@@ -3674,7 +3692,7 @@ sub user2 {
 ############################################################################################################################################################################################
 ## BRUTE FORCE WORDPRESS SITES
 sub BFmwpsites {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   if (!defined $mlevel) {
     targetlist();
@@ -3687,7 +3705,7 @@ sub BFmwpsites {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -3771,10 +3789,10 @@ sub BFmwpsites {
     close(PASS);
   }
   close(TEXT);
-  if (-e "crackedwp".getlist()) {unlink "crackedwp_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/crackedwp".getlist()) {unlink $Bin."/crackedwp_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "crackedwp_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/crackedwp_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/crackedwp_".getlist()."!\n";
@@ -3793,7 +3811,7 @@ sub BFmwpsites {
 ############################################################################################################################################################################################
 ## BRUTE FORCE JOOBLA SITES
 sub BFmjoomsites {
-  if (-e 'scan.txt'){ unlink 'scan.txt';}
+   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
   if (!defined $mlevel) {
     targetlist();
@@ -3806,7 +3824,7 @@ sub BFmjoomsites {
   print color RESET;
   forwait();
   $count=0;
-  open (TEXT, 'search.txt');
+  open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
@@ -3892,10 +3910,10 @@ sub BFmjoomsites {
     close(PASS);
   }
   close(TEXT);
-  if (-e "crackedjoom".getlist()) {unlink "crackedjoom_".getlist();}
-  if (-e 'scan.txt') {
+  if (-e $Bin."/crackedjoom".getlist()) {unlink $Bin."/crackedjoom_".getlist();}
+  if (-e $Bin.'/scan.txt') {
     use File::Copy qw(copy);
-    copy 'scan.txt', "crackedjoom_".getlist();
+    copy $Bin.'/scan.txt', $Bin."/crackedjoom_".getlist();
 	fincontinuemodule();
 	print color 'green';
     print "[!] Results saved in $Bin/crackedjoom_".getlist()."!\n";

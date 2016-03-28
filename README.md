@@ -282,10 +282,13 @@
         <td width="200px" class="main">--pass</td>
         <td class="main">Set password list Wordpress/Joomla login brute force</td>
       </tr>
-      
         <td width="200px" class="main">--nobanner</td>
         <td class="main">Hide tool banner</td>
-      </tr>    
+      </tr>
+      <tr>
+        <td width="200px" class="main">--noinfo</td>
+        <td class="main">Jump extra results info.</td>
+      </tr>
       <tr>
         <td width="200px" class="main">--beep</td>
         <td class="main">Produce beep sound if positive scan found</td>

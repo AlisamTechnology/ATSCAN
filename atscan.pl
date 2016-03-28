@@ -443,7 +443,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 7.0 Stable';
+  $existantversion='version 7.1 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -727,7 +727,9 @@ sub scandetail {
       print "/Replace  ";
 	}
     if (defined $exploit){
-      print "/Exploit ";
+      print "$exploit [";
+      countexploits();
+      print " Exploit/s Found!]";
     }
     if (defined $mfulltarget){
       print "/All parameters ";
@@ -1049,6 +1051,42 @@ sub targetlist {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## EXPLOIT LIST
+if (defined $exploit) {
+    $checkdorklist = $Bin."/exploitstxt";
+    if (-e $checkdorklist){ unlink $checkdorklist};
+	if (substr($exploit, -4) eq '.txt') {
+      if ($exploit eq 'exploits.txt') {
+	    print color RESET;
+        print color 'bold';
+        print "[ ] ----------------------------------------------------------------------- [ ]\n";
+	    print color RESET;
+	    print color 'red';
+	    print "[!] Rename your list [$exploit] I use the same name!\n";
+	    print color RESET;
+	    exit();
+      }
+	  use File::Copy qw(copy);
+	  copy $exploit, $Bin.'/exploits.txt';
+    }else{
+	  if ($exploit =~ m/$pat2/) {
+	    $exploit =~ s/$pat2//g;
+        $exploit =~ s/ /+/g;
+      }elsif ($exploit =~ m/$pat3/) {
+        $exploit =~ s/$pat3/ /g;
+      }elsif ($exploit =~ m/ /) {
+        $exploit =~ s/ /+/g;
+	  }
+      my @exploits = split / /, $exploit;
+      foreach my $exploit (@exploits) {
+        open (FILE, '>'.$Bin.'/exploits.txt');
+        print FILE "$exploit\n";
+        close (FILE);
+	  }
+    }
+  }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## CHECK TARGET URL OR IP
 sub checkurltype{
   $URL=$_[0];
@@ -1168,13 +1206,24 @@ sub countsearchlist {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## COUNT EXPLOITS LIST
+sub countexploits {
+  my $lc = 0;
+  my $file = $Bin."/exploits.txt";
+  open $file, "<", $file;
+  $lc++ while <$file>;
+  print "$lc"; 
+  close $file;
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## VERIFI TARGETS FOR EXPLOITATION
 sub control {
   $URL=$_[0];
   if (defined $mfulltarget) {
     $URL=$URL;
   }
-  if (defined $mtarget) {
+  if ((defined $mtarget) || (defined $exploit)) {
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
 	}
@@ -1186,9 +1235,7 @@ sub control {
 	}
 	$URL =~ s/\/.*/\/$with/g;
   }
-  if (defined $exploit) {
-    $URL = $URL.$exploit;
-  }
+  
   if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
   return $URL;
 }	
@@ -1237,6 +1284,7 @@ sub checkextrainfo {
 	print "    EXPL:   ";
 	print color RESET;
     print "$exploit\n";
+	print "\n";
   }
 }
 ############################################################################################################################################################################################
@@ -1310,7 +1358,7 @@ sub checkedurl {
 	print color 'red';
     print "No Results Found! \n";
 	print color RESET;
-	
+	print "    [ ]........................................................................ \n";
   }
 }	
 ############################################################################################################################################################################################
@@ -1818,11 +1866,35 @@ sub misup {
 	print "$printarget\n";
 	print color RESET;
     $URL = control($URL);
-    $URL1 = $URL;
-	$URL1 =~ s/ //g;
 	$yes='a';
     $no = 'iiiiiix';
-	checkedurl();
+	if (defined $exploit) {
+      $count3=0;  
+      open (EXP, $Bin.'/exploits.txt');
+      while (my $exp = <EXP>) {
+	    chomp $exp;
+        $count3++;
+        print color 'bold magenta';
+        print "    ";
+	    timer();
+	    print "[$count3/";
+	    countexploits();
+	    print "]\n";
+	    print color RESET;
+        print color 'bold';
+	    print "    EXPLT:  ";
+	    print color RESET;
+        print "$exp\n";
+        $URL1 = $URL.$exp;
+        $URL1 =~ s/ //g;
+        checkedurl();
+      }
+      close (EXP);
+    }else{
+      $URL1 = $URL;
+      $URL1 =~ s/ //g;
+      checkedurl();
+    }
     print "[ ]............................................................................ \n";
   }
   close(TEXT);
@@ -1891,10 +1963,35 @@ sub mvalidation {
 	print "$printarget\n";
 	print color RESET;
     $URL = control($URL);
-    $URL1 = $URL;
     $yes = $validation_text;
     $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
-	checkedurl();
+    if (defined $exploit) {
+      $count3=0;
+      open (EXP, $Bin.'/exploits.txt');
+      while (my $exp = <EXP>) {
+	    chomp $exp;
+        $count3++;
+        print color 'bold magenta';
+        print "    ";
+	    timer();
+	    print "[$count3/";
+	    countexploits();
+	    print "]\n";
+	    print color RESET;
+        print color 'bold';
+	    print "    EXPLT:  ";
+	    print color RESET;
+        print "$exp\n";
+        $URL1 = $URL.$exp;
+        $URL1 =~ s/ //g;
+        checkedurl();
+      }
+      close (EXP);
+    }else{
+      $URL1 = $URL;
+      $URL1 =~ s/ //g;
+      checkedurl();
+    }
     print "[ ]............................................................................ \n";
   }
   close(TEXT);
@@ -2031,11 +2128,34 @@ sub mxss {
       $URL = control($URL);
 	}
 	foreach $XSS(@XSS){
-      $URL1 = $URL.$XSS;
-	  $URL1 =~ s/ //g;
+	  $URL =~ s/ //g;
       $yes = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error|You have an error in your SQL syntax';
       $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
-	  checkedurl();
+	  if (defined $exploit) {
+        $count3=0;
+        open (EXP, $Bin.'/exploits.txt');
+        while (my $exp = <EXP>) {
+	      chomp $exp;
+          $count3++;
+          print color 'bold magenta';
+          print "    ";
+	      timer();
+	      print "[$count3/";
+	      countexploits();
+	      print "]\n";
+	      print color RESET;
+          print color 'bold';
+	      print "    EXPLT:  ";
+	      print color RESET;
+          print "$exp\n";
+          $URL1 = $URL.$exp.$XSS;
+          checkedurl();
+        }
+        close (EXP);
+      }else{
+        $URL1 = $URL.$XSS; 
+        checkedurl();
+      }
     }
 	print "[ ]............................................................................ \n";
   }
@@ -2243,11 +2363,37 @@ sub mlfi {
 	  print "    EXPL:   ";
 	  print color RESET;
       print "$LFI \n";
-      $URL1 = $URL.$LFI;
-	  $URL1 =~ s/ //g;
+	  $URL =~ s/ //g;
       $yes = 'root:x|bin:x|nologin';
       $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
-	  checkedurl();
+      
+	  if (defined $exploit) {
+        $count3=0;
+        open (EXP, $Bin.'/exploits.txt');
+        while (my $exp = <EXP>) {
+	      chomp $exp;
+          $count3++;
+          print color 'bold magenta';
+          print "    ";
+	      timer();
+	      print "[$count3/";
+	      countexploits();
+	      print "]\n";
+	      print color RESET;
+          print color 'bold';
+	      print "    EXPLT:  ";
+	      print color RESET;
+          print "$exp\n";
+          $URL1 = $URL.$exp.$LFI;
+          $URL1 =~ s/ //g;
+          checkedurl();
+        }
+        close (EXP);
+      }else{
+        $URL1 = $URL.$LFI;
+        $URL1 =~ s/ //g;
+        checkedurl();
+      }
 	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
@@ -2785,11 +2931,36 @@ sub muploadsites {
 	  print "    EXPL:   ";
 	  print color RESET;
       print "$UPLOAD \n";
-      $URL1 = $URL.$UPLOAD;
-	  $URL1 =~ s/ //g;
+      
 	  $yes='a';
       $no = 'iikiiiix';
-	  checkedurl();
+	  if (defined $exploit) {
+        $count3=0;
+        open (EXP, $Bin.'/exploits.txt');
+        while (my $exp = <EXP>) {
+	      chomp $exp;
+          $count3++;
+          print color 'bold magenta';
+          print "    ";
+	      timer();
+	      print "[$count3/";
+	      countexploits();
+	      print "]\n";
+  	      print color RESET;
+          print color 'bold';
+	      print "    EXPLT:  ";
+	      print color RESET;
+          print "$exp\n";
+          $URL1 = $URL.$exp.$UPLOAD;
+          $URL1 =~ s/ //g;
+          checkedurl();
+        }
+        close (EXP);
+      }else{
+        $URL1 = $URL.$UPLOAD;
+        $URL1 =~ s/ //g;
+        checkedurl();
+      }
 	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
@@ -2858,11 +3029,35 @@ sub mzipsites {
 	  print "    EXPL:   ";
 	  print color RESET;
       print "$ZIP \n";
-      $URL1 = $URL.$ZIP;
-	  $URL1 =~ s/ //g;
 	  $yes='a';
       $no = 'iikiiiix';
-	  checkedurl();
+	  if (defined $exploit) {
+        $count3=0;
+        open (EXP, $Bin.'/exploits.txt');
+        while (my $exp = <EXP>) {
+	      chomp $exp;
+          $count3++;
+          print color 'bold magenta';
+          print "    ";
+	      timer();
+	      print "[$count3/";
+	      countexploits();
+	      print "]\n";
+	      print color RESET;
+          print color 'bold';
+	      print "    EXPLT:  ";
+	      print color RESET;
+          print "$exp\n";
+          $URL1 = $URL.$exp.$ZIP;
+          $URL1 =~ s/ //g;
+          checkedurl();
+        }
+        close (EXP);
+      }else{
+        $URL1 = $URL.$ZIP;
+        $URL1 =~ s/ //g;
+        checkedurl();
+      }
 	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
@@ -2924,12 +3119,37 @@ sub mmails {
 	print color 'blue';
 	print "$printarget\n";
 	print color RESET;
-    $URL1 = $URL;
-	$URL1 =~ s/ //g;
+
     $yes = '((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})';
     $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	$cmails='';
-	checkedurl();
+	if (defined $exploit) {
+        $count3=0;
+        open (EXP, $Bin.'/exploits.txt');
+        while (my $exp = <EXP>) {
+	      chomp $exp;
+          $count3++;
+          print color 'bold magenta';
+          print "    ";
+	      timer();
+	      print "[$count3/";
+	      countexploits();
+	      print "]\n";
+	      print color RESET;
+          print color 'bold';
+	      print "    EXPLT:  ";
+	      print color RESET;
+          print "$exp\n";
+          $URL1 = $URL.$exp;
+          $URL1 =~ s/ //g;
+          checkedurl();
+        }
+        close (EXP);
+    }else{
+        $URL1 = $URL;
+        $URL1 =~ s/ //g;
+        checkedurl();
+    }
     print "[ ]............................................................................ \n";
   }
   print "[ ]............................................................................ \n";
@@ -3854,7 +4074,7 @@ sub BFmjoomsites {
     }
     $URL1 = $URL."/administrator/index.php";
 	$URL1 =~ s/ //g;
-	
+    checkedurl();   
     $request = HTTP::Request->new('GET', $URL1);
     my $response = $ua->request($request);
     my $status = $response->code;
@@ -3937,7 +4157,7 @@ sub mabout {
   print color 'bold cyan';
   print "
      [+]================================================================[+]
-     [+]--------------              ATSCAN V 7.0          --------------[+]
+     [+]--------------              ATSCAN V 7.1          --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]
@@ -4009,6 +4229,7 @@ sub help {
   print "   --pass        | Set Password List Login WP/JOOM Brute Force\n";
   print "   --nobanner    | Hide tool banner\n";
   print "   --beep        | Produce beep sount if positive scan found.\n";
+  print "   --noinfo      | Jump extra results info.\n";
   print "   --update      | Check and update tool\n\n";
 
   print color 'bold yellow';

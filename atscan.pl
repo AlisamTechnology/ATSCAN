@@ -2,7 +2,8 @@
 #
 ############################################################################################################################################################################################
 ## License   ###############################################################################################################################################################################
-# This software is Copyright (c) 2015 coded by Ali Mehdioui.
+# This software is Copyright (c) 2015 Alisam Technology
+# Tool coded by Ali Mehdioui.
 #
 # This is free software, licensed under:
 #
@@ -100,7 +101,7 @@
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## REQUIREMENT
-#Alisam Technology Scanner
+#Atscan Scanner
 #Requiered libreries
 #apt-get install libxml-simple-perl
 #aptitude install libio-socket-ssl-perl
@@ -1055,6 +1056,8 @@ sub targetlist {
 if (defined $exploit) {
     $checkdorklist = $Bin."/exploitstxt";
     if (-e $checkdorklist){ unlink $checkdorklist};
+	my $pat2 = 'inurl:|intitle:|intext:|index of|allinurl';
+    my $pat3 = ",";
 	if (substr($exploit, -4) eq '.txt') {
       if ($exploit eq 'exploits.txt') {
 	    print color RESET;
@@ -1605,7 +1608,10 @@ sub msearch {
           if($1 !~ /msn|live|bing|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
             my $URL=$1;
             $URL=~s/&(.*)/\ /g;
-			if (defined $msites) {
+			if ((defined $msites) || (defined $mtarget)) {
+			  if (index($URL, 'http://') != -1) {
+	             $URL =~ s/http:\/\///g;
+	          }
               $URL=~s/\/.*//s;
 			}
 			if ($repeat{$URL}) {

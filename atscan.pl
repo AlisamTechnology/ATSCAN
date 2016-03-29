@@ -124,7 +124,6 @@ my $dork;
 my $mlevel;
 my $mxss;
 my $Target;
-my $mfulltarget;
 my $validation_text;
 my $exploit;
 my $sqlmap;
@@ -146,7 +145,7 @@ my $mjoomsites;
 my $mupload;
 my $mzip;
 my $command;
-my $mtarget;
+my $mdom;
 my $misup;
 my $mabout;
 my $checkversion;
@@ -195,8 +194,7 @@ Getopt::Long::GetOptions(\my %OPT,
 						'encode64' => \$mencode64,
 						'decode64' => \$mencode64,
 						'command=s' => \$command,
-						'TARGET' => \$mtarget,
-						'FULL_TARGET' => \$mfulltarget,
+						'dom' => \$mdom,
 						'isup' => \$misup,
 						'about' => \$mabout,
 						'replace=s' => \$replace,
@@ -707,7 +705,7 @@ sub scandetail {
   }
   #########################################
   #########################################
-  if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64) || (defined $mtarget) || (defined $mfulltarget) || (defined $exploit) || (defined $replace)) {
+  if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64) || (defined $mdom) || (defined $exploit) || (defined $replace)) {
     print color 'bold yellow';
     print "[+] EXPLOITATION:: ";
     print color RESET;
@@ -721,7 +719,7 @@ sub scandetail {
 	if (defined $mdecode64) {
       print "/Decode Base64 ";
 	}
-    if (defined $mtarget) {
+    if (defined $mdom) {
       print "/Remove parameters ";
     }
 	if ((defined $replace) && (defined $with)){
@@ -731,9 +729,6 @@ sub scandetail {
       print "$exploit [";
       countexploits();
       print " Exploit/s Found!]";
-    }
-    if (defined $mfulltarget){
-      print "/All parameters ";
     }
     print color RESET;
     print "\n";
@@ -1223,10 +1218,7 @@ sub countexploits {
 ## VERIFI TARGETS FOR EXPLOITATION
 sub control {
   $URL=$_[0];
-  if (defined $mfulltarget) {
-    $URL=$URL;
-  }
-  if ((defined $mtarget) || (defined $exploit)) {
+  if ((defined $mdom) || (defined $exploit)) {
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
 	}
@@ -1608,11 +1600,12 @@ sub msearch {
           if($1 !~ /msn|live|bing|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
             my $URL=$1;
             $URL=~s/&(.*)/\ /g;
-			if ((defined $msites) || (defined $mtarget)) {
+			if ((defined $msites) || (defined $mdom)) {
 			  if (index($URL, 'http://') != -1) {
 	             $URL =~ s/http:\/\///g;
 	          }
               $URL=~s/\/.*//s;
+			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };
 			}
 			if ($repeat{$URL}) {
 			}else{
@@ -2028,7 +2021,7 @@ sub mvalidation {
 ## COMMAND
 sub mcommand {
   testconection();
- if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
   searchexitstargets();
@@ -2057,30 +2050,51 @@ sub mcommand {
 	print color 'blue';
     print "$URL \n";
 	print color RESET;
-    $URL1=$URL;
-    checkextrainfo();
-	
-	print color 'bold';
-	print "    CMD:    ";
-	print color RESET;
+	if (!defined $noinfo) {
+      $URL1=$URL;
+      checkextrainfo();
+	}
 	
 	if ((!defined $misup) && (!defined $validation_text)) {
       $URL = control($URL);
 	}
-	
-	if ($command =~ /--TARGET/) {
-	  if (index($URL, 'http://') != -1) {
-	    $URL =~ s/http:\/\///g;
-	  }	  
-	  $URL =~ s/\/.*//g;
-	  $command =~ s/--TARGET/$URL/g;
-	  if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
-	}elsif ($command =~ /FULL_TARGET/) {
-	  $command =~ s/--FULL_TARGET/$URL/g;
+	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+	if (defined $command) {
+	  $command =~ s/--TARGET//g;
+	}
+	if (defined $exploit) {
+      $count3=0;  
+      open (EXP, $Bin.'/exploits.txt');
+      while (my $exp = <EXP>) {
+	    chomp $exp;
+        $count3++;
+        print color 'bold magenta';
+        print "    ";
+	    timer();
+	    print "[$count3/";
+	    countexploits();
+	    print "]\n";
+	    print color RESET;
+        print color 'bold';
+	    print "    EXPLT:  ";
+	    print color RESET;
+        print "$exp\n";
+        $URL = $URL.$exp;
+        $cod = "$command $URL";
+	    print color 'bold';
+        print "    CMD:    ";
+        print color RESET;
+	    print "$cod \n\n";
+        system($cod);
+	  }
+    }else{
+      $cod = "$command $URL";
+	  print color 'bold';
+      print "    CMD:    ";
+      print color RESET;
+	  print "$cod \n\n";
+      system($cod);
     }
-	print "$command\n\n";
-    system($command); 
-    
     print "\n[ ] ----------------------------------------------------------------------- [ ]\n";
   }
   print color 'red';
@@ -2092,6 +2106,8 @@ sub mcommand {
     exit();
   }
 }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## XSS
@@ -4217,8 +4233,8 @@ sub help {
   print "   --md5         | Convert to md5 \n";
   print "   --encode64    | Encode base64 string \n";
   print "   --decode64    | decode base64 string \n";
-  print "   --TARGET      | Domain name [Ex: site.com] \n";
-  print "   --FULL_TARGET | Full url [Ex: site.com/index.php?id=5] \n";
+  print "   --dom         | Domain name [Ex: site.com] \n";
+  print "   --TARGET      | Will be replaced by target in command \n";
   print "   --valid       | Text for validate results \n";
   print "   --ifinurl     | Text for validate target url \n";
   print "   --exp         | Exploit\n";
@@ -4307,9 +4323,7 @@ sub help {
   print "  External Command: \n";
   print color RESET;
   print "   --dork <dork/dorks.txt> --level <level> --command \"curl -v --TARGET\" \n";
-  print "   --dork <dork/dorks.txt> --level <level> --command \"curl -v --FULL_TARGET\" \n";
-  print "   -t <target/targets.txt> --level <level> --command \"curl -v --TARGET\" \n";
-  print "   -t <target/targets.txt> --command \"curl -v --FULL_TARGET\" \n";
+  print "   -t <target/targets.txt> --command \"curl -v --TARGET\" \n";
   
   print color 'bold';
   print "  Multiple Scan: \n";

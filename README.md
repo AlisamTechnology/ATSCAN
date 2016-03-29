@@ -131,11 +131,11 @@
       
       <tr>
         <td width="200px" class="main">--TARGET</td>
-        <td class="main">Captured Target</td>
+        <td class="main">Will be replaced by target in command</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--FULL_TARGET</td>
-        <td class="main">Captured Full Target</td>
+        <td width="200px" class="main">--dom</td>
+        <td class="main">Domaine</td>
       </tr>
       <tr>
         <td width="200px" class="main">--exp</td>
@@ -354,9 +354,7 @@
 
 <b>External Command: </b><br/>
  --dork [dork/dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
- --dork [dork/dorks.txt] --level [level] --command "curl -v --FULL_TARGET" <br/>
- -t [target/targets.txt] --level [level] --command "curl -v --TARGET" <br/>
- -t [target/targets.txt] --command "curl -v --FULL_TARGET" <br/><br/>
+ -t [target/targets.txt] --level [level] --command "curl -v --TARGET" <br/><br/>
  
 <b>Multiple Scan: </b><br/>
   --dork [dork] --level [10] --xss/--lfi/--wp ... <br/>

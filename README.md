@@ -360,7 +360,7 @@
  -t [target/targets.txt] --level [level] --command "curl -v --TARGET" <br/><br/>
  
 <b>Multiple Scan: </b><br/>
-  --dork [dork] --level [10] --xss/--lfi/--wp ... <br/>
+  --dork [dork] --level [10] --xss --lfi --wp ... <br/>
   --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] --xss --lfi --wp ... <br/>
   -t [ip] --level [10] --xss --lfi --wp ... <br/>
   -t [targets] --xss --lfi --wp ...<br/><br/>

@@ -81,9 +81,8 @@
       cd ATSCAN <br/>
       chmod +x install.sh <br/>
       ./install.sh<br/>
-      Execute: <br/>
-      ~# atscan<br/>
-      ~# atscan --help<br/>
+      Execute: ~# atscan<br/>
+      Help: ~# atscan --help<br/>
       Update: ~# atscan --update<br/>
     </td>
   </tr>

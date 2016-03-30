@@ -65,9 +65,9 @@
       chmod +x atscan.pl <br/>
       OR <br/>
       $chmod +x atscan.pl  <br/>
-      Execute: perl ./atscan.pl <br/>
-      Help: perl ./atscan.pl --help<br/>
-      Update: perl ./atscan.pl --update<br/>
+      Execute: ~# perl ./atscan.pl<br/>
+      Help: ~# perl ./atscan.pl --help<br/>
+      Update: ~# perl ./atscan.pl --update<br/>
     </td>
   </tr>
 </table>
@@ -81,7 +81,10 @@
       cd ATSCAN <br/>
       chmod +x install.sh <br/>
       ./install.sh<br/>
-      Execute: atscan <br/>
+      Execute: <br/>
+      ~# atscan<br/>
+      ~# atscan --help<br/>
+      Update: ~# atscan --update<br/>
     </td>
   </tr>
 </table>

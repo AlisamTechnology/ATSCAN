@@ -1215,7 +1215,7 @@ sub countexploits {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## VERIFI TARGETS FOR EXPLOITATION
+## VERIFY TARGETS FOR EXPLOITATION
 sub control {
   $URL=$_[0];
   if ((defined $mdom) || (defined $exploit)) {
@@ -1224,11 +1224,11 @@ sub control {
 	}
 	$URL =~ s/\/.*//s;
   }
+  
   if ((defined $replace) && (defined $with)) {
-	if (index($URL, 'http://') != -1) {
-	  $URL =~ s/http:\/\///g;
-	}
-	$URL =~ s/\/.*/\/$with/g;
+	 if (index($URL, $replace) != -1) {
+	    $URL =~ s/$replace/$with/ig;
+	 }
   }
   
   if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
@@ -1572,7 +1572,7 @@ sub msearch {
   while (my $dork = <FILE>) {
     chomp $dork;
 	$count++;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
       print color 'bold magenta';
 	  timer();
 	  print "[$count/";
@@ -1611,7 +1611,7 @@ sub msearch {
 			}else{
 			  $count2++;
 			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };			 
-	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with) && (!defined $wpbf) && (!defined $joombf)) {
+	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
 	            print color 'bold magenta';
                 print "    ";
 	            timer();
@@ -1691,7 +1691,7 @@ sub msearch {
 	print color RESET;
 	close $file;
     print color RESET;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $replace) && (!defined $with) && (!defined $wpbf) && (!defined $joombf)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
       print color 'green';
 	  if (defined $output) {
 		if (-e $output){ unlink $output};
@@ -2102,7 +2102,7 @@ sub mcommand {
   print "SCAN FINISHED!\n";
   print color RESET;
   
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $replace) && (!defined $with) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -4354,11 +4354,6 @@ if ((defined $Target) || (defined $rangip)) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (REPLACE)
-if ((defined $replace) && (defined $with)) {
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
-  advise();
-  }
-}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (LEVEL)

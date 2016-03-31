@@ -31,7 +31,7 @@ fi
 git clone https://github.com/AlisamTechnology/ATSCAN.git /usr/share/doc/ATSCAN/
 echo "[ ] Installing..."
 echo '#!/bin/bash
-perl /usr/share/doc/ATSCAN/atscan.pl "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"' > atscan
+perl /usr/share/doc/ATSCAN/atscan.pl ${1+"$@"}' > atscan
 chmod +x atscan
 sudo cp atscan /usr/bin/
 rm atscan

@@ -122,6 +122,7 @@ my $replace;
 my $with;
 my $dork;
 my $mlevel;
+my $unique;
 my $mxss;
 my $Target;
 my $validation_text;
@@ -213,6 +214,7 @@ Getopt::Long::GetOptions(\my %OPT,
 						'pass=s' => \$password,
 						'ifinurl=s' => \$ifinurl,
                         'noinfo' => \$noinfo,
+						'unique' => \$unique,
 ) or advise();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -442,7 +444,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 7.2 Stable';
+  $existantversion='version 7.3 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -1233,7 +1235,25 @@ sub control {
   
   if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
   return $URL;
-}	
+}
+
+sub unique {
+$URL=$_[0];
+			if (defined $unique) {
+			  if (index($URL, $s_results) != -1){
+			    $URL=$URL;
+			  }
+	        }
+			if (defined $ifinurl) {
+			  if (index($URL, $ifinurl) != -1){
+			    $URL=$URL;
+			  }
+	        }
+  return $URL;
+}			
+
+
+
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET LIST TO SCAN
@@ -1551,7 +1571,14 @@ sub msearch {
   print "[+] RANDOM SEARCH:: ";
   print color RESET;
   print color 'cyan';
-  print "BING [bing.". $browserlang . "]\n";
+  print "BING [bing.". $browserlang . "] ";
+  if (defined $unique) {
+    print "[Unique Results]";
+  }
+  if (defined $ifinurl) {
+    print "[Ifinurl VLD]";
+  }
+  print "\n";
   print color RESET;
   
   if (defined $dork) {
@@ -1568,6 +1595,7 @@ sub msearch {
       print "\n";
 	}
   }
+  
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
@@ -1580,7 +1608,7 @@ sub msearch {
   while (my $dork = <FILE>) {
     chomp $dork;
 	$count++;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
       print color 'bold magenta';
 	  timer();
 	  print "[$count/";
@@ -1604,78 +1632,89 @@ sub msearch {
 		my $search=$ua->get("$google");
         $search->as_string;
         my $Res=$search->content;
+		
         while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
-          if($1 !~ /msn|live|bing|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
-            my $URL=$1;
-            $URL=~s/&(.*)/\ /g;
-			if ((defined $msites) || (defined $mdom)) {
-			  if (index($URL, 'http://') != -1) {
-	             $URL =~ s/http:\/\///g;
-	          }
-              $URL=~s/\/.*//s;
-			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };
-			}
-			if ($repeat{$URL}) {
-			}else{
-			  $count2++;
-			  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };			 
-	          if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
-	            print color 'bold magenta';
-                print "    ";
-	            timer();
-	            print "[$count2]\n";
-	            print color RESET;
-	            print color 'bold';
-			    print "    TARGET: ";
-	            print color RESET;
-	            print color 'blue';
-                print "$URL\n";
-	            print color RESET;
-			    $URL1=$URL;
-                if (!defined $noinfo) {
-                   checkextrainfo();
-				   $request = HTTP::Request->new('GET', $URL);
-                   my $response = $ua->request($request);
-                   my $html = $response->content;
-                   my $status = $response->code;
-                   my $serverheader = $response->server;
-	               print color 'bold';
-	               print "    HTTP:   ";
-	               print color RESET;
-	               print "HTTP/1.1 $status\n";
-                   print color 'bold';
-                   print "    SERVER: ";
-                   print color RESET;
-                   if (defined $serverheader) {
-                     print "$serverheader\n";
-                   }else{
-	                 print "Undefined\n";
-                   }
-                   for my $ERROR (@ERROR) {
-	                 if ( $html =~ /$ERROR/ ){
-	                   $ERROR1=$ERROR;
-	                   checkerrortype();
-	                 }
-                   }
-                   for my $MODULETYPE (@MODULETYPE) {
-	                 if ( $html =~ /$MODULETYPE/ ){
-	                   $MODULETYPE1=$MODULETYPE;
-	                   checkcmstype();
-				     }
-                   }		          
-                }
-                print "    [ ]........................................................................ \n";
+          if($1 !~ /msn|live|bing|cookieSet|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
+		    if (defined $unique) {
+		      $check=$s_results;
+	        }elsif (defined $ifinurl) {
+		      $check=$ifinurl;
+	        }else{
+		      $check='.';
+		    }
+           	if (index($1, $check) != -1) {
+			  my $URL=$1;
+		      $URL=~s/&(.*)/\ /g;
+			  if ((defined $msites) || (defined $mdom)) {
+			    if (index($URL, 'http://') != -1) {
+	              $URL =~ s/http:\/\///g;
+	            }
+                $URL=~s/\/.*//s;
+			    if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };
 			  }
-              open (TEXT, '>>', $Bin.'/search.txt');
-			  print TEXT "$URL\n";
-              close (TEXT);
-			  $repeat{$URL}++;
+			  if ($repeat{$URL}) {
+			  }else{
+			    $count2++;
+			    if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };			 
+	            if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $misup) && (!defined $validation_text) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	              print color 'bold magenta';
+                  print "    ";
+	              timer();
+	              print "[$count2]\n";
+	              print color RESET;
+	              print color 'bold';
+			      print "    TARGET: ";
+	              print color RESET;
+	              print color 'blue';
+                  print "$URL\n";
+	              print color RESET;
+			      $URL1=$URL;
+                  if (!defined $noinfo) {
+                     checkextrainfo();
+				     $request = HTTP::Request->new('GET', $URL);
+                     my $response = $ua->request($request);
+                     my $html = $response->content;
+                     my $status = $response->code;
+					 my $serverheader = $response->server;
+ 	                 print color 'bold';
+	                 print "    HTTP:   ";
+	                 print color RESET;
+	                 print "HTTP/1.1 $status\n";
+                     print color 'bold';
+                     print "    SERVER: ";
+                     print color RESET;
+                     if (defined $serverheader) {
+                       print "$serverheader\n";
+                     }else{
+	                   print "Undefined\n";
+                     }
+                     for my $ERROR (@ERROR) {
+	                   if ( $html =~ /$ERROR/ ){
+	                     $ERROR1=$ERROR;
+	                     checkerrortype();
+	                   }
+                     }
+                     for my $MODULETYPE (@MODULETYPE) {
+	                   if ( $html =~ /$MODULETYPE/ ){
+	                     $MODULETYPE1=$MODULETYPE;
+	                     checkcmstype();
+				       }
+                     }		          
+                  }
+			      print "    [ ]........................................................................ \n";
+			    }
+                open (TEXT, '>>', $Bin.'/search.txt');
+			    print TEXT "$URL\n";
+                close (TEXT);
+			    $repeat{$URL}++;
+			  }
 			}
           }
 		}
       }
     }   
   }
+  
   $list = $Bin."/search.txt";
   if (-e $list){
     my $lc = 0;
@@ -1699,7 +1738,7 @@ sub msearch {
 	print color RESET;
 	close $file;
     print color RESET;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
       print color 'green';
 	  if (defined $output) {
 		if (-e $output){ unlink $output};
@@ -1734,111 +1773,6 @@ sub msearch {
 } ## end sub msearch
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## VALIDATION IFINURL
-sub ifinurl {
-  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  if (-e $Bin.'/validated.txt'){ unlink $Bin.'/validated.txt';}
-  testconection();
-  if (!defined $mlevel){
-    targetlist();
-  }
-  searchexitstargets();
-  print color 'bold';
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  timer();
-  print "STARTING IFINURL VALIDATION SCAN ...\n";
-  print "[ ] ----------------------------------------------------------------------- [ ]\n";
-  print color RESET;
-  forwait();
-  $count=0;
-  open (TEXT, $Bin.'/search.txt');
-  while (my $URL = <TEXT>) {
-	chomp $URL;
-    $URL = checkurltype($URL);
-	my $printarget = $URL;
-
-	if (index($URL, $ifinurl) != -1) {
-	   if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
-	    $count++;
-	    print color 'bold magenta';
-	    timer();
-	    print "[$count]\n";
-	    print "    TARGET: ";
-	    print color RESET;
-	    print color 'green';
-        print "$URL\n";
-	    print color RESET;
-        $URL1=$URL; 
-	    if (index($URL1, 'http://') != -1) {
-	      $URL1 =~ s/http:\/\///g;
-	    }	  
-	    $URL1=~s/\/.*//s;
-	    if($URL1 !~ /http:\/\//) { $URL1 = "http://$URL1"; };
-		if (!defined $noinfo) {	
-	      checkextrainfo();
-	      $request = HTTP::Request->new('GET', $URL1);
-          my $response = $ua->request($request);
-          my $html = $response->content;
-          my $status = $response->code;
-          my $serverheader = $response->server;
-	      print color 'bold';
-	      print "    HTTP:   ";
-	      print color RESET;
-	      print "HTTP/1.1 $status\n";
-          print color 'bold';
-          print "    SERVER: ";
-          print color RESET;
-          if (defined $serverheader) {
-            print "$serverheader\n";
-          }else{
-	        print "Undefined\n";
-          }
-          for my $ERROR (@ERROR) {
-	        if ( $html =~ /$ERROR/ ){
-	          $ERROR1=$ERROR;
-	          checkerrortype();
-	        }
-          }
-          for my $MODULETYPE (@MODULETYPE) {
-	        if ( $html =~ /$MODULETYPE/ ){
-	          $MODULETYPE1=$MODULETYPE;
-	          checkcmstype();
-	        }
-          }
-		  print "[ ]............................................................................ \n";
-		}
-	  }
-	  open (TXT, '>>', $Bin.'/scan.txt');
-	  print TXT "$URL\n";
-      close (TXT);
-	  sleep(2);
-	}
-  }
-  close(TEXT);
-  if (-e $Bin."/validated".getlist()) {unlink $Bin."/validated_".getlist();}
-  if (-e $Bin.'/scan.txt') {
-    unlink $Bin.'/search.txt';
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/validated_".getlist();
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin.'/search.txt';
-	fincontinuemodule();
-	print color 'green';
-    print "[!] Results saved in $Bin/validated_".getlist()."!\n";
-	print color RESET;
-  }else{
-	print color 'red';
-    print "[!] No Results Found!\n";
-	exit();
-  }
-  if ((!defined $validation_text) && (!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
-    subfin();
-    exit();
-  }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-
 ## VALIDATION IF STATUS 200
 sub misup {
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
@@ -1947,11 +1881,6 @@ sub mvalidation {
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
   forwait();
-  if (defined $mnoshow) {
-    print color 'yellow';
-    print "[!] Please wait...\n";
-    print color RESET;
-  }
   $count=0;
   open (TEXT, $Bin.'/search.txt');
   while (my $URL = <TEXT>) {
@@ -2117,8 +2046,6 @@ sub mcommand {
     exit();
   }
 }
-############################################################################################################################################################################################
-############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## XSS
@@ -4191,7 +4118,7 @@ sub mabout {
   print color 'bold cyan';
   print "
      [+]================================================================[+]
-     [+]--------------              ATSCAN V 7.2          --------------[+]
+     [+]--------------              ATSCAN V 7.3          --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]
@@ -4222,6 +4149,11 @@ sub help {
   print "   --proxy       | Set tor proxy [EX: socks://localhost:9050]\n";
   print "   -dork         | Dork to search [Ex: house,cars,hotel] \n";
   print "   --level       | Scan level (+- Number of page results to scan) \n";
+  print "   --valid       | Text for validate results \n";
+  print "   --ifinurl     | Text to validate target url \n";
+  print "   --isup        | Check http status 200. \n";
+  print "   --unique      | Get targets with exact dork matching.\n";
+  print "   --exp         | Exploit\n";
   print "   -t            | Target \n";
   print "   --sqlmap      | Sqlmaping xss results \n";
   print "   --xss         | Xss scan \n";
@@ -4247,11 +4179,7 @@ sub help {
   print "   --decode64    | decode base64 string \n";
   print "   --dom         | Domain name [Ex: site.com] \n";
   print "   --TARGET      | Will be replaced by target in command \n";
-  print "   --valid       | Text for validate results \n";
-  print "   --ifinurl     | Text for validate target url \n";
-  print "   --exp         | Exploit\n";
   print "   --command     | Extern Command to execute\n";
-  print "   --isup        | Check http status 200. \n";
   print "   --replace     | String to replace \n";
   print "   --with        | String to replace with \n";
   print "   --email       | Get emails \n";
@@ -4297,6 +4225,7 @@ sub help {
   print "  Validation: \n";
   print color RESET;
   print "    Search + Url Validation: --dork <dork> --level <10> --ifinurl <string>\n";
+  print "    Search + dork Validation: --dork <dork> --level <10> --unique\n";
   print "    Search + Exploit + Validation: --dork <dork> --level <10> --exp --isup/--valid <string>\n";
   print "    Search + Server Exploit + Validation: -t <ip> --level <10> --exp --isup/--valid <string>\n";
   print "    Search + Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> --isup/--valid <string>\n\n";
@@ -4359,7 +4288,7 @@ sub help {
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if ((defined $Target) || (defined $rangip)) {
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $unique) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
   advise();
   }
 }
@@ -4450,13 +4379,12 @@ if (defined $mlevel) {
   }
 
   if ((defined $dork) || (defined $Target) || (defined $rangip)){
-    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $wpbf) && (!defined $joombf) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
+    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $wpbf) && (!defined $joombf) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
       submsearch();
       exit();
     }else{
       submsearch();
 	  if (defined $dork) {
-	    if (defined $ifinurl) {ifinurl();}
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
         if (defined $command) {mcommand();}
@@ -4480,7 +4408,6 @@ if (defined $mlevel) {
 	    if (defined $wpbf) { BFmwpsites();}
 	    if (defined $joombf) { BFmjoomsites();}
 	  }elsif (defined $Target) {
-	    if (defined $ifinurl) {ifinurl();}
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
         if (defined $command) {mcommand();}
@@ -4510,7 +4437,6 @@ if (defined $mlevel) {
 }else{
   if ((defined $Target)  || (defined $rangip)){
     scandetail();
-	if (defined $ifinurl) {ifinurl();}
     if (defined $misup) {misup();}
     if (defined $validation_text) { mvalidation();}
     if (defined $command) {mcommand();}

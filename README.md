@@ -10,7 +10,7 @@
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 7.2</td>
+    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 7.3</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -146,6 +146,10 @@
       <tr>
         <td width="200px" class="main">--valid</td>
         <td class="main">Text to validate results</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--unique</td>
+        <td class="main">Get urls with exact dork matching</td>
       </tr>
       <tr>
         <td width="200px" class="main">--ifinurl</td>
@@ -323,6 +327,7 @@
 
 <b>Validation: </b><br/>
   Search + Exploit + Validation: --dork [dork] --level [10] --exp --isup/--valid [string] <br/>
+  Search + Url Validation: --dork [dork] --level [10] --unique <br/>
   Search + Url Validation: --dork [dork] --level [10] --ifinurl [string] <br/>
   Search + Server Exploit + Validation: -t [ip] --level [10] --exp --isup/--valid [string] <br/>
   Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --isup/--valid [string] <br/><br/>

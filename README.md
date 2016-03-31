@@ -48,9 +48,8 @@
   <tr>
     <td class="main">
       ap-get install libxml-simple-perl <br/>
-      aptitude install libio-socket-ssl-perl <br/>
-      aptitude install libcrypt-ssleay-perl <br/>
-      NOTE: Works in linux platforms. Best Run on Ubuntu 14.04, Kali Linux 2.0, Arch Linux, Fedora Linux, Centos | if you use a windows you can download manualy.
+      NOTE: Works in linux platforms. Best Run on Ubuntu 14.04, Kali Linux 2.0, Arch Linux, Fedora Linux, Centos.. <br/> 
+      if you use a windows you can download manualy.
     </td>
   </tr>
 </table>

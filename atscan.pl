@@ -3435,6 +3435,7 @@ sub basic2 {
         print "    TYPE:  ";
         print color RESET;
         print "tcp  ";
+
 	    print color 'bold';
         print "PORT:  ";
         print color RESET;
@@ -4350,7 +4351,16 @@ if ((defined $Target) || (defined $rangip)) {
   if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
   advise();
   }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
+if ((defined $replace) && (defined $with)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+  advise();
+  }
 } 
+
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (REPLACE)

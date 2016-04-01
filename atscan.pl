@@ -4130,7 +4130,7 @@ sub mabout {
 ## HELP MENU
 sub help {
   print color 'bold';
-  print "[ ]............................................................................ \n\n";
+  print "[ ]........................................................................ [ ]\n\n";
   print color 'bold yellow';
   print "[..] HELP:: \n";
   print color RESET;

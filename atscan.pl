@@ -4263,7 +4263,7 @@ sub help {
   print "  Brute Force WP/JOOM Login: \n";
   print "  ......................\n";
   print color RESET;
-  print "    --dork <dork> --level <10> --wpbf/--joombf --pass password.txt \n\n";
+  print "    --dork <dork> --level <10> --wpbf/--joombf --user --pass password.txt \n\n";
   
   print color 'bold';
   print "  Check and update: \n";

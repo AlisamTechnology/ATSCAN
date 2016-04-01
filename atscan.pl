@@ -4260,22 +4260,22 @@ sub help {
   print "  ......................\n";
   print color RESET;
   print "   --dork <dork/dorks.txt> --level <level> --command \"curl -v --TARGET\" \n";
-  print "   -t <target/targets.txt> --command \"curl -v --TARGET\" \n";
+  print "   -t <target/targets.txt> --command \"curl -v --TARGET\" \n\n";
   
   print color 'bold';
   print "  Multiple Scan: \n";
   print "  ......................\n";
   print color RESET;
-  print "    --dork <dork> --level <10> --xss/--lfi/--wp ... \n";
-  print "    --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> --xss --lfi --wp ...\n";
-  print "    -t <ip> --level <10> --xss --lfi --wp ... \n";
-  print "    -t <targets> --xss --lfi --wp ... \n";
+  print "    --dork <dork> --level <10> --xss/--lfi/--wp..\n";
+  print "    --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> --xss --lfi --wp..\n";
+  print "    -t <ip> --level <10> --xss --lfi --wp..\n";
+  print "    -t <targets> --xss --lfi --wp..\n\n";
   
   print color 'bold';
   print "  Brute Force WP/JOOM Login: \n";
   print "  ......................\n";
   print color RESET;
-  print "    --dork <dork> --level <10> --wpbf/--joombf --pass password.txt \n";
+  print "    --dork <dork> --level <10> --wpbf/--joombf --pass password.txt \n\n";
   
   print color 'bold';
   print "  Check and update: \n";

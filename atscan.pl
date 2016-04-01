@@ -1725,7 +1725,7 @@ sub msearch {
         use File::Copy qw(copy);
 	    copy $listme, $output;
 	    unlink $Bin.'/search.txt';
-        print "[!] Results saved in $Bin/$output\n";
+        print "[!] Results saved in $output\n";
 	  }else{
         print "[!] Results saved in $Bin/search.txt\n";
 	  }
@@ -4123,7 +4123,7 @@ sub help {
   print "[..] HELP:: \n";
   print color RESET;
   print "   --proxy       | Set tor proxy [EX: socks://localhost:9050]\n";
-  print "   -dork         | Dork to search [Ex: house,cars,hotel] \n";
+  print "   --dork         | Dork to search [Ex: house,cars,hotel] \n";
   print "   --level       | Scan level (+- Number of page results to scan) \n";
   print "   --valid       | Text for validate results \n";
   print "   --ifinurl     | Text to validate target url \n";

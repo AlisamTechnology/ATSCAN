@@ -104,6 +104,8 @@
 #Atscan Scanner
 #Requiered libreries
 #apt-get install libxml-simple-perl
+#aptitude install libio-socket-ssl-perl
+#aptitude install libcrypt-ssleay-perl
 #
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -3933,6 +3935,9 @@ sub BFmwpsites {
 	      print color 'green';
           print "$URL1\n";
 	      print color RESET;
+		  open (LOG, '>>', $Bin.'/scan.txt');
+          print LOG "$URL1\n   $1\n";
+          close (LOG);
         }else{
 	      print color 'red';
           print "Not Vulnerable!\n";
@@ -4054,6 +4059,10 @@ sub BFmjoomsites {
 	      print color 'green';
           print "$URL1\n";
 	      print color RESET;
+		  
+		  open (LOG, '>>', $Bin.'/scan.txt');
+          print LOG "$URL1\n   $1\n";
+          close (LOG);
         }else{
 	      print color 'red';
           print "Not Vulnerable!\n";

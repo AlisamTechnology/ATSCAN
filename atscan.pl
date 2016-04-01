@@ -625,7 +625,7 @@ sub progressbar {
   binmode STDOUT, ":utf8";
   timer();
   my $poop  = "::";
-  for (1..32) {
+  for (1..33) {
     select(undef, undef, undef, 0.25);
     print "$poop";
   }
@@ -1575,13 +1575,12 @@ sub msearch {
       print "\n";
 	}
   }
-  
   print color 'bold';
   print "[ ] ----------------------------------------------------------------------- [ ]\n";
   timer();
   print "STARTING ENGINE SCAN... \n";
+  print "[ ] ----------------------------------------------------------------------- [ ]\n";
   print color RESET;
-  
   forwait();
   $count=0;
   open (FILE, $Bin."/dorks.txt");
@@ -1785,7 +1784,7 @@ sub misup {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -1877,7 +1876,7 @@ sub mvalidation {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -1966,7 +1965,7 @@ sub mcommand {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
     print "$URL \n";
@@ -2060,7 +2059,7 @@ sub mxss {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -2154,7 +2153,7 @@ sub sqlmap {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'yellow';
     print "$URL \n";
@@ -2294,7 +2293,7 @@ sub mlfi {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -2335,7 +2334,6 @@ sub mlfi {
         $URL1 =~ s/ //g;
         checkedurl();
       }
-	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
@@ -2396,7 +2394,7 @@ sub mjoomrfi {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -2410,7 +2408,6 @@ sub mjoomrfi {
 	  $URL1 =~ s/ //g;
       $yes = 'r57shell|safe_mode|Executed|Shell';
 	  checkedurl();
-	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
@@ -2471,7 +2468,7 @@ sub mwpadf {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -2486,7 +2483,6 @@ sub mwpadf {
       $yes = 'DB_NAME|DB_USER|DB_PASSWORD';
       $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	  checkedurl();
-	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
@@ -2547,7 +2543,7 @@ sub madmin {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -2562,7 +2558,6 @@ sub madmin {
       $yes = 'password|username|email|Password|cPanel|admin';
       $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	  checkedurl();
-	  print "    [ ]...................................................................... \n";
     }
     print "[ ] ----------------------------------------------------------------------- [ ]\n";
   }
@@ -2625,7 +2620,7 @@ sub msubdomain {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -2660,7 +2655,6 @@ sub msubdomain {
 	    print color RESET;
 	  }
 	  close $socket if defined $socket;
-	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
@@ -2720,7 +2714,7 @@ sub mwpsites {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -2732,7 +2726,6 @@ sub mwpsites {
 	  $yes = 'Username|Password|user_login|user_pass|submit|<meta name=\"generator\" content=\"WordPress';
       $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	  checkedurl();
-      print "[ ]............................................................................ \n";
     }
 	print "[ ]............................................................................ \n";
   }
@@ -2792,7 +2785,7 @@ sub mjoomsites {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -2804,7 +2797,6 @@ sub mjoomsites {
 	  $yes = 'Joomla! Administration Login|Password|User Name|<meta name=\"generator\" content=\"Joomla! - Open Source Content Management|mod-login-password|mod-login-password';
       $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	  checkedurl();
-      print "[ ]............................................................................ \n";
     }
 	print "[ ]............................................................................ \n";
   }
@@ -2862,7 +2854,7 @@ sub muploadsites {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -2902,7 +2894,6 @@ sub muploadsites {
         $URL1 =~ s/ //g;
         checkedurl();
       }
-	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
@@ -2960,7 +2951,7 @@ sub mzipsites {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -2999,7 +2990,6 @@ sub mzipsites {
         $URL1 =~ s/ //g;
         checkedurl();
       }
-	  print "    [ ]...................................................................... \n";
     }
 	print "[ ]............................................................................ \n";
   }
@@ -3055,7 +3045,7 @@ sub mmails {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$printarget\n";
@@ -3091,7 +3081,6 @@ sub mmails {
         $URL1 =~ s/ //g;
         checkedurl();
     }
-    print "[ ]............................................................................ \n";
   }
   print "[ ]............................................................................ \n";
   close(TEXT);
@@ -3255,7 +3244,7 @@ sub basic {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$URL \n";
@@ -3329,7 +3318,7 @@ sub basic2 {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$URL \n";
@@ -3458,7 +3447,7 @@ sub complete {
 	print "]\n";
 	print color RESET;
 	print color 'bold';
-	print "[!] TARGET: ";
+	print "    TARGET: ";
 	print color RESET;
 	print color 'blue';
 	print "$URL \n";
@@ -3537,7 +3526,7 @@ sub complete2 {
 	  print "]\n";
 	  print color RESET;
 	  print color 'bold';
-	  print "[!] TARGET: ";
+	  print "    TARGET: ";
 	  print color RESET;
 	  print color 'blue';
 	  print "$URL \n";
@@ -3754,13 +3743,14 @@ sub user2 {
 	  $URL = checkip($URL);
 	  $count++;
   	  print color 'bold magenta';
+	  print "    ";
 	  timer();
 	  print "[$count/";
 	  countsearchlist();
 	  print "]\n";
 	  print color RESET;
 	  print color 'bold';
-	  print "[!] TARGET: ";
+	  print "    TARGET: ";
 	  print color RESET;
 	  print color 'blue';
 	  print "$URL \n";
@@ -3943,7 +3933,6 @@ sub BFmwpsites {
           print "Not Vulnerable!\n";
 	      print color RESET;
         }
-	    print "    [ ]...................................................................... \n";
       }
 	}else{
 	  print color 'red';
@@ -4068,7 +4057,6 @@ sub BFmjoomsites {
           print "Not Vulnerable!\n";
 	      print color RESET;
         }
-	    print "    [ ]...................................................................... \n";
       }
 	}else{
 	  print color 'red';

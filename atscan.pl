@@ -4186,11 +4186,13 @@ sub help {
   print "[..] EXAMPLES: \n\n";
   print color RESET;
   print color 'bold';
-  print "  Tor: ";
+  print "  Tor: \n";
+  print "  ......................\n";
   print color RESET;
-  print "--proxy <proxy>\n\n";
+  print "    --proxy <proxy>\n\n";
   print color 'bold';
   print "  Search engine: \n";
+  print "  ......................\n";
   print color RESET;
   print "    Search: --dork <dork> --level <level> \n";
   print "    Search + get ip: --dork <dork> --level <level> --ip\n";
@@ -4204,6 +4206,7 @@ sub help {
   
   print color 'bold';
   print "  Subscan from Serach Engine: \n";
+  print "  ......................\n";
   print color RESET;
   print "    Search + Exploitation: --dork <dork> --level <10> --xss/--lfi/--wp ... \n";
   print "    Search + Server Exploitation: -t <ip> --level <10> --xss/--lfi/--wp ... \n";
@@ -4211,6 +4214,7 @@ sub help {
   
   print color 'bold';
   print "  Validation: \n";
+  print "  ......................\n";
   print color RESET;
   print "    Search + Url Validation: --dork <dork> --level <10> --ifinurl <string>\n";
   print "    Search + dork Validation: --dork <dork> --level <10> --unique\n";
@@ -4219,11 +4223,13 @@ sub help {
   print "    Search + Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> --isup/--valid <string>\n\n";
   print color 'bold';
   print "  Use List / Target: \n";
+  print "  ......................\n";
   print color RESET;
   print "    -t <target/targets.txt> --exp --isup/--valid <string>\n";
   print "    -t <target/targets.txt> --xss/--lfi .. \n\n";
   print color 'bold';
   print "  Server: \n";
+  print "  ......................\n";
   print color RESET;
   print "    Get Server sites: -t <ip> --level <value> --sites\n";
   print "    Get Server wordpress sites: -t <ip> --level <value> --wp \n";
@@ -4243,6 +4249,7 @@ sub help {
   print "    Scan range udp + tcp: -t <ip> --ports --select  udp+tcp --start <value> --end <value>\n\n";
   print color 'bold';
   print "  Encode / Decode: \n";
+  print "  ......................\n";
   print color RESET;
   print "    Generate MD5: --md5 <string> \n";
   print "    Encode base64: --encode64 <string>  \n";
@@ -4250,12 +4257,14 @@ sub help {
   
   print color 'bold';
   print "  External Command: \n";
+  print "  ......................\n";
   print color RESET;
   print "   --dork <dork/dorks.txt> --level <level> --command \"curl -v --TARGET\" \n";
   print "   -t <target/targets.txt> --command \"curl -v --TARGET\" \n";
   
   print color 'bold';
   print "  Multiple Scan: \n";
+  print "  ......................\n";
   print color RESET;
   print "    --dork <dork> --level <10> --xss/--lfi/--wp ... \n";
   print "    --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> --xss --lfi --wp ...\n";
@@ -4264,11 +4273,13 @@ sub help {
   
   print color 'bold';
   print "  Brute Force WP/JOOM Login: \n";
+  print "  ......................\n";
   print color RESET;
   print "    --dork <dork> --level <10> --wpbf/--joombf --pass password.txt \n";
   
   print color 'bold';
   print "  Check and update: \n";
+  print "  ......................\n";
   print color RESET;
   print "    --update\n\n";  
 }

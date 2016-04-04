@@ -1389,7 +1389,7 @@ sub msearch {
         while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
           if($1 !~ /msn|live|bing|cookieSet|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
 		    $1 =~ s/%([A-Fa-f\d]{2})/chr hex $1/eg;
-		    if (defined $unique) {
+            if (defined $unique) {
 		      $check=$s_results;
 	        }elsif (defined $ifinurl) {
 		      $check=$ifinurl;
@@ -3593,10 +3593,14 @@ sub help {
   print "    -t <ip> --level <10> --xss --lfi --wp..\n";
   print "    -t <targets> --xss --lfi --wp..\n\n";
   
-  print "\033[1;37m  Brute Force FB/WP/JOOM Login: \n";
+  print "\033[1;37m  Brute Force Facebook Login: \n";
+  print "  ......................\n";
+  print "\033[0;37m    --fbbf --user <email> --pass password.txt\n\n";
+  
+  print "\033[1;37m  Brute Force WP/JOOM Login: \n";
   print "  ......................\n";
   print "\033[0;37m";
-  print "    --dork <dork> --level <10> --fbbf/--wpbf/--joombf --user <user> --pass password.txt \n\n";
+  print "    --dork <dork> --level <10> --wpbf/--joombf --user <user> --pass password.txt \n\n";
   
   print "\033[1;37m  Check and update: \n";
   print "  ......................\n";

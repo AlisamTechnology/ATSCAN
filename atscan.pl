@@ -1388,6 +1388,7 @@ sub msearch {
         my $Res=$search->content;
         while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
           if($1 !~ /msn|live|bing|cookieSet|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
+		    $1 =~ s/%([A-Fa-f\d]{2})/chr hex $1/eg;
 		    if (defined $unique) {
 		      $check=$s_results;
 	        }elsif (defined $ifinurl) {

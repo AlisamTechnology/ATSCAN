@@ -280,6 +280,10 @@
         <td class="main">Joomla admin login brute force</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--fbbf</td>
+        <td class="main">Facebook login brute force</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--user</td>
         <td class="main">Set username Wordpress/Joomla login brute force</td>
       </tr>
@@ -366,6 +370,7 @@
   --dork [dork] --level [10] --xss --lfi --wp ... <br/>
   --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] --xss --lfi --wp ... <br/>
   -t [ip] --level [10] --xss --lfi --wp ... <br/>
+  --fbbf --user [email] --pass [pass.txt] <br/>
   -t [targets] --xss --lfi --wp ...<br/><br/>
   .....<br/><br/>
 <b>Check for updates: </b><br/>

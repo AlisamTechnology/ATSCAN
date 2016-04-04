@@ -317,7 +317,6 @@
   Search + set save file: --dork [dorks.txt] --level [level] --save myfile.txt <br/>
   Search + Replace + Exploit: --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/>
   Search + Extract e-mails: --dork [dorks.txt] --level [level] --email <br/>
-  Search + Brute Force: --dork [dorks.txt] --level [10] --wpbf/--joombf --user [username] --pass [list.txt] <br/>
   <br/>
 
 <b>Subscan from Serach Engine: </b><br/>
@@ -372,7 +371,11 @@
   -t [ip] --level [10] --xss --lfi --wp ... <br/>
   --fbbf --user [email] --pass [pass.txt] <br/>
   -t [targets] --xss --lfi --wp ...<br/><br/>
-  .....<br/><br/>
+    
+<b>Brute Force: </b><br/>
+  Facebook: --user [email] --pass [list.txt] <br/>
+  Joomla + Wordpress: --dork [dorks.txt] --level [10] --wpbf/--joombf --user [username] --pass [list.txt] <br/>
+  
 <b>Check for updates: </b><br/>
   --update</b><br/>
     </td>
@@ -386,4 +389,3 @@
   </table>
 </body>
 </html>
-

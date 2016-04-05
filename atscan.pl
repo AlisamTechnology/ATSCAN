@@ -3220,9 +3220,11 @@ sub BFmwpsites {
 	    my $pa='Bienvenido|Welcome|Bienvenue|log off|Cerrar Sesion|Se deconnecter';
         if ($content =~ /$pa/) {
 	      print "\033[0;32m$URL1\n";
+          print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
 	      open (LOG, '>>', $Bin.'/scan.txt');
           print LOG "$URL1\n   $1\n";
           close (LOG);
+		  last;
         }else{
 	      print "\033[0;31mNot Vulnerable!\n";
 	    }
@@ -3315,10 +3317,12 @@ sub BFmjoomsites {
         print "\033[1;37m    SCAN:   ";
 	    my $pa='Panel de Control|Control Panel|Bienvenue|log off|Cerrar Sesion|Se deconnecter';
         if ($content =~ /$pa/) {
-	      print "\033[0;32m$URL1\n";	      		  
+	      print "\033[0;32m$URL1\n";
+          print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
 		  open (LOG, '>>', $Bin.'/scan.txt');
           print LOG "$URL1\n   $1\n";
           close (LOG);
+		  last;
         }else{
 	      print "\033[0;31mNot Vulnerable!\n";
 	    }
@@ -3409,11 +3413,13 @@ sub fbbf {
       print "\033[0;31mFailed!\n";
       close SSL;
     }else{
-      print "\033[0;32mCracked!\n";   
+      print "\033[0;32mCracked!\n";
+      print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
       open (LOG, '>>', $Bin.'/scan.txt');
       print LOG "$username >> $_\n";
       close (LOG);   
       close SSL;
+	  last;
     } 
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }

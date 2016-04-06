@@ -27,9 +27,8 @@ else
   exit
 fi
 fi
-
+echo "[!] Installing ..."
 git clone https://github.com/AlisamTechnology/ATSCAN.git /usr/share/doc/ATSCAN/
-echo "[ ] Installing..."
 echo '#!/bin/bash
 perl /usr/share/doc/ATSCAN/atscan.pl ${1+"$@"}' > atscan
 chmod +x atscan

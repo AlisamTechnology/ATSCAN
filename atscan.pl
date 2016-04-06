@@ -1290,7 +1290,7 @@ sub desclaimer {
   print "\033[0;37m --------------------------------------------------------------------- ";
   print "\033[1;37m[ ]\n";
   print "\033[1;37m[ ]";
-  print "\033[0;37m This is a pentest tool! We will not be responsible or liable, directly";  
+  print "\033[0;37m This is a pentest tool! We will not be responsible or liable directly ";  
   print "\033[1;37m[ ]\n";
   print "\033[1;37m[ ]";    
   print "\033[0;37m      or indirectly in any way for any loss or damage of any kind      ";

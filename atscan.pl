@@ -429,7 +429,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 7.5 Stable';
+  $existantversion='version 7.4 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -471,7 +471,8 @@ sub checkversion {
           print FILE $response->content;
           close (FILE);
 	    }
-	    print "\033[0;32m[!] Tool updeted with success!\n";
+	    print "\033[0;32m[!] Tool updeted with success and will restart now!\n";
+		sleep(2);
 	    if (-e '/usr/share/doc/ATSCAN/atscan.pl') {
 	      system("chmod +x /usr/share/doc/ATSCAN/atscan.pl | atscan");
 		}else{

@@ -106,7 +106,13 @@
 #apt-get install libxml-simple-perl
 #aptitude install libio-socket-ssl-perl
 #aptitude install libcrypt-ssleay-perl
-#
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## MAKE OUTPUT DIRECTORY
+my $outdir ="$Bin/output";
+if (!-d $outdir) {
+  mkdir $outdir, 0755;
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 use warnings;
@@ -168,7 +174,7 @@ my $fbbf;
 Getopt::Long::GetOptions(\my %OPT,
                         'proxy=s' => \$proxy,
                         'help' => \$help,
-                        'save=s' => \$output,
+                        'save' => \$output,
                         'dork=s' => \$dork,
                         'level=s' => \$mlevel,
                         'xss' => \$mxss,
@@ -338,7 +344,7 @@ sub ADFWP {@ADFWP =("/wp-admin/admin-ajax.php?action=revslider_show_image&img=..
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ADMIN PAGE
-sub ADMIN {@ADMIN=("/admin/", "/myadmin/", "/acceso/", "/administrator/", "/admin1/", "/admin2/", "/admin3/", "/admin4/", "/admin5/", "/usuarios/", "/usuario/", "/administrador/", "/administrateur/", "/moderator/", "/webadmin/", "/adminarea/", "/bb-admin/", "/adminLogin/", "/admin_area/", "/panel-administracion/", "/instadmin/", "/memberadmin/", "/administratorlogin/", "/adm/", "/wp-login.php", "/admin/account.php", "/admin/index.php", "/admin/login.php", "/admin/admin.php", "/admin/account.php", "/admin_area/admin.php", "/admin_area/login.php", "/siteadmin/login.php", "/siteadmin/index.php", "/siteadmin/login.html", "/admin/account.html", "/admin/index.html", "/admin/login.html", "/admin/admin.html", "/admin_area/index.php", "/bb-admin/index.php", "/bb-admin/login.php", "/bb-admin/admin.php", "/admin/home.php", "/admin_area/login.html", "/admin_area/index.html", "/admin/controlpanel.php", "/admin.php", "/admincp/index.asp", "/admincp/login.asp", "/admincp/index.html", "/admin/account.html", "/administracion", "/adminpanel.html", "/webadmin.html", "/webadmin/index.html", "/webadmin/admin.html", "/webadmin/login.html", "/admin/admin_login.html", "/admin_login.html", "/panel-administracion/login.html", "/admin/cp.php", "/cp.php", "/administrator/index.php", "/administrator/login.php", "/nsw/admin/login.php", "/webadmin/login.php", "/admin/admin_login.php", "/admin_login.php", "/administrator/account.php", "/administrator.php", "/admin_area/admin.html", "/pages/admin/admin-login.php", "/admin/admin-login.php", "/admin-login.php", "/bb-admin/index.html", "/bb-admin/login.html", "/acceso.php", "/bb-admin/admin.html", "/admin/home.html", "/login.php", "/modelsearch/login.php", "/moderator.php", "/moderator/login.php", "/moderator/admin.php", "/account.php", "/pages/admin/admin-login.html", "/admin/admin-login.html", "/admin-login.html", "/controlpanel.php", "/admincontrol.php", "/admin/adminLogin.html", "/adminLogin.html", "/admin/adminLogin.html", "/home.html", "/rcjakar/admin/login.php", "/adminarea/index.html", "/adminarea/admin.html", "/webadmin.php", "/webadmin/index.php", "/webadmin/admin.php", "/admin/controlpanel.html", "/admin.html", "/admin/cp.html", "cp.html", "/adminpanel.php", "/moderator.html", "/administrator/index.html", "/administrator/login.html", "/user.html", "/administrator/account.html", "/administrator.html", "/login.html", "/modelsearch/login.html", "/moderator/login.html", "/adminarea/login.html", "/panel-administracion/index.html", "/panel-administracion/admin.html", "/modelsearch/index.html", "/modelsearch/admin.html", "/admincontrol/login.html", "/adm/index.html", "adm.html", "/moderator/admin.html", "/user.php", "account.html", "/controlpanel.html", "/admincontrol.html", "/panel-administracion/login.php", "/wp-login.php", "/adminLogin.php", "/admin/adminLogin.php", "/home.php", "/admin.php", "/adminarea/index.php", "/adminarea/admin.php", "/adminarea/login.php", "/panel-administracion/index.php", "/panel-administracion/admin.php", "/modelsearch/index.php", "/modelsearch/admin.php", "/admincontrol/login.php", "/adm/admloginuser.php", "/admloginuser.php", "/admin2.php", "/admin2/login.php", "/admin2/index.php", "/usuarios/login.php", "/adm/index.php", "/adm.php", "/affiliate.php", "/adm_auth.php", "/memberadmin.php", "/administratorlogin.php");
+sub ADMIN {@ADMIN=("/admin/", "/admin/login.php", "/myadmin/", "/acceso/", "/administrator/", "/admin1/", "/admin2/", "/admin3/", "/admin4/", "/admin5/", "/usuarios/", "/usuario/", "/administrador/", "/administrateur/", "/moderator/", "/webadmin/", "/adminarea/", "/bb-admin/", "/adminLogin/", "/admin_area/", "/panel-administracion/", "/instadmin/", "/memberadmin/", "/administratorlogin/", "/adm/", "/wp-login.php", "/admin/account.php", "/admin/index.php", "/admin/admin.php", "/admin/account.php", "/admin_area/admin.php", "/admin_area/login.php", "/siteadmin/login.php", "/siteadmin/index.php", "/siteadmin/login.html", "/admin/account.html", "/admin/index.html", "/admin/login.html", "/admin/admin.html", "/admin_area/index.php", "/bb-admin/index.php", "/bb-admin/login.php", "/bb-admin/admin.php", "/admin/home.php", "/admin_area/login.html", "/admin_area/index.html", "/admin/controlpanel.php", "/admin.php", "/admincp/index.asp", "/admincp/login.asp", "/admincp/index.html", "/admin/account.html", "/administracion", "/adminpanel.html", "/webadmin.html", "/webadmin/index.html", "/webadmin/admin.html", "/webadmin/login.html", "/admin/admin_login.html", "/admin_login.html", "/panel-administracion/login.html", "/admin/cp.php", "/cp.php", "/administrator/index.php", "/administrator/login.php", "/nsw/admin/login.php", "/webadmin/login.php", "/admin/admin_login.php", "/admin_login.php", "/administrator/account.php", "/administrator.php", "/admin_area/admin.html", "/pages/admin/admin-login.php", "/admin/admin-login.php", "/admin-login.php", "/bb-admin/index.html", "/bb-admin/login.html", "/acceso.php", "/bb-admin/admin.html", "/admin/home.html", "/login.php", "/modelsearch/login.php", "/moderator.php", "/moderator/login.php", "/moderator/admin.php", "/account.php", "/pages/admin/admin-login.html", "/admin/admin-login.html", "/admin-login.html", "/controlpanel.php", "/admincontrol.php", "/admin/adminLogin.html", "/adminLogin.html", "/admin/adminLogin.html", "/home.html", "/rcjakar/admin/login.php", "/adminarea/index.html", "/adminarea/admin.html", "/webadmin.php", "/webadmin/index.php", "/webadmin/admin.php", "/admin/controlpanel.html", "/admin.html", "/admin/cp.html", "cp.html", "/adminpanel.php", "/moderator.html", "/administrator/index.html", "/administrator/login.html", "/user.html", "/administrator/account.html", "/administrator.html", "/login.html", "/modelsearch/login.html", "/moderator/login.html", "/adminarea/login.html", "/panel-administracion/index.html", "/panel-administracion/admin.html", "/modelsearch/index.html", "/modelsearch/admin.html", "/admincontrol/login.html", "/adm/index.html", "adm.html", "/moderator/admin.html", "/user.php", "account.html", "/controlpanel.html", "/admincontrol.html", "/panel-administracion/login.php", "/wp-login.php", "/adminLogin.php", "/admin/adminLogin.php", "/home.php", "/admin.php", "/adminarea/index.php", "/adminarea/admin.php", "/adminarea/login.php", "/panel-administracion/index.php", "/panel-administracion/admin.php", "/modelsearch/index.php", "/modelsearch/admin.php", "/admincontrol/login.php", "/adm/admloginuser.php", "/admloginuser.php", "/admin2.php", "/admin2/login.php", "/admin2/index.php", "/usuarios/login.php", "/adm/index.php", "/adm.php", "/affiliate.php", "/adm_auth.php", "/memberadmin.php", "/administratorlogin.php");
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -630,7 +636,7 @@ sub scandetail {
       print "\033[0;36m/Replace  ";
 	}
     if (defined $exploit){
-      print "\033[0;36m$exploit [";
+      print "\033[0;36m/[";
       countexploits();
       print "\033[0;36m Exploit/s Found!]";
     }
@@ -720,7 +726,7 @@ if ((defined $command) || (defined $sqlmap)){
 }
 if (defined $output) {
   print "\033[1;33m[+] OUTPUT:: ";
-  print "\033[0;36m$output\n";
+  print "\033[0;36m$outdir/\n";
 }
 if (defined $checkversion) {
   print "\033[1;33m[+] TASK:: ";
@@ -1016,7 +1022,7 @@ sub countinicialtargets {
 ## COUNT TARGETS TO SQLMAP IN LIST
 sub countsqllist {
   my $lc = 0;
-  my $file = $Bin."/scan.txt";
+  my $file = $Bin."/xss_scan.txt";
   open $file, "<", $file;
   $lc++ while <$file>;
   print "$lc"; 
@@ -1049,7 +1055,7 @@ sub countexploits {
 ## VERIFY TARGETS FOR EXPLOITATION
 sub control {
   $URL=$_[0];
-  if ((defined $mdom) || (defined $exploit)) {
+  if (defined $mdom) {
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
 	}
@@ -1138,7 +1144,7 @@ sub checkedurl {
   if (($response->is_success) && ($html =~ m/$yes/i) && ($html !~ m/$no/i)){
     if ($response->previous) {
 	  print "\033[0;31mNo Results Found! \n";
-	  	}else{
+	}else{
       if (defined $beep) {print chr(7);}
 	  if (defined $cms) {
         print "\033[0;32m$cms\n";
@@ -1147,7 +1153,7 @@ sub checkedurl {
 	  }else{
         print "\033[0;32m$URL1\n";
 	  }
-      	  open (INFO, '>>', $Bin.'/scan.txt');
+      open (INFO, '>>', $Bin.'/scan.txt');
 	  if (defined $cmails) {
         print INFO "$1\n";
 	  }else{
@@ -1157,14 +1163,41 @@ sub checkedurl {
 	  if (defined $cmails){
         open (LOG, '>>', $Bin.'/scan2.txt');
         print LOG "$URL1\n   $1\n";
-	  }
-      close (LOG);
+		close (LOG);
+	  }	
 	}
   }else{
 	print "\033[0;31mNo Results Found! \n";
   }
   print "\033[0;37m    ............................................................................. \n";
-}	
+  $urlstatus = $status;
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+sub urlstatus {
+  if ($urlstatus==200) {
+	print "\033[0;33m[!] Possible Admin page found! Do you want to continue scan? [Y/n]: ";
+    $resp=<STDIN>;
+    chomp ($resp);
+	my $yes ='Y|y|yes|YES|Yes';
+    if ($resp !~ /$yes/) {
+	  fincontinuemodule();
+      if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/admin_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+	    print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+	  subfin(); 
+	  unlink $Bin.'/scan.txt';
+	  unlink $Bin.'/search.txt';
+	  unlink $Bin.'/dorks.txt';
+	  exit();
+	}
+  }
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK ERRORS
@@ -1215,46 +1248,6 @@ sub checkcmstype {
       }elsif ($MODULETYPE eq $MODULETYPE[31]){ print "\033[0;33mOpenCart\n";}
 	}
   }	 
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## END SCAN PROCEDURE
-sub finmodule {
-  $list = $Bin."/scan.txt";
-  if (-e $list){  
-    print" \n";
-    my $lc = 0;
-    my $file = $Bin."/scan.txt";
-    my %seen = ();
-    {
-      local @ARGV = ($file);
-      local $^I = '.bac';
-      while(<>){
-        $seen{$_}++;
-        next if $seen{$_} > 1;
-        print;
-        close (TEXT);
-	    unlink $Bin."/scan.txt.bac";
-	  }
-    }
-    open $file, "<", $Bin."/scan.txt";
-    $lc++ while <$file>;
-    print "\033[0;32m[!] $lc Unique Result(s) Found!\n";
-	close $file;
-    if (defined $output) {
-	  use File::Copy qw(copy);
-      copy $Bin.'/scan.txt', $Bin.'/'.getlist();
-	}
-	$zatr= getlist();
-    print "\033[0;32m[!] Results saved in $Bin/$zatr!\n";
-	print "\033[0;31m[!] ";
-	timer();
-    print "SCAN FINISHED!\n";
-  }else{
-    negative();
-  }
-  unlink $Bin.'/serach.txt';
-  exit();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1332,6 +1325,7 @@ sub submsearch {
 sub msearch {
   $browserlang = $browserlangs[int rand @browserlangs];
   scandetail();
+  my $out=getlist();
   print "\033[1;33m[+] RANDOM SEARCH:: ";
     print "\033[0;36mBING [bing.". $browserlang . "] ";
   if (defined $unique) {
@@ -1369,7 +1363,6 @@ sub msearch {
 	  print "\033[1;37m] ";
 	  print "[SCAN:: $dork]\n";
       print "\033[0;37m[ ] ............................................................................. \n";
- 
     }
 	$mlevel = $mlevel;
     $s_results = $dork;
@@ -1388,7 +1381,6 @@ sub msearch {
         my $Res=$search->content;
         while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
           if($1 !~ /msn|live|bing|cookieSet|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
-		    $1 =~ s/%([A-Fa-f\d]{2})/chr hex $1/eg;
             if (defined $unique) {
 		      $check=$s_results;
 	        }elsif (defined $ifinurl) {
@@ -1481,23 +1473,19 @@ sub msearch {
 	close $file;
 	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
 	  if (defined $output) {
-		if (-e $output){ unlink $output};
 	    $listme = $Bin."/search.txt";
+		$save = "$outdir/search.txt";
+		if (-e $save) {unlink $save;}
         use File::Copy qw(copy);
-	    copy $listme, $output;
-	    unlink $Bin.'/search.txt';
-        print "\033[0;32m[!] Results saved in $output\n";
-	  }else{
-        print "\033[0;32m[!] Results saved in $Bin/search.txt\n";
+	    copy $listme, $save;
+        print "\033[0;32m[!] Results saved in $save\n";
 	  }
+	  unlink $Bin.'/search.txt';
       print "\033[0;31m[!] ";
       timer();
       print "SCAN FINISHED!\n";
-      	}else{
+    }else{
 	  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt'};
-	  if (defined $output){
-	    if (-e $output){ unlink $output};
-	  }
 	}
   }else{
     print "\033[0;33m[!] No Results Found!\n";
@@ -1506,7 +1494,8 @@ sub msearch {
     print "SCAN FINISHED!\n";
 	exit();
   }
-  } ## end sub msearch
+  unlink $Bin.'/dorks.txt';
+} ## end sub msearch
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## VALIDATION IF STATUS 200
@@ -1567,23 +1556,28 @@ sub misup {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/validated".getlist()) {unlink $Bin."/validated_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    unlink $Bin.'/search.txt';
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/validated_".getlist();
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin.'/search.txt';
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/validated_".getlist()."!\n";
-	  }else{
+  	fincontinuemodule();
+	unlink $Bin.'/search.txt';
+    if ((!defined $validation_text) && (!defined $command) && (!defined $mxss) && (!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/search.txt";
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}else{
+      use File::Copy qw(copy);
+	  copy $Bin.'/scan.txt', $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
+  }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
 	exit();
-  }
-  if ((!defined $validation_text) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
-    subfin();
-    exit();
   }
 }
 ############################################################################################################################################################################################
@@ -1624,6 +1618,7 @@ sub mvalidation {
       open (EXP, $Bin.'/exploits.txt');
       while (my $exp = <EXP>) {
 	    chomp $exp;
+		$count3++;
         if ($count3>1) {  
           $count3++;     
           print "\033[1;37m    ";
@@ -1647,23 +1642,28 @@ sub mvalidation {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/validated".getlist()) {unlink $Bin."/validated_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    unlink $Bin.'/search.txt';
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/validated_".getlist();
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin.'/search.txt';
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/validated_".getlist()."!\n";
-	  }else{
+  	fincontinuemodule();
+	unlink $Bin.'/search.txt';
+    if ((!defined $command) && (!defined $mxss) && (!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/search.txt";
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}else{
+      use File::Copy qw(copy);
+	  copy $Bin.'/scan.txt', $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
+  }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
 	exit();
-  }
-  if ((!defined $misup) && (!defined $mxss) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
-    subfin();
-    exit();
   }
 }
 ############################################################################################################################################################################################
@@ -1710,8 +1710,8 @@ sub mcommand {
       open (EXP, $Bin.'/exploits.txt');
       while (my $exp = <EXP>) {
 	    chomp $exp;
+		$count3++;
         if ($count3>1) {  
-          $count3++;     
           print "\033[1;37m    ";
 	      timer();
 	      print "[$count3/";
@@ -1738,7 +1738,7 @@ sub mcommand {
   timer();
   print "SCAN FINISHED!\n";
     
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+  if ((!defined $mxss) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
     exit();
   }
 }
@@ -1768,7 +1768,7 @@ sub mxss {
 	my $printarget = $URL;
 	print "\033[1;37m    ";
 	timer();
-	print "\033[1;37m[$count/";
+	print "[$count/";
 	countsearchlist();
 	print "\033[1;37m]\n";
 	print "\033[1;37m    TARGET: ";
@@ -1785,8 +1785,8 @@ sub mxss {
         open (EXP, $Bin.'/exploits.txt');
         while (my $exp = <EXP>) {
 	      chomp $exp;
+		  $count3++;
           if ($count3>1) {  
-            $count3++;     
             print "\033[1;37m    ";
 	        timer();
 	        print "[$count3/";
@@ -1807,19 +1807,30 @@ sub mxss {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/xss".getlist()) {unlink $Bin."/xss_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/xss_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/xss_".getlist()."!\n";
-	    subfin();
+  	fincontinuemodule();
+    if ((!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/xss_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	if (defined $sqlmap) {
+      if (-e $Bin.'/xss_scan.txt') { unlink $Bin.'/xss_scan.txt';}
+      use File::Copy qw(copy);
+	  copy $Bin.'/scan.txt', "$Bin/xss_scan.txt";
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -1830,7 +1841,6 @@ sub sqlmap {
   if (!defined $mlevel){
     targetlist();
   }
-  searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n[!] ";
   timer();
   print "STARTING SQLMAP SCAN ...\n";
@@ -1855,7 +1865,7 @@ sub sqlmap {
 	print "]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;33m$URL \n";
-	print "\033[1;37m[+] EXPLOITATION: ";
+	print "\033[1;37m    [+] EXPLOITATION: ";
     print "Sqlmap \n\n";
     print "\033[0;33m[+] Checking databases...\n";
     system("sqlmap -u $URL --beep --level 3 --risk 2 --threads 2 $tor --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
@@ -1968,8 +1978,8 @@ sub mlfi {
         open (EXP, $Bin.'/exploits.txt');
         while (my $exp = <EXP>) {
 	      chomp $exp;
+		  $count3++;
           if ($count3>1) {  
-            $count3++;     
             print "\033[1;37m    ";
 	        timer();
 	        print "[$count3/";
@@ -1992,19 +2002,25 @@ sub mlfi {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/lfi".getlist()) {unlink $Bin."/lfi_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/lfi_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/lfi_".getlist()."!\n";
-	    subfin();
+  	fincontinuemodule();
+    if ((!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/lfi_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2054,19 +2070,25 @@ sub mjoomrfi {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/rfi".getlist()) {unlink $Bin."/rfi_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/rfi_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/rfi_".getlist()."!\n";
-	    subfin();
+  	fincontinuemodule();
+    if ((!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/rfi_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2117,19 +2139,30 @@ sub mwpadf {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/adf".getlist()) {unlink $Bin."/adf_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/adf_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/adf_".getlist()."!\n";
-	    subfin();
+  	fincontinuemodule();
+    if ((!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/adf_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	if (defined $sqlmap) {
+      if (-e $Bin.'/xss_scan.txt') { unlink $Bin.'/xss_scan.txt';}
+      use File::Copy qw(copy);
+	  copy $Bin.'/scan.txt', "$Bin/xss_scan.txt";
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2176,23 +2209,30 @@ sub madmin {
       $yes = 'password|username|email|Password|cPanel|admin';
       $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	  checkedurl();
+	  urlstatus();
     }
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/admin".getlist()) {unlink $Bin."/admin_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/admin_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/admin_".getlist()."!\n";
-	    subfin();
+  	fincontinuemodule();
+    if ((!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/admin_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2242,7 +2282,7 @@ sub msubdomain {
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$SUBDOMAIN \n";
 	  print "\033[1;37m    INFO:   ";
-	  if (defined $socket and $socket ne "") { 
+	  if ((defined $socket) && ($socket ne "")) { 
 	  	if (defined $beep) {print chr(7);}
 	    print "\033[0;32mhttp://$URL1\n";
 	    open (INFO, '>>scan.txt');
@@ -2250,25 +2290,31 @@ sub msubdomain {
         close (INFO);
 	  }else{
 	    print "\033[0;31mNot a Subdomain! \n";
-	    	  }
+	  }
 	  close $socket if defined $socket;
     }
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/subdomains".getlist()) {unlink $Bin."/subdomains_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/subdomains_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/subdomains_".getlist()."!\n";
-	subfin();
+  	fincontinuemodule();
+    if ((!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/subdomains_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2317,19 +2363,25 @@ sub mwpsites {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/wp".getlist()) {unlink $Bin."/wp_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/wp_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/wp_".getlist()."!\n";
-	subfin();
+  	fincontinuemodule();
+    if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/wp_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2378,19 +2430,25 @@ sub mjoomsites {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/joom".getlist()) {unlink $Bin."/joom_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/joom_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/joom_".getlist()."!\n";
-	    subfin();
+  	fincontinuemodule();
+    if ((!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/joom_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2421,6 +2479,7 @@ sub muploadsites {
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print "\033[1;37m    ";
 	timer();
+    print "[$count/";
 	countsearchlist();
 	print "\033[1;37m]\n";
 	print "\033[1;37m    TARGET: ";
@@ -2435,8 +2494,8 @@ sub muploadsites {
         open (EXP, $Bin.'/exploits.txt');
         while (my $exp = <EXP>) {
 	      chomp $exp;
+		  $count3++;
           if ($count3>1) {  
-            $count3++;     
             print "\033[1;37m    ";
 	        timer();
 	        print "[$count3/";
@@ -2459,19 +2518,25 @@ sub muploadsites {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/upload".getlist()) {unlink $Bin."/upload_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/upload_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/upload_".getlist()."!\n";
-	    subfin();
+  	fincontinuemodule();
+    if ((!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/upload_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2502,6 +2567,7 @@ sub mzipsites {
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print "\033[1;37m    ";
 	timer();
+    print "[$count/";
 	countsearchlist();
 	print "\033[1;37m]\n";
 	print "\033[1;37m    TARGET: ";
@@ -2516,8 +2582,8 @@ sub mzipsites {
         open (EXP, $Bin.'/exploits.txt');
         while (my $exp = <EXP>) {
 	      chomp $exp;
+		  $count3++;
           if ($count3>1) {  
-            $count3++;     
             print "\033[1;37m    ";
 	        timer();
 	        print "[$count3/";
@@ -2540,19 +2606,25 @@ sub mzipsites {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/zip".getlist()) {unlink $Bin."/zip_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/zip_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/zip_".getlist()."!\n";
-	    subfin();
+  	fincontinuemodule();
+    if ((!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/zip_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2560,7 +2632,7 @@ sub mzipsites {
 ## GET E-MAILS
 sub mmails {
    if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  if (-e "scan2.txt") {unlink "scan2.txt";}
+  if (-e $Bin.'/scan2.txt') {unlink $Bin.'/scan2.txt';}
   testconection();
  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
@@ -2581,6 +2653,7 @@ sub mmails {
 	my $printarget = $URL;
 	print "\033[1;37m    ";
 	timer();
+	print "[$count/";
 	countsearchlist();
 	print "\033[1;37m]\n";
 	print "\033[1;37m    TARGET: ";
@@ -2593,13 +2666,13 @@ sub mmails {
       open (EXP, $Bin.'/exploits.txt');
       while (my $exp = <EXP>) {
 	    chomp $exp;
+		$count3++;     
         if ($count3>1) {  
-            $count3++;     
-            print "\033[1;37m    ";
-	        timer();
-	        print "[$count3/";
-	        countexploits();
-	        print "]\n";
+          print "\033[1;37m    ";
+	      timer();
+	      print "[$count3/";
+	      countexploits();
+	      print "]\n";
         }
 	    print "\033[1;37m    EXPLT:  ";
 	    print "\033[0;37m$exp\n";
@@ -2616,20 +2689,26 @@ sub mmails {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(TEXT);
-  if (-e $Bin."/mails_".getlist()) {unlink $Bin."/mails_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan2.txt', $Bin."/mails_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/mails_".getlist()."!\n";
-	subfin();
+  	fincontinuemodule();
+    if ((!defined $wpbf) && (!defined $joombf)) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan2.txt';
+		$save = "$outdir/mails_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
+	unlink $Bin.'/scan2.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $command) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
-    unlink 'scan2.txt';
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2737,6 +2816,7 @@ sub basic {
 	$URL = checkip($URL);
 	print "\033[1;37m    ";
 	timer();
+    print "[$count/";
 	countsearchlist();
 	print "\033[1;37m]\n";
 	print "\033[1;37m    TARGET: ";
@@ -2792,6 +2872,7 @@ sub basic2 {
 	$URL = checkip($URL);
 	print "\033[1;37m    ";
 	timer();
+    print "[$count/";
 	countsearchlist();
 	print "\033[1;37m]\n";
 	print "\033[1;37m    TARGET: ";
@@ -2879,6 +2960,7 @@ sub complete {
     $port3=1;
 	print "\033[1;37m    ";
 	timer();
+    print "[$count/";
 	countsearchlist();
 	print "\033[1;37m]\n";
     print "\033[1;37m    TARGET: ";
@@ -3070,8 +3152,7 @@ sub user {
   print "\033[0;31m[!] ";
   timer();
   print "SCAN FINISHED!\n";
-  }
-
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SELECTIVE2 PORTS SCAN
@@ -3219,6 +3300,7 @@ sub BFmwpsites {
         print "\033[1;37m    SCAN:   ";
 	    my $pa='Bienvenido|Welcome|Bienvenue|log off|Cerrar Sesion|Se deconnecter';
         if ($content =~ /$pa/) {
+		  if (defined $beep) {print chr(7);}
 	      print "\033[0;32m$URL1\n";
           print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
 	      open (LOG, '>>', $Bin.'/scan.txt');
@@ -3236,19 +3318,25 @@ sub BFmwpsites {
     close(PASS);
   }
   close(TEXT);
-  if (-e $Bin."/crackedwp".getlist()) {unlink $Bin."/crackedwp_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/crackedwp_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/crackedwp_".getlist()."!\n";
-	    subfin();
+  	fincontinuemodule();
+    if (!defined $joombf) {
+	  if (defined $output) {
+	    $listme = $Bin.'/scan.txt';
+		$save = "$outdir/crackedwp_scan.txt";
+		if (-e $save) {unlink $save;}
+        use File::Copy qw(copy);
+	    copy $listme, $save;
+		print "\033[0;32m[!] Results saved in $save!\n";
+	  }
+      subfin();
+	  unlink $Bin.'/search.txt';
+	}
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
-  }
-  if ((!defined $mjoomsites) && (!defined $mabout)) {
-    exit();
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -3280,6 +3368,7 @@ sub BFmjoomsites {
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print "\033[1;37m    ";
 	timer();
+    print "[$count/";
 	countsearchlist();
 	print "\033[1;37m]\n";
 	print "\033[1;37m    TARGET: ";
@@ -3317,6 +3406,7 @@ sub BFmjoomsites {
         print "\033[1;37m    SCAN:   ";
 	    my $pa='Panel de Control|Control Panel|Bienvenue|log off|Cerrar Sesion|Se deconnecter';
         if ($content =~ /$pa/) {
+		  if (defined $beep) {print chr(7);}
 	      print "\033[0;32m$URL1\n";
           print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
 		  open (LOG, '>>', $Bin.'/scan.txt');
@@ -3334,20 +3424,24 @@ sub BFmjoomsites {
     close(PASS);
   }
   close(TEXT);
-  if (-e $Bin."/crackedjoom".getlist()) {unlink $Bin."/crackedjoom_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/crackedjoom_".getlist();
-	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/crackedjoom_".getlist()."!\n";
-	    subfin();
+  	fincontinuemodule();
+	if (defined $output) {
+	  $listme = $Bin.'/scan.txt';
+      $save = "$outdir/crackedjoom_scan.txt";
+	  if (-e $save) {unlink $save;}
+      use File::Copy qw(copy);
+	  copy $listme, $save;
+	  print "\033[0;32m[!] Results saved in $save!\n";
+	}
+    subfin();
+	unlink $Bin.'/search.txt';
+	unlink $Bin.'/scan.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
   }
-  if (!defined $mabout) {
-    exit();
-  }
+  exit();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -3413,6 +3507,7 @@ sub fbbf {
       print "\033[0;31mFailed!\n";
       close SSL;
     }else{
+	  if (defined $beep) {print chr(7);}
       print "\033[0;32mCracked!\n";
       print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
       open (LOG, '>>', $Bin.'/scan.txt');
@@ -3424,20 +3519,22 @@ sub fbbf {
     print "    \033[1;37m[ ] -------------------------------------------------------------------------\n";
   }
   close(PASS);
-  if (-e $Bin."/crackedfb".getlist()) {unlink $Bin."/crackedfb_".getlist();}
   if (-e $Bin.'/scan.txt') {
-    use File::Copy qw(copy);
-    copy $Bin.'/scan.txt', $Bin."/crackedfb_".getlist();
+    if (defined $output) {
+	  $listme = $Bin.'/scan.txt';
+      $save = "$outdir/crackedfb_scan.txt";
+	  if (-e $save) {unlink $save;}
+      use File::Copy qw(copy);
+	  copy $listme, $save;
+	  print "\033[0;32m[!] Results saved in $save!\n";
+    }
 	fincontinuemodule();
-	print "\033[0;32m[!] Results saved in $Bin/crackedfb_".getlist()."!\n";
-	    subfin();
+	subfin();
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();
   }
-  if (!defined $mabout) {
-    exit();
-  }
+  exit();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -3519,6 +3616,7 @@ sub help {
   print "   --nobanner    | Hide tool banner\n";
   print "   --beep        | Produce beep sount if positive scan found.\n";
   print "   --noinfo      | Jump extra results info.\n";
+  print "   --noprocess   | Hide validation process.\n";
   print "   --update      | Check and update tool\n\n";
 
   print "\033[1;33m[..] EXAMPLES: \n\n";

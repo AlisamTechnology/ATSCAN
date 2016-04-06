@@ -228,7 +228,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--save</td>
-        <td class="main">file prefix to save results (if not set tool sets one)</td>
+        <td class="main">Save scan results.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--md5</td>
@@ -263,14 +263,9 @@
         <td class="main">string to replace with</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--save</td>
-        <td class="main">Set prefix to saved files</td>
-      </tr>
-      <tr>
         <td width="200px" class="main">--rang</td>
         <td class="main">Set range of ip</td>
       </tr>
-      <tr>
       <tr>
         <td width="200px" class="main">--wpbf</td>
         <td class="main">Wordpress admin login brute force</td>
@@ -314,7 +309,7 @@
 <b>Simple search: </b><br/>
   Search: --dork [dork] --level [level] <br/>
   Search with many dorks: --dork [dork1,dork2,dork3] --level [level] <br/>
-  Search + set save file: --dork [dorks.txt] --level [level] --save myfile.txt <br/>
+  Search + Save results: --dork [dorks.txt] --level [level] --save<br/>
   Search + Replace + Exploit: --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/>
   Search + Extract e-mails: --dork [dorks.txt] --level [level] --email <br/>
   <br/>

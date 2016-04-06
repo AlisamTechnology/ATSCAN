@@ -368,7 +368,7 @@
   -t [targets] --xss --lfi --wp ...<br/><br/>
     
 <b>Brute Force: </b><br/>
-  Facebook: --user [email] --pass [list.txt] <br/>
+  Facebook: --fbbf --user [email] --pass [list.txt] <br/>
   Joomla + Wordpress: --dork [dorks.txt] --level [10] --wpbf/--joombf --user [username] --pass [list.txt] <br/>
   
 <b>Check for updates: </b><br/>

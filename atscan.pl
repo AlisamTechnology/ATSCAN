@@ -3734,7 +3734,7 @@ if ((defined $dork) && (!defined $mlevel)) {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## ARGUMENTS VERIFICATION (SHELL / REPLACE)
+## ARGUMENTS VERIFICATION (SHELL / REPLACE/BRUTE FORCE)
 if ((defined $dork) || (defined $Target) || (defined $rangip)) {
   if (defined $mjoomrfi) {
 	if (!defined $shell) {
@@ -3748,12 +3748,17 @@ if ((defined $dork) || (defined $Target) || (defined $rangip)) {
     print "\033[0;33m[!] Invalid option! [Ex: --replace <value> --with <value>]\n";
 	exit();
   }
-  if (((defined $wpbf) || (defined $joombf)) && ((!defined $username) && (!defined $password))){
+  if (((defined $wpbf) || (defined $joombf)) && ((!defined $username) || (!defined $password))){
     print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";   
     print "\033[0;33m[!] Invalid option! [Ex: --wpbf/joombf --user <value> --pass <pass.txt>]\n";
 	exit();
   }
 }
+if ((defined $fbbf) && ((!defined $username) || (!defined $password))) {
+  print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";   
+  print "\033[0;33m[!] Invalid option! [Ex: --fbbf --user <email> --pass <pass.txt>]\n";
+  exit();
+} 
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS PROCESS

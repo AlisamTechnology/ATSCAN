@@ -3606,7 +3606,7 @@ sub help {
   print "   --replace     | String to replace \n";
   print "   --with        | String to replace with \n";
   print "   --email       | Get emails \n";
-  print "   --save        | File Prefix to save scan [by defaut the tool create one if not set!]\n";
+  print "   --save        | Save scan.\n";
   print "   --rang        | Set ip range [Ex: --rang 124.12.10.144-22.36.14.152]\n";
   print "   --wpbf        | Wordpress Login Brute Force\n";
   print "   --joombf      | Joomla Login Brute Force\n";
@@ -3634,7 +3634,7 @@ sub help {
   print "    Search + get emails: --dork <dorks.txt> --level <level> --email \n";
   print "    Search + get site emails: --dork <site:site.com> --level <level> --email \n";
   print "    Search + get ip+server: --dork <dorks.txt> --level <level> \n";
-  print "    Search + set save file: --dork <dorks.txt> --level <level> --save myfile.txt\n";
+  print "    Search + set save file: --dork <dorks.txt> --level <level> --save\n";
   print "    Search + Replace + Exploit: --dork <dorks.txt> --level <level> --replace <string> --with <string> --valid <string>\n\n";
   
   print "\033[1;37m  Subscan from Serach Engine: \n";

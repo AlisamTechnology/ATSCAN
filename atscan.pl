@@ -429,7 +429,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 7.4 Stable';
+  $existantversion='version 7.5 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -558,7 +558,7 @@ sub progressbar {
   print "\033[1;34m[!] ";
   timer();
   my $poop  = "::";
-  for (1..33) {
+  for (1..32) {
     select(undef, undef, undef, 0.25);
     print "$poop";
   }
@@ -1339,7 +1339,7 @@ sub msearch {
   }
   print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n[!] ";
   timer();
-  print "STARTING ENGINE SCAN... \n";
+  print "STARTING ENGINE SCAN ... \n";
   print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";
   forwait();
   $count=0;
@@ -1348,11 +1348,11 @@ sub msearch {
     chomp $dork;
 	$count++;
 	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
-      print "\033[1;37m[!] ";
+      print "\033[1;36m[!] ";
 	  timer();
-	  print "[$count/";
+	  print "[Dork $count/";
 	  countdorkslist();
-	  print "\033[1;37m] ";
+	  print "\033[1;36m] ";
 	  print "[SCAN:: $dork]\n";
       print "\033[0;37m[ ] ............................................................................. \n";
     }
@@ -1395,9 +1395,9 @@ sub msearch {
 			    $count2++;
 			    if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };			 
 	            if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $misup) && (!defined $validation_text) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
-	              print "\033[1;37m    ";
+	              print "\033[1;33m    ";
 	              timer();
-	              print "[$count2]\n";
+	              print "[Target $count2]\n";
 	              print "\033[1;37m    TARGET: ";
 	              print "\033[0;34m$URL\n";
 	              $URL1=$URL;
@@ -1512,11 +1512,11 @@ sub misup {
     $URL = checkurltype($URL);
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	my $printarget = $URL;
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
 	$URL = control($URL);
@@ -1526,13 +1526,13 @@ sub misup {
       $count3=0;  
       open (EXP, $Bin.'/exploits.txt');
       while (my $exp = <EXP>) {
+		$count3++;
 	    chomp $exp;
-        $count3++;
-        print "\033[0;37m    ";
+        print "\033[1;36m    ";
 	    timer();
-	    print "[$count3/";
+	    print "[Exp $count3/";
 	    countexploits();
-	    print "]\n";
+	    print "\033[1;36m]\n";
 	    print "\033[1;37m    EXPLT:  ";
 	    print "\033[0;37m$exp\n";
         $URL1 = $URL.$exp;
@@ -1596,11 +1596,11 @@ sub mvalidation {
     $URL = checkurltype($URL);
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	my $printarget = $URL;
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
     print "\033[1;37m    TARGET: ";
     print "\033[0;34m$printarget\n";
 	$URL = control($URL);
@@ -1610,16 +1610,13 @@ sub mvalidation {
       $count3=0;
       open (EXP, $Bin.'/exploits.txt');
       while (my $exp = <EXP>) {
-	    chomp $exp;
 		$count3++;
-        if ($count3>1) {  
-          $count3++;     
-          print "\033[1;37m    ";
-	      timer();
-	      print "[$count3/";
-	      countexploits();
-	      print "]\n";
-        }
+	    chomp $exp;
+        print "\033[1;36m    ";
+	    timer();
+	    print "[Exp $count3/";
+	    countexploits();
+	    print "\033[1;36m]\n";
 	    print "\033[1;37m    EXPLT:  ";
 	    print "\033[0;37m$exp\n";
         $URL1 = $URL.$exp;
@@ -1680,18 +1677,17 @@ sub mcommand {
     $count++;
 	chomp $URL;
     if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$URL \n";
 	if (!defined $noinfo) {
       $URL1=$URL;
       checkextrainfo();
 	}
-	
 	if ((!defined $misup) && (!defined $validation_text)) {
       $URL = control($URL);
 	}
@@ -1703,15 +1699,13 @@ sub mcommand {
       $count3=0;  
       open (EXP, $Bin.'/exploits.txt');
       while (my $exp = <EXP>) {
-	    chomp $exp;
 		$count3++;
-        if ($count3>1) {  
-          print "\033[1;37m    ";
-	      timer();
-	      print "[$count3/";
-	      countexploits();
-	      print "]\n";
-        }
+	    chomp $exp;
+        print "\033[1;36m    ";
+	    timer();
+	    print "[Exp $count3/";
+	    countexploits();
+	    print "\033[1;36m]\n";
 	    print "\033[1;37m    EXPLT:  ";
 	    print "\033[0;37m$exp\n";
         $URL = $URL.$exp;
@@ -1761,11 +1755,11 @@ sub mxss {
     $URL = checkurltype($URL);
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	my $printarget = $URL;
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
 	if ((!defined $misup) && (!defined $validation_text)) {
@@ -1779,17 +1773,15 @@ sub mxss {
         $count3=0;
         open (EXP, $Bin.'/exploits.txt');
         while (my $exp = <EXP>) {
-	      chomp $exp;
 		  $count3++;
-          if ($count3>1) {  
-            print "\033[1;37m    ";
-	        timer();
-	        print "[$count3/";
-	        countexploits();
-	        print "]\n";
-          }
+	      chomp $exp;
+          print "\033[1;36m    ";
+	      timer();
+	      print "[Exp $count3/";
+	      countexploits();
+	      print "\033[1;36m]\n";
 	      print "\033[1;37m    EXPLT:  ";
-	       print "\033[0;37m$exp\n";
+	      print "\033[0;37m$exp\n";
           $URL1 = $URL.$exp.$XSS;
           checkedurl();
         }
@@ -1955,11 +1947,11 @@ sub mlfi {
 	my $printarget = $URL;
 	$URL =~ s/=.*/=/s;
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
 	foreach $LFI(@LFI){
@@ -1973,15 +1965,13 @@ sub mlfi {
         $count3=0;
         open (EXP, $Bin.'/exploits.txt');
         while (my $exp = <EXP>) {
-	      chomp $exp;
 		  $count3++;
-          if ($count3>1) {  
-            print "\033[1;37m    ";
-	        timer();
-	        print "[$count3/";
-	        countexploits();
-	        print "]\n";
-          }
+	      chomp $exp;
+          print "\033[1;36m    ";
+	      timer();
+	      print "[Exp $count3/";
+	      countexploits();
+	      print "\033[1;36m]\n";
 	      print "\033[1;37m    EXPLT:  ";
 	      print "\033[0;37m$exp\n";
           $URL1 = $URL.$exp.$LFI;
@@ -2033,7 +2023,7 @@ sub mjoomrfi {
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n[!] ";
   timer();
-  print "STARTING JOOMLA RFI SCAN...\n";
+  print "STARTING JOOMLA RFI SCAN ...\n";
   print "\033[1;37m[ ] --------------------------------------------------------------------------- [ ]\n";
   forwait();
   $count=0;
@@ -2049,11 +2039,11 @@ sub mjoomrfi {
 	}
 	$URL =~ s/\/.*//s;
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
 	foreach $RFI(@RFI){
@@ -2117,11 +2107,11 @@ sub mwpadf {
 	}
 	$URL =~ s/\/.*//s;
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
 	foreach $ADFWP(@ADFWP){
@@ -2191,11 +2181,11 @@ sub madmin {
 	}
 	$URL =~ s/\/.*//s;
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
 	foreach $ADMIN(@ADMIN){
@@ -2263,11 +2253,11 @@ sub msubdomain {
 	  $URL =~ s/www.//g;
 	}
 	$URL =~ s/\/.*//s;
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
 	foreach $SUBDOMAIN(@SUBDOMAIN){
@@ -2342,11 +2332,11 @@ sub mwpsites {
 	}
 	$URL =~ s/\/.*//s;
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
 	foreach $WPCMS(@WPCMS){
@@ -2409,11 +2399,11 @@ sub mjoomsites {
 	}
 	$URL =~ s/\/.*//s;
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
 	foreach $JOOMCMS(@JOOMCMS){
@@ -2476,9 +2466,9 @@ sub muploadsites {
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print "\033[1;37m    ";
 	timer();
-    print "[$count/";
+    print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
 	foreach $UPLOAD(@UPLOAD){
@@ -2490,15 +2480,13 @@ sub muploadsites {
         $count3=0;
         open (EXP, $Bin.'/exploits.txt');
         while (my $exp = <EXP>) {
-	      chomp $exp;
 		  $count3++;
-          if ($count3>1) {  
-            print "\033[1;37m    ";
-	        timer();
-	        print "[$count3/";
-	        countexploits();
-	        print "]\n";
-          }
+	      chomp $exp;
+          print "\033[1;36m    ";
+	      timer();
+	      print "[Exp $count3/";
+	      countexploits();
+	      print "\033[1;36m]\n";
   	      print "\033[1;37m    EXPLT:  ";
 	      print "\033[0;37m$exp\n";
           $URL1 = $URL.$exp.$UPLOAD;
@@ -2565,9 +2553,9 @@ sub mzipsites {
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print "\033[1;37m    ";
 	timer();
-    print "[$count/";
+    print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
     foreach $ZIP(@ZIP){
@@ -2579,15 +2567,13 @@ sub mzipsites {
         $count3=0;
         open (EXP, $Bin.'/exploits.txt');
         while (my $exp = <EXP>) {
-	      chomp $exp;
 		  $count3++;
-          if ($count3>1) {  
-            print "\033[1;37m    ";
-	        timer();
-	        print "[$count3/";
-	        countexploits();
-	        print "]\n";
-          }
+	      chomp $exp;
+          print "\033[1;36m    ";
+	      timer();
+	      print "[Exp $count3/";
+	      countexploits();
+	      print "\033[1;36m]\n";
 	      print "\033[1;37m    EXPLT:  ";
 	      print "\033[0;37m$exp\n";
           $URL1 = $URL.$exp.$ZIP;
@@ -2650,11 +2636,11 @@ sub mmails {
     $URL = checkurltype($URL);
 	if($URL !~ /http:\/\//) {$URL = "http://$URL"; };	
 	my $printarget = $URL;
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";
     $yes = '((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})';
@@ -2664,15 +2650,13 @@ sub mmails {
       $count3=0;
       open (EXP, $Bin.'/exploits.txt');
       while (my $exp = <EXP>) {
+	    $count3++;
 	    chomp $exp;
-		$count3++;     
-        if ($count3>1) {  
-          print "\033[1;37m    ";
-	      timer();
-	      print "[$count3/";
-	      countexploits();
-	      print "]\n";
-        }
+        print "\033[1;36m    ";
+	    timer();
+	    print "[Exp $count3/";
+	    countexploits();
+	    print "\033[1;36m]\n";
 	    print "\033[1;37m    EXPLT:  ";
 	    print "\033[0;37m$exp\n";
         $URL1 = $URL.$exp;
@@ -2816,9 +2800,9 @@ sub basic {
 	$URL = checkip($URL);
 	print "\033[1;37m    ";
 	timer();
-    print "[$count/";
+    print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$URL \n";
 	resumeportscan();
@@ -2872,9 +2856,9 @@ sub basic2 {
 	$URL = checkip($URL);
 	print "\033[1;37m    ";
 	timer();
-    print "[$count/";
+    print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$URL \n";
 	resumeportscan();
@@ -2960,9 +2944,9 @@ sub complete {
     $port3=1;
 	print "\033[1;37m    ";
 	timer();
-    print "[$count/";
+    print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
     print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$URL \n";
 	resumeportscan();
@@ -3262,11 +3246,11 @@ sub BFmwpsites {
 	}
 	$URL =~ s/\/.*//s;
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
-	print "[$count/";
+	print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";	    
     if (defined $password) {
@@ -3368,9 +3352,9 @@ sub BFmjoomsites {
 	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
 	print "\033[1;37m    ";
 	timer();
-    print "[$count/";
+    print "[Target $count/";
 	countsearchlist();
-	print "\033[1;37m]\n";
+	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
 	print "\033[0;34m$printarget\n";	    
     if (defined $password) {
@@ -3543,7 +3527,7 @@ sub mabout {
   print "\033[1;37m[ ] --------------------------------------------------------------------------- \n";
   print "\033[1;36m
      [+]================================================================[+]
-     [+]--------------              ATSCAN V 7.4          --------------[+]
+     [+]--------------              ATSCAN V 7.5          --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]

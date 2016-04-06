@@ -196,15 +196,15 @@
       </tr>
       <tr>
         <td width="200px" class="main">--all</td>
-        <td class="main">complete mode</td>
+        <td class="main">Ports scan complete mode</td>
       </tr>
       <tr>
         <td width="200px" class="main">--basic</td>
-        <td class="main">basic mode</td>
+        <td class="main">Ports scan basic mode</td>
       </tr>
       <tr>
         <td width="200px" class="main">--select</td>
-        <td class="main">Select mode you can set rang of ports</td>
+        <td class="main">Select mode you can set rang of ports to scan</td>
       </tr>
       <tr>
         <td width="200px" class="main">--sites</td>

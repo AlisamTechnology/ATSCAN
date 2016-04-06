@@ -1071,13 +1071,6 @@ sub control {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## GET LIST TO SCAN
-sub getlist {
-  if (defined $output) { my $output = $output;}
-  else{ my $output = "scan.txt"; }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
 ## EXTRAT INFO PROCESS SCAN
 sub checkextrainfo {
   my $checkip=$URL1;
@@ -1325,7 +1318,6 @@ sub submsearch {
 sub msearch {
   $browserlang = $browserlangs[int rand @browserlangs];
   scandetail();
-  my $out=getlist();
   print "\033[1;33m[+] RANDOM SEARCH:: ";
     print "\033[0;36mBING [bing.". $browserlang . "] ";
   if (defined $unique) {
@@ -1569,6 +1561,7 @@ sub misup {
 	  }
       subfin();
 	  unlink $Bin.'/search.txt';
+	  unlink $Bin.'/exploits.txt';
 	}else{
       use File::Copy qw(copy);
 	  copy $Bin.'/scan.txt', $Bin.'/search.txt';
@@ -1655,6 +1648,7 @@ sub mvalidation {
 	  }
       subfin();
 	  unlink $Bin.'/search.txt';
+	  unlink $Bin.'/exploits.txt';
 	}else{
       use File::Copy qw(copy);
 	  copy $Bin.'/scan.txt', $Bin.'/search.txt';
@@ -1739,7 +1733,8 @@ sub mcommand {
   print "SCAN FINISHED!\n";
     
   if ((!defined $mxss) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
-    exit();
+    unlink $Bin.'/exploits.txt';
+	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -1820,6 +1815,7 @@ sub mxss {
 	  }
       subfin();
 	  unlink $Bin.'/search.txt';
+	  unlink $Bin.'/exploits.txt';
 	}
 	if (defined $sqlmap) {
       if (-e $Bin.'/xss_scan.txt') { unlink $Bin.'/xss_scan.txt';}
@@ -2015,6 +2011,7 @@ sub mlfi {
 	  }
       subfin();
 	  unlink $Bin.'/search.txt';
+	  unlink $Bin.'/exploits.txt';
 	}
 	unlink $Bin.'/scan.txt';
   }else{
@@ -2531,6 +2528,7 @@ sub muploadsites {
 	  }
       subfin();
 	  unlink $Bin.'/search.txt';
+	  unlink $Bin.'/exploits.txt';
 	}
 	unlink $Bin.'/scan.txt';
   }else{
@@ -2619,6 +2617,7 @@ sub mzipsites {
 	  }
       subfin();
 	  unlink $Bin.'/search.txt';
+	  unlink $Bin.'/exploits.txt';
 	}
 	unlink $Bin.'/scan.txt';
   }else{
@@ -2705,6 +2704,7 @@ sub mmails {
 	}
 	unlink $Bin.'/scan.txt';
 	unlink $Bin.'/scan2.txt';
+	unlink $Bin.'/exploits.txt';
   }else{
 	print "\033[0;31m[!] No Results Found!\n";
     subfin();

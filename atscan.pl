@@ -1090,7 +1090,11 @@ sub checkextrainfo {
     $checkip=~ s/\/.*//s;
     use Socket;
     my $ip = Socket::inet_ntoa(inet_aton($checkip));
-    print "\033[0;37m$ip\n";
+	if (defined $ip) {
+      print "\033[0;37m$ip\n";
+	}else{
+      print "\033[0;37mUndefined!\n";
+	}
   }else{
     print "\033[0;37mUndefined!\n";
   }

@@ -601,7 +601,7 @@ sub scandetail {
   }
   #########################################
   #########################################
-  if ((defined $misup) || (defined $validation_text) || (defined $ifinurl) || (defined $mnoshow)) {
+  if ((defined $misup) || (defined $validation_text) || (defined $ifinurl)) {
     print "\033[1;33m[+] VALIDATION:: ";
     if (defined $validation_text) { 
       print "\033[0;36m$validation_text ";
@@ -611,9 +611,6 @@ sub scandetail {
     }
 	if (defined $ifinurl) { 
       print "\033[0;36m/Validate Url ";
-    }
-    if (defined $mnoshow) { 
-      print "\033[0;36m/Hidden Process ";
     }
     print "\n";
   }
@@ -3493,10 +3490,7 @@ sub fbbf {
     print "\033[1;37m    PASS:   ";
     print "\033[0;37m$_\n";
     print "\033[1;37m    SCAN:   ";
-    if (!defined $success) {  
-      print "\033[0;31mFailed!\n";
-      close SSL;
-    }else{
+    if (defined $success) {  
 	  if (defined $beep) {print chr(7);}
       print "\033[0;32mCracked!\n";
       print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
@@ -3505,6 +3499,9 @@ sub fbbf {
       close (LOG);   
       close SSL;
 	  last;
+    }else{
+      print "\033[0;31mFailed!\n";
+      close SSL;
     } 
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }

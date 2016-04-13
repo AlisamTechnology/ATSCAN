@@ -10,7 +10,7 @@
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 7.5</td>
+    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 7.6</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -157,6 +157,10 @@
       <tr>
         <td width="200px" class="main">--sqlmap</td>
         <td class="main">Sqlmaping xss results</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">-p</td>
+        <td class="main">Set vulnerable param to sqlmap</td>
       </tr>
       <tr>
         <td width="200px" class="main">--lfi</td>

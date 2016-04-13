@@ -1625,7 +1625,7 @@ sub mvalidation {
     print "\033[0;34m$printarget\n";
 	$URL = control($URL);	
     $yes = $validation_text;
-    $no = 'xxxvf';
+    $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
     if (defined $exploit) {
       $count3=0;
       open (EXP, $Bin.'/exploits.txt');

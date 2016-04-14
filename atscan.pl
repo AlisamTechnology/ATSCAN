@@ -1810,11 +1810,13 @@ sub mxss {
         }
         close (EXP);
       }elsif (defined $p) {
-	    
 		if ($URL =~ /$p=([^&]*)/) {
 		  $URL =~ s/$p=([^&]*)/$p=$1$XSS/g;
           $URL1 = $URL; 
 		  checkedurl();
+		}else{
+		  print "    \033[1;37mSCAN:   ";   
+	      print "\033[0;31mNo Parameter [$p] Found!\n";
 		}
       }else{
         $URL1 = $URL.$XSS;

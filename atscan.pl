@@ -1791,7 +1791,7 @@ sub mxss {
 	foreach $XSS(@XSS){
 	  $URL =~ s/ //g;
       $yes = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error|You have an error in your SQL syntax';
-      $no = 'xxfjjjllncxz';
+      $no = '404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	  if (defined $exploit) {
         $count3=0;
         open (EXP, $Bin.'/exploits.txt');

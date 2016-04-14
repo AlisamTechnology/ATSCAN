@@ -649,7 +649,7 @@ sub scandetail {
     if (defined $mxss) {
       print "\033[0;36m/Xss ";
 	  if (defined $p){
-        print "\033[0;36m[Vul Param $p] ";
+        print "\033[0;36m[Vul Param: $p] ";
 	  }
     }
     if (defined $mlfi) {

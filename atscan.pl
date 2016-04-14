@@ -431,7 +431,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 7.7 Stable';
+  $existantversion='version 7.8 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -1146,7 +1146,7 @@ sub checkedurl {
   }
   print "\033[1;37m    SCAN:   ";  
   if (($html =~ /$yes/) && ($html !~ /$no/)) {
-    if ((defined $validation_text) || (defined $mxss) || (defined $mlfi) || (defined $mjoomfri) || (defined $mwpadf)) {
+    if ((defined $validation_text) || (defined $mxss) || (defined $mlfi) || (defined $mjoomrfi) || (defined $mwpadf)) {
 	  print "\033[0;32m$URL1 \n";
       open (LOS, '>>', $Bin.'/scan.txt');
       print LOS "$URL1\n";
@@ -3564,7 +3564,7 @@ sub mabout {
   print "\033[1;37m[ ] --------------------------------------------------------------------------- \n";
   print "\033[1;36m
      [+]================================================================[+]
-     [+]--------------              ATSCAN V 7.7          --------------[+]
+     [+]--------------              ATSCAN V 7.8          --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]

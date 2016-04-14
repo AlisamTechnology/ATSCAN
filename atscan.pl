@@ -296,7 +296,7 @@ my $ua = LWP::UserAgent->new(
 		 cookie_jar	=> HTTP::Cookies->new(),
 );
 $ua->env_proxy;
-$ua->timeout(15);
+$ua->timeout(10);
 use HTTP::Cookies;
 use File::Basename;
 use FindBin '$Bin';
@@ -648,6 +648,9 @@ sub scandetail {
     print "\033[1;33m[+] SCAN:: ";
     if (defined $mxss) {
       print "\033[0;36m/Xss ";
+	  if (defined $p){
+        print "\033[0;36m[Vul Param $p] ";
+	  }
     }
     if (defined $mlfi) {
       print "\033[0;36m/Lfi ";
@@ -1141,9 +1144,9 @@ sub checkedurl {
 	  }
     }
   }
-  print "\033[1;37m    SCAN:   ";
-  if (($html =~ m/$yes/i) && ($html !~ m/$no/i)) {
-    if (defined $validation_text) {
+  print "\033[1;37m    SCAN:   ";  
+  if (($html =~ /$yes/) && ($html !~ /$no/)) {
+    if ((defined $validation_text) || (defined $mxss) || (defined $mlfi) || (defined $mjoomfri) || (defined $mwpadf)) {
 	  print "\033[0;32m$URL1 \n";
       open (LOS, '>>', $Bin.'/scan.txt');
       print LOS "$URL1\n";
@@ -1788,7 +1791,7 @@ sub mxss {
 	foreach $XSS(@XSS){
 	  $URL =~ s/ //g;
       $yes = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error|You have an error in your SQL syntax';
-      $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
+      $no = 'xxfjjjllncxz';
 	  if (defined $exploit) {
         $count3=0;
         open (EXP, $Bin.'/exploits.txt');
@@ -1806,8 +1809,15 @@ sub mxss {
           checkedurl();
         }
         close (EXP);
+      }elsif (defined $p) {
+	    
+		if ($URL =~ /$p=([^&]*)/) {
+		  $URL =~ s/$p=([^&]*)/$p=$1$XSS/g;
+          $URL1 = $URL; 
+		  checkedurl();
+		}
       }else{
-        $URL1 = $URL.$XSS; 
+        $URL1 = $URL.$XSS;
         checkedurl();
       }
     }
@@ -1860,7 +1870,9 @@ sub sqlmap {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	$URL =~ s/\%.*//s;
+	if (index($URL, '%27') != -1) {
+	  $URL =~ s/\%27//g;
+	}
 	if (defined $proxy) {
 	  $tor = "--tor --check-tor --tor-type=SOCKS5";
 	}else{
@@ -3588,7 +3600,7 @@ sub help {
   print "   --exp         | Exploit\n";
   print "   -t            | Target \n";
   print "   --sqlmap      | Sqlmaping xss results \n";
-  print "   -p            | Set xss vulnerable parameter to sqlmap \n";
+  print "   -p            | Set xss / sqlmap test parameter \n";
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";
   print "   --joomrfi     | Scan for joomla local file inclusion\n";

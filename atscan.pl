@@ -666,6 +666,22 @@ sub scandetail {
     }
     if (defined $mports) {
       print "\033[0;36m/Ports ";
+	  
+      if (defined $mbasic) {
+        if ($mbasic eq "tcp") { print "Basic tcp"; }
+        if ($mbasic eq "udp") { print "Basic udp"; }
+        if (($mbasic eq "udp+tcp") || ($mbasic eq "tcp+udp")) { print "Basic tcp+udp";}
+	  }
+      if (defined $mall) {
+        if ($mall eq "tcp") { print "Complete tcp";}
+        if ($mall eq "udp") { print "Complete udp";}
+        if (($mall eq "udp+tcp") || ($mall eq "tcp+udp")) { print "Complete tcp+udp"; }
+	  }
+      if (defined $muser) {
+        if ($muser eq "tcp") { print "Selective tcp";}
+        if ($muser eq "udp") { print "Selective udp";}
+        if (($muser eq "udp+tcp") || ($muser eq "tcp+udp")) { print "Selective tcp+udp";}
+	  }
     }
     if (defined $mupload) {
       print "\033[0;36m/Upload ";
@@ -842,6 +858,15 @@ sub dorklist {
         close (FILE);
 	  }
     }
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## CHECK CONECTION + IF NEEDED TARGET LIST
+sub ifgettargetlist {
+  testconection();
+  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
+    targetlist();
   }
 }
 ############################################################################################################################################################################################
@@ -1226,6 +1251,13 @@ sub checkerrortype {
 	  }
 	}  
   }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## DELETE SEARCH + EXPLOITS LIST
+sub deleteqexp { 
+  unlink $Bin.'/search.txt';
+  unlink $Bin.'/exploits.txt';
 }	  	
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1274,12 +1306,26 @@ sub fincontinuemodule {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## NEGATIVE SCAN AND EXIT
+sub negativeexit {
+  negative2();
+  exit();
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## RETURN NEGATIVE SCAN
 sub negative {	
   print "\033[0;31m[!] No Results Found!\n";
   print "\033[0;31m[!] ";
   timer();
   print "SCAN FINISHED!\n";
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## RETURN NEGATIVE SCAN2
+sub negative2 {	
+  print "\033[0;31m[!] No Results Found!\n";
+  subfin();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1402,7 +1448,6 @@ sub msearch {
 		    }
            	if (index($1, $check) != -1) {
 			  my $URL=$1;
-		      #$URL=~s/&(.*)/\ /g;
 			  use HTML::Entities;
 			  $URL = decode_entities($URL);
 
@@ -1583,16 +1628,14 @@ sub misup {
 		print "\033[0;32m[!] Results saved in $save!\n";
 	  }
       subfin();
-	  unlink $Bin.'/search.txt';
-	  unlink $Bin.'/exploits.txt';
+	  deleteqexp();
 	}else{
       use File::Copy qw(copy);
 	  copy $Bin.'/scan.txt', $Bin.'/search.txt';
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
+	negatif();
 	exit();
   }
 }
@@ -1601,8 +1644,9 @@ sub misup {
 ## VALIDATION BY TEXT
 sub mvalidation {
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
+  if (-e $Bin.'/validated.txt'){ unlink $Bin.'/validated.txt';}
   testconection();
-  if (!defined $mlevel){
+  if ((!defined $mlevel) && (!defined $misup)) {
     targetlist();
   }
   searchexitstargets();
@@ -1667,27 +1711,21 @@ sub mvalidation {
 		print "\033[0;32m[!] Results saved in $save!\n";
 	  }
       subfin();
-	  unlink $Bin.'/search.txt';
-	  unlink $Bin.'/exploits.txt';
+	  deleteqexp();
 	}else{
       use File::Copy qw(copy);
 	  copy $Bin.'/scan.txt', $Bin.'/search.txt';
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## COMMAND
 sub mcommand {
-  testconection();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -1759,11 +1797,8 @@ sub mcommand {
 ## XSS
 sub mxss {
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
   XSS();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -1838,8 +1873,7 @@ sub mxss {
 		print "\033[0;32m[!] Results saved in $save!\n";
 	  }
       subfin();
-	  unlink $Bin.'/search.txt';
-	  unlink $Bin.'/exploits.txt';
+	  deleteqexp();
 	}
 	if (defined $sqlmap) {
       if (-e $Bin.'/xss_scan.txt') { unlink $Bin.'/xss_scan.txt';}
@@ -1848,19 +1882,14 @@ sub mxss {
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ##bgn SQLMAP 
 sub sqlmap {
-  testconection();
-  if (!defined $mlevel){
-    targetlist();
-  }
+  ifgettargetlist();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
   print "STARTING SQLMAP SCAN ...\n";
@@ -1965,11 +1994,8 @@ sub sqlmap {
 ## LFI
 sub mlfi {
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
   LFI();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2039,14 +2065,11 @@ sub mlfi {
 		print "\033[0;32m[!] Results saved in $save!\n";
 	  }
       subfin();
-	  unlink $Bin.'/search.txt';
-	  unlink $Bin.'/exploits.txt';
+	  deleteqexp();
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
@@ -2054,11 +2077,8 @@ sub mlfi {
 ## RFI JOOMLA
 sub mjoomrfi {
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
   RFI();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2112,9 +2132,7 @@ sub mjoomrfi {
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
@@ -2122,11 +2140,8 @@ sub mjoomrfi {
 ## WORDPRESS ADF
 sub mwpadf {
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
   ADFWP();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2186,9 +2201,7 @@ sub mwpadf {
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
@@ -2196,11 +2209,8 @@ sub mwpadf {
 ## GET ADMIN PAGE
 sub madmin {
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
   ADMIN();
- if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2256,9 +2266,7 @@ sub madmin {
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
@@ -2338,9 +2346,7 @@ sub msubdomain {
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
@@ -2351,7 +2357,6 @@ sub mwpsites {
   testconection();
   if (!defined $mlevel) {
     targetlist();
-	#scandetail();
   }
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2405,9 +2410,7 @@ sub mwpsites {
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
@@ -2418,7 +2421,6 @@ sub mjoomsites {
   testconection();
   if (!defined $mlevel) {
     targetlist();
-	#scandetail();
   }
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2472,21 +2474,16 @@ sub mjoomsites {
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET UPLOAD FILES
 sub muploadsites {
-   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   UPLOAD();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2554,14 +2551,11 @@ sub muploadsites {
 		print "\033[0;32m[!] Results saved in $save!\n";
 	  }
       subfin();
-	  unlink $Bin.'/search.txt';
-	  unlink $Bin.'/exploits.txt';
+	  deleteqexp();
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
@@ -2569,11 +2563,8 @@ sub muploadsites {
 ## GET ZIP FILES
 sub mzipsites {
    if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
   ZIP();
- if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2641,26 +2632,20 @@ sub mzipsites {
 		print "\033[0;32m[!] Results saved in $save!\n";
 	  }
       subfin();
-	  unlink $Bin.'/search.txt';
-	  unlink $Bin.'/exploits.txt';
+	  deleteqexp();
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET E-MAILS
 sub mmails {
-   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   if (-e $Bin.'/scan2.txt') {unlink $Bin.'/scan2.txt';}
-  testconection();
- if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2729,9 +2714,7 @@ sub mmails {
 	unlink $Bin.'/scan2.txt';
 	unlink $Bin.'/exploits.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
@@ -2822,9 +2805,7 @@ sub resumeportscan {
 ############################################################################################################################################################################################
 ## BASIC PORTS SCAN
 sub basic {
- if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2878,9 +2859,7 @@ sub basic {
 ############################################################################################################################################################################################
 ## BASIC2 PORTS SCAN
 sub basic2 {
- if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -2962,10 +2941,7 @@ sub basic2 {
 ############################################################################################################################################################################################
 ## COMPLETE PORTS SCAN
 sub complete {
-  testconection();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -3019,10 +2995,7 @@ sub complete {
 ############################################################################################################################################################################################
 ## COMPLETE2 PORTS SCAN
 sub complete2 {
-  testconection();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -3117,10 +3090,7 @@ sub subuser {
 ############################################################################################################################################################################################
 ## SELECTIVE PORTS SCAN
 sub user {
-  testconection();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -3180,10 +3150,7 @@ sub user {
 ############################################################################################################################################################################################
 ## SELECTIVE2 PORTS SCAN
 sub user2 {
-  testconection();
-  if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
-    targetlist();
-  }
+  ifgettargetlist();
   searchexitstargets();
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
   timer();
@@ -3357,9 +3324,7 @@ sub BFmwpsites {
 	}
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
-	exit();
+	negativeexit();
   }
 }
 ############################################################################################################################################################################################
@@ -3461,8 +3426,7 @@ sub BFmjoomsites {
 	unlink $Bin.'/search.txt';
 	unlink $Bin.'/scan.txt';
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
+	negative2();
   }
   exit();
 }
@@ -3554,8 +3518,7 @@ sub fbbf {
 	fincontinuemodule();
 	subfin();
   }else{
-	print "\033[0;31m[!] No Results Found!\n";
-    subfin();
+	negative2();
   }
   exit();
 }
@@ -3798,7 +3761,14 @@ if ((defined $fbbf) && ((!defined $username) || (!defined $password))) {
   print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";   
   print "\033[0;33m[!] Invalid option! [Ex: --fbbf --user <email> --pass <pass.txt>]\n";
   exit();
-} 
+}
+if (!defined $dork) {
+  if ((defined $unique) || (defined $ifinurl)) {
+    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";   
+    print "\033[0;33m[!] Invalid option! --ifinurl or --unique needs dork search!\n";
+    exit();
+  }
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS PROCESS

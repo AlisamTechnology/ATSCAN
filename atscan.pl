@@ -146,7 +146,10 @@ my $mstart;
 my $mend;
 my $mbasic;
 my $muser;
-my $mall;
+my $mcomplete;
+my $tcp;
+my $udp;
+my $all;
 my $msites;
 my $mwpsites;
 my $mjoomsites;
@@ -191,11 +194,14 @@ Getopt::Long::GetOptions(\my %OPT,
                         'admin' => \$madmin,
 						'shost' => \$msubdomain,
 						'ports' => \$mports,
-						'select=s' => \$muser,
+						'select' => \$muser,
+						'udp' => \$udp,
+						'tcp' => \$tcp,
+						'all' => \$all,
 						'start=s' => \$mstart,
 						'end=s' => \$mend,
-						'all=s' => \$mall,
-						'basic=s' => \$mbasic,
+						'complete' => \$mcomplete,
+						'basic' => \$mbasic,
 						'sites' => \$msites,
 						'wp' => \$mwpsites,
 						'joom' => \$mjoomsites,
@@ -409,7 +415,7 @@ my @CODENAME = ("No monopoly for knowledge", "Virgin!! life fuck us all", "! Lov
   print "\033[0;31m_.' `-' '._\n";
   print "\033[1;36m    ##     ##    ##     ######   ######  ##     ## ##    ##  ";
   print "\033[0;31m`-'--^--`-'\n";
-  print "\033[0;31m__________________( $CODENAME )____________(O^^^)___(^^^O)__\n";
+  print "\033[0;31m__________________( $CODENAME )____________(O^^^)___(^^^O)___\n";
   print "\n";
 }
 ############################################################################################################################################################################################
@@ -417,7 +423,7 @@ my @CODENAME = ("No monopoly for knowledge", "Virgin!! life fuck us all", "! Lov
 ## PRINT DESCLAIMER
 desclaimer();
 if ((!defined $dork) && (!defined $fbbf) && (!defined $help) && (!defined $Target) && (!defined $rangip) && (!defined $mmd5) && (!defined $mencode64) && (!defined $checkversion) && (!defined $mdecode64)) {
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
   advise2();
 }
 ############################################################################################################################################################################################
@@ -431,7 +437,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 7.8 Stable';
+  $existantversion='version 8.0 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -445,7 +451,7 @@ sub checkversion {
   my $response = $ua->request($request);
   my $html = $response->content;
   (my $gitversion) = ($html =~ /version(.*)Stable/);
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
   $gitversion = "version".$gitversion."Stable";
   if ($gitversion eq $existantversion) {
 	print "\033[0;32m[!] OK! Last $gitversion No need to update!\n";
@@ -518,7 +524,7 @@ sub osinfo {
 ############################################################################################################################################################################################
 ## ADVISE
 sub advise {
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
   print "\033[0;33m[!] Upss.. Invalid arguments! \n";
   $lalwmali = ",basename($0),";
   if ($lalwmali =~ m/\/usr\/share\/doc/i) {
@@ -667,19 +673,19 @@ sub scandetail {
       print "\033[0;36m/Ports ";
 	  
       if (defined $mbasic) {
-        if ($mbasic eq "tcp") { print "Basic tcp"; }
-        if ($mbasic eq "udp") { print "Basic udp"; }
-        if (($mbasic eq "udp+tcp") || ($mbasic eq "tcp+udp")) { print "Basic tcp+udp";}
+        if (defined $tcp) { print "Basic tcp"; }
+        if (defined $udp) { print "Basic udp"; }
+        if (defined $all) { print "Basic tcp+udp";}
 	  }
-      if (defined $mall) {
-        if ($mall eq "tcp") { print "Complete tcp";}
-        if ($mall eq "udp") { print "Complete udp";}
-        if (($mall eq "udp+tcp") || ($mall eq "tcp+udp")) { print "Complete tcp+udp"; }
+      if (defined $mcomplete) {
+        if (defined $tcp) { print "Complete tcp";}
+        if (defined $udp) { print "Complete udp";}
+        if (defined $all) { print "Complete tcp+udp"; }
 	  }
       if (defined $muser) {
-        if ($muser eq "tcp") { print "Selective tcp";}
-        if ($muser eq "udp") { print "Selective udp";}
-        if (($muser eq "udp+tcp") || ($muser eq "tcp+udp")) { print "Selective tcp+udp";}
+        if (defined $tcp) { print "Selective tcp";}
+        if (defined $udp) { print "Selective udp";}
+        if (defined $all) { print "Selective tcp+udp";}
 	  }
     }
     if (defined $mupload) {
@@ -756,7 +762,7 @@ sub scandetail {
     print "\033[0;36m/Jump extra info\n";
   }
   if (!defined $mlevel) {
-    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
   }
 }
 ############################################################################################################################################################################################
@@ -767,7 +773,7 @@ sub testconection {
   $request = HTTP::Request->new('GET', $URL);
   $response = $ua->request($request);
   if ( !$response->is_success ) {
-    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
     print "\033[0;31m[!] Upss.. Your Internet connection seems not active!\n";
     print "\033[0;31m[!] Check Your Connection OR Proxy Setting!\n";
 	exit();
@@ -784,7 +790,7 @@ sub dorklist {
   if (defined $dork){
 	if (substr($dork, -4) eq '.txt') {
       if ($dork eq 'dorks.txt') {
-	    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
 	    print "\033[0;31m[!] Rename your list [$dork] I use the same name!\n";
 	    exit();
       }
@@ -829,7 +835,7 @@ sub dorklist {
       }
 	  close (FILE);
 	}else{
-	  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
       print "\033[0;31m[!] $rangip is not a valid range! [Ex: --rang 15.24.123.142-142.11.10.101]\n";
       exit();
 	}
@@ -837,7 +843,7 @@ sub dorklist {
 	if (-e '$Bin/dorks.txt'){ unlink '$Bin/dorks.txt'};
 	if (substr($Target, -4) eq '.txt') {
       if ($Target eq 'dorks.txt' ) {
-	    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
 	    print "\033[0;31m[!] Rename your list [$dork] I use the same name!\n";
 	    exit();
       }
@@ -902,14 +908,14 @@ sub targetlist {
       }
 	  close (FILE);
 	}else{
-	  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
       print "\033[0;31m[!] $rangip is not a valid range! [Ex: --rang 15.24.123.142-142.11.10.101]\n";
       exit();
 	}
   }elsif (defined $Target) {
 	if (substr($Target, -4) eq '.txt') {
       if ($Target eq 'search.txt') {
-	    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
 	    print "\033[0;31m[!] Rename your list [$Target] I use the same name!\n";
 	    exit();
       }
@@ -943,7 +949,7 @@ if (defined $exploit) {
   my $pat3 = ",";
   if (substr($exploit, -4) eq '.txt') {
     if ($exploit eq 'exploits.txt') {
-	  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
 	  print "\033[0;31m[!] Rename your list [$exploit] I use the same name!\n";
 	  exit();
     }
@@ -973,7 +979,7 @@ if (defined $exploit) {
 sub checkurltype{
   $URL=$_[0];
   if ($URL=~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-	print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
     print "\033[0;31m[!] $URL is an IP [Use: -t <ip> --level 20 <opcion>]! \n";
     exit();
   }else{
@@ -986,7 +992,7 @@ sub checkurltype{
 sub checkip{
   $URL=$_[0];
   if ($URL!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
-	print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
     print "\033[0;31m[!] $URL is an IP [Use: -t <ip> --level 20 <opcion>]! \n";
     exit();
   }else{
@@ -1000,7 +1006,7 @@ sub countdorks {
   my $lc = 0;
   my $file = $dork;
   if (!-e $dork) {
-	print "\033[1;37m\n\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	print "\033[1;37m\n\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
 	print "\033[0;31m[!] Dont make me crazy! NO $dork found!\n";
 	exit();
   }
@@ -1025,7 +1031,7 @@ sub countpasswordlist {
   my $lcpass = 0;
   my $file = $password;
   if (!-e $password) {
-	print "\033[1;37m\n\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	print "\033[1;37m\n\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
 	print "\033[0;31m[!] NO $password list found!\n";
 	exit();
   }
@@ -1041,7 +1047,7 @@ sub countinicialtargets {
   my $lc = 0;
   my $file = $Target;
   if (!-e $Target) {
-	print "\033[1;37m\n\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+	print "\033[1;37m\n\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
 	print "\033[0;31m[!] Dont make me crazy! NO $Target found!\n";
 	exit();
   }
@@ -1229,7 +1235,7 @@ sub urlstatus {
 	    copy $listme, $save;
 	    print "\033[0;32m[!] Results saved in $save!\n";
 	  }
-      print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+      print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
 	  subfin(); 
 	  unlink $Bin.'/scan.txt';
 	  unlink $Bin.'/search.txt';
@@ -1303,6 +1309,7 @@ sub fincontinuemodule {
   my $lc = 0;
   open $file, "<", $Bin."/scan.txt";
   $lc++ while <$file>;
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   print "\033[0;32m[!] $lc Target(s) Found!\n";
   close $file;
 }
@@ -1317,7 +1324,7 @@ sub negativeexit {
 ############################################################################################################################################################################################
 ## RETURN NEGATIVE SCAN
 sub negative {
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   print "\033[0;31m[!] No Results Found!\n";
   subfin();
 }
@@ -1325,7 +1332,7 @@ sub negative {
 ############################################################################################################################################################################################
 ## RETURN NEGATIVE SCAN2
 sub negative2 {	
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   print "\033[0;31m[!] No Results Found!\n";
   subfin();
 }
@@ -1342,7 +1349,7 @@ sub subfin {
 ## CHECK TARGETS LIST
 sub searchexitstargets {
   if (!-e $Bin.'/search.txt'){
-    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+    print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
     print "\033[0;33m[!] No Target list found!\n";
 	exit();
   }
@@ -1351,9 +1358,9 @@ sub searchexitstargets {
 ############################################################################################################################################################################################
 ## DESCLAIMER
 sub desclaimer {
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
   print "\033[1;37m[ ]";
-  print "\033[0;37m --------------------------------------------------------------------- ";
+  print "\033[0;37m-----------------------------------------------------------------------";
   print "\033[1;37m[ ]\n";
   print "\033[1;37m[ ]";
   print "\033[0;37m This is a pentest tool! We will not be responsible or liable directly ";  
@@ -1365,9 +1372,9 @@ sub desclaimer {
   print "\033[0;37m              incurred as result of our program use !!                 ";               
   print "\033[1;37m[ ]\n";
   print "\033[1;37m[ ]";
-  print "\033[0;37m --------------------------------------------------------------------- ";
+  print "\033[0;37m-----------------------------------------------------------------------";
   print "\033[1;37m[ ]\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
   osinfo();
 }
 ############################################################################################################################################################################################
@@ -1407,10 +1414,10 @@ sub msearch {
       print "\n";
 	}
   }
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING ENGINE SCAN ... \n";
+  print ":::STARTING ENGINE SCAN::: \n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1504,7 +1511,7 @@ sub msearch {
 				       }
                      }		          
                   }
-			      print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
+			      print "    \033[0;37m[ ] -------------------------------------------------------------------\n";
 			    }
                 open (TEXT, '>>', $Bin.'/search.txt');
 			    print TEXT "$URL\n";
@@ -1533,6 +1540,7 @@ sub msearch {
 		unlink $Bin."/search.txt.bac";
       }
     }
+    print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
     open $file, "<", $Bin."/search.txt";
     $lc++ while <$file>;
 	print "\033[0;32m[!] $lc Unique Result(s) Found!\n";
@@ -1570,7 +1578,7 @@ sub misup {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING HTTP VALIDATION SCAN ...\n";
+  print ":::STARTING HTTP VALIDATION SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1653,7 +1661,7 @@ sub mvalidation {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING VALIDATION SCAN ...\n";
+  print ":::STARTING VALIDATION SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1730,7 +1738,7 @@ sub mcommand {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING EXTERNAL COMMAND SUBPROCESS...\n";
+  print ":::STARTING EXTERNAL COMMAND SUBPROCESS:::\n";
   print "\033[1;37m[ ]-----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1800,7 +1808,7 @@ sub mxss {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING XSS SCAN ...\n";
+  print ":::STARTING XSS SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1890,7 +1898,7 @@ sub sqlmap {
   ifgettargetlist();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING SQLMAP SCAN ...\n";
+  print ":::STARTING SQLMAP SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1995,7 +2003,7 @@ sub mlfi {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING LFI SCAN ...\n";
+  print ":::STARTING LFI SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2078,7 +2086,7 @@ sub mjoomrfi {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING JOOMLA RFI SCAN ...\n";
+  print ":::STARTING JOOMLA RFI SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2141,7 +2149,7 @@ sub mwpadf {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING WORDRESS ADF SCAN ...\n";
+  print ":::STARTING WORDRESS ADF SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2210,7 +2218,7 @@ sub madmin {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING ADMIN PAGE SCAN ...\n";
+  print ":::STARTING ADMIN PAGE SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2278,7 +2286,7 @@ sub msubdomain {
   }
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING SUBDOMAIN SCAN ...\n";
+  print ":::STARTING SUBDOMAIN SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2356,7 +2364,7 @@ sub mwpsites {
   }
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING WORDPRESS SITES SCAN ...\n";
+  print ":::STARTING WORDPRESS SITES SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2420,7 +2428,7 @@ sub mjoomsites {
   }
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING JOOLMA SITES SCAN ...\n";
+  print ":::STARTING JOOLMA SITES SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2483,7 +2491,7 @@ sub muploadsites {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING UPLOAD SCAN ...\n";
+  print ":::STARTING UPLOAD SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2564,7 +2572,7 @@ sub mzipsites {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING ZIP SCAN ...\n";
+  print ":::STARTING ZIP SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2645,7 +2653,7 @@ sub mmails {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING E-MAILS SCAN ...\n";
+  print ":::STARTING E-MAILS SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2720,7 +2728,7 @@ sub mmd5 {
   scandetail();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING MD5 GENERATOR...\n";
+  print ":::STARTING MD5 GENERATOR:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   print "\033[1;37m    STRING: ";
@@ -2738,7 +2746,7 @@ sub mencode64 {
   scandetail();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING ENCODE BASE64...\n";
+  print ":::STARTING ENCODE BASE64:::\n";
   print "\033[1;37m[ ] ----------------------------------------------------------------------- \n";
   forwait();
   print "\033[1;37m    STRING: ";
@@ -2755,7 +2763,7 @@ sub mdecode64 {
   scandetail();
   print "\033[1;37m[ ] ----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING DECODE BASE64...\n";
+  print ":::STARTING DECODE BASE64:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   print "\033[1;37m    STRING: ";
@@ -2771,24 +2779,24 @@ sub mdecode64 {
 sub resumeportscan {
   if (defined $mports) {
     print "\033[1;37m    INFO:   ";
-        if (defined $mbasic) {
+    if (defined $mbasic) {
 	  print "Basic Scan ";
     }
-    if (defined $mall) {
+    if (defined $mcomplete) {
       print "Complete Scan ";
     }
     if (defined $muser) {
       print "Select Scan ";
     }
 	my $muser=$muser;
-	my $mall=$mall;
-	if ((defined $mbasic and $mbasic eq "udp") || (defined $mall and $mall eq "udp") || (defined $muser and $muser eq "udp")) {
+	my $mcomplete=$mcomplete;
+	if (defined $udp) {
 	  print "UDP ";
 	}
-	if ((defined $mbasic and $mbasic eq "tcp") || (defined $mall and $mall eq "tcp") || (defined $muser and $muser eq "tcp")) {
+	if (defined $tcp) {
 	  print "TCP ";
 	}
-    if (((defined $mbasic and $mbasic eq "udp+tcp") || (defined $mall and $mall eq "udp+tcp") || (defined $muser and $muser eq "udp+tcp")) || ((defined $mbasic and $mbasic eq "tcp+udp") || (defined $mall and $mall eq "tcp+udp") || (defined $muser and $muser eq "tcp+udp"))) {
+    if (defined $all) {
 	  print "TCP + UDP";
 	}
     if ((defined $mstart) && (defined $mend)) {
@@ -2805,7 +2813,7 @@ sub basic {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING PORTS BASIC SCAN ...\n";
+  print ":::STARTING PORTS BASIC SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2814,7 +2822,7 @@ sub basic {
     $count++;
 	chomp $URL;
 	$URL = checkip($URL);
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
     print "[Target $count/";
 	countsearchlist();
@@ -2846,8 +2854,9 @@ sub basic {
     }
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
-  print "\n";
-  subfin();}
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
+  subfin();
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BASIC2 PORTS SCAN
@@ -2856,7 +2865,7 @@ sub basic2 {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING PORTS BASIC SCAN ...\n";
+  print ":::STARTING PORTS BASIC SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2865,7 +2874,7 @@ sub basic2 {
     $count++;
 	chomp $URL;
 	$URL = checkip($URL);
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
     print "[Target $count/";
 	countsearchlist();
@@ -2925,8 +2934,9 @@ sub basic2 {
     }
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
-  print "\n";
-  subfin();}
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
+  subfin();
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## COMPLETE PORTS SCAN
@@ -2935,7 +2945,7 @@ sub complete {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING PORTS COMPLETE SCAN ...\n";
+  print ":::STARTING PORTS COMPLETE SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $type2=$_[0];
@@ -2947,7 +2957,7 @@ sub complete {
 	$URL = checkip($URL);
 	$closed3=0;
     $port3=1;
-	print "\033[1;37m    ";
+	print "\033[1;33m    ";
 	timer();
     print "[Target $count/";
 	countsearchlist();
@@ -2976,8 +2986,9 @@ sub complete {
     $port3++;
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
-  print "\n";
-  subfin();}
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
+  subfin();
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## COMPLETE2 PORTS SCAN
@@ -2986,7 +2997,7 @@ sub complete2 {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING PORTS COMPLETE SCAN ...\n";
+  print ":::STARTING PORTS COMPLETE SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2999,11 +3010,11 @@ sub complete2 {
       $count++;
 	  chomp $URL;
 	  $URL = checkip($URL);
-	  print "\033[1;37m    ";
+	  print "\033[1;33m    ";
 	  timer();
 	  print "[$count/";
 	  countsearchlist();
-	  print "\033[1;37m]\n";
+	  print "\033[1;33m]\n";
 	  print "\033[1;37m    TARGET: ";
 	  print "\033[0;37m$URL \n";
 	  resumeportscan();
@@ -3054,9 +3065,9 @@ sub complete2 {
     $port4++;
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
-  
-  print "\n";
-  subfin();}
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
+  subfin();
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SELECTIVE PORTS SCAN
@@ -3078,7 +3089,7 @@ sub user {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING PORTS SELECTIVE SCAN ...\n";
+  print ":::STARTING PORTS SELECTIVE SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   if (defined $muser){
@@ -3095,11 +3106,11 @@ sub user {
       $count++;
 	  chomp $URL;
 	  $URL = checkip($URL);
-	  print "\033[1;37m    ";
+	  print "\033[1;33m    ";
 	  timer();
 	  print "[$count/";
 	  countsearchlist();
-	  print "\033[1;37m]\n";
+	  print "\033[1;33m]\n";
 	  print "\033[1;37m    [!] TARGET: ";
 	  print "\033[0;37m$URL \n";
 	  resumeportscan();
@@ -3125,8 +3136,9 @@ sub user {
     $mstart++;
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
-  print "\n";
-  subfin();}
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
+  subfin();
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SELECTIVE2 PORTS SCAN
@@ -3135,7 +3147,7 @@ sub user2 {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING PORTS SELECTIVE SCAN ...\n";
+  print ":::STARTING PORTS SELECTIVE SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -3147,11 +3159,11 @@ sub user2 {
 	 chomp $URL;
 	 $URL = checkip($URL);
 	 $count++;
-  	 print "\033[1;37m    ";
+  	 print "\033[1;33m    ";
 	 timer();
 	 print "[$count/";
 	 countsearchlist();
-	 print "\033[1;37m]\n";
+	 print "\033[1;33m]\n";
 	 print "\033[1;37m    TARGET: ";
 	 print "\033[0;37m$URL \n";
 	 resumeportscan();
@@ -3201,8 +3213,9 @@ sub user2 {
     $mstart++;
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
-  print "\n";
-  subfin();}
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
+  subfin();
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BRUTE FORCE WORDPRESS SITES
@@ -3214,7 +3227,7 @@ sub BFmwpsites {
   }
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING BRUTE FORCE WORDPRESS SITES SCAN ...\n";
+  print ":::STARTING BRUTE FORCE WORDPRESS SITES SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -3316,7 +3329,7 @@ sub BFmjoomsites {
   }
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING BRUTE FORCE JOOMLA SITES SCAN ...\n";
+  print ":::STARTING BRUTE FORCE JOOMLA SITES SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -3418,7 +3431,7 @@ sub fbbf {
   testconection();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print "STARTING BRUTE FORCE FACEBOOK SCAN ...\n";
+  print ":::STARTING BRUTE FORCE FACEBOOK SCAN:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   open(PASS,"<$password") or die "[!] Can not find $!";
@@ -3494,7 +3507,7 @@ sub fbbf {
 	  print "\033[0;32m[!] Results saved in $save!\n";
     }
 	fincontinuemodule();
-    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
 	subfin();
   }else{
 	negative2();
@@ -3508,7 +3521,7 @@ sub mabout {
   print "\033[1;37m[ ] --------------------------------------------------------------------------- \n";
   print "\033[1;36m
      [+]================================================================[+]
-     [+]--------------              ATSCAN V 7.8          --------------[+]
+     [+]--------------              ATSCAN V 8.0          --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]
@@ -3530,7 +3543,7 @@ sub mabout {
 ############################################################################################################################################################################################
 ## HELP MENU
 sub help {
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n\n";
+  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n\n";
   print "\033[1;33m";
   print "[..] HELP:: \n";
   print "\033[0;37m";
@@ -3555,7 +3568,10 @@ sub help {
   print "   --ports       | Scan server ports \n";
   print "   --start       | Start scan port \n";
   print "   --end         | End scan port \n";
-  print "   --all         | Complete mode \n";
+  print "   --complete    | Complete mode \n";
+  print "   --tcp         | TCP port \n";
+  print "   --udp         | UDP port \n";
+  print "   --all         | TCP + UDP ports \n";
   print "   --basic       | Basic mode \n";
   print "   --select      | Select mode you can set rang of ports \n";
   print "   --sites       | Sites in the server \n";
@@ -3633,15 +3649,15 @@ sub help {
   print "    Get Server zip sites files: -t <ip> --level <value> --zip \n";
   print "    WP Arbitry File Download: -t <ip> --level <value> --wpadf \n";
   print "    Joomla RFI: -t <ip> --level <1> --joomfri --shell <shell link>\n";
-  print "    Scan basic tcp (quick): -t <ip> --ports --basic tcp\n";
-  print "    Scan basic udp basic (quick): -t <ip> --ports --basic udp\n";
-  print "    Scan basic udp+tcp: -t <ip> --ports --basic udp+tcp\n";
-  print "    Scan complete tcp: -t <ip> --ports --all tcp\n";
-  print "    Scan complete udp: -t <ip> --ports --all udp\n";
-  print "    Scan complete udp+tcp: -t <ip> --ports --all udp+tcp\n";
-  print "    Scan range tcp: -t <ip> --ports --select  tcp --start <value> --end <value>\n";
-  print "    Scan range udp: -t <ip> --ports --select  udp--start <value> --end <value>\n";
-  print "    Scan range udp + tcp: -t <ip> --ports --select  udp+tcp --start <value> --end <value>\n\n";
+  print "    Scan basic tcp (quick): -t <ip> --ports --basic --tcp\n";
+  print "    Scan basic udp basic (quick): -t <ip> --ports --basic --udp\n";
+  print "    Scan basic udp+tcp: -t <ip> --ports --basic --all\n";
+  print "    Scan complete tcp: -t <ip> --ports --complete --tcp\n";
+  print "    Scan complete udp: -t <ip> --ports --complete --udp\n";
+  print "    Scan complete udp+tcp: -t <ip> --ports --complete --all\n";
+  print "    Scan range tcp: -t <ip> --ports --select  --tcp --start <value> --end <value>\n";
+  print "    Scan range udp: -t <ip> --ports --select  --udp --start <value> --end <value>\n";
+  print "    Scan range udp + tcp: -t <ip> --ports --select  --all --start <value> --end <value>\n\n";
   print "\033[1;37m  Encode / Decode: \n";
   print "  ......................\n";
   print "\033[0;37m";
@@ -3701,7 +3717,7 @@ if ((defined $replace) && (defined $with)) {
 ## ARGUMENTS VERIFICATION (LEVEL)
 if (defined $msites){
   if (!defined $mlevel) {
-    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";   
+    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";   
     print "\033[0;33m[!] To scan server sites You have to set level [Ex: --level 10]!\n";
 	exit();
   }
@@ -3710,42 +3726,56 @@ if (defined $msites){
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (LEVEL)
 if ((defined $dork) && (!defined $mlevel)) {
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
   print "\033[0;33m[!] You have to set scan level [Ex: --level 10]\n";
   exit();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## ARGUMENTS VERIFICATION (SHELL / REPLACE/BRUTE FORCE)
+## ARGUMENTS VERIFICATION 
 if ((defined $dork) || (defined $Target) || (defined $rangip)) {
   if (defined $mjoomrfi) {
 	if (!defined $shell) {
-      print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";      
+      print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";      
       print "\033[0;33m[!] You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]\n";
 	  exit();
     }
   }
   if (((defined $replace) && (!defined $with)) || ((!defined $replace) && (defined $with))){
-    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";   
+    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";   
     print "\033[0;33m[!] Invalid option! [Ex: --replace <value> --with <value>]\n";
 	exit();
   }
   if (((defined $wpbf) || (defined $joombf)) && ((!defined $username) || (!defined $password))){
-    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";   
+    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";   
     print "\033[0;33m[!] Invalid option! [Ex: --wpbf/joombf --user <value> --pass <pass.txt>]\n";
 	exit();
   }
 }
 if ((defined $fbbf) && ((!defined $username) || (!defined $password))) {
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";   
+  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";   
   print "\033[0;33m[!] Invalid option! [Ex: --fbbf --user <email> --pass <pass.txt>]\n";
   exit();
 }
 if (!defined $dork) {
   if ((defined $unique) || (defined $ifinurl)) {
-    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";   
+    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";   
     print "\033[0;33m[!] Invalid option! --ifinurl or --unique needs dork search!\n";
     exit();
+  }
+}
+if (defined $mports) {
+  if ((!defined $mbasic) && (!defined $mcomplete) && (!defined $muser)) {
+    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";   
+    print "\033[0;33m[!] Invalid option! [Ex: t- <ip> --ports --basic --tcp]\n";
+    exit();
+  }
+  if ((defined $mbasic) || (defined $mcomplete) || (defined $mall)) {
+    if ((!defined $tcp) && (!defined $udp) && (!defined $all)) {
+      print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";   
+      print "\033[0;33m[!] Invalid option! [Ex: t- <ip> --ports --basic --tcp]\n";
+      exit();
+    }
   }
 }
 ############################################################################################################################################################################################
@@ -3753,7 +3783,7 @@ if (!defined $dork) {
 ## ARGUMENTS PROCESS
 if (defined $mlevel) {
   if ($mlevel < 10) {
-    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";   
+    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";   
     print "\033[0;33m[!] Min level is 10 [--level >=10]\n";
 	exit();
   }
@@ -3838,23 +3868,23 @@ if (defined $mlevel) {
 	if (defined $mmails) { mmails();}
 	if (defined $mports) { 
       if (defined $mbasic) {
-        if ($mbasic eq "tcp") { basic('tcp'); }
-        if ($mbasic eq "udp") { basic('udp'); }
-        if (($mbasic eq "udp+tcp") || ($mbasic eq "tcp+udp")) { basic2();}
+        if (defined $tcp) { basic('tcp'); }
+        if (defined $udp) { basic('udp'); }
+        if (defined $all) { basic2();}
 	  }
-      if (defined $mall) {
-        if ($mall eq "tcp") { complete('tcp');}
-        if ($mall eq "udp") { complete('udp');}
-        if (($mall eq "udp+tcp") || ($mall eq "tcp+udp")) { complete2(); }
+      if (defined $mcomplete) {
+        if (defined $tcp) { complete('tcp');}
+        if (defined $udp) { complete('udp');}
+        if (defined $all) { complete2(); }
 	  }
       if (defined $muser) {
 	    if ((!defined $mstart) && (!defined $mend)) {
           print "\033[0;33m[!] Set a port range! [Ex: --start 21 --end 81]\n";          
 	      exit();
 	    }else{
-          if ($muser eq "tcp") { user('tcp');}
-          if ($muser eq "udp") { user('udp');}
-          if (($muser eq "udp+tcp") || ($muser eq "tcp+udp")) { user2(); }
+          if (defined $tcp) { user('tcp');}
+          if (defined $udp) { user('udp');}
+          if (defined $all) { user2(); }
 		}
 	  }
 	}

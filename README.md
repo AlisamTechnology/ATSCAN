@@ -10,7 +10,7 @@
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 7.9</td>
+    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 8.0</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -199,9 +199,23 @@
         <td class="main">end scan port</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--all</td>
+        <td width="200px" class="main">--complete</td>
         <td class="main">Ports scan complete mode</td>
       </tr>
+      
+      <tr>
+        <td width="200px" class="main">--udp</td>
+        <td class="main">UDP port</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--tcp</td>
+        <td class="main">TCP port</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--all</td>
+        <td class="main">TCP + UDP ports</td>
+      </tr>
+      
       <tr>
         <td width="200px" class="main">--basic</td>
         <td class="main">Ports scan basic mode</td>
@@ -345,15 +359,15 @@
   Get Server zip sites files: -t [ip] --level [value] --zip <br/>
   WP Arbitry File Download: -t [ip] --level [value] --wpadf <br/>
   Joomla RFI: -t [ip] --level [1] --joomfri --shell [shell link] <br/>
-  Scan basic tcp (quick): -t [ip] --ports --basic tcp <br/>
-  Scan basic udp basic (quick): -t [ip] --ports --basic udp <br/>
-  Scan basic udp+tcp: -t [ip] --ports --basic udp+tcp <br/>
-  Scan complete tcp: -t [ip] --ports --all tcp <br/>
-  Scan complete udp: -t [ip] --ports --all udp <br/>
-  Scan complete udp+tcp: -t [ip] --ports --all udp+tcp <br/>
-  Scan rang tcp: -t [ip] --ports --select  tcp --start [value] --end [value] <br/>
-  Scan rang udp: -t [ip] --ports --select  udp--start [value] --end [value] <br/>
-  Scan rang udp + tcp: -t [ip] --ports --select  udp+tcp --start [value] --end [value] <br/><br/>
+  Scan basic tcp (quick): -t [ip] --ports --basic --tcp <br/>
+  Scan basic udp basic (quick): -t [ip] --ports --basic --udp <br/>
+  Scan basic udp+tcp: -t [ip] --ports --basic --all <br/>
+  Scan complete tcp: -t [ip] --ports --complete --tcp <br/>
+  Scan complete udp: -t [ip] --ports --complete --udp <br/>
+  Scan complete udp+tcp: -t [ip] --ports --complete --all <br/>
+  Scan rang tcp: -t [ip] --ports --select  --tcp --start [value] --end [value] <br/>
+  Scan rang udp: -t [ip] --ports --select  --udp --start [value] --end [value] <br/>
+  Scan rang udp + tcp: -t [ip] --ports --select  --all --start [value] --end [value] <br/><br/>
 
 <b>Encode / Decode: </b><br/>
   Generate MD5: --md5 [string] <br/>

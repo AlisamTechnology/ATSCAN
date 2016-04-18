@@ -431,7 +431,7 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 7.9 Stable';
+  $existantversion='version 7.8 Stable';
   return $existantversion;
 }
 ############################################################################################################################################################################################
@@ -547,9 +547,8 @@ sub advise2 {
 ############################################################################################################################################################################################
 ## FORWAIT
 sub forwait {
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
   progressbar();
-  print "\033[0;33m[!] Please wait... \n\n";
+  print "\033[0;33m[!] Please wait... \n";
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -721,42 +720,44 @@ sub scandetail {
     }
     print "\n";
   }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## EXTRAT SCAN DETAILS
-if (defined $shell) {
-  print "\033[1;33m[+] SHELL:: ";
-  print "\033[0;36m$shell \n";
-}
-if (defined $mlevel) {
-  print "\033[1;33m[+] SCAN LEVEL:: ";
-  print "\033[0;36m$mlevel \n";
-}
-if ((defined $command) || (defined $sqlmap)){
-  print "\033[1;33m[+] EXTERN CMD:: ";
-  if (defined $command){
-    print "\033[0;36m/External Command ";
+  #########################################
+  #########################################
+  if (defined $shell) {
+    print "\033[1;33m[+] SHELL:: ";
+    print "\033[0;36m$shell \n";
   }
-  if (defined $sqlmap){
-    print "\033[0;36m/Sqlmap ";
-	if (defined $p){
-      print "\033[0;36m[Vul Param $p] ";
-	}
+  if (defined $mlevel) {
+    print "\033[1;33m[+] SCAN LEVEL:: ";
+    print "\033[0;36m$mlevel \n";
   }
-  print "\n";
-}
-if (defined $output) {
-  print "\033[1;33m[+] OUTPUT:: ";
-  print "\033[0;36m$outdir/\n";
-}
-if (defined $checkversion) {
-  print "\033[1;33m[+] TASK:: ";
-  print "\033[0;36m/Update Version\n";
-}
-if (defined $noinfo) {
-  print "\033[1;33m[+] EXTRA:: ";
-  print "\033[0;36m/Jump extra info\n";
+  if ((defined $command) || (defined $sqlmap)){
+    print "\033[1;33m[+] EXTERN CMD:: ";
+    if (defined $command){
+      print "\033[0;36m/External Command ";
+    }
+    if (defined $sqlmap){
+      print "\033[0;36m/Sqlmap ";
+	  if (defined $p){
+        print "\033[0;36m[Vul Param $p] ";
+	  }
+    }
+    print "\n";
+  }
+  if (defined $output) {
+    print "\033[1;33m[+] OUTPUT:: ";
+    print "\033[0;36m$outdir/\n";
+  }
+  if (defined $checkversion) {
+    print "\033[1;33m[+] TASK:: ";
+    print "\033[0;36m/Update Version\n";
+  }
+  if (defined $noinfo) {
+    print "\033[1;33m[+] EXTRA:: ";
+    print "\033[0;36m/Jump extra info\n";
+  }
+  if (!defined $mlevel) {
+    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1228,6 +1229,7 @@ sub urlstatus {
 	    copy $listme, $save;
 	    print "\033[0;32m[!] Results saved in $save!\n";
 	  }
+      print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
 	  subfin(); 
 	  unlink $Bin.'/scan.txt';
 	  unlink $Bin.'/search.txt';
@@ -1314,16 +1316,16 @@ sub negativeexit {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## RETURN NEGATIVE SCAN
-sub negative {	
+sub negative {
+  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
   print "\033[0;31m[!] No Results Found!\n";
-  print "\033[0;31m[!] ";
-  timer();
-  print "SCAN FINISHED!\n";
+  subfin();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## RETURN NEGATIVE SCAN2
 sub negative2 {	
+  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
   print "\033[0;31m[!] No Results Found!\n";
   subfin();
 }
@@ -1394,19 +1396,22 @@ sub msearch {
   }
   print "\n";   
   if (defined $dork) {
+    $printdork = $dork;
+	$printdork =~ s/\+/ /g;
     print "\033[1;33m[+] SEARCH:: ";
-        print "\033[0;36m[$dork] ";
-    	my $pattern = '.txt';
+    print "\033[0;36m[$printdork] ";
+    my $pattern = '.txt';
 	if ($dork =~ m/$pattern/i){
 	  countdorks();
 	}else{
       print "\n";
 	}
   }
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING ENGINE SCAN ... \n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (FILE, $Bin."/dorks.txt");
@@ -1414,13 +1419,15 @@ sub msearch {
     chomp $dork;
 	$count++;
 	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
-      print "\033[1;36m[!] ";
+      print "\033[1;36m\n[!] ";
 	  timer();
 	  print "[Dork $count/";
 	  countdorkslist();
+      $printdork = $dork;
+	  $printdork =~ s/\+/ /g;
 	  print "\033[1;36m] ";
-	  print "[SCAN:: $dork]\n";
-      print "\033[0;37m[ ] ....................................................................... \n";
+	  print "[SCAN:: $printdork]\n";
+      print "\033[1;37m[ ] ....................................................................... \n";
     }
 	$mlevel = $mlevel;
     $s_results = $dork;
@@ -1467,7 +1474,7 @@ sub msearch {
 	              timer();
 	              print "[Target $count2]\n";
 	              print "\033[1;37m    TARGET: ";
-	              print "\033[0;34m$URL\n";
+	              print "\033[0;37m$URL\n";
 	              $URL1=$URL;
                   if (!defined $noinfo) {
                      checkextrainfo();
@@ -1510,7 +1517,6 @@ sub msearch {
       }
     }   
   }
-  
   $list = $Bin."/search.txt";
   if (-e $list){
     my $lc = 0;
@@ -1541,17 +1547,12 @@ sub msearch {
         print "\033[0;32m[!] Results saved in $save\n";
 	  }
 	  unlink $Bin.'/search.txt';
-      print "\033[0;31m[!] ";
-      timer();
-      print "SCAN FINISHED!\n";
+      subfin();
     }else{
 	  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt'};
 	}
   }else{
-    print "\033[0;33m[!] No Results Found!\n";
-    print "\033[0;31m[!] ";
-    timer();
-    print "SCAN FINISHED!\n";
+    negative();
 	exit();
   }
   unlink $Bin.'/dorks.txt';
@@ -1567,10 +1568,10 @@ sub misup {
     targetlist();
   }
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING HTTP VALIDATION SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -1586,7 +1587,7 @@ sub misup {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
 	$URL = control($URL);
 	$yes='a';
     $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
@@ -1650,10 +1651,10 @@ sub mvalidation {
     targetlist();
   }
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING VALIDATION SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -1669,7 +1670,7 @@ sub mvalidation {
 	countsearchlist();
 	print "\033[1;33m]\n";
     print "\033[1;37m    TARGET: ";
-    print "\033[0;34m$printarget\n";
+    print "\033[0;37m$printarget\n";
 	$URL = control($URL);	
     $yes = $validation_text;
     $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
@@ -1727,10 +1728,10 @@ sub mvalidation {
 sub mcommand {
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING EXTERNAL COMMAND SUBPROCESS...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------------- \n";
+  print "\033[1;37m[ ]-----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -1744,7 +1745,7 @@ sub mcommand {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$URL \n";
+	print "\033[0;37m$URL \n";
 	if (!defined $noinfo) {
       $URL1=$URL;
       checkextrainfo();
@@ -1783,10 +1784,7 @@ sub mcommand {
     }
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
-  print "\033[0;31m[!] ";
-  timer();
-  print "SCAN FINISHED!\n";
-    
+  subfin();
   if ((!defined $mxss) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
     unlink $Bin.'/exploits.txt';
 	exit();
@@ -1800,10 +1798,10 @@ sub mxss {
   XSS();
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING XSS SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -1819,7 +1817,7 @@ sub mxss {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
 	if ((!defined $misup) && (!defined $validation_text)) {
       $URL = control($URL);
 	}
@@ -1890,10 +1888,10 @@ sub mxss {
 ##bgn SQLMAP 
 sub sqlmap {
   ifgettargetlist();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING SQLMAP SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (INFO, $Bin.'/xss_scan.txt');
@@ -1983,9 +1981,7 @@ sub sqlmap {
   close(TEXT);
   print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   if ((!defined $mwpadf) && (!defined $mlfi) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-    print "\033[0;31m[!] ";
-	timer();
-    print "SCAN FINISHED!\n";
+	subfin();
 	exit();
   }
 }
@@ -1997,10 +1993,10 @@ sub mlfi {
   LFI();
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING LFI SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2018,7 +2014,7 @@ sub mlfi {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
 	foreach $LFI(@LFI){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$LFI \n";
@@ -2080,10 +2076,10 @@ sub mjoomrfi {
   RFI();
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING JOOMLA RFI SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2104,7 +2100,7 @@ sub mjoomrfi {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
 	foreach $RFI(@RFI){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$RFI \n";
@@ -2143,10 +2139,10 @@ sub mwpadf {
   ADFWP();
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING WORDRESS ADF SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2167,7 +2163,7 @@ sub mwpadf {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
 	foreach $ADFWP(@ADFWP){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$ADFWP \n";
@@ -2212,10 +2208,10 @@ sub madmin {
   ADMIN();
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING ADMIN PAGE SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2236,7 +2232,7 @@ sub madmin {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
 	foreach $ADMIN(@ADMIN){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$ADMIN \n";
@@ -2280,10 +2276,10 @@ sub msubdomain {
     targetlist();
   	scandetail();
   }
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING SUBDOMAIN SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2306,7 +2302,7 @@ sub msubdomain {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
 	foreach $SUBDOMAIN(@SUBDOMAIN){
       $URL1 = $SUBDOMAIN.$URL;
 	  $socket=IO::Socket::INET->new(
@@ -2358,10 +2354,10 @@ sub mwpsites {
   if (!defined $mlevel) {
     targetlist();
   }
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING WORDPRESS SITES SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2382,7 +2378,7 @@ sub mwpsites {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
 	foreach $WPCMS(@WPCMS){
       $URL1 = $URL.$WPCMS;
 	  $URL1 =~ s/ //g;
@@ -2422,10 +2418,10 @@ sub mjoomsites {
   if (!defined $mlevel) {
     targetlist();
   }
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING JOOLMA SITES SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2446,7 +2442,7 @@ sub mjoomsites {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
 	foreach $JOOMCMS(@JOOMCMS){
       $URL1 = $URL.$JOOMCMS;
 	  $URL1 =~ s/ //g;
@@ -2485,10 +2481,10 @@ sub muploadsites {
   UPLOAD();
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING UPLOAD SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2506,7 +2502,7 @@ sub muploadsites {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
 	foreach $UPLOAD(@UPLOAD){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$UPLOAD \n";
@@ -2566,10 +2562,10 @@ sub mzipsites {
   ZIP();
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING ZIP SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2587,7 +2583,7 @@ sub mzipsites {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
     foreach $ZIP(@ZIP){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$ZIP \n";
@@ -2647,10 +2643,10 @@ sub mmails {
   if (-e $Bin.'/scan2.txt') {unlink $Bin.'/scan2.txt';}
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING E-MAILS SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2666,7 +2662,7 @@ sub mmails {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";
+	print "\033[0;37m$printarget\n";
     $yes = '((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})';
     $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	$cmails='';
@@ -2722,13 +2718,13 @@ sub mmails {
 ## MD5 ENCODE
 sub mmd5 {
   scandetail();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING MD5 GENERATOR...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------------- \n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   print "\033[1;37m    STRING: ";
-  print "\033[0;34m$mmd5\n";
+  print "\033[0;37m$mmd5\n";
   print "\033[1;37m    MD5:    ";
   print '\033[0;32m';
   print Digest::MD5->md5_hex("$mmd5");
@@ -2740,13 +2736,13 @@ sub mmd5 {
 ## ENCODE BASE 64
 sub mencode64 {
   scandetail();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING ENCODE BASE64...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------------- \n";
+  print "\033[1;37m[ ] ----------------------------------------------------------------------- \n";
   forwait();
   print "\033[1;37m    STRING: ";
-  print "\033[0;34m$mencode64\n";
+  print "\033[0;37m$mencode64\n";
   my $sss=encode_base64($mencode64);
   print "\033[1;37m    ENCODE: ";
   print "\033[0;32m$sss\n";
@@ -2757,13 +2753,13 @@ sub mencode64 {
 ## DECODE BASE 64
 sub mdecode64 {
   scandetail();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] ----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING DECODE BASE64...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------------- \n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   print "\033[1;37m    STRING: ";
-  print "\033[0;34m$mdecode64\n";
+  print "\033[0;37m$mdecode64\n";
   my $rrr=decode_base64($mdecode64);
   print "\033[1;37m    DECODE: ";
   print "\033[0;32m$rrr\n";
@@ -2807,10 +2803,10 @@ sub resumeportscan {
 sub basic {
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING PORTS BASIC SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2824,7 +2820,7 @@ sub basic {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$URL \n";
+	print "\033[0;37m$URL \n";
 	resumeportscan();
 	$URL=$URL;
     $type=$_[0];
@@ -2851,20 +2847,17 @@ sub basic {
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
   print "\n";
-  print "\033[0;31m[!] ";
-  timer();
-  print "SCAN FINISHED!\n";
-  }
+  subfin();}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BASIC2 PORTS SCAN
 sub basic2 {
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING PORTS BASIC SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -2878,7 +2871,7 @@ sub basic2 {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$URL \n";
+	print "\033[0;37m$URL \n";
 	resumeportscan();
 	$URL=$URL;
     $closed2=0;
@@ -2933,20 +2926,17 @@ sub basic2 {
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
   print "\n";
-  print "\033[0;31m[!] ";
-  timer();
-  print "SCAN FINISHED!\n";
-  }
+  subfin();}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## COMPLETE PORTS SCAN
 sub complete {
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING PORTS COMPLETE SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $type2=$_[0];
   $count=0;
@@ -2963,7 +2953,7 @@ sub complete {
 	countsearchlist();
 	print "\033[1;33m]\n";
     print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$URL \n";
+	print "\033[0;37m$URL \n";
 	resumeportscan();
     while ($port3<=65535){
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port3",Proto=>"$type2") or $closed3++;
@@ -2987,20 +2977,17 @@ sub complete {
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
   print "\n";
-  print "\033[0;31m[!] ";
-  timer();
-  print "SCAN FINISHED!\n";
-  }
+  subfin();}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## COMPLETE2 PORTS SCAN
 sub complete2 {
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING PORTS COMPLETE SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   $closed4=0;
@@ -3018,7 +3005,7 @@ sub complete2 {
 	  countsearchlist();
 	  print "\033[1;37m]\n";
 	  print "\033[1;37m    TARGET: ";
-	  print "\033[0;34m$URL \n";
+	  print "\033[0;37m$URL \n";
 	  resumeportscan();
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port4",Proto=>"tcp") or $closed4++;
 	  if (defined $socket) {
@@ -3069,10 +3056,7 @@ sub complete2 {
   }
   
   print "\n";
-  print "\033[0;31m[!] ";
-  timer();
-  print "SCAN FINISHED!\n";
-  }
+  subfin();}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SELECTIVE PORTS SCAN
@@ -3092,10 +3076,10 @@ sub subuser {
 sub user {
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING PORTS SELECTIVE SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   if (defined $muser){
     $type3=$muser;
@@ -3117,7 +3101,7 @@ sub user {
 	  countsearchlist();
 	  print "\033[1;37m]\n";
 	  print "\033[1;37m    [!] TARGET: ";
-	  print "\033[0;34m$URL \n";
+	  print "\033[0;37m$URL \n";
 	  resumeportscan();
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$mstart",Proto=>"$type3") or $closed6++;
       if (defined $socket) {
@@ -3142,20 +3126,17 @@ sub user {
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
   print "\n";
-  print "\033[0;31m[!] ";
-  timer();
-  print "SCAN FINISHED!\n";
-}
+  subfin();}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SELECTIVE2 PORTS SCAN
 sub user2 {
   ifgettargetlist();
   searchexitstargets();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING PORTS SELECTIVE SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   $closed7=0;
@@ -3172,7 +3153,7 @@ sub user2 {
 	 countsearchlist();
 	 print "\033[1;37m]\n";
 	 print "\033[1;37m    TARGET: ";
-	 print "\033[0;34m$URL \n";
+	 print "\033[0;37m$URL \n";
 	 resumeportscan();
      $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$mstart",Proto=>"tcp") or $closed7++;
 	 if (defined $socket) {
@@ -3221,10 +3202,7 @@ sub user2 {
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
   print "\n";
-  print "\033[0;31m[!] ";
-  timer();
-  print "SCAN FINISHED!\n";
-}
+  subfin();}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BRUTE FORCE WORDPRESS SITES
@@ -3234,10 +3212,10 @@ sub BFmwpsites {
   if (!defined $mlevel) {
     targetlist();
   }
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING BRUTE FORCE WORDPRESS SITES SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -3258,7 +3236,7 @@ sub BFmwpsites {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";	    
+	print "\033[0;37m$printarget\n";	    
     if (defined $password) {
       my $password=$password;
     }
@@ -3336,10 +3314,10 @@ sub BFmjoomsites {
   if (!defined $mlevel) {
     targetlist();
   }
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING BRUTE FORCE JOOMLA SITES SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
   open (TEXT, $Bin.'/search.txt');
@@ -3360,7 +3338,7 @@ sub BFmjoomsites {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;34m$printarget\n";	    
+	print "\033[0;37m$printarget\n";	    
     if (defined $password) {
       my $password=$password;
     }
@@ -3438,10 +3416,10 @@ sub fbbf {
   scandetail();
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   testconection();
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n[!] ";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
   print "STARTING BRUTE FORCE FACEBOOK SCAN ...\n";
-  print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   open(PASS,"<$password") or die "[!] Can not find $!";
   while(<PASS>){
@@ -3516,6 +3494,7 @@ sub fbbf {
 	  print "\033[0;32m[!] Results saved in $save!\n";
     }
 	fincontinuemodule();
+    print "\033[1;37m[ ] --------------------------------------------------------------------- [ ]\n";
 	subfin();
   }else{
 	negative2();
@@ -3529,7 +3508,7 @@ sub mabout {
   print "\033[1;37m[ ] --------------------------------------------------------------------------- \n";
   print "\033[1;36m
      [+]================================================================[+]
-     [+]--------------              ATSCAN V 7.9          --------------[+]
+     [+]--------------              ATSCAN V 7.8          --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]

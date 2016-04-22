@@ -10,7 +10,7 @@
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 8.1</td>
+    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 8.2</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -106,8 +106,16 @@
   <tr>
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
       <tr>
+        <td width="200px" class="main">--tor</td>
+        <td width="680px">Set tor proxy [Ex: socks://localhost:9050].</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--proxy</td>
-        <td width="680px">Set tor proxy [Ex: socks://localhost:9050]</td>
+        <td width="680px">Set tor proxy  [Ex: http://12.231.54.87:8080].</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--random</td>
+        <td width="680px">Renew identity foreach link scaned.</td>
       </tr>
       <tr>
          <td width="200px" class="main">--dork</td>
@@ -155,12 +163,8 @@
         <td class="main">Text to validate target url</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--sqlmap</td>
-        <td class="main">Sqlmaping xss results</td>
-      </tr>
-      <tr>
         <td width="200px" class="main">-p</td>
-        <td class="main">Set test param to xss / sqlmap</td>
+        <td class="main">Set test param to xss</td>
       </tr>
       <tr>
         <td width="200px" class="main">--lfi</td>
@@ -333,22 +337,22 @@
   <br/>
 
 <b>Subscan from Serach Engine: </b><br/>
-  Search + Exploitation: --dork [dork] --level [10] --xss/--lfi/--wp ... <br/>
-  Search + xss + sqlmap: --dork [dork] --level [10] --xss --sqlmap <br/>
-  Search + Server Exploitation: -t [ip] --level [10] --xss/--lfi/--wp ... <br/>
-  Search + Server Exploitation: --rang 133.21.10.155-19.102.25.14 --level [10] --xss/--lfi/--wp ... <br/>
-  Search + Server Exploitation: -t [ip] --level [10] --wpbf/--joombf --user [username] --pass [list.txt] <br/>
-  Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] --xss/--lfi/--wp ... <br/><br/>
+  Search + Exploitation: --dork [dork] --level [10] [--xss | --lfi | --wp |...] <br/>
+  Search + xss --dork [dork] --level [10] --xss <br/>
+  Search + Server Exploitation: -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
+  Search + Server Exploitation: --rang 133.21.10.155-19.102.25.14 --level [10] [--xss | --lfi | --wp |...] <br/>
+  Search + Server Exploitation: -t [ip] --level [10] [--wpbf | --joombf] --user [username] --pass [list.txt] <br/>
+  Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp |...] <br/><br/>
 
 <b>Validation: </b><br/>
-  Search + Exploit + Validation: --dork [dork] --level [10] --exp --isup/--valid [string] <br/>
+  Search + Exploit + Validation: --dork [dork] --level [10] --exp [--isup | --valid] [string] <br/>
   Search + Url Validation: --dork [dork] --level [10] --unique <br/>
   Search + Url Validation: --dork [dork] --level [10] --ifinurl [string] <br/>
-  Search + Server Exploit + Validation: -t [ip] --level [10] --exp --isup/--valid [string] <br/>
-  Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --isup/--valid [string] <br/><br/>
+  Search + Server Exploit + Validation: -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
+  Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid] [string] <br/><br/>
 
 <b>Use List / Target: </b><br/>
-  -t [target/targets.txt] --exp --isup/--valid [string] <br/>
+  -t [target/targets.txt] --exp [--isup | --valid] [string] <br/>
   -t [target/targets.txt] --xss/--lfi ..  <br/><br/>
 
 <b>Server: </b><br/>
@@ -387,7 +391,7 @@
     
 <b>Brute Force: </b><br/>
   Facebook: --fbbf --user [email] --pass [list.txt] <br/>
-  Joomla + Wordpress: --dork [dorks.txt] --level [10] --wpbf/--joombf --user [username] --pass [list.txt] <br/>
+  Joomla + Wordpress: --dork [dorks.txt] --level [10] [--wpbf | --joombf] --user [username] --pass [list.txt] <br/>
   
 <b>Check for updates: </b><br/>
   --update</b><br/>
@@ -402,3 +406,4 @@
   </table>
 </body>
 </html>
+

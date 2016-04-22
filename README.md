@@ -110,7 +110,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--proxy</td>
-        <td width="680px">Set tor proxy  [Ex: http://12.231.54.87:8080].</td>
+        <td width="680px">Set tor proxy  [Ex: http://12.231.54.87:8080 | list.txt].</td>
       </tr>
       <tr>
         <td width="200px" class="main">--random</td>

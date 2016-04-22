@@ -6,11 +6,8 @@
 # Tool coded by Ali Mehdioui.
 #
 # This is free software, licensed under:
-#
-#  The Artistic License 2.0
-#
+# The Artistic License 2.0
 # The Artistic License
-#
 # Copyright (c) 2000-2006, The Perl Foundation.
 #
 # Preamble

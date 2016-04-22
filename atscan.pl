@@ -1411,17 +1411,16 @@ sub msearch {
 	}
 	$s_results =~ s/^\s+//;
     my @scanlist=&scan($s_results);
+	if (defined $random) {newtor();}
     sub scan(){
       my @search;
 	  $count2=0;
-      if (defined $random) {newtor();}
       for($npages=0;$npages<=$mlevel;$npages+=10){
         my $google=("http://www.bing.com/search?q=".$s_results."&first=".$npages."&FORM=PERE&cc=".$browserlang);
 		my $search=$ua->get("$google");
         $search->as_string;
         my $Res=$search->content;
-        #while($Res =~ m/<a href=\"?https?:\/\/([^>\"]*)/g){
-		while($Res =~ m/<a href=\"(?:https?|ftps?):\/\/([^>\"]*)/g){
+		while($Res =~ m/<a href=\"(?:(?:https?|ftps?)):\/\/([^>\"]*)/g){
           if($1 !~ /$nolisting/){
             if (defined $unique) {
 			  my $pat2 = 'inurl:|intitle:|intext:|allinurl:|index\+of\+';

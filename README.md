@@ -55,34 +55,43 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px"><b>Download & Executution:</b></td>
+    <td class="main3" width="890px"><b>Download:</b></td>
   </tr>
   <tr>
     <td class="main">
       git clone https://github.com/AlisamTechnology/ATSCAN <br/>
-      cd ATSCAN <br/>
-      chmod +x atscan.pl <br/>
-      OR <br/>
-      $chmod +x atscan.pl  <br/>
-      Execute: ~# perl ./atscan.pl<br/>
-      Help: ~# perl ./atscan.pl --help<br/>
-      Update: ~# perl ./atscan.pl --update<br/>
+      OR direct link: https://github.com/AlisamTechnology/ATSCAN
     </td>
   </tr>
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px"><b>Tool Install:</b></td>
+    <td class="main3" width="890px"><b>Permissions:</b></td>
   </tr>
   <tr>
     <td class="main">
-      git clone https://github.com/AlisamTechnology/ATSCAN <br/>
       cd ATSCAN <br/>
-      chmod +x install.sh <br/>
-      ./install.sh<br/>
-      Execute: ~# atscan<br/>
-      Help: ~# atscan --help<br/>
-      Update: ~# atscan --update<br/>
+      chmod +x ATSCAN
+    </td>
+  </tr>
+</table>
+<table border="0" cellpadding="2" cellspacing="5" width="100%">
+  <tr>
+    <td class="main3" width="890px"><b>Installation:</b></td>
+  </tr>
+  <tr>
+    <td class="main">./install.sh</td>
+  </tr>
+</table>
+
+<table border="0" cellpadding="2" cellspacing="5" width="100%">
+  <tr>
+    <td class="main3" width="890px"><b>Execution:</b></td>
+  </tr>
+  <tr>
+    <td class="main">
+      Direct Tool Execution: perl ./atscan.pl<br/>
+      Installed Tool Execution: atscan
     </td>
   </tr>
 </table>
@@ -136,7 +145,6 @@
         <td width="200px" class="main">-t</td>
         <td class="main">Target</td>
       </tr>
-      
       <tr>
         <td width="200px" class="main">--TARGET</td>
         <td class="main">Will be replaced by target in command</td>
@@ -317,7 +325,16 @@
       <tr>
         <td width="200px" class="main">--beep</td>
         <td class="main">Produce beep sound if positive scan found</td>
-      </tr>    
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--about / -?</td>
+        <td class="main">About Tool.</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--help / -h</td>
+        <td class="main">Help.</td>
+      </tr> 
+        
     </table></td>
   </tr>
 </table>

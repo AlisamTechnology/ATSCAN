@@ -3,7 +3,7 @@ echo "[ ]====================================================================[ ]
 echo "[ ]                     ALISAM  TECHNOLOGY                             [ ]"
 echo "[ ]                  Atscan Tool Install Script                        [ ]"
 echo "[ ]====================================================================[ ]"
-echo "[!] Install.sh will install atscan tool in the system!![y/n]" ; 
+echo "[!] Install.sh will install atscan tool in the system (Y/n)" ; 
 read baba
 
 if [ $baba == "y" ] ; 
@@ -17,7 +17,7 @@ echo "[ ] Checking directories..."
 
 if [ -d "/usr/share/doc/ATSCAN" ] ; 
 then
-echo "[!] A directory ATSCAN was found! Do you want to replace it?[y/n]" ; 
+echo "[!] A directory ATSCAN was found! Do you want to replace it? (Y/n)" ; 
 read mama
 
 if [ $mama == "y" ] ; 

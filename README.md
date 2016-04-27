@@ -37,7 +37,7 @@
   </tr>
   <tr>
     <td class="main" width="890px">Search engine <br />XSS scanner. <br /> Sqlmap.<br /> 
-        LFI scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Fandom search engine. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan. <br/> Brute force.<br/>Disponible on BlackArch Linux Platform.
+        LFI / ADF scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Random proxy. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan. <br/> Brute force.<br/>Extern commands execution.<br/>Scan errors.<br/>Disponible on BlackArch Linux Platform.
     </td>
   </tr>
 </table>

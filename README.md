@@ -143,7 +143,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">-t</td>
-        <td class="main">Target</td>
+        <td class="main">Target [http://site.com]</td>
       </tr>
       <tr>
         <td width="200px" class="main">--TARGET</td>
@@ -186,7 +186,7 @@
         <td class="main">shell link [Ex: http://www.site.com/shell.txt]</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--wpadf</td>
+        <td width="200px" class="main">--wpafd</td>
         <td class="main">get wordpress sites with arbitery file download</td>
       </tr>
       <tr>
@@ -377,7 +377,7 @@
   Get Server joomla sites: -t [ip] --level [value] --joom <br/>
   Get Server upload sites: -t [ip] --level [value] --upload <br/>
   Get Server zip sites files: -t [ip] --level [value] --zip <br/>
-  WP Arbitry File Download: -t [ip] --level [value] --wpadf <br/>
+  WP Arbitry File Download: -t [ip] --level [value] --wpafd <br/>
   Joomla RFI: -t [ip] --level [1] --joomfri --shell [shell link] <br/>
   Scan basic tcp (quick): -t [ip] --ports --basic --tcp <br/>
   Scan basic udp basic (quick): -t [ip] --ports --basic --udp <br/>

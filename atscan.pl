@@ -3123,7 +3123,7 @@ sub help {
   print "   --isup        | Check http status 200. \n";
   print "   --unique      | Get targets with exact dork matching.\n";
   print "   --exp         | Exploit\n";
-  print "   -t            | Target \n";
+  print "   -t            | Target [http://site.com]\n";
   print "   -p            | Set xss test parameter \n";
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";
@@ -3179,11 +3179,11 @@ sub help {
   print "\033[0;37m";
   print "    Search: --dork <dork> --level <level> \n";
   print "    Search with many dorks: --dork <dork1,dork2,dork3> --level <level> \n";
-  print "    Search + get emails: --dork <aTdorks.txt> --level <level> --email \n";
+  print "    Search + get emails: --dork <dorks.txt> --level <level> --email \n";
   print "    Search + get site emails: --dork <site:site.com> --level <level> --email \n";
-  print "    Search + get ip+server: --dork <aTdorks.txt> --level <level> \n";
-  print "    Search + set save file: --dork <aTdorks.txt> --level <level> --save\n";
-  print "    Replace + Exploit: --dork <aTdorks.txt> --level <level> --replace <string> --with <string> --valid <string>\n\n";
+  print "    Search + get ip+server: --dork <dorks.txt> --level <level> \n";
+  print "    Search + set save file: --dork <dorks.txt> --level <level> --save\n";
+  print "    Replace + Exploit: --dork <dorks.txt> --level <level> --replace <string> --with <string> --valid <string>\n\n";
   
   print "\033[1;37m  Subscan from Serach Engine: \n";
   print "  ......................\n";
@@ -3234,7 +3234,7 @@ sub help {
   print "\033[1;37m  External Command: \n";
   print "  ......................\n";
   print "\033[0;37m";
-  print "   --dork <dork | aTdorks.txt> --level <level> --command \"curl -v --TARGET\" \n";
+  print "   --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n";
   print "   -t <target | targets.txt> --command \"curl -v --TARGET\" \n\n";
   
   print "\033[1;37m  Multiple Scan: \n";

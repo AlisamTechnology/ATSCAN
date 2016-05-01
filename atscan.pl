@@ -304,7 +304,7 @@ my @ERROR = ("root:x", "You have an error in your SQL syntax", "Warning: mysql",
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CMS VERIFICATION
-my @MODULETYPE = ("<a href=\"https:\/\/wordpress.org\/\">Proudly powered by WordPress", "<meta name=\"generator\" content=\"Joomla", "Powered by <a href=\"http:\/\/www.textpattern.com\" title=\"Textpattern", "<a href=\"http:\/\/www.simplemachines.org/about/copyright.php\" title=\"Free Forum Software\" target=\"_blank\">SMF", "Powered by <a href=\"http:\/\/www.phpbb.com/\">phpBB", "<a href=\"https:\/\/www.vbulletin.com\" id=\"vbulletinlink\">vBulletin", "vBulletin Solutions\, Inc\. All rights reserved", "Powered By <a href=\"http:\/\/www.mybboard.net\" target=\"_blank\">MyBB", "<a href=\"http:\/\/www.cloudflare.com\/\" target=\"_blank\" style", "DDoS protection by CloudFlare", "name=\"Generator\" content=\"Drupal", "<meta name=\"generator\" content=\"PostNuke", "<a href=\"/about.php\">About ATutor", "<META NAME=\"GENERATOR\" CONTENT=\"PHP-Nuke", "Powered by <a href=\"http:\/\/moodle.org\" title=\"Moodle\">Moodle", "<meta name=\"key words\" content=\"moodle", "Powered by <a href=\"http:\/\/www.adaptcms.com\">AdaptCMS", "<meta name=\"generator\" content=\"SilverStripe - http:\/\/silverstripe.org\" \/>", "<a href=\"http:\/\/www.modx.com\" target=\"_blank\"> Powered by MODx", "<meta name=\"generator\" content=\"XOOPS", "Powered by osCommerce", "<a href=\"http:\/\/www.oscommerce.com\" target=\"_blank\">osCommerce", "<a class=\"_blank_blank\" href=\"http:\/\/www.prestashop.com\" target=\"_blank", "Software para Ecommerce de PrestaShop", "<meta name=\"generator\" content=\"b2evolution", "MAGENTO\, INC\. ALL RIGHTS RESERVED", "Magento Ecommerce by Smart Solutions", "all rights reserved Zen Cart", "<a href=\"http:\/\/www.zen-cart.com\" target=\"_blank\">Zen Cart", "Powered by concrete5", "<meta name=\"generator\" content=\"concrete", "Powered By OpenCart");
+my @MODULETYPE = ("<a href=\"https:\/\/wordpress.org\/\">Proudly powered by WordPress", "\/wp-content\/", "<meta name=\"generator\" content=\"Joomla", "index.php?option\=com_", "Powered by <a href=\"http:\/\/www.textpattern.com\" title=\"Textpattern", "<a href=\"http:\/\/www.simplemachines.org/about/copyright.php\" title=\"Free Forum Software\" target=\"_blank\">SMF", "Powered by <a href=\"http:\/\/www.phpbb.com/\">phpBB", "<a href=\"https:\/\/www.vbulletin.com\" id=\"vbulletinlink\">vBulletin", "vBulletin Solutions\, Inc\. All rights reserved", "Powered By <a href=\"http:\/\/www.mybboard.net\" target=\"_blank\">MyBB", "<a href=\"http:\/\/www.cloudflare.com\/\" target=\"_blank\" style", "DDoS protection by CloudFlare", "name=\"Generator\" content=\"Drupal", "<meta name=\"generator\" content=\"PostNuke", "<a href=\"/about.php\">About ATutor", "<META NAME=\"GENERATOR\" CONTENT=\"PHP-Nuke", "Powered by <a href=\"http:\/\/moodle.org\" title=\"Moodle\">Moodle", "<meta name=\"key words\" content=\"moodle", "Powered by <a href=\"http:\/\/www.adaptcms.com\">AdaptCMS", "<meta name=\"generator\" content=\"SilverStripe - http:\/\/silverstripe.org\" \/>", "<a href=\"http:\/\/www.modx.com\" target=\"_blank\"> Powered by MODx", "<meta name=\"generator\" content=\"XOOPS", "Powered by osCommerce", "<a href=\"http:\/\/www.oscommerce.com\" target=\"_blank\">osCommerce", "<a class=\"_blank_blank\" href=\"http:\/\/www.prestashop.com\" target=\"_blank", "Software para Ecommerce de PrestaShop", "<meta name=\"generator\" content=\"b2evolution", "MAGENTO\, INC\. ALL RIGHTS RESERVED", "Magento Ecommerce by Smart Solutions", "all rights reserved Zen Cart", "<a href=\"http:\/\/www.zen-cart.com\" target=\"_blank\">Zen Cart", "Powered by concrete5", "<meta name=\"generator\" content=\"concrete", "Powered By OpenCart");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SYSTEM RANDOM
@@ -1308,31 +1308,30 @@ sub checkCmsType {
   print "\033[1;37m    CMS:    ";
     for my $MODULETYPE (@MODULETYPE) {
   	if ($MODULETYPE1 eq $MODULETYPE){
-	  if (defined $beep) {print chr(7);}
-      if ($MODULETYPE eq $MODULETYPE[0]){ print "\033[0;33mWordPress\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[1]){ print "\033[0;33mJoomla\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[2]){ print "\033[0;33mTextpattern\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[3]){ print "\033[0;33mSMF\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[4]){ print "\033[0;33mphpBB\n";
-      }elsif (($MODULETYPE eq $MODULETYPE[5]) || ($MODULETYPE eq $MODULETYPE[6])){ print "\033[0;33mvBulletin\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[7]){ print "\033[0;33mMyBB\n";
-      }elsif (($MODULETYPE eq $MODULETYPE[8]) || ($MODULETYPE eq $MODULETYPE[9])) { print "\033[0;33mCloudFlare\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[10]){ print "\033[0;33mDrupal\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[11]){ print "\033[0;33mPostNuke\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[12]){ print "\033[0;33mATutor\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[13]){ print "\033[0;33mPHP-Nuke\n";
-      }elsif (($MODULETYPE eq $MODULETYPE[14]) || ($MODULETYPE eq $MODULETYPE[15])){ print "\033[0;33mMoodle\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[16]){ print "\033[0;33mAdaptCMS\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[17]){ print "\033[0;33mSilverStripe\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[18]){ print "\033[0;33mMODx\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[19]){ print "\033[0;33mXOOPS\n";
-      }elsif (($MODULETYPE eq $MODULETYPE[20]) || ($MODULETYPE eq $MODULETYPE[21])) { print "\033[0;33mOsCommerce\n";
-      }elsif (($MODULETYPE eq $MODULETYPE[22]) || ($MODULETYPE eq $MODULETYPE[23])) { print "\033[0;33mPrestaShop\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[24]){ print "\033[0;33mb2evolution\n";
-      }elsif (($MODULETYPE eq $MODULETYPE[25]) || ($MODULETYPE eq $MODULETYPE[26])) { print "\033[0;33mMagento\n";
-      }elsif (($MODULETYPE eq $MODULETYPE[27]) || ($MODULETYPE eq $MODULETYPE[28])) { print "\033[0;33mZen Cart\n";
-      }elsif (($MODULETYPE eq $MODULETYPE[29]) || ($MODULETYPE eq $MODULETYPE[30])) { print "\033[0;33mConcrete5\n";
-      }elsif ($MODULETYPE eq $MODULETYPE[31]){ print "\033[0;33mOpenCart\n";}
+      if (($MODULETYPE eq $MODULETYPE[0])  || ($MODULETYPE eq $MODULETYPE[1])){ print "\033[0;33mWordPress\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[2]) || ($MODULETYPE eq $MODULETYPE[3])) { print "\033[0;33mJoomla\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[4]){ print "\033[0;33mTextpattern\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[5]){ print "\033[0;33mSMF\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[6]){ print "\033[0;33mphpBB\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[7]) || ($MODULETYPE eq $MODULETYPE[8])){ print "\033[0;33mvBulletin\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[9]){ print "\033[0;33mMyBB\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[10]) || ($MODULETYPE eq $MODULETYPE[11])) { print "\033[0;33mCloudFlare\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[12]){ print "\033[0;33mDrupal\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[13]){ print "\033[0;33mPostNuke\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[14]){ print "\033[0;33mATutor\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[15]){ print "\033[0;33mPHP-Nuke\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[16]) || ($MODULETYPE eq $MODULETYPE[17])){ print "\033[0;33mMoodle\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[18]){ print "\033[0;33mAdaptCMS\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[19]){ print "\033[0;33mSilverStripe\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[20]){ print "\033[0;33mMODx\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[21]){ print "\033[0;33mXOOPS\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[22]) || ($MODULETYPE eq $MODULETYPE[23])) { print "\033[0;33mOsCommerce\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[24]) || ($MODULETYPE eq $MODULETYPE[25])) { print "\033[0;33mPrestaShop\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[26]){ print "\033[0;33mb2evolution\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[27]) || ($MODULETYPE eq $MODULETYPE[28])) { print "\033[0;33mMagento\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[29]) || ($MODULETYPE eq $MODULETYPE[30])) { print "\033[0;33mZen Cart\n";
+      }elsif (($MODULETYPE eq $MODULETYPE[31]) || ($MODULETYPE eq $MODULETYPE[32])) { print "\033[0;33mConcrete5\n";
+      }elsif ($MODULETYPE eq $MODULETYPE[33]){ print "\033[0;33mOpenCart\n";}
 	}
   }	 
 }
@@ -1534,7 +1533,6 @@ sub msearch {
       print "\033[1;37m    ....................................................................... \n";
     }
     my @scanlist=&scan();
-	if (defined $random) {newIdentity();}
     sub scan(){
       my @search;
 	  my $mlevel = $mlevel;

@@ -49,12 +49,12 @@ use HTML::Entities;
 #   Extern commands execution.
 #   Disponible on BlackArch Linux Platform.
 #
-#   [+] AUTOR:        Alisam Technology
-#   [+] FB:           https://facebook.com/Forces.des.tempetes.marocaines
-#   [+] Twitter:      https://twitter.com/AlisamTechno
-#   [+] Pastebin      http://http://pastebin.com/u/Alisam_Technology
-#   [+] GIT:          https://github.com/AlisamTechnology
-#   [+] YOUTUBE:      http://youtube.com/c/AlisamTechnology
+#   [:] AUTOR:        Alisam Technology
+#   [:] FB:           https://facebook.com/Forces.des.tempetes.marocaines
+#   [:] Twitter:      https://twitter.com/AlisamTechno
+#   [:] Pastebin      http://http://pastebin.com/u/Alisam_Technology
+#   [:] GIT:          https://github.com/AlisamTechnology
+#   [:] YOUTUBE:      http://youtube.com/c/AlisamTechnology
 #
 ############################################################################################################################################################################################
 ## REQUIREMENT  ############################################################################################################################################################################
@@ -442,7 +442,7 @@ sub newIdentity {
 sub checkPrxConect {
   if ((defined $tor) || (defined $proxy)) {
     if (defined $mlevel) {
-	  print "\033[1;37m[+]-----------------------------------------------------------------------[+]\n";
+	  print "\033[1;37m[:]-----------------------------------------------------------------------[:]\n";
 	}
 	if (!defined $Target) {
 	  print "\033[0;37m[ ]-----------------------------------------------------------------------\n";
@@ -560,7 +560,7 @@ sub checkVersion {
   my $response = $ua->request($request);
   my $html = $response->content;
   (my $gitversion) = ($html =~ /version(.*)Stable/);
-  print "\033[1;37m[+]-----------------------------------------------------------------------[+]\n";
+  print "\033[1;37m[:]-----------------------------------------------------------------------[:]\n";
   $gitversion = "version".$gitversion."Stable";
   if ($gitversion eq $existantVersion) {
 	print "\033[0;32m[!] OK! Last $gitversion No need to update!\n";
@@ -628,15 +628,15 @@ sub removeProtocol {
 ## SCAN INFO
 sub osinfo {
   use Config;
-  print "\033[1;33m[+] GROUP:: ";
+  print "\033[1;33m[:] GROUP:: ";
   print "\033[0;36mALISAM TECHNOLOGY SCANNER\n";
-  print "\033[1;33m[+] TOOL:: ";
+  print "\033[1;33m[:] TOOL:: ";
   print "\033[0;36mATSCAN $existantVersion\n";
-  print "\033[1;33m[+] PATH:: ";
+  print "\033[1;33m[:] PATH:: ";
   print "\033[0;36m$Bin/",basename($0)," \n";
-  print "\033[1;33m[+] PERL VERSION:: ";
+  print "\033[1;33m[:] PERL VERSION:: ";
   print "\033[0;36m$^V \n";
-  print "\033[1;33m[+] PLATFORM:: ";
+  print "\033[1;33m[:] PLATFORM:: ";
   print "\033[0;36m$Config{osname} ";
   print "$Config{archname}\n";
 }
@@ -700,7 +700,7 @@ sub scanDetail {
   }
   #########################################
   #########################################
-  print "\033[1;33m[+] PROXY:: ";
+  print "\033[1;33m[:] PROXY:: ";
   if ((!defined $tor) && (!defined $proxy)) {
     print "\033[0;36mNo!";
   }else{
@@ -718,7 +718,7 @@ sub scanDetail {
   #########################################
   #########################################
   if (defined $password) {
-    print "\033[1;33m[+] LIST:: ";
+    print "\033[1;33m[:] LIST:: ";
     print "\033[0;36m[$password][";
 	my $file=$password;
 	countLists($file);
@@ -727,7 +727,7 @@ sub scanDetail {
   #########################################
   #########################################
   if ((defined $misup) || (defined $validText) || (defined $ifinurl)) {
-    print "\033[1;33m[+] VALIDATION:: ";
+    print "\033[1;33m[:] VALIDATION:: ";
     if (defined $validText) { 
       print "\033[0;36m$validText ";
     }
@@ -742,7 +742,7 @@ sub scanDetail {
   #########################################
   #########################################
   if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64) || (defined $mdom) || (defined $exploit) || (defined $replace)) {
-    print "\033[1;33m[+] EXPLOITATION:: ";
+    print "\033[1;33m[:] EXPLOITATION:: ";
     if (defined $mmd5) {
       print "\033[0;36mMD5 ";
 	}
@@ -769,7 +769,7 @@ sub scanDetail {
   #########################################
   #########################################
   if ((defined $xss) || (defined $lfi) || (defined $adminPage) || (defined $JoomRfi) || (defined $WpAfd) || (defined $mports) || (defined $mupload) || (defined $mzip) || (defined $eMails) || (defined $joomBf) || (defined $WpBf)) {
-    print "\033[1;33m[+] SCAN:: ";
+    print "\033[1;33m[:] SCAN:: ";
     if (defined $xss) {
       print "\033[0;36m/Xss ";
 	  if (defined $p){
@@ -827,7 +827,7 @@ sub scanDetail {
   #########################################
   #########################################
   if ((defined $msites) || (defined $WpSites) || (defined $JoomSites) || (defined $subdomain)){
-    print "\033[1;33m[+] GET:: ";
+    print "\033[1;33m[:] GET:: ";
     if (defined $msites) { 
       print "\033[0;36m/Server sites ";
     }
@@ -845,27 +845,27 @@ sub scanDetail {
   #########################################
   #########################################
   if (defined $shell) {
-    print "\033[1;33m[+] SHELL:: ";
+    print "\033[1;33m[:] SHELL:: ";
     print "\033[0;36m$shell \n";
   }
   if (defined $mlevel) {
-    print "\033[1;33m[+] SCAN LEVEL:: ";
+    print "\033[1;33m[:] SCAN LEVEL:: ";
     print "\033[0;36m$mlevel \n";
   }
   if (defined $command){
-    print "\033[1;33m[+] EXTERN CMD:: ";
+    print "\033[1;33m[:] EXTERN CMD:: ";
     print "\033[0;36m/External Command\n";
   }
   if (defined $output) {
-    print "\033[1;33m[+] OUTPUT:: ";
+    print "\033[1;33m[:] OUTPUT:: ";
     print "\033[0;36m$outdir/\n";
   }
   if (defined $checkVersion) {
-    print "\033[1;33m[+] TASK:: ";
+    print "\033[1;33m[:] TASK:: ";
     print "\033[0;36m/Update Version\n";
   }
   if ((defined $noinfo) || (defined $beep)) {
-    print "\033[1;33m[+] EXTRA:: ";
+    print "\033[1;33m[:] EXTRA:: ";
 	if (defined $noinfo) {
       print "\033[0;36m/No extra info ";
 	}
@@ -1410,13 +1410,13 @@ sub adviseUrl {
 ############################################################################################################################################################################################
 ## DESCLAIMER
 sub desclaimer {
-  print "\033[1;37m[+]-----------------------------------------------------------------------[+]\n\033[1;37m[+]";
-  print "\033[0;37m-----------------------------------------------------------------------\033[1;37m[+]\n\033[1;37m[+]";
-  print "\033[0;37m This is a pentest tool! We will not be responsible or liable directly \033[1;37m[+]\n\033[1;37m[+]";  
-  print "\033[0;37m      or indirectly in any way for any loss or damage of any kind      \033[1;37m[+]\n\033[1;37m[+]";
-  print "\033[0;37m              incurred as result of our program use !!                 \033[1;37m[+]\n";               
-  print "\033[1;37m[+]\033[0;37m-----------------------------------------------------------------------\033[1;37m[+]\n";
-  print "\033[1;37m[+]-----------------------------------------------------------------------[+]\n";
+  print "\033[1;37m[+]-----------------------------------------------------------------------[+]\n\033[1;37m[:]";
+  print "\033[0;37m-----------------------------------------------------------------------\033[1;37m[:]\n\033[1;37m[:]";
+  print "\033[0;37m This is a pentest tool! We will not be responsible or liable directly \033[1;37m[:]\n\033[1;37m[:]";  
+  print "\033[0;37m      or indirectly in any way for any loss or damage of any kind      \033[1;37m[:]\n\033[1;37m[:]";
+  print "\033[0;37m              incurred as result of our program use !!                 \033[1;37m[:]\n";               
+  print "\033[1;37m[:]\033[0;37m-----------------------------------------------------------------------\033[1;37m[:]\n";
+  print "\033[1;37m[:]-----------------------------------------------------------------------[:]\n";
   sleep(2);
   osinfo();
 }
@@ -1485,7 +1485,7 @@ sub submsearch {
 ## ENGINE PROCEDURE
 sub msearch {
   scanDetail();
-  print "\033[1;33m[+] RANDOM SEARCH:: ";
+  print "\033[1;33m[:] RANDOM SEARCH:: ";
   print "\033[0;36mBING [bing.". $browserlangs[int rand @browserlangs] . "] ";
   if (defined $unique) {
     print "\033[0;36m[Unique Results]";
@@ -1497,7 +1497,7 @@ sub msearch {
   if (defined $dork) {
     my $printdork = $dork;
 	$printdork =~ s/\+/ /g;
-    print "\033[1;33m[+] DORK:: ";
+    print "\033[1;33m[:] DORK:: ";
     print "\033[0;36m[$printdork]";
     my $pattern = '.txt';
 	if ($dork =~ m/$pattern/i){
@@ -2978,10 +2978,10 @@ sub complete2 {
 ## SELECTIVE PORTS SCAN
 sub subuser {
   if ((!defined $mstart) || (!defined $mend)) {
-    print "\033[0;33m[..][+] Type Start Of The Port : ";
+    print "\033[0;33m[..][:] Type Start Of The Port : ";
         $mstart=<STDIN>;
     chomp($mstart);
-    print "\033[0;33m[..][+] Type End Of The Port : ";
+    print "\033[0;33m[..][:] Type End Of The Port : ";
         $mend=<STDIN>;
     chomp($mend);
   }
@@ -3107,9 +3107,9 @@ sub user2 {
 ############################################################################################################################################################################################
 ## HELP MENU
 sub help {
-  print "\033[1;37m[+]-----------------------------------------------------------------------[+]\n\n";
+  print "\033[1;37m[:]-----------------------------------------------------------------------[:]\n\n";
   print "\033[1;33m";
-  print "[+] HELP:: \n";
+  print "[:] HELP:: \n";
   print "  \033[0;37m[ ] --------------------------------------------------------------------\n";
   print "\033[0;37m";
   print "   --tor         | Set tor proxy [EX: socks://localhost:9050]\n";

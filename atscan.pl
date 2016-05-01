@@ -1053,11 +1053,11 @@ sub countProxies {
 ## COUNT DORKS IN LIST
 sub countDorks {
   my $lc = 0;
-  my $file = $dork;
-  open $file, "<", $dork;
-  $lc++ while <$file>;
+  my $file3 = $_[0];
+  open my $fh, "<", $file3;
+  $lc++ while <$fh>;
   print "\033[0;36m[$lc Dorks(s) Found in the List!]\n";
-  close $file;
+  close $fh;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1501,7 +1501,7 @@ sub msearch {
     print "\033[0;36m[$printdork]";
     my $pattern = '.txt';
 	if ($dork =~ m/$pattern/i){
-	  countDorks();
+	  countDorks($dork);
 	}else{
       print "\n";
 	}

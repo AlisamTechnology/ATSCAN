@@ -10,7 +10,7 @@
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 8.4</td>
+    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 8.5</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -132,6 +132,10 @@
       <tr>
         <td width="200px" class="main">--level</td>
         <td class="main">Scan level (+- Number of page results to scan)</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">-m/td>
+        <td class="main">Set engine motor [google | bing | ask |all]</td>
       </tr>
       <tr>
         <td width="200px" class="main">--xss</td>
@@ -346,6 +350,7 @@
     <td class="main">
 <b>Simple search: </b><br/>
   Search: --dork [dork] --level [level] <br/>
+  Set engine : --dork [dork] --level [level] -m google | bing | ask | all<br/>
   Search with many dorks: --dork [dork1,dork2,dork3] --level [level] <br/>
   Search + Save results: --dork [dorks.txt] --level [level] --save<br/>
   Search + Replace + Exploit: --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/>

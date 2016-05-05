@@ -6,7 +6,6 @@ use warnings;
 use Term::ANSIColor;
 use URI::Escape;
 use HTML::Entities;
-#
 ############################################################################################################################################################################################
 ## LICENSE   ###############################################################################################################################################################################
 #
@@ -73,7 +72,7 @@ if (!-d $outdir) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## TOOL VERSION
-my $existantVersion='version 8.4 Stable';
+my $existantVersion='version 8.5 Stable';
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LOGO VERSION
@@ -219,6 +218,9 @@ my $password;
 my $joomBf;
 my $ifinurl;
 my $noinfo;
+my $motor;
+my $timeout;
+
 Getopt::Long::GetOptions(\my %OPT,
                         'tor=s' => \$tor,
                         'proxy=s' => \$proxy,
@@ -274,17 +276,13 @@ Getopt::Long::GetOptions(\my %OPT,
 						'ifinurl=s' => \$ifinurl,
                         'noinfo' => \$noinfo,
 						'unique' => \$unique,
+    					'm=s' => \$motor,
+     					'time' => \$timeout,                       
 ) or advise();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT BANNER
 if (!defined $nobanner) {banner();}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## BROWSER
-use IO::Socket::INET;
-use LWP::UserAgent;
-use HTTP::Cookies;
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENGINE LANGUAGES
@@ -293,10 +291,32 @@ my @strings=('ar_JO', 'ar_KW', 'ar_LB', 'ar_LY', 'ar_MA', 'ar_OM', 'ar_QA', 'ar_
 ############################################################################################################################################################################################
 ## BROWSER LANGUAGES
 my @browserlangs=("af", "am", "ar-SA", "as", "az-Latn", "be", "bg", "bn-BD", "bn-IN", "bs", "ca", "ca-ES-valencia", "cs", "da", "de", "de-DE", "el", "en-CA", "en-GB", "en-IN", "en-AU", "en-US", "es", "es-ES", "es-US", "es-MX", "et", "eu", "fa", "fi", "fil-Latn", "fr", "fr-FR", "fr-CA", "ga", "gd-Latn", "gl", "gu", "ha-Latn", "he", "hi", "hr", "hu", "hy", "id", "ig-Latn", "is", "it", "it-IT", "ja", "ka", "kk", "km", "kn", "ko", "kok", "ku-Arab", "ky-Cyrl", "lb", "lt", "lv", "mi-Latn", "mk", "ml", "mn-Cyrl", "mr", "ms", "mt", "nb", "ne", "nl", "nl-BE", "nn", "nso", "or", "pa", "pa-Arab", "pl", "prs-Arab", "pt-BR", "pt-PT", "qut-Latn", "quz", "ro", "ru", "rw", "sd-Arab", "si", "sk", "sl", "sq", "sr-Cyrl-BA", "sr-Cyrl-RS", "sr-Latn-RS", "sv", "sw", "ta", "te", "tg-Cyrl", "th", "ti", "tk-Latn", "tn", "tr", "tt-Cyrl", "ug-Arab", "uk", "ur", "uz-Latn", "vi", "zh-Hans", "zh-Hant", "zu");
+my $browserLang=$browserlangs[int rand @browserlangs];
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## GOOGLE DOMAINS
+my @googleDomains=("com", "ac", "com.om", "ad", "ae", "com.af", "com.ag", "com.ai", "am", "it.ao", "com.ar", "cat", "as", "at", "com.au", "az", "ba", "com.bd", "be", "bf", "bg", "com.bh", "bi", "bj", "com.bn", "com.bo", "com.br", "bs", "co.bw", "com.by", "com.bz", "ca", "com.kh", "cc", "cd", "cf", "cn", "com.co", "co.nz", "cg", "ch", "ci", "co.ck", "cl", "cm", "co.cr", "com.cu", "cv", "cz", "de", "nu", "dj", "dk", "dm", "com.do", "dz", "no", "com.ec", "ee", "com.eg", "es", "com.et", "com.np", "fi", "com.fj", "fm", "fr", "ga", "nl", "ge", "gf", "gg", "com.gh", "com.gi", "nr", "gl", "gm", "gp", "gr", "com.gt", "com.ni", "gy", "com.hk", "hn", "hr", "ht", "com.ng", "hu", "co.id", "iq", "ie", "co.il", "com.nf", "im", "co.in", "io", "is", "it", "ne", "je", "com.jm", "jo", "co.jp", "co.ke", "com.na", "ki", "kg", "co.kr", "com.kw", "kz", "co.mz", "la", "com.lb", "com.lc", "li", "lk", "com.my", "co.ls", "lt", "lu", "lv", "com.ly", "com.mx", "co.ma", "md", "me", "mg", "mk", "mw", "ml", "mn", "ms", "com.mt", "mu", "mv", "com.pa", "com.pe", "com.ph", "com.pk", "pn", "com.pr", "ps", "pt", "com.py", "com.qa", "ro", "rs", "ru", "rw", "com.sa", "com.sb", "sc", "se", "com.sg", "sh", "si", "sk", "com.sl", "sn", "sm", "so", "st", "com.sv", "td", "tg", "co.th", "tk", "tl", "tm", "to", "com.tn", "com.tr", "tt", "com.tw", "co.tz", "com.ua", "co.ug", "co.uk", "us", "com.uy", "co.uz", "com.vc", "co.ve", "vg", "co.vi", "com.vn", "vu", "ws", "co.za", "co.zm", "co.zw");
+my $googleDomain=$googleDomains[int rand @googleDomains];
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## ID RANDOM
+my @Ids=(
+"5D4B3C17298B25CC309D9A0951C6BA04",
+"761446B6C1810068798CA09C88BE0776",
+"76DE276369845330D17C7CD111A536DD",
+"A0A6BD56DD1A054B1FF32E7FE3A44D27",
+"F856B0C416AEBE6E6C7610C3B89B5245",
+"88ADADC7E5DB1A344000A6F8C2B0BFA9",
+"6B815A7FDAF8A283440CD6AEB586CED3",
+"B6B0770CB0F48619CA0EDE35E451F9E5",
+"D6EA6D2A00270CA431DD36486EE53F35",
+"7E84432C6967B7DC0AA29A493A1B8FD0"
+);
+my $Id=$Ids[int rand @Ids];
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## FILTER SEARCH RESULTS
-my $nolisting = "q=|0day|pastebin|\/\/t.co|google.|youtube.|jsuol.com|.radio.uol.|b.uol.|barra.uol.|whowhere.|hotbot.|amesville.|lycos|lygo.|orkut.|schema.|blogger.|bing.|w3.|yahoo.|yimg.|creativecommons.org|ndj6p3asftxboa7j.|.torproject.org|.lygo.com|.apache.org|live.|microsoft.|ask.|shifen.com|answers.|analytics.|googleadservices.|sapo.pt|favicon.|blogspot.|wordpress.|.css|scripts.js|jquery-1.|dmoz.|gigablast.|aol.|.macromedia.com|.sitepoint.|yandex.|www.tor2web.org|.securityfocus.com|.Bootstrap.|.metasploit.com|aolcdn.|altavista.|clusty.|teoma.|baiducontent.com|wisenut.|a9.|uolhost.|w3schools.|msn.|baidu.|hao123.|shifen.|procog.|facebook.|twitter.|flickr.|.adobe.com|oficinadanet.|elephantjmjqepsw.|.shodan.io|kbhpodhnfxl3clb4|.scanalert.com|.prototype.|feedback.core|4shared.|.KeyCodeTab|.style.|www\/cache\/i1|.className.|=n.|a.Ke=|Y.config|.goodsearch.com|style.top|n.Img|n.canvas.|t.search|Y.Search.|a.href|a.currentStyle|a.style|yastatic.|.oth.net|.hotbot.com|.zhongsou.com|ezilon.com|.example.com|location.href|.navigation.|.hostname.|.bingj.com|Y.Mobile.|srpcache?p|stackoverflow.|shifen.|baidu.|baiducontent.|gstatic.|php.net|wikipedia.|webcache.|inurl.|naver.|navercorp.|windows.|window.|.devmedia|imasters.|.inspcloud.com|.lycos.com|.scorecardresearch.com|.target.|JQuery.min|Element.location.|document.|exploit-db|packetstormsecurity.|1337day|owasp|.sun.com|mobile10.dtd|onabort=function|inurl.com.br|purl.org|.dartsearch.net|r.cb|.classList.|.pt_BR.|github|microsofttranslator.com|.compete.com|.sogou.com|gmail.|blackle.com|boorow.com|gravatar.com|cookieSet|security|facebook|WindowsLiveTranslator|cache|74.125.153.132|inurl:|Network|adw.sapo|tripadvisor|yandex|Failed";
+my $nolisting = "q=|0day|pastebin|\/\/t.co|google.|youtube.|jsuol.com|.radio.uol.|b.uol.|barra.uol.|whowhere.|hotbot.|amesville.|lycos|lygo.|orkut.|schema.|blogger.|bing.|w3.|yahoo.|yimg.|creativecommons.org|ndj6p3asftxboa7j.|.torproject.org|.lygo.com|.apache.org|live.|microsoft.|ask.|shifen.com|answers.|analytics.|googleadservices.|sapo.pt|favicon.|blogspot.|wordpress.|.css|scripts.js|jquery-1.|dmoz.|gigablast.|aol.|.macromedia.com|.sitepoint.|yandex.|www.tor2web.org|.securityfocus.com|.Bootstrap.|.metasploit.com|aolcdn.|altavista.|clusty.|teoma.|baiducontent.com|wisenut.|a9.|uolhost.|w3schools.|msn.|baidu.|hao123.|shifen.|procog.|facebook.|twitter.|flickr.|.adobe.com|oficinadanet.|elephantjmjqepsw.|.duckduckgo.io|kbhpodhnfxl3clb4|.scanalert.com|.prototype.|feedback.core|4shared.|.KeyCodeTab|.style.|www\/cache\/i1|.className.|=n.|a.Ke=|Y.config|.goodsearch.com|style.top|n.Img|n.canvas.|t.search|Y.Search.|a.href|a.currentStyle|a.style|yastatic.|.oth.net|.hotbot.com|.zhongsou.com|ezilon.com|.example.com|location.href|.navigation.|.hostname.|.bingj.com|Y.Mobile.|srpcache?p|stackoverflow.|shifen.|baidu.|baiducontent.|gstatic.|php.net|wikipedia.|webcache.|inurl.|naver.|navercorp.|windows.|window.|.devmedia|imasters.|.inspcloud.com|.lycos.com|.scorecardresearch.com|.target.|JQuery.min|Element.location.|document.|exploit-db|packetstormsecurity.|1337day|owasp|.sun.com|mobile10.dtd|onabort=function|inurl.com.br|purl.org|.dartsearch.net|r.cb|.classList.|.pt_BR.|github|microsofttranslator.com|.compete.com|.sogou.com|gmail.|blackle.com|boorow.com|gravatar.com|cookieSet|security|facebook|WindowsLiveTranslator|cache|74.125.153.132|inurl:|Network|adw.sapo|tripadvisor|yandex|Failed|tumblr.|wiki|inciclopedia.";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ERRORS
@@ -336,8 +356,7 @@ my @sys=(
 ############################################################################################################################################################################################
 ## BROWSER RANDOM
 my @vary=(
-"",
-"KHTML/3.5.7 (like Gecko)",
+"Firefox",
 "Opera",
 "SeaMonkey",
 "Safari",
@@ -352,22 +371,34 @@ my @vary=(
 "Flock",
 "Chrome",
 "Mobile",
-"AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27",
-"AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36",
-"AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safa",
-"AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25",
-"Gecko/20100101 Firefox/21.0",
-"Gecko/20100101 Firefox/24.0",
-"Gecko/20121011 Firefox/16.0.1",
-"KHTML/4.9.1 (like Gecko) Konqueror/4.9"
 ); 
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## BROWSER
+use IO::Socket::INET;
+use LWP::UserAgent;
+use HTTP::Cookies;
+use HTTP::Request;
 my $agent = "Mozilla/5.0 (".$sys[int rand @sys].";) ".$vary[int rand @vary];
+
 my $ua = LWP::UserAgent->new(
          agent		=> $agent,
 		 cookie_jar	=> HTTP::Cookies->new(),
 );
+$ua->default_header('Accept' => ('text/html'));
+timeOut();
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## SET BROWSER TIMEOUT
+sub timeOut {
+  if (defined $timeout) {
+    $ua->timeout($timeout);
+  }else{
+    $ua->timeout(10); 
+  }
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PROXY
@@ -412,12 +443,14 @@ sub GoToConfig {
 sub newIdentity {
   if (defined $tor) {
     system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;");
+    system("service tor restart");
   }
   if (defined $proxy and substr($proxy, -4) eq '.txt') {
     GoToConfig($proxy);
   }
   $ua->proxy([qw/ http https /] => $proxys);
   $ua->cookie_jar({});
+  sleep(1);
   my $URL = "http://dynupdate.no-ip.com/ip.php";
   my $request = HTTP::Request->new('GET', $URL);
   my $response = $ua->request($request);
@@ -427,7 +460,7 @@ sub newIdentity {
 	  if ($response->content =~ m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/g) {
 	  	$ipadress="$1.$2.$3.$4";
 		if ($response->content =~ m/$ipadress/g) {
-          print "\033[1;37m    IDNTTY: \033[0;36m::Your ip:: $ipadress\n";
+          print "\033[1;37m    IDNTTY: \033[0;36mNew ip::: $ipadress :::\n";
 		}
 	  }
 	}
@@ -438,56 +471,27 @@ sub newIdentity {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## PROXY AND TOR CONNECTION VERIFICATION
-sub checkPrxConect {
-  if ((defined $tor) || (defined $proxy)) {
-    if (defined $mlevel) {
-	  print "\033[1;37m[:]-----------------------------------------------------------------------[:]\n";
-	}
-	if (!defined $Target) {
-	  print "\033[0;37m[ ]-----------------------------------------------------------------------\n";
-	}
-	print "\033[0;33m[!] ";
-	timer();
-	print "Checking proxy connection! Please wait ...\n";
-	sleep(1);
-  }
+sub startProxyUse {
+  GoToConfig();
+  $ua->proxy([qw/ http https /] => $proxys);
+  $ua->cookie_jar({});
+  $ua->env_proxy;
+  timeOut();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## INTERNET CONNECTION VERIFICATION
 sub testConection {
-  if ((!defined $mmd5) && (!defined $mencode64) && (!defined $mdecode64) && (!defined $help)) {
-    checkPrxConect();
-    my $URL = "http://dynupdate.no-ip.com/ip.php";
-    my $request = HTTP::Request->new('GET', $URL);
-    my $response = $ua->request($request);
-    if ( !$response->is_success ) {
-	  print "\033[0;31m[!] ";timer();
-      if ((defined $proxy) || (defined $tor)) {
-	    print "Connection failed via [$proxys]!\n";
-	  }else{
-        print "Upss.. Your Internet connection seems not active!\n";
-        print "Check Your Connection OR Proxy Setting!\n";
-	  }
-	  exit();
-	}else{
-      if ((defined $proxy) || (defined $tor)) {
-		print "\033[0;32m[!] ";
-	    timer();
-		print "OK! Connected via [$proxys]\n";
-	  }
-	}  
-  }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-if ((defined $tor) || (defined $proxy)) {
-  GoToConfig();
-  $ua->proxy([qw/ http https /] => $proxys);
-  $ua->cookie_jar({});
-  $ua->env_proxy;
-  $ua->timeout(10);
+  if ((defined $tor) || (defined $proxy)) {startProxyUse();}
+  my $URL = "http://dynupdate.no-ip.com/ip.php";
+  my $request = HTTP::Request->new('GET', $URL);
+  my $response = $ua->request($request);
+  if ( !$response->is_success ) {
+	print "\033[0;31m[!] ";timer();
+    print "Upss.. Your Internet connection seems not active!\n";
+    print "[!] Check Your Connection OR Proxy Setting!\n";
+	exit();
+  } 
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -659,7 +663,7 @@ sub advise {
 ## FORWAIT
 sub forwait {
   progressbar();
-  print "\033[0;33m[!] Please wait... \n";
+  print "\033[0;33m[!] Please wait...\033[0;37m\n";
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1485,7 +1489,18 @@ sub submsearch {
 sub msearch {
   scanDetail();
   print "\033[1;33m[:] RANDOM SEARCH:: ";
-  print "\033[0;36mBING [bing.". $browserlangs[int rand @browserlangs] . "] ";
+  print "\033[0;36m";
+  if (defined $motor) {
+    if (($motor !~/all/) &&($motor !~/bing/)&&($motor !~/google/) && ($motor !~/ask/)) {print "DEFAULT BING [$browserLang] ";}
+    else{ if ($motor =~/bing/) { print "BING [$browserLang] ";}
+    if ($motor =~/google/) {print "GOOGLE [$googleDomain] ";}
+    if ($motor =~/ask/) {print "ASK [com]";}
+    if ($motor =~/all/) {print "BING [$browserLang] GOOGLE [$googleDomain] ASK [com]";}
+    }
+  }else{
+    print "DEFAULT BING [$browserLang] ";
+  }
+  
   if (defined $unique) {
     print "\033[0;36m[Unique Results]";
   }
@@ -1505,10 +1520,8 @@ sub msearch {
       print "\n";
 	}
   }
+  finInfoMenu();
   testConection();
-  if (!defined $tor and !defined $proxy) {
-    finInfoMenu();
-  }
   scanTitleBgn();
   print "\033[1;37mENGINE";
   scanTitleEnd();
@@ -1532,90 +1545,95 @@ sub msearch {
 	  print "\033[0;36m][$printdork]\n";
       print "\033[1;37m    ....................................................................... \n";
     }
+    my $motor1="http://www.bing.com/search?q=MYDORK&first=MYNPAGES&FORM=PERE&cc=MYBROWSERLANG";
+    my $motor2="http://www.google.MYGOOGLEDOMAINE/search?q=MYDORK&start=MYNPAGES";
+    my $motor3="http://www.ask.com/web?q=MYDORK&page=MYNPAGES&qid=MYID";
+    open (MOTORS, '>'.$Bin.'/aTmotors.txt');
+    my $motorparam="bing|google|ask|all";
+    if (defined $motor) {    
+      if ($motor !~ m/$motorparam/) {
+        print MOTORS "$motor1";
+      }else{
+        if (($motor=~/all/) || (($motor=~/bing/) && ($motor=~/google/) && ($motor=~/ask/))) {
+          print MOTORS "$motor1\n$motor2\n$motor3\n";
+        }else{
+          if ($motor=~/bing/) {
+            print MOTORS "$motor1\n";
+          }
+          if ($motor=~/google/) {
+            print MOTORS "$motor2\n";
+          }
+          if ($motor=~/ask/) {
+            print MOTORS "$motor3\n";
+          }
+        }
+      }
+    }else{
+      print MOTORS "$motor1\n";
+    }
+    close(MOTORS);
     my @scanlist=&scan();
     sub scan(){
       my @search;
-	  my $mlevel = $mlevel;
-	  my $npages=0;
-	  my $count2=0;
+	  my $mlevel = $mlevel+=-10 if $mlevel > 9;
+	  my $npages;	        
       for($npages=0;$npages<=$mlevel;$npages+=10){
-        my $google=("http://www.bing.com/search?q=".$dork."&first=".$npages."&FORM=PERE&cc=".$browserlangs[int rand @browserlangs]);
-		my $search=$ua->get("$google");
-        $search->as_string;
-        my $Res=$search->content;
-		while($Res =~ m/<a href=\"(?:(?:https?|ftps?)):\/\/([^>\"]*)/g){
-		  my $URL=$1;
-          $URL =~ s/%([0-9A-Fa-f]{2})/chr(hex($1))/eg;
-		  $URL = uri_unescape($URL);
-		  $URL = decode_entities($URL);
-          if ($URL !~ /$nolisting/) {
-		    my $check = $dork;
-			my $pat2 = 'inurl:|intitle:|intext:|allinurl:|index\+of\+';
-            if (defined $unique) {
-			  $check = $dork;
-			  $check =~ s/:\+/:/g;
-			  $check =~ s/$pat2//g;
-	        }elsif (defined $ifinurl) {
-		      $check=$ifinurl;
-	        }elsif ((defined $WpAfd) || (defined $WpSites)) {
-		      $check="\/wp-content\/";
-			}elsif ((defined $JoomRfi) || (defined $JoomSites)) {
-			  $check="\/index.php?option=com_";
-	        }else{
-		      $check='.';
-		    }
-           	if (index($URL, $check) != -1) {
-			  my $URL=$URL;
-			  if ($URL=~ /\b((?=[a-z0-9-]{1,63}\.)[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/) {
-			    if ((defined $msites) || (defined $mdom)) {
-				  $URL = removeProtocol($URL);
-                  $URL=~s/\/.*//s;
-			      $URL=checkUrlSchema($URL);
-			    }
-				 my %repeat = ();
-			    if ($repeat{$URL}) {
-			    }else{
-			      $count2++;
-			      my $URL=checkUrlSchema($URL);			 
-	              if ((!defined $xss) && (!defined $exploit) && (!defined $lfi) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf)) {				    
-	                print "\033[1;33m    ";
-	                timer();
-	                print "[Target $count2]\n";
-	                print "\033[1;37m    TARGET: ";
-                    if (defined $beep) {print chr(7);}
-					print "\033[0;32m$URL\n";
-	                my $URL1=$URL;
-                    if (!defined $noinfo) {
-                      checkExtraInfo($URL1);
-				      my $request = HTTP::Request->new('GET', $URL1);
-                      my $response = $ua->request($request);
-                      my $html = $response->content;
-                      my $status = $response->code;
-					  my $serverheader = $response->server;
-                      print "\033[1;37m    HTTP:   ";
-	                  print "\033[0;37mHTTP/1.1 $status\n";
-                      print "\033[1;37m    SERVER: ";
-                      if (defined $serverheader) {
-                        print "\033[0;37m$serverheader\n";
-                      }else{
-	                    print "\033[0;37mUndefined\n";
-                      }
-                      getErrors($html);
-                    }
-			        print "    \033[0;37m[ ] -------------------------------------------------------------------\n";
+        open (MOTOR, $Bin.'/aTmotors.txt');
+        while (my $motor = <MOTOR>) {
+	      chomp $motor;
+          $motor=~ s/MYDORK/$dork/g;
+          $motor=~ s/MYBROWSERLANG/$browserLang/g;
+          $motor=~ s/MYGOOGLEDOMAINE/$googleDomain/g;
+          $motor=~ s/MYID/$Id/g;
+          $motor=~ s/MYNPAGES/$npages/g;
+          my $search=$ua->get("$motor");
+          $search->as_string;
+          my $Res=$search->content;
+		  while($Res =~ m/((https?|ftps?):\/\/([^>\"\<\'\#\@\~\\!\(\)\s]*))/g){
+		    my $URL=$1;
+            if (defined $motor and $motor=~/google/) {
+              $URL=~s/\&.*//s;
+            }            
+            $URL =~ s/%([0-9A-Fa-f]{2})/chr(hex($1))/eg;
+		    $URL = uri_unescape($URL);
+		    $URL = decode_entities($URL);
+            if ($URL !~ /$nolisting/) {
+		      my $check = $dork;
+			  my $pat2 = 'inurl:|intitle:|intext:|allinurl:|index\+of\+';
+              if (defined $unique) {
+			    $check = $dork;
+			    $check =~ s/:\+/:/g;
+			    $check =~ s/$pat2//g;
+	          }elsif (defined $ifinurl) {
+		        $check=$ifinurl;
+	          }elsif ((defined $WpAfd) || (defined $WpSites)) {
+		        $check="\/wp-content\/";
+			  }elsif ((defined $JoomRfi) || (defined $JoomSites)) {
+			    $check="\/index.php?option=com_";
+	          }else{
+		        $check='.';
+		      }
+           	  if (index($URL, $check) != -1) {
+			    my $URL=$URL;
+			    if ($URL=~ /\b((?=[a-z0-9-]{1,63}\.)[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/) {
+			      if ((defined $msites) || (defined $mdom)) {
+				    $URL = removeProtocol($URL);
+                    $URL=~s/\/.*//s;
+			        $URL=checkUrlSchema($URL);
 			      }
                   open (TEXT, '>>', $Bin.'/aTsearch.txt');
 			      print TEXT "$URL\n";
                   close (TEXT);
-			      $repeat{$URL}++;
-   				}
-			  }
+			    }
+              }
 			}
           }
 		}
+        close (MOTOR); 
       }
-    }   
+    }
   }
+  close (FILE); 
   my $list = $Bin."/aTsearch.txt";
   if (-e $list){
     my $lc = 0;
@@ -1631,7 +1649,42 @@ sub msearch {
         close (TEXT);
 		unlink $Bin."/aTsearch.txt.bac";
       }
-    }
+    }   
+    my $count2=0; 
+    open (URL, $Bin.'/aTsearch.txt');
+    while (my $URL = <URL>) {
+	  chomp $URL;                  
+	  $count2++;
+	  my $URL=checkUrlSchema($URL);			 
+	  if ((!defined $xss) && (!defined $exploit) && (!defined $lfi) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf)) {				    
+	    print "\033[1;33m    ";
+	    timer();
+	    print "[Target $count2]\n";
+	    print "\033[1;37m    TARGET: ";
+        if (defined $beep) {print chr(7);}
+		print "\033[0;32m$URL\n";
+	    my $URL1=$URL;
+        if (!defined $noinfo) {
+          checkExtraInfo($URL1);
+		  my $request = HTTP::Request->new('GET', $URL1);
+          my $response = $ua->request($request);
+          my $html = $response->content;
+          my $status = $response->code;
+		  my $serverheader = $response->server;
+          print "\033[1;37m    HTTP:   ";
+	      print "\033[0;37mHTTP/1.1 $status\n";
+          print "\033[1;37m    SERVER: ";
+          if (defined $serverheader) {
+            print "\033[0;37m$serverheader\n";
+          }else{
+            print "\033[0;37mUndefined\n";
+          }
+          getErrors($html);
+        }
+		print "    \033[0;37m[ ] -------------------------------------------------------------------\n";
+	  }
+   	}
+    close (URL);
     print "\033[0;37m[ ]------------------------------------------------------------------------\n";
 	print "\033[0;32m[!]";
     my $lcs = 0;
@@ -1640,7 +1693,7 @@ sub msearch {
     $lcs++ while <$fh>;
     print " $lcs ";
     close $fh;
-	print "Unique Result(s) Found!\n";
+	print "Unique Result(s) Found!\n";     
 	if ((!defined $xss) && (!defined $exploit) && (!defined $lfi) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf)) {
 	  if (defined $output) {
 	    my $listme = $Bin."/aTsearch.txt";
@@ -1659,6 +1712,7 @@ sub msearch {
 	exit();
   }
   unlink $Bin.'/aTdorks.txt';
+  unlink $Bin.'/aTmotors.txt';
   if (defined $misup) {misup();}
   if (defined $validText) { validation();}
   if (defined $xss) {xss();}
@@ -2976,6 +3030,7 @@ sub complete2 {
 ## SELECTIVE PORTS SCAN
 sub subuser {
   if ((!defined $mstart) || (!defined $mend)) {
+
     print "\033[0;33m[..][:] Type Start Of The Port : ";
         $mstart=<STDIN>;
     chomp($mstart);
@@ -3116,6 +3171,7 @@ sub help {
   print "   --random      | Renew tor identity for every link scaned.\n";
   print "   --dork        | Dork to search [Ex: house,cars,hotel] \n";
   print "   --level       | Scan level (+- Number of page results to scan) \n";
+  print "   --time        | set browser time out. \n";
   print "   --valid       | Text for validate results \n";
   print "   --ifinurl     | Text to validate target url \n";
   print "   --isup        | Check http status 200. \n";
@@ -3123,6 +3179,7 @@ sub help {
   print "   --exp         | Exploit\n";
   print "   -t            | Target [http://site.com]\n";
   print "   -p            | Set xss test parameter \n";
+  print "   -m            | Set engine motors. default bing [EX: -m google | bing | ask | all] \n"; 
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";
   print "   --joomrfi     | Scan for joomla local file inclusion\n";
@@ -3162,7 +3219,6 @@ sub help {
   print "   --nobanner    | Hide tool banner\n";
   print "   --beep        | Produce beep sount if positive scan found.\n";
   print "   --noinfo      | Jump extra results info.\n";
-  print "   --check       | Show my new ip when using random\n";
   print "   --update      | Check and update tool\n\n";
 
   print "\033[1;33m[..] EXAMPLES: \n\n";
@@ -3176,13 +3232,14 @@ sub help {
   print "  ......................\n";
   print "\033[0;37m";
   print "    Search: --dork <dork> --level <level> \n";
+  print "    Set engine: --dork <dork> --level <level> -m [google | bing | ask | all]\n";  
   print "    Search with many dorks: --dork <dork1,dork2,dork3> --level <level> \n";
   print "    Search + get emails: --dork <dorks.txt> --level <level> --email \n";
   print "    Search + get site emails: --dork <site:site.com> --level <level> --email \n";
   print "    Search + get ip+server: --dork <dorks.txt> --level <level> \n";
   print "    Search + set save file: --dork <dorks.txt> --level <level> --save\n";
   print "    Replace + Exploit: --dork <dorks.txt> --level <level> --replace <string> --with <string> --valid <string>\n\n";
-  
+
   print "\033[1;37m  Subscan from Serach Engine: \n";
   print "  ......................\n";
   print "\033[0;37m";
@@ -3427,10 +3484,20 @@ if (defined $mports) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS PROCESS (PROXY)
-if ((!defined $proxy) && (!defined $tor)){
+if (((!defined $proxy) && (!defined $tor)) || (defined $proxy and substr($proxy, -4) ne '.txt')){
   if (defined $random) {
     finInfoMenu();      
-    print "\033[0;31m[!] --check or --random need proxy or tor use!\n";
+    print "\033[0;31m[!] --random need proxy or tor use!\n";
+    exit();
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## CHECK MOTORS ARGUMENTS
+if (defined $motor) {
+  if ($motor !~ /bing|google|ask|all/) {
+    finInfoMenu();      
+    print "\033[0;31m[!] Just you can use Bing / Google / Ask search! Soon more engines..\n";
     exit();
   }
 }
@@ -3441,7 +3508,7 @@ if (defined $mlevel) {
   if ($mlevel < 10) {
     finInfoMenu();   
     print "\033[0;31m[!] Min level is 10 [--level >=10]\n";
-	exit();
+    exit();
   }
   if ((defined $dork) || (defined $Target) || (defined $rangip)){
     submsearch();

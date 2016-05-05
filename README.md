@@ -138,6 +138,10 @@
         <td class="main">Set engine motor [google | bing | ask |all]</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--time/td>
+        <td class="main">Set browser time out.</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--xss</td>
         <td class="main">Xss scan</td>
       </tr>

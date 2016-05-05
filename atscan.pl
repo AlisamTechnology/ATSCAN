@@ -3179,7 +3179,8 @@ sub help {
   print "   --exp         | Exploit\n";
   print "   -t            | Target [http://site.com]\n";
   print "   -p            | Set xss test parameter \n";
-  print "   -m            | Set engine motors. default bing [EX: -m google | bing | ask | all] \n"; 
+  print "   -m            | Set engine motors. default bing [EX: -m google | bing | ask | all] \n";
+  print "   --time        | Set browser timeout. default 10.\n";
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";
   print "   --joomrfi     | Scan for joomla local file inclusion\n";

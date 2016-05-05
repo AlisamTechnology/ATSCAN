@@ -36,7 +36,7 @@
     <td class="main3"><b>Description:</b></td>
   </tr>
   <tr>
-    <td class="main" width="890px">Search engine <br />XSS scanner.<br /> 
+    <td class="main" width="890px">Search engine google/bing/ask<br />XSS scanner.<br /> 
         LFI / ADF scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Random proxy. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan. <br/> Brute force.<br/>Extern commands execution.<br/>Scan errors.<br/>Disponible on BlackArch Linux Platform.
     </td>
   </tr>

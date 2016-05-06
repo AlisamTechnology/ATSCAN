@@ -1575,7 +1575,8 @@ sub msearch {
     my @scanlist=&scan();
     sub scan(){
       my @search;
-	  my $mlevel = $mlevel+=-10 if $mlevel > 9;
+	  my $mlevel=$mlevel;
+      $mlevel=$mlevel+=-10 if $mlevel > 9;
 	  my $npages;	        
       for($npages=0;$npages<=$mlevel;$npages+=10){
         open (MOTOR, $Bin.'/aTmotors.txt');

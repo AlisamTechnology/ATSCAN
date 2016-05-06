@@ -1018,9 +1018,9 @@ sub targetList {
 ## CHECK TARGET URL OR IP
 sub checkUrlType{
   my $URL=$_[0];
-  if ($URL=~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+  if ($URL=~m/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
 	finInfoMenu();
-    print "\033[0;31m[!] $URL is an IP [Use: -t <ip> --level 20 <opcion>]! \n";
+    print "\033[0;31m[!] $URL is an IP [Use!: -t <ip> --level 20 <opcion>]! \n";
     exit();
   }else{
     return $URL;
@@ -1031,7 +1031,7 @@ sub checkUrlType{
 ## VALIDATE IP
 sub checkIp{
   my $URL=$_[0];
-  if ($URL!~m/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
+  if ($URL!~m/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )){
 	finInfoMenu();
     print "\033[0;31m[!] $URL is an IP [Use: -t <ip> --level 20 <opcion>]! \n";
     exit();
@@ -1590,6 +1590,7 @@ sub msearch {
           $search->as_string;
           my $Res=$search->content;
 		  while($Res =~ m/((https?|ftps?):\/\/([^>\"\<\'\#\@\~\\!\(\)\s]*))/g){
+          #while($Res =~ m/.*?href="([^"]*)/){
 		    my $URL=$1;
             if (defined $motor and $motor=~/google/) {
               $URL=~s/\&.*//s;
@@ -3179,8 +3180,7 @@ sub help {
   print "   --exp         | Exploit\n";
   print "   -t            | Target [http://site.com]\n";
   print "   -p            | Set xss test parameter \n";
-  print "   -m            | Set engine motors. default bing [EX: -m google | bing | ask | all] \n";
-  print "   --time        | Set browser timeout. default 10.\n";
+  print "   -m            | Set engine motors. default bing [EX: -m google | bing | ask | all] \n"; 
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";
   print "   --joomrfi     | Scan for joomla local file inclusion\n";
@@ -3233,7 +3233,7 @@ sub help {
   print "  ......................\n";
   print "\033[0;37m";
   print "    Search: --dork <dork> --level <level> \n";
-  print "    Set engine: --dork <dork> --level <level> -m [google | bing | ask | all]\n";  
+  print "    Set engine: --dork <dork> --level <level> [EX: -m google | bing | ask | all]\n";  
   print "    Search with many dorks: --dork <dork1,dork2,dork3> --level <level> \n";
   print "    Search + get emails: --dork <dorks.txt> --level <level> --email \n";
   print "    Search + get site emails: --dork <site:site.com> --level <level> --email \n";

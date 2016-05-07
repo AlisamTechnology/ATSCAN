@@ -1960,7 +1960,6 @@ sub xss {
 ## LFI
 sub lfi {
   if (-e $Bin.'/aTscan.txt'){ unlink $Bin.'/aTscan.txt';}
-  LFI();
   headerScan();
   print "\033[1;37mLFI";
   scanTitleEnd();

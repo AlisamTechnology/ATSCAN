@@ -101,7 +101,7 @@
   </tr>
   <tr>
     <td align="center" width="890px">
-    <img src="http://i.imgur.com/9z09j0N.jpg" /><br/><br/>
+    <img src="http://i.imgur.com/UWNl5iI.jpg" /><br/><br/>
     <img src="http://i.imgur.com/am2QD4S.jpg" /><br/><br/>
     <img src="http://i.imgur.com/st6Z3Bc.jpg" /><br/><br/>
     </td>

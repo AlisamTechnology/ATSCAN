@@ -1590,7 +1590,7 @@ sub msearch {
           my $search=$ua->get("$motor");
           $search->as_string;
           my $Res=$search->content;
-		  while($Res =~ m/((https?|ftps?):\/\/([^>\"\<\'\#\@\~\\!\(\)\s]*))/g){
+		  while($Res =~ m/((https?|ftps?):\/\/([^>\"\<\'\;\,\#\@\~\\!\(\)\s]*))/g){
 		    my $URL=$1;
             if (defined $motor and $motor=~/google/) {
               $URL=~s/\&.*//s;

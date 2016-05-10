@@ -134,7 +134,7 @@
         <td class="main">Scan level (+- Number of page results to scan)</td>
       </tr>
       <tr>
-        <td width="200px" class="main">-m/td>
+        <td width="200px" class="main">-m</td>
         <td class="main">Set engine motor [google | bing | ask |all]</td>
       </tr>
       <tr>

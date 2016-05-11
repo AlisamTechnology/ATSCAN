@@ -1488,6 +1488,7 @@ sub deleteLists {
 sub submsearch {
   my $checksearchscanlist = $Bin."/aTsearch.txt";
   if (-e $checksearchscanlist){ unlink $checksearchscanlist};
+  deleteLists();
   dorkList($dork);
   msearch();
 }

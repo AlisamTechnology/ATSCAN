@@ -72,7 +72,7 @@ if (!-d $outdir) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## TOOL VERSION
-my $existantVersion='version 8.5 Stable';
+my $existantVersion='version 8.6 Stable';
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LOGO VERSION
@@ -86,7 +86,7 @@ sub banner {
   my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us all!", "! Love Mezguida H4ckers !", "No Pe4ce betwin systems !", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !", "Hacking is not Fucking !", "No h4y sistem4 4 s4lvo !!", "When be brocken u will hair it!");
 my @LOGO = ("
   \033[0;33m     /\\ ___ /\\ 
-  \033[0;33m    (  o   o  )             \033[0;31m$ESLOGAN[int rand @ESLOGAN]
+  \033[0;33m    (  o   o  )             \033[0;31m$ESLOGAN[rand @ESLOGAN]
   \033[0;33m    \\  >#<  / 
   \033[0;33m     /       \\       \033[1;36m     _  _____ ____   ____    _    _   _ 
   \033[0;33m    /         \\   ^  \033[1;36m    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -97,7 +97,7 @@ my @LOGO = ("
   \033[0;33m      . \\\\\\|||/// 
   \033[0;33m     / \\ ========
   \033[0;33m     \\ /| O   O | 
-  \033[0;33m      #  \\` _ '/            \033[0;31m$ESLOGAN[int rand @ESLOGAN]
+  \033[0;33m      #  \\` _ '/            \033[0;31m$ESLOGAN[rand @ESLOGAN]
   \033[0;33m     (#)   | |   
   \033[0;33m      #\\/( * * )\\     \033[1;36m     _  _____ ____   ____    _    _   _  
   \033[0;33m      #\\/(==*==)/     \033[1;36m    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -108,7 +108,7 @@ my @LOGO = ("
   \033[0;33m      __________
   \033[0;33m     / ___  ___ \\
   \033[0;33m    / / @ \\/ @ \\ \\
-  \033[0;33m    \\ \\___/\\___/ /\\         \033[0;31m$ESLOGAN[int rand @ESLOGAN]
+  \033[0;33m    \\ \\___/\\___/ /\\         \033[0;31m$ESLOGAN[rand @ESLOGAN]
   \033[0;33m     \\____\\/____/||
   \033[0;33m     /     /\\\\\\\\\\//  \033[1;36m     _  _____ ____   ____    _    _   _ 
   \033[0;33m    |     |\\\\\\\\\\\\    \033[1;36m    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -120,7 +120,7 @@ my @LOGO = ("
   \033[0;33m  ( (  \\.---./  ) )
   \033[0;33m   '.__/o   o\\__.'
   \033[0;33m      {=  ^  =}
-  \033[0;33m       >  -  <             \033[0;31m$ESLOGAN[int rand @ESLOGAN]
+  \033[0;33m       >  -  <             \033[0;31m$ESLOGAN[rand @ESLOGAN]
   \033[0;33m      /       \\
   \033[0;33m     //       \\\\       \033[1;36m     _  _____ ____   ____    _    _   _ 
   \033[0;33m    //|   .   |\\\\      \033[1;36m    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -133,7 +133,7 @@ my @LOGO = ("
   \033[0;33m       /  q   p  \\
   \033[0;33m      (  >(_Y_)<  )
   \033[0;33m      >-' `-' `-<-.
-  \033[0;33m      /  _.== ==.,- \\       \033[0;31m$ESLOGAN[int rand @ESLOGAN]
+  \033[0;33m      /  _.== ==.,- \\       \033[0;31m$ESLOGAN[rand @ESLOGAN]
   \033[0;33m     /,    )`  '(    )
   \033[0;33m    ; `._.'      `--<  \033[1;36m     _  _____ ____   ____    _    _   _ 
   \033[0;33m   :     \\        |  ) \033[1;36m    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -142,7 +142,7 @@ my @LOGO = ("
   \033[0;33m       `--\\\\\\          \033[1;36m /_/   \\_\\_| |____/ \\____/_/   \\_\\_| \\_| \033[0;32m$logoVersion",
   "
   \033[0;33m   o       o  
-  \033[0;33m    \\_____/                  \033[0;31m$ESLOGAN[int rand @ESLOGAN]
+  \033[0;33m    \\_____/                  \033[0;31m$ESLOGAN[rand @ESLOGAN]
   \033[0;33m    /=O=O=\\   ______ 
   \033[0;33m   /   ^   \\  \\\\\\\\\\\\\\   \033[1;36m     _  _____ ____   ____    _    _   _ 
   \033[0;33m   \\ \\___/ / /\\ ___  \\  \033[1;36m    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -151,7 +151,7 @@ my @LOGO = ("
   \033[0;33m       \\____\\__\\_____/  \033[1;36m /_/   \\_\\_| |____/ \\____/_/   \\_\\_| \\_| \033[0;32m$logoVersion",
   "
   \033[0;33m      \\\\\\|||/// 
-  \033[0;33m      /=======\\           \033[0;31m$ESLOGAN[int rand @ESLOGAN]
+  \033[0;33m      /=======\\           \033[0;31m$ESLOGAN[rand @ESLOGAN]
   \033[0;33m     = __   __ = 
   \033[0;33m     =( o) (o )=   \033[1;36m     _  _____ ____   ____    _    _   _ 
   \033[0;33m     =    U    =   \033[1;36m    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -159,7 +159,7 @@ my @LOGO = ("
   \033[0;33m      \\__!|!__/    \033[1;36m  / ___ \\| |  ___) | |___ / ___ \\| |\\  |
   \033[0;33m         \\_/       \033[1;36m /_/   \\_\\_| |____/ \\____/_/   \\_\\_| \\_| \033[0;32m$logoVersion"
   );
-  print $LOGO[int rand @LOGO]."\n";
+  print $LOGO[rand @LOGO]."\n";
   print "\033[0;30m   _______________________________________________________________________\033[0;37m\n";
 }
 ############################################################################################################################################################################################
@@ -291,12 +291,12 @@ my @strings=('ar_JO', 'ar_KW', 'ar_LB', 'ar_LY', 'ar_MA', 'ar_OM', 'ar_QA', 'ar_
 ############################################################################################################################################################################################
 ## BROWSER LANGUAGES
 my @browserlangs=("af", "am", "ar-SA", "as", "az-Latn", "be", "bg", "bn-BD", "bn-IN", "bs", "ca", "ca-ES-valencia", "cs", "da", "de", "de-DE", "el", "en-CA", "en-GB", "en-IN", "en-AU", "en-US", "es", "es-ES", "es-US", "es-MX", "et", "eu", "fa", "fi", "fil-Latn", "fr", "fr-FR", "fr-CA", "ga", "gd-Latn", "gl", "gu", "ha-Latn", "he", "hi", "hr", "hu", "hy", "id", "ig-Latn", "is", "it", "it-IT", "ja", "ka", "kk", "km", "kn", "ko", "kok", "ku-Arab", "ky-Cyrl", "lb", "lt", "lv", "mi-Latn", "mk", "ml", "mn-Cyrl", "mr", "ms", "mt", "nb", "ne", "nl", "nl-BE", "nn", "nso", "or", "pa", "pa-Arab", "pl", "prs-Arab", "pt-BR", "pt-PT", "qut-Latn", "quz", "ro", "ru", "rw", "sd-Arab", "si", "sk", "sl", "sq", "sr-Cyrl-BA", "sr-Cyrl-RS", "sr-Latn-RS", "sv", "sw", "ta", "te", "tg-Cyrl", "th", "ti", "tk-Latn", "tn", "tr", "tt-Cyrl", "ug-Arab", "uk", "ur", "uz-Latn", "vi", "zh-Hans", "zh-Hant", "zu");
-my $browserLang=$browserlangs[int rand @browserlangs];
+my $browserLang=$browserlangs[rand @browserlangs];
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GOOGLE DOMAINS
 my @googleDomains=("com", "ac", "com.om", "ad", "ae", "com.af", "com.ag", "com.ai", "am", "it.ao", "com.ar", "cat", "as", "at", "com.au", "az", "ba", "com.bd", "be", "bf", "bg", "com.bh", "bi", "bj", "com.bn", "com.bo", "com.br", "bs", "co.bw", "com.by", "com.bz", "ca", "com.kh", "cc", "cd", "cf", "cn", "com.co", "co.nz", "cg", "ch", "ci", "co.ck", "cl", "cm", "co.cr", "com.cu", "cv", "cz", "de", "nu", "dj", "dk", "dm", "com.do", "dz", "no", "com.ec", "ee", "com.eg", "es", "com.et", "com.np", "fi", "com.fj", "fm", "fr", "ga", "nl", "ge", "gf", "gg", "com.gh", "com.gi", "nr", "gl", "gm", "gp", "gr", "com.gt", "com.ni", "gy", "com.hk", "hn", "hr", "ht", "com.ng", "hu", "co.id", "iq", "ie", "co.il", "com.nf", "im", "co.in", "io", "is", "it", "ne", "je", "com.jm", "jo", "co.jp", "co.ke", "com.na", "ki", "kg", "co.kr", "com.kw", "kz", "co.mz", "la", "com.lb", "com.lc", "li", "lk", "com.my", "co.ls", "lt", "lu", "lv", "com.ly", "com.mx", "co.ma", "md", "me", "mg", "mk", "mw", "ml", "mn", "ms", "com.mt", "mu", "mv", "com.pa", "com.pe", "com.ph", "com.pk", "pn", "com.pr", "ps", "pt", "com.py", "com.qa", "ro", "rs", "ru", "rw", "com.sa", "com.sb", "sc", "se", "com.sg", "sh", "si", "sk", "com.sl", "sn", "sm", "so", "st", "com.sv", "td", "tg", "co.th", "tk", "tl", "tm", "to", "com.tn", "com.tr", "tt", "com.tw", "co.tz", "com.ua", "co.ug", "co.uk", "us", "com.uy", "co.uz", "com.vc", "co.ve", "vg", "co.vi", "com.vn", "vu", "ws", "co.za", "co.zm", "co.zw");
-my $googleDomain=$googleDomains[int rand @googleDomains];
+my $googleDomain=$googleDomains[rand @googleDomains];
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ID RANDOM
@@ -312,7 +312,23 @@ my @Ids=(
 "D6EA6D2A00270CA431DD36486EE53F35",
 "7E84432C6967B7DC0AA29A493A1B8FD0"
 );
-my $Id=$Ids[int rand @Ids];
+my $Id=$Ids[rand @Ids];
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## MSID RANDOM
+my @MsIds=(
+"1462902128.39925.22889.22408",
+"1462902552.15536.22876.27365",
+"1462902586.95962.22874.20936",
+"1462902627.17116.22876.27348",
+"1462902668.37045.20953.58001",
+"1462902238.39125.22589.29408",
+"1462902129.37521.22479.24410",
+"1462902113.35935.22853.22412",
+"1462902138.59225.22845.22478",
+"1462902145.39925.22812.22432",
+);
+my $MsId=$MsIds[rand @MsIds];
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## FILTER SEARCH RESULTS
@@ -330,27 +346,27 @@ my @MODULETYPE = ("<a href=\"https:\/\/wordpress.org\/\">Proudly powered by Word
 ## SYSTEM RANDOM
 my @sys=(
 "",
-"compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; $strings[int rand @strings]",
-"compatible; MSIE 7.0; Windows NT 5.1; $strings[int rand @strings]",
-"compatible; MSIE 6.0; Windows NT 5.1; $strings[int rand @strings]",
-"compatible; MSIE 6.0; MSIE 5.5; Windows NT 5.1; $strings[int rand @strings];",
-"compatible; Konqueror/3.5; $strings[int rand @strings]; SunOS",
-"compatible; Konqueror/3.5; $strings[int rand @strings]; NetBSD 4.0_RC3; X11; $strings[int rand @strings]",
-"Macintosh; U; PPC Mac OS X 10_5_8; $strings[int rand @strings]",
-"Macintosh; Intel Mac OS X 10.6; $strings[int rand @strings]; rv:21.0",
-"Macintosh; Intel Mac OS X 10_9_0; $strings[int rand @strings]",
-"Macintosh; U; Intel Mac OS X 10_6_6; $strings[int rand @strings]",
-"X11; Linux 3.5.4-1-ARCH i686; $strings[int rand @strings]",
-"Linux; U; Android 4.2.2; $strings[int rand @strings]; LNV-Lenovo K910e/S100; 1080*1920; CTC/2.0; $strings[int rand @strings]",
-"iPad; CPU OS 6_0 like Mac OS X; $strings[int rand @strings]",
-"Windows NT 5.1; $strings[int rand @strings]",
-"Windows; I; Windows NT 5.1; $strings[int rand @strings]; rv:1.9.2.13",
-"Windows NT 6.1; $strings[int rand @strings]; rv:24.0",
-"Windows NT 6.1; WOW64; $strings[int rand @strings]",
-"Windows NT 6.2; WOW64; $strings[int rand @strings]; rv:16.0.1",
-"Windows 2000; WOW64; $strings[int rand @strings]; rv:16.0.1",
-"Windows 98; WOW64; $strings[int rand @strings]; rv:16.0.1",
-"Windows 95; WOW64; $strings[int rand @strings]; rv:16.0.1"
+"compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; $strings[rand @strings]",
+"compatible; MSIE 7.0; Windows NT 5.1; $strings[rand @strings]",
+"compatible; MSIE 6.0; Windows NT 5.1; $strings[rand @strings]",
+"compatible; MSIE 6.0; MSIE 5.5; Windows NT 5.1; $strings[rand @strings];",
+"compatible; Konqueror/3.5; $strings[rand @strings]; SunOS",
+"compatible; Konqueror/3.5; $strings[rand @strings]; NetBSD 4.0_RC3; X11; $strings[rand @strings]",
+"Macintosh; U; PPC Mac OS X 10_5_8; $strings[rand @strings]",
+"Macintosh; Intel Mac OS X 10.6; $strings[rand @strings]; rv:21.0",
+"Macintosh; Intel Mac OS X 10_9_0; $strings[rand @strings]",
+"Macintosh; U; Intel Mac OS X 10_6_6; $strings[rand @strings]",
+"X11; Linux 3.5.4-1-ARCH i686; $strings[rand @strings]",
+"Linux; U; Android 4.2.2; $strings[rand @strings]; LNV-Lenovo K910e/S100; 1080*1920; CTC/2.0; $strings[rand @strings]",
+"iPad; CPU OS 6_0 like Mac OS X; $strings[rand @strings]",
+"Windows NT 5.1; $strings[rand @strings]",
+"Windows; I; Windows NT 5.1; $strings[rand @strings]; rv:1.9.2.13",
+"Windows NT 6.1; $strings[rand @strings]; rv:24.0",
+"Windows NT 6.1; WOW64; $strings[rand @strings]",
+"Windows NT 6.2; WOW64; $strings[rand @strings]; rv:16.0.1",
+"Windows 2000; WOW64; $strings[rand @strings]; rv:16.0.1",
+"Windows 98; WOW64; $strings[rand @strings]; rv:16.0.1",
+"Windows 95; WOW64; $strings[rand @strings]; rv:16.0.1"
 );      
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -374,14 +390,12 @@ my @vary=(
 ); 
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-############################################################################################################################################################################################
-############################################################################################################################################################################################
 ## BROWSER
 use IO::Socket::INET;
 use LWP::UserAgent;
 use HTTP::Cookies;
 use HTTP::Request;
-my $agent = "Mozilla/5.0 (".$sys[int rand @sys].";) ".$vary[int rand @vary];
+my $agent = "Mozilla/5.0 (".$sys[rand @sys].";) ".$vary[rand @vary];
 
 my $ua = LWP::UserAgent->new(
          agent		=> $agent,
@@ -410,6 +424,7 @@ sub GoToConfig {
   if ((defined $tor) || (defined $proxy)) {
     if (defined $tor) {
       $proxys=$tor;
+      system("service tor start");
     }elsif (defined $proxy) {
       if ($proxy =~ /:/) {
         $proxys=$proxy;
@@ -482,6 +497,8 @@ sub startProxyUse {
 ############################################################################################################################################################################################
 ## INTERNET CONNECTION VERIFICATION
 sub testConection {
+  print "\033[0;33m[!] ";timer();
+  print "Please wait... \n"; 
   if ((defined $tor) || (defined $proxy)) {startProxyUse();}
   my $URL = "http://dynupdate.no-ip.com/ip.php";
   my $request = HTTP::Request->new('GET', $URL);
@@ -696,14 +713,10 @@ sub scanDetail {
     }
 	print "\n";
   }
-  #########################################
-  #########################################
   if (defined $rangip) {
     print "\033[1;33m[!] TARGET:: ";
     print "\033[0;36mRange [$rangip]\n";
   }
-  #########################################
-  #########################################
   print "\033[1;33m[:] PROXY:: ";
   if ((!defined $tor) && (!defined $proxy)) {
     print "\033[0;36mNo!";
@@ -719,8 +732,6 @@ sub scanDetail {
 	if (defined $random) { print "\033[0;36m[Random Proxy]";}
   }
   print "\n";
-  #########################################
-  #########################################
   if (defined $password) {
     print "\033[1;33m[:] LIST:: ";
     print "\033[0;36m[$password][";
@@ -728,8 +739,6 @@ sub scanDetail {
 	countLists($file);
 	print "\033[0;36m]\n";
   }
-  #########################################
-  #########################################
   if ((defined $misup) || (defined $validText) || (defined $ifinurl)) {
     print "\033[1;33m[:] VALIDATION:: ";
     if (defined $validText) { 
@@ -743,8 +752,6 @@ sub scanDetail {
     }
     print "\n";
   }
-  #########################################
-  #########################################
   if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64) || (defined $mdom) || (defined $exploit) || (defined $replace)) {
     print "\033[1;33m[:] EXPLOITATION:: ";
     if (defined $mmd5) {
@@ -770,8 +777,6 @@ sub scanDetail {
     }
     print "\n";
   }
-  #########################################
-  #########################################
   if ((defined $xss) || (defined $lfi) || (defined $adminPage) || (defined $JoomRfi) || (defined $WpAfd) || (defined $mports) || (defined $mupload) || (defined $mzip) || (defined $eMails) || (defined $joomBf) || (defined $WpBf)) {
     print "\033[1;33m[:] SCAN:: ";
     if (defined $xss) {
@@ -828,8 +833,6 @@ sub scanDetail {
     }
     print "\n";
   } 
-  #########################################
-  #########################################
   if ((defined $msites) || (defined $WpSites) || (defined $JoomSites) || (defined $subdomain)){
     print "\033[1;33m[:] GET:: ";
     if (defined $msites) { 
@@ -846,8 +849,6 @@ sub scanDetail {
     }
     print "\n";
   }
-  #########################################
-  #########################################
   if (defined $shell) {
     print "\033[1;33m[:] SHELL:: ";
     print "\033[0;36m$shell \n";
@@ -1491,11 +1492,12 @@ sub msearch {
   print "\033[1;33m[:] RANDOM SEARCH:: ";
   print "\033[0;36m";
   if (defined $motor) {
-    if (($motor !~/all/) &&($motor !~/bing/)&&($motor !~/google/) && ($motor !~/ask/)) {print "DEFAULT BING [$browserLang] ";}
+    if (($motor !~/all/) &&($motor !~/bing/)&&($motor !~/google/) && ($motor !~/ask/) && ($motor !~/yandex/)) {print "DEFAULT BING [$browserLang] ";}
     else{ if ($motor =~/bing/) { print "BING [$browserLang] ";}
     if ($motor =~/google/) {print "GOOGLE [$googleDomain] ";}
     if ($motor =~/ask/) {print "ASK [com]";}
-    if ($motor =~/all/) {print "BING [$browserLang] GOOGLE [$googleDomain] ASK [com]";}
+    if ($motor =~/yandex/) {print "YANDEX [com]";}    
+    if ($motor =~/all/) {print "BING [$browserLang] GOOGLE [$googleDomain] ASK [com] YANDEX [com]";}
     }
   }else{
     print "DEFAULT BING [$browserLang] ";
@@ -1543,19 +1545,20 @@ sub msearch {
       my $printdork = $dork;
 	  $printdork =~ s/\+/ /g;
 	  print "\033[0;36m][$printdork]\n";
-      print "\033[1;37m    ....................................................................... \n";
+      print "\033[1;37m[ ] ....................................................................... \n";
     }
     my $motor1="http://www.bing.com/search?q=MYDORK&first=MYNPAGES&FORM=PERE&cc=MYBROWSERLANG";
     my $motor2="http://www.google.MYGOOGLEDOMAINE/search?q=MYDORK&start=MYNPAGES";
     my $motor3="http://www.ask.com/web?q=MYDORK&page=MYNPAGES&qid=MYID";
+    my $motor4="http://www.yandex.com/search/?msid=MYMSID&text=MYDORK&lr=25402&p=MYNPAGES";
     open (MOTORS, '>'.$Bin.'/aTmotors.txt');
-    my $motorparam="bing|google|ask|all";
+    my $motorparam="bing|google|ask|yandex|all";
     if (defined $motor) {    
       if ($motor !~ m/$motorparam/) {
         print MOTORS "$motor1";
       }else{
-        if (($motor=~/all/) || (($motor=~/bing/) && ($motor=~/google/) && ($motor=~/ask/))) {
-          print MOTORS "$motor1\n$motor2\n$motor3\n";
+        if (($motor=~/all/) || (($motor=~/bing/) && ($motor=~/google/) && ($motor=~/ask/) && ($motor=~/yandex/))) {
+          print MOTORS "$motor1\n$motor2\n$motor3\n$motor4\n";
         }else{
           if ($motor=~/bing/) {
             print MOTORS "$motor1\n";
@@ -1565,6 +1568,9 @@ sub msearch {
           }
           if ($motor=~/ask/) {
             print MOTORS "$motor3\n";
+          }
+          if ($motor=~/yandex/) {
+            print MOTORS "$motor4\n";
           }
         }
       }
@@ -1586,11 +1592,12 @@ sub msearch {
           $motor=~ s/MYBROWSERLANG/$browserLang/g;
           $motor=~ s/MYGOOGLEDOMAINE/$googleDomain/g;
           $motor=~ s/MYID/$Id/g;
+          $motor=~ s/MYMSID/$MsId/g;
           $motor=~ s/MYNPAGES/$npages/g;
           my $search=$ua->get("$motor");
           $search->as_string;
           my $Res=$search->content;
-		  while($Res =~ m/((https?|ftps?):\/\/([^>\"\<\'\;\,\#\@\~\\!\(\)\s]*))/g){
+		  while($Res =~ m/((https?|ftps?):\/\/([^>\"\<\'\;\,\#\@\~\\!\(\)\s]*))/g) {
 		    my $URL=$1;
             if (defined $motor and $motor=~/google/) {
               $URL=~s/\&.*//s;
@@ -3232,7 +3239,7 @@ sub help {
   print "  ......................\n";
   print "\033[0;37m";
   print "    Search: --dork <dork> --level <level> \n";
-  print "    Set engine: --dork <dork> --level <level> [EX: -m google | bing | ask | all]\n";  
+  print "    Set engine: --dork <dork> --level <level> [EX: -m google | bing | ask | yandex | all]\n";  
   print "    Search with many dorks: --dork <dork1,dork2,dork3> --level <level> \n";
   print "    Search + get emails: --dork <dorks.txt> --level <level> --email \n";
   print "    Search + get site emails: --dork <site:site.com> --level <level> --email \n";
@@ -3397,6 +3404,7 @@ if (defined $exploit and substr($exploit, -4) eq '.txt') {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## ARGUMENTS VERIFICATION (EXLPOIT USE)
 if (defined $exploit) {
   if ((!defined $xss) && (!defined $lfi) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf)) {
     finInfoMenu();  
@@ -3495,9 +3503,9 @@ if (((!defined $proxy) && (!defined $tor)) || (defined $proxy and substr($proxy,
 ############################################################################################################################################################################################
 ## CHECK MOTORS ARGUMENTS
 if (defined $motor) {
-  if ($motor !~ /bing|google|ask|all/) {
+  if ($motor !~ /bing|google|ask|yandex|all/) {
     finInfoMenu();      
-    print "\033[0;31m[!] Just you can use Bing / Google / Ask search! Soon more engines..\n";
+    print "\033[0;31m[!] Just you can use Bing / Google / Ask /yandex search! Soon more engines..\n";
     exit();
   }
 }

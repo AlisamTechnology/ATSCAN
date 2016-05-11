@@ -3201,7 +3201,7 @@ sub help {
   print "   --exp         | Exploit\n";
   print "   -t            | Target [http://site.com]\n";
   print "   -p            | Set xss test parameter \n";
-  print "   -m            | Set engine motors. default bing [EX: -m [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all] \n";
+  print "   -m            | Set engine motors. default bing [EX: -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] \n";
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";
   print "   --joomrfi     | Scan for joomla local file inclusion\n";
@@ -3254,7 +3254,7 @@ sub help {
   print "  ......................\n";
   print "\033[0;37m";
   print "    Search: --dork <dork> --level <level> \n";
-  print "    Set engine: --dork <dork> --level <level> -m [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all]\n";
+  print "    Set engine: --dork <dork> --level <level> -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n";
   print "    Set selective engines: --dork <dork> --level <level> -m 1,2,3..\n";  
   print "    Search with many dorks: --dork <dork1,dork2,dork3> --level <level> \n";
   print "    Search + get emails: --dork <dorks.txt> --level <level> --email \n";
@@ -3521,8 +3521,11 @@ if (((!defined $proxy) && (!defined $tor)) || (defined $proxy and substr($proxy,
 if (defined $motor) {
   if ($motor !~ /1|2|3|4|5|all/) {
     finInfoMenu();      
-    print "\033[0;31m[!] Usage -m [1,2,...]\n";
-    print "\033[0;31m[!] Engines: [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all] \n";   
+    print "\033[0;31m[!] ";
+    timer();
+    print "Invalid options!\n";    
+    print "\033[0;33m    Engines: [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] \n";
+    print "    Usage -m [1,2,...]\n";    
     exit();
   }
 }

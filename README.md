@@ -10,7 +10,7 @@
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 8.5</td>
+    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 8.6</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -36,7 +36,7 @@
     <td class="main3"><b>Description:</b></td>
   </tr>
   <tr>
-    <td class="main" width="890px">Search engine google / bing/ ask /yandex <br />XSS scanner.<br /> 
+    <td class="main" width="890px">Search engine Google / Bing / Ask / Yandex / Sogou <br />XSS scanner.<br /> 
         LFI / ADF scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Random proxy. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan. <br/> Brute force.<br/>Extern commands execution.<br/>Scan errors.<br/>Disponible on BlackArch Linux Platform.
     </td>
   </tr>
@@ -135,7 +135,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">-m</td>
-        <td class="main">Set engine motor [google | bing | ask |all]</td>
+        <td class="main">Set engine motor [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all]</td>
       </tr>
       <tr>
         <td width="200px" class="main">--time/td>
@@ -354,7 +354,8 @@
     <td class="main">
 <b>Simple search: </b><br/>
   Search: --dork [dork] --level [level] <br/>
-  Set engine : --dork [dork] --level [level] -m google | bing | ask | all<br/>
+  Set engine: --dork <dork> --level <level> -m [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all]<br/>
+  Set selective engines: --dork <dork> --level <level> -m 1,2,3..
   Search with many dorks: --dork [dork1,dork2,dork3] --level [level] <br/>
   Search + Save results: --dork [dorks.txt] --level [level] --save<br/>
   Search + Replace + Exploit: --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/>
@@ -431,4 +432,3 @@
   </table>
 </body>
 </html>
-

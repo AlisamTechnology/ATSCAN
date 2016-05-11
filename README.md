@@ -138,7 +138,15 @@
         <td class="main">Set engine motor [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all]</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--time/td>
+        <td width="200px" class="main">-t</td>
+        <td class="main">Target [http://site.com]</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">-p</td>
+        <td class="main">Set test param to xss</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--time</td>
         <td class="main">Set browser time out.</td>
       </tr>
       <tr>
@@ -148,10 +156,6 @@
       <tr>
         <td width="200px" class="main">--joomrfi</td>
         <td class="main">joomla local file inclusion scan</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">-t</td>
-        <td class="main">Target [http://site.com]</td>
       </tr>
       <tr>
         <td width="200px" class="main">--TARGET</td>
@@ -176,10 +180,6 @@
       <tr>
         <td width="200px" class="main">--ifinurl</td>
         <td class="main">Text to validate target url</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">-p</td>
-        <td class="main">Set test param to xss</td>
       </tr>
       <tr>
         <td width="200px" class="main">--lfi</td>
@@ -335,14 +335,9 @@
         <td class="main">Produce beep sound if positive scan found</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--about / -?</td>
-        <td class="main">About Tool.</td>
-      </tr> 
-      <tr>
         <td width="200px" class="main">--help / -h</td>
         <td class="main">Help.</td>
       </tr> 
-        
     </table></td>
   </tr>
 </table>

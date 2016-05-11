@@ -72,7 +72,7 @@ if (!-d $outdir) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## TOOL VERSION
-my $existantVersion='version 8.5 Stable';
+my $existantVersion='version 8.6 Stable';
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LOGO VERSION
@@ -332,7 +332,7 @@ my $MsId=$MsIds[rand @MsIds];
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## FILTER SEARCH RESULTS
-my $nolisting = "q=|0day|pastebin|\/\/t.co|google.|youtube.|jsuol.com|.radio.uol.|b.uol.|barra.uol.|whowhere.|hotbot.|amesville.|lycos|lygo.|orkut.|schema.|blogger.|bing.|w3.|yahoo.|yimg.|creativecommons.org|ndj6p3asftxboa7j.|.torproject.org|.lygo.com|.apache.org|live.|microsoft.|ask.|shifen.com|answers.|analytics.|googleadservices.|sapo.pt|favicon.|blogspot.|wordpress.|.css|scripts.js|jquery-1.|dmoz.|gigablast.|aol.|.macromedia.com|.sitepoint.|yandex.|www.tor2web.org|.securityfocus.com|.Bootstrap.|.metasploit.com|aolcdn.|altavista.|clusty.|teoma.|baiducontent.com|wisenut.|a9.|uolhost.|w3schools.|msn.|baidu.|hao123.|shifen.|procog.|facebook.|twitter.|flickr.|.adobe.com|oficinadanet.|elephantjmjqepsw.|.duckduckgo.io|kbhpodhnfxl3clb4|.scanalert.com|.prototype.|feedback.core|4shared.|.KeyCodeTab|.style.|www\/cache\/i1|.className.|=n.|a.Ke=|Y.config|.goodsearch.com|style.top|n.Img|n.canvas.|t.search|Y.Search.|a.href|a.currentStyle|a.style|yastatic.|.oth.net|.hotbot.com|.zhongsou.com|ezilon.com|.example.com|location.href|.navigation.|.hostname.|.bingj.com|Y.Mobile.|srpcache?p|stackoverflow.|shifen.|baidu.|baiducontent.|gstatic.|php.net|wikipedia.|webcache.|inurl.|naver.|navercorp.|windows.|window.|.devmedia|imasters.|.inspcloud.com|.lycos.com|.scorecardresearch.com|.target.|JQuery.min|Element.location.|document.|exploit-db|packetstormsecurity.|1337day|owasp|.sun.com|mobile10.dtd|onabort=function|inurl.com.br|purl.org|.dartsearch.net|r.cb|.classList.|.pt_BR.|github|microsofttranslator.com|.compete.com|.sogou.com|gmail.|blackle.com|boorow.com|gravatar.com|cookieSet|security|facebook|WindowsLiveTranslator|cache|74.125.153.132|inurl:|Network|adw.sapo|tripadvisor|yandex|Failed|tumblr.|wiki|inciclopedia.";
+my $nolisting = "q=|0day|pastebin|\/\/t.co|google.|youtube.|jsuol.com|.radio.uol.|b.uol.|barra.uol.|whowhere.|hotbot.|amesville.|lycos|lygo.|orkut.|schema.|blogger.|bing.|w3.|yahoo.|yimg.|creativecommons.org|ndj6p3asftxboa7j.|.torproject.org|.lygo.com|.apache.org|live.|microsoft.|ask.|shifen.com|answers.|analytics.|googleadservices.|sapo.pt|favicon.|blogspot.|wordpress.|.css|scripts.js|jquery-1.|dmoz.|gigablast.|aol.|.macromedia.com|.sitepoint.|yandex.|www.tor2web.org|.securityfocus.com|.Bootstrap.|.metasploit.com|aolcdn.|altavista.|clusty.|teoma.|baiducontent.com|wisenut.|a9.|uolhost.|w3schools.|msn.|baidu.|hao123.|shifen.|procog.|facebook.|twitter.|flickr.|.adobe.com|oficinadanet.|elephantjmjqepsw.|.duckduckgo.io|kbhpodhnfxl3clb4|.scanalert.com|.prototype.|feedback.core|4shared.|.KeyCodeTab|.style.|www\/cache\/i1|.className.|=n.|a.Ke=|Y.config|.goodsearch.com|style.top|n.Img|n.canvas.|t.search|Y.Search.|a.href|a.currentStyle|a.style|yastatic.|.oth.net|.hotbot.com|.zhongsou.com|ezilon.com|.example.com|location.href|.navigation.|.hostname.|.bingj.com|Y.Mobile.|srpcache?p|stackoverflow.|shifen.|baidu.|baiducontent.|gstatic.|php.net|wikipedia.|webcache.|inurl.|naver.|navercorp.|windows.|window.|.devmedia|imasters.|.inspcloud.com|.lycos.com|.scorecardresearch.com|.target.|JQuery.min|Element.location.|document.|exploit-db|packetstormsecurity.|1337day|owasp|.sun.com|mobile10.dtd|onabort=function|inurl.com.br|purl.org|.dartsearch.net|r.cb|.classList.|.pt_BR.|github|microsofttranslator.com|.compete.com|.sogou.com|gmail.|blackle.com|boorow.com|gravatar.com|cookieSet|security|facebook|WindowsLiveTranslator|cache|74.125.153.132|inurl:|Network|adw.sapo|tripadvisor|yandex|Failed|tumblr.|wiki|inciclopedia.|sogoucdn.com|weixin.";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ERRORS
@@ -1477,6 +1477,13 @@ sub getErrors {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## DELETE SEARCH LISTS
+sub deleteLists {
+  if (-e $Bin.'/aTdorks.txt') {unlink $Bin.'/aTdorks.txt';}
+  if (-e $Bin.'/aTmotors.txt') {unlink $Bin.'/aTmotors.txt';}
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## SEARCH ENGINE
 sub submsearch {
   my $checksearchscanlist = $Bin."/aTsearch.txt";
@@ -1492,12 +1499,13 @@ sub msearch {
   print "\033[1;33m[:] RANDOM SEARCH:: ";
   print "\033[0;36m";
   if (defined $motor) {
-    if (($motor !~/all/) &&($motor !~/bing/)&&($motor !~/google/) && ($motor !~/ask/) && ($motor !~/yandex/)) {print "DEFAULT BING [$browserLang] ";}
-    else{ if ($motor =~/bing/) { print "BING [$browserLang] ";}
-    if ($motor =~/google/) {print "GOOGLE [$googleDomain] ";}
-    if ($motor =~/ask/) {print "ASK [com]";}
-    if ($motor =~/yandex/) {print "YANDEX [com]";}    
-    if ($motor =~/all/) {print "BING [$browserLang] GOOGLE [$googleDomain] ASK [com] YANDEX [com]";}
+    if (($motor !~/all/) &&($motor !~/1/)&&($motor !~/2/) && ($motor !~/3/) && ($motor !~/4/) && ($motor !~/5/)) {print "DEFAULT BING [$browserLang] ";}
+    else{ if ($motor =~/1/) { print "BING [$browserLang] ";}
+    if ($motor =~/2/) {print "GOOGLE [$googleDomain] ";}
+    if ($motor =~/3/) {print "ASK [com]";}
+    if ($motor =~/4/) {print "YANDEX [com]";}
+    if ($motor =~/5/) {print "SOGOU [com]";}    
+    if ($motor =~/all/) {print "[BING GOOGLE ASK YANDEX DOGOU]";}
     }
   }else{
     print "DEFAULT BING [$browserLang] ";
@@ -1551,26 +1559,30 @@ sub msearch {
     my $motor2="http://www.google.MYGOOGLEDOMAINE/search?q=MYDORK&start=MYNPAGES";
     my $motor3="http://www.ask.com/web?q=MYDORK&page=MYNPAGES&qid=MYID";
     my $motor4="http://www.yandex.com/search/?msid=MYMSID&text=MYDORK&lr=25402&p=MYNPAGES";
+    my $motor5="http://www.sogou.com/web?query=MYDORK&page=MYNPAGES&ie=utf8";    
     open (MOTORS, '>'.$Bin.'/aTmotors.txt');
-    my $motorparam="bing|google|ask|yandex|all";
+    my $motorparam="1|2|3|4|5|all";
     if (defined $motor) {    
       if ($motor !~ m/$motorparam/) {
         print MOTORS "$motor1";
       }else{
-        if (($motor=~/all/) || (($motor=~/bing/) && ($motor=~/google/) && ($motor=~/ask/) && ($motor=~/yandex/))) {
-          print MOTORS "$motor1\n$motor2\n$motor3\n$motor4\n";
+        if (($motor=~/all/) || (($motor=~/1/) && ($motor=~/2/) && ($motor=~/3/) && ($motor=~/4/) && ($motor=~/5/))) {
+          print MOTORS "$motor1\n$motor2\n$motor3\n$motor4\n$motor5\n";
         }else{
-          if ($motor=~/bing/) {
+          if ($motor=~/1/) {
             print MOTORS "$motor1\n";
           }
-          if ($motor=~/google/) {
+          if ($motor=~/2/) {
             print MOTORS "$motor2\n";
           }
-          if ($motor=~/ask/) {
+          if ($motor=~/3/) {
             print MOTORS "$motor3\n";
           }
-          if ($motor=~/yandex/) {
+          if ($motor=~/4/) {
             print MOTORS "$motor4\n";
+          }
+          if ($motor=~/5/) {
+            print MOTORS "$motor5\n";
           }
         }
       }
@@ -1701,7 +1713,8 @@ sub msearch {
     $lcs++ while <$fh>;
     print " $lcs ";
     close $fh;
-	print "Unique Result(s) Found!\n";     
+	print "Unique Result(s) Found!\n";
+    deleteLists();
 	if ((!defined $xss) && (!defined $exploit) && (!defined $lfi) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf)) {
 	  if (defined $output) {
 	    my $listme = $Bin."/aTsearch.txt";
@@ -1712,15 +1725,15 @@ sub msearch {
         print "\033[0;32m[!] Results saved in $save\n";
       }
 	  unlink $Bin.'/aTsearch.txt';
+      deleteLists();
       subfin();
     }
 	if (-e $Bin.'/aTscan.txt'){ unlink $Bin.'/aTscan.txt'};
   }else{
+    deleteLists();
     negative();
 	exit();
   }
-  unlink $Bin.'/aTdorks.txt';
-  unlink $Bin.'/aTmotors.txt';
   if (defined $misup) {misup();}
   if (defined $validText) { validation();}
   if (defined $xss) {xss();}
@@ -1735,6 +1748,7 @@ sub msearch {
   if (defined $WpBf) { BFmwpsites();}
   if (defined $joomBf) { BFmjoomsites();}
   if (defined $command) {mcommand();}
+  deleteLists();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -3186,7 +3200,7 @@ sub help {
   print "   --exp         | Exploit\n";
   print "   -t            | Target [http://site.com]\n";
   print "   -p            | Set xss test parameter \n";
-  print "   -m            | Set engine motors. default bing [EX: -m google | bing | ask | all] \n"; 
+  print "   -m            | Set engine motors. default bing [EX: -m [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all] \n";
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";
   print "   --joomrfi     | Scan for joomla local file inclusion\n";
@@ -3239,7 +3253,8 @@ sub help {
   print "  ......................\n";
   print "\033[0;37m";
   print "    Search: --dork <dork> --level <level> \n";
-  print "    Set engine: --dork <dork> --level <level> [EX: -m google | bing | ask | yandex | all]\n";  
+  print "    Set engine: --dork <dork> --level <level> -m [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all]\n";
+  print "    Set selective engines: --dork <dork> --level <level> -m 1,2,3..\n";  
   print "    Search with many dorks: --dork <dork1,dork2,dork3> --level <level> \n";
   print "    Search + get emails: --dork <dorks.txt> --level <level> --email \n";
   print "    Search + get site emails: --dork <site:site.com> --level <level> --email \n";
@@ -3503,9 +3518,10 @@ if (((!defined $proxy) && (!defined $tor)) || (defined $proxy and substr($proxy,
 ############################################################################################################################################################################################
 ## CHECK MOTORS ARGUMENTS
 if (defined $motor) {
-  if ($motor !~ /bing|google|ask|yandex|all/) {
+  if ($motor !~ /1|2|3|4|5|all/) {
     finInfoMenu();      
-    print "\033[0;31m[!] Just you can use Bing / Google / Ask /yandex search! Soon more engines..\n";
+    print "\033[0;31m[!] Usage -m [1,2,...]\n";
+    print "\033[0;31m[!] Engines: [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all] \n";   
     exit();
   }
 }

@@ -2729,14 +2729,14 @@ sub mcommand {
           $URL = $URL.$exp;
           my $cod = "$command $URL";
 	      print "\033[1;37m    CMD:    ";
-          print "\033[0;37m$cod \n\n";
+          print "\033[0;37m$cod\n";
           system($cod);
 	    }
 	  }
     }else{
       my $cod = "$command $URL";
 	  print "\033[1;37m    CMD:    ";
-      print "$cod \n\n";
+      print "\033[0;37m$cod \n";
       system($cod);
     }
     print "    \033[0;37m[ ]--------------------------------------------------------------------\n";

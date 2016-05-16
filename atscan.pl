@@ -72,7 +72,7 @@ if (!-d $outdir) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## TOOL VERSION
-my $existantVersion='version 8.6 Stable';
+my $existantVersion='version 8.7 Stable';
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LOGO VERSION
@@ -908,7 +908,7 @@ sub dorkList {
       }
 	}
   }elsif (defined $rangip) {
-    if (($rangip =~ /(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/) && ($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
+    if (($rangip =~ /(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\-(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/) && ($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
       my $startIp = $1.".".$2.".".$3.".".$4;
       my $endIp = $5.".".$6.".".$7.".".$8;
       my (@ip,@newIp,$i,$newIp,$j,$k,$l);
@@ -1145,7 +1145,9 @@ sub checkExtraInfo {
 sub scanRegexYes {
   my $yes;
   if (defined $validText) {$yes = $validText;}
-  elsif (defined $xss) {$yes = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error|You have an error in your SQL syntax';  }
+  elsif (defined $WpSites) {$yes = '<a href=\"https://wordpress.org/">Proudly powered by WordPress|/wp-content/';}
+  elsif (defined $JoomSites) {$yes = '<meta name="generator" content="Joomla|index.php?option=com_';}
+  elsif (defined $xss) {$yes = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error|You have an error in your SQL syntax';}
   elsif (defined $lfi) {$yes = 'root:x|bin:x|nologin';}
   elsif (defined $JoomRfi) {$yes = 'r57shell|safe_mode|Executed|Shell';}
   elsif (defined $WpAfd) {$yes = 'DB_NAME|DB_USER|DB_PASSWORD';}
@@ -1244,10 +1246,11 @@ sub checkedUrl {
     getErrors($html);
   }
   print "\033[1;37m    SCAN:   ";
+  
   if (defined $misup and $status=="200") {
     saveme($URL1);
   }elsif (($html =~ /$yes/) && ($html !~ /$no/)) {
-    if ((defined $validText) || (defined $xss)) {
+    if ((defined $validText) || (defined $xss) || (defined $WpSites) || (defined $JoomSites)) {
 	  saveme($URL1);
 	}else{
 	  if ($response->is_success and !$response->previous) {
@@ -1486,8 +1489,7 @@ sub deleteLists {
 ############################################################################################################################################################################################
 ## SEARCH ENGINE
 sub submsearch {
-  my $checksearchscanlist = $Bin."/aTsearch.txt";
-  if (-e $checksearchscanlist){ unlink $checksearchscanlist};
+  if (-e $Bin."/aTsearch.txt"){ unlink $Bin."/aTsearch.txt"};
   deleteLists();
   dorkList($dork);
   msearch();
@@ -1553,8 +1555,8 @@ sub msearch {
 	  countLists($file);
       my $printdork = $dork;
 	  $printdork =~ s/\+/ /g;
+      $printdork=~ s/ip%3A//g;
 	  print "\033[0;36m][$printdork]\n";
-      print "\033[1;37m[ ] ....................................................................... \n";
     }
     my $motor1="http://www.bing.com/search?q=MYDORK&first=MYNPAGES&FORM=PERE&cc=MYBROWSERLANG";
     my $motor2="http://www.google.MYGOOGLEDOMAINE/search?q=MYDORK&start=MYNPAGES";
@@ -1627,17 +1629,13 @@ sub msearch {
 			    $check =~ s/$pat2//g;
 	          }elsif (defined $ifinurl) {
 		        $check=$ifinurl;
-	          }elsif ((defined $WpAfd) || (defined $WpSites)) {
-		        $check="\/wp-content\/";
-			  }elsif ((defined $JoomRfi) || (defined $JoomSites)) {
-			    $check="\/index.php?option=com_";
 	          }else{
 		        $check='.';
 		      }
            	  if (index($URL, $check) != -1) {
 			    my $URL=$URL;
 			    if ($URL=~ /\b((?=[a-z0-9-]{1,63}\.)[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/) {
-			      if ((defined $msites) || (defined $mdom)) {
+			      if ((defined $msites) || (defined $mdom) || (defined $WpSites) || (defined $JoomSites)) {
 				    $URL = removeProtocol($URL);
                     $URL=~s/\/.*//s;
 			        $URL=checkUrlSchema($URL);
@@ -1677,7 +1675,7 @@ sub msearch {
 	  chomp $URL;                  
 	  $count2++;
 	  my $URL=checkUrlSchema($URL);			 
-	  if ((!defined $xss) && (!defined $exploit) && (!defined $lfi) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf)) {				    
+	  if ((!defined $WpSites) && (!defined $JoomSites) && (!defined $xss) && (!defined $exploit) && (!defined $lfi) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf)) {				    
 	    print "\033[1;33m    ";
 	    timer();
 	    print "[Target $count2]\n";
@@ -1716,7 +1714,7 @@ sub msearch {
     close $fh;
 	print "Unique Result(s) Found!\n";
     deleteLists();
-	if ((!defined $xss) && (!defined $exploit) && (!defined $lfi) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf)) {
+	if ((!defined $WpSites) && (!defined $JoomSites) && (!defined $xss) && (!defined $exploit) && (!defined $lfi) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf)) {
 	  if (defined $output) {
 	    my $listme = $Bin."/aTsearch.txt";
 		my $save = "$outdir/$output";
@@ -1737,6 +1735,8 @@ sub msearch {
   }
   if (defined $misup) {misup();}
   if (defined $validText) { validation();}
+  if (defined $WpSites) { WpSites();}
+  if (defined $JoomSites) { JoomSites();}
   if (defined $xss) {xss();}
   if (defined $lfi) { lfi();}
   if (defined $JoomRfi) { JoomRfi();}
@@ -1813,7 +1813,7 @@ sub misup {
   if (-e $Bin.'/aTscan.txt') {
   	countResultLists();
 	unlink $Bin.'/aTsearch.txt';
-    if ((!defined $validText) && (!defined $command) && (!defined $xss) && (!defined $lfi) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $adminPage) && (!defined $subdomain) && (!defined $mupload) && (!defined $mzip) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf) && (!defined $command)) {
+    if ((!defined $validText) && (!defined $WpSites) && (!defined $JoomSites) && (!defined $command) && (!defined $xss) && (!defined $lfi) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $adminPage) && (!defined $subdomain) && (!defined $mupload) && (!defined $mzip) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf) && (!defined $command)) {
 	  adios();
 	}else{
       use File::Copy qw(copy);
@@ -1888,11 +1888,107 @@ sub validation {
   if (-e $Bin.'/aTscan.txt') {
   	countResultLists();
 	unlink $Bin.'/aTsearch.txt';
-    if ((!defined $command) && (!defined $xss) && (!defined $lfi) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $adminPage) && (!defined $subdomain) && (!defined $mupload) && (!defined $mzip) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf) && (!defined $command)) {
+    if ((!defined $WpSites) && (!defined $JoomSites) && (!defined $command) && (!defined $xss) && (!defined $lfi) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $adminPage) && (!defined $subdomain) && (!defined $mupload) && (!defined $mzip) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf) && (!defined $command)) {
 	  adios();
 	}else{
       use File::Copy qw(copy);
 	  copy $Bin.'/aTscan.txt', $Bin.'/aTsearch.txt';
+	}
+	resultsTOcommand();
+	unlink $Bin.'/aTscan.txt';
+  }else{
+	negativeExit();
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## GET WORDPRESS SITES
+sub WpSites {
+  if (-e $Bin.'/aTscan.txt'){ unlink $Bin.'/aTscan.txt';}
+  headerScan();
+  print "\033[1;37mWORDRESS SITES";
+  scanTitleEnd();
+  my $count=0;
+  open (TEXT, $Bin.'/aTsearch.txt');
+  while (my $URL = <TEXT>) {
+    $count++;
+	chomp $URL;
+    $URL = checkUrlType($URL);
+	$URL=checkUrlSchema($URL);	
+	my $printarget = $URL;
+	print "\033[1;33m    ";
+	timer();
+	print "[Target $count/";
+	my $file=$Bin."/aTsearch.txt";
+	countLists($file);
+	print "\033[1;33m]\n";
+	print "\033[1;37m    TARGET: ";
+	print "\033[0;35m$printarget\n";
+	$printarget=validateUrl($printarget);
+	if ($printarget eq 'checkednovalidurl') {adviseUrl();next;}
+    
+    my $URL1 = $URL;
+    $URL1 =~ s/ //g;
+	checkedUrl($URL1);
+    print "    \033[0;37m[ ]--------------------------------------------------------------------\n";
+  }
+  close(TEXT);
+  if (-e $Bin.'/aTscan.txt') {
+  	countResultLists();
+    if ((!defined $JoomSites) && (!defined $command) && (!defined $xss) && (!defined $lfi) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $adminPage) && (!defined $subdomain) && (!defined $mupload) && (!defined $mzip) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf) && (!defined $command)) {
+	  if (defined $output) {
+	    output($output);
+	  }
+      subfin();
+	  unlink $Bin.'/aTsearch.txt';
+	}
+	resultsTOcommand();
+	unlink $Bin.'/aTscan.txt';
+  }else{
+	negativeExit();
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## GET WORDPRESS SITES
+sub JoomSites {
+  if (-e $Bin.'/aTscan.txt'){ unlink $Bin.'/aTscan.txt';}
+  headerScan();
+  print "\033[1;37mJOOMLA SITES";
+  scanTitleEnd();
+  my $count=0;
+  open (TEXT, $Bin.'/aTsearch.txt');
+  while (my $URL = <TEXT>) {
+    $count++;
+	chomp $URL;
+    $URL = checkUrlType($URL);
+	$URL=checkUrlSchema($URL);	
+	my $printarget = $URL;
+	print "\033[1;33m    ";
+	timer();
+	print "[Target $count/";
+	my $file=$Bin."/aTsearch.txt";
+	countLists($file);
+	print "\033[1;33m]\n";
+	print "\033[1;37m    TARGET: ";
+	print "\033[0;35m$printarget\n";
+	$printarget=validateUrl($printarget);
+	if ($printarget eq 'checkednovalidurl') {adviseUrl();next;}
+    
+    my $URL1 = $URL;
+    $URL1 =~ s/ //g;
+	checkedUrl($URL1);
+    print "    \033[0;37m[ ]--------------------------------------------------------------------\n";
+  }
+  close(TEXT);
+  if (-e $Bin.'/aTscan.txt') {
+  	countResultLists();
+    if ((!defined $command) && (!defined $xss) && (!defined $lfi) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $adminPage) && (!defined $subdomain) && (!defined $mupload) && (!defined $mzip) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf) && (!defined $command)) {
+	  if (defined $output) {
+	    output($output);
+	  }
+      subfin();
+	  unlink $Bin.'/aTsearch.txt';
 	}
 	resultsTOcommand();
 	unlink $Bin.'/aTscan.txt';
@@ -3547,6 +3643,8 @@ if (defined $mlevel) {
     scanDetail();
     if (defined $misup) {misup();}
     if (defined $validText) { validation();}
+    if (defined $validText) { validation();}
+    if (defined $WpSites) { WpSites();}   
     if (defined $xss) { xss();}
 	if (defined $lfi) { lfi();}
 	if (defined $JoomRfi) { JoomRfi();}

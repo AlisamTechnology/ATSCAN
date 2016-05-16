@@ -2620,6 +2620,7 @@ sub BFmwpsites {
 	open(PASS,"<$password") or die "[!] Can not find $!";
     while(<PASS>){
         chomp($_);
+        my $printPass=$_;
 		$_ =~ s/([^^A-Za-z0-9\-_.!~*'()])/ sprintf "%%%0x", ord $1 /eg;
 		if (defined $random) {newIdentity();}
         my $ua = new LWP::UserAgent;
@@ -2632,9 +2633,8 @@ sub BFmwpsites {
         my $content = $response->content;
         print "\033[1;37m    USER:   ";
 	    print "\033[0;37m$username\n";
-        $_ =~ s/([^^A-Za-z0-9\-_.!~*'()])/ sprintf "%%%0x", ord $1 /eg;
         print "\033[1;37m    PASS:   ";
-	    print "\033[0;37m$_\n";
+	    print "\033[0;37m$printPass\n";
         print "\033[1;37m    SCAN:   ";
 	    my $pa='Bienvenido|Welcome|Bienvenue|log off|Cerrar Sesion|Se deconnecter';
         if ($content =~ /$pa/) {
@@ -2710,6 +2710,7 @@ sub BFmjoomsites {
 	  open(PASS,"<$password") or die "[!] Can not find $!";
       while(<PASS>){
         chomp($_);
+        my $printPass=$_;
 		$_ =~ s/([^^A-Za-z0-9\-_.!~*'()])/ sprintf "%%%0x", ord $1 /eg;
 		if (defined $random) {newIdentity();}
         my $ua = new LWP::UserAgent;
@@ -2723,8 +2724,7 @@ sub BFmjoomsites {
         print "\033[1;37m    USER:   ";
 	    print "\033[0;37m$username\n";       
         print "\033[1;37m    PASS:   ";
-        $_ =~ s/([^^A-Za-z0-9\-_.!~*'()])/ sprintf "%%%0x", ord $1 /eg;
-	    print "$_\n";
+	    print "$printPass\n";
         print "\033[1;37m    SCAN:   ";
 	    my $pa='Panel de Control|Control Panel|Bienvenue|log off|Cerrar Sesion|Se deconnecter';
         if ($content =~ /$pa/) {

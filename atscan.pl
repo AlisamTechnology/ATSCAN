@@ -969,7 +969,7 @@ sub targetList {
   my $checkDorkList = $Bin."/aTsearch.txt";
   if (-e $checkDorkList){ unlink $checkDorkList};
   if (defined $rangip) {
-    if (($rangip =~ /(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/) && ($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
+    if (($rangip =~ /(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\-(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/) && ($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
       my $startIp = $1.".".$2.".".$3.".".$4;
       my $endIp = $5.".".$6.".".$7.".".$8;
       my (@ip,@newIp,$i,$newIp,$j,$k,$l);
@@ -1145,23 +1145,14 @@ sub checkExtraInfo {
 sub scanRegexYes {
   my $yes;
   if (defined $validText) {$yes = $validText;}
-  elsif (defined $WpSites) {$yes = '<a href=\"https://wordpress.org/">Proudly powered by WordPress|/wp-content/';}
-  elsif (defined $JoomSites) {$yes = '<meta name="generator" content="Joomla|index.php?option=com_';}
+  elsif (defined $WpSites) {$yes = 'Proudly powered by WordPress|wp-content';}
+  elsif (defined $JoomSites) {$yes = '<meta name=\"generator\" content=\"Joomla|index.php?option=com_';}
   elsif (defined $xss) {$yes = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error|You have an error in your SQL syntax';}
   elsif (defined $lfi) {$yes = 'root:x|bin:x|nologin';}
   elsif (defined $JoomRfi) {$yes = 'r57shell|safe_mode|Executed|Shell';}
   elsif (defined $WpAfd) {$yes = 'DB_NAME|DB_USER|DB_PASSWORD';}
   elsif (defined $eMails) {$yes = '((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})';}
   else{$yes = '';}
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## GET SCAN NO REGEX
-sub scanRegexNo {
-  my $no;
-  if ((defined $misup) || (defined $validText) || (defined $xss) || (defined $lfi) || (defined $WpAfd) || (defined $adminPage) || (defined $WpSites) || (defined $JoomSites) || (defined $eMails)) {
-  $no = 'not found|404|not exist|ErrorDocument|Forbidden|The page you requested couldn\'t be found';}
-  else{$no="z92qxx1e12k34569me3effw12k34569mfff512k12k34569m34569mn87";}
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1223,7 +1214,6 @@ sub output {
 sub checkedUrl {
   my $URL1=$_[0];
   my $yes=scanRegexYes();
-  my $no=scanRegexNo();
   my $cmails=scanEmails();
   if (defined $random) {newIdentity();}
   my $request = HTTP::Request->new('GET', $URL1);
@@ -1249,7 +1239,7 @@ sub checkedUrl {
   
   if (defined $misup and $status=="200") {
     saveme($URL1);
-  }elsif (($html =~ /$yes/) && ($html !~ /$no/)) {
+  }elsif ($html =~ /$yes/) {
     if ((defined $validText) || (defined $xss) || (defined $WpSites) || (defined $JoomSites)) {
 	  saveme($URL1);
 	}else{

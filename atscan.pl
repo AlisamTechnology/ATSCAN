@@ -2632,7 +2632,7 @@ sub BFmwpsites {
         my $content = $response->content;
         print "\033[1;37m    USER:   ";
 	    print "\033[0;37m$username\n";
-        $_ =~ s/%([0-9A-Fa-f]{2})/chr(hex($1))/eg;
+        $_ =~ s/([^^A-Za-z0-9\-_.!~*'()])/ sprintf "%%%0x", ord $1 /eg;
         print "\033[1;37m    PASS:   ";
 	    print "\033[0;37m$_\n";
         print "\033[1;37m    SCAN:   ";
@@ -2723,7 +2723,7 @@ sub BFmjoomsites {
         print "\033[1;37m    USER:   ";
 	    print "\033[0;37m$username\n";       
         print "\033[1;37m    PASS:   ";
-        $_ =~ s/%([0-9A-Fa-f]{2})/chr(hex($1))/eg;
+        $_ =~ s/([^^A-Za-z0-9\-_.!~*'()])/ sprintf "%%%0x", ord $1 /eg;
 	    print "$_\n";
         print "\033[1;37m    SCAN:   ";
 	    my $pa='Panel de Control|Control Panel|Bienvenue|log off|Cerrar Sesion|Se deconnecter';

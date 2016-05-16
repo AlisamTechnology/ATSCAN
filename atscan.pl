@@ -1625,7 +1625,7 @@ sub msearch {
            	  if (index($URL, $check) != -1) {
 			    my $URL=$URL;
 			    if ($URL=~ /\b((?=[a-z0-9-]{1,63}\.)[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/) {
-			      if ((defined $msites) || (defined $mdom) || (defined $WpSites) || (defined $JoomSites)) {
+			      if ((defined $msites) || (defined $mdom)) {
 				    $URL = removeProtocol($URL);
                     $URL=~s/\/.*//s;
 			        $URL=checkUrlSchema($URL);
@@ -1903,7 +1903,9 @@ sub WpSites {
   while (my $URL = <TEXT>) {
     $count++;
 	chomp $URL;
-    $URL = checkUrlType($URL);
+    $URL = checkUrlType($URL);   
+	$URL = removeProtocol($URL);
+    $URL=~s/\/.*//s;
 	$URL=checkUrlSchema($URL);	
 	my $printarget = $URL;
 	print "\033[1;33m    ";
@@ -1952,6 +1954,8 @@ sub JoomSites {
     $count++;
 	chomp $URL;
     $URL = checkUrlType($URL);
+	$URL = removeProtocol($URL);
+    $URL=~s/\/.*//s;   
 	$URL=checkUrlSchema($URL);	
 	my $printarget = $URL;
 	print "\033[1;33m    ";

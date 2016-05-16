@@ -703,8 +703,8 @@ sub progressbar {
 ## SCAN DETAILS
 sub scanDetail {
   if (defined $Target) {
-    print "\033[1;33m[!] TARGET:: ";
-    print "\033[0;36m$Target ";
+    print "\033[1;33m[!] TARGET::";
+    print "\033[0;36m [$Target]";
 	if ($Target =~ m/.txt/i){
 	  my $file=$Target;
 	  print "[";
@@ -714,63 +714,63 @@ sub scanDetail {
 	print "\n";
   }
   if (defined $rangip) {
-    print "\033[1;33m[!] TARGET:: ";
-    print "\033[0;36mRange [$rangip]\n";
+    print "\033[1;33m[!] TARGET::";
+    print "\033[0;36m [Range $rangip]\n";
   }
-  print "\033[1;33m[:] PROXY:: ";
+  print "\033[1;33m[:] PROXY::";
   if ((!defined $tor) && (!defined $proxy)) {
-    print "\033[0;36mNo!";
+    print "\033[0;36m [No Proxy]";
   }else{
-    if (defined $tor) { print "\033[0;36mTor Proxy";}
+    if (defined $tor) { print "\033[0;36m [Tor Proxy]";}
     if (defined $proxy) {
-	  print "\033[0;36m$proxy";
+	  print "\033[0;36m [$proxy]";
 	  if (substr($proxy, -4) eq '.txt') {
 	    my $file = $proxy;
 	    countProxies($file);
 	  }
 	}
-	if (defined $random) { print "\033[0;36m[Random Proxy]";}
+	if (defined $random) { print "\033[0;36m [Random Proxy]";}
   }
   print "\n";
   if (defined $password) {
-    print "\033[1;33m[:] LIST:: ";
-    print "\033[0;36m[$password][";
+    print "\033[1;33m[:] LIST::";
+    print "\033[0;36m [$password][";
 	my $file=$password;
 	countLists($file);
 	print "\033[0;36m]\n";
   }
   if ((defined $misup) || (defined $validText) || (defined $ifinurl)) {
-    print "\033[1;33m[:] VALIDATION:: ";
+    print "\033[1;33m[:] VALIDATION::";
     if (defined $validText) { 
-      print "\033[0;36m$validText ";
+      print "\033[0;36m [$validText]";
     }
     if (defined $misup) { 
-      print "\033[0;36m/HTTP/1.1 200 ";
+      print "\033[0;36m [HTTP/1.1 200]";
     }
 	if (defined $ifinurl) { 
-      print "\033[0;36m/Validate Url ";
+      print "\033[0;36m [Validate Url]";
     }
     print "\n";
   }
   if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64) || (defined $mdom) || (defined $exploit) || (defined $replace)) {
-    print "\033[1;33m[:] EXPLOITATION:: ";
+    print "\033[1;33m[:] EXPLOITATION::";
     if (defined $mmd5) {
-      print "\033[0;36mMD5 ";
+      print "\033[0;36m [MD5]";
 	}
 	if (defined $mencode64) {
-      print "\033[0;36m/Encode Base64 ";
+      print "\033[0;36m [Encode Base64]";
 	}
 	if (defined $mdecode64) {
-      print "\033[0;36m/Decode Base64 ";
+      print "\033[0;36m [Decode Base64]";
 	}
     if (defined $mdom) {
-      print "\033[0;36m/Remove parameters ";
+      print "\033[0;36m [Remove parameters]";
     }
 	if ((defined $replace) && (defined $with)){
-      print "\033[0;36m/Replace  ";
+      print "\033[0;36m [Replace]";
 	}
     if (defined $exploit){
-      print "\033[0;36m/[";
+      print "\033[0;36m[";
       my $file = $Bin."/aTexploits.txt";
 	    countLists($file);
       print "\033[0;36m Exploit/s Found!]";
@@ -778,27 +778,27 @@ sub scanDetail {
     print "\n";
   }
   if ((defined $xss) || (defined $lfi) || (defined $adminPage) || (defined $JoomRfi) || (defined $WpAfd) || (defined $mports) || (defined $mupload) || (defined $mzip) || (defined $eMails) || (defined $joomBf) || (defined $WpBf)) {
-    print "\033[1;33m[:] SCAN:: ";
+    print "\033[1;33m[:] SCAN::";
     if (defined $xss) {
-      print "\033[0;36m/Xss ";
+      print "\033[0;36m [Xss]";
 	  if (defined $p){
-        print "\033[0;36m[Vul Param: $p] ";
+        print "\033[0;36m [Vul Param: $p]";
 	  }
     }
     if (defined $lfi) {
-      print "\033[0;36m/Lfi ";
+      print "\033[0;36m [Lfi]";
     }
     if (defined $adminPage) {
-      print "\033[0;36m/Admin ";
+      print "\033[0;36m [Admin]";
     }
     if (defined $JoomRfi) {
-      print "\033[0;36m/Rfi ";
+      print "\033[0;36m [Rfi]";
     }
     if (defined $WpAfd) {
-      print "\033[0;36m/Adf ";
+      print "\033[0;36m [Adf]";
     }
     if (defined $mports) {
-      print "\033[0;36m/Ports ";
+      print "\033[0;36m [Ports]";
 	  
       if (defined $mbasic) {
         if (defined $tcp) { print "Basic tcp"; }
@@ -817,65 +817,65 @@ sub scanDetail {
 	  }
     }
     if (defined $mupload) {
-      print "\033[0;36m/Upload ";
+      print "\033[0;36m [Upload]";
     }
     if (defined $mzip) {
-      print "\033[0;36m/Zip ";
+      print "\033[0;36m [Zip]";
     }
     if (defined $eMails) {
-      print "\033[0;36m/E-mails ";
+      print "\033[0;36m [E-mails]";
     }
 	if (defined $WpBf) {
-      print "\033[0;36m/WP Brute Force ";
+      print "\033[0;36m [WP Brute Force]";
     }
 	if (defined $joomBf) {
-      print "\033[0;36m/Joom Brute Force ";
+      print "\033[0;36m [Joom Brute Force]";
     }
     print "\n";
   } 
   if ((defined $msites) || (defined $WpSites) || (defined $JoomSites) || (defined $subdomain)){
-    print "\033[1;33m[:] GET:: ";
+    print "\033[1;33m[:] GET::";
     if (defined $msites) { 
-      print "\033[0;36m/Server sites ";
+      print "\033[0;36m [Server sites]";
     }
     if (defined $WpSites) { 
-      print "\033[0;36m/WP sites ";
+      print "\033[0;36m [WP sites]";
     }
     if (defined $JoomSites) { 
-      print "\033[0;36m/JOOM sites ";
+      print "\033[0;36m [JOOM sites]";
     }
     if (defined $subdomain) { 
-      print "\033[0;36m/Subdomains ";
+      print "\033[0;36m [Subdomains]";
     }
     print "\n";
   }
   if (defined $shell) {
-    print "\033[1;33m[:] SHELL:: ";
-    print "\033[0;36m$shell \n";
+    print "\033[1;33m[:] SHELL::";
+    print "\033[0;36m [$shell]\n";
   }
   if (defined $mlevel) {
-    print "\033[1;33m[:] SCAN LEVEL:: ";
-    print "\033[0;36m$mlevel \n";
+    print "\033[1;33m[:] SCAN LEVEL::";
+    print "\033[0;36m [$mlevel]\n";
   }
   if (defined $command){
-    print "\033[1;33m[:] EXTERN CMD:: ";
-    print "\033[0;36m/External Command\n";
+    print "\033[1;33m[:] EXTERN CMD::";
+    print "\033[0;36m [External Command]\n";
   }
   if (defined $output) {
-    print "\033[1;33m[:] OUTPUT:: ";
-    print "\033[0;36m$outdir/\n";
+    print "\033[1;33m[:] OUTPUT::";
+    print "\033[0;36m [$outdir/]\n";
   }
   if (defined $checkVersion) {
-    print "\033[1;33m[:] TASK:: ";
-    print "\033[0;36m/Update Version\n";
+    print "\033[1;33m[:] TASK::";
+    print "\033[0;36m [Update Version]\n";
   }
   if ((defined $noinfo) || (defined $beep)) {
-    print "\033[1;33m[:] EXTRA:: ";
+    print "\033[1;33m[:] EXTRA::";
 	if (defined $noinfo) {
-      print "\033[0;36m/No extra info ";
+      print "\033[0;36m [No extra info]";
 	}
 	if (defined $beep) {
-      print "\033[0;36m/Beep Sound ";
+      print "\033[0;36m [Beep Sound]";
 	}
     print "\n";
   }
@@ -1145,7 +1145,7 @@ sub checkExtraInfo {
 sub scanRegexYes {
   my $yes;
   if (defined $validText) {$yes = $validText;}
-  elsif (defined $WpSites) {$yes = 'Proudly powered by WordPress|wp-content';}
+  elsif (defined $WpSites) {$yes = '<a href=\"https:\/\/wordpress.org/\">Proudly powered by WordPress|\/wp-content\/';}
   elsif (defined $JoomSites) {$yes = '<meta name=\"generator\" content=\"Joomla|index.php?option=com_';}
   elsif (defined $xss) {$yes = 'MySQL|syntax|SQL|mysql_fetch_assoc|num_rows|ORA-01756|PostgreSQL|internal server error|You have an error in your SQL syntax';}
   elsif (defined $lfi) {$yes = 'root:x|bin:x|nologin';}
@@ -2793,10 +2793,7 @@ sub mcommand {
 	if ((!defined $misup) && (!defined $validText)) {
       $URL = control($URL);
 	}
-	$URL=checkUrlSchema($URL);
-	if (defined $command) {
-	  $command =~ s/--TARGET//g;
-	}
+	$URL=checkUrlSchema($URL);	
 	if ((!defined $xss) && (!defined $lfi) && (!defined $command) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails) && (!defined $WpBf) && (!defined $joomBf)) {
 	  if (defined $exploit) {
         my $count3=0;  
@@ -2812,18 +2809,20 @@ sub mcommand {
 	      print "\033[0;36m]\n";
 	      print "\033[1;37m    EXPLT:  ";
 	      print "\033[0;37m$exp\n";
-          $URL = $URL.$exp;
-          my $cod = "$command $URL";
+          $URL = $URL.$exp;         
+	      if (defined $command) {
+	        $command =~ s/\-\-TARGET/$URL/g;
+	      }       
 	      print "\033[1;37m    CMD:    ";
-          print "\033[0;37m$cod\n";
-          system($cod);
+          print "\033[0;37m$command\n";
+          system($command);
 	    }
 	  }
     }else{
-      my $cod = "$command $URL";
+	  $command =~ s/\-\-TARGET/$URL/g;	  
 	  print "\033[1;37m    CMD:    ";
-      print "\033[0;37m$cod \n";
-      system($cod);
+      print "\033[0;37m$command\n";
+      system($command);
     }
     print "    \033[0;37m[ ]--------------------------------------------------------------------\n";
   }
@@ -3657,7 +3656,7 @@ if (defined $mlevel) {
 	  }
       if (defined $muser) {
 	    if ((!defined $mstart) && (!defined $mend)) {
-          print "\033[0;33m[!] Set a port range! [Ex: --start 21 --end 81]\n";          
+          print "\033[0;33m[!] Set a port rang! [Ex: --start 21 --end 81]\n";          
 	      exit();
 	    }else{
           if (defined $tcp) { user('tcp');}

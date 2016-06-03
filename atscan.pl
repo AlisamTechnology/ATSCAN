@@ -48,7 +48,7 @@ use HTML::Entities;
 #   Extern commands execution.
 #   Disponible on BlackArch Linux Platform.
 #
-#   [::] AUTOR:        Alisam Technology - MEZGUIDA HACHERS -
+#   [::] AUTOR:        Alisam Technology - MEZGUIDA DEVELOPERS -
 #   [::] FB:           https://facebook.com/Forces.des.tempetes.marocaines
 #   [::] Twitter:      https://twitter.com/AlisamTechno
 #   [::] Pastebin      http://http://pastebin.com/u/Alisam_Technology
@@ -1566,22 +1566,15 @@ sub makeSscan {
             print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc] $exp\n";
             my $URL1 = $URL.$exp;
             $URL1 =~ s/ //g;
-            if ($comnd) {
-              doScan($URL1, $filter, "", "", "", $comnd);
-            }else{
-              doScan($URL1, $filter, "", "", "", ""); stak() if $count3==$lc ;              
-            }
+            if ($comnd) { doScan($URL1, $filter, "", "", "", $comnd); }
+            else{ doScan($URL1, $filter, "", "", "", ""); stak() if $count3==$lc ; }
           }
           close (EXP);                   
         }else{
           my $URL1 = $URL; $URL1 =~ s/ //g;
-          if ($reg) {
-            doScan($URL1, $filter, "", "", $reg, "");
-          }elsif ($comnd) {
-            doScan($URL1, $filter, "", "", "", $comnd);
-          }else{
-            doScan($URL1, $filter, "", "", "", ""); 
-          }
+          if ($reg) { doScan($URL1, $filter, "", "", $reg, ""); }
+          elsif ($comnd) { doScan($URL1, $filter, "", "", "", $comnd); }
+          else{ doScan($URL1, $filter, "", "", "", ""); }
         }
       }else{
         my $URL1 = $URL; $URL1 =~ s/ //g; doScan($URL1, $filter, $result, "", "", ""); }
@@ -1632,16 +1625,11 @@ sub doScan {
 ## PRINT RESULTS
 sub printResults { 
   my ($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd) = @_; 
-  if ($result) { 
-    saveme($URL1);
-  }elsif ($reverse) { 
-    getSubDomaine($URL1);      
-  }elsif ($reg) {
-    getRegex($URL1, $html, $reg);
-  }elsif ($comnd) {
-    getComnd($URL1, $comnd);    
-  }else{ 
-    print $c[1]."    $DS[4]    ";      
+  if ($result) { saveme($URL1); }
+  elsif ($reverse) { getSubDomaine($URL1); }
+  elsif ($reg) { getRegex($URL1, $html, $reg); }
+  elsif ($comnd) { getComnd($URL1, $comnd); }
+  else{ print $c[1]."    $DS[4]    ";      
     if (($response->is_success and $status==200) && ($html=~/$filter/)) { 
       print $c[3]."$URL1";
       if (defined $beep) { print chr(7); } 

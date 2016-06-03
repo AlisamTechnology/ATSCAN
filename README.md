@@ -192,7 +192,7 @@
         <td class="main">Scan targets for ips.</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--ifirst</td>
+        <td width="200px" class="main">--pause</td>
         <td class="main">Pause scan when first result found.</td>
       </tr>
       <tr>

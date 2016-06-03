@@ -1775,7 +1775,6 @@ sub msearch {
           my $search=$ua->get("$motor");
           $search->as_string;
           my $Res=$search->content;
-		  #while($Res =~ m/((https?|ftps?):\/\/([^>\"\<\'\(\)]*))/g) {
           while($Res =~ m/$V_SEARCH/g) {
 		    my $URL=$1;
             if ($motor =~/$googleDomain/) { $URL=~s/\&.*//s; }

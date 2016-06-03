@@ -353,7 +353,7 @@
 
 <b>Regular Expressions Scan: </b><br/>
   Regex use: atscan [--dork dork | -t target] --level [level] --regex [regex] <br/>
-  EX: To get ips ((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3}))<br/>
+  EX: To get ips ((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})) <br/>
   EX: To get mails ((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}).<br/><br/>
 
 <b>Subscan from Serach Engine:</b><br/>

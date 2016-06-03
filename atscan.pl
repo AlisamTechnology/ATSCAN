@@ -48,7 +48,7 @@ use HTML::Entities;
 #   Extern commands execution.
 #   Disponible on BlackArch Linux Platform.
 #
-#   [::] AUTOR:        Alisam Technology - MEZGUIDA DEVELOPERS -
+#   [::] AUTOR:        Alisam Technology - MEZGUIDA HACHERS -
 #   [::] FB:           https://facebook.com/Forces.des.tempetes.marocaines
 #   [::] Twitter:      https://twitter.com/AlisamTechno
 #   [::] Pastebin      http://http://pastebin.com/u/Alisam_Technology
@@ -624,7 +624,7 @@ my $paylNote="[!] $DT[28]\n";
 sub osinfo { 
   use Config;
   print $c[5]." [::] GROUP:: ".$c[8]."ALISAM TECHNOLOGY\n";
-  print $c[5]." [::] TOOL:: ".$c[8]."ATSCAN SCANNER [$existantVersion]\n";
+  print $c[5]." [::] TOOL:: ".$c[8]."ATSCAN SCANNER [$logoVersion]\n";
   print $c[5]." [::] PATH:: ".$c[8]."$Bin/",basename($0)," \n";
   print $c[5]." [::] PERL VERSION:: ".$c[8]."[$^V]\n";
   print $c[5]." [::] PLATFORM:: ".$c[8]."[$Config{ osname} $Config{ archname}]\n";

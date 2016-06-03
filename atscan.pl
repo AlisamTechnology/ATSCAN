@@ -186,7 +186,7 @@ sub badArgs {
 ############################################################################################################################################################################################
 ## ARGUMENTS
 use Getopt::Long ();
-my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $tor, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQyery);
+my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $tor, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery);
 my %OPT;
 Getopt::Long::GetOptions(\%OPT,
                         'isup' => \$misup,
@@ -238,7 +238,7 @@ Getopt::Long::GetOptions(\%OPT,
        					'ip' => \$searchIps,
 						'regex=s' => \$regex,
                         'sregex=s'=> \$searchRegex,
-                        'noquery'=> \$noQyery,
+                        'noquery'=> \$noQuery,
 ) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -779,7 +779,7 @@ sub removeProtocol {
 ## REMOVE QUERY STRING
 sub removeQuery { 
   my $URL=$_[0];
-  removeProtocol($URL);
+  $URL=removeProtocol($URL);
   $URL=~s/\=.*/=/s;
   $URL=checkUrlSchema($URL);	
   return $URL;
@@ -808,7 +808,7 @@ sub checkIp{
 ## CHECK TARGETS FOR REPLACE OPTION
 sub control { 
   my $URL=$_[0];
-  if (defined $noQyery) { 
+  if (defined $noQuery) { 
     $URL=removeQuery($URL);
   }
   if ((!defined $misup) && (!defined $validText)) { 
@@ -1381,7 +1381,7 @@ sub scanDetail {
     if (defined $mzip) { print $c[8]."[$DS[64]\]"; }
     if (defined $eMails) {  print $c[8]."[$DS[53]\]"; }    
     if (defined $searchIps) { print $c[8]."[IP]"; }
-    if ((defined $regex) || (defined $searchRegex)) {  print $c[8]."[$DS[40]\]"; }
+    if ((defined $regex) || (defined $searchRegex)) {  print $c[8]."[$DS[41]\]"; }
     print "\n";
   } 
   if ((defined $msites) || (defined $WpSites) || (defined $JoomSites) || (defined $subdomain)) { 
@@ -1401,7 +1401,7 @@ sub scanDetail {
     print $c[5]." [::] $DS[16]:: ";
 	if (defined $noinfo) { print $c[8]."[$DS[38]\]"; }
 	if (defined $beep) { print $c[8]."[$DS[39]\]"; }
-	if (defined $noQyery) { print $c[8]."[$DS[40]\]"; }    
+	if (defined $noQuery) { print $c[8]."[$DS[40]\]"; }    
     print "\n";
   }
   if (!defined $mlevel) { desclaimer(); testConection(); }
@@ -1748,13 +1748,13 @@ sub getK {
 sub msearch {  
   headerSearch();
   my $lc=countAtdorks();
-  my $count=0;  
+  my $count=0;
   open (FILE, $aTdorks);
   while ($dork = <FILE>) { 
     chomp $dork;
 	$count++;
 	if (defined $Target) { $dork = "ip%3A".$dork; }
-	$dork =~ s/^\s+//;    
+	$dork =~ s/^\s+//;
     my @scanlist=&scan();
     sub scan() { 
       my @search;
@@ -1780,11 +1780,10 @@ sub msearch {
             $URL =~ s/%([0-9A-Fa-f]{ 2})/chr(hex($1))/eg;
 		    $URL = uri_unescape($URL);
 		    $URL = decode_entities($URL);
-            if ($URL !~ /$nolisting/) {               
-		      my $check = $dork;
-			  my $pat2 = 'inurl:|intitle:|intext:|allinurl:|index\+of\+';
+            if ($URL !~ /$nolisting/) {              
+			  my $pat2 = 'inurl:|intitle:|intext:|allinurl:|index of';
+              my $check = $dork;
               if (defined $unique) { 
-			    $check = $dork;
 			    $check =~ s/:\+/:/g;
 			    $check =~ s/$pat2//g;
 	          }elsif (defined $ifinurl) { $check=$ifinurl; }
@@ -1825,7 +1824,7 @@ sub msearch {
       unlink $aTscan;
       print $c[3]."[!] $lc $DT[4]\n";
     }
-  }else{ negative(); exit(); }
+  }else{ scanTitleEnd(); negative(); exit(); }
   Menu();
 }
 ############################################################################################################################################################################################
@@ -2208,22 +2207,17 @@ if (defined $exploit and substr($exploit, -4) eq '.txt') {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (EXLPOIT USE)
-if (defined $exploit) { 
-  if ((!defined $xss) && (!defined $lfi) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $eMails)) { 
-    desclaimer(); print $c[2]."[!] $DT[19]\n"; exit();
-  }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
+if ((defined $replace) || (defined $with) || (defined $noQuery) || (defined $exploit)) { 
+  if ((!defined $xss) && (!defined $lfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $eMails) && (!defined $searchIps)) { desclaimer(); print $c[4]."[!] $DT[19]\n"; exit(); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) { 
   if ((!defined $xss) && (!defined $exploit) && (!defined $lfi) && (!defined $ifinurl) && (!defined $WpSites) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $JoomSites) && (!defined $eMails) && (!defined $mlevel) && (!defined $searchIps) && (!defined $regex)) { advise(); }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
-if ((defined $replace) && (defined $with)) { 
-  if ((!defined $xss) && (!defined $exploit) && (!defined $lfi) && (!defined $ifinurl) && (!defined $misup) && (!defined $validText) && (!defined $adminPage) && (!defined $subdomain) && (!defined $JoomRfi) && (!defined $WpAfd) && (!defined $mports) && (!defined $mupload) && (!defined $mzip) && (!defined $command) && (!defined $msites) && (!defined $eMails)) { advise(); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################

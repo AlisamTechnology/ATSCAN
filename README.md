@@ -10,7 +10,8 @@
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
-    <td width="100px" class="main2"><b>Tool:</b></td><td width="780px">ATSCAN version 8.8</td>
+    <td width="100px" class="main2"><b>Tool:</b></td>
+    <td width="780px">ATSCAN version 9.0</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -37,7 +38,8 @@
   </tr>
   <tr>
     <td class="main" width="890px">Search engine Google / Bing / Ask / Yandex / Sogou <br />XSS scanner.<br /> 
-        LFI / ADF scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/> Scan E-mails in sites. <br/> Use proxy. <br/> Random user agent. <br/> Random proxy. <br/> Scan errors. <br/> Detect Cms.<br/>Multiple instant scan. <br/> Brute force.<br/>Extern commands execution.<br/>Scan errors.<br/>Disponible on BlackArch Linux Platform.
+        LFI / AFD scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br /> Decode / Encode MD5 + Base64.<br/> Ports scan. <br/>Scan ips<br/>Scan E-mails. <br/> Use proxy. <br/> Random user agent. <br/> Random proxy. <br/> Scan errors. <br/> Detect Cms.<br/>
+        Multiple instant scans. <br/>Extern commands execution.<br/>And more...
     </td>
   </tr>
 </table>
@@ -123,7 +125,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--random</td>
-        <td width="680px">Renew identity foreach link scaned.</td>
+        <td width="680px">Renew identity foreach link scanned.</td>
       </tr>
       <tr>
          <td width="200px" class="main">--dork</td>
@@ -178,6 +180,22 @@
         <td class="main">Get urls with exact dork matching</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--sregex</td>
+        <td class="main">Get all strings matching regex</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--unique</td>
+        <td class="main">Get urls with matching regex</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--ip</td>
+        <td class="main">Scan targets for ips.</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--ifirst</td>
+        <td class="main">Pause scan when first result found.</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--ifinurl</td>
         <td class="main">Text to validate target url</td>
       </tr>
@@ -208,20 +226,11 @@
       <tr>
         <td width="200px" class="main">--ports</td>
         <td class="main">scan server ports</td>
-      </tr>
+      </tr>    
       <tr>
-        <td width="200px" class="main">--start</td>
-        <td class="main">start scan port</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--end</td>
-        <td class="main">end scan port</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--complete</td>
-        <td class="main">Ports scan complete mode</td>
-      </tr>
-      
+        <td width="200px" class="main">--port</td>
+        <td class="main">port</td>
+      </tr>      
       <tr>
         <td width="200px" class="main">--udp</td>
         <td class="main">UDP port</td>
@@ -229,20 +238,7 @@
       <tr>
         <td width="200px" class="main">--tcp</td>
         <td class="main">TCP port</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--all</td>
-        <td class="main">TCP + UDP ports</td>
-      </tr>
-      
-      <tr>
-        <td width="200px" class="main">--basic</td>
-        <td class="main">Ports scan basic mode</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--select</td>
-        <td class="main">Select mode you can set rang of ports to scan</td>
-      </tr>
+      </tr>      
       <tr>
         <td width="200px" class="main">--sites</td>
         <td class="main">sites in the server</td>
@@ -299,30 +295,6 @@
         <td width="200px" class="main">--with</td>
         <td class="main">string to replace with</td>
       </tr>
-      <tr>
-        <td width="200px" class="main">--rang</td>
-        <td class="main">Set range of ip</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--wpbf</td>
-        <td class="main">Wordpress admin login brute force</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--joombf</td>
-        <td class="main">Joomla admin login brute force</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--fbbf</td>
-        <td class="main">Facebook login brute force</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--user</td>
-        <td class="main">Set username Wordpress/Joomla login brute force</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--pass</td>
-        <td class="main">Set password list Wordpress/Joomla login brute force</td>
-      </tr>
         <td width="200px" class="main">--nobanner</td>
         <td class="main">Hide tool banner</td>
       </tr>
@@ -331,12 +303,20 @@
         <td class="main">Jump extra results info.</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--save</td>
+        <td class="main">Set file to save results.</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--beep</td>
         <td class="main">Produce beep sound if positive scan found</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--help / -h</td>
         <td class="main">Help.</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--update</td>
+        <td class="main">Check / Update.</td>
       </tr> 
     </table></td>
   </tr>
@@ -347,83 +327,75 @@
   </tr>
   <tr>
     <td class="main">
-<b>Simple search: </b><br/>
-  Search: --dork [dork] --level [level] <br/>
-  Set engine: --dork <dork> --level <level> -m [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all]<br/>
-  Set selective engines: --dork <dork> --level <level> -m 1,2,3..
-  Search with many dorks: --dork [dork1,dork2,dork3] --level [level] <br/>
-  Search + Save results: --dork [dorks.txt] --level [level] --save<br/>
-  Search + Replace + Exploit: --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/>
-  Search + Extract e-mails: --dork [dorks.txt] --level [level] --email <br/>
-  <br/>
-
-<b>Subscan from Serach Engine: </b><br/>
-  Search + Exploitation: --dork [dork] --level [10] [--xss | --lfi | --wp |...] <br/>
-  Search + xss --dork [dork] --level [10] --xss <br/>
-  Search + Server Exploitation: -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
-  Search + Server Exploitation: --rang 133.21.10.155-19.102.25.14 --level [10] [--xss | --lfi | --wp |...] <br/>
-  Search + Server Exploitation: -t [ip] --level [10] [--wpbf | --joombf] --user [username] --pass [list.txt] <br/>
-  Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp |...] <br/><br/>
-
-<b>Validation: </b><br/>
-  Search + Exploit + Validation: --dork [dork] --level [10] --exp [--isup | --valid] [string] <br/>
-  Search + Url Validation: --dork [dork] --level [10] --unique <br/>
-  Search + Url Validation: --dork [dork] --level [10] --ifinurl [string] <br/>
-  Search + Server Exploit + Validation: -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
-  Search + Replace + Exploit: --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid] [string] <br/><br/>
-
-<b>Use List / Target: </b><br/>
-  -t [target/targets.txt] --exp [--isup | --valid] [string] <br/>
-  -t [target/targets.txt] --xss/--lfi ..  <br/><br/>
-
-<b>Server: </b><br/>
-  Get Server sites: -t [ip] --level [value] --sites <br/>
-  Get Server wordpress sites: -t [ip] --level [value] --wp <br/>
-  Get Server joomla sites: -t [ip] --level [value] --joom <br/>
-  Get Server upload sites: -t [ip] --level [value] --upload <br/>
-  Get Server zip sites files: -t [ip] --level [value] --zip <br/>
-  WP Arbitry File Download: -t [ip] --level [value] --wpafd <br/>
-  Joomla RFI: -t [ip] --level [1] --joomfri --shell [shell link] <br/>
-  Scan basic tcp (quick): -t [ip] --ports --basic --tcp <br/>
-  Scan basic udp basic (quick): -t [ip] --ports --basic --udp <br/>
-  Scan basic udp+tcp: -t [ip] --ports --basic --all <br/>
-  Scan complete tcp: -t [ip] --ports --complete --tcp <br/>
-  Scan complete udp: -t [ip] --ports --complete --udp <br/>
-  Scan complete udp+tcp: -t [ip] --ports --complete --all <br/>
-  Scan rang tcp: -t [ip] --ports --select  --tcp --start [value] --end [value] <br/>
-  Scan rang udp: -t [ip] --ports --select  --udp --start [value] --end [value] <br/>
-  Scan rang udp + tcp: -t [ip] --ports --select  --all --start [value] --end [value] <br/><br/>
-
-<b>Encode / Decode: </b><br/>
-  Generate MD5: --md5 [string] <br/>
-  Encode base64: --encode64 [string]  <br/>
-  Decode base64: --decode64 [string]  <br/><br/>
-
-<b>External Command: </b><br/>
- --dork [dork/dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
- -t [target/targets.txt] --level [level] --command "curl -v --TARGET" <br/><br/>
- 
-<b>Multiple Scan: </b><br/>
-  --dork [dork] --level [10] --xss --lfi --wp ... <br/>
-  --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] --xss --lfi --wp ... <br/>
-  -t [ip] --level [10] --xss --lfi --wp ... <br/>
-  --fbbf --user [email] --pass [pass.txt] <br/>
-  -t [targets] --xss --lfi --wp ...<br/><br/>
+<b>Proxy: </b><br/>
+  Tor --tor [proxy] [Ex: socks://localhost:9050].<br/>
+  Proxy --proxy [proxy] [Ex: http://12.32.1.5:8080] | --proxy [list.txt><br/>
+  Random --random<br/><br/>
     
-<b>Brute Force: </b><br/>
-  Facebook: --fbbf --user [email] --pass [list.txt] <br/>
-  Joomla + Wordpress: --dork [dorks.txt] --level [10] [--wpbf | --joombf] --user [username] --pass [list.txt] <br/>
-  
-<b>Check for updates: </b><br/>
-  --update</b><br/>
+<b>Simple search: </b><br/>
+  Search: atscan --dork [dork] --level [level]  <br/>
+  Set engine: atscan --dork [dork] --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
+  Set selective engines: atscan --dork [dork] --level [level] -m 1,2,3..   <br/>
+  Search with many dorks: atscan --dork [dork1,dork2,dork3] --level [level]    <br/>
+  Get Server sites: atscan -t [ip] --level [value] --sites <br/>
+  Get Server wordpress sites: atscan -t [ip] --level [value] --wp  <br/>
+  Get Server joomla sites: atscan -t [ip] --level [value] --joom  <br/>
+  Get Server upload sites: atscan -t [ip] --level [value] --upload  <br/>
+  Get Server zip sites files: atscan -t [ip] --level [value] --zip  <br/>
+  WP Arbitry File Download: atscan -t [ip] --level [value] --wpafd  <br/>
+  Joomla RFI: atscan  -t [ip] --level [10] --joomfri --shell [shell link] <br/>
+  Search + set save file: atscan --dork [dorks.txt] --level [level] --save <br/>
+  Replace + Exploit: atscan --dork [dorks.txt] --level [level] --replace [string] --with [string] --valid [string] <br/>  
+  Search + get emails: atscan --dork [dorks.txt] --level [level] --email  <br/>
+  Search + get site emails: atscan --dork [site:site.com] --level [level] --email  <br/>  
+  Search + get ips: atscan --dork [dork] --level [level] --ip  <br/>
+  Search by url regex: atscan --dork [dork] --level [level] --sregex [regex] <br/><br/>
+
+<b>Regular Expressions Scan: </b><br/>
+  Regex use: atscan [--dork dork | -t target] --level [level] --regex [regex] <br/>
+  EX: To get ips ((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3}))<br/>
+  EX: To get mails ((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}).<br/><br/>
+
+<b>Subscan from Serach Engine:</b><br/>
+  Exploitation: atscan --dork [dork] --level [10] [--xss | --lfi | --wp |...] <br/>
+  Server Exploitation: atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
+  Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--xss | --lfi |...]<br/><br/>
+
+<b>Validation:</b><br/>
+  Search + Url Validation: atscan --dork [dork] --level [10] --ifinurl [string] <br/>
+  Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
+  Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [--isup | --valid] [string] <br/>
+  Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
+  Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid] [string]<br/><br/>
+
+<b>Use List / Target:</b><br/>
+  atscan -t [target | targets.txt] --exp [--isup | --valid] [string] <br/>
+  atscan -t [target | targets.txt] [--xss | --lfi | --wp |...]<br/><br/>
+
+<b>Server Ports:</b><br/>
+  atscan -t [ip] --ports [--udp | --tcp] --port [port] <br/>
+  atscan -t (ip start)-(ip end) --ports [--udp | --tcp] --port [port] <br/>
+  atscan -t [ip] --ports [--udp | --tcp] --port (port start)-(port end)<br/><br/>
+
+<b>Encode / Decode:</b><br/>
+  Generate MD5: atscan --md5 [string]  <br/>
+  Encode base64: atscan --encode64 [string]  <br/> 
+  Decode base64: atscan --decode64 [string] <br/><br/>
+
+<b>External Command:</b><br/>
+  atscan --dork [dork | dorks.txt] --level [level] --command "curl -v --TARGET"  <br/>
+  atscan -t [target | targets.txt] --command "curl -v --TARGET" <br/> <br/>
+
+<b>Multiple Scan:</b><br/>
+  atscan --dork [dork] --level [10] --xss --lfi --wp .. <br/>
+  atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp |...] <br/>
+  atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
+  atscan -t [targets] [--xss | --lfi | --wp |...] <br/><br/>
+
+<b>Check Tool Version and Update:</b><br/>
+  atscan --update <br/><br/>
     </td>
   </tr>
 </table>  
-<table border="0" cellpadding="2" cellspacing="5" width="100%">
-  <tr>
-    <td width="890px"><b>Support us: </b><br/><br/><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QFG4VKCYFMSB8" target="_blank"><img src="http://i.imgur.com/ewuSvSh.jpg" border="0"></a> 
-</td>
-  </tr>
-  </table>
 </body>
 </html>

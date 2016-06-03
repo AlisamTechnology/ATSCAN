@@ -298,7 +298,7 @@ my @DT = ("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN DIALOG TEXT
-my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALIDATION", "HTTP/1.1 200", "EXPLOITATION", "GET", "EXTRA", "SHELL", "SCAN LEVEL", "OUTPUT", "EXTERN CMD", "TASK", "BING", "GOOGLE", "ASK com", "YANDEX com", "SOGOU com", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "RANDOM SEARCH", "Unique Results", "Ifinurl VLD", "URL REGEX", "Validate Url", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy", "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Domain Name", "Pause Mode", "ADMIN", "PORTS", "XSS", "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING");
+my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALIDATION", "HTTP/1.1 200", "EXPLOITATION", "GET", "EXTRA", "SHELL", "SCAN LEVEL", "OUTPUT", "EXTERN CMD", "TASK", "BING", "GOOGLE", "ASK [com]", "YANDEX [com]", "SOGOU [com]", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "RANDOM SEARCH", "Unique Results", "Ifinurl VLD", "URL REGEX", "Validate Url", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy", "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Domain Name", "Pause Mode", "ADMIN", "PORTS", "XSS", "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENGINE LANGUAGES
@@ -1416,9 +1416,9 @@ sub infoSearch {
     if ($motor !~/(all|1|2|3|4|5)/) { print "$DS[27] [$browserLang] "; }   
     if ($motor =~/1/) { print "$DS[22] [$browserLang] "; }
     if ($motor =~/2/) { print "$DS[23] [$googleDomain] "; }
-    if ($motor =~/3/) { print "$DS[24] [com]"; }
-    if ($motor =~/4/) { print "$DS[25] [com]"; }
-    if ($motor =~/5/) { print "$DS[26] [com]"; }    
+    if ($motor =~/3/) { print "$DS[24] "; }
+    if ($motor =~/4/) { print "$DS[25] "; }
+    if ($motor =~/5/) { print "$DS[26] "; }    
     if ($motor =~/all/) { print "[$DS[27]\]"; }
   }
   else{ print "$DS[28] [$browserLang] "; }  

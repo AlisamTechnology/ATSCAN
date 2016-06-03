@@ -1291,7 +1291,7 @@ sub checkVersion {
   ptak();
   $gitversion = "$OTHERS[8]".$gitversion."$OTHERS[9]";
   if ($gitversion eq $existantVersion) { 
-	print $c[3]."[!] $OTHERS[10] $gitversion $DT[6]\n";
+	print $c[3]."[!] $OTHERS[10] $gitversion NO $DT[6]\n";
   }else{ 	
 	print $c[2]."[!] $existantVersion $DT[38] ";
 	print $c[3]."$gitversion!\n";

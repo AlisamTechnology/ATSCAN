@@ -1774,7 +1774,7 @@ sub msearch {
           my $search=$ua->get("$motor");
           $search->as_string;
           my $Res=$search->content;
-          while($Res =~ m/$V_SEARCH/g) {
+          while($Res =~ /$V_SEARCH/g) {
 		    my $URL=$1;
             if ($motor =~/$googleDomain/) { $URL=~s/\&.*//s; }
             $URL =~ s/%([0-9A-Fa-f]{ 2})/chr(hex($1))/eg;

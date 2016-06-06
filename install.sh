@@ -7,10 +7,15 @@ echo "";
 echo "[!] Install.sh will install atscan tool in the system [Y/n]" ; 
 read baba
 if [ $baba == "y" ] ; 
-then
+  then
+    echo " "
+  else
+    exit
+fi
+
 echo "[!] Where Do you want to install the tool? [Ex:/usr/share/doc]:";
 read refdir
-echo "[ ] Checking directories..."
+echo "[!] Checking directories..."
 if [ -d "$refdir/ATSCAN" ] ;
 then
 echo "[!] A directory ATSCAN was found! Do you want to replace it? [Y/n]:" ; 
@@ -18,6 +23,10 @@ read mama
 if [ $mama == "y" ] ; 
 then
  rm -R "$refdir/ATSCAN"
+else
+ exit
+fi
+fi
 
  echo "[!] Installing ...";
  echo "";
@@ -28,11 +37,6 @@ then
  sudo cp atscan /usr/bin/;
  rm atscan;
 
-else
-    exit
-fi
-fi
-fi
 
 if [ -d "$refdir/ATSCAN" ] ;
 then

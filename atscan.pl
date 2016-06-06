@@ -205,8 +205,8 @@ Getopt::Long::GetOptions(\%OPT,
 						'email' => \$eMails,
 						'command=s' => \$command,
 						'md5=s' => \$mmd5,
-						'encode64' => \$mencode64,
-						'decode64' => \$mencode64,
+						'encode64=s' => \$mencode64,
+						'decode64=s' => \$mencode64,
 						'ports' => \$mports,
 						'port=s' => \$port,                        
 						'sites' => \$msites,
@@ -299,7 +299,7 @@ my @DT = ("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN DIALOG TEXT
-my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALIDATION", "HTTP/1.1 200", "EXPLOITATION", "GET", "EXTRA", "SHELL", "SCAN LEVEL", "OUTPUT", "EXTERN CMD", "TASK", "BING", "GOOGLE", "ASK [com]", "YANDEX [com]", "SOGOU [com]", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "RANDOM SEARCH", "Unique Results", "Ifinurl VLD", "URL REGEX", "Validate Url", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy", "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Domain Name", "Pause Mode", "ADMIN", "PORTS", "XSS", "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING");
+my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALIDATION", "HTTP/1.1 200", "EXPLOITATION", "GET", "EXTRA", "SHELL", "SCAN LEVEL", "OUTPUT", "EXTERN CMD", "TASK", "BING", "GOOGLE", "ASK [com]", "YANDEX [com]", "SOGOU [com]", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "RANDOM SEARCH", "Unique Results", "Ifinurl VLD", "URL REGEX", "Validate Url", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy", "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Domain Name", "Pause Mode", "ADMIN", "PORTS", "XSS", "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING", "Md5");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENGINE LANGUAGES
@@ -1334,7 +1334,7 @@ sub scanDetail {
   }
   if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64) || (defined $mdom) || (defined $exploit) || (defined $replace) || (defined $pause)) { 
     print $c[5]." [::] $DS[14]:: ";
-    if (defined $mmd5) { print $c[8]."[$OTHERS[3]\]"; }
+    if (defined $mmd5) { print $c[8]."[$DS[68]\]"; }
 	if (defined $mencode64) { print $c[8]."[$DS[54]\]"; }
 	if (defined $mdecode64) { print $c[8]."[$DS[55]\]"; }
     if (defined $mdom) { print $c[8]."[$DS[56]\]"; }
@@ -1512,16 +1512,132 @@ sub ifirst {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## ALL SCANS PROCESS
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## REGEX SCANS / EMAIL / IP / REGEX
+sub getRegex {
+  my ($URL1, $html, $reg)=@_;  
+  print $c[1]."    $DS[4]    ";
+  my $hssab=0;
+  while ($html=~/$reg/g) { 
+    my $URL1=$1;
+    $hssab++;
+    print " | " if $hssab>1;
+    print $c[3]."$URL1";
+    saveme($URL1);
+    if (defined $pause) { ifirst(); }
+  }
+  if ($hssab<1) { print $c[2]."$DT[1]"; }
+  print "\n";
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## EXECUTE EXTERN PROCESS COMMANDS
+sub getComnd {
+  my ($URL1, $comnd)=@_;
+  $comnd =~ s/\-\-TARGET/$URL1/g;       
+  print $c[1]."    $OTHERS[2]    $c[10]$comnd\n";
+  dpoints();
+  system($comnd);
+  points();
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## PORTS SCAN PROCESS
+sub scanPorts { 
+  my ($PORTS, $types)=@_;
+  headerScan();
+  print $c[11]."$SCAN_TITLE[20]";
+  scanTitleEnd();
+  title($SCAN_TITLE[20]);
+  my $count=0;
+  my $closed1=0;
+  my $lc=countAtsearch();
+  my @PORTS=@{ $PORTS };
+  my @TYPES=@{ $types };
+  open (TEXT, $aTsearch);
+  while (my $URL = <TEXT>) { 
+    $count++;
+	chomp $URL;
+    bloc3($URL);
+	print "[$OTHERS[0] $count/$lc]\n";
+    bloc4($URL);
+    my $c1=0;
+    foreach my $port(@PORTS) { 
+      $c1++;
+      my $c2=0;
+      foreach my $type(@TYPES) { 
+        $c2++;
+        if (defined $output) { url($URL); }    
+  	    if (defined $random) { newIdentity(); }
+        my $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port",Proto=>"$type") or $closed1++;
+        close $socket if defined $socket;     
+	    print $c[1]."    $DS[7]   ";
+        print $c[10]."$port\n";
+        print $c[1]."    $DS[8]   ";
+        print $c[10]."$type\n";
+ 	    print $c[1]."    $DS[4]   ";
+	    if ($closed1==0) { 
+          my $URL1=$port." => ".$type;
+          print $c[3]."$DS[41]\n";
+          saveme($URL1);
+          if (defined $pause) { ifirst(); }
+        }
+        else{ print $c[2]."$DS[42]\n"; }
+	    my $closed1=0;
+        points() unless $c2==scalar(grep $_, @TYPES);
+      }
+      stak() unless $c1==scalar(grep $_, @PORTS);
+    }
+    points() unless $count==$lc;
+    stak() unless $count==$lc;
+  }
+  close (TEXT);  
+  stak(); 
+  if (-e $aTscan) { 
+  	countResultLists();
+    if (!$z[17]) { adios(); }
+	resultsTOcommand();
+	unlink $aTscan;
+  }
+  else{ negative(); }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## MD5 ENCODE BASE64 DECODE BASE 64
+sub scanCode {
+  my ($title, $string, $scan1, $scan2, $scan3)=@_;
+  scanDetail();
+  scanTitleBgn();
+  print $c[11]."$title";
+  scanTitleEnd();
+  print $c[1]."    $OTHERS[4]  $c[10]$string\n";
+  print $c[1]."    $DS[4]   ";
+  if ($scan1) { print "$c[3] " .Digest::MD5->md5_hex($string)."\n"; }
+  if ($scan2) { print "$c[3] " .encode_base64($string)."\n"; }
+  if ($scan3) { print "$c[3] " .decode_base64($string)."\n"; }
+  stak(); ltak();
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## GET ALL PARAMS TO SCAN
 sub makeSscan { 
-  my ($ar, $v_ar, $title, $lc, $count, $paylNote, $result, $reverse, $reg, $comnd)=@_;  
+  my ($at, $bt, $ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd)=@_;
+  ## CHECK ALL PARAMETRES
+  if ($at) { searchexitstargets(); }
+  if ($bt) { scanTitleBgn(); }
+  if ($ct) { headerScan(); }
+  if ($dt) { removeDupDom(); }
+  if ($et) { removeDupNoProtocol(); }
+  ## START SCAN 
   print $c[11]."$title";
   scanTitleEnd(); 
   testConection();
   title($title);
   print $c[4]."$paylNote" if defined $paylNote;  
-  $lc=countAtsearch();
-  $count=0;
+  my $lc=countAtsearch();
+  my $count=0;
   my @arr=@{ $ar };
   my @filter=@{ $v_ar };
   my $filter=join("|", @filter);     
@@ -1623,96 +1739,6 @@ sub printResults {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## REGEX SCANS / EMAIL / IP / REGEX
-sub getRegex {
-  my ($URL1, $html, $reg)=@_;  
-  print $c[1]."    $DS[4]    ";
-  my $hssab=0;
-  while ($html=~/$reg/g) { 
-    my $URL1=$1;
-    $hssab++;
-    print " | " if $hssab>1;
-    print $c[3]."$URL1";
-    saveme($URL1);
-    if (defined $pause) { ifirst(); }
-  }
-  if ($hssab<1) { print $c[2]."$DT[1]"; }
-  print "\n";
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## EXECUTE EXTERN PROCESS COMMANDS
-sub getComnd {
-  my ($URL1, $comnd)=@_;
-  $comnd =~ s/\-\-TARGET/$URL1/g;       
-  print $c[1]."    $OTHERS[2]    $c[10]$comnd\n";
-  dpoints();
-  system($comnd);
-  points();
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## PORTS SCAN PROCESS
-sub scanPorts { 
-  my ($PORTS, $types)=@_;
-  headerScan();
-  print $c[11]."$SCAN_TITLE[20]";
-  scanTitleEnd();
-  title($SCAN_TITLE[20]);
-  my $count=0;
-  my $closed1=0;
-  my $lc=countAtsearch();
-  my @PORTS=@{ $PORTS };
-  my @TYPES=@{ $types };
-  open (TEXT, $aTsearch);
-  while (my $URL = <TEXT>) { 
-    $count++;
-	chomp $URL;
-    bloc3($URL);
-	print "[$OTHERS[0] $count/$lc]\n";
-    bloc4($URL);
-    my $c1=0;
-    foreach my $port(@PORTS) { 
-      $c1++;
-      my $c2=0;
-      foreach my $type(@TYPES) { 
-        $c2++;
-        if (defined $output) { url($URL); }    
-  	    if (defined $random) { newIdentity(); }
-        my $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port",Proto=>"$type") or $closed1++;
-        close $socket if defined $socket;     
-	    print $c[1]."    $DS[7]   ";
-        print $c[10]."$port\n";
-        print $c[1]."    $DS[8]   ";
-        print $c[10]."$type\n";
- 	    print $c[1]."    $DS[4]   ";
-	    if ($closed1==0) { 
-          my $URL1=$port." => ".$type;
-          print $c[3]."$DS[41]\n";
-          saveme($URL1);
-          if (defined $pause) { ifirst(); }
-        }
-        else{ print $c[2]."$DS[42]\n"; }
-	    my $closed1=0;
-        points() unless $c2==scalar(grep $_, @TYPES);
-      }
-      stak() unless $c1==scalar(grep $_, @PORTS);
-    }
-    points() unless $count==$lc;
-    stak() unless $count==$lc;
-  }
-  close (TEXT);  
-  stak(); 
-  if (-e $aTscan) { 
-  	countResultLists();
-    if (!$z[17]) { adios(); }
-	resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
 ## CHECK IF THERE MORE SCANS TO DO
 sub getK { 
   my ($x, $y)=@_;  
@@ -1723,7 +1749,26 @@ sub getK {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-#######  ALL SCANS
+## END SCAN
+sub endScan {
+  my ($k, $vld)=@_;
+  if (-e $aTscan) { 
+  	countResultLists();
+    if (defined $vld) {
+      unlink $aTsearch;
+      if (!$k) { adios(); } 
+      else{ use File::Copy qw(copy); copy $aTscan, $aTsearch; }
+    }else{   
+      if (!$k) { adios(); }  
+    }
+    resultsTOcommand();
+    unlink $aTscan;
+  }
+  else{ negative(); exit() if defined $vld; }  
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+#######  ALL SCANS ARGUMENTS
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENGINE PROCEDURE
@@ -1796,7 +1841,7 @@ sub msearch {
     my $lc=countAtsearch();
     my $k=getK(0, 0);
     if (!$k) {      
-      makeSscan(\@TODO, \@V_TODO, $SCAN_TITLE[0], $lc, $count, "", "1", "", "", "");
+      makeSscan("", "", "", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[0], "", "1", "", "", "");
       stak();ltak();
       print $c[3]."[!] $lc $DT[4]\n";
       adios();
@@ -1815,20 +1860,10 @@ sub msearch {
 sub misup { 
   unlink $aTscan if -e $aTscan;
   if (!defined $mlevel) { targetList(); }
-  searchexitstargets();  
-  scanTitleBgn(); 
-  my ($lc, $count, $result);
-  makeSscan(\@TODO, \@V_TODO, $SCAN_TITLE[1], $lc, $count, "", "", "", "", "");    
-  if (-e $aTscan) { 
-  	countResultLists();
-    unlink $aTsearch;
-    my $k=getK(0, 1);
-    if (!$k) { adios(); } 
-    else{ use File::Copy qw(copy); copy $aTscan, $aTsearch; }
-	resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); exit(); }
+  makeSscan("1", "2", "", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "", "", "");
+  my $k=getK(0, 1);
+  unlink $aTsearch;
+  endScan($k, "1");
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1836,246 +1871,121 @@ sub misup {
 sub validation { 
   unlink $aTscan if -e $aTscan;
   if ((!defined $mlevel) && (!defined $misup)) { targetList(); }
-  searchexitstargets();
-  scanTitleBgn();  
-  my ($lc, $count, $result);
-  makeSscan(\@TODO, \@V_VALID, $SCAN_TITLE[2], $lc, $count, "", "", "", "", "");  
-  if (-e $aTscan) { 
-  	countResultLists();
-	unlink $aTsearch;
-    my $k=getK(0, 2);
-    if (!$k) { adios(); }     
-    else{ use File::Copy qw(copy); copy $aTscan, $aTsearch; }
-	resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); exit(); }
+  makeSscan("1", "2", "", "", "", \@TODO, \@V_VALID, $SCAN_TITLE[2], "", "", "", "", "");  
+  my $k=getK(0, 2);
+  unlink $aTsearch;
+  endScan($k, "1");
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET WORDPRESS SITES
 sub WpSites { 
-  headerScan();  
-  my ($lc, $count, $result);
-  makeSscan(\@TODO, \@V_WP, $SCAN_TITLE[3], $lc, $count, "", "", "", "", "");   
-  if (-e $aTscan) { 
-    countResultLists();
-    my $k=getK(0, 3);
-    if (!$k) { adios(); } 
-    resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); exit(); }
+  makeSscan("", "", "3", "", "", \@TODO, \@V_WP, $SCAN_TITLE[3], "", "", "", "", "");   
+  my $k=getK(0, 3);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET WORDPRESS SITES
 sub JoomSites { 
-  headerScan();
-  my ($lc, $count, $result);
-  makeSscan(\@TODO, \@V_JOOM, $SCAN_TITLE[4], $lc, $count, "", "", "", "", "");    
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 4);
-    if (!$k) { adios(); } 
-    resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  makeSscan("", "", "3", "", "", \@TODO, \@V_JOOM, $SCAN_TITLE[4], "", "", "", "", "");
+  my $k=getK(0, 4);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## XSS
 sub xss { 
-  headerScan();
-  my ($lc, $count, $result);
-  makeSscan(\@XSS, \@V_XSS, $SCAN_TITLE[5], $lc, $count, $paylNote, "", "", "", ""); 
-  stak() if !defined $exploit;
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 5);
-    if (!$k) { adios(); } 
-	resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  makeSscan("", "", "3", "", "", \@XSS, \@V_XSS, $SCAN_TITLE[5], $paylNote, "", "", "", ""); 
+  stak() if !defined $exploit; 
+  my $k=getK(0, 5);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LFI
 sub lfi { 
-  headerScan();
-  removeDupDom();  
-  my ($lc, $count);
-  makeSscan(\@LFI, \@V_LFI, $SCAN_TITLE[6], $lc, $count, $paylNote, "", "", "", ""); 
-  restaureSearch();
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 6);
-    if (!$k) { adios(); } 
-	resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  makeSscan("", "", "3", "4", "", \@LFI, \@V_LFI, $SCAN_TITLE[6], $paylNote, "", "", "", "");
+  my $k=getK(0, 6);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## RFI JOOMLA
 sub JoomRfi { 
-  headerScan();
-  removeDupDom();  
-  my ($lc, $count);
-  makeSscan(\@RFI, \@E_SHELL, $SCAN_TITLE[7], $lc, $count, $paylNote, "", "", "", ""); 
+  makeSscan("", "", "3", "4", "", \@RFI, \@E_SHELL, $SCAN_TITLE[7], $paylNote, "", "", "", ""); 
   restaureSearch();
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 7);
-    if (!$k) { adios(); } 
-	resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  my $k=getK(0, 7);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## WORDPRESS ADF
 sub WpAfd { 
-  headerScan();
-  removeDupDom();
-  my ($lc, $count);
-  makeSscan(\@ADFWP, \@V_AFD, $SCAN_TITLE[8], $lc, $count, $paylNote, "", "", "", ""); 
+  makeSscan("", "", "3", "4", "", \@ADFWP, \@V_AFD, $SCAN_TITLE[8], $paylNote, "", "", "", ""); 
   restaureSearch();
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 8);
-    if (!$k) { adios(); } 
-    resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  my $k=getK(0, 8);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET ADMIN PAGE
 sub adminPage { 
-  headerScan();
-  removeDupDom();
-  my ($lc, $count);
-  makeSscan(\@ADMIN, \@V_TODO, $SCAN_TITLE[9], $lc, $count, $paylNote, "", "", "", ""); 
+  makeSscan("", "", "3", "4", "", \@ADMIN, \@V_TODO, $SCAN_TITLE[9], $paylNote, "", "", "", ""); 
   restaureSearch();
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 9);
-    if (!$k) { adios(); } 
-	resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  my $k=getK(0, 9);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET SUBDOMAINS
 sub subdomain { 
-  headerScan(); 
-  removeDupDom();  
-  removeDupNoProtocol();
-  my ($lc, $count);
-  makeSscan(\@SUBDOMAIN, \@V_TODO, $SCAN_TITLE[10], $lc, $count, $paylNote, "", "1", "", ""); 
+  makeSscan("", "", "3", "4", "5", \@SUBDOMAIN, \@V_TODO, $SCAN_TITLE[10], $paylNote, "", "1", "", ""); 
   restaureSearch();
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 10);
-    if (!$k) { adios(); } 
-    resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  my $k=getK(0, 10);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET UPLOAD FILES
 sub uploadSites { 
-  headerScan();
-  removeDupDom();  
-  my ($lc, $count);
-  makeSscan(\@UPLOAD, \@V_TODO, $SCAN_TITLE[11], $lc, $count, $paylNote, "", "", "", "");   
-  stak();
+  makeSscan("", "", "3", "4", "", \@UPLOAD, \@V_TODO, $SCAN_TITLE[11], $paylNote, "", "", "", "");   
   restaureSearch();
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 11);
-    if (!$k) { adios(); } 
-    resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  my $k=getK(0, 11);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET ZIP FILES
 sub zipSites { 
-  headerScan();
-  removeDupDom();
-  my ($lc, $count);
-  makeSscan(\@ZIP, \@V_TODO, $SCAN_TITLE[12], $lc, $count, $paylNote, "", "", "", "");
-  stak();
+  makeSscan("", "", "3", "4", "", \@ZIP, \@V_TODO, $SCAN_TITLE[12], $paylNote, "", "", "", "");
   restaureSearch();
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 12);
-    if (!$k) { adios(); }
-    resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  my $k=getK(0, 12);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET IPS
 sub Ips { 
-  headerScan();
-  my ($lc, $count);
-  makeSscan(\@TODO, \@V_TODO, $SCAN_TITLE[21], $lc, $count, "", "", "", $V_IP, "");
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 13);
-    if (!$k) { adios(); } 
-	resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[21], "", "", "", $V_IP, "");
+  my $k=getK(0, 13);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET E-MAILS
 sub eMails {
-  headerScan();
-  my ($lc, $count);
-  makeSscan(\@TODO, \@V_TODO, $SCAN_TITLE[13], $lc, $count, "", "", "", $V_EMAIL, "");
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 14);
-    if (!$k) { adios(); }
-	resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[13], "", "", "", $V_EMAIL, "");
+  my $k=getK(0, 14);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET REGEX
 sub Regex { 
-  headerScan();
-  my ($lc, $count);
-  makeSscan(\@TODO, \@V_TODO, $SCAN_TITLE[22], $lc, $count, "", "", "", $V_REGEX, "");
-  if (-e $aTscan) { 
-  	countResultLists();
-    my $k=getK(0, 15);
-    if (!$k) { adios(); } 
-	resultsTOcommand();
-	unlink $aTscan;
-  }
-  else{ negative(); }
+  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[22], "", "", "", $V_REGEX, "");
+  my $k=getK(0, 15);
+  endScan($k);  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -2083,17 +1993,10 @@ sub Regex {
 sub ports {  
   my @PORTS;
   my @TYPES;
-  if ($port=~/(\d+)\-(\d+)/) { 
-    @PORTS=($1..$2);
-  }else{ 
-    @PORTS=split(/ /, $port);
-  } 
-  if (defined $udp) { 
-    push(@TYPES, "udp");
-  }
-  if (defined $tcp) { 
-    push(@TYPES, "tcp");
-  }
+  if ($port=~/(\d+)\-(\d+)/) { @PORTS=($1..$2); }
+  else{ @PORTS=split(/ /, $port); } 
+  if (defined $udp) { push(@TYPES, "udp"); }
+  if (defined $tcp) { push(@TYPES, "tcp"); }
   scanPorts(\@PORTS, \@TYPES);
   my $k=getK(0, 16);
   if (!$k) { adios(); } 
@@ -2102,50 +2005,29 @@ sub ports {
 ############################################################################################################################################################################################
 ## EXTERN COMMAND
 sub mcommand { 
-  headerScan();
-  my ($lc, $count);
-  makeSscan(\@TODO, \@V_TODO, $SCAN_TITLE[16], $lc, $count, "", "", "", "", $command);
+  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[16], "", "", "", "", $command);
   stak(); adios(); exit();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## MD5 ENCODE
-sub mmd5 { 
-  scanDetail();
-  scanTitleBgn();
-  print $c[11]."$SCAN_TITLE[17]";
-  scanTitleEnd();
-  print $c[1]."    $OTHERS[4]  $c[10]$mmd5\n";
-  print $c[1]."    $OTHERS[3]     $c[3]";
-  print Digest::MD5->md5_hex("$mmd5");
-  print "\n";
-  stak();
-}
+sub mmd5 {
+  scanCode($SCAN_TITLE[17], $mmd5, "1", "", "");
+  adios();
+} 
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENCODE BASE 64
-sub mencode64 { 
-  scanDetail();
-  scanTitleBgn();
-  print $c[11]."$SCAN_TITLE[18]";
-  scanTitleEnd();
-  print $c[1]."    $OTHERS[4]  $c[10]$mencode64\n";
-  my $sss=encode_base64($mencode64);
-  print $c[1]."    ENCODE  $c[3]$sss\n";
-  stak();
+sub mencode64 {
+  scanCode($SCAN_TITLE[18], $mencode64, "", "1", "");
+  adios();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DECODE BASE 64
-sub mdecode64 { 
-  scanDetail();
-  scanTitleBgn();
-  print $c[11]."$SCAN_TITLE[19]";
-  scanTitleEnd();
-  print $c[1]."    $OTHERS[4]  $c[10]$mdecode64\n";
-  my $rrr=decode_base64($mdecode64);
-  print $c[1]."    DECODE  $c[3]$rrr\n";
-  stak();
+sub mdecode64 {
+  scanCode($SCAN_TITLE[19], $mdecode64, "", "", "1");
+  adios();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################

@@ -1428,8 +1428,8 @@ sub getEngines {
   my $motor3="http://www.ask.com/web?q=MYDORK&page=MYNPAGES&qid=MYID";
   my $motor4="http://www.yandex.com/search/?msid=MYMSID&text=MYDORK&lr=25402&p=MYNPAGES";
   my $motor5="http://www.sogou.com/web?query=MYDORK&page=MYNPAGES&ie=utf8";
-  open (MOTORS, '>'.$aTmotors);
   my $motorparam="1|2|3|4|5|all";
+  open (MOTORS, '>'.$aTmotors);
   if (defined $motor) {    
     if ($motor !~ m/$motorparam/) { print MOTORS "$motor1"; }
     else{ 
@@ -1466,9 +1466,7 @@ sub browseUrl {
   my $status = $response->code;
   my $serverheader = $response->server;
   if (!defined $noinfo) { 
-    if ($response->previous) { 
-      print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n";
-    }
+    if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }
     if($URL1 !~ /https?:\/\//) { $URL1 = "http://$URL1"; };
     print $c[1]."    $DS[3]    ";
     print $c[10]."$OTHERS[7] $status\n";

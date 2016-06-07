@@ -2238,7 +2238,7 @@ sub help {
   print "    -t <ip> --level <10> [--xss | --lfi | --wp |...]\n";
   print "    -t <targets> [--xss | --lfi | --wp |...]\n\n";
   stak();
-  print $c[12]."  Check Tool Version and "3", "4", ""date: \n";
+  print $c[12]."  Check Tool Version and Update: \n";
   print "  ......................\n";
   print $c[10]."    --update\n"; 
   stak();

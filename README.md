@@ -115,12 +115,12 @@
   <tr>
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
       <tr>
-        <td width="200px" class="main">--tor</td>
+        <td width="200px" class="main">--proxy</td>
         <td width="680px">Set tor proxy [Ex: socks://localhost:9050].</td>
       </tr>
       <tr>
         <td width="200px" class="main">--proxy</td>
-        <td width="680px">Set tor proxy  [Ex: http://12.231.54.87:8080 | list.txt].</td>
+        <td width="680px">Set proxy  [Ex: http://12.231.54.87:8080 | list.txt].</td>
       </tr>
       <tr>
         <td width="200px" class="main">--random</td>
@@ -331,7 +331,7 @@
   <tr>
     <td class="main">
 <b>Proxy: </b><br/>
-  Tor --tor [proxy] [Ex: socks://localhost:9050].<br/>
+  Tor --proxy [proxy] [Ex: socks://localhost:9050].<br/>
   Proxy --proxy [proxy] [Ex: http://12.32.1.5:8080] | --proxy [list.txt><br/>
   Random --random<br/><br/>
     

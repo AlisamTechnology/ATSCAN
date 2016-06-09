@@ -116,11 +116,7 @@
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
       <tr>
         <td width="200px" class="main">--proxy</td>
-        <td width="680px">Set tor proxy [Ex: socks://localhost:9050].</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--proxy</td>
-        <td width="680px">Set proxy  [Ex: http://12.231.54.87:8080 | list.txt].</td>
+        <td width="680px">Set tor proxy [Ex: socks://localhost:9050].<br/> Set proxy  [Ex: http://12.231.54.87:8080 | list.txt].</td>
       </tr>
       <tr>
         <td width="200px" class="main">--random</td>

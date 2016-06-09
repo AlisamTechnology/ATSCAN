@@ -553,7 +553,6 @@ sub newIdentity {
     $ua->proxy([qw/ http https /] => $resultarray[rand @resultarray]);
     $ua->cookie_jar({ });
   }
-  sleep(1);
   my $URL = "http://dynupdate.no-ip.com/ip.php";
   my $request = HTTP::Request->new('GET', $URL);
   my $response = $ua->request($request);

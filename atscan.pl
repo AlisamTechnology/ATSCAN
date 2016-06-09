@@ -187,7 +187,7 @@ sub badArgs {
 ############################################################################################################################################################################################
 ## ARGUMENTS
 use Getopt::Long ();
-my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $tor, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery);
+my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery);
 my %OPT;
 Getopt::Long::GetOptions(\%OPT,
                         'isup' => \$misup,
@@ -217,7 +217,6 @@ Getopt::Long::GetOptions(\%OPT,
 						'tcp' => \$tcp,
 						'udp' => \$udp,
 						'all' => \$all,
-                        'tor=s' => \$tor,
                         'proxy=s' => \$proxy,
                         'random' => \$random,
                         'help|h' => \$help,
@@ -294,8 +293,8 @@ my @ErrorsText=("Local file Inclusion Error Detected\!", "MYSQL Error Detected\!
 ############################################################################################################################################################################################
 ## GENERAL DIALOG TEXT
 my @DT = ("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!", "SCAN FINISHED\!", "Unique\(s\) Result\(s\) Found\!", "No Target list found\!", "need to update\!",
-"Tool updeted with success\!", "Can not connect to the server\!", "Exploit\(s\)", "Check Your Connection OR Proxy Setting\!", "Upss.. Your Internet connection seems not active\!",
-"Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://].", "Given target file path is not true.", "Target file extension must be [.txt].", "You have to set a scan for exploited targets\![xss\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!", "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace <value> --with <value>]", "Invalid option\! Ex: t- <ip> --port [--udp | --tcp]", "--random need proxy or tor use\!", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines: [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]", "The scan use default payloads\! You can use your own using arguments\!\n    Ex: --exp [exploit \| payload] --valid [string]", "Please change proxy file ext to [file.txt]", "Faid to renew identity with", "Please wait...", "", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Possible positive result\\! Do you want to continue scan? [Y/n]: ", "Undefined", "Redirect To: ", "Proxy(s)", "Update Needed to", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]", "You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]", "Conflict!! Please change", "file ext to [.txt]!", "found!");
+"Tool updeted with success\!", "Can not connect to the server\!", "Exploit\(s\)", "Check Your Connection OR Proxy Setting\!", " Upss.. Your Internet connection seems not active\!",
+"Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://].", "Given target file path is not true.", "Target file extension must be [.txt].", "You have to set a scan for exploited targets\![xss\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!", "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace <value> --with <value>]", "Invalid option\! Ex: t- <ip> --port [--udp | --tcp]", "--random need proxy or tor use\!", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines: [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]", "The scan use default payloads\! You can use your own using arguments\!\n    Ex: --exp [exploit \| payload] --valid [string]", "Please change proxy file ext to [file.txt]", "Failed to renew identity with", "Please wait...", "", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Possible positive result\\! Do you want to continue scan? [Y/n]: ", "Undefined", "Redirect To: ", "Proxy(s)", "Update Needed to", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]", "You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]", "Conflict!! Please change", "file ext to [.txt]!", "found!");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN DIALOG TEXT
@@ -522,51 +521,38 @@ my $ua = LWP::UserAgent->new(
 		 cookie_jar	=> HTTP::Cookies->new(),
 );
 $ua->default_header('Accept' => ('text/html'));
-timeOut();
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## SET BROWSER TIMEOUT
-sub timeOut { 
-  if (defined $timeout) { $ua->timeout($timeout); }
-  else{ $ua->timeout(10); }
-}
+$ua->env_proxy;
+if (defined $timeout) { $ua->timeout($timeout); }
+else{ $ua->timeout(10); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PROXY
-my $proxys;
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## PROXY CONFIG
-sub GoToConfig { 
-  if ((defined $tor) || (defined $proxy)) { 
-    if (defined $tor) { $proxys=$tor;
-    }elsif (defined $proxy) { 
-      if ($proxy =~ /:/) { $proxys=$proxy; }
-      else{ 
-        if (!-e $proxy) { desclaimer(); print $c[2]."[!] No [$proxy] found!\n"; exit(); }
-        if (substr($proxy, -4) ne '.txt') { desclaimer(); print $c[2]."[!] $DT[29]\n"; exit(); }
-	    my @resultarray;
-        open(my $filehandle, '<', $proxy);
-        while(my $line = <$filehandle>) { 
-          chomp $line;
-          my @linearray = split(" ", $line);
-          push(@resultarray, @linearray);
-	      $proxys = $resultarray[rand @resultarray];
-        }
-	    close $filehandle;
-      }
-	}
-    return $proxys;
+my @resultarray;
+if (defined $proxy) {
+  if ($proxy =~ /:/) { @resultarray = split / /, $proxy; }
+  else{ 
+    if (!-e $proxy) { desclaimer(); print $c[2]."[!] No [$proxy] found!\n"; exit(); }
+    if (substr($proxy, -4) ne '.txt') { desclaimer(); print $c[2]."[!] $DT[29]\n"; exit(); }
+    open(my $filehandle, '<', $proxy);
+    while(my $line = <$filehandle>) { 
+      chomp $line;
+      my @linearray = split(" ", $line);
+      push(@resultarray, @linearray);
+    }
+    close $filehandle;
   }
+  $ua->proxy([qw/ http https /] => $resultarray[rand @resultarray]);
+  $ua->cookie_jar({ });
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## RENEW PROXY
-sub newIdentity { 
-  if (defined $tor) { system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;"); system("service tor restart"); }
-  if (defined $proxy and substr($proxy, -4) eq '.txt') { GoToConfig($proxy); }
-  $ua->proxy([qw/ http https /] => $proxys);
-  $ua->cookie_jar({ });
+sub newIdentity {
+  if ($proxy=~/(localhost|127.0.0.1)/) { system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;"); }
+  else{
+    $ua->proxy([qw/ http https /] => $resultarray[rand @resultarray]);
+    $ua->cookie_jar({ });
+  }
   sleep(1);
   my $URL = "http://dynupdate.no-ip.com/ip.php";
   my $request = HTTP::Request->new('GET', $URL);
@@ -575,37 +561,28 @@ sub newIdentity {
   if ($response->is_success) { 
     if (!defined $noinfo) { 
 	  if ($response->content =~ m/$V_IP/g) { 
-        $ipadress="$1.$2.$3.$4";
-		if ($response->content =~ m/$ipadress/g) { print $c[1]."    IDNTTY: $c[8]New ip::: $ipadress :::\n"; }
+        $ipadress="$1";
+		print $c[1]."    IDNTTY: $c[8]New ip::: $ipadress :::\n";
 	  }
 	}
   }
-  else{ ltak(); print $c[2]."[!] $DT[30] [$proxys]!\n"; exit(); }
+  else{ ltak(); print $c[2]."[!] $DT[30] [$resultarray[rand @resultarray]\]!\n"; exit(); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## INTERNET CONNECTION VERIFICATION
 sub testConection { 
-  if ((defined $tor) || (defined $proxy)) { startProxyUse(); }
+  if (defined $proxy) { print $c[4]."[!] Checking proxy connection...\n"; }
   my $URL = "http://dynupdate.no-ip.com/ip.php";
   my $request = HTTP::Request->new('GET', $URL);
   my $response = $ua->request($request);
-  if ( !$response->is_success ) { 
+  if ( !$response->is_success ) {
+    ltak();
 	print $c[2]."[!] ";timer();
     print "$DT[11]\n";
     print "[!] $DT[10]\n";
 	exit();
   }
-  ptak();
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-sub startProxyUse { 
-  GoToConfig();
-  $ua->proxy([qw/ http https /] => $proxys);
-  $ua->cookie_jar({ });
-  $ua->env_proxy;
-  timeOut();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1244,9 +1221,8 @@ sub scanDetail {
     print "\n";
   }
   print $c[5]." [::] $DS[11]:: ";
-  if ((!defined $tor) && (!defined $proxy)) { print $c[8]."[$DS[46]\]\n";
+  if (!defined $proxy) { print $c[8]."[$DS[46]\]\n";
   }else{ 
-    if (defined $tor) { print $c[8]."[$DS[45]\]"; }
     if (defined $proxy) { print $c[8]." [$proxy]";
 	  if (substr($proxy, -4) eq '.txt') { my $lc=countAtproxies(); print "[$lc $DT[37]\]"; }
 	}
@@ -1319,11 +1295,12 @@ sub scanDetail {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SEARCH HEADER
-sub headerSearch { 
+sub headerSearch {
   getEngines();
   scanDetail();
   infoSearch();
   desclaimer();
+  testConection();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1588,7 +1565,6 @@ sub makeSscan {
   ## START SCAN 
   print $c[11]."$title";
   scanTitleEnd(); 
-  testConection();
   title($title);
   print $c[4]."$paylNote" if defined $paylNote;  
   my $lc=countAtsearch();
@@ -1731,12 +1707,11 @@ sub endScan {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENGINE PROCEDURE
-sub msearch {  
+sub msearch {
   headerSearch();
   open (FILE, $aTdorks);
   while ($dork = <FILE>) { 
     chomp $dork;
-	#$count++;
 	if (defined $Target) { $dork = "ip%3A".$dork; }
 	$dork =~ s/^\s+//;
     my @scanlist=&scan();
@@ -2033,12 +2008,6 @@ if ((defined $mports) && (!defined $port)) {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## ARGUMENTS PROCESS (PROXY)
-if (((!defined $proxy) && (!defined $tor)) || (defined $proxy and substr($proxy, -4) ne '.txt')) { 
-  if (defined $random) { desclaimer(); print $c[2]."[!] $DT[24]\n"; exit(); }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
 ## CHECK MOTORS ARGUMENTS
 if (defined $motor) { 
   if ($motor !~ /1|2|3|4|5|all/) { 
@@ -2111,10 +2080,10 @@ sub help {
   print $c[5]."\n [::] HELP:: \n";
   stak();
   print $c[10]."";
-  print "   --tor         | Set tor proxy [EX: socks://localhost:9050]\n";
-  print "   --proxy       | Set proxy [EX: --proxy http://12.45.44.2:8080]\n";
+  print "   --proxy       | Set tor proxy [EX: --proxy socks://localhost:9050]\n";
+  print "                 | Set proxy [EX: --proxy http://12.45.44.2:8080]\n";
   print "                 | Set proxy list [EX: --proxy list.txt]\n";
-  print "   --random      | Renew tor identity for every link scaned.\n";
+  print "   --random      | Renew identity for every link scaned.\n";
   print "   --dork        | Dork to search [Ex: house,cars,hotel] \n";
   print "   --level       | Scan level (+- Number of page results to scan) \n";
   print "   --ip          | Crawl to get Ips\n";
@@ -2162,9 +2131,9 @@ sub help {
   print "   --update      | Check and update tool\n\n"; 
   stak();
   print $c[5]." [::] EXAMPLES: \n\n";
-  print $c[12]."  Tor: \n";
+  print $c[12]."  Proxy: \n";
   print "  ......................\n";
-  print $c[10]."   Tor --tor <proxy> [Ex: socks://localhost:9050].\n";
+  print $c[10]."   Tor --proxy <proxy> [Ex: socks://localhost:9050].\n";
   print $c[10]."   Proxy --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <list.txt>\n";
   print $c[10]."   Random --random\n\n";
   stak();

@@ -82,7 +82,7 @@
     <td class="main3" width="890px"><b>Installation:</b></td>
   </tr>
   <tr>
-    <td class="main">./install.sh</td>
+    <td class="main">chmod +x ./install.sh <br/>./install.sh </td>
   </tr>
 </table>
 

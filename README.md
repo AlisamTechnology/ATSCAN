@@ -160,7 +160,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--TARGET</td>
-        <td class="main">Will be replaced by target in command</td>
+        <td class="main">Will be replaced by target in extern commands</td>
       </tr>
       <tr>
         <td width="200px" class="main">--dom</td>

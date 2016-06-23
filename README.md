@@ -40,8 +40,8 @@
     <td class="main3"><b>Description:</b></td>
   </tr>
   <tr>
-    <td class="main" width="890px">Search engine Google / Bing / Ask / Yandex / Sogou <br />XSS scanner.<br />
-        Mass Dork Search<br/>Multiple instant scans. <br/>Mass Exploitation <br/>
+    <td class="main" width="890px">Search engine Google / Bing / Ask / Yandex / Sogou <br />
+        Mass Dork Search<br/>Multiple instant scans. <br/>Mass Exploitation <br/>XSS scanner.<br />
         LFI / AFD scanner.<br /> Filter wordpress and Joomla sites in the server. <br />Find Admin page.<br />Decode / Encode MD5 + Base64.<br/> Ports scan. <br/>Scan ips<br/>Scan E-mails. <br/> Use proxy. <br/> Random user agent. <br/> Random proxy. <br/> Scan errors. <br/> Detect Cms.<br/>
         Extern commands execution.<br/>And more...
     </td>

@@ -17,7 +17,10 @@
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
   </tr>
   <tr>
-    <td width="100px" class="main2"><b>AUTHOR:</b></td><td width="780px">Alisam Technology Team</td>
+    <td width="100px" class="main2"><b>AUTHOR:</b></td><td width="780px">Ali MEHDIOUI</td>
+  </tr>
+  <tr>
+    <td width="100px" class="main2"><b>GROUP:</b></td><td width="780px">Alisam Technology</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>FACE:</b></td><td>facebook.com/Forces.des.tempetes.marocaines </td>

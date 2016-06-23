@@ -187,7 +187,7 @@
         <td class="main">Remove Query string from url. [lives url like: site.com/index.php?id=]</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--unique</td>
+        <td width="200px" class="main">--reg</td>
         <td class="main">Get urls with matching regex</td>
       </tr>
       <tr>

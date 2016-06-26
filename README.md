@@ -306,6 +306,10 @@
         <td class="main">Jump extra results info.</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--options / -h</td>
+        <td class="main">Show scan configuration.</td>
+      </tr>      
+      <tr>
         <td width="200px" class="main">--save</td>
         <td class="main">Set file to save results.</td>
       </tr>

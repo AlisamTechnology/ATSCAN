@@ -183,12 +183,12 @@
         <td class="main">Crawl to get strings matching regex</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--noquery</td>
-        <td class="main">Remove Query string from url. [lives url like: site.com/index.php?id=]</td>
+        <td width="200px" class="main">--sregex</td>
+        <td class="main">Get only urls with matching regex</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--reg</td>
-        <td class="main">Get urls with matching regex</td>
+        <td width="200px" class="main">--noquery</td>
+        <td class="main">Remove Query string from url. [lives url like: site.com/index.php?id=]</td>
       </tr>
       <tr>
         <td width="200px" class="main">--ip</td>

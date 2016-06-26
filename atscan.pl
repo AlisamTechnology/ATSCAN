@@ -994,6 +994,7 @@ sub desclaimer {
 ## SHOW SCAN CONFIGURATION
 sub showOptions{
   print $c[4]."$OTHERS[15]";
+  print color 'reset';
   my $resp=<STDIN>;
   chomp ($resp);
   if ($resp !~ /(C|c)/) { deleteLists(); exit(); }
@@ -1192,6 +1193,7 @@ sub checkVersion {
 	print $c[2]."[!] $existantVersion $DT[38] ";
 	print $c[3]."$gitversion!\n";
     print $c[4]."[!] $DT[39] ";
+    print color 'reset';
     my $resp=<STDIN>;
     chomp ($resp);
 	my $yes ='Y|y|yes|YES|Yes';
@@ -1437,6 +1439,7 @@ sub getSubDomaine {
 ## ASK FOR CONTINUE WHEN POSITIVE RESULT FOUND
 sub ifirst { 
   print $c[4]."    [!] $DT[34]";
+  print color 'reset';
   my $askMe=<STDIN>;
   chomp ($askMe);
   if($askMe=~/(N|n)/) { stak(); countResultLists(); subfin(); deleteLists(); exit(); }        

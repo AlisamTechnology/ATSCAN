@@ -24,7 +24,7 @@ use HTML::Entities;
 #   Script name: Atscan Scanner.
 #   Codename: Anon4t.
 #   Works in linux platforms. Best Run on Ubuntu 14.04, Kali Linux 2.0, Arch Linux, Fedora Linux, Centos..
-#
+#   Windows with perl instaled!
 ############################################################################################################################################################################################
 ## DESCRIPTION #############################################################################################################################################################################
 #
@@ -44,7 +44,6 @@ use HTML::Entities;
 #   Scan errors. 
 #   Detect Cms.
 #   Multiple instant scan. 
-#   Brute force wordpress and joomla.
 #   Extern commands execution.
 #   Disponible on BlackArch Linux Platform.
 #
@@ -85,13 +84,13 @@ sub dpoints { print $c[10]."           :::::::::::::::::::::::::::::::::::::::::
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## TOOL VERSION
-my $existantVersion=$OTHERS[8]." 9.2 ".$OTHERS[9];
+my $existantVersion=$OTHERS[8]." 9.3 ".$OTHERS[9];
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LOGO VERSION
 my $logoVersion=$existantVersion;
-$logoVersion=~ s/version/V/g;
-$logoVersion=~ s/Stable//g;
+$logoVersion=~ s/$OTHERS[8]/V/g;
+$logoVersion=~ s/\s$OTHERS[9]//g;
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BANNER
@@ -360,6 +359,15 @@ my $V_REGEX = $regex;
 my $S_REGEX = $searchRegex;
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## ENGINE MOTORS
+my $motor1="http://www.bing.com/search?q=MYDORK&first=MYNPAGES&FORM=PERE&cc=MYBROWSERLANG";
+my $motor2="http://www.google.MYGOOGLEDOMAINE/search?q=MYDORK&start=MYNPAGES";
+my $motor3="http://www.ask.com/web?q=MYDORK&page=MYNPAGES&qid=MYID";
+my $motor4="http://www.yandex.com/search/?msid=MYMSID&text=MYDORK&lr=25402&p=MYNPAGES";
+my $motor5="http://www.sogou.com/web?query=MYDORK&page=MYNPAGES&ie=utf8";
+my $motorparam="1|2|3|4|5|all";
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## HTML VALIDATION
 my @V_WP = ("<a href=\"https:\/\/wordpress.org\/\">Proudly powered by WordPress", "<meta name=\"generator\" content=\"WordPress", "\/wp-content\/(.*).js");
 my @V_JOOM = ("<meta name=\"generator\" content=\"Joomla");
@@ -559,10 +567,7 @@ sub newIdentity {
   my $ipadress;
   if ($response->is_success) { 
     if (!defined $noinfo) { 
-	  if ($response->content =~ m/$V_IP/g) { 
-        $ipadress="$1";
-		print $c[1]."    IDNTTY: $c[8]New ip::: $ipadress :::\n";
-	  }
+	  if ($response->content =~ m/$V_IP/g) { $ipadress="$1"; print $c[1]."    IDNTTY: $c[8]New ip::: $ipadress :::\n"; }
 	}
   }
   else{ ltak(); print $c[2]."[!] $DT[30] [$resultarray[rand @resultarray]\]!\n"; exit(); }
@@ -575,7 +580,8 @@ sub testConection {
   my $URL = "http://dynupdate.no-ip.com/ip.php";
   my $request = HTTP::Request->new('GET', $URL);
   my $response = $ua->request($request);
-  if ( !$response->is_success ) {
+  #if ( !$response->is_success ) {
+  if ($response->content!~m/$V_IP/g) {
     ltak();
 	print $c[2]."[!] ";timer();
     print "$DT[11]\n";
@@ -601,7 +607,7 @@ sub osinfo {
   print $c[5]." [::] GROUP:: ".$c[8]."ALISAM TECHNOLOGY\n";
   print $c[5]." [::] TOOL:: ".$c[8]."ATSCAN SCANNER [$logoVersion]\n";
   print $c[5]." [::] PATH:: ".$c[8]."$Bin/",basename($0)," \n";
-  print $c[5]." [::] PERL VERSION:: ".$c[8]."[$^V]\n";
+  print $c[5]." [::] PERL:: ".$c[8]."[$^V]\n";
   print $c[5]." [::] PLATFORM:: ".$c[8]."[$Config{ osname} $Config{ archname}]\n";
 }
 ############################################################################################################################################################################################
@@ -1140,6 +1146,8 @@ sub countLists {
   return $lc;
   close $fh;
 }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## COUNT SCAN RESULTS
 sub countResultLists { 
   my $scanFile=$aTscan;
@@ -1337,12 +1345,6 @@ sub infoSearch {
 ############################################################################################################################################################################################
 ## SET ENGINES
 sub getEngines { 
-  my $motor1="http://www.bing.com/search?q=MYDORK&first=MYNPAGES&FORM=PERE&cc=MYBROWSERLANG";
-  my $motor2="http://www.google.MYGOOGLEDOMAINE/search?q=MYDORK&start=MYNPAGES";
-  my $motor3="http://www.ask.com/web?q=MYDORK&page=MYNPAGES&qid=MYID";
-  my $motor4="http://www.yandex.com/search/?msid=MYMSID&text=MYDORK&lr=25402&p=MYNPAGES";
-  my $motor5="http://www.sogou.com/web?query=MYDORK&page=MYNPAGES&ie=utf8";
-  my $motorparam="1|2|3|4|5|all";
   open (MOTORS, '>'.$aTmotors);
   if (defined $motor) {    
     if ($motor !~ m/$motorparam/) { print MOTORS "$motor1"; }
@@ -1556,13 +1558,11 @@ sub scanCode {
 ## GET ALL PARAMS TO SCAN
 sub makeSscan { 
   my ($at, $bt, $ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter)=@_;
-  ## CHECK ALL PARAMETRES
   if ($at) { searchexitstargets(); }
   if ($bt) { scanTitleBgn(); }
   if ($ct) { headerScan(); }
   if ($dt) { removeDupDom(); }
   if ($et) { removeDupNoProtocol(); }
-  ## START SCAN 
   print $c[11]."$title";
   scanTitleEnd(); 
   title($title);
@@ -1581,23 +1581,10 @@ sub makeSscan {
     else{ print " [$OTHERS[0] $count/$lc]\n"; }
     bloc2($URL);
     $URL = control($URL);
-    if (!@arr) { 
-      if (!$result) { 
-        if (defined $exploit) {       
-          my $lc=countAtexp();
-          my $count3=0;
-          open (EXP, $aTexploits);
-          while (my $exp = <EXP>) { 
-	        chomp $exp;
-		    $count3++;
-            points() if $count3>1;
-            print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc] $exp\n";
-            my $URL1 = $URL.$exp;
-            $URL1 =~ s/ //g;
-            if ($comnd) { doScan($URL1, $filter, "", "", "", $comnd); }
-            else{ doScan($URL1, $filter, "", "", "", "");  }
-          }
-          close (EXP);                   
+    if (!@arr) {     
+      if (!$result) {
+        if (defined $exploit) {
+          getExploitScan($URL, $filter, $result, $reverse, $reg, $comnd, $isFilter);
         }else{
           my $URL1 = $URL; $URL1 =~ s/ //g;
           if ($reg) { doScan($URL1, $filter, "", "", $reg, ""); }
@@ -1605,23 +1592,14 @@ sub makeSscan {
           else{ doScan($URL1, $filter, "", "", "", ""); }
         }
       }else{ my $URL1 = $URL; $URL1 =~ s/ //g; doScan($URL1, $filter, $result, "", "", ""); }
-    }else{ 
+    }else{
       my $pm=0;
       foreach my $arr(@arr) { 
         $pm++;
         points() if defined $exploit and $pm >1;       
         print $c[1]."    $DS[5]  $c[10] [$pm/".scalar(grep { defined $_} @arr)."] $arr\n";     
-        if (defined $exploit) {        
-          my $lc=countAtexp();
-          my $count3=0;
-          open (EXP, $aTexploits);
-          while (my $exp = <EXP>) { 
-	        chomp $exp;
-		    $count3++;
-            print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc] $exp\n";            
-            my $URL1 = $URL.$exp.$arr; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter);
-          }
-          close (EXP);
+        if (defined $exploit) {
+          getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter);
         }elsif (defined $p) { 
           if ($URL =~ /$p=([^&]*)/) { $URL =~ s/$p=([^&]*)/$p=$1$arr/g; my $URL1 = $URL; doScan($URL1, $filter, "", "", "", $isFilter); }
         }elsif ($reverse) { $URL=removeProtocol($URL); my $URL1 = $arr.$URL; $URL1 =~ s/ //g; doScan($URL1, "", "", $reverse, "", "", $isFilter); points() if $pm>1; }
@@ -1632,6 +1610,42 @@ sub makeSscan {
   close(TEXT);
   return ($count, $lc);
 }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## MAKE SCAN WITH EXPLOIT
+sub getExploitScan{
+  my ($URL, $filter, $result, $reverse, $reg, $comnd, $isFilter)=@_;
+  my $lc=countAtexp();
+  my $count3=0;
+  open (EXP, $aTexploits);
+  while (my $exp = <EXP>) { 
+	chomp $exp;
+	$count3++;
+    points() if $count3>1;
+    print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc] $exp\n";
+    my $URL1 = $URL.$exp;
+    $URL1 =~ s/ //g;
+    if ($comnd) { doScan($URL1, $filter, "", "", "", $comnd); }
+    else{ doScan($URL1, $filter, "", "", "", "");  }
+  }
+  close (EXP);
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## MAKE SCAN WITH EXPLOIT IN ARRAY
+sub getExploitArrScan{
+  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter)=@_;
+  my $lc=countAtexp();
+  my $count3=0;
+  open (EXP, $aTexploits);
+  while (my $exp = <EXP>) { 
+	chomp $exp;
+	$count3++;
+    print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc] $exp\n";            
+    my $URL1 = $URL.$exp.$arr; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter);
+  }
+  close (EXP);
+}          
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## MOVE URL TO DO SCAN

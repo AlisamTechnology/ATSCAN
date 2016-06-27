@@ -305,7 +305,7 @@
         <td class="main">Jump extra results info.</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--options | -?</td>
+        <td width="200px" class="main">--options</td>
         <td class="main">Show scan configuration.</td>
       </tr>      
       <tr>

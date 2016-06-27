@@ -144,7 +144,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">-p</td>
-        <td class="main">Set test param to xss</td>
+        <td class="main">Set test parameter EX:id,cat,product_ID</td>
       </tr>
       <tr>
         <td width="200px" class="main">--time</td>

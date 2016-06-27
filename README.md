@@ -317,7 +317,7 @@
         <td class="main">Produce beep sound if positive scan found</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--help / -h</td>
+        <td width="200px" class="main">--help | -h | -?</td>
         <td class="main">Help.</td>
       </tr> 
       <tr>

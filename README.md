@@ -55,7 +55,7 @@
     <td class="main">
       ap-get install libxml-simple-perl <br/>
       NOTE: Works in linux platforms. Best Run on Ubuntu 14.04, Kali Linux 2.0, Arch Linux, Fedora Linux, Centos.. <br/> 
-      if you use a windows you can download manualy (Requiere Perl modules).
+      if you use a windows you can download manualy (Requiere Perl).
     </td>
   </tr>
 </table>

@@ -23,8 +23,8 @@ use HTML::Entities;
 #   Tool coded by Ali Mehdioui.
 #   Script name: Atscan Scanner.
 #   Codename: Anon4t.
-#   Works in linux platforms. Best Run on Ubuntu 14.04, Kali Linux 2.0, Arch Linux, Fedora Linux, Centos..
-#   Windows with perl required!
+#   Works in all platforms.
+#   Perl required!
 ############################################################################################################################################################################################
 ## DESCRIPTION #############################################################################################################################################################################
 #

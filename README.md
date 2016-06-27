@@ -317,6 +317,10 @@
         <td class="main">Produce beep sound if positive scan found</td>
       </tr> 
       <tr>
+        <td width="200px" class="main">--ifend</td>
+        <td class="main">Produce beep sound when scan process is finished.</td>
+      </tr> 
+      <tr>
         <td width="200px" class="main">--help | -h | -?</td>
         <td class="main">Help.</td>
       </tr> 

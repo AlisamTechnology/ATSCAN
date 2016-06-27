@@ -2123,7 +2123,7 @@ sub help {
   print "   --email       | Get emails \n";
   print "   --save        | Save scan.\n";
   print "   --nobanner    | Hide tool banner\n";
-  print "   --beep        | Produce beep sount if positive scan found.\n";
+  print "   --beep        | Produce beep sound if positive scan found.\n";
   print "   --noinfo      | Jump extra results info.\n";
   print "   --pause       | Pause scan when the first result is found.\n";
   print "   --options     | Show scan optiions.\n";

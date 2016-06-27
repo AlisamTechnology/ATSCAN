@@ -323,7 +323,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--update</td>
-        <td class="main">Check / Update.</td>
+        <td class="main">Update.</td>
       </tr> 
     </table></td>
   </tr>

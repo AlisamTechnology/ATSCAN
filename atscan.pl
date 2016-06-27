@@ -71,7 +71,7 @@ my @c = ("\033[0;30m", "\033[1;30m", "\033[0;31m", "\033[0;32m", "\033[0;33m", "
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## OTHERS DIALOG TEXT
-my @OTHERS = ("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "HTTP/1.1", "version", "Stable", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is", "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC", "[!] Type C to Continue or O to Exit!: ");
+my @OTHERS = ("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "HTTP/1.1", "version", "Stable", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is", "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC", "[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SEPARATIONS
@@ -238,7 +238,7 @@ Getopt::Long::GetOptions(\%OPT,
 						'regex=s' => \$regex,
                         'sregex=s'=> \$searchRegex,
                         'noquery'=> \$noQuery,
-                        'options'=> \$showOpt,
+                        'options|?'=> \$showOpt,
 ) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -801,21 +801,20 @@ sub control {
 ############################################################################################################################################################################################
 ## EXTRAT INFO PROCESS SCAN
 sub checkExtraInfo { 
-  my $URL1=$_[0];
+  my $URL=$_[0];
   my %replace = (
     'http://' => '',
     'https://' => '',
     'www.' => '',
   '  ftp://' => '',
   );
-  $URL1=~ s/$_/$replace{ $_}/g for keys %replace;
-  $URL1=~ s/\/.*//s;
+  $URL=~ s/$_/$replace{ $_}/g for keys %replace;
+  $URL=~ s/\/.*//s;
   use Socket;
-  my $ip = inet_aton($URL1);
+  my $ip = inet_aton($URL);
   print $c[1]."    $DS[10]      ";
   if ($ip) { my $address = inet_ntoa($ip); print $c[10]."$address\n"; }
   else{ print $c[10]."$DT[35]\n"; }
-  if ((defined $replace) && (defined $with)) { print $c[1]."    $OTHERS[14]   "; print $c[10]." [$replace] => [$with]\n"; }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1159,7 +1158,11 @@ sub countResultLists {
 ############################################################################################################################################################################################
 ## PRINT SCAN PARTS
 sub bloc1 { my $URL=$_[0]; $URL = checkUrlType($URL); stak(); print $c[12]."    "; timer(); }
-sub bloc2 { my $URL=$_[0]; $URL = checkUrlSchema($URL); print $c[1]."    $DS[9]  "; print $c[10]."$URL\n"; }
+sub bloc2 {
+  my $URL=$_[0]; $URL = checkUrlSchema($URL); print $c[1]."    $DS[9]  "; print $c[10]."$URL\n";
+  if (!defined $noinfo) { checkExtraInfo($URL); }
+  if ((defined $replace) && (defined $with)) { print $c[1]."    $OTHERS[14]   "; print $c[10]." [$replace] => [$with]\n"; }
+}
 sub bloc3 { my $URL=$_[0]; $URL = checkIp($URL); print $c[5]."    "; timer(); }
 sub bloc4 { my $URL=$_[0]; print $c[1]."    $DS[9]  "; print $c[7]."$URL\n"; }
 ############################################################################################################################################################################################
@@ -1396,8 +1399,7 @@ sub doSearch {
 ## BROWSER PROCEDURE
 sub browseUrl { 
   my $URL1=$_[0];
-  if (defined $random) { newIdentity(); }
-  if (!defined $noinfo) { checkExtraInfo($URL1); }
+  if (defined $random) { newIdentity(); } 
   my $request = HTTP::Request->new('GET', $URL1);
   my $response = $ua->request($request);
   my $html = $response->content;
@@ -1584,7 +1586,7 @@ sub makeSscan {
     if (!@arr) {     
       if (!$result) {
         if (defined $exploit) {
-          getExploitScan($URL, $filter, $result, $reverse, $reg, $comnd, $isFilter);
+          getExploitArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "");
         }else{
           my $URL1 = $URL; $URL1 =~ s/ //g;
           if ($reg) { doScan($URL1, $filter, "", "", $reg, ""); }
@@ -1597,11 +1599,8 @@ sub makeSscan {
       foreach my $arr(@arr) { 
         $pm++;
         points() if defined $exploit and $pm >1;       
-        print $c[1]."    $DS[5]  $c[10] [$pm/".scalar(grep { defined $_} @arr)."] $arr\n";     
-        if (defined $exploit) {
-          getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter);
-        }elsif (defined $p) { 
-          if ($URL =~ /$p=([^&]*)/) { $URL =~ s/$p=([^&]*)/$p=$1$arr/g; my $URL1 = $URL; doScan($URL1, $filter, "", "", "", $isFilter); }
+        if ((defined $exploit) || (defined $p)) {
+          getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr));
         }elsif ($reverse) { $URL=removeProtocol($URL); my $URL1 = $arr.$URL; $URL1 =~ s/ //g; doScan($URL1, "", "", $reverse, "", "", $isFilter); points() if $pm>1; }
         else{ my $URL1 = $URL.$arr; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter); }
       }
@@ -1612,39 +1611,56 @@ sub makeSscan {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## MAKE SCAN WITH EXPLOIT
-sub getExploitScan{
-  my ($URL, $filter, $result, $reverse, $reg, $comnd, $isFilter)=@_;
-  my $lc=countAtexp();
-  my $count3=0;
-  open (EXP, $aTexploits);
-  while (my $exp = <EXP>) { 
-	chomp $exp;
-	$count3++;
-    points() if $count3>1;
-    print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc] $exp\n";
-    my $URL1 = $URL.$exp;
-    $URL1 =~ s/ //g;
-    if ($comnd) { doScan($URL1, $filter, "", "", "", $comnd); }
-    else{ doScan($URL1, $filter, "", "", "", "");  }
+## MAKE SCAN WITH EXPLOIT IN ARRAY
+sub getExploitArrScan{
+  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr)=@_;  
+  if (defined $exploit) {  
+    my $lc=countAtexp();
+    my $count3=0;
+    open (EXP, $aTexploits);
+    while (my $exp = <EXP>) { 
+	  chomp $exp;
+	  $count3++;
+      if (defined $p) {
+        if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3); }
+        else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $exp, $lc, $count3); }
+      }else{
+        if ($arr) { my $URL1 = $URL.$exp.$arr; $URL1 =~ s/ //g; print "$URL1\n"; doScan($URL1, $filter, "", "", "", "", $isFilter); }
+        else{ my $URL1 = $URL.$exp; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter); }
+      }
+    }
+    close (EXP);
+  }else{
+    if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, "", "", ""); }
+    else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", "", "", ""); }
   }
-  close (EXP);
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## MAKE SCAN WITH EXPLOIT IN ARRAY
-sub getExploitArrScan{
-  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter)=@_;
-  my $lc=countAtexp();
-  my $count3=0;
-  open (EXP, $aTexploits);
-  while (my $exp = <EXP>) { 
-	chomp $exp;
-	$count3++;
-    print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc] $exp\n";            
-    my $URL1 = $URL.$exp.$arr; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter);
+## MAKE SCAN WITH DEFINED PARAMETERS
+sub getPArrScan{
+  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp,  $lc, $count3)=@_;
+  if (defined $p) {
+    my @P=split(",", $p);
+    my $pc=0;
+    foreach my $P(@P) {
+      $pc++;
+      if ($exp) { print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc][$exp]\n"; }
+      if ($arr) { print $c[1]."    $DS[5]  $c[10] [$pm/$pmarr][$arr]\n"; }
+      print $c[1]."    $OTHERS[16]  $c[10] [$pc/".scalar(grep { defined $_} @P)."][$P]\n";
+      if ($URL=~/$P/) {
+        my $URL1=$URL;
+        if (index($URL, "?$P=") != -1) {
+          $URL1=~s/\?$P=([^&]*)/\?$P=$1$exp$arr/g;
+          doScan($URL1, $filter, "", "", "", "", $isFilter);
+        }
+        if (index($URL, "&$P=") != -1) {
+          $URL1=~s/\&$P=([^&]*)/\&$P=$1$exp$arr/g;
+          doScan($URL1, $filter, "", "", "", "", $isFilter);
+        }       
+      }else{ print $c[1]."    $DS[4]:   $c[2]$OTHERS[17]\n"; points(); }
+    }
   }
-  close (EXP);
 }          
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -2104,7 +2120,7 @@ sub help {
   print "   --unique      | Get targets with exact dork matching.\n";
   print "   --exp         | Exploit\n";
   print "   -t            | Target [http://site.com]\n";
-  print "   -p            | Set xss test parameter \n";
+  print "   -p            | Set test parameter EX:id,cat,product_ID\n";
   print "   -m            | Set engine motors. default bing EX: -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n";
   print "   --xss         | Xss scan \n";
   print "   --lfi         | Local file inclusion \n";

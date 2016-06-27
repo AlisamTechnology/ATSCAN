@@ -181,7 +181,7 @@ sub badArgs {
 ############################################################################################################################################################################################
 ## ARGUMENTS
 use Getopt::Long ();
-my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt);
+my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend);
 my %OPT;
 Getopt::Long::GetOptions(\%OPT,
                         'isup' => \$misup,
@@ -234,6 +234,8 @@ Getopt::Long::GetOptions(\%OPT,
                         'sregex=s'=> \$searchRegex,
                         'noquery'=> \$noQuery,
                         'options'=> \$showOpt,
+                        'ifend'=> \ $ifend,
+
 ) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -972,6 +974,7 @@ sub negative {
 ## END SCAN PROCESS
 sub subfin { 
   print $c[2]."[!] "; timer(); print " $DT[3]!\n";
+  if (defined $ifend) { print chr(7); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -2128,6 +2131,7 @@ sub help {
   print "   --save        | Save scan.\n";
   print "   --nobanner    | Hide tool banner\n";
   print "   --beep        | Produce beep sound if positive scan found.\n";
+  print "   --ifend       | Produce beep sound when scan process is finished.\n";
   print "   --noinfo      | Jump extra results info.\n";
   print "   --pause       | Pause scan when the first result is found.\n";
   print "   --options     | Show scan optiions.\n";

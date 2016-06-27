@@ -24,7 +24,7 @@ use HTML::Entities;
 #   Script name: Atscan Scanner.
 #   Codename: Anon4t.
 #   Works in linux platforms. Best Run on Ubuntu 14.04, Kali Linux 2.0, Arch Linux, Fedora Linux, Centos..
-#   Windows with perl instaled!
+#   Windows with perl required!
 ############################################################################################################################################################################################
 ## DESCRIPTION #############################################################################################################################################################################
 #

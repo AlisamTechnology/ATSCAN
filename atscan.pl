@@ -213,7 +213,7 @@ Getopt::Long::GetOptions(\%OPT,
 						'all' => \$all,
                         'proxy=s' => \$proxy,
                         'random' => \$random,
-                        'help|h' => \$help,
+                        'help|h|?' => \$help,
                         'save=s' => \$output,
 						'replace=s' => \$replace,
 						'with=s' => \$with,
@@ -233,7 +233,7 @@ Getopt::Long::GetOptions(\%OPT,
 						'regex=s' => \$regex,
                         'sregex=s'=> \$searchRegex,
                         'noquery'=> \$noQuery,
-                        'options|?'=> \$showOpt,
+                        'options'=> \$showOpt,
 ) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -581,7 +581,7 @@ sub testConection {
     print "[!] $DT[10]\n";
 	exit();
   }else{
-    print $c[3]."OK!\n".$c[4]."[!] $DT[31]\n";
+    if (defined $proxy) { print $c[3]."OK!\n$c[4]\[!] $DT[31]\n"; }
   }
 }
 ############################################################################################################################################################################################
@@ -609,8 +609,8 @@ sub osinfo {
 ############################################################################################################################################################################################
 ## ADVISE
 sub advise { 
-  print $c[4]."[!] $OTHERS[5]1: (Installed Tool) atscan <option> / Help: atscan [--help | -h]\n";
-  print $c[4]."[!] $OTHERS[5]2: perl ./",basename($0)," <option> / Help: perl ./",basename($0)," [--help | -h] \n";
+  print $c[4]."[!] $OTHERS[5]1: (Installed Tool) atscan <option> / Help: atscan [--help | -h | -?]\n";
+  print $c[4]."[!] $OTHERS[5]2: perl ./",basename($0)," <option> / Help: perl ./",basename($0)," [--help | -h | -?] \n";
   exit;
 }
 ############################################################################################################################################################################################
@@ -1374,7 +1374,7 @@ sub doSearch {
 ############################################################################################################################################################################################
 ## BROWSER PROCEDURE
 sub browseUrl { 
-  my $URL1=$_[0];
+  my $URL1=$_[0]; 
   if (defined $random) { newIdentity(); } 
   my $request = HTTP::Request->new('GET', $URL1);
   my $response = $ua->request($request);
@@ -1573,12 +1573,15 @@ sub makeSscan {
     }else{
       my $pm=0;
       foreach my $arr(@arr) { 
-        $pm++;
-        points() if defined $exploit and $pm >1;       
+        $pm++;       
         if ((defined $exploit) || (defined $p)) {
+          points() if $pm>1;       
           getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr));
-        }elsif ($reverse) { $URL=removeProtocol($URL); my $URL1 = $arr.$URL; $URL1 =~ s/ //g; doScan($URL1, "", "", $reverse, "", "", $isFilter); points() if $pm>1; }
-        else{ my $URL1 = $URL.$arr; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter); }
+        }else{  
+          print $c[1]."    $DS[5]  $c[10] [$pm/".scalar(grep { defined $_} @arr)."] $arr\n";
+          if ($reverse) { $URL=removeProtocol($URL); my $URL1 = $arr.$URL; $URL1 =~ s/ //g; doScan($URL1, "", "", $reverse, "", "", $isFilter); points() if $pm>1; }
+          else{ my $URL1 = $URL.$arr; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter); }
+        }
       }
     }
   }  
@@ -1601,7 +1604,7 @@ sub getExploitArrScan{
         if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3); }
         else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $exp, $lc, $count3); }
       }else{
-        if ($arr) { my $URL1 = $URL.$exp.$arr; $URL1 =~ s/ //g; print "$URL1\n"; doScan($URL1, $filter, "", "", "", "", $isFilter); }
+        if ($arr) { my $URL1 = $URL.$exp.$arr; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter); }
         else{ my $URL1 = $URL.$exp; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter); }
       }
     }

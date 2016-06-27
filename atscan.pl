@@ -2135,7 +2135,7 @@ sub help {
   print "   --noinfo      | Jump extra results info.\n";
   print "   --pause       | Pause scan when the first result is found.\n";
   print "   --options     | Show scan optiions.\n";
-  print "   --update      | Check and update tool\n\n"; 
+  print "   --update      | Update tool\n\n"; 
   stak();
   print $c[5]." [::] EXAMPLES: \n\n";
   print $c[12]."  Proxy: \n";

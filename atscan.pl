@@ -1662,11 +1662,11 @@ sub printResults {
   elsif ($comnd) { getComnd($URL1, $comnd); }
   else{ print $c[1]."    $DS[4]    ";    
     if ($isFilter) {
-      if ($html=~/$filter/) { doPrint($URL1); }
+      if($html=~/$filter/) { doPrint($URL1); }
       else{ print $c[2]."$DT[1]\n"; }
       points();
     }else{
-      if ($response->is_success and $status==200) { doPrint($URL1); }
+      if ($response->is_success and !$response->previous) { doPrint($URL1); }
       else{ print $c[2]."$DT[1]\n"; }
       points();
     }

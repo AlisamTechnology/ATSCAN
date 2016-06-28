@@ -1245,7 +1245,7 @@ sub scanDetail {
     if (defined $adminPage) { print $c[8]."[$DS[58]\]"; }
     if (defined $JoomRfi) { print $c[8]."[$DS[62]\]"; }
     if (defined $WpAfd) { print $c[8]."[$DS[63]\]"; }
-    if (defined $mports) { print $c[8]."[$DS[58] $port";
+    if (defined $mports) { print $c[8]."[$DS[59] $port";
       if (defined $tcp) { print $c[8]." $DS[64]"; }
       if (defined $udp) { print $c[8]." $DS[65]"; }
       print $c[8]."]";
@@ -1462,8 +1462,7 @@ sub scanPorts {
   my ($PORTS, $types)=@_;
   headerScan();
   print $c[11]."$SCAN_TITLE[20]";
-  scanTitleEnd();
-  title($SCAN_TITLE[20]);
+  scanTitleEnd(); title($SCAN_TITLE[20]);
   my $count=0;
   my $closed1=0;
   my $lc=countAtsearch();
@@ -1471,11 +1470,8 @@ sub scanPorts {
   my @TYPES=@{ $types };
   open (TEXT, $aTsearch);
   while (my $URL = <TEXT>) { 
-    $count++;
-	chomp $URL;
-    bloc3($URL);
-	print "[$OTHERS[0] $count/$lc]\n";
-    bloc4($URL);
+	chomp $URL; $count++; bloc3($URL);
+	print "[$OTHERS[0] $count/$lc]\n"; bloc4($URL);
     my $c1=0;
     foreach my $port(@PORTS) { 
       $c1++;
@@ -1486,18 +1482,14 @@ sub scanPorts {
   	    if (defined $random) { newIdentity(); }
         my $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port",Proto=>"$type") or $closed1++;
         close $socket if defined $socket;     
-	    print $c[1]."    $DS[7]   ";
-        print $c[10]."$port\n";
-        print $c[1]."    $DS[8]   ";
-        print $c[10]."$type\n";
- 	    print $c[1]."    $DS[4]   ";
+	    print $c[1]."     $DS[7]   $c[10]$port\n $c[1]    $DS[8]   $c[10]$type\n $c[1]    $DS[4]   ";
 	    if ($closed1==0) { 
           my $URL1=$port." => ".$type;
-          print $c[3]."$DS[41]\n";
+          print $c[3]."$DS[42]\n";
           saveme($URL1);
           if (defined $pause) { ifirst(); }
         }
-        else{ print $c[2]."$DS[42]\n"; }
+        else{ print $c[2]."$DS[43]\n"; }
 	    my $closed1=0;
         points() unless $c2==scalar(grep $_, @TYPES);
       }
@@ -1542,9 +1534,7 @@ sub makeSscan {
   if ($ct) { headerScan(); }
   if ($dt) { removeDupDom(); }
   if ($et) { removeDupNoProtocol(); }
-  print $c[11]."$title";
-  scanTitleEnd(); 
-  title($title);
+  print $c[11]."$title"; scanTitleEnd(); title($title);
   print $c[4]."$paylNote" if defined $paylNote;  
   my $lc=countAtsearch();
   my $count=0;
@@ -1553,9 +1543,7 @@ sub makeSscan {
   my $filter=join("|", @filter);
   open (TEXT, $aTsearch);
   while (my $URL = <TEXT>) { 
-    $count++;
-	chomp $URL;
-    bloc1($URL);
+    $count++; chomp $URL; bloc1($URL);
     if ($result) { print " [$OTHERS[0] $count]\n"; }
     else{ print " [$OTHERS[0] $count/$lc]\n"; }
     bloc2($URL);

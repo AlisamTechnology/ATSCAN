@@ -1186,8 +1186,7 @@ sub checkVersion {
   my $response = $ua->request($request);
   my $html = $response->content;
   if ($response->is_success) { 
-    unlink $Bin."/atscan.pl";        
-	open (FILE, '>>', "$Bin/atscan.pl");
+	open (FILE, '>', "$Bin/atscan.pl");
     print FILE $response->content;
     close (FILE);
     system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl || atscan");

@@ -2171,7 +2171,7 @@ sub help {
   print $c[10]."";
   print "    Regex use: [--dork <dork> | -t <target>] --level <level> --regex <regex>\n";
   print "    EX: To get ips ((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){ 3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\n";
-  print "    EX: To get mails ((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{ 1,63}\.[a-zA-Z]{ 2,6})'\n\n";  
+  #print "    EX: To get mails ((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{ 1,63}\.[a-zA-Z]{ 2,6})\n\n";  
   stak();
   print $c[12]."  Subscan from Serach Engine: \n";
   print "  ......................\n";

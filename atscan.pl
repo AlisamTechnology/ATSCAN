@@ -1190,7 +1190,6 @@ sub checkVersion {
 	open (FILE, '>>', "$Bin/atscan.pl");
     print FILE $response->content;
     close (FILE);
-    printf "\033c";  
     system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl || atscan");
     print $c[3]."[!] $DT[7]\n";
   }

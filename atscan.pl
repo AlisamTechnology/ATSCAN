@@ -83,7 +83,7 @@ sub dpoints { print $c[10]."           :::::::::::::::::::::::::::::::::::::::::
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## TOOL VERSION
-my $Version="9.6";
+my $Version="9.5";
 my $logoVersion="V $Version";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1598,12 +1598,13 @@ sub getExploitArrScan{
     while (my $exp = <EXP>) { 
 	  chomp $exp;
 	  $count3++;
+      print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc][$exp]\n" if !defined $p;
       if (defined $p) {
         if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3); }
         else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $exp, $lc, $count3); }
       }else{
-        if ($arr) { my $URL1 = $URL.$exp.$arr; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter); }
-        else{ my $URL1 = $URL.$exp; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter); }
+        if ($arr) { my $URL1 = $URL.$exp; $URL1 =~ s/ //g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter); }
+       else{ my $URL1 = $URL.$exp; $URL1 =~ s/ //g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter); }
       }
     }
     close (EXP);
@@ -1629,11 +1630,11 @@ sub getPArrScan{
         my $URL1=$URL;
         if (index($URL, "?$P=") != -1) {
           $URL1=~s/\?$P=([^&]*)/\?$P=$1$exp$arr/g;
-          doScan($URL1, $filter, "", "", "", "", $isFilter);
+          doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter);
         }
         if (index($URL, "&$P=") != -1) {
           $URL1=~s/\&$P=([^&]*)/\&$P=$1$exp$arr/g;
-          doScan($URL1, $filter, "", "", "", "", $isFilter);
+          doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter);
         }       
       }else{ print $c[1]."    $DS[4]:   $c[2]$OTHERS[17]\n"; points(); }
     }
@@ -1646,7 +1647,7 @@ sub doScan {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter)=@_;
   my ($response, $status, $html)=browseUrl($URL1);
   printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter);
-  return ($URL1, $response, $status, $html, $filter);
+  #return ($URL1, $response, $status, $html, $filter);
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################

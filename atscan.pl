@@ -1194,7 +1194,7 @@ sub checkVersion {
     close (FI);    
     use File::Compare;      
     if (compare($script_bac, $script) == 0) {
-      print $c[4]."$DT[6]\n"; }
+      print mtak(); ltak(); $c[4]."  $DT[6]\n"; }
     else{
 	  open (FILE, '>', $script);
       print FILE $response->content;

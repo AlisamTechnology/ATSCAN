@@ -1185,12 +1185,17 @@ sub checkVersion {
   my $request = HTTP::Request->new('GET', $URL);
   my $response = $ua->request($request);
   my $html = $response->content;
-  if ($response->is_success) { 
-	open (FILE, '>', "$Bin/atscan.pl");
-    print FILE $response->content;
-    close (FILE);
-    system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl || atscan");
-    print $c[3]."[!] $DT[7]\n";
+  if ($response->is_success) {
+    use File::Compare;
+    if (compare($response->content,"$Bin/atscan.pl") == 0) {
+      print $c[2]."[!] No Update found!\n"; }
+    else{
+	  open (FILE, '>', "$Bin/atscan.pl");
+      print FILE $response->content;
+      close (FILE);
+      system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl || atscan");
+      print $c[3]."[!] $DT[7]\n";
+    }
   }
   else{ print $c[2]."[!] $DT[8]!\n"; }
 }

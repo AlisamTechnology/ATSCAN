@@ -1203,6 +1203,7 @@ sub checkVersion {
       system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl || atscan");
       print $c[3]."[!] $DT[7]\n";
     }
+    unlink "$Bin/atscan-bac.pl";
   }
   else{ print $c[2]."[!] $DT[8]!\n"; }
 }

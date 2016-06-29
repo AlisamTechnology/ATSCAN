@@ -1199,8 +1199,11 @@ sub checkVersion {
 	  open (FILE, '>', $script);
       print FILE $response->content;
       close (FILE);
-      system("chmod +x $script | perl $script || atscan");
-      print $c[3]."[!] $DT[7]\n";
+      system("chmod +x $script | perl $script || atscan");      
+      my $req= HTTP::Request->new('GET', "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log");
+      my $res = $ua->request($req);
+      print "$res->content\n";  
+      print $c[3]."[!] $DT[7]\n";     
     }
     unlink $script_bac if -e $script_bac;
   }

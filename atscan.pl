@@ -267,6 +267,7 @@ sub deleteLists {
   unlink $aTexploits if -e $aTexploits;
   unlink $aTports if -e $aTports;
   unlink $aTcopy if -e $aTcopy;
+  unlink $script_bac if -e $script_bac;
 }
 deleteLists();
 ############################################################################################################################################################################################
@@ -1205,7 +1206,7 @@ sub checkVersion {
       system("chmod +x $script | perl $script || atscan");
       print $c[3]."[!] $DT[7]\n";
     }
-    unlink $script_bac;
+    unlink $script_bac if -e $script_bac;
   }
   else{ print $c[2]."[!] $DT[8]!\n"; }
 }

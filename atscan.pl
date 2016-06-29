@@ -253,6 +253,8 @@ my $aTscan=$Bin."/aTscan.txt";
 my $aTexploits=$Bin."/aTexploits.txt";
 my $aTports=$Bin."/aTports.txt";
 my $aTcopy=$Bin."/aTcopy.txt";
+my $script=$Bin."/atscan.pl";
+my $script_bac=$Bin."/atscan_bac.pl";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DELETE CLEAR LISTS
@@ -1186,24 +1188,24 @@ sub checkVersion {
   my $response = $ua->request($request);
   my $html = $response->content;
   if ($response->is_success) {
-	open (FI, '>>', "$Bin/atscan-bac.pl");
+	open (FI, '>>', $script_bac);
     print FI $response->content;
     close (FI);
     
     use File::Compare;   
     
-    if (compare("$Bin/atscan-bac.pl", "$Bin/atscan.pl") == 0) {
+    if (compare($script_bac, $script) == 0) {
       print "HAHAHAH  SAME\n";
       print $c[2]."[!] No Update found!\n"; }
     else{
       print "HAHAHAH  DIFF\n";
-	  open (FILE, '>', "$Bin/atscan.pl");
+	  open (FILE, '>', $script);
       print FILE $response->content;
       close (FILE);
-      system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl || atscan");
+      system("chmod +x $script | perl $script || atscan");
       print $c[3]."[!] $DT[7]\n";
     }
-    unlink "$Bin/atscan-bac.pl";
+    unlink $script_bac;
   }
   else{ print $c[2]."[!] $DT[8]!\n"; }
 }

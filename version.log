@@ -1,7 +1,7 @@
-Version 9.6 Stable
-CHANGES:
-===================
-  - Optimized ports scan process.
-  - Optimize update and show changes.
-  - Removed redirected urls from scan results.
-  - Enjoy!
+   Version 9.6 Stable
+   CHANGES:
+   ===================
+    - Optimized ports scan process.
+    - Optimize update and show changes.
+    - Removed redirected urls from scan results.
+    - Enjoy!

@@ -1,7 +1,8 @@
     Version 9.6 Stable
-    CHANGES:
+    CHANGES: 30/06/2016
     ===================
      - Optimized ports scan process.
      - Optimize update and show changes.
      - Removed redirected urls from scan results.
      - Enjoy!
+     - Fix command arg to work with p arg.

@@ -1186,12 +1186,17 @@ sub checkVersion {
   my $response = $ua->request($request);
   my $html = $response->content;
   if ($response->is_success) {
-    use File::Compare;
-    if (compare($response->content,"$Bin/atscan.pl") == 0) {
-      print "HAHAHAH  1\n";
+	open (FI, '>>', "$Bin/atscan-bac.pl");
+    print FI $response->content;
+    close (FI);
+    
+    use File::Compare;   
+    
+    if (compare("$Bin/atscan-bac.pl", "$Bin/atscan.pl") == 0) {
+      print "HAHAHAH  SAME\n";
       print $c[2]."[!] No Update found!\n"; }
     else{
-      print "HAHAHAH  2\n";
+      print "HAHAHAH  DIFF\n";
 	  open (FILE, '>', "$Bin/atscan.pl");
       print FILE $response->content;
       close (FILE);

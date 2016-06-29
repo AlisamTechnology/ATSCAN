@@ -1188,8 +1188,10 @@ sub checkVersion {
   if ($response->is_success) {
     use File::Compare;
     if (compare($response->content,"$Bin/atscan.pl") == 0) {
+      print "HAHAHAH  1\n";
       print $c[2]."[!] No Update found!\n"; }
     else{
+      print "HAHAHAH  2\n";
 	  open (FILE, '>', "$Bin/atscan.pl");
       print FILE $response->content;
       close (FILE);

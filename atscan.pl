@@ -915,36 +915,37 @@ sub checkErrors {
 sub checkErrors2 { 
   my $html=$_[0];
   my @ERR2;
-  my $E;
-  for $E(@ERR) { if ($html =~ /$E/) { push(@ERR2, $E); } }
-  my $MYERRORS=join("|", @ERR2);
-  titleErrorType($MYERRORS);
-  $MYERRORS=~s/\|/ /g;
-  print "            ".$c[10]."[@ERR2]\n";
+  for my $ERR(@ERR) { if ($html =~ /$ERR/g) { push(@ERR2, $ERR); } }
+  if (scalar(grep { defined $_} @ERR2)>0) { print $c[1]."    ERRORS:"; }
+  my $counterr=0;
+  for my $ERR2(@ERR2) {
+    $counterr++; titleErrorType($ERR2, $counterr); print "            ".$c[10]."[$ERR2]\n";
+  }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT ERROR TITLE
 sub titleErrorType { 
-  my $MYERRORS=$_[0];
-  if (grep( /^$MYERRORS$/, @V_LFI)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[0]\n"; }
-  if (grep( /^$MYERRORS$/, @V_XSS)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[1]\n"; }
-  if (grep( /^$MYERRORS$/, @V_AFD)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[2]\n"; }
-  if (grep( /^$MYERRORS$/, @E_MICROSOFT)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[3]\n"; }
-  if (grep( /^$MYERRORS$/, @E_ORACLE)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[4]\n"; }
-  if (grep( /^$MYERRORS$/, @E_DB2)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[5]\n"; }
-  if (grep( /^$MYERRORS$/, @E_ODBC)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[6]\n"; }
-  if (grep( /^$MYERRORS$/, @E_POSTGRESQL)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[7]\n"; }
-  if (grep( /^$MYERRORS$/, @E_SYBASE)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[8]\n"; }
-  if (grep( /^$MYERRORS$/, @E_JBOSSWEB)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[9]\n"; }
-  if (grep( /^$MYERRORS$/, @E_JDBC)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[10]\n"; }
-  if (grep( /^$MYERRORS$/, @E_JAVA)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[11]\n"; }
-  if (grep( /^$MYERRORS$/, @E_PHP)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[12]\n"; }
-  if (grep( /^$MYERRORS$/, @E_ASP)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[13]\n"; }
-  if (grep( /^$MYERRORS$/, @E_LUA)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[14]\n"; }
-  if (grep( /^$MYERRORS$/, @E_UNDEFINED)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[15]\n"; }
-  if (grep( /^$MYERRORS$/, @E_MARIADB)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[16]\n"; }
-  if (grep( /^$MYERRORS$/, @E_SHELL)) { print $c[1]."    ERRORS: $c[4]$ErrorsText[17]\n"; }
+  my ($ERR2, $counterr)=@_;
+  if ($counterr>1) { print "           "; }  
+  if (grep( /^$ERR2$/, @V_LFI)) { print $c[1]." $c[4]$ErrorsText[0]\n"; }
+  if (grep( /^$ERR2$/, @V_XSS)) { print $c[1]." $c[4]$ErrorsText[1]\n"; }
+  if (grep( /^$ERR2$/, @V_AFD)) { print $c[1]." $c[4]$ErrorsText[2]\n"; }
+  if (grep( /^$ERR2$/, @E_MICROSOFT)) { print $c[1]." $c[4]$ErrorsText[3]\n"; }
+  if (grep( /^$ERR2$/, @E_ORACLE)) { print $c[1]." $c[4]$ErrorsText[4]\n"; }
+  if (grep( /^$ERR2$/, @E_DB2)) { print $c[1]." $c[4]$ErrorsText[5]\n"; }
+  if (grep( /^$ERR2$/, @E_ODBC)) { print $c[1]." $c[4]$ErrorsText[6]\n"; }
+  if (grep( /^$ERR2$/, @E_POSTGRESQL)) { print $c[1]." $c[4]$ErrorsText[7]\n"; }
+  if (grep( /^$ERR2$/, @E_SYBASE)) { print $c[1]." $c[4]$ErrorsText[8]\n"; }
+  if (grep( /^$ERR2$/, @E_JBOSSWEB)) { print $c[1]." $c[4]$ErrorsText[9]\n"; }
+  if (grep( /^$ERR2$/, @E_JDBC)) { print $c[1]." $c[4]$ErrorsText[10]\n"; }
+  if (grep( /^$ERR2$/, @E_JAVA)) { print $c[1]." $c[4]$ErrorsText[11]\n"; }
+  if (grep( /^$ERR2$/, @E_PHP)) { print $c[1]." $c[4]$ErrorsText[12]\n"; }
+  if (grep( /^$ERR2$/, @E_ASP)) { print $c[1]." $c[4]$ErrorsText[13]\n"; }
+  if (grep( /^$ERR2$/, @E_LUA)) { print $c[1]." $c[4]$ErrorsText[14]\n"; }
+  if (grep( /^$ERR2$/, @E_UNDEFINED)) { print $c[1]." $c[4]$ErrorsText[15]\n"; }
+  if (grep( /^$ERR2$/, @E_MARIADB)) { print $c[1]." $c[4]$ErrorsText[16]\n"; }
+  if (grep( /^$ERR2$/, @E_SHELL)) { print $c[1]." $c[4]$ErrorsText[17]\n"; }
 }  
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################

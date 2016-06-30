@@ -287,7 +287,7 @@ my @cms = ("CMS", "Wordpress", "Joomla", "Textpattern", "SMF", "PhpBB!", "VBulle
 ## ERRORS DIALOG TEXT
 my @ErrorsText=("Local file Inclusion Error Detected\!", "MYSQL Error Detected\!", "Possible Arbitry File Download Vulnerability\!", "Microsoft Error Detected\!", "Oracle Error Detected\!",
 "DB2 Error Detected\!", "ODBC Error Detected\!", "POSTGRESQL Error Detected\!", "SYBASE Error Detected\!", "BOSSWEB Error Detected\!", "JDBC Error Detected\!", "Java Infinitydb Error Detected\!",
-"PHP Error Detected\!", "ASP Error Detected\!", "LUA Error Detected\!", "UNDEFINED Error Detected\!", "Mariadb Error Detected\!", "Possible Shell Detected\!");
+"PHP Error Detected\!", "ASP Error Detected\!", "LUA Error Detected\!", "UNDEFINED Error Detected\!", "Mariadb Error Detected\!", "Possible Shell Detected\!", "ERRORS:");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GENERAL DIALOG TEXT
@@ -916,7 +916,7 @@ sub checkErrors2 {
   my $html=$_[0];
   my @ERR2;
   for my $ERR(@ERR) { if ($html =~ /$ERR/g) { push(@ERR2, $ERR); } }
-  if (scalar(grep { defined $_} @ERR2)>0) { print $c[1]."    ERRORS:"; }
+  if (scalar(grep { defined $_} @ERR2)>0) { print $c[1]."    $ErrorsText[18]"; }
   my $counterr=0;
   for my $ERR2(@ERR2) {
     $counterr++; titleErrorType($ERR2, $counterr); print "            ".$c[10]."[$ERR2]\n";

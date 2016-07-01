@@ -1186,7 +1186,8 @@ sub doRegex {
 ############################################################################################################################################################################################
 ## CHECK VERSION
 sub checkVersion {
-  testConection();      
+  testConection();
+  mtak(); ptak(); 
   my $request = HTTP::Request->new('GET', $scriptUrl);
   my $response = $ua->request($request);
   my $html = $response->content;
@@ -1196,10 +1197,10 @@ sub checkVersion {
     close (FI);    
     use File::Compare;      
     if (compare($script_bac, $script) == 0) {
-      mtak(); ptak(); print $c[4]." $DT[6]\n"; }
+      print $c[4]." $DT[6]\n"; }
     else{
       unlink $script;
-      if (-e $script) { mtak(); ptak(); print $c[4]." [!] $ErrorsText[19] $script\n"; exit(); }
+      if (-e $script) { print $c[4]." [!] $ErrorsText[19] $script\n"; exit(); }
 	  open (FILE, '>>', $script);
       print FILE $response->content;
       close (FILE);

@@ -3,6 +3,7 @@
     CHANGES: 01/07/2016
     VERSION 9.6 RELEASE
     ===================
+     - Fix update process.
      - Regroup and optimize errors scan.
      - Optimized ports scan process.
      - Optimize update and show changes.

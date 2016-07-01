@@ -1197,6 +1197,7 @@ sub checkVersion {
     if (compare($script_bac, $script) == 0) {
       mtak(); ptak(); print $c[4]." $DT[6]\n"; }
     else{
+      unlink $script;
 	  open (FILE, '>', $script);
       print FILE $response->content;
       close (FILE);

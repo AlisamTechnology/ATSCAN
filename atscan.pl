@@ -85,6 +85,8 @@ sub dpoints { print $c[10]."           :::::::::::::::::::::::::::::::::::::::::
 ## TOOL VERSION
 my $Version="9.6";
 my $logoVersion="V $Version";
+my $scriptUrl = "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
+my $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BANNER
@@ -1185,8 +1187,7 @@ sub doRegex {
 ## CHECK VERSION
 sub checkVersion {
   testConection();      
-  my $URL = "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
-  my $request = HTTP::Request->new('GET', $URL);
+  my $request = HTTP::Request->new('GET', $scriptUrl);
   my $response = $ua->request($request);
   my $html = $response->content;
   if ($response->is_success) {
@@ -1197,14 +1198,14 @@ sub checkVersion {
     if (compare($script_bac, $script) == 0) {
       mtak(); ptak(); print $c[4]." $DT[6]\n"; }
     else{
-      system("chmod +x $script" || die "$ErrorsText[19] $script\n");
-	  open (FILE, '>', $script);
+      unlink $script || die "$ErrorsText[19] $script\n; exit";
+	  open (FILE, '>>', $script);
       print FILE $response->content;
       close (FILE);
       system("chmod +x $script | perl $script || atscan");      
       print $c[3]."[!] $DT[7]\n";
       print color 'reset';
-      my $req= HTTP::Request->new('GET', "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log");
+      my $req= HTTP::Request->new('GET', $logUrl);
       my $res = $ua->request($req);
       print $res->content."";  
     }

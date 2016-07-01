@@ -1198,7 +1198,8 @@ sub checkVersion {
     if (compare($script_bac, $script) == 0) {
       mtak(); ptak(); print $c[4]." $DT[6]\n"; }
     else{
-      unlink $script || die "$ErrorsText[19] $script\n; exit";
+      unlink $script;
+      if (-e $script) { mtak(); ptak(); print $c[4]." [!] $ErrorsText[19] $script\n"; exit(); }
 	  open (FILE, '>>', $script);
       print FILE $response->content;
       close (FILE);

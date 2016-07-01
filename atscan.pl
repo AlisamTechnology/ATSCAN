@@ -1204,7 +1204,8 @@ sub checkVersion {
 	  open (FILE, '>>', $script);
       print FILE $response->content;
       close (FILE);
-      system("chmod +x $script | perl $script || atscan");      
+      system("chmod +x $script | perl $script || atscan");
+      mtak(); ptak();
       print $c[3]."[!] $DT[7]\n";
       print color 'reset';
       my $req= HTTP::Request->new('GET', $logUrl);

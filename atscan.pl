@@ -287,7 +287,7 @@ my @cms = ("CMS", "Wordpress", "Joomla", "Textpattern", "SMF", "PhpBB!", "VBulle
 ## ERRORS DIALOG TEXT
 my @ErrorsText=("Local file Inclusion Error Detected\!", "MYSQL Error Detected\!", "Possible Arbitry File Download Vulnerability\!", "Microsoft Error Detected\!", "Oracle Error Detected\!",
 "DB2 Error Detected\!", "ODBC Error Detected\!", "POSTGRESQL Error Detected\!", "SYBASE Error Detected\!", "BOSSWEB Error Detected\!", "JDBC Error Detected\!", "Java Infinitydb Error Detected\!",
-"PHP Error Detected\!", "ASP Error Detected\!", "LUA Error Detected\!", "UNDEFINED Error Detected\!", "Mariadb Error Detected\!", "Possible Shell Detected\!", "ERRORS:");
+"PHP Error Detected\!", "ASP Error Detected\!", "LUA Error Detected\!", "UNDEFINED Error Detected\!", "Mariadb Error Detected\!", "Possible Shell Detected\!", "ERRORS:", "Permissions! Failed to write in");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GENERAL DIALOG TEXT
@@ -1197,7 +1197,7 @@ sub checkVersion {
     if (compare($script_bac, $script) == 0) {
       mtak(); ptak(); print $c[4]." $DT[6]\n"; }
     else{
-	  open (FILE, '>', $script);
+	  open (FILE, '>', $script) or die $ErrorsText[18] $script."\n"; exit();
       print FILE $response->content;
       close (FILE);
       system("chmod +x $script | perl $script || atscan");      

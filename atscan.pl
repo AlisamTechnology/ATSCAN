@@ -1197,7 +1197,7 @@ sub checkVersion {
     if (compare($script_bac, $script) == 0) {
       mtak(); ptak(); print $c[4]." $DT[6]\n"; }
     else{
-	  open (FILE, '>', $script);
+	  open (FILE, '>', $script) or die "$ErrorsText[19] $script\n";
       print FILE $response->content;
       close (FILE);
       system("chmod +x $script | perl $script || atscan");      

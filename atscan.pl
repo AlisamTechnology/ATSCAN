@@ -187,7 +187,7 @@ sub badArgs {
 ############################################################################################################################################################################################
 ## ARGUMENTS
 use Getopt::Long ();
-my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $ramadan, $scan);
+my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend);
 my %OPT;
 Getopt::Long::GetOptions(\%OPT,
                         'isup' => \$misup,
@@ -241,8 +241,6 @@ Getopt::Long::GetOptions(\%OPT,
                         'noquery'=> \$noQuery,
                         'options'=> \$showOpt,
                         'ifend'=> \$ifend,
-                        'ramadan'=>\$ramadan,
-                        'scan'=>\$scan,
 
 ) or badArgs();
 ############################################################################################################################################################################################
@@ -2050,32 +2048,6 @@ if (defined $motor) {
     exit();
   }
 }
-
-
-
-if ((defined $ramadan) && (defined $scan)) { 
-  print "scanning Ramadan in Asia...\n"; sleep(2);
-  print "Checking moon!....\n";sleep(2);
-  print "scanning Ramadan in Africa...\n"; sleep(2);
-  print "Checking moon!\n";sleep(2);
-  
-  print "scanning Ramadan in Europe...\n"; sleep(2);
-  print "Checking moon!...\n";sleep(2);
-  
-  print "scanning Ramadan in Australia...\n"; sleep(2);
-  print "Checking moon!...\n";sleep(2);
-  
-  print "scanning Ramadan in America...\n"; sleep(2);
-  print "Checking moon!...\n";sleep(2);
-  
-  print color 'green';
-  print "FELICITATIONS !! RAMADAN IS FINNISHED!!";
-  print "AID MOUBARAK SAID!!";
-
-}
-
-
-
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 #######  SCANS ARGUMENTS

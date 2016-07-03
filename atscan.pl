@@ -87,6 +87,7 @@ my $Version="9.6";
 my $logoVersion="V $Version";
 my $scriptUrl = "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 my $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
+my $ipUrl = "http://dynupdate.no-ip.com/ip.php";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BANNER
@@ -235,7 +236,7 @@ Getopt::Long::GetOptions(\%OPT,
                         'sregex=s'=> \$searchRegex,
                         'noquery'=> \$noQuery,
                         'options'=> \$showOpt,
-                        'ifend'=> \ $ifend,
+                        'ifend'=> \$ifend,
 
 ) or badArgs();
 ############################################################################################################################################################################################
@@ -289,7 +290,7 @@ my @cms = ("CMS", "Wordpress", "Joomla", "Textpattern", "SMF", "PhpBB!", "VBulle
 ## ERRORS DIALOG TEXT
 my @ErrorsText=("Local file Inclusion Error Detected\!", "MYSQL Error Detected\!", "Possible Arbitry File Download Vulnerability\!", "Microsoft Error Detected\!", "Oracle Error Detected\!",
 "DB2 Error Detected\!", "ODBC Error Detected\!", "POSTGRESQL Error Detected\!", "SYBASE Error Detected\!", "BOSSWEB Error Detected\!", "JDBC Error Detected\!", "Java Infinitydb Error Detected\!",
-"PHP Error Detected\!", "ASP Error Detected\!", "LUA Error Detected\!", "UNDEFINED Error Detected\!", "Mariadb Error Detected\!", "Possible Shell Detected\!", "ERRORS:", "Permissions\! Failed to write in");
+"PHP Error Detected\!", "ASP Error Detected\!", "LUA Error Detected\!", "UNDEFINED Error Detected\!", "Mariadb Error Detected\!", "Possible Shell Detected\!", "ERRORS:", "Permissions\! Failed to write in", "Checking proxy connection...", "INFO:", "New Identity IP", "Traying again my solve problem or set timeout --time <time in s>");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GENERAL DIALOG TEXT
@@ -299,7 +300,7 @@ my @DT = ("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN DIALOG TEXT
-my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALIDATION", "HTTP/1.1 200", "EXPLOITATION", "GET", "EXTRA", "SHELL", "SCAN LEVEL", "OUTPUT", "EXTERN CMD", "TASK", "BING", "GOOGLE", "ASK [com]", "YANDEX [com]", "SOGOU [com]", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "RANDOM SEARCH", "Unique Results", "Ifinurl VLD", "URL REGEX", "Validate Url", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy", "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Domain Name", "Pause Mode", "ADMIN", "PORTS", "XSS", "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING", "Md5");
+my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALIDATION", "HTTP/1.1 200", "EXPLOITATION", "GET", "EXTRA", "SHELL", "LEVEL", "OUTPUT", "EXTERN CMD", "TASK", "BING", "GOOGLE", "ASK [com]", "YANDEX [com]", "SOGOU [com]", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "ENGINE", "Unique Results", "Ifinurl VLD", "URL REGEX", "Validate Url", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy", "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Domain Name", "Pause Mode", "ADMIN", "PORTS", "XSS", "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING", "Md5", "Proxy");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENGINE LANGUAGES
@@ -523,7 +524,6 @@ use LWP::UserAgent;
 use HTTP::Cookies;
 use HTTP::Request;
 my $agent = "Mozilla/5.0 (".$sys[rand @sys].";) ".$vary[rand @vary];
-
 my $ua = LWP::UserAgent->new(
          agent		=> $agent,
 		 cookie_jar	=> HTTP::Cookies->new(),
@@ -536,6 +536,7 @@ else{ $ua->timeout(10); }
 ############################################################################################################################################################################################
 ## PROXY
 my @resultarray;
+my $psx;
 if (defined $proxy) {
   if ($proxy =~ /:/) { @resultarray = split / /, $proxy; }
   else{ 
@@ -543,13 +544,17 @@ if (defined $proxy) {
     if (substr($proxy, -4) ne '.txt') { desclaimer(); print $c[2]."[!] $DT[29]\n"; exit(); }
     open(my $filehandle, '<', $proxy);
     while(my $line = <$filehandle>) { 
-      chomp $line;
-      my @linearray = split(" ", $line);
-      push(@resultarray, @linearray);
+      chomp $line; my @linearray = split(" ", $line); push(@resultarray, @linearray);
     }
     close $filehandle;
   }
-  $ua->proxy([qw/ http https /] => $resultarray[rand @resultarray]);
+  $psx=$resultarray[rand @resultarray];
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## SET UA PROXY
+sub UA {
+  $ua->proxy([qw/ http https /] => $psx);
   $ua->cookie_jar({ });
 }
 ############################################################################################################################################################################################
@@ -558,33 +563,33 @@ if (defined $proxy) {
 sub newIdentity {
   if ($proxy=~/(localhost|127.0.0.1)/) { system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;"); }
   else{
-    $ua->proxy([qw/ http https /] => $resultarray[rand @resultarray]);
-    $ua->cookie_jar({ });
+    UA();
   }
-  my $URL = "http://dynupdate.no-ip.com/ip.php";
-  my $request = HTTP::Request->new('GET', $URL);
-  my $response = $ua->request($request);
-  my $ipadress;
+  my ($URL, $request, $response, $ipadress);
+  $URL = "http://dynupdate.no-ip.com/ip.php";
+  $request = HTTP::Request->new('GET', $URL);
+  $response = $ua->request($request);
   if ($response->is_success) { 
     if (!defined $noinfo) { 
-	  if ($response->content =~ m/$V_IP/g) { $ipadress="$1"; print $c[1]."    IDNTTY: $c[8]New ip::: $ipadress :::\n"; }
+	  if ($response->content =~ m/$V_IP/g) { $ipadress="$1"; print $c[1]."    $ErrorsText[21] $c[8]  $ErrorsText[22] ::: $ipadress :::\n"; }
 	}
   }
-  else{ ltak(); print $c[2]."[!] $DT[30] [$resultarray[rand @resultarray]\]!\n"; exit(); }
+  else{ ltak(); print $c[2]."[!] $DT[30] [$psx]!\n"; exit(); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## INTERNET CONNECTION VERIFICATION
-sub testConection { 
-  if (defined $proxy) { print $c[4]."[!] Checking proxy connection... "; }
-  my $URL = "http://dynupdate.no-ip.com/ip.php";
-  my $request = HTTP::Request->new('GET', $URL);
+sub testConection {
+  if (defined $proxy) {
+    print $c[4]."[!] $ErrorsText[20] ";
+    UA();
+  }
+  my $request = HTTP::Request->new('GET', $ipUrl);
   my $response = $ua->request($request);
   if ($response->content!~m/$V_IP/g) {
-    print $c[2]."\n";
-	print $c[2]."[!] ";timer();
-    print "$DT[11]\n";
-    print "[!] $DT[10]\n";
+    print $c[4]."\n[!] $ErrorsText[23]\n";
+	print $c[2]."[!] "; timer();
+    print "$DT[11]\n[!] $DT[10]\n";    
 	exit();
   }else{
     if (defined $proxy) { print $c[3]."OK!\n$c[4]\[!] $DT[31]\n"; }
@@ -605,11 +610,11 @@ my $paylNote="[!] $DT[28]\n";
 ## SCAN INFO
 sub osinfo { 
   use Config;
-  print $c[5]." [::] GROUP:: ".$c[8]."ALISAM TECHNOLOGY\n";
+  print $c[5]." [::] TEAM:: ".$c[8]."ALISAM TECHNOLOGY\n";
   print $c[5]." [::] TOOL:: ".$c[8]."ATSCAN SCANNER [$logoVersion]\n";
   print $c[5]." [::] PATH:: ".$c[8]."$Bin/",basename($0)," \n";
   print $c[5]." [::] PERL:: ".$c[8]."[$^V]\n";
-  print $c[5]." [::] PLATFORM:: ".$c[8]."[$Config{ osname} $Config{ archname}]\n";
+  print $c[5]." [::] SYST:: ".$c[8]."[$Config{ osname} $Config{ archname}]\n";
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -751,7 +756,8 @@ sub removeProtocol {
     'http://' => '',
     'https://' => '',
     'ftp://' => '',
-    'ftps://' => '',   
+    'ftps://' => '',
+    'socks(4|5)?://' => '',
   );
   $URL =~ s/$_/$replace{ $_}/g for keys %replace;
   return $URL;
@@ -990,7 +996,6 @@ sub desclaimer {
   mtak(); ptak();
   if (defined $showOpt) { showOptions(); }
   print $c[4]."[!] $DT[31]\n";
-  sleep(2);
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1161,7 +1166,10 @@ sub countResultLists {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT SCAN PARTS
-sub bloc1 { my $URL=$_[0]; $URL = checkUrlType($URL); stak(); print $c[12]."    "; timer(); }
+sub bloc1 {
+  my $URL=$_[0];
+  $URL = checkUrlType($URL); stak();
+  print $c[12]."    "; timer(); }
 sub bloc2 {
   my $URL=$_[0]; $URL = checkUrlSchema($URL); print $c[1]."    $DS[9]  "; print $c[10]."$URL\n";
   if (!defined $noinfo) { checkExtraInfo($URL); }
@@ -1288,7 +1296,6 @@ sub scanDetail {
     print "\n";
   }
   if (defined $shell) { print $c[5]." [::] $DS[17]:: ".$c[8]."[$shell]\n"; }
-  if (defined $mlevel) { print $c[5]." [::] $DS[18]:: ".$c[8]."[$mlevel]\n"; }
   if (defined $command) { print $c[5]." [::] $DS[20]:: ".$c[8]."[$DS[51]\]\n"; }
   if (defined $output) { print $c[5]." [::] $DS[19]:: ".$c[8]."[$outdir/$output]\n"; }
   if (defined $checkVersion) { print $c[5]."[::] $DS[21]::".$c[8]."[$DS[52]\]\n"; }
@@ -1309,7 +1316,6 @@ sub headerSearch {
   scanDetail();
   infoSearch();
   desclaimer();
-  testConection();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1318,15 +1324,15 @@ sub infoSearch {
   print $c[5]." [::] $DS[29]:: ";
   print $c[8]."";
   if (defined $motor) { 
-    if ($motor !~/(all|1|2|3|4|5)/) { print "$DS[27] [$browserLang] "; }   
-    if ($motor =~/1/) { print "$DS[22] [$browserLang] "; }
-    if ($motor =~/2/) { print "$DS[23] [$googleDomain] "; }
-    if ($motor =~/3/) { print "$DS[24] "; }
-    if ($motor =~/4/) { print "$DS[25] "; }
-    if ($motor =~/5/) { print "$DS[26] "; }    
+    if ($motor !~/(all|1|2|3|4|5)/) { print "[$DS[27] $browserLang]"; }   
+    if ($motor =~/1/) { print "[$DS[22] $browserLang]"; }
+    if ($motor =~/2/) { print "[$DS[23] $googleDomain]"; }
+    if ($motor =~/3/) { print "[$DS[24]\]"; }
+    if ($motor =~/4/) { print "[$DS[25]\]"; }
+    if ($motor =~/5/) { print "[$DS[26]\]"; }    
     if ($motor =~/all/) { print "[$DS[27]\]"; }
   }
-  else{ print "$DS[28] [$browserLang] "; }  
+  else{ print "[$DS[28] $browserLang]"; }  
   if (defined $unique) { print $c[8]."[$DS[30]\]"; }
   if (defined $ifinurl) { print $c[8]."[$DS[31]\]"; }
   if (defined $searchRegex) {  print $c[8]."[$DS[32]\]"; }
@@ -1341,6 +1347,7 @@ sub infoSearch {
 	if ($dork =~ m/$pattern/i) { print $c[8]." [$lc $DT[12]\]"; }
     print "\n";
   }
+  if (defined $mlevel) { print $c[5]." [::] $DS[18]:: ".$c[8]."[$mlevel]\n"; }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1396,9 +1403,9 @@ sub doSearch {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BROWSER PROCEDURE
-sub browseUrl { 
-  my $URL1=$_[0]; 
-  if (defined $random) { newIdentity(); } 
+sub browseUrl {
+  my $URL1=$_[0];
+  if (defined $random) { newIdentity(); }
   my $request = HTTP::Request->new('GET', $URL1);
   my $response = $ua->request($request);
   my $html = $response->content;
@@ -1500,11 +1507,20 @@ sub scanPorts {
       my $c2=0;
       foreach my $type(@TYPES) { 
         $c2++;
-        if (defined $output) { url($URL); }    
-  	    if (defined $random) { newIdentity(); }
-        my $socket = IO::Socket::INET->new(PeerAddr=>"$URL",PeerPort=>"$port",Proto=>"$type") or $closed1++;
+        if (defined $output) { url($URL); }
+        my $socket;
+        if (defined $proxy) {
+          UA();
+          if (defined $random) { newIdentity(); }         
+          my $px=removeProtocol($psx);
+          if ($px=~/((.*)\:(\d{1,6}))/) {
+            my $ProxyAddr=$1;
+            my $ProxyPort=$2;
+            $socket = IO::Socket::INET->new(ProxyAddr => $ProxyAddr, ProxyPort => $ProxyPort, PeerAddr=> $URL, PeerPort=> $port,Proto=> $type) or $closed1++;
+          }          
+        }else{ $socket = IO::Socket::INET->new(PeerAddr=> $URL, PeerPort=> $port, Proto=> $type) or $closed1++; }                
         close $socket if defined $socket;     
-	    print $c[1]."    $DS[7]   $c[10]$port\n $c[1]   $DS[8]   $c[10]$type\n $c[1]   $DS[4]   ";
+	    print $c[1]."    $DS[7]    $c[10]$port\n $c[1]   $DS[8]    $c[10]$type\n $c[1]   $DS[4]    ";
 	    if ($closed1==0) { 
           my $URL1=$port." => ".$type;
           print $c[3]."$DS[42]\n";
@@ -1544,6 +1560,7 @@ sub scanCode {
 ## GET ALL PARAMS TO SCAN
 sub makeSscan { 
   my ($at, $bt, $ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter)=@_;
+  if (defined $proxy) { UA(); }  
   if ($at) { searchexitstargets(); }
   if ($bt) { scanTitleBgn(); }
   if ($ct) { headerScan(); }
@@ -1583,7 +1600,7 @@ sub makeSscan {
           getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr));
         }else{  
           print $c[1]."    $DS[5]  $c[10] [$pm/".scalar(grep { defined $_} @arr)."] $arr\n";
-          if ($reverse) { $URL=removeProtocol($URL); my $URL1 = $arr.$URL; $URL1 =~ s/ //g; doScan($URL1, "", "", $reverse, "", "", $isFilter); points() if $pm>1; }
+          if ($reverse) { $URL=removeProtocol($URL); my $URL1 = $arr.$URL; $URL1 =~ s/ //g; points() if $pm>1; doScan($URL1, "", "", $reverse, "", "", $isFilter); }
           else{ my $URL1 = $URL.$arr; $URL1 =~ s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter); }
         }
       }
@@ -1623,7 +1640,7 @@ sub getExploitArrScan{
 ############################################################################################################################################################################################
 ## MAKE SCAN WITH DEFINED PARAMETERS
 sub getPArrScan{
-  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp,  $lc, $count3)=@_;
+  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3)=@_;
   if (defined $p) {
     my @P=split(",", $p);
     my $pc=0;
@@ -1649,11 +1666,10 @@ sub getPArrScan{
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## MOVE URL TO DO SCAN
-sub doScan { 
+sub doScan {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter)=@_;
   my ($response, $status, $html)=browseUrl($URL1);
   printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter);
-  #return ($URL1, $response, $status, $html, $filter);
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1759,7 +1775,8 @@ sub msearch {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT ENGINE RESULTS
-sub printSearch {  
+sub printSearch {
+  testConection();
   scanTitleBgn();
   if (defined $searchRegex) { doRegex($searchRegex); }
   my $scanFile = $aTsearch;
@@ -2060,7 +2077,7 @@ sub Menu {
 if (defined $mlevel) { 
   if ($mlevel < 10) { desclaimer(); print $c[2]."[!] $DT[26]\n"; exit(); }
   if ((defined $dork) || (defined $Target)) { msearch(); exit(); }
-}else{ 
+}else{
   if (defined $Target) { scanDetail(); Menu(); }
 }
 if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64)) { 
@@ -2086,9 +2103,10 @@ sub help {
   print $c[5]."\n [::] HELP:: \n";
   stak();
   print $c[10]."";
-  print "   --proxy       | Set tor proxy [EX: --proxy socks://localhost:9050]\n";
+  print "   --proxy       | Set tor proxy for scans [EX: --proxy socks://localhost:9050]\n";
   print "                 | Set proxy [EX: --proxy http://12.45.44.2:8080]\n";
   print "                 | Set proxy list [EX: --proxy list.txt]\n";
+  print "   --proxy-all   | Use proxy with engines and scans. [EX: --proxy <proxy> --proxy-all]\n";
   print "   --random      | Renew identity for every link scaned.\n";
   print "   --dork        | Dork to search [Ex: house,cars,hotel] \n";
   print "   --level       | Scan level (+- Number of page results to scan) \n";
@@ -2142,7 +2160,8 @@ sub help {
   print $c[12]."  Proxy: \n";
   print "  ......................\n";
   print $c[10]."   Tor --proxy <proxy> [Ex: socks://localhost:9050].\n";
-  print $c[10]."   Proxy --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <list.txt>\n";
+  print $c[10]."   Proxy --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <list.txt>.\n";
+  print $c[10]."   Search + Scan + Proxy [--proxy <proxy> --proxy-all].\n";  
   print $c[10]."   Random --random\n\n";
   stak();
   print $c[12]."  Search engine: \n";

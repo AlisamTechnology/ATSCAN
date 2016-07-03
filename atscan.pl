@@ -187,7 +187,7 @@ sub badArgs {
 ############################################################################################################################################################################################
 ## ARGUMENTS
 use Getopt::Long ();
-my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend);
+my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $ramadan, $scan);
 my %OPT;
 Getopt::Long::GetOptions(\%OPT,
                         'isup' => \$misup,
@@ -241,6 +241,8 @@ Getopt::Long::GetOptions(\%OPT,
                         'noquery'=> \$noQuery,
                         'options'=> \$showOpt,
                         'ifend'=> \$ifend,
+                        'ramadan'=>\$ramadan,
+                        'scan'=>\$scan,
 
 ) or badArgs();
 ############################################################################################################################################################################################
@@ -1963,7 +1965,7 @@ sub mdecode64 {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT DESCLAIMER
-if ((!defined $dork) && (!defined $help)  && (!defined $showOpt) && (!defined $Target) && (!defined $mmd5) && (!defined $mencode64) && (!defined $checkVersion) && (!defined $mdecode64)) { advise(); }
+if ((!defined $dork) && (!defined $ramadan) && (!defined $help)  && (!defined $showOpt) && (!defined $Target) && (!defined $mmd5) && (!defined $mencode64) && (!defined $checkVersion) && (!defined $mdecode64)) { advise(); }
 osinfo();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -2048,6 +2050,32 @@ if (defined $motor) {
     exit();
   }
 }
+
+
+
+if ((defined $ramadan) && (defined $scan)) { 
+  print "scanning Ramadan in Asia...\n"; sleep(2);
+  print "Checking moon!....\n";sleep(2);
+  print "scanning Ramadan in Africa...\n"; sleep(2);
+  print "Checking moon!\n";sleep(2);
+  
+  print "scanning Ramadan in Europe...\n"; sleep(2);
+  print "Checking moon!...\n";sleep(2);
+  
+  print "scanning Ramadan in Australia...\n"; sleep(2);
+  print "Checking moon!...\n";sleep(2);
+  
+  print "scanning Ramadan in America...\n"; sleep(2);
+  print "Checking moon!...\n";sleep(2);
+  
+  print color 'green';
+  print "FELICITATIONS !! RAMADAN IS FINNISHED!!";
+  print "AID MOUBARAK SAID!!";
+
+}
+
+
+
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 #######  SCANS ARGUMENTS
@@ -2111,7 +2139,6 @@ sub help {
   print "   --proxy       | Set tor proxy for scans [EX: --proxy socks://localhost:9050]\n";
   print "                 | Set proxy [EX: --proxy http://12.45.44.2:8080]\n";
   print "                 | Set proxy list [EX: --proxy list.txt]\n";
-  print "   --proxy-all   | Use proxy with engines and scans. [EX: --proxy <proxy> --proxy-all]\n";
   print "   --random      | Renew identity for every link scaned.\n";
   print "   --dork        | Dork to search [Ex: house,cars,hotel] \n";
   print "   --level       | Scan level (+- Number of page results to scan) \n";

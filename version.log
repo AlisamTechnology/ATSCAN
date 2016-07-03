@@ -8,4 +8,6 @@
      - Fix get subdomains.
      - Wide search engine and more results when using proxy.
      - Fix some text errors.
+     - Show proxy info when used.
+     - Removed text from panel info code.
      - Enjoy!

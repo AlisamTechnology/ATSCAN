@@ -2165,7 +2165,6 @@ sub help {
   print "  ......................\n";
   print $c[10]."   Tor --proxy <proxy> [Ex: socks://localhost:9050].\n";
   print $c[10]."   Proxy --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <list.txt>.\n";
-  print $c[10]."   Search + Scan + Proxy [--proxy <proxy> --proxy-all].\n";  
   print $c[10]."   Random --random\n\n";
   stak();
   print $c[12]."  Search engine: \n";

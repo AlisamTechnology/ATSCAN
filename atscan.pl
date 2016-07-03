@@ -69,6 +69,10 @@ printf "\033c";
 my @c = ("\033[0;30m", "\033[1;30m", "\033[0;31m", "\033[0;32m", "\033[0;33m", "\033[1;33m", "\033[0;34m", "\033[0;35m", "\033[0;36m", "\033[1;36m", "\033[0;37m", "\033[1;37m", "\033[1;34m");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## INFO PANEL TEXT
+my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCANNER", "(Installed Tool) atscan <option> / Help: atscan [--help|-h|-?]", "<option> \/ Help: perl", "[--help|-h|-?]");
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## OTHERS DIALOG TEXT
 my @OTHERS = ("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "HTTP/1.1", "", "", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is", "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC", "[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!");
 ############################################################################################################################################################################################
@@ -563,6 +567,7 @@ sub UA {
 sub newIdentity {
   if ($proxy=~/(localhost|127.0.0.1)/) { system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;"); }
   else{
+    $psx=$resultarray[rand @resultarray];
     UA();
   }
   my ($URL, $request, $response, $ipadress);
@@ -581,7 +586,7 @@ sub newIdentity {
 ## INTERNET CONNECTION VERIFICATION
 sub testConection {
   if (defined $proxy) {
-    print $c[4]."[!] $ErrorsText[20] ";
+    print $c[4]."[!] $ErrorsText[20] [$psx].. ";
     UA();
   }
   my $request = HTTP::Request->new('GET', $ipUrl);
@@ -589,7 +594,7 @@ sub testConection {
   if ($response->content!~m/$V_IP/g) {
     print $c[4]."\n[!] $ErrorsText[23]\n";
 	print $c[2]."[!] "; timer();
-    print "$DT[11]\n[!] $DT[10]\n";    
+    print "$DT[11]\n[!] $DT[10]\n ";    
 	exit();
   }else{
     if (defined $proxy) { print $c[3]."OK!\n$c[4]\[!] $DT[31]\n"; }
@@ -610,18 +615,18 @@ my $paylNote="[!] $DT[28]\n";
 ## SCAN INFO
 sub osinfo { 
   use Config;
-  print $c[5]." [::] TEAM:: ".$c[8]."ALISAM TECHNOLOGY\n";
-  print $c[5]." [::] TOOL:: ".$c[8]."ATSCAN SCANNER [$logoVersion]\n";
-  print $c[5]." [::] PATH:: ".$c[8]."$Bin/",basename($0)," \n";
-  print $c[5]." [::] PERL:: ".$c[8]."[$^V]\n";
-  print $c[5]." [::] SYST:: ".$c[8]."[$Config{ osname} $Config{ archname}]\n";
+  print $c[5]." [::] $TT[0]:: ".$c[8]."$TT[5]\n";
+  print $c[5]." [::] $TT[1]:: ".$c[8]."$TT[6] [$logoVersion]\n";
+  print $c[5]." [::] $TT[2]:: ".$c[8]."$Bin/",basename($0)," \n";
+  print $c[5]." [::] $TT[3]:: ".$c[8]."[$^V]\n";
+  print $c[5]." [::] $TT[4]:: ".$c[8]."[$Config{ osname} $Config{ archname}]\n";
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ADVISE
 sub advise { 
-  print $c[4]."[!] $OTHERS[5]1: (Installed Tool) atscan <option> / Help: atscan [--help|-h|-?]\n";
-  print $c[4]."[!] $OTHERS[5]2: perl ./",basename($0)," <option> / Help: perl ./",basename($0)," [--help|-h|-?] \n";
+  print $c[4]."[!] $OTHERS[5]1: $TT[7]\n";
+  print $c[4]."[!] $OTHERS[5]2: perl ./",basename($0)," $TT[8] ./",basename($0)," $TT[9]\n";
   exit;
 }
 ############################################################################################################################################################################################

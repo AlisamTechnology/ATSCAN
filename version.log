@@ -1,15 +1,11 @@
     Version 9.6 Stable
     ===================
-    CHANGES: 01/07/2016
     VERSION 9.6 RELEASE
     ===================
-     - Fix update process.
-     - Regroup and optimize errors scan.
-     - Optimized ports scan process.
-     - Optimize update and show changes.
-     - Removed redirected urls from scan results.
-     - Fix command arg to work with p arg.
     CHANGES: 02/07/2016
     ===================
-     - Check changes when update.
+     - Use proxy in ports scans.
+     - Fix get subdomains.
+     - Wide search engine and more results when using proxy.
+     - Fix some text errors.
      - Enjoy!

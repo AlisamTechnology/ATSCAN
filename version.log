@@ -10,4 +10,7 @@
      - Fix some text errors.
      - Show proxy info when used.
      - Removed text from panel info code.
+    CHANGES: 03/07/2016
+    ===================
+     - Removed proxy-all arg.
      - Enjoy!

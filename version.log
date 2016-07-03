@@ -2,7 +2,7 @@
     ===================
     VERSION 9.6 RELEASE
     ===================
-    CHANGES: 03/07/2016
+    CHANGES: 02/07/2016
     ===================
      - Use proxy in ports scans.
      - Fix get subdomains.

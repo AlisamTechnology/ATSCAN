@@ -13,4 +13,7 @@
     CHANGES: 03/07/2016
     ===================
      - Removed proxy-all arg.
+    CHANGES: 04/07/2016
+    ===================
+     - Advise when null timeout
      - Enjoy!

@@ -83,15 +83,16 @@ sub ltak { print $c[10]."-------------------------------------------------------
 sub points { print $c[10]."    .......................................................................\n"; }
 sub ptak { print $c[1]."-----------------------------------------------------------------------------\n"; }
 sub mtak { print $c[0]."_____________________________________________________________________________\n"; }
-sub dpoints { print $c[10]."           ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"; }
+sub dpoints { print $c[10]."    ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n\n"; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## TOOL VERSION
-my $Version="9.6";
-my $logoVersion="V $Version";
-my $scriptUrl = "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
-my $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
-my $ipUrl = "http://dynupdate.no-ip.com/ip.php";
+my ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl);
+$Version="9.6";
+$logoVersion="V $Version";
+$scriptUrl = "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
+$logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
+$ipUrl = "http://dynupdate.no-ip.com/ip.php";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BANNER
@@ -251,16 +252,17 @@ if (defined $output) { unlink "$outdir/$output" if -e "$outdir/$output"; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DEFINE SCAN LISTS
-my $aTsearch=$Bin."/aTsearch.txt";
-my $aTtargets=$Bin."/aTtargets.txt";
-my $aTdorks=$Bin."/aTdorks.txt";
-my $aTmotors=$Bin."/aTmotors.txt";
-my $aTscan=$Bin."/aTscan.txt";
-my $aTexploits=$Bin."/aTexploits.txt";
-my $aTports=$Bin."/aTports.txt";
-my $aTcopy=$Bin."/aTcopy.txt";
-my $script=$Bin."/atscan.pl";
-my $script_bac=$Bin."/atscan_bac.pl";
+my ($aTsearch, $aTtargets, $aTdorks, $aTmotors, $aTscan, $aTexploits, $aTports, $aTcopy, $script, $script_bac);
+ $aTsearch=$Bin."/aTsearch.txt";
+ $aTtargets=$Bin."/aTtargets.txt";
+ $aTdorks=$Bin."/aTdorks.txt";
+ $aTmotors=$Bin."/aTmotors.txt";
+ $aTscan=$Bin."/aTscan.txt";
+ $aTexploits=$Bin."/aTexploits.txt";
+ $aTports=$Bin."/aTports.txt";
+ $aTcopy=$Bin."/aTcopy.txt";
+ $script=$Bin."/atscan.pl";
+ $script_bac=$Bin."/atscan_bac.pl";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DELETE CLEAR LISTS
@@ -303,7 +305,7 @@ my @DT = ("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN DIALOG TEXT
-my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALIDATION", "HTTP/1.1 200", "EXPLOITATION", "GET", "EXTRA", "SHELL", "LEVEL", "OUTPUT", "EXTERN CMD", "TASK", "BING", "GOOGLE", "ASK [com]", "YANDEX [com]", "SOGOU [com]", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "ENGINE", "Unique Results", "Ifinurl VLD", "URL REGEX", "Validate Url", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy", "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Domain Name", "Pause Mode", "ADMIN", "PORTS", "XSS", "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING", "Md5", "Proxy");
+my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALIDATION", "HTTP/1.1 200", "EXPLOITATION", "GET", "EXTRA", "SHELL", "LEVEL", "OUTPUT", "EXT CMD", "TASK", "BING", "GOOGLE", "ASK [com]", "YANDEX [com]", "SOGOU [com]", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "ENGINE", "Unique Results", "Ifinurl VLD", "URL REGEX", "Validate Url", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy", "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Domain Name", "Pause Mode", "ADMIN", "PORTS", "XSS", "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING", "Md5", "Proxy");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENGINE LANGUAGES
@@ -515,10 +517,7 @@ my @vary=("Firefox","Opera", "SeaMonkey", "Safari", "Dragon", "GNU IceCat", "Sea
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## TIMER
-sub timer { 
-  my ($sec,$min,$hr) = localtime();
-  print "[$hr:$min:$sec]";
-}
+sub timer { my ($sec,$min,$hr) = localtime(); print "[$hr:$min:$sec]"; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BROWSER
@@ -546,9 +545,7 @@ if (defined $proxy) {
     if (!-e $proxy) { desclaimer(); print $c[2]."[!] No [$proxy] found!\n"; exit(); }
     if (substr($proxy, -4) ne '.txt') { desclaimer(); print $c[2]."[!] $DT[29]\n"; exit(); }
     open(my $filehandle, '<', $proxy);
-    while(my $line = <$filehandle>) { 
-      chomp $line; my @linearray = split(" ", $line); push(@resultarray, @linearray);
-    }
+    while(my $line = <$filehandle>) { chomp $line; my @linearray = split(" ", $line); push(@resultarray, @linearray); }
     close $filehandle;
   }
   $psx=$resultarray[rand @resultarray];
@@ -556,19 +553,13 @@ if (defined $proxy) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SET UA PROXY
-sub UA {
-  $ua->proxy([qw/ http https /] => $psx);
-  $ua->cookie_jar({ });
-}
+sub UA { $ua->proxy([qw/ http https /] => $psx); $ua->cookie_jar({ }); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## RENEW PROXY
 sub newIdentity {
   if ($proxy=~/(localhost|127.0.0.1)/) { system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;"); }
-  else{
-    $psx=$resultarray[rand @resultarray];
-    UA();
-  }
+  else{ $psx=$resultarray[rand @resultarray]; UA(); }
   my ($URL, $request, $response, $ipadress);
   $URL = "http://dynupdate.no-ip.com/ip.php";
   $request = HTTP::Request->new('GET', $URL);
@@ -584,17 +575,11 @@ sub newIdentity {
 ############################################################################################################################################################################################
 ## INTERNET CONNECTION VERIFICATION
 sub testConection {
-  if (defined $proxy) {
-    print $c[4]."[!] $ErrorsText[20] [$psx].. ";
-    UA();
-  }
+  if (defined $proxy) { print $c[4]."[!] $ErrorsText[20] [$psx].. "; UA(); }
   my $request = HTTP::Request->new('GET', $ipUrl);
   my $response = $ua->request($request);
   if ($response->content!~m/$V_IP/g) {
-    print $c[4]."\n[!] $ErrorsText[23]\n";
-	print $c[2]."[!] "; timer();
-    print "$DT[11]\n[!] $DT[10]\n ";    
-	exit();
+    print $c[4]."\n[!] $ErrorsText[23]\n".$c[2]."[!] "; timer(); print "$DT[11]\n[!] $DT[10]\n"; exit();
   }else{
     if (defined $proxy) { print $c[3]."OK!\n$c[4]\[!] $DT[31]\n"; }
   }
@@ -614,20 +599,13 @@ my $paylNote="[!] $DT[28]\n";
 ## SCAN INFO
 sub osinfo { 
   use Config;
-  print $c[5]." [::] $TT[0]:: ".$c[8]."$TT[5]\n";
-  print $c[5]." [::] $TT[1]:: ".$c[8]."$TT[6] [$logoVersion]\n";
-  print $c[5]." [::] $TT[2]:: ".$c[8]."$Bin/",basename($0)," \n";
-  print $c[5]." [::] $TT[3]:: ".$c[8]."[$^V]\n";
-  print $c[5]." [::] $TT[4]:: ".$c[8]."[$Config{ osname} $Config{ archname}]\n";
+  print $c[5]." [::] $TT[0]:: ".$c[8]."$TT[5]\n".$c[5]." [::] $TT[1]:: ".$c[8]."$TT[6] [$logoVersion]\n".$c[5]." [::] $TT[2]:: ".$c[8]."$Bin/",basename($0)," \n";
+  print $c[5]." [::] $TT[3]:: ".$c[8]."[$^V]\n".$c[5]." [::] $TT[4]:: ".$c[8]."[$Config{ osname} $Config{ archname}]\n";
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ADVISE
-sub advise { 
-  print $c[4]."[!] $OTHERS[5]1: $TT[7]\n";
-  print $c[4]."[!] $OTHERS[5]2: perl ./",basename($0)," $TT[8] ./",basename($0)," $TT[9]\n";
-  exit;
-}
+sub advise { print $c[4]."[!] $OTHERS[5]1: $TT[7]\n".$c[4]."[!] $OTHERS[5]2: perl ./",basename($0)," $TT[8] ./",basename($0)," $TT[9]\n"; exit; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PROGRESS BAR
@@ -636,11 +614,9 @@ sub progressbar {
   $| = 1;
   binmode STDOUT, ":utf8";
   print $c[6]."[!] ";
-  timer();
-  print " ";
+  timer(); print " ";
   my $poop  = "::";
-  for (1..30) { select(undef, undef, undef, 0.25); print "$poop"; }
-  print"\n";
+  for (1..30) { select(undef, undef, undef, 0.25); print "$poop"; } print"\n";
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -652,11 +628,7 @@ sub dorkList {
       if ($dork =~ m/,/) { $dork =~ s/,/ /g;
       }elsif ($dork =~ m/ /) { $dork =~ s/ /+/g; }
       my @dorks = split / /, $dork;  
-      foreach my $dork (@dorks) { 
-        open (FILE, '>>'.$aTdorks);
-        print FILE "$dork\n";
-        close (FILE);
-      }
+      foreach my $dork (@dorks) { open (FILE, '>>'.$aTdorks); print FILE "$dork\n"; close (FILE); }
 	}
   }elsif (defined $Target) { 
     if (($Target =~ /$V_RANG/) && ($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
@@ -685,11 +657,7 @@ sub dorkList {
       if ($Target =~ m/,/) { $Target =~ s/,/ /g;
       }elsif ($Target =~ m/ /) { $Target =~ s/ /+/g; }
       my @targets = split / /, $Target;
-      foreach my $Target (@targets) { 
-        open (FILE, '>>'.$aTdorks);
-        print FILE "$Target\n";
-        close (FILE);
-	  }
+      foreach my $Target (@targets) { open (FILE, '>>'.$aTdorks); print FILE "$Target\n"; close (FILE); }
     }
   }
 }
@@ -723,11 +691,7 @@ sub targetList {
     if ($Target =~ m/,/) { $Target =~ s/,/ /g; }
     elsif ($Target =~ m/ /) { $Target =~ s/ /+/g; }
     my @targets = split / /, $Target;
-    foreach my $Target (@targets) { 
-      open (FILE, '>>'.$aTsearch);
-      print FILE "$Target\n";
-      close (FILE);
-    }
+    foreach my $Target (@targets) { open (FILE, '>>'.$aTsearch); print FILE "$Target\n"; close (FILE); }
   }
 }
 ############################################################################################################################################################################################
@@ -739,9 +703,7 @@ sub expList {
   elsif ($exploit =~ m/ /) { $exploit =~ s/ /+/g; }
     my @exploits = split / /, $exploit;
     foreach my $exploit (@exploits) { 
-      open (FILE, '>'.$aTexploits);
-      print FILE "$exploit\n";
-      close (FILE);
+      open (FILE, '>'.$aTexploits); print FILE "$exploit\n"; close (FILE);
 	}
   }
 }
@@ -756,13 +718,7 @@ sub ifGetTargetList {
 ## REMOVE URLS PROTOCOL
 sub removeProtocol { 
   my $URL=$_[0];
-  my %replace = (
-    'http://' => '',
-    'https://' => '',
-    'ftp://' => '',
-    'ftps://' => '',
-    'socks(4|5)?://' => '',
-  );
+  my %replace = ('http://' => '', 'https://' => '', 'ftp://' => '', 'ftps://' => '', 'socks(4|5)?://' => '',);
   $URL =~ s/$_/$replace{ $_}/g for keys %replace;
   return $URL;
 }
@@ -790,9 +746,7 @@ sub checkUrlType{
 ## VALIDATE IP
 sub checkIp{ 
   my $URL=$_[0];
-  if ($URL!~m/$V_IP/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )) { 
-	desclaimer(); print $c[2]."[!] $URL is an IP [Use: -t <ip> --level 20 <opcion>]! \n"; exit();
-  }
+  if ($URL!~m/$V_IP/ && ($1<=255 && $2<=255 && $3<=255 && $4<=255 )) { desclaimer(); print $c[2]."[!] $URL is an IP [Use: -t <ip> --level 20 <opcion>]! \n"; exit(); }
   else{ return $URL; }
 }
 ############################################################################################################################################################################################
@@ -814,12 +768,7 @@ sub control {
 ## EXTRAT INFO PROCESS SCAN
 sub checkExtraInfo { 
   my $URL=$_[0];
-  my %replace = (
-    'http://' => '',
-    'https://' => '',
-    'www.' => '',
-  '  ftp://' => '',
-  );
+  my %replace = ( 'http://' => '', 'https://' => '', 'www.' => '', 'ftp://' => '', );
   $URL=~ s/$_/$replace{ $_}/g for keys %replace;
   $URL=~ s/\/.*//s;
   use Socket;
@@ -858,30 +807,21 @@ sub resultsTOcommand {
 sub title { 
   if (defined $output) { 
     my $SCAN_TITLE=$_[0];
-    open (OUT, '>>', "$outdir/$output");
-    print OUT "================ $SCAN_TITLE ================\n";
-    close (OUT);
+    open (OUT, '>>', "$outdir/$output"); print OUT "================ $SCAN_TITLE ================\n"; close (OUT);
   }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN TITLE
 sub url { 
-  if (defined $output) { 
-    my $URL=$_[0];
-    open (OUT, '>>', "$outdir/$output");
-    print OUT "    ========= $DS[9]: $URL =========\n";
-    close (OUT);
-  }
+  if (defined $output) { my $URL=$_[0]; open (OUT, '>>', "$outdir/$output"); print OUT "    ========= $DS[9]: $URL =========\n"; close (OUT); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN HTML CMS
 sub checkCms { 
   my $html=$_[0];  
-  for my $CMS(@CMS) { 
-    if ( $html =~ /$CMS/ ) { my $CMS1=$CMS; checkCmsType($CMS1); last; }
-  }
+  for my $CMS(@CMS) { if ( $html =~ /$CMS/ ) { my $CMS1=$CMS; checkCmsType($CMS1); last; } }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -930,9 +870,7 @@ sub checkErrors2 {
   for my $ERR(@ERR) { if ($html =~ /$ERR/g) { push(@ERR2, $ERR); } }
   if (scalar(grep { defined $_} @ERR2)>0) { print $c[1]."    $ErrorsText[18]"; }
   my $counterr=0;
-  for my $ERR2(@ERR2) {
-    $counterr++; titleErrorType($ERR2, $counterr); print "            ".$c[10]."[$ERR2]\n";
-  }
+  for my $ERR2(@ERR2) { $counterr++; titleErrorType($ERR2, $counterr); print "            ".$c[10]."[$ERR2]\n"; }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -964,8 +902,7 @@ sub titleErrorType {
 ## CHECK URL PARTS
 sub checkUrlSchema { 
   my $URL=$_[0];
-  if ($URL !~ /(https?|ftp):\/\//) { $URL = "http://$URL"; };
-  return $URL;
+  if ($URL !~ /(https?|ftp):\/\//) { $URL = "http://$URL"; }; return $URL;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -974,16 +911,12 @@ sub finContinueModule {
   my $lc = 0;
   open my $file, "<", $aTscan;
   $lc++ while <$file>;
-  ltak();
-  print $c[3]."[!] $lc $DT[0]\n";
-  close $file;
+  ltak(); print $c[3]."[!] $lc $DT[0]\n"; close $file;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## RETURN NEGATIVE SCAN
-sub negative { 
-  ltak(); print $c[2]."[!] $DT[1]\n"; subfin();
-}
+sub negative { ltak(); print $c[2]."[!] $DT[1]\n"; subfin(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## END SCAN PROCESS
@@ -995,10 +928,8 @@ sub subfin {
 ############################################################################################################################################################################################
 ## DESCLAIMER
 sub desclaimer { 
-  mtak(); ptak();
-  print $c[10]."  $OTHERS[11] \n  $OTHERS[12]  \n  $OTHERS[13] \n";
-  mtak(); ptak();
-  if (defined $showOpt) { showOptions(); }
+  mtak(); ptak(); print $c[10]."  $OTHERS[11] \n  $OTHERS[12]  \n  $OTHERS[13] \n";
+  mtak(); ptak(); if (defined $showOpt) { showOptions(); }
   print $c[4]."[!] $DT[31]\n";
 }
 ############################################################################################################################################################################################
@@ -1014,26 +945,15 @@ sub showOptions{
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN MODULE HEADER
-sub headerScan { 
-  if (-e $aTscan) { unlink $aTscan; }
-  ifGetTargetList();
-  searchexitstargets();
-  scanTitleBgn();
-}
+sub headerScan { if (-e $aTscan) { unlink $aTscan; } ifGetTargetList(); searchexitstargets(); scanTitleBgn(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BGN SCAN TITLE
-sub scanTitleBgn {
-  print $c[11]."[!] ";
-  timer();
-  print " ::: $DS[67] ";
-}
+sub scanTitleBgn { print $c[11]."[!] "; timer(); print " ::: $DS[67] "; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## END SCAN TITLE
-sub scanTitleEnd { 
-  print $c[11]." $DS[4] :::\n"; progressbar();
-}
+sub scanTitleEnd { print $c[11]." $DS[4] :::\n"; progressbar(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK EXIST TARGETS LIST 
@@ -1041,10 +961,7 @@ sub searchexitstargets {
   my $zFile=$aTsearch;
   if (!-e $zFile) { desclaimer(); print $c[2]."[!] $DT[5]\n"; exit(); }
   else{ 
-    if (!defined $mlevel) { 
-      my $scanFile = $aTsearch;
-      checkDuplicate($scanFile);
-    }    
+    if (!defined $mlevel) { my $scanFile = $aTsearch; checkDuplicate($scanFile); }    
   }
 }
 ############################################################################################################################################################################################
@@ -1059,9 +976,7 @@ sub removeDupNoProtocol {
     saveCopy($URL);
   }
   close(NTA);
-  my $scanFile = $aTtargets;
-  checkDuplicate($scanFile);  
-  IfDup();
+  my $scanFile = $aTtargets; checkDuplicate($scanFile); IfDup();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1073,8 +988,7 @@ sub makeCopy { use File::Copy qw(copy); copy $aTsearch, $aTcopy; }
 sub restaureSearch { 
   unlink $aTsearch;
   use File::Copy qw(copy);
-  copy $aTcopy, $aTsearch;
-  unlink $aTcopy;
+  copy $aTcopy, $aTsearch; unlink $aTcopy;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1084,24 +998,18 @@ sub removeDupDom {
   open (NTA, $aTsearch);
   while (my $URL = <NTA>) { 
     chomp $URL;
-    $URL = removeProtocol($URL);
-    $URL =~ s/\/.*//s;
-    $URL=checkUrlSchema($URL);
-    saveCopy($URL);
+    $URL = removeProtocol($URL); $URL =~ s/\/.*//s; $URL=checkUrlSchema($URL); saveCopy($URL);
   } 
   close(NTA);
   my $scanFile = $aTtargets;
-  checkDuplicate($scanFile);  
-  IfDup();
+  checkDuplicate($scanFile); IfDup();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SAVE NON DUPLICATE DOMAINES
 sub saveCopy { 
   my $URL=$_[0];
-  open (TEX, '>>', $aTtargets);
-  print TEX "$URL\n";
-  close(TEX);
+  open (TEX, '>>', $aTtargets); print TEX "$URL\n"; close(TEX);
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1115,8 +1023,7 @@ sub checkDuplicate {
     while(<>) { 
       $seen{ $_}++;
       next if $seen{ $_} > 1;
-      print;
-	  unlink "$scanFile.bac";
+      print; unlink "$scanFile.bac";
     }
   }
 }
@@ -1126,16 +1033,12 @@ sub checkDuplicate {
 sub IfDup { 
   unlink $aTsearch;
   use File::Copy qw(copy);
-  copy $aTtargets, $aTsearch;
-  unlink $aTtargets;
+  copy $aTtargets, $aTsearch; unlink $aTtargets;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## END SCAN NO MORE PROCESS
-sub adios { 
-  if (defined $output) { print $c[4]."[!] $DT[13] $outdir/$output!\n"; }
-  subfin();
-}
+sub adios { if (defined $output) { print $c[4]."[!] $DT[13] $outdir/$output!\n"; } subfin(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LISTS COUNTERS
@@ -1153,8 +1056,7 @@ sub countLists {
   my $file = $_[0];
   open my $fh, "<", $file;
   $lc++ while <$fh>;
-  return $lc;
-  close $fh;
+  return $lc; close $fh;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1162,9 +1064,7 @@ sub countLists {
 sub countResultLists { 
   my $scanFile=$aTscan;
   checkDuplicate($scanFile);
-  my $lc = 0;
-  $lc=countAtresults();
-  ltak();     
+  my $lc = 0; $lc=countAtresults(); ltak();     
   print $c[3]."[!] $lc $DT[4]\n";
 }
 ############################################################################################################################################################################################
@@ -1191,31 +1091,26 @@ sub doRegex {
 	chomp $URL;                  
     if ($URL=~/$searchRegex/) { saveCopy($URL); }
   }
-  close (URL);
-  IfDup();
+  close (URL); IfDup();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK VERSION
 sub checkVersion {
-  testConection();
-  mtak(); ptak(); 
-  my $request = HTTP::Request->new('GET', $scriptUrl);
-  my $response = $ua->request($request);
-  my $html = $response->content;
+  testConection(); mtak(); ptak();
+  my ($request, $response, $html);
+  $request = HTTP::Request->new('GET', $scriptUrl);
+  $response = $ua->request($request);
+  $html = $response->content;
   if ($response->is_success) {
-	open (FI, '>>', $script_bac);
-    print FI $response->content;
-    close (FI);    
+	open (FI, '>>', $script_bac); print FI $response->content; close (FI);    
     use File::Compare;      
     if (compare($script_bac, $script) == 0) {
       print $c[4]." $DT[6]\n"; }
     else{
       unlink $script;
       if (-e $script) { print $c[4]." [!] $ErrorsText[19] $script\n"; exit(); }
-	  open (FILE, '>>', $script);
-      print FILE $response->content;
-      close (FILE);
+	  open (FILE, '>>', $script); print FILE $response->content; close (FILE);
       system("chmod +x $script | perl $script || atscan");
       mtak(); ptak();
       print $c[3]."[!] $DT[7]\n";
@@ -1233,12 +1128,8 @@ sub checkVersion {
 ## SCAN DETAILS
 sub scanDetail { 
   if (defined $Target) { 
-    print $c[5]." [::] $DS[9]:: ";
-    print $c[8]."[$Target]";
-	if ($Target =~ m/.txt/i) { 
-      my $lc=countAtargets();
-      print "[$lc $DT[0]\]";
-    }
+    print $c[5]." [::] $DS[9]:: ".$c[8]."[$Target]";   
+	if ($Target =~ m/.txt/i) { my $lc=countAtargets(); print "[$lc $DT[0]\]"; }
     print "\n";
   }
   print $c[5]." [::] $DS[11]:: ";
@@ -1345,8 +1236,7 @@ sub infoSearch {
     my $lc=countAtdorks();
     my $printdork = $dork;
 	$printdork =~ s/\+/ /g;
-    print $c[5]." [::] $DS[0]::";
-    print $c[8]." [$printdork]";
+    print $c[5]." [::] $DS[0]::".$c[8]." [$printdork]";
     my $pattern = '.txt';
 	if ($dork =~ m/$pattern/i) { print $c[8]." [$lc $DT[12]\]"; }
     print "\n";
@@ -1409,21 +1299,19 @@ sub doSearch {
 ## BROWSER PROCEDURE
 sub browseUrl {
   my $URL1=$_[0];
+  my ($request, $response, $html, $status, $serverheader);
   if (defined $random) { newIdentity(); }
-  my $request = HTTP::Request->new('GET', $URL1);
-  my $response = $ua->request($request);
-  my $html = $response->content;
-  my $status = $response->code;
-  my $serverheader = $response->server;
+  $request = HTTP::Request->new('GET', $URL1);
+  $response = $ua->request($request);
+  $html = $response->content;
+  $status = $response->code;
+  $serverheader = $response->server;
   if (!defined $noinfo) { 
     if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }    
-    print $c[1]."    $DS[3]    ";
-    print $c[10]."$OTHERS[7] $status\n";
-    print $c[1]."    $DS[2]  ";
+    print $c[1]."    $DS[3]    ". $c[10]."$OTHERS[7] $status\n".$c[1]."    $DS[2]  ";
     if (defined $serverheader) { print $c[10]."$serverheader \n"; }
     else { print $c[10]."$DT[35]\n"; }
-    checkCms($html);
-    checkErrors($html);
+    checkCms($html); checkErrors($html);
   }
   return ($response, $status, $html);
 }
@@ -1441,8 +1329,7 @@ sub getSubDomaine {
   timeout=>1);
   if ((defined $socket) && ($socket ne "")) { 
     print $c[3]."$URL1";
-    if (defined $beep) { print chr(7); }
-    saveme($URL1); print "\n";
+    if (defined $beep) { print chr(7); } saveme($URL1); print "\n";
     if (defined $pause) { ifirst(); }
   }else{ print $c[2]."$DT[1]\n"; }
 }
@@ -1483,19 +1370,15 @@ sub getRegex {
 sub getComnd {
   my ($URL1, $comnd)=@_;
   $comnd =~ s/\-\-TARGET/$URL1/g;       
-  print $c[1]."    $OTHERS[2]    $c[10]$comnd\n";
-  dpoints();
-  system($comnd);
-  points();
+  print $c[1]."    $OTHERS[2]     $c[8]$comnd\n";
+  dpoints(); system($comnd); print "\n"; points();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PORTS SCAN PROCESS
 sub scanPorts { 
   my ($PORTS, $types)=@_;
-  headerScan();
-  print $c[11]."$SCAN_TITLE[20]";
-  scanTitleEnd(); title($SCAN_TITLE[20]);
+  headerScan(); print $c[11]."$SCAN_TITLE[20]"; scanTitleEnd(); title($SCAN_TITLE[20]);
   my $count=0;
   my $closed1=0;
   my $lc=countAtsearch();
@@ -1527,31 +1410,22 @@ sub scanPorts {
 	    print $c[1]."    $DS[7]    $c[10]$port\n $c[1]   $DS[8]    $c[10]$type\n $c[1]   $DS[4]    ";
 	    if ($closed1==0) { 
           my $URL1=$port." => ".$type;
-          print $c[3]."$DS[42]\n";
-          saveme($URL1);
+          print $c[3]."$DS[42]\n"; saveme($URL1);
           if (defined $pause) { ifirst(); }
         }
         else{ print $c[2]."$DS[43]\n"; }
-	    my $closed1=0;
-        points() unless $c2==scalar(grep $_, @TYPES);
-      }
-      stak() unless $c1==scalar(grep $_, @PORTS);
-    }
-    points() unless $count==$lc;
-    stak() unless $count==$lc;
+	    my $closed1=0; points() unless $c2==scalar(grep $_, @TYPES);
+      } stak() unless $c1==scalar(grep $_, @PORTS);
+    } points() unless $count==$lc; stak() unless $count==$lc;
   }
-  close (TEXT);  
-  stak();
+  close (TEXT); stak();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## MD5 ENCODE BASE64 DECODE BASE 64
 sub scanCode {
   my ($title, $string, $scan1, $scan2, $scan3)=@_;
-  scanDetail();
-  scanTitleBgn();
-  print $c[11]."$title";
-  scanTitleEnd();
+  scanDetail(); scanTitleBgn(); print $c[11]."$title"; scanTitleEnd();
   print $c[1]."    $OTHERS[4]  $c[10]$string\n";
   print $c[1]."    $DS[4]   ";
   if ($scan1) { print "$c[3] " .Digest::MD5->md5_hex($string)."\n"; }
@@ -1586,8 +1460,7 @@ sub makeSscan {
     $URL = control($URL);
     if (!@arr) {     
       if (!$result) {
-        if (defined $exploit) {
-          getExploitArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "");
+        if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "");
         }else{
           my $URL1 = $URL; $URL1 =~ s/ //g;
           if ($reg) { doScan($URL1, $filter, "", "", $reg, ""); }
@@ -1600,8 +1473,7 @@ sub makeSscan {
       foreach my $arr(@arr) { 
         $pm++;       
         if ((defined $exploit) || (defined $p)) {
-          points() if $pm>1;       
-          getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr));
+          points() if $pm>1; getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr));
         }else{  
           print $c[1]."    $DS[5]  $c[10] [$pm/".scalar(grep { defined $_} @arr)."] $arr\n";
           if ($reverse) { $URL=removeProtocol($URL); my $URL1 = $arr.$URL; $URL1 =~ s/ //g; points() if $pm>1; doScan($URL1, "", "", $reverse, "", "", $isFilter); }
@@ -1610,8 +1482,7 @@ sub makeSscan {
       }
     }
   }  
-  close(TEXT);
-  return ($count, $lc);
+  close(TEXT); return ($count, $lc);
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1655,14 +1526,8 @@ sub getPArrScan{
       print $c[1]."    $OTHERS[16]  $c[10] [$pc/".scalar(grep { defined $_} @P)."][$P]\n";
       if ($URL=~/$P/) {
         my $URL1=$URL;
-        if (index($URL, "?$P=") != -1) {
-          $URL1=~s/\?$P=([^&]*)/\?$P=$1$exp$arr/g;
-          doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter);
-        }
-        if (index($URL, "&$P=") != -1) {
-          $URL1=~s/\&$P=([^&]*)/\&$P=$1$exp$arr/g;
-          doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter);
-        }       
+        if (index($URL, "?$P=") != -1) { $URL1=~s/\?$P=([^&]*)/\?$P=$1$exp$arr/g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter); }
+        if (index($URL, "&$P=") != -1) { $URL1=~s/\&$P=([^&]*)/\&$P=$1$exp$arr/g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter); }       
       }else{ print $c[1]."    $DS[4]:   $c[2]$OTHERS[17]\n"; points(); }
     }
   }
@@ -1687,12 +1552,10 @@ sub printResults {
   else{ print $c[1]."    $DS[4]    ";    
     if ($isFilter) {
       if($html=~/$filter/) { doPrint($URL1); }
-      else{ print $c[2]."$DT[1]\n"; }
-      points();
+      else{ print $c[2]."$DT[1]\n"; } points();
     }else{
       if ($response->is_success and !$response->previous) { doPrint($URL1); }
-      else{ print $c[2]."$DT[1]\n"; }
-      points();
+      else{ print $c[2]."$DT[1]\n"; } points();
     }
   }
 }
@@ -1702,8 +1565,7 @@ sub printResults {
 sub doPrint {
   my $URL1=$_[0];
   print $c[3]."$URL1";
-  if (defined $beep) { print chr(7); } 
-  saveme($URL1); print "\n";
+  if (defined $beep) { print chr(7); } saveme($URL1); print "\n";
   if (defined $pause) { ifirst(); }
 }
 ############################################################################################################################################################################################
@@ -1713,8 +1575,7 @@ sub getK {
   my ($x, $y)=@_;  
   my $k=0;
   splice @z, $x, $y;
-  for (@z) { if (defined $_) { $k++; } }
-  return $k;
+  for (@z) { if (defined $_) { $k++; } } return $k;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1724,16 +1585,11 @@ sub endScan {
   if (-e $aTscan) { 
   	countResultLists();
     if (defined $vld) {
-      unlink $aTsearch;
-      if (!$k) { adios(); } 
+      unlink $aTsearch; if (!$k) { adios(); }
       else{ use File::Copy qw(copy); copy $aTscan, $aTsearch; }
-    }else{   
-      if (!$k) { adios(); }  
-    }
-    resultsTOcommand();
-    unlink $aTscan;
-  }
-  else{ negative(); exit() if defined $vld; }  
+    }else{ if (!$k) { adios(); }  
+    } resultsTOcommand(); unlink $aTscan;
+  }else{ negative(); exit() if defined $vld; }  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1780,8 +1636,7 @@ sub msearch {
 ############################################################################################################################################################################################
 ## PRINT ENGINE RESULTS
 sub printSearch {
-  testConection();
-  scanTitleBgn();
+  testConection(); scanTitleBgn();
   if (defined $searchRegex) { doRegex($searchRegex); }
   my $scanFile = $aTsearch;
   if (-e $scanFile) { 
@@ -1790,14 +1645,8 @@ sub printSearch {
     my $k=getK(0, 0);
     if (!$k) {      
       makeSscan("", "", "", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[0], "", "1", "", "", "", "");
-      stak();ltak();
-      print $c[3]."[!] $lc $DT[4]\n";
-      adios();
-    }else{ 
-      print $c[11]."$SCAN_TITLE[0]";
-      scanTitleEnd();
-      unlink $aTscan;
-      print $c[3]."[!] $lc $DT[4]\n";
+      stak();ltak(); print $c[3]."[!] $lc $DT[4]\n"; adios(); }
+    else{ print $c[11]."$SCAN_TITLE[0]"; scanTitleEnd(); unlink $aTscan; print $c[3]."[!] $lc $DT[4]\n";
     }
   }else{ print $c[11]."$SCAN_TITLE[0]"; scanTitleEnd(); negative(); deleteLists(); exit(); }
   Menu();
@@ -1809,9 +1658,7 @@ sub misup {
   unlink $aTscan if -e $aTscan;
   if (!defined $mlevel) { targetList(); }
   makeSscan("1", "2", "", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "", "", "", "", "");
-  my $k=getK(0, 1);
-  unlink $aTsearch;
-  endScan($k, "1");
+  my $k=getK(0, 1); unlink $aTsearch; endScan($k, "1");
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1820,108 +1667,62 @@ sub validation {
   unlink $aTscan if -e $aTscan;
   if ((!defined $mlevel) && (!defined $misup)) { targetList(); }
   makeSscan("1", "2", "", "", "", \@TODO, \@V_VALID, $SCAN_TITLE[2], "", "", "", "", "", "1");  
-  my $k=getK(0, 2);
-  unlink $aTsearch;
-  endScan($k, "1");
+  my $k=getK(0, 2); unlink $aTsearch; endScan($k, "1");
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET WORDPRESS SITES
-sub WpSites { 
-  makeSscan("", "", "3", "", "", \@TODO, \@V_WP, $SCAN_TITLE[3], "", "", "", "", "", "");   
-  my $k=getK(0, 3); endScan($k);
-}
+sub WpSites { makeSscan("", "", "3", "", "", \@TODO, \@V_WP, $SCAN_TITLE[3], "", "", "", "", "", ""); my $k=getK(0, 3); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET WORDPRESS SITES
-sub JoomSites { 
-  makeSscan("", "", "3", "", "", \@TODO, \@V_JOOM, $SCAN_TITLE[4], "", "", "", "", "", "");
-  my $k=getK(0, 4); endScan($k);
-}
+sub JoomSites { makeSscan("", "", "3", "", "", \@TODO, \@V_JOOM, $SCAN_TITLE[4], "", "", "", "", "", ""); my $k=getK(0, 4); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## XSS
-sub xss { 
-  makeSscan("", "", "3", "", "", \@XSS, \@V_XSS, $SCAN_TITLE[5], $paylNote, "", "", "", "", "1"); 
-  stak() if !defined $exploit; 
-  my $k=getK(0, 5); endScan($k);
-}
+sub xss { makeSscan("", "", "3", "", "", \@XSS, \@V_XSS, $SCAN_TITLE[5], $paylNote, "", "", "", "", "1"); stak() if !defined $exploit; my $k=getK(0, 5); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LFI
-sub lfi { 
-  makeSscan("", "", "3", "4", "", \@LFI, \@V_LFI, $SCAN_TITLE[6], $paylNote, "", "", "", "", "");
-  my $k=getK(0, 6); endScan($k);
-}
+sub lfi { makeSscan("", "", "3", "4", "", \@LFI, \@V_LFI, $SCAN_TITLE[6], $paylNote, "", "", "", "", ""); my $k=getK(0, 6); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## RFI JOOMLA
-sub JoomRfi { 
-  makeSscan("", "", "3", "4", "", \@RFI, \@E_SHELL, $SCAN_TITLE[7], $paylNote, "", "", "", "", ""); 
-  restaureSearch();
-  my $k=getK(0, 7); endScan($k);
-}
+sub JoomRfi { makeSscan("", "", "3", "4", "", \@RFI, \@E_SHELL, $SCAN_TITLE[7], $paylNote, "", "", "", "", ""); restaureSearch(); my $k=getK(0, 7); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## WORDPRESS ADF
-sub WpAfd { 
-  makeSscan("", "", "3", "4", "", \@ADFWP, \@V_AFD, $SCAN_TITLE[8], $paylNote, "", "", "", "", ""); 
-  restaureSearch();
-  my $k=getK(0, 8); endScan($k);
-}
+sub WpAfd { makeSscan("", "", "3", "4", "", \@ADFWP, \@V_AFD, $SCAN_TITLE[8], $paylNote, "", "", "", "", ""); restaureSearch(); my $k=getK(0, 8); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET ADMIN PAGE
-sub adminPage { 
-  makeSscan("", "", "3", "4", "", \@ADMIN, \@V_TODO, $SCAN_TITLE[9], $paylNote, "", "", "", "", ""); 
-  restaureSearch();
-  my $k=getK(0, 9); endScan($k);
-}
+sub adminPage { makeSscan("", "", "3", "4", "", \@ADMIN, \@V_TODO, $SCAN_TITLE[9], $paylNote, "", "", "", "", ""); restaureSearch(); my $k=getK(0, 9); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET SUBDOMAINS
 sub subdomain { 
-  makeSscan("", "", "3", "4", "5", \@SUBDOMAIN, \@V_TODO, $SCAN_TITLE[10], $paylNote, "", "1", "", "", ""); 
-  restaureSearch();
-  my $k=getK(0, 10); endScan($k);
-}
+  makeSscan("", "", "3", "4", "5", \@SUBDOMAIN, \@V_TODO, $SCAN_TITLE[10], $paylNote, "", "1", "", "", ""); restaureSearch(); my $k=getK(0, 10); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET UPLOAD FILES
-sub uploadSites { 
-  makeSscan("", "", "3", "4", "", \@UPLOAD, \@V_TODO, $SCAN_TITLE[11], $paylNote, "", "", "", "", "");   
-  restaureSearch();
-  my $k=getK(0, 11); endScan($k);
-}
+sub uploadSites { makeSscan("", "", "3", "4", "", \@UPLOAD, \@V_TODO, $SCAN_TITLE[11], $paylNote, "", "", "", "", ""); restaureSearch(); my $k=getK(0, 11); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET ZIP FILES
 sub zipSites { 
-  makeSscan("", "", "3", "4", "", \@ZIP, \@V_TODO, $SCAN_TITLE[12], $paylNote, "", "", "", "", "");
-  restaureSearch();
-  my $k=getK(0, 12); endScan($k);
-}
+  makeSscan("", "", "3", "4", "", \@ZIP, \@V_TODO, $SCAN_TITLE[12], $paylNote, "", "", "", "", ""); restaureSearch(); my $k=getK(0, 12); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET IPS
-sub Ips { 
-  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[21], "", "", "", $V_IP, "", "");
-  my $k=getK(0, 13); endScan($k);
-}
+sub Ips { makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[21], "", "", "", $V_IP, "", ""); my $k=getK(0, 13); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET E-MAILS
-sub eMails {
-  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[13], "", "", "", $V_EMAIL, "", "");
-  my $k=getK(0, 14); endScan($k);
-}
+sub eMails { makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[13], "", "", "", $V_EMAIL, "", ""); my $k=getK(0, 14); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET REGEX
-sub Regex { 
-  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[22], "", "", "", $V_REGEX, "", "");
-  my $k=getK(0, 15); endScan($k);
-}
+sub Regex { makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[22], "", "", "", $V_REGEX, "", ""); my $k=getK(0, 15); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET OPEN PORTS
@@ -1938,27 +1739,19 @@ sub ports {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## EXTERN COMMAND
-sub mcommand { 
-  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[16], "", "", "", "", $command, ""); stak(); adios(); exit();
-}
+sub mcommand { makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[16], "", "", "", "", $command, ""); stak(); adios(); exit(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## MD5 ENCODE
-sub mmd5 {
-  scanCode($SCAN_TITLE[17], $mmd5, "1", "", ""); adios();
-} 
+sub mmd5 { scanCode($SCAN_TITLE[17], $mmd5, "1", "", ""); adios(); } 
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENCODE BASE 64
-sub mencode64 {
-  scanCode($SCAN_TITLE[18], $mencode64, "", "1", ""); adios();
-}
+sub mencode64 { scanCode($SCAN_TITLE[18], $mencode64, "", "1", ""); adios(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DECODE BASE 64
-sub mdecode64 {
-  scanCode($SCAN_TITLE[19], $mdecode64, "", "", "1"); adios();
-}
+sub mdecode64 { scanCode($SCAN_TITLE[19], $mdecode64, "", "", "1"); adios(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT DESCLAIMER
@@ -1969,15 +1762,7 @@ osinfo();
 ## CHECK TARGET PROTOCOL
 if ((defined $Target)&&(!defined $mlevel)) { 
   if (defined $msites) { desclaimer(); print $c[2]."[!] $DT[20]\n"; exit(); }
-  if ((!-e $Target) && ($Target !~ /https?:\/\//) && (!defined $mports)) { 
-    desclaimer();
-	print $c[2]."[!] $DT[14]\n";
-    print $c[4]."[!] $DT[15]\n"; 
-	print $c[4]."   - $DT[16]\n";
-	print $c[4]."   - $DT[18]\n";
-	print $c[4]."   - $DT[17]\n";
-	exit();
-  }
+  if ((!-e $Target) && ($Target !~ /https?:\/\//) && (!defined $mports)) { desclaimer(); print $c[2]."[!] $DT[14]\n[!] $DT[15]\n   - $DT[16]\n   - $DT[18]\n   - $DT[17]\n"; exit(); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -2030,21 +1815,16 @@ if (!defined $dork) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS PROCESS (PORTS)
-if ((defined $mports) && (!defined $port)) { 
-  desclaimer(); print $c[2]."[!] $DT[23]\n"; exit();
-}
+if ((defined $mports) && (!defined $port)) { desclaimer(); print $c[2]."[!] $DT[23]\n"; exit(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK MOTORS ARGUMENTS
 if (defined $motor) { 
   if ($motor !~ /1|2|3|4|5|all/) { 
     desclaimer();      
-    print $c[2]."[!] ";
-    timer();
+    print $c[2]."[!] "; timer();
     print "$DT[25]\n";    
-    print $c[4]."   $DT[27] \n";
-    print "    $OTHERS[5] -m [1,2,...]\n";    
-    exit();
+    print $c[4]."   $DT[27] \n    $OTHERS[5] -m [1,2,...]\n"; exit();
   }
 }
 ############################################################################################################################################################################################

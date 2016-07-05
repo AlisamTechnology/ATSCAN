@@ -373,7 +373,7 @@
       <b>Subscan from Serach Engine:</b><br/>
         Exploitation: atscan --dork [dork] --level [10] [--xss | --lfi | --wp |...] <br/>
         Server Exploitation: atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
-        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--valid [string] --xss |..]
+        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--valid [string] --xss]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Validation:</b><br/>

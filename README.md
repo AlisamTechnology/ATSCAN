@@ -381,7 +381,7 @@
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
         Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [--isup | --valid] [string] <br/>
         Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
-        Replace + Exploit or validate target: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid] [string]
+        Replace and validate the target: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Use List / Target:</b><br/>
@@ -390,9 +390,9 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Server Ports:</b><br/>
-        atscan -t [ip] --ports [--udp | --tcp] --port [port] <br/>
+        Scan a server ports for open and close udp or tcp ports: atscan -t [Ex: 12.211.22.133] --ports [--udp | --tcp] --port [Ex:445] <br/>
         atscan -t (ip start)-(ip end) --ports [--udp | --tcp] --port [port]<br/>
-        atscan -t [ip] --ports [--udp | --tcp] --port (port start)-(port end)
+        atscan -t [ip] --ports [--udp | --tcp] --port [port start]-[port end]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Encode / Decode:</b><br/>
@@ -406,14 +406,14 @@
         atscan -t [target | targets.txt] --command "curl -v --TARGET"
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
-      <b>Multiple Scan:</b><br/>
-        atscan --dork [dork] --level [10] --xss --lfi --wp .. <br/>
-        atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp |...] <br/>
+      <b>Multiple Scans:</b><br/>
+        atscan --dork [dork] --level [level] --xss --lfi --wp .. <br/>
+        atscan --dork [dork] --level [level] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wpafd | --isup |...] <br/>
         atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
         atscan -t [targets] [--xss | --lfi | --wp |...]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
-        <b>Check Tool Version and Update:</b><br/>
+        <b>Check Tool and Update:</b><br/>
         atscan --update
       </td></tr></table>
     </td>

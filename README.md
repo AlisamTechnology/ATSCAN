@@ -336,7 +336,7 @@
     <td width="890px"><b>Examples:</b></td>
   </tr>
   <tr>
-    <td class="main">
+    <td class="main" width="100%">
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>  
       <b>Proxy: </b><br/>
         Tor --proxy [proxy] [Ex: socks://localhost:9050].<br/>

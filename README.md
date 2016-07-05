@@ -381,7 +381,7 @@
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
         Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [--isup | --valid] [string] <br/>
         Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
-        Replace and validate the target:  atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid [string]
+        Replace + exploit/validate url: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Use List / Target:</b><br/>
@@ -390,7 +390,7 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Server Ports:</b><br/>
-        Scan a server ports for open and close udp or tcp ports: atscan -t [Ex: 12.211.22.133] --ports [--udp | --tcp] --port [Ex:445] <br/>
+        Scan a server ports for open and close udp or tcp ports: atscan -t [Ex: 12.21.22.133] --ports [--udp | --tcp] --port [Ex:80] <br/>
         atscan -t (ip start)-(ip end) --ports [--udp | --tcp] --port [port]<br/>
         atscan -t [ip] --ports [--udp | --tcp] --port [port start]-[port end]
       </td></tr></table>

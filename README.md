@@ -381,7 +381,7 @@
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
         Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [--isup | --valid] [string] <br/>
         Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
-        Replace + exploit/validate url: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid [string]
+        Replace + exploit or validate url: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Use List / Target:</b><br/>
@@ -408,7 +408,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Multiple Scans:</b><br/>
         atscan --dork [dork] --level [level] --xss --lfi --wp .. <br/>
-        atscan --dork [dork] --level [level] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp | --joom | --isup |...] <br/>
+        atscan --dork [dork] --level [level] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp | --joom | --isup | ...] <br/>
         atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
         atscan -t [targets] [--xss | --lfi | --wp |...]
       </td></tr></table>

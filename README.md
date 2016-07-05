@@ -346,7 +346,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Simple search: </b><br/>
         Search: atscan --dork [dork] --level [level]  <br/>
-        Set engine: atscan --dork [dork] --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
+        Set engine: atscan --dork [dork] --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]                           <br/>
         Set selective engines: atscan --dork [dork] --level [level] -m 1,2,3..   <br/>
         Search with many dorks: atscan --dork [dork1,dork2,dork3] --level [level]    <br/>
         Get Server sites: atscan -t [ip] --level [value] --sites <br/>
@@ -381,22 +381,22 @@
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
         Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [--isup | --valid] [string] <br/>
         Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
-        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid] [string]<br/><br/>
+        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid] [string]                           <br/><br/>
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Use List / Target:</b><br/>
-        atscan -t [target | targets.txt] --exp [--isup | --valid] [string] <br/>
+        atscan -t [target | targets.txt] --exp [--isup | --valid] [string]                            <br/>
         atscan -t [target | targets.txt] [--xss | --lfi | --wp |...]<br/><br/>
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Server Ports:</b><br/>
         atscan -t [ip] --ports [--udp | --tcp] --port [port] <br/>
-        atscan -t (ip start)-(ip end) --ports [--udp | --tcp] --port [port] <br/>
+        atscan -t (ip start)-(ip end) --ports [--udp | --tcp] --port [port]                            <br/>
         atscan -t [ip] --ports [--udp | --tcp] --port (port start)-(port end)<br/><br/>
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Encode / Decode:</b><br/>
-        Generate MD5: atscan --md5 [string]  <br/>
+        Generate MD5: atscan --md5 [string]                             <br/>
         Encode base64: atscan --encode64 [string]  <br/> 
         Decode base64: atscan --decode64 [string] <br/><br/>
       </td></tr></table>

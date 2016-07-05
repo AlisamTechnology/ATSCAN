@@ -408,7 +408,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Multiple Scans:</b><br/>
         atscan --dork [dork] --level [level] --xss --lfi --wp .. <br/>
-        atscan --dork [dork] --level [level] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp | --joom | --isup | ...] <br/>
+        atscan --dork [dork] --level [level] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp | --admin | --shost | ...] <br/>
         atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
         atscan -t [targets] [--xss | --lfi | --wp |...]
       </td></tr></table>

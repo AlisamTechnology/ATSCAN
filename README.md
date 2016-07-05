@@ -1,3 +1,4 @@
+
 <html>
 <body>
 <h1 align="center">ATSCAN</h1>
@@ -337,13 +338,13 @@
   </tr>
   <tr>
     <td class="main">
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>
       <b>Proxy: </b><br/>
         Tor --proxy [proxy] [Ex: socks://localhost:9050].<br/>
         Proxy --proxy [proxy] [Ex: http://12.32.1.5:8080] | --proxy [list.txt><br/>
         Random --random<br/><br/>
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Simple search: </b><br/>
         Search: atscan --dork [dork] --level [level]  <br/>
         Set engine: atscan --dork [dork] --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
@@ -363,19 +364,19 @@
         Search + get ips: atscan --dork [dork] --level [level] --ip  <br/>
         Search by url regex: atscan --dork [dork] --level [level] --sregex [regex] <br/><br/>
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Regular Expressions Scan: </b><br/>
         Regex use: atscan [--dork dork | -t target] --level [level] --regex [regex] <br/>
         EX: To get ips ((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})) <br/>
         EX: To get mails ((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}).<br/><br/>
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Subscan from Serach Engine:</b><br/>
         Exploitation: atscan --dork [dork] --level [10] [--xss | --lfi | --wp |...] <br/>
         Server Exploitation: atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
         Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--xss | --lfi |...]<br/><br/>
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Validation:</b><br/>
         Search + Url Validation: atscan --dork [dork] --level [10] --ifinurl [string] <br/>
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
@@ -383,36 +384,36 @@
         Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
         Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid] [string]<br/><br/>
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Use List / Target:</b><br/>
         atscan -t [target | targets.txt] --exp [--isup | --valid] [string] <br/>
         atscan -t [target | targets.txt] [--xss | --lfi | --wp |...]<br/><br/>
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Server Ports:</b><br/>
         atscan -t [ip] --ports [--udp | --tcp] --port [port] <br/>
         atscan -t (ip start)-(ip end) --ports [--udp | --tcp] --port [port] <br/>
         atscan -t [ip] --ports [--udp | --tcp] --port (port start)-(port end)<br/><br/>
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Encode / Decode:</b><br/>
         Generate MD5: atscan --md5 [string]  <br/>
         Encode base64: atscan --encode64 [string]  <br/> 
         Decode base64: atscan --decode64 [string] <br/><br/>
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>External Command:</b><br/>
         atscan --dork [dork | dorks.txt] --level [level] --command "curl -v --TARGET"  <br/>
         atscan -t [target | targets.txt] --command "curl -v --TARGET" <br/> <br/>
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Multiple Scan:</b><br/>
         atscan --dork [dork] --level [10] --xss --lfi --wp .. <br/>
         atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp |...] <br/>
         atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
         atscan -t [targets] [--xss | --lfi | --wp |...] <br/><br/>
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td width="100px">    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
         <b>Check Tool Version and Update:</b><br/>
         atscan --update <br/><br/>
       </td></tr></table>

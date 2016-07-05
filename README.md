@@ -343,7 +343,7 @@
         Proxy --proxy [proxy] [Ex: http://12.32.1.5:8080] | --proxy [list.txt><br/>
         Random --proxy [proxy] --random
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
+      <table border="0" cellpadding="2" cellspacing="5" width="800px"><tr><td>    
       <b>Simple search: </b><br/>
         Search: atscan --dork [dork] --level [level]  <br/>
         Set engine: atscan --dork [dork] --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]<br/>

@@ -339,14 +339,14 @@
     <td class="main" width="100%">
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>  
       <b>Proxy: </b><br/>
-        Tor --proxy [proxy] [Ex: socks://localhost:9050].<br/>
-        Proxy --proxy [proxy] [Ex: http://12.32.1.5:8080] | --proxy [list.txt><br/>
+        Tor: --proxy [proxy] [Ex: --proxy socks://localhost:9050].<br/>
+        Proxy: Proxy: --proxy [proxy] [Ex: http://12.32.1.5:8080] or --proxy [list.txt] [Ex: --proxy /root/Desktop/Documents/my_proxies.txt] <br/>
         Random --proxy [proxy] --random
       </td></tr></table>
-      <table border="0" cellpadding="2" cellspacing="5" width="800px" style="display:none;"><tr><td>    
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Simple search: </b><br/>
         Search: atscan --dork [dork] --level [level]  <br/>
-        Set engine: atscan --dork [dork] --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]<br/>
+        Set engines and search: atscan --dork [dork] --level [level] -m 1,2,.. [Engines: Bing: 1 Google: 2 Ask: 3 Yandex: 4 Sogou: 5 All engines: all]<br/>
         Set selective engines: atscan --dork [dork] --level [level] -m 1,2,3..   <br/>
         Search with many dorks: atscan --dork [dork1,dork2,dork3] --level [level]    <br/>
         Get Server sites: atscan -t [ip] --level [value] --sites <br/>
@@ -366,14 +366,14 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Regular Expressions Scan: </b><br/>
         Regex use: atscan [--dork dork | -t target] --level [level] --regex [regex] <br/>
-        EX: To get ips ((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})) <br/>
+        EX: To get ips from an url content ((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})) <br/>
         EX: To get mails ((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}).
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Subscan from Serach Engine:</b><br/>
         Exploitation: atscan --dork [dork] --level [10] [--xss | --lfi | --wp |...] <br/>
         Server Exploitation: atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
-        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--xss | --lfi |...]
+        Replace string + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --valid [string]...]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Validation:</b><br/>
@@ -381,7 +381,7 @@
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
         Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [--isup | --valid] [string] <br/>
         Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
-        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid] [string]
+        Replace a string + Exploit or validate the target: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid] [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Use List / Target:</b><br/>

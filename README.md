@@ -346,7 +346,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Simple search: </b><br/>
         Search: atscan --dork [dork] --level [level]  <br/>
-        Set engines and search: atscan --dork [dork] --level [level] -m 1,2,.. [Engines: Bing: 1 Google: 2 Ask: 3 Yandex: 4 Sogou: 5 All engines: all]<br/>
+        Set engines + search: atscan --dork [dork] --level [level] -m 1,2,.. [Engines: Bing: 1 Google: 2 Ask: 3 Yandex: 4 Sogou: 5 All engines: all]<br/>
         Set selective engines: atscan --dork [dork] --level [level] -m 1,2,3..   <br/>
         Search with many dorks: atscan --dork [dork1,dork2,dork3] --level [level]    <br/>
         Get Server sites: atscan -t [ip] --level [value] --sites <br/>
@@ -373,7 +373,7 @@
       <b>Subscan from Serach Engine:</b><br/>
         Exploitation: atscan --dork [dork] --level [10] [--xss | --lfi | --wp |...] <br/>
         Server Exploitation: atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
-        Replace string + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --valid [string]...]
+        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--valid [string] --xss ..]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Validation:</b><br/>

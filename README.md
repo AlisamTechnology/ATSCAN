@@ -381,7 +381,7 @@
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
         Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [--isup | --valid] [string] <br/>
         Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
-        Replace + exploit or validate url: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid [string]
+        Replace + exploit or validate urls: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Use List / Target:</b><br/>

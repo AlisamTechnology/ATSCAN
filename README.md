@@ -402,7 +402,7 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>External Command:</b><br/>
-        atscan --dork [dork | dorks.txt] --level [level] --exp [exploit/payload] --valid [string] --command "sqlmap -u --TARGET --dbs"  <br/>
+        atscan --dork [dork | dorks.txt] --level [level] --exp [your payload] --valid [string] --command "sqlmap -u --TARGET --dbs"  <br/>
         atscan -t [target | targets.txt] --command "curl -v --TARGET"
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    

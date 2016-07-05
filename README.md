@@ -390,7 +390,7 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Server Ports:</b><br/>
-        Scan a server ports for open and close udp or tcp ports: atscan -t [Ex: 12.21.22.133] --ports [--udp | --tcp] --port [Ex:80] <br/>
+        Scan a server ports for open and close udp or tcp ports: atscan -t [Ex: 12.21.22.133] --ports [--udp | --tcp] --port [8080] <br/>
         atscan -t (ip start)-(ip end) --ports [--udp | --tcp] --port [port]<br/>
         atscan -t [ip] --ports [--udp | --tcp] --port [port start]-[port end]
       </td></tr></table>
@@ -402,7 +402,7 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>External Command:</b><br/>
-        atscan --dork [dork | dorks.txt] --level [level] --exp [your payload] --valid [string] --command "sqlmap -u --TARGET --dbs"  <br/>
+        atscan --dork [dork | dorks.txt] --level [level] --exp [payload] --valid [string] --command "sqlmap -u --TARGET --dbs"  <br/>
         atscan -t [target | targets.txt] --command "curl -v --TARGET"
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    

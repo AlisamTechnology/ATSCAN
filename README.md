@@ -167,7 +167,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--exp</td>
-        <td class="main">Set exploit</td>
+        <td class="main">Set exploit/payload</td>
       </tr>
       <tr>
         <td width="200px" class="main">--valid</td>

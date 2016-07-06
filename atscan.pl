@@ -1774,7 +1774,7 @@ sub help {
   ."   --ifinurl     | Text to validate target url \n"
   ."   --isup        | Check http status 200. \n"
   ."   --unique      | Get targets with exact dork matching.\n"
-  ."   --exp         | Exploit\n"
+  ."   --exp         | Exploit/Payload\n"
   ."   -t            | Target [http://site.com]\n"
   ."   -p            | Set test parameter EX:id,cat,product_ID\n"
   ."   -m            | Set engine motors. default bing EX: -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n"

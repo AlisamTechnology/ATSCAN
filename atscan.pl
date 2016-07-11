@@ -166,9 +166,9 @@ my @LOGO=("
     "
     $c[4]      \\\\\\|||/// 
     $c[4]      /=======\\           $c[2]$ESLOGAN[rand @ESLOGAN]
-    $c[4]    =__   __=
+    $c[4]      =__   __=
     $c[4]     =( o) (o )=   $c[9]     _  _____ ____   ____    _    _   _ 
-    $c[4]    =   U   =  $c[9]    / \\|_   _/ ___| / ___|  / \\  | \\ | |
+    $c[4]      =   U   =    $c[9]    / \\|_   _/ ___| / ___|  / \\  | \\ | |
     $c[4]      _________    $c[9]   / _ \\ | | \\___ \\| |     / _ \\ |  \\| |
     $c[4]      \\__!|!__/    $c[9]  / ___ \\| |  ___) | |___ / ___ \\| |\\  |
     $c[4]         \\_/       $c[9] /_/   \\_\\_| |____/ \\____/_/   \\_\\_| \\_| $c[3]V $Version"
@@ -209,6 +209,13 @@ my ($aTsearch, $aTtargets, $aTdorks, $aTmotors, $aTscan, $aTexploits, $aTports, 
  $aTcopy=$Bin."/aTcopy.txt";
  $script=$Bin."/atscan.pl";
  $script_bac=$Bin."/atscan_bac.pl";
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## PRINT FILES 
+sub printFile {
+  my ($File, $context)=@_;
+  open (FILE, '>>', $File); print FILE "$context\n"; close(FILE);
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DELETE CLEAR LISTS
@@ -281,7 +288,7 @@ my $nolisting="q=|0day|pastebin|\/\/t.co|google.|youtube.|jsuol.com|.radio.uol.|
 ## MAIL VALIDATION
 my $V_EMAIL='((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})';
 my $V_IP='((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3}))';
-my $V_RANG='(\d{ 1,3})\.(\d{ 1,3})\.(\d{ 1,3})\.(\d{ 1,3})\-(\d{ 1,3})\.(\d{ 1,3})\.(\d{ 1,3})\.(\d{ 1,3})';
+my $V_RANG='(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\-(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})';
 my $V_SEARCH='((https?|ftps?):\/\/([^>\"\<\'\(\)]*))';
 my $V_REGEX=$regex;
 my $S_REGEX=$searchRegex;
@@ -543,14 +550,13 @@ sub dorkList {
 	if (substr($dork, -4) eq '.txt') { use File::Copy qw(copy); copy $dork, $aTdorks; }
     else{ 
       if ($dork=~m/,/) { $dork=~s/,/ /g; }elsif ($dork=~m/ /) { $dork=~s/ /+/g; }
-      my @dorks=split / /, $dork; foreach my $dork (@dorks) { open (FILE, '>>'.$aTdorks); print FILE "$dork\n"; close (FILE); }
+      my @dorks=split / /, $dork; foreach my $dork (@dorks) { printFile($aTdorks, $dork); }
 	}
   }elsif (defined $Target) { 
     if (($Target=~/$V_RANG/)&&($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
       my $startIp=$1.".".$2.".".$3.".".$4;
-      my $endIp=$5.".".$6.".".$7.".".$8;
+      my $endIp=$5.".".$6.".".$7.".".$8;     
       my (@ip,@newIp,$i,$newIp,$j,$k,$l);
-      open (FILE, '>>'.$aTdorks);
       @ip=split(/\./,$startIp);
       for($i=$ip[0];$i<=$5;$i++) { 
 	    $ip[0]=0 if($i == $5);
@@ -561,18 +567,17 @@ sub dorkList {
             for($l=$ip[3];$l<=$8;$l++) { 
               $ip[3]=0 if($l == $8);
               @newIp=$newIp=join('.',$i,$j,$k,$l);
-              print FILE "$newIp \n";
+              printFile($aTdorks, $newIp);
             }
 	      }
 		}
       }
-	  close (FILE);
     }elsif (substr($Target, -4) eq '.txt') { use File::Copy qw(copy); copy $Target, $aTdorks; }
     else{ 
       if ($Target=~m/,/) { $Target=~s/,/ /g;
       }elsif ($Target=~m/ /) { $Target=~s/ /+/g; }
       my @targets=split / /, $Target;
-      foreach my $Target (@targets) { open (FILE, '>>'.$aTdorks); print FILE "$Target\n"; close (FILE); }
+      foreach my $Target (@targets) { printFile($aTdorks, $Target); }
     }
   }
 }
@@ -584,7 +589,6 @@ sub targetList {
     my $startIp=$1.".".$2.".".$3.".".$4;
     my $endIp=$5.".".$6.".".$7.".".$8;
     my (@ip,@newIp,$i,$newIp,$j,$k,$l);
-    open (FILE, '>>'.$aTsearch);
     @ip=split(/\./,$startIp);
     for($i=$ip[0];$i<=$5;$i++) { 
 	  $ip[0]=0 if($i == $5);
@@ -595,18 +599,17 @@ sub targetList {
           for($l=$ip[3];$l<=$8;$l++) { 
             $ip[3]=0 if($l == $8);
             @newIp=$newIp=join('.',$i,$j,$k,$l);
-            print FILE "$newIp \n";
+            printFile($aTsearch, $newIp);
           }
         }
 	  }
     }
-	close (FILE);
   }elsif (substr($Target, -4) eq '.txt') { use File::Copy qw(copy); copy $Target, $aTsearch; }
   else{ 
     if ($Target=~m/,/) { $Target=~s/,/ /g; }
     elsif ($Target=~m/ /) { $Target=~s/ /+/g; }
     my @targets=split / /, $Target;
-    foreach my $Target (@targets) { open (FILE, '>>'.$aTsearch); print FILE "$Target\n"; close (FILE); }
+    foreach my $Target (@targets) { printFile($aTsearch, $Target); }
   }
 }
 ############################################################################################################################################################################################
@@ -617,7 +620,7 @@ sub expList {
   else{ if ($exploit=~m/,/) { $exploit=~s/,/ /g; }
   elsif ($exploit=~m/ /) { $exploit=~s/ /+/g; }
     my @exploits=split / /, $exploit;
-    foreach my $exploit (@exploits) { open (FILE, '>'.$aTexploits); print FILE "$exploit\n"; close (FILE); }
+    foreach my $exploit (@exploits) { printFile($aTexploits, $exploit); }
   }
 }
 ############################################################################################################################################################################################
@@ -691,13 +694,9 @@ sub checkExtraInfo {
 ## BUILT POSITIVE SCAN RESULTS LIST
 sub saveme { 
   my $URL1=$_[0];
-  open (LOS, '>>', $aTscan);
-  print LOS "$URL1\n";
-  close (LOS);
-  if (defined $output) { 
-    open (OUT, '>>', "$outdir/$output");
-    print OUT "$URL1\n";
-    close (OUT);
+  printFile($aTscan, $URL1);
+  if (defined $output) {
+    printFile("$outdir/$output", $URL1);
   }
 }
 ############################################################################################################################################################################################
@@ -714,13 +713,13 @@ sub resultsTOcommand {
 ############################################################################################################################################################################################
 ## SCAN TITLE
 sub title { 
-  if (defined $output) { my $SCAN_TITLE=$_[0]; open (OUT, '>>', "$outdir/$output"); print OUT "================ $SCAN_TITLE ================\n"; close (OUT); }
+  if (defined $output) { my $SCAN_TITLE=$_[0];  printFile("$outdir/$output", "================ $SCAN_TITLE ================"); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN TITLE
 sub url { 
-  if (defined $output) { my $URL=$_[0]; open (OUT, '>>', "$outdir/$output"); print OUT "    ========= $DS[9]: $URL =========\n"; close (OUT); }
+  if (defined $output) { my $URL=$_[0]; printFile("$outdir/$output", "    ========= $DS[9]: $URL ========="); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -896,9 +895,9 @@ sub restaureSearch {
 ## REMOVE DUPLICATE DOMAINES WPAFD/JOOMRFI/SUBDOMAINS/ADMIN
 sub removeDupDom { 
   makeCopy();
-  open (NTA, $aTsearch);
-  while (my $URL=<NTA>) { chomp $URL; $URL=removeProtocol($URL); $URL=~s/\/.*//s; $URL=checkUrlSchema($URL); saveCopy($URL); } 
-  close(NTA);
+  open (NT, $aTsearch);
+  while (my $URL=<NT>) { chomp $URL; $URL=removeProtocol($URL); $URL=~s/\/.*//s; $URL=checkUrlSchema($URL); saveCopy($URL); } 
+  close(NT);
   my $scanFile=$aTtargets;
   checkDuplicate($scanFile); IfDup();
 }
@@ -907,7 +906,7 @@ sub removeDupDom {
 ## SAVE NON DUPLICATE DOMAINES
 sub saveCopy { 
   my $URL=$_[0];
-  open (TEX, '>>', $aTtargets); print TEX "$URL\n"; close(TEX);
+  printFile($aTtargets, $URL); 
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1000,14 +999,14 @@ sub checkVersion {
   $response=$ua->request($request);
   $html=$response->content;
   if ($response->is_success) {
-	open (FI, '>>', $script_bac); print FI $response->content; close (FI);    
+    printFile($script_bac, $response->content);
     use File::Compare;      
     if (compare($script_bac, $script) == 0) {
       print $c[4]." $DT[6]\n"; }
     else{
       unlink $script;
       if (-e $script) { print $c[4]." [!] $ErrorsText[19] $script\n"; exit(); }
-	  open (FILE, '>>', $script); print FILE $response->content; close (FILE);
+      printFile($script, $response->content);
       system("chmod +x $script | perl $script || atscan");
       mtak(); ptak();
       print $c[3]."[!] $DT[7]\n";
@@ -1168,9 +1167,7 @@ sub doSearch {
           $URL=~s/\/.*//s;
         }
         $URL=checkUrlSchema($URL);
-        open (TEXT, '>>', $aTsearch);
-	    print TEXT "$URL\n";
-        close (TEXT);
+        printFile($aTsearch, $URL);        
       }
 	}
   }
@@ -1287,7 +1284,7 @@ sub scanPorts {
         close $socket if defined $socket;     
 	    print $c[1]."    $DS[7]    $c[10]$port\n $c[1]   $DS[8]    $c[10]$type\n $c[1]   $DS[4]    ";
 	    if ($closed1==0) { 
-          my $URL1=$port." => ".$type;
+          my $URL1="$URL Port: $port $type $DS[42]";
           print $c[3]."$DS[42]\n"; saveme($URL1);
           if (defined $pause) { ifirst(); }
         }
@@ -1476,8 +1473,8 @@ sub endScan {
 ## ENGINE PROCEDURE
 sub msearch {
   headerSearch();
-  open (FILE, $aTdorks);
-  while ($dork=<FILE>) { 
+  open (FI, $aTdorks);
+  while ($dork=<FI>) { 
     chomp $dork;
 	if (defined $Target) { $dork="ip%3A".$dork; }
 	$dork=~s/^\s+//;
@@ -1506,7 +1503,7 @@ sub msearch {
       }
     }
   }
-  close (FILE);
+  close (FI);
   printSearch();
 }
 ############################################################################################################################################################################################
@@ -1875,3 +1872,4 @@ deleteLists();
 ## 2015
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+

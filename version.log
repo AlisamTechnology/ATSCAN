@@ -2,24 +2,8 @@
     ===================
     VERSION 9.6 RELEASE
     ===================
-    CHANGES: 02/07/2016
+    CHANGES: 11/07/2016
     ===================
-     - Use proxy in ports scans.
-     - Fix get subdomains.
-     - Wide search engine and more results when using proxy.
-     - Fix some text errors.
-     - Show proxy info when used.
-     - Removed text from panel info code.
-    CHANGES: 03/07/2016
-    ===================
-     - Removed proxy-all arg.
-    CHANGES: 04/07/2016
-    ===================
-     - Advise when null timeout
-    CHANGES: 04/07/2016
-    =================== 
-     - Code Optimization
-    CHANGES: 06/07/2016
-    =================== 
-     - Optimize Help menu
+     - Fix ip rang scan.
+     - Optimise print files.
      - Enjoy!

@@ -1322,7 +1322,6 @@ sub makeSscan {
   print $c[4]."$paylNote" if defined $paylNote;  
   my $lc=countAtsearch();
   my $count=0;
-  print $c[3]."[!] $lc $DT[4]\n" if $lc>0;
   my @arr=@{ $ar };
   my @filter=@{ $v_ar };
   my $filter=join("|", @filter);

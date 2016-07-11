@@ -1322,15 +1322,14 @@ sub makeSscan {
   print $c[4]."$paylNote" if defined $paylNote;  
   my $lc=countAtsearch();
   my $count=0;
-  if ($result) { print $c[3]."[!] $lc $DT[4]\n"; }
+  print $c[3]."[!] $lc $DT[4]\n" if $lc>0;
   my @arr=@{ $ar };
   my @filter=@{ $v_ar };
   my $filter=join("|", @filter);
   open (TEXT, $aTsearch);
   while (my $URL=<TEXT>) { 
     $count++; chomp $URL; bloc1($URL);
-    if ($result) { print " [$OTHERS[0] $count]\n"; }
-    else{ print " [$OTHERS[0] $count/$lc]\n"; }
+    print " [$OTHERS[0] $count/$lc]\n";
     bloc2($URL);
     $URL=control($URL);
     if (!@arr) {     

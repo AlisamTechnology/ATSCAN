@@ -47,7 +47,7 @@ use HTML::Entities;
 #   Extern commands execution.
 #   Disponible on BlackArch Linux Platform.
 #
-#   [::] AUTOR:        Alisam Technology - MEZGUIDA DEVELOPERS -
+#   [::] AUTOR:        Alisam Technology - MEZGUIDA DEVELOPERS --
 #   [::] FB:           https://facebook.com/Forces.des.tempetes.marocaines
 #   [::] Twitter:      https://twitter.com/AlisamTechno
 #   [::] Pastebin      http://http://pastebin.com/u/Alisam_Technology

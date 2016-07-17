@@ -183,12 +183,12 @@ sub badArgs { banner(); advise(); }
 ############################################################################################################################################################################################
 ## ARGUMENTS
 use Getopt::Long ();
-my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend);
+my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $mports, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $uninstall);
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## OPTIONS
 my %OPT;
-Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mencode64, 'ports'=>\$mports, 'port=s'=>\$port, 'sites'=>\$msites, 'dom'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'all'=>\$all, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork=s'=>\$dork, 'level=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, ) or badArgs();
+Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mencode64, 'ports'=>\$mports, 'port=s'=>\$port, 'sites'=>\$msites, 'dom'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'all'=>\$all, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork=s'=>\$dork, 'level=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall,) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CLEAN DIRECTORIES
@@ -198,7 +198,7 @@ if (defined $output) { unlink "$outdir/$output" if -e "$outdir/$output"; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DEFINE SCAN LISTS
-my ($aTsearch, $aTtargets, $aTdorks, $aTmotors, $aTscan, $aTexploits, $aTports, $aTcopy, $script, $script_bac);
+my ($aTsearch, $aTtargets, $aTdorks, $aTmotors, $aTscan, $aTexploits, $aTports, $aTcopy, $script, $script_bac, $scriptbash);
  $aTsearch=$Bin."/aTsearch.txt";
  $aTtargets=$Bin."/aTtargets.txt";
  $aTdorks=$Bin."/aTdorks.txt";
@@ -209,12 +209,22 @@ my ($aTsearch, $aTtargets, $aTdorks, $aTmotors, $aTscan, $aTexploits, $aTports, 
  $aTcopy=$Bin."/aTcopy.txt";
  $script=$Bin."/atscan.pl";
  $script_bac=$Bin."/atscan_bac.pl";
+ $scriptbash="/usr/bin/atscan";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT FILES 
 sub printFile {
   my ($File, $context)=@_;
   open (FILE, '>>', $File); print FILE "$context\n"; close(FILE);
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## DELETE / UNINSTALL TOOL
+if (defined $uninstall) {
+  unlink $scriptbash if -e $scriptbash;
+  system "rm -rf $Bin";
+  print $c[4]."[!] ATSCAN was moved successfully\n";
+  exit();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################

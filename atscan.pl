@@ -1871,7 +1871,8 @@ sub help {
   ."   --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> [--xss | --lfi | --wp |...]\n"
   ."   -t <ip> --level <10> [--xss | --lfi | --wp |...]\n"
   ."   -t <targets> [--xss | --lfi | --wp |...]\n\n";
-  ltak(); print $c[12]."  Update Tool: \n".$c[10]."   --update\n"; 
+  ltak(); print $c[12]."  Update Tool: \n".$c[10]."   --update\n";
+  ltak(); print $c[12]."  Uninstall Tool: \n".$c[10]."   atscan --uninstall\n";
   ltak();
 }
 deleteLists();

@@ -2,11 +2,7 @@
     ===================
     VERSION 9.6 RELEASE
     ===================
-    CHANGES: 11/07/2016
+    CHANGES: 17/07/2016
     ===================
-     - Fix ip rang scan.
-     - Optimise print files.
-    CHANGES: 12/07/2016
-    ===================
-     - Fix validate by text
+     - Added uninstall argument --uninstall
      - Enjoy!

@@ -1,7 +1,7 @@
 <html>
 <body>
 <h1 align="center">ATSCAN</h1>
-<p align="center"> <b>Search / Server / Site / Dork / Exploitation Scanner </b></p>
+<p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner </b></p>
 <center><img src="http://i.imgur.com/jUt3Gn7.png" /></center>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>

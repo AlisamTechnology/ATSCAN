@@ -2,7 +2,7 @@
     ===================
     VERSION 9.7 RELEASE
     ===================
-    CHANGES: 17/07/2016
+    CHANGES: 25/07/2016
     ===================
-     - Added uninstall argument --uninstall
+     - Removed --ports argument now use --port <port> --udp | --tcp
      - Enjoy!

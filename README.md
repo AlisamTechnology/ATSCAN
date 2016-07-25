@@ -226,10 +226,6 @@
         <td class="main">get site subdomains</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--ports</td>
-        <td class="main">scan server ports</td>
-      </tr>    
-      <tr>
         <td width="200px" class="main">--port</td>
         <td class="main">port</td>
       </tr>      
@@ -391,8 +387,8 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Server Ports:</b><br/>
         Scan a server ports for open and close udp or tcp ports: atscan -t [Ex: 12.21.22.133] --ports [--udp | --tcp] --port [8080] <br/>
-        atscan -t (ip start)-(ip end) --ports [--udp | --tcp] --port [port]<br/>
-        atscan -t [ip] --ports [--udp | --tcp] --port [port start]-[port end]
+        atscan -t (ip start)-(ip end) --port [port] [--udp | --tcp]<br/>
+        atscan -t [ip] --port [port start]-[port end] [--udp | --tcp]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Encode / Decode:</b><br/>

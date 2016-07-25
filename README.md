@@ -102,6 +102,16 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
+    <td class="main3" width="890px"><b>Uninstall Tool:</b></td>
+  </tr>
+  <tr>
+    <td class="main">
+      atscan --uninstall<br/>
+    </td>
+  </tr>
+</table>
+<table border="0" cellpadding="2" cellspacing="5" width="100%">
+  <tr>
     <td class="main3"><b>Screenshots:</b></td>
   </tr>
   <tr>
@@ -323,6 +333,10 @@
       <tr>
         <td width="200px" class="main">--update</td>
         <td class="main">Update.</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--uninstall</td>
+        <td class="main">Uninstall Tool.</td>
       </tr> 
     </table></td>
   </tr>

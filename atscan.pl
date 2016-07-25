@@ -1858,7 +1858,7 @@ sub help {
   ."   -t <ip> --port <port> [--udp | --tcp] \n"
   ."   -t \(ip start\)-\(ip end\) --port <port> [--udp | --tcp] \n"
   ."   -t <ip> --port \(port start\)-\(port end\) [--udp | --tcp] \n"
-  ."   -t <ip> --port <port> [--udp | --tcp] --command <your extern command>\n";
+  ."   -t <ip> --port <port> [--udp | --tcp] --command [your extern command]\n\n";
   ltak(); print $c[12]."  Encode / Decode: \n".$c[10]
   ."   Generate MD5: --md5 <string> \n"
   ."   Encode base64: --encode64 <string>  \n"

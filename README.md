@@ -2,7 +2,6 @@
 <body>
 <h1 align="center">ATSCAN</h1>
 <p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner </b></p>
-<center><img src="http://i.imgur.com/jUt3Gn7.png" /></center>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>
     <td align="center"><b>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!<b></td>

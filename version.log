@@ -3,5 +3,5 @@
     CHANGES: 25/07/2016
     ===================
      - Removed --ports argument now use --port <port> --udp | --tcp
-     - Added posibility to execute extern command with opened ports.
+     - Added posibility to execute extern command with open ports.
      - Enjoy!

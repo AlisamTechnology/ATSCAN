@@ -212,7 +212,7 @@ my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adm
 ############################################################################################################################################################################################
 ## OPTIONS
 my %OPT;
-Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mencode64, 'port=s'=>\$port, 'sites'=>\$msites, 'dom'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'all'=>\$all, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork=s'=>\$dork, 'level=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall,) or badArgs();
+Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mencode64, 'port=s'=>\$port, 'sites'=>\$msites, 'dom'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'all'=>\$all, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall,) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CLEAN DIRECTORIES
@@ -1769,14 +1769,14 @@ sub help {
   ."                 | Set proxy [EX: --proxy http://12.45.44.2:8080]\n"
   ."                 | Set proxy list [EX: --proxy list.txt]\n"
   ."   --random      | Renew identity for every link scaned.\n"
-  ."   --dork        | Dork to search [Ex: house,cars,hotel] \n"
-  ."   --level       | Scan level (+- Number of page results to scan) \n"
+  ."   --dork | -d   | Dork to search [Ex: house,cars,hotel] \n"
+  ."   --level | -l  | Scan level (+- Number of page results to scan) \n"
   ."   --ip          | Crawl to get Ips\n"
   ."   --regex       | Crawl to get strings matching regex\n"
   ."   --sregex      | Get only urls with matching regex\n"
   ."   --noquery     | Remove Query string from url. [lives url like: site.com/index.php?id=]\n"
   ."   --time        | set browser time out. \n"
-  ."   --valid       | Text for validate results \n"
+  ."   --valid | -v  | Text for validate results \n"
   ."   --ifinurl     | Text to validate target url \n"
   ."   --isup        | Check http status 200. \n"
   ."   --unique      | Get targets with exact dork matching.\n"
@@ -1807,7 +1807,7 @@ sub help {
   ."   --replace     | String to replace \n"
   ."   --with        | String to replace with \n"
   ."   --email       | Get emails \n"
-  ."   --save        | Save scan.\n"
+  ."   --save | -s   | Save scan.\n"
   ."   --nobanner    | Hide tool banner\n"
   ."   --beep        | Produce beep sound if positive scan found.\n"
   ."   --ifend       | Produce beep sound when scan process is finished.\n"
@@ -1822,7 +1822,7 @@ sub help {
   ltak(); print $c[12]."  Search engine: \n".$c[10]
   ."   Search: --dork <dork> --level <level> \n"
   ."   Set engine: --dork <dork> --level <level> -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n"
-  ."   Set selective engines: --dork <dork> --level <level> -m 1,2,3..\n"
+  ."   Set selective engines: -d <dork> -l <level> -m 1,2,3..\n"
   ."   Search with many dorks: --dork <dork1,dork2,dork3> --level <level> \n"
   ."   Get Server sites: -t <ip> --level <value> --sites\n"
   ."   Get Server wordpress sites: -t <ip> --level <value> --wp \n"
@@ -1832,8 +1832,8 @@ sub help {
   ."   WP Arbitry File Download: -t <ip> --level <value> --wpafd \n"
   ."   Joomla RFI: -t <ip> --level <10> --joomfri --shell <shell link>\n"
   ."   Search + set save file: --dork <dorks.txt> --level <level> --save\n"
-  ."   Replace + Exploit: --dork <dorks.txt> --level <level> --replace <string> --with <string> --valid <string>\n\n"
-  ."   Search + get emails: --dork <dorks.txt> --level <level> --email \n"
+  ."   Replace + Exploit: -d <dorks.txt> -l <level> --replace <string> --with <string> --valid <string>\n\n"
+  ."   Search + get emails: -d <dorks.txt> -l <level> --email \n"
   ."   Search + get site emails: --dork <site:site.com> --level <level> --email \n"
   ."   Search + get ips: --dork <dork> --level <level> --ip \n"
   ."   Search by url regex: --dork <dork> --level <level> --sregex <regex>\n\n";
@@ -1849,7 +1849,7 @@ sub help {
   ."   Search + Url Validation: --dork <dork> --level <10> --ifinurl <string>\n"
   ."   Search + dork Validation: --dork <dork> --level <10> --unique\n"
   ."   Search + Exploit + Validation: --dork <dork> --level <10> --exp [--isup | --valid] <string>\n"
-  ."   Search + Server Exploit + Validation: -t <ip> --level <10> --exp [--isup | --valid] <string>\n"
+  ."   Search + Server Exploit + Validation: -t <ip> --level <10> --exp [--isup | -v] <string>\n"
   ."   Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> [--isup | --valid] <string>\n\n";
   ltak(); print $c[12]."  Use List / Target: \n".$c[10]
   ."   -t <target | targets.txt> --exp [--isup | --valid] <string>\n"

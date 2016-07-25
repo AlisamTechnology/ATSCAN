@@ -135,11 +135,11 @@
         <td width="680px">Renew identity foreach link scanned.</td>
       </tr>
       <tr>
-         <td width="200px" class="main">--dork</td>
+         <td width="200px" class="main">--dork/-d</td>
         <td class="main">dork to search [Ex: house,cars,hotel]</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--level</td>
+        <td width="200px" class="main">--level/-l</td>
         <td class="main">Scan level (+- Number of page results to scan)</td>
       </tr>
       <tr>
@@ -179,7 +179,7 @@
         <td class="main">Set exploit/payload</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--valid</td>
+        <td width="200px" class="main">--valid/-v</td>
         <td class="main">Text to validate results</td>
       </tr>
       <tr>
@@ -267,7 +267,7 @@
         <td class="main">get sites with zip files</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--save</td>
+        <td width="200px" class="main">--save/-s</td>
         <td class="main">Save scan results.</td>
       </tr>
       <tr>
@@ -417,7 +417,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Multiple Scans:</b><br/>
         atscan --dork [dork] --level [level] --xss --lfi --wp .. <br/>
-        atscan --dork [dork] --level [level] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp | --admin | --shost | ...] <br/>
+        atscan -d [dork] -l [level] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp | --admin | --shost | ...] <br/>
         atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
         atscan -t [targets] [--xss | --lfi | --wp |...]
       </td></tr></table>

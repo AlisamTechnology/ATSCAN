@@ -6,5 +6,5 @@
      - Added posibility to execute extern command with open ports.
     CHANGES: 26/07/2016
     =================== 
-     - Add random query string
+     - Add range query string
      - Enjoy!

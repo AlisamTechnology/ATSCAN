@@ -200,7 +200,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--noquery</td>
-        <td class="main">Remove Query string from url. [lives url like: site.com/index.php?id=]</td>
+        <td class="main">Remove Query string from url. [url like: site.com/index.php?id=]</td>
       </tr>
       <tr>
         <td width="200px" class="main">--ip</td>

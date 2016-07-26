@@ -1436,7 +1436,7 @@ sub getPArrScan{
 ## MOVE URL TO SCAN
 sub doScan {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter)=@_;
-  if ($URL1=~/rand\((\d+)\-(\d+)\)/) {
+  if ($URL1=~/rang\((\d+)\-(\d+)\)/) {
     my @rangQ=($1 .. $2);
     my $n=0;
     for my $rangQ(@rangQ) {

@@ -136,7 +136,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">rand(x-y)</td>
-        <td width="680px">EX: --exp /index.php?id=rand(1-9) --xss OR -t site.com/index.php?id=rand(1-9) --xss\n".</td>
+        <td width="680px">EX: --exp /index.php?id=rand(1-9) --xss OR -t site.com/index.php?id=rand(1-9) --xss".</td>
       </tr>
       <tr>
          <td width="200px" class="main">--dork/-d</td>

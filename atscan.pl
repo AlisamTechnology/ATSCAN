@@ -1437,12 +1437,12 @@ sub getPArrScan{
 sub doScan {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter)=@_;
   if ($URL1=~/rand\((\d+)\-(\d+)\)/) {
-    my @randQ=($1 .. $2);
+    my @rangQ=($1 .. $2);
     my $n=0;
-    for my $randQ(@randQ) {
+    for my $rangQ(@rangQ) {
       $n++;
-      doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $randQ, scalar(grep { defined $_} @randQ), $n);
-      stak() if scalar(grep { defined $_} @randQ)==$n and !defined $exploit;
+      doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, scalar(grep { defined $_} @rangQ), $n);
+      stak() if scalar(grep { defined $_} @rangQ)==$n and !defined $exploit;
     }
   }else{
     buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter);
@@ -1452,10 +1452,10 @@ sub doScan {
 ############################################################################################################################################################################################
 ## DO SCAN
 sub doBuild {
-  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $randQ, $nn, $n)=@_;
-  $URL1=~s/rand\((\d+)\-(\d+)\)/$randQ/g;
+  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, $nn, $n)=@_;
+  $URL1=~s/rang\((\d+)\-(\d+)\)/$rangQ/g;
   my $PURL1=$URL1;
-  $PURL1=~s/$randQ(.*)/$randQ/g;
+  $PURL1=~s/$rangQ(.*)/$rangQ/g;
   print $c[1]."    URL    $c[10] [$n/$nn] $PURL1\n";
   buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter);
 }
@@ -1809,7 +1809,7 @@ sub help {
   ."                 | Set proxy [EX: --proxy http://12.45.44.2:8080]\n"
   ."                 | Set proxy list [EX: --proxy list.txt]\n"
   ."   --random      | Renew identity for every link scaned.\n"
-  ."   rand(x-y)     | EX: --exp /index.php?id=rand(1-9) --xss OR -t site.com/index.php?id=rand(1-9) --xss\n"
+  ."   rang(x-y)     | EX: --exp /index.php?id=rang(1-9) --xss OR -t site.com/index.php?id=rang(1-9) --xss\n"
   ."   --dork | -d   | Dork to search [Ex: house,cars,hotel] \n"
   ."   --level | -l  | Scan level (+- Number of page results to scan) \n"
   ."   --ip          | Crawl to get Ips\n"
@@ -1866,7 +1866,7 @@ sub help {
   ."   Set engine: --dork <dork> --level <level> -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n"
   ."   Set selective engines: -d <dork> -l <level> -m 1,2,3..\n"
   ."   Search with many dorks: --dork <dork1,dork2,dork3> --level <level> \n"  
-  ."   Search and rand: -d <dork> -l <level> --exp \"/index.php?id=rand(1-9)\" --xss\n"  
+  ."   Search and rand: -d <dork> -l <level> --exp \"/index.php?id=rang(1-9)\" --xss\n"  
   ."   Get Server sites: -t <ip> --level <value> --sites\n"
   ."   Get Server wordpress sites: -t <ip> --level <value> --wp \n"
   ."   Get Server joomla sites: -t <ip> --level <value> --joom \n"
@@ -1896,8 +1896,8 @@ sub help {
   ."   Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> [--isup | --valid] <string>\n\n";
   ltak(); print $c[12]."  Use List / Target: \n".$c[10]
   ."   -t <target | targets.txt> --exp [--isup | --valid] <string>\n"  
-  ."   -t site.com?index.php?id=rand(1-10) --xss\n"
-  ."   -t <target> --exp \"/index.php?id=rand(1-10)\" --xss\n"
+  ."   -t site.com?index.php?id=rang(1-10) --xss\n"
+  ."   -t <target> --exp \"/index.php?id=rang(1-10)\" --xss\n"
   ."   -t <target | targets.txt> [--xss | --lfi | --wp |...]\n\n";
   ltak(); print $c[12]."  Server Ports: \n".$c[10]
   ."   -t <ip> --port <port> [--udp | --tcp] \n"

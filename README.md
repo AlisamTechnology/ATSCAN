@@ -359,7 +359,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Simple search: </b><br/>
         Search: atscan --dork [dork] --level [level]  OR atscan -d [dork] -l [level]<br/>
-        atscan -d [dork] -l [level] --exp "/index.php?id=rand(1-9)"<br/>
+        atscan -d [dork] -l [level] --exp "/index.php?id=rand(1-9)" --xss<br/>
         Set engines + search: atscan --dork [dork] --level [level] -m 1,2,.. [Engines: Bing: 1 Google: 2 Ask: 3 Yandex: 4 Sogou: 5 All engines: all]<br/>
         Set selective engines: atscan --dork [dork] --level [level] -m 1,2,3..   <br/>
         Search with many dorks: atscan --dork [dork1,dork2,dork3] --level [level]    <br/>

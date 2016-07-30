@@ -4,7 +4,7 @@
     ===================
      - Removed --ports argument now use --port <port> --udp | --tcp
      - Added posibility to execute extern command with open ports.
-    CHANGES: 26/07/2016
+    CHANGES: 30/07/2016
     =================== 
-     - Add range query string
+     - Fix decode base64 bug.
      - Enjoy!

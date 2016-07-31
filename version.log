@@ -1,10 +1,6 @@
     VERSION 9.8 RELEASE
     ===================
-    CHANGES: 25/07/2016
-    ===================
-     - Removed --ports argument now use --port <port> --udp | --tcp
-     - Added posibility to execute extern command with open ports.
-    CHANGES: 30/07/2016
+    CHANGES: 31/07/2016
     =================== 
-     - Fix decode base64 bug.
+     - Fix bug when url is an ip
      - Enjoy!

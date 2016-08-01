@@ -3,5 +3,9 @@
     CHANGES: 02/08/2016
     =================== 
      - Fix bug when url has ip format
-     - Fix extern command use
+     - Removed --ports argument now use --port --udp | --tcp
+     - Add posibility to execute extern command with open ports.
+     - Add range query string.
+     - Fix decode base64 bug.
+     - Fix extern command use.
      - Enjoy!

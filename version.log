@@ -2,5 +2,5 @@
     ===================
     CHANGES: 31/07/2016
     =================== 
-     - Fix bug when url is an ip
+     - Fix bug when url has ip format
      - Enjoy!

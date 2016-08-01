@@ -1,6 +1,7 @@
     VERSION 9.8 RELEASE
     ===================
-    CHANGES: 01/08/2016
+    CHANGES: 02/08/2016
     =================== 
      - Fix bug when url has ip format
+     - Fix extern command use
      - Enjoy!

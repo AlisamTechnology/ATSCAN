@@ -8,4 +8,5 @@
      - Add range query string.
      - Fix decode base64 bug.
      - Fix extern command use.
+     - Add --HOST arg to extern command to exploit just host name.
      - Enjoy!

@@ -121,7 +121,7 @@ sub logoff { deleteLists(); exit(); }
 ############################################################################################################################################################################################
 ## BANNER
 sub banner { 
-  my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us all!", "! Love Mezguida H4ckers !", "No Pe4ce betwin systems !", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !", "You look better today !", "No h4y sistem4 4 s4lvo !!", "When be brocken u will hair it!");
+  my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us all!", "! Love Mezguida H4ckers !", "No Pe4ce betwin systems !", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !", "You look better today !", "No h4y sistem4 4 s4lvo !!", "When be broken u will hear it!");
 my @LOGO=("
     $c[4]     /\\ ___ /\\ 
     $c[4]    (  o   o  )             $c[2]$ESLOGAN[rand @ESLOGAN]
@@ -1507,9 +1507,11 @@ sub endScan {
 ############################################################################################################################################################################################
 ## COPY SCAN TO TARGETS LIST
 sub doUnlink {
-  unlink $aTsearch;
-  use File::Copy qw(copy); copy $aTscan, $aTsearch;
-  unlink $aTscan;
+  if (-e $aTscan) {
+    unlink $aTsearch;
+    use File::Copy qw(copy); copy $aTscan, $aTsearch;
+    unlink $aTscan;
+  }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1591,7 +1593,7 @@ sub validation {
 ############################################################################################################################################################################################
 ## EXTERN COMMAND
 sub mcommand {
-  if (-e $aTscan) { doUnlink(); }
+  doUnlink();
   makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[16], "", "", "", "", $command, "");
   stak(); adios(); logoff();
 }

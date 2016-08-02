@@ -175,8 +175,8 @@
         <td class="main">Will be replaced by target in extern commands</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--dom</td>
-        <td class="main">Domaine</td>
+        <td width="200px" class="main">--host</td>
+        <td class="main">Domaine name Ex: site.com</td>
       </tr>
       <tr>
         <td width="200px" class="main">--exp</td>

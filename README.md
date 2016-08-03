@@ -181,6 +181,10 @@
         <td class="main">Will be replaced by target in extern commands</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--HOST</td>
+        <td class="main">Will be replaced by hostname in extern commands</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--host</td>
         <td class="main">Domaine name Ex: site.com</td>
       </tr>
@@ -424,7 +428,8 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>External Command:</b><br/>
         atscan --dork [dork | dorks.txt] --level [level] --exp [payload] --valid [string] --command "sqlmap -u --TARGET --dbs"  <br/>
-        atscan -t [target | targets.txt] --command "curl -v --TARGET"
+        atscan -t [target | targets.txt] --command "curl -v --TARGET"<br/>
+        atscan -t [target | targets.txt] --command "curl -v --HOST"
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Multiple Scans:</b><br/>

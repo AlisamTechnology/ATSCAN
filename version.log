@@ -9,4 +9,8 @@
      - Fix decode base64 bug.
      - Fix extern command use.
      - Add --HOST arg to extern command to exploit just host name.
+    CHANGES: 03/08/2016
+    =================== 
+     - Add repeat query scan.
+     - Fix rang scan.
      - Enjoy!

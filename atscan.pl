@@ -1428,13 +1428,25 @@ sub getPArrScan{
 ## MOVE URL TO SCAN
 sub doScan {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter)=@_;
+  my $n=0;
+  my $i;
   if ($URL1=~/rang\((\d+)\-(\d+)\)/) {
     my @rangQ=($1 .. $2);
-    my $n=0;
+    $URL1=~s/rang\((\d+)\-(\d+)\)/ KKMMZ /g;
     for my $rangQ(@rangQ) {
       $n++;
       doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, scalar(grep { defined $_} @rangQ), $n);
       stak() if scalar(grep { defined $_} @rangQ)==$n and !defined $exploit;
+    }
+  }elsif ($URL1=~/repeat\((.*)\-(\d+)\)/) {
+    $URL1=~s/repeat\((.*)\-(\d+)\)/ KKMMZ /g;
+    my $repeat=$1;
+    my $nrepeat=$2;
+    for($i=1;$i<=$nrepeat;$i++) {
+      $n++;
+      my $sl="$repeat" x $i;
+      doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $sl, $nrepeat, $n);
+      stak() if $nrepeat==$n and !defined $exploit;
     }
   }else{
     buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter);
@@ -1445,9 +1457,8 @@ sub doScan {
 ## DO SCAN
 sub doBuild {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, $nn, $n)=@_;
-  $URL1=~s/rang\((\d+)\-(\d+)\)/$rangQ/g;
+  $URL1=~s/ KKMMZ /$rangQ/ig;
   my $PURL1=$URL1;
-  $PURL1=~s/$rangQ(.*)/$rangQ/g;
   print $c[1]."    URL    $c[10] [$n/$nn] $PURL1\n";
   buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter);
 }
@@ -1817,6 +1828,9 @@ sub help {
   ."                 | Set proxy list [EX: --proxy list.txt]\n"
   ."   --random      | Renew identity for every link scaned.\n"
   ."   rang(x-y)     | EX: --exp /index.php?id=rang(1-9) --xss OR -t site.com/index.php?id=rang(1-9) --xss\n"
+  ."                 | site.com/index.php?id=1->9\n"
+  ."   repeat(txt-y) | EX: --exp /index.php?id=repeat(../-9)wp-config.php --xss OR -t site.com/index.php?id=../wp-config.php\n"
+  ."                 | site.com/index.php?id=../wp-config.php  then site.com/index.php?id=../../wp-config.php 9 times\n" 
   ."   --dork | -d   | Dork to search [Ex: house,cars,hotel] \n"
   ."   --level | -l  | Scan level (+- Number of page results to scan) \n"
   ."   --ip          | Crawl to get Ips\n"

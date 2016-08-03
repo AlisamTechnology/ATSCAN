@@ -136,7 +136,13 @@
       </tr>
       <tr>
         <td width="200px" class="main">rang(x-y)</td>
-        <td width="680px">EX: --exp /index.php?id=rang(1-9) --xss OR -t site.com/index.php?id=rang(1-9) --xss".</td>
+        <td width="680px">EX: --exp /index.php?id=rang(1-9) --xss OR -t site.com/index.php?id=rang(1-9) --xss</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">repeat(string-y)</td>
+        <td width="680px">EX: --exp /index.php?id=repeat(../-9)wp-config.php --xss 
+        <br>OR -t site.com/index.php?id=../wp-config.php
+        <br>site.com/index.php?id=../wp-config.php  then site.com/index.php?id=../../wp-config.php 9 times.</td
       </tr>
       <tr>
          <td width="200px" class="main">--dork/-d</td>

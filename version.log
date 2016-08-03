@@ -13,4 +13,5 @@
     =================== 
      - Add repeat query scan.
      - Fix rang scan.
+     - Add + wp AFD poc.
      - Enjoy!

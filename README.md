@@ -394,10 +394,12 @@
         EX: To get mails ((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}).
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
-      <b>Subscan from Serach Engine:</b><br/>
+      <b>Exploitation from Serach Engine:</b><br/>
         Exploitation: atscan --dork [dork] --level [10] [--xss | --lfi | --wp |...] <br/>
         Server Exploitation: atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
-        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--valid [string] --xss ..]
+        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--valid [string] --xss..] <br/>
+        atscan --dork [dork] --level [10] --exp "index.php?id=rang(1-10)" --valid [string] <br>
+        atscan --dork [dork] --level [10] --exp "index.php?id=repeat(..%2F-10)wp-config.php" --valid [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Validation:</b><br/>

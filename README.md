@@ -140,7 +140,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">repeat(string-y)</td>
-        <td width="680px">EX: --exp /index.php?id=repeat(../-9)wp-config.php --xss 
+        <td width="680px">EX: --exp /index.php?id=repeat(../-9)wp-config.php
         <br>OR -t site.com/index.php?id=../wp-config.php
         <br>site.com/index.php?id=../wp-config.php  then site.com/index.php?id=../../wp-config.php 9 times.</td
       </tr>

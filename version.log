@@ -1,6 +1,6 @@
-    VERSION 9.9 RELEASE
+    VERSION 10 RELEASE
     ===================
-    CHANGES: 02/08/2016
+    CHANGES: 03/08/2016
     =================== 
      - Fix bug when url has ip format
      - Removed --ports argument now use --port --udp | --tcp
@@ -9,8 +9,6 @@
      - Fix decode base64 bug.
      - Fix extern command use.
      - Add --HOST arg to extern command to exploit just host name.
-    CHANGES: 03/08/2016
-    =================== 
      - Add repeat query scan.
      - Fix rang scan.
      - Add + wp AFD poc.

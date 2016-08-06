@@ -14,4 +14,7 @@
      - Add + wp AFD poc.
      - Fix WP AFD bug.
      - Adapt console to windows.
+    CHANGES: 07/08/2016
+    =================== 
+     - More optimization.
      - Enjoy!

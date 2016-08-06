@@ -503,13 +503,10 @@ sub UA { $ua->proxy([qw/ http https /] => $psx); $ua->cookie_jar({ }); }
 sub newIdentity {
   if ($proxy=~/(localhost|127.0.0.1)/) { system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;"); }
   else{ $psx=$resultarray[rand @resultarray]; UA(); }
-  my ($URL, $request, $response, $ipadress);
-  $URL="http://dynupdate.no-ip.com/ip.php";
-  $request=HTTP::Request->new('GET', $URL);
-  $response=$ua->request($request);
+  my ($response, $html, $status, $serverheader)=getHtml($ipUrl);
   if ($response->is_success) { 
     if (!defined $noinfo) { 
-	  if ($response->content=~m/$V_IP/g) { $ipadress="$1"; print $c[1]."    $ErrorsText[21] $c[8]  $ErrorsText[22] ::: $ipadress :::\n"; }
+	  if ($response->content=~m/$V_IP/g) { my $ipadress="$1"; print $c[1]."    $ErrorsText[21] $c[8]  $ErrorsText[22] ::: $ipadress :::\n"; }
 	}
   }
   else{ ltak(); print $c[2]."[!] $DT[30] [$psx]!\n"; logoff(); }
@@ -519,8 +516,7 @@ sub newIdentity {
 ## INTERNET CONNECTION VERIFICATION
 sub testConection {
   if (defined $proxy) { print $c[4]."[!] $ErrorsText[20] [$psx].. "; UA(); }
-  my $request=HTTP::Request->new('GET', $ipUrl);
-  my $response=$ua->request($request);
+  my ($response, $html, $status, $serverheader)=getHtml($ipUrl);
   if ($response->content!~m/$V_IP/g) {
     print $c[4]."\n[!] $ErrorsText[23]\n".$c[2]."[!] "; timer(); print "$DT[11]\n[!] $DT[10]\n"; logoff();
   }else{
@@ -928,9 +924,10 @@ sub checkDuplicate {
       $_=~s/(\%27|\<|\>|\%25|\')(.*)//s;
       $seen{ $_}++;
       next if $seen{ $_} > 1;
-      print; unlink "$scanFile.bac";
-    }
+      print;
+    }   
   }
+  unlink "$scanFile.bac";
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -999,13 +996,22 @@ sub doRegex {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## GET HTML
+sub getHtml {
+  my $URL=$_[0];
+  my $request=HTTP::Request->new('GET', $URL);
+  my $response=$ua->request($request);
+  my $html=$response->content;
+  my $status=$response->code;
+  my $serverheader=$response->server;
+  return ($response, $html, $status, $serverheader);
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## CHECK VERSION
 sub checkVersion {
   testConection(); mtak(); ptak();
-  my ($request, $response, $html);
-  $request=HTTP::Request->new('GET', $scriptUrl);
-  $response=$ua->request($request);
-  $html=$response->content;
+  my ($response, $html, $status, $serverheader)=getHtml($scriptUrl);
   if ($response->is_success) {
     printFile($script_bac, $response->content);
     use File::Compare;      
@@ -1019,8 +1025,7 @@ sub checkVersion {
       mtak(); ptak();
       print $c[3]."[!] $DT[7]\n";
       print color 'reset';
-      my $req= HTTP::Request->new('GET', $logUrl);
-      my $res=$ua->request($req);
+      my ($res, $html, $status, $serverheader)=getHtml($logUrl);
       print $res->content."";  
     } unlink $script_bac if -e $script_bac;
   }else{ print $c[2]."[!] $DT[8]!\n"; }
@@ -1185,13 +1190,8 @@ sub doSearch {
 ## BROWSER PROCEDURE
 sub browseUrl {
   my $URL1=$_[0];
-  my ($request, $response, $html, $status, $serverheader);
+  my ($response, $html, $status, $serverheader)=getHtml($URL1);
   if (defined $random) { newIdentity(); }
-  $request=HTTP::Request->new('GET', $URL1);
-  $response=$ua->request($request);
-  $html=$response->content;
-  $status=$response->code;
-  $serverheader=$response->server;
   if (!defined $noinfo) { 
     if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }    
     print $c[1]."    $DS[3]    ". $c[10]."$OTHERS[7] $status\n".$c[1]."    $DS[2]  ";

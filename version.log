@@ -2,5 +2,16 @@
     ===================
     CHANGES: 06/08/2016
     =================== 
+     - Fix bug when url has ip format
+     - Removed --ports argument now use --port --udp | --tcp
+     - Add posibility to execute extern command with open ports.
+     - Add range query string.
+     - Fix decode base64 bug.
+     - Fix extern command use.
+     - Add --HOST arg to extern command to exploit just host name.
+     - Add repeat query scan.
+     - Fix rang scan.
+     - Add + wp AFD poc.
+     - Fix WP AFD bug.
      - Adapt console to windows.
      - Enjoy!

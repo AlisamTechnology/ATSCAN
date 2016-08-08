@@ -4,7 +4,8 @@ echo "[ ]                     ALISAM  TECHNOLOGY                             [ ]
 echo "[ ]                  Atscan Tool Install Script                        [ ]";
 echo "[ ]====================================================================[ ]";
 echo "";
-echo "[!] Install.sh will install atscan tool in the system [Y/n]" ; 
+echo "[!] If you are not using kali linux please use tool without installing!"; 
+echo "[!] Install.sh will install atscan tool in Kali linux Os! is your case? [Y/n]" ; 
 read baba
 if [ $baba == "y" ] ; 
   then

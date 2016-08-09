@@ -1167,7 +1167,7 @@ sub doSearch {
 	$URL=uri_unescape($URL);
 	$URL=decode_entities($URL);
     if ($URL!~/$nolisting/) {              
-	  my $pat2='inurl:|intitle:|intext:|allinurl:|index of';
+	  my $pat2='inurl:|intitle:|intext:|allinurl:|index of|site:(.*)\+';
       my $check=$dork;
       if (defined $unique) { 
 		$check=~s/:\+/:/g;

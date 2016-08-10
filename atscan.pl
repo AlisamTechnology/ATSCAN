@@ -125,7 +125,7 @@ sub logoff { deleteLists(); exit(); }
 ############################################################################################################################################################################################
 ## BANNER
 sub banner { 
-  my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us all!", "! Love Mezguida H4ckers !", "No Pe4ce betwin systems !", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !", "You look better today !", "No h4y sistem4 4 s4lvo !!", "When be broken u will hear it!");
+  my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us all!", "! Love Mezguida H4ckers !", "No Pe4ce between systems !", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !", "You look better today !", "No h4y sistem4 4 s4lvo !!", "When be broken u will hear it!");
   my @LOGO=("
     $c[4]     /\\ ___ /\\ 
     $c[4]    (  o   o  )             $c[2]$ESLOGAN[rand @ESLOGAN]

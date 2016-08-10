@@ -1158,6 +1158,7 @@ sub doSearch {
   my ($Res, $motor)=@_;
   while($Res=~/$V_SEARCH/g) {
     my $URL=$1;
+    $URL=~s/<.*//s;
     if ($motor =~/$googleDomain/) { $URL=~s/\&.*//s; }
     $URL=~s/%([0-9A-Fa-f]{ 2})/chr(hex($1))/eg;
 	$URL=uri_unescape($URL);

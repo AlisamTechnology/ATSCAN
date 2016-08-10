@@ -866,9 +866,8 @@ sub scanTitleEnd { print $c[11]." $DS[4] :::\n"; progressbar(); }
 ############################################################################################################################################################################################
 ## CHECK EXIST TARGETS LIST 
 sub searchexitstargets { 
-  my $zFile=$aTsearch;
-  if (!-e $zFile) { desclaimer(); print $c[2]."[!] $DT[5]\n"; logoff(); }
-  else{ if (!defined $mlevel) { my $scanFile=$aTsearch; checkDuplicate($scanFile); } }
+  if (!-e $aTsearch) { desclaimer(); print $c[2]."[!] $DT[5]\n"; logoff(); }
+  else{ if (!defined $mlevel) { checkDuplicate($aTsearch); } }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -880,7 +879,7 @@ sub removeDupNoProtocol {
     $URL=removeProtocol($URL); $URL=~s/www.//s; saveCopy($URL);
   }
   close(NTA);
-  my $scanFile=$aTtargets; checkDuplicate($scanFile); IfDup();
+  checkDuplicate($aTtargets); IfDup();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -901,8 +900,7 @@ sub removeDupDom {
   open (NT, $aTsearch);
   while (my $URL=<NT>) { chomp $URL; $URL=removeProtocol($URL); $URL=~s/\/.*//s; $URL=checkUrlSchema($URL); saveCopy($URL); } 
   close(NT);
-  my $scanFile=$aTtargets;
-  checkDuplicate($scanFile); IfDup();
+  checkDuplicate($aTtargets); IfDup();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -921,7 +919,7 @@ sub checkDuplicate {
     local @ARGV=($scanFile);
     local $^I='.bac';
     while(<>) {
-      $_=~s/(\%27|\<|\>|\%25|\')(.*)//s;
+      $_=~s/(\%27|\<|\>|\%25|\')(.*)//ig;
       $seen{ $_}++;
       next if $seen{ $_} > 1;
       print;
@@ -963,8 +961,7 @@ sub countLists {
 ############################################################################################################################################################################################
 ## COUNT SCAN RESULTS
 sub countResultLists { 
-  my $scanFile=$aTscan;
-  checkDuplicate($scanFile);
+  #checkDuplicate($aTscan);
   my $lc=0; $lc=countAtresults(); ltak();     
   print $c[3]."[!] $lc $DT[4]\n";
 }
@@ -1171,7 +1168,7 @@ sub doSearch {
       my $check=$dork;
       if (defined $unique) { 
 		$check=~s/:\+/:/g;
-		$check=~s/$pat2//g;
+		$check=~s/$pat2//g        
 	  }elsif (defined $ifinurl) { $check=$ifinurl; }
       else{ $check='.'; }
       if (index($URL, $check) != -1) { my $URL=$URL;
@@ -1252,7 +1249,7 @@ sub getRegex {
 ## EXECUTE EXTERN PROCESS COMMANDS
 sub getComnd {
   my ($URL1, $comnd)=@_;
-  $URL1=~s/(\%27|\<|\>|\%25|\')(.*)//s;
+  $URL1=~s/(\%27|\<|\>|\%25|\')(.*)//ig;
   if ($comnd=~/\-HOST/) {
     $URL1=removeProtocol($URL1);   
     $URL1=~s/\/.*//s;
@@ -1569,9 +1566,8 @@ sub msearch {
 sub printSearch {
   testConection(); scanTitleBgn();
   if (defined $searchRegex) { doRegex($searchRegex); }
-  my $scanFile=$aTsearch;
-  if (-e $scanFile) { 
-    checkDuplicate($scanFile);
+  if (-e $aTsearch) { 
+    checkDuplicate($aTsearch);
     my $lc=countAtsearch();
     my $k=getK(0, 0);
     if (!$k) {      

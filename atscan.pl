@@ -1158,11 +1158,11 @@ sub doSearch {
   my ($Res, $motor)=@_;
   while($Res=~/$V_SEARCH/g) {
     my $URL=$1;
-    $URL=~s/<.*//s;
     if ($motor =~/$googleDomain/) { $URL=~s/\&.*//s; }
     $URL=~s/%([0-9A-Fa-f]{ 2})/chr(hex($1))/eg;
 	$URL=uri_unescape($URL);
 	$URL=decode_entities($URL);
+    $URL=~s/<.*//s;
     if ($URL!~/$nolisting/) {              
 	  my $pat2='inurl:|intitle:|intext:|allinurl:|index of|site:(.*)\+|\+site:(.*)';
       my $check=$dork;

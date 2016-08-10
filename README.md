@@ -115,7 +115,7 @@
   </tr>
   <tr>
     <td align="center" width="890px">
-    <img src="http://i.imgur.com/c9V8cGR.jpg" /><br/><br/>
+    <img src="http://i.imgur.com/mJnJHGE.jpg" /><br/><br/>
     <img src="http://i.imgur.com/EvHAssB.jpg" /><br/><br/>
     </td>
   </tr>

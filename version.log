@@ -1,6 +1,6 @@
-    VERSION 10 RELEASE
+    VERSION 10.1 RELEASE
     ===================
-    CHANGES: 06/08/2016
+    CHANGES: 10/08/2016
     =================== 
      - Fix bug when url has ip format
      - Removed --ports argument now use --port --udp | --tcp
@@ -14,11 +14,7 @@
      - Add + wp AFD poc.
      - Fix WP AFD bug.
      - Adapt console to windows.
-    CHANGES: 07/08/2016
-    =================== 
      - More optimization.
-    CHANGES: 10/08/2016
-    ===================  
      - Fix results count. 
      - Best search results filter.
      - Enjoy!

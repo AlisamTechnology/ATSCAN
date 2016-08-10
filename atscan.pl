@@ -92,7 +92,7 @@ sub dpoints { print $c[10]."    ::::::::::::::::::::::::::::::::::::::::::::::::
 ############################################################################################################################################################################################
 ## TOOL VERSION
 my ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl);
-$Version="10.1";
+$Version="10";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
@@ -777,15 +777,17 @@ sub checkErrors2 {
   my @ERR2;
   for my $ERR(@ERR) { if ($html=~/$ERR/g) { push(@ERR2, $ERR); } }
   if (scalar(grep { defined $_} @ERR2)>0) { print $c[1]."    $ErrorsText[18]"; }
-  my $counterr=0;
-  for my $ERR2(@ERR2) { $counterr++; titleErrorType($ERR2, $counterr); print "            ".$c[10]."[$ERR2]\n"; }
+  my $ERR2=join("|", @ERR2);
+  titleErrorType($ERR2);
+  my $y=0;
+  for my $ERR2(@ERR2) { $y++; print "            " if $y==1; print $c[10]."[$ERR2]"; }
+  print "\n";
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT ERROR TITLE
 sub titleErrorType { 
-  my ($ERR2, $counterr)=@_;
-  if ($counterr>1) { print "           "; }  
+  my ($ERR2)=$_[0];
   if (grep( /^$ERR2$/, @V_LFI)) { print $c[1]." $c[4]$ErrorsText[0]\n"; }
   if (grep( /^$ERR2$/, @V_XSS)) { print $c[1]." $c[4]$ErrorsText[1]\n"; }
   if (grep( /^$ERR2$/, @V_AFD)) { print $c[1]." $c[4]$ErrorsText[2]\n"; }
@@ -1163,7 +1165,7 @@ sub doSearch {
 	$URL=uri_unescape($URL);
 	$URL=decode_entities($URL);
     $URL=~s/<.*//s;
-    if ($URL!~/$nolisting/) {              
+    if ($URL!~/$nolisting/) {          
 	  my $pat2='inurl:|intitle:|intext:|allinurl:|index of|site:(.*)\+|\+site:(.*)';
       my $check=$dork;
       if (defined $unique) { 

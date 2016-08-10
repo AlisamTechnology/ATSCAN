@@ -92,7 +92,7 @@ sub dpoints { print $c[10]."    ::::::::::::::::::::::::::::::::::::::::::::::::
 ############################################################################################################################################################################################
 ## TOOL VERSION
 my ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl);
-$Version="10";
+$Version="10.1";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";

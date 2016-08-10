@@ -961,7 +961,6 @@ sub countLists {
 ############################################################################################################################################################################################
 ## COUNT SCAN RESULTS
 sub countResultLists { 
-  #checkDuplicate($aTscan);
   my $lc=0; $lc=countAtresults(); ltak();     
   print $c[3]."[!] $lc $DT[4]\n";
 }
@@ -1164,11 +1163,11 @@ sub doSearch {
 	$URL=uri_unescape($URL);
 	$URL=decode_entities($URL);
     if ($URL!~/$nolisting/) {              
-	  my $pat2='inurl:|intitle:|intext:|allinurl:|index of|site:(.*)\+';
+	  my $pat2='inurl:|intitle:|intext:|allinurl:|index of|site:(.*)\+|\+site:(.*)';
       my $check=$dork;
       if (defined $unique) { 
 		$check=~s/:\+/:/g;
-		$check=~s/$pat2//g        
+		$check=~s/$pat2//g;
 	  }elsif (defined $ifinurl) { $check=$ifinurl; }
       else{ $check='.'; }
       if (index($URL, $check) != -1) { my $URL=$URL;

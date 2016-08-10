@@ -94,7 +94,7 @@
   </tr>
   <tr>
     <td class="main">
-      Direct Tool Execution: perl ./atscan.pl<br/>
+      Portable Execution: perl ./atscan.pl<br/>
       Installed Tool Execution: atscan
     </td>
   </tr>

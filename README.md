@@ -135,17 +135,6 @@
         <td width="680px">Renew identity foreach link scanned.</td>
       </tr>
       <tr>
-        <td width="200px" class="main">rang(x-y)</td>
-        <td width="680px">EX: --exp /index.php?id=rang(1-2) --xss will try id=1 then id=2</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">repeat(string-y)</td>
-        <td width="680px">EX: --exp /index.php?id=repeat(../-3)wp-config.php
-        <br>OR -t site.com/index.php?id=repeat(../-3)wp-config.php
-        <br>means ../ will be repeated progressively 3 times:
-        <br>will try id=../wp-config.php  then id=../../wp-config.php then id=../../../wp-config.php.</td>
-      </tr>
-      <tr>
          <td width="200px" class="main">--dork/-d</td>
         <td class="main">dork to search [Ex: house,cars,hotel]</td>
       </tr>
@@ -208,6 +197,17 @@
       <tr>
         <td width="200px" class="main">--sregex</td>
         <td class="main">Get only urls with matching regex</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">rang(x-y)</td>
+        <td width="680px">EX: --exp /index.php?id=rang(1-2) --xss will try id=1 then id=2</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">repeat(string-y)</td>
+        <td width="680px">EX: --exp /index.php?id=repeat(../-3)wp-config.php
+        <br>OR -t site.com/index.php?id=repeat(../-3)wp-config.php
+        <br>means ../ will be repeated progressively 3 times:
+        <br>will try id=../wp-config.php  then id=../../wp-config.php then id=../../../wp-config.php.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--noquery</td>

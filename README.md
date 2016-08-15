@@ -127,6 +127,10 @@
   <tr>
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
       <tr>
+        <td width="200px" class="main">--help | -h | -?</td>
+        <td class="main">Help.</td>
+      </tr> 
+      <tr>
         <td width="200px" class="main">--proxy</td>
         <td width="680px">Set tor proxy [Ex: socks://localhost:9050].<br/> Set proxy  [Ex: http://12.231.54.87:8080 | list.txt].</td>
       </tr>
@@ -147,6 +151,10 @@
         <td class="main">Set engine motor [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all]</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--save/-s</td>
+        <td class="main">Save scan results.</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">-t</td>
         <td class="main">Target [http://site.com]</td>
       </tr>
@@ -157,10 +165,6 @@
       <tr>
         <td width="200px" class="main">--time</td>
         <td class="main">Set browser time out. default 10s.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--save/-s</td>
-        <td class="main">Save scan results.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--host</td>
@@ -175,41 +179,22 @@
         <td class="main">Text to validate results</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--isup</td>
-        <td class="main">check http status 200</td>
+        <td width="200px" class="main">--unique</td>
+        <td class="main">Get urls with exact dork matching</td>
       </tr>
       <tr>
         <td width="200px" class="main">--ifinurl</td>
         <td class="main">Text to validate target url</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--unique</td>
-        <td class="main">Get urls with exact dork matching</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--regex</td>
-        <td class="main">Crawl to get strings matching regex</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--sregex</td>
-        <td class="main">Get only urls with matching regex</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">rang(x-y)</td>
-        <td width="680px">EX: --exp /index.php?id=rang(1-2) --xss will try id=1 then id=2</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">repeat(string-y)</td>
-        <td width="680px">EX: --exp /index.php?id=repeat(../-3)wp-config.php
-        <br>OR -t site.com/index.php?id=repeat(../-3)wp-config.php
-        <br>means ../ will be repeated progressively 3 times:
-        <br>will try id=../wp-config.php  then id=../../wp-config.php then id=../../../wp-config.php.</td>
+        <td width="200px" class="main">--isup</td>
+        <td class="main">check http status 200</td>
       </tr>
       <tr>
         <td width="200px" class="main">--noquery</td>
         <td class="main">Remove Query string from url. [url like: site.com/index.php?id=]</td>
       </tr>
-       <tr>
+      <tr>
         <td width="200px" class="main">--replace</td>
         <td class="main">string to replace</td>
       </tr>
@@ -218,12 +203,12 @@
         <td class="main">string to replace with</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--ip</td>
-        <td class="main">Scan targets for ips.</td>
+        <td width="200px" class="main">--xss</td>
+        <td class="main">Xss scan</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--pause</td>
-        <td class="main">Pause scan when first result found.</td>
+        <td width="200px" class="main">--lfi</td>
+        <td class="main">local file inclusion</td>
       </tr>
       <tr>
         <td width="200px" class="main">--wp</td>
@@ -232,14 +217,6 @@
       <tr>
         <td width="200px" class="main">--joom</td>
         <td class="main">Getjoomla sites</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--xss</td>
-        <td class="main">Xss scan</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--lfi</td>
-        <td class="main">local file inclusion</td>
       </tr>
       <tr>
         <td width="200px" class="main">--joomrfi</td>
@@ -300,7 +277,30 @@
       <tr>
         <td width="200px" class="main">--email</td>
         <td class="main">Extract e-mails</td>
-      </tr> 
+      </tr>
+      <tr>
+        <td width="200px" class="main">--ip</td>
+        <td class="main">Extract IPs.</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--regex</td>
+        <td class="main">Crawl to get strings matching regex</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--sregex</td>
+        <td class="main">Get only urls with matching regex</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">rang(x-y)</td>
+        <td width="680px">EX: --exp /index.php?id=rang(1-2) --xss will try id=1 then id=2</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">repeat(string-y)</td>
+        <td width="680px">EX: --exp /index.php?id=repeat(../-3)wp-config.php
+        <br>OR -t site.com/index.php?id=repeat(../-3)wp-config.php
+        <br>means ../ will be repeated progressively 3 times:
+        <br>will try id=../wp-config.php  then id=../../wp-config.php then id=../../../wp-config.php.</td>
+      </tr>
       <tr>
         <td width="200px" class="main">--command</td>
         <td class="main">External Command</td>
@@ -328,15 +328,15 @@
       <tr>
         <td width="200px" class="main">--beep</td>
         <td class="main">Produce beep sound if positive scan found</td>
-      </tr>
+      </tr> 
       <tr>
         <td width="200px" class="main">--ifend</td>
         <td class="main">Produce beep sound when scan process is finished.</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--help | -h | -?</td>
-        <td class="main">Help.</td>
-      </tr> 
+        <td width="200px" class="main">--pause</td>
+        <td class="main">Pause scan when first result found.</td>
+      </tr>
       <tr>
         <td width="200px" class="main">--update</td>
         <td class="main">Update.</td>

@@ -229,9 +229,14 @@ sub printFile {
 ############################################################################################################################################################################################
 ## DELETE / UNINSTALL TOOL
 if (defined $uninstall) {
-  unlink $scriptbash if -e $scriptbash;
-  system "rm -rf $Bin";
-  print $c[4]."[!] ATSCAN was moved successfully\n";
+  print $c[4]."[!] ATSCAN will be removed from your system! [Y/N]:";
+  my $resp=<STDIN>;
+  chomp ($resp);
+  if ($resp=~/(Y|y)/) {
+    unlink $scriptbash if -e $scriptbash;
+    system "rm -rf $Bin";
+    print $c[3]."[!] ATSCAN was moved successfully\n";
+  }
   logoff();
 }
 ############################################################################################################################################################################################

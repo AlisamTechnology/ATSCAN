@@ -326,10 +326,6 @@
         <td class="main">Show scan configuration.</td>
       </tr>      
       <tr>
-        <td width="200px" class="main">--save</td>
-        <td class="main">Set file to save results.</td>
-      </tr>
-      <tr>
         <td width="200px" class="main">--beep</td>
         <td class="main">Produce beep sound if positive scan found</td>
       </tr>

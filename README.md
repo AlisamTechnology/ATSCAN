@@ -159,20 +159,8 @@
         <td class="main">Set browser time out. default 10s.</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--xss</td>
-        <td class="main">Xss scan</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--joomrfi</td>
-        <td class="main">joomla local file inclusion scan</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--TARGET</td>
-        <td class="main">Will be replaced by target in extern commands</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--HOST</td>
-        <td class="main">Will be replaced by hostname in extern commands</td>
+        <td width="200px" class="main">--save/-s</td>
+        <td class="main">Save scan results.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--host</td>
@@ -185,6 +173,14 @@
       <tr>
         <td width="200px" class="main">--valid/-v</td>
         <td class="main">Text to validate results</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--isup</td>
+        <td class="main">check http status 200</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--ifinurl</td>
+        <td class="main">Text to validate target url</td>
       </tr>
       <tr>
         <td width="200px" class="main">--unique</td>
@@ -213,6 +209,14 @@
         <td width="200px" class="main">--noquery</td>
         <td class="main">Remove Query string from url. [url like: site.com/index.php?id=]</td>
       </tr>
+       <tr>
+        <td width="200px" class="main">--replace</td>
+        <td class="main">string to replace</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--with</td>
+        <td class="main">string to replace with</td>
+      </tr>
       <tr>
         <td width="200px" class="main">--ip</td>
         <td class="main">Scan targets for ips.</td>
@@ -222,8 +226,16 @@
         <td class="main">Pause scan when first result found.</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--ifinurl</td>
-        <td class="main">Text to validate target url</td>
+        <td width="200px" class="main">--wp</td>
+        <td class="main">get wordpress sites</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--joom</td>
+        <td class="main">Getjoomla sites</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--xss</td>
+        <td class="main">Xss scan</td>
       </tr>
       <tr>
         <td width="200px" class="main">--lfi</td>
@@ -231,7 +243,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--joomrfi</td>
-        <td class="main">get joomla sites with rfi</td>
+        <td class="main">joomla local file inclusion scan</td>
       </tr>
       <tr>
         <td width="200px" class="main">--shell</td>
@@ -266,24 +278,12 @@
         <td class="main">sites in the server</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--wp</td>
-        <td class="main">get wordpress sites</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--joom</td>
-        <td class="main">Getjoomla sites</td>
-      </tr>
-      <tr>
         <td width="200px" class="main">--upload</td>
         <td class="main">get sites with upload files</td>
       </tr>
       <tr>
         <td width="200px" class="main">--zip</td>
         <td class="main">get sites with zip files</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--save/-s</td>
-        <td class="main">Save scan results.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--md5</td>
@@ -298,10 +298,6 @@
         <td class="main">decode base64 string</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--isup</td>
-        <td class="main">check http status 200</td>
-      </tr>
-      <tr>
         <td width="200px" class="main">--email</td>
         <td class="main">Extract e-mails</td>
       </tr> 
@@ -310,13 +306,14 @@
         <td class="main">External Command</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--replace</td>
-        <td class="main">string to replace</td>
+        <td width="200px" class="main">--TARGET</td>
+        <td class="main">Will be replaced by target in extern commands</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--with</td>
-        <td class="main">string to replace with</td>
+        <td width="200px" class="main">--HOST</td>
+        <td class="main">Will be replaced by hostname in extern commands</td>
       </tr>
+      <tr>
         <td width="200px" class="main">--nobanner</td>
         <td class="main">Hide tool banner</td>
       </tr>
@@ -335,7 +332,7 @@
       <tr>
         <td width="200px" class="main">--beep</td>
         <td class="main">Produce beep sound if positive scan found</td>
-      </tr> 
+      </tr>
       <tr>
         <td width="200px" class="main">--ifend</td>
         <td class="main">Produce beep sound when scan process is finished.</td>

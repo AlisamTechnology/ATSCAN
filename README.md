@@ -156,7 +156,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--time</td>
-        <td class="main">Set browser time out.</td>
+        <td class="main">Set browser time out. default 10s.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--xss</td>

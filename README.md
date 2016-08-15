@@ -140,7 +140,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--level/-l</td>
-        <td class="main">Scan level (+- Number of page results to scan)</td>
+        <td class="main">Scan level (+- Number of search engine results)</td>
       </tr>
       <tr>
         <td width="200px" class="main">-m</td>

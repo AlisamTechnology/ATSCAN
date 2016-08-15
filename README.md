@@ -216,7 +216,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--joom</td>
-        <td class="main">Getjoomla sites</td>
+        <td class="main">Get joomla sites</td>
       </tr>
       <tr>
         <td width="200px" class="main">--joomrfi</td>

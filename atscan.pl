@@ -1014,7 +1014,7 @@ sub checkVersion {
     printFile($script_bac, $response->content);
     use File::Compare;      
     if (compare($script_bac, $script) == 0) {
-      print $c[4]." $DT[6]\n"; }
+      print $c[3]." $DT[6]\n"; }
     else{
       unlink $script;
       if (-e $script) { print $c[4]." [!] $ErrorsText[19] $script\n"; logoff(); }

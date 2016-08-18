@@ -254,9 +254,7 @@ my @cms=("CMS", "Wordpress", "Joomla", "Textpattern", "SMF", "PhpBB!", "VBulleti
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ERRORS DIALOG TEXT
-my @ErrorsText=("Local file Inclusion Error Detected\!", "MYSQL Error Detected\!", "Possible Arbitry File Download Vulnerability\!", "Microsoft Error Detected\!", "Oracle Error Detected\!",
-"DB2 Error Detected\!", "ODBC Error Detected\!", "POSTGRESQL Error Detected\!", "SYBASE Error Detected\!", "BOSSWEB Error Detected\!", "JDBC Error Detected\!", "Java Infinitydb Error Detected\!",
-"PHP Error Detected\!", "ASP Error Detected\!", "LUA Error Detected\!", "UNDEFINED Error Detected\!", "Mariadb Error Detected\!", "Possible Shell Detected\!", "ERRORS:", "Permissions\! Failed to write in", "Checking proxy connection...", "INFO:", "New Identity IP", "Traying again my solve problem or set timeout --time <time in s>");
+my @ErrT=("LFI:", "MYSQL:", "Possible AFD:", "Microsoft:", "Oracle:", "DB2:", "ODBC:", "POSTGRESQL:", "SYBASE:", "BOSSWEB:", "JDBC:", "Java Infinitydb:", "PHP:", "ASP:", "LUA:", "UNDEFINED:", "Mariadb:", "Possible Shell:", "ERRORS:", "Permissions\! Failed to write in", "Checking proxy connection...", "INFO:", "New Identity IP", "Traying again my solve problem or set timeout --time <time in s>", "Possible errors detected!");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GENERAL DIALOG TEXT
@@ -506,7 +504,7 @@ sub newIdentity {
   my ($response, $html, $status, $serverheader)=getHtml($ipUrl);
   if ($response->is_success) { 
     if (!defined $noinfo) { 
-	  if ($response->content=~m/$V_IP/g) { my $ipadress="$1"; print $c[1]."    $ErrorsText[21] $c[8]  $ErrorsText[22] ::: $ipadress :::\n"; }
+	  if ($response->content=~m/$V_IP/g) { my $ipadress="$1"; print $c[1]."    $ErrT[21] $c[8]  $ErrT[22] ::: $ipadress :::\n"; }
 	}
   }
   else{ ltak(); print $c[2]."[!] $DT[30] [$psx]!\n"; logoff(); }
@@ -515,10 +513,10 @@ sub newIdentity {
 ############################################################################################################################################################################################
 ## INTERNET CONNECTION VERIFICATION
 sub testConection {
-  if (defined $proxy) { print $c[4]."[!] $ErrorsText[20] [$psx].. "; UA(); }
+  if (defined $proxy) { print $c[4]."[!] $ErrT[20] [$psx].. "; UA(); }
   my ($response, $html, $status, $serverheader)=getHtml($ipUrl);
   if ($response->content!~m/$V_IP/g) {
-    print $c[4]."\n[!] $ErrorsText[23]\n".$c[2]."[!] "; timer(); print "$DT[11]\n[!] $DT[10]\n"; logoff();
+    print $c[4]."\n[!] $ErrT[23]\n".$c[2]."[!] "; timer(); print "$DT[11]\n[!] $DT[10]\n"; logoff();
   }else{
     if (defined $proxy) { print $c[3]."OK!\n$c[4]\[!] $DT[31]\n"; }
   }
@@ -559,7 +557,7 @@ sub progressbar {
   print $c[6]."[!] ";
   timer(); print " ";
   my $poop ="::";
-  for (1..33) { select(undef, undef, undef, 0.25); print "$poop"; } print"\n";
+  for (1..32) { select(undef, undef, undef, 0.25); print "$poop"; } print"\n";
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -762,46 +760,52 @@ sub checkCmsType {
 sub checkErrors { 
   my $html=$_[0];
   my $ERROR=join("|", @ERR);
-  if ($html=~/$ERROR/) { checkErrors2($html); }
+  my $sp=" " x 11;
+  if ($html=~/$ERROR/) {
+    my (@E1, @E2, @E3, @E4, @E5, @E6, @E7, @E8, @E9, @E10, @E11, @E12, @E13, @E14, @E15, @E16, @E17, @E18);
+    print $c[1]."    $ErrT[18] $c[4]$ErrT[24]\n"; 
+    for my $ERR(@ERR) {
+      if ($html=~/$ERR/g) {
+        if (grep( /^$ERR$/, @V_LFI)) { push(@E1, $ERR); }
+        if (grep( /^$ERR$/, @V_XSS)) { push(@E2, $ERR); }
+        if (grep( /^$ERR$/, @V_AFD)) { push(@E3, $ERR); }
+        if (grep( /^$ERR$/, @E_MICROSOFT)) { push(@E4, $ERR); }
+        if (grep( /^$ERR$/, @E_ORACLE)) { push(@E5, $ERR); }
+        if (grep( /^$ERR$/, @E_DB2)) { push(@E6, $ERR); }
+        if (grep( /^$ERR$/, @E_ODBC)) { push(@E7, $ERR); }
+        if (grep( /^$ERR$/, @E_POSTGRESQL)) { push(@E8, $ERR); }
+        if (grep( /^$ERR$/, @E_SYBASE)) { push(@E9, $ERR); }
+        if (grep( /^$ERR$/, @E_JBOSSWEB)) { push(@E10, $ERR); }
+        if (grep( /^$ERR$/, @E_JDBC)) { push(@E11, $ERR); }
+        if (grep( /^$ERR$/, @E_JAVA)) { push(@E12, $ERR); }
+        if (grep( /^$ERR$/, @E_PHP)) { push(@E13, $ERR); }
+        if (grep( /^$ERR$/, @E_ASP)) { push(@E14, $ERR); }
+        if (grep( /^$ERR$/, @E_LUA)) { push(@E15, $ERR); }
+        if (grep( /^$ERR$/, @E_UNDEFINED)) { push(@E16, $ERR); }
+        if (grep( /^$ERR$/, @E_MARIADB)) { push(@E17, $ERR); }
+        if (grep( /^$ERR$/, @E_SHELL)) { push(@E18, $ERR); }
+      }
+    }
+    if (@E1) { print $c[1]."$sp $c[4]$ErrT[0] "; for my $E(@E1) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E2) { print $c[1]."$sp $c[4]$ErrT[1] "; for my $E(@E2) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E3) { print $c[1]."$sp $c[4]$ErrT[2] "; for my $E(@E3) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E4) { print $c[1]."$sp $c[4]$ErrT[3] "; for my $E(@E4) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E5) { print $c[1]."$sp $c[4]$ErrT[4] "; for my $E(@E5) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E6) { print $c[1]."$sp $c[4]$ErrT[5] "; for my $E(@E6) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E7) { print $c[1]."$sp $c[4]$ErrT[6] "; for my $E(@E7) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E8) { print $c[1]."$sp $c[4]$ErrT[7] "; for my $E(@E8) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E9) { print $c[1]."$sp $c[4]$ErrT[8] "; for my $E(@E9) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E10) { print $c[1]."$sp $c[4]$ErrT[9] "; for my $E(@E10) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E11) { print $c[1]."$sp $c[4]$ErrT[10] "; for my $E(@E11) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E12) { print $c[1]."$sp $c[4]$ErrT[11] "; for my $E(@E12) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E13) { print $c[1]."$sp $c[4]$ErrT[12] "; for my $E(@E13) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E14) { print $c[1]."$sp $c[4]$ErrT[13] "; for my $E(@E14) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E15) { print $c[1]."$sp $c[4]$ErrT[14] "; for my $E(@E15) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E16) { print $c[1]."$sp $c[4]$ErrT[15] "; for my $E(@E16) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E17) { print $c[1]."$sp $c[4]$ErrT[16] "; for my $E(@E17) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E18) { print $c[1]."$sp $c[4]$ErrT[17] "; for my $E(@E18) { print $c[10]."[$E]"; } print "\n"; }
+  }
 }
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## GET ERRORS FROM HTML
-sub checkErrors2 { 
-  my $html=$_[0];
-  my @ERR2;
-  for my $ERR(@ERR) { if ($html=~/$ERR/g) { push(@ERR2, $ERR); } }
-  if (scalar(grep { defined $_} @ERR2)>0) { print $c[1]."    $ErrorsText[18]"; }
-  my $ERR2=join("|", @ERR2);
-  titleErrorType($ERR2);
-  my $y=0;
-  for my $ERR2(@ERR2) { $y++; print "            " if $y==1; print $c[10]."[$ERR2]"; }
-  print "\n";
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## PRINT ERROR TITLE
-sub titleErrorType { 
-  my ($ERR2)=$_[0];
-  if (grep( /^$ERR2$/, @V_LFI)) { print $c[1]." $c[4]$ErrorsText[0]\n"; }
-  if (grep( /^$ERR2$/, @V_XSS)) { print $c[1]." $c[4]$ErrorsText[1]\n"; }
-  if (grep( /^$ERR2$/, @V_AFD)) { print $c[1]." $c[4]$ErrorsText[2]\n"; }
-  if (grep( /^$ERR2$/, @E_MICROSOFT)) { print $c[1]." $c[4]$ErrorsText[3]\n"; }
-  if (grep( /^$ERR2$/, @E_ORACLE)) { print $c[1]." $c[4]$ErrorsText[4]\n"; }
-  if (grep( /^$ERR2$/, @E_DB2)) { print $c[1]." $c[4]$ErrorsText[5]\n"; }
-  if (grep( /^$ERR2$/, @E_ODBC)) { print $c[1]." $c[4]$ErrorsText[6]\n"; }
-  if (grep( /^$ERR2$/, @E_POSTGRESQL)) { print $c[1]." $c[4]$ErrorsText[7]\n"; }
-  if (grep( /^$ERR2$/, @E_SYBASE)) { print $c[1]." $c[4]$ErrorsText[8]\n"; }
-  if (grep( /^$ERR2$/, @E_JBOSSWEB)) { print $c[1]." $c[4]$ErrorsText[9]\n"; }
-  if (grep( /^$ERR2$/, @E_JDBC)) { print $c[1]." $c[4]$ErrorsText[10]\n"; }
-  if (grep( /^$ERR2$/, @E_JAVA)) { print $c[1]." $c[4]$ErrorsText[11]\n"; }
-  if (grep( /^$ERR2$/, @E_PHP)) { print $c[1]." $c[4]$ErrorsText[12]\n"; }
-  if (grep( /^$ERR2$/, @E_ASP)) { print $c[1]." $c[4]$ErrorsText[13]\n"; }
-  if (grep( /^$ERR2$/, @E_LUA)) { print $c[1]." $c[4]$ErrorsText[14]\n"; }
-  if (grep( /^$ERR2$/, @E_UNDEFINED)) { print $c[1]." $c[4]$ErrorsText[15]\n"; }
-  if (grep( /^$ERR2$/, @E_MARIADB)) { print $c[1]." $c[4]$ErrorsText[16]\n"; }
-  if (grep( /^$ERR2$/, @E_SHELL)) { print $c[1]." $c[4]$ErrorsText[17]\n"; }
-}  
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK URL PARTS
@@ -1012,7 +1016,7 @@ sub checkVersion {
       print $c[3]." $DT[6]\n"; }
     else{
       unlink $script;
-      if (-e $script) { print $c[4]." [!] $ErrorsText[19] $script\n"; logoff(); }
+      if (-e $script) { print $c[4]." [!] $ErrT[19] $script\n"; logoff(); }
       printFile($script, $response->content);
       system("chmod +x $script | perl $script || atscan");
       mtak(); ptak();

@@ -87,7 +87,7 @@ sub stak { my $sn6="-" x 75; print $c[10]."    $sn6\n"; }
 ############################################################################################################################################################################################
 ## TOOL VERSION
 my ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl);
-$Version="10.1";
+$Version="10.2";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";

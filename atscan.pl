@@ -206,12 +206,12 @@ sub badArgs { banner(); advise(); }
 ############################################################################################################################################################################################
 ## ARGUMENTS
 use Getopt::Long ();
-my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $uninstall);
+my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $uninstall, $from);
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## OPTIONS
 my %OPT;
-Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'all'=>\$all, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall) or badArgs();
+Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'all'=>\$all, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall, 'from'=> \$from) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CLEAN DIRECTORIES
@@ -674,9 +674,12 @@ sub control {
     $URL=~s/\/.*//s;
   }
   if ((!defined $misup)&&(!defined $validText)) { 
-    if ((defined $replace)&&(defined $with)) { 
-	  if (index($URL, $replace) != -1) { $URL=~s/$replace/$with/ig; }
-    }
+    if (defined $replace) {
+	  if (index($URL, $replace) != -1) {
+        $URL=~s/$replace(.*)/$replace/g if defined $from; 
+        $URL=~s/$replace/$with/ig;
+      }
+    }    
   }
   $URL=checkUrlSchema($URL);
   return $URL;
@@ -976,7 +979,7 @@ sub bloc1 {
 sub bloc2 {
   my $URL=$_[0]; $URL=checkUrlSchema($URL); print $c[1]."    $DS[9]  "; print $c[10]."$URL\n";
   if (!defined $noinfo) { checkExtraInfo($URL); }
-  if ((defined $replace)&&(defined $with)) { print $c[1]."    $OTHERS[14]   "; print $c[10]." [$replace] => [$with]\n"; }
+  if ((defined $replace)&&(defined $with)) { print $c[1]."    $OTHERS[14]   "; print $c[10]."[$replace] => [$with]\n"; }
 }
 sub bloc3 { my $URL=$_[0]; print $c[5]."    "; timer(); }
 sub bloc4 { my $URL=$_[0]; print $c[1]."    $DS[9]  "; print $c[7]."$URL\n"; }
@@ -1259,7 +1262,7 @@ sub getComnd {
   }
   elsif ($comnd=~/\-TARGET/) { $comnd=~s/\-\-TARGET/$URL1/g; }
   print $c[1]."    $OTHERS[2]     $c[8]$comnd\n";
-  dpoints(); system($comnd); print "\n"; points();
+  dpoints(); print $c[8]; system($comnd); print "\n"; points();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1711,15 +1714,6 @@ if (defined $exploit and substr($exploit, -4) eq '.txt') {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## ARGUMENTS VERIFICATION (EXLPOIT USE)
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
-if ((defined $replace) || (defined $with) || (defined $noQuery) || (defined $exploit)) { 
-  if ((!defined $xss)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $misup)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $msites)&&(!defined $eMails)&&(!defined $searchIps)) { desclaimer(); print $c[4]."[!] $DT[19]\n"; logoff(); }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
   if ((!defined $xss)&&(!defined $exploit)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $misup)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $mlevel)&&(!defined $searchIps)&&(!defined $regex)) { advise(); }
@@ -1738,7 +1732,7 @@ if ((defined $dork) || (defined $Target)) {
   if (defined $JoomRfi) { 
 	if (!defined $shell) { desclaimer(); print $c[2]."[!] $DT[41]\n"; logoff(); }
   }
-  if (((defined $replace)&&(!defined $with)) || ((!defined $replace)&&(defined $with))) { desclaimer(); print $c[2]."[!] $DT[22]\n"; logoff(); }
+  if ((defined $replace)&&(!defined $with)) { desclaimer(); print $c[2]."[!] $DT[22]\n"; logoff(); }
 }
 if (!defined $dork) { 
   if ((defined $unique) || (defined $ifinurl)) { desclaimer(); print $c[2]."[!] $DT[21]\n"; logoff(); }
@@ -1856,6 +1850,7 @@ sub help {
   ."   --command     | Extern Command to execute\n"
   ."   --replace     | String to replace \n"
   ."   --with        | String to replace with \n"
+  ."   --from        | Remove all url parametres from string to end\n"
   ."   --email       | Get emails \n"
   ."   --save | -s   | Save scan.\n"
   ."   --nobanner    | Hide tool banner\n"
@@ -1884,7 +1879,8 @@ sub help {
   ."   WP Arbitry File Download: -t <ip> --level <value> --wpafd \n"
   ."   Joomla RFI: -t <ip> --level <10> --joomfri --shell <shell link>\n"
   ."   Search + set save file: --dork <dorks.txt> --level <level> --save\n"
-  ."   Replace + Exploit: -d <dorks.txt> -l <level> --replace <string> --with <string> --valid <string>\n\n"
+  ."   Replace + Exploit: -d <dorks.txt> -l <level> --replace <string> --with <string> --valid <string>\n"
+  ."   Replace + Exploit: -d <dorks.txt> -l <level> --replace <string> --with <string> --from --valid <string>\n\n"
   ."   Search + get emails: -d <dorks.txt> -l <level> --email \n"
   ."   Search + get site emails: --dork <site:site.com> --level <level> --email \n"
   ."   Search + get ips: --dork <dork> --level <level> --ip \n"

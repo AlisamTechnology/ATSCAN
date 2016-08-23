@@ -429,7 +429,9 @@
       <b>External Command:</b><br/>
         atscan --dork [dork | dorks.txt] --level [level] --exp [payload] --valid [string] --command "sqlmap -u --TARGET --dbs"  <br/>
         atscan -t [target | targets.txt] --command "curl -v --TARGET"<br/>
-        atscan -t [target | targets.txt] --command "curl -v --HOST"
+        atscan -t [target | targets.txt] --command "curl -v --HOST" <br/>
+        Wordpress AFD dl-skin.php Exploit:<br/>
+        atscan -d "index of /lib/scripts/dl-skin.php" -l 20 -m 2 --replace "scripts" --with "scripts/dl-skin.php" --full --ifinurl "lib/scripts --command "php exploit.php --TARGET"
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Multiple Scans:</b><br/>

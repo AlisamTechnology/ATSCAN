@@ -87,7 +87,7 @@ sub stak { my $sn6="-" x 75; print $c[10]."    $sn6\n"; }
 ############################################################################################################################################################################################
 ## TOOL VERSION
 my ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl);
-$Version="10.2";
+$Version="10.3";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
@@ -1059,7 +1059,7 @@ sub scanDetail {
 	if (defined $mdecode64) { print $c[8]."[$DS[55]\]"; }
     if (defined $mdom) { print $c[8]."[$DS[56]\]"; }
     if (defined $pause) { print $c[8]."[$DS[57]\]"; }    
-	if ((defined $replace)&&(defined $with)) { print $c[8]."[$DS[48]\]"; }
+	if ((defined $replace)&&(defined $with)) { print $c[8]."[$DS[48]"; print " Full" if defined $full; print "]";  }
     if (defined $exploit) { 
     my $lc=countAtexp();
     print $c[8]."[$exploit][$lc $DT[9]\]"; } print "\n";

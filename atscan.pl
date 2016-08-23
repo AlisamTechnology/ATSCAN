@@ -206,12 +206,12 @@ sub badArgs { banner(); advise(); }
 ############################################################################################################################################################################################
 ## ARGUMENTS
 use Getopt::Long ();
-my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $uninstall, $from);
+my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $uninstall, $full);
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## OPTIONS
 my %OPT;
-Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'all'=>\$all, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall, 'from'=> \$from) or badArgs();
+Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'all'=>\$all, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall, 'full'=> \$full) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CLEAN DIRECTORIES
@@ -676,7 +676,7 @@ sub control {
   if ((!defined $misup)&&(!defined $validText)) { 
     if (defined $replace) {
 	  if (index($URL, $replace) != -1) {
-        $URL=~s/$replace(.*)/$replace/g if defined $from; 
+        $URL=~s/$replace(.*)/$replace/g if defined $full; 
         $URL=~s/$replace/$with/ig;
       }
     }    
@@ -1850,7 +1850,7 @@ sub help {
   ."   --command     | Extern Command to execute\n"
   ."   --replace     | String to replace \n"
   ."   --with        | String to replace with \n"
-  ."   --from        | Remove all url parametres from string to end\n"
+  ."   --full        | Remove all url parametres from string to url end\n"
   ."   --email       | Get emails \n"
   ."   --save | -s   | Save scan.\n"
   ."   --nobanner    | Hide tool banner\n"
@@ -1880,7 +1880,7 @@ sub help {
   ."   Joomla RFI: -t <ip> --level <10> --joomfri --shell <shell link>\n"
   ."   Search + set save file: --dork <dorks.txt> --level <level> --save\n"
   ."   Replace + Exploit: -d <dorks.txt> -l <level> --replace <string> --with <string> --valid <string>\n"
-  ."   Replace + Exploit: -d <dorks.txt> -l <level> --replace <string> --with <string> --from --valid <string>\n\n"
+  ."   Replace + Exploit: -d <dorks.txt> -l <level> --replace <string> --with <string> --full --valid <string>\n\n"
   ."   Search + get emails: -d <dorks.txt> -l <level> --email \n"
   ."   Search + get site emails: --dork <site:site.com> --level <level> --email \n"
   ."   Search + get ips: --dork <dork> --level <level> --ip \n"
@@ -1898,6 +1898,7 @@ sub help {
   ."   Search + dork Validation: --dork <dork> --level <10> --unique\n"
   ."   Search + Exploit + Validation: --dork <dork> --level <10> --exp [--isup | --valid] <string>\n"
   ."   Search + Server Exploit + Validation: -t <ip> --level <10> --exp [--isup | -v] <string>\n"
+  ."   Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> --full [--isup | --valid] <string>\n"
   ."   Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> [--isup | --valid] <string>\n\n";
   ltak(); print $c[12]."  Use List / Target: \n".$c[10]
   ."   -t <target | targets.txt> --exp [--isup | --valid] <string>\n"  

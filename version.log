@@ -1,6 +1,6 @@
     VERSION 10.2 RELEASE
     ===================
-    CHANGES: 18/08/2016
+    CHANGES: 23/08/2016
     =================== 
-     - Optimize html errors detection.
+     - Add --from to --replace arg.
      - Enjoy!

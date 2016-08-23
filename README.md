@@ -199,8 +199,8 @@
         <td class="main">string to replace</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--replace --full</td>
-        <td class="main">replace all from string to the url end</td>
+        <td width="200px" class="main">--full</td>
+        <td class="main">replace all from string to replace TO the url end</td>
       </tr>
       <tr>
         <td width="200px" class="main">--with</td>

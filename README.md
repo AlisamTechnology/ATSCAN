@@ -10,7 +10,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px"><b>ATSCAN version 10.2<b/></td>
+    <td width="780px"><b>ATSCAN version 10.3<b/></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -197,6 +197,10 @@
       <tr>
         <td width="200px" class="main">--replace</td>
         <td class="main">string to replace</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--replace --full</td>
+        <td class="main">replace all from string to the url end</td>
       </tr>
       <tr>
         <td width="200px" class="main">--with</td>

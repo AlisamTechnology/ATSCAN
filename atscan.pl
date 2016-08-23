@@ -1915,7 +1915,8 @@ sub help {
   ."   Decode base64: --decode64 <string> \n\n";
   ltak(); print $c[12]."  External Command: \n".$c[10]
   ."   --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
-  ."   -t <target | targets.txt> --command \"curl -v --TARGET\" \n\n";
+  ."   -t <target | targets.txt> --command \"curl -v --TARGET\" \n"
+  ."   Wordpress AFD dl-skin.php Exploit: atscan -d \"index of /lib/scripts/dl-skin.php\" -l 20 -m 2 --replace \"scripts\" --with \"scripts/dl-skin.php\" --full --ifinurl \"lib/scripts\" --command \"php exploit.php --TARGET\" \n\n";
   ltak(); print $c[12]."  Multiple Scan: \n".$c[10]
   ."   --dork <dork> --level <10> --xss --lfi --wp ..\n"
   ."   --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> [--xss | --lfi | --wp |...]\n"

@@ -206,12 +206,12 @@ sub badArgs { banner(); advise(); }
 ############################################################################################################################################################################################
 ## ARGUMENTS
 use Getopt::Long ();
-my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $all, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $uninstall, $full);
+my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $uninstall);
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## OPTIONS
 my %OPT;
-Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'all'=>\$all, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall, 'full'=> \$full) or badArgs();
+Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'full'=> \$full, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CLEAN DIRECTORIES
@@ -878,10 +878,7 @@ sub searchexitstargets {
 ## GET DOMMAINE AND REMOVE PROTOCOL
 sub removeDupNoProtocol { 
   open (NTA, $aTsearch);
-  while (my $URL=<NTA>) { 
-    chomp $URL;
-    $URL=removeProtocol($URL); $URL=~s/www.//s; saveCopy($URL);
-  }
+  while (my $URL=<NTA>) { chomp $URL; $URL=removeProtocol($URL); $URL=~s/www.//s; saveCopy($URL); }
   close(NTA);
   checkDuplicate($aTtargets); IfDup();
 }
@@ -892,10 +889,7 @@ sub makeCopy { use File::Copy qw(copy); copy $aTsearch, $aTcopy; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## RESTAURE SEARCH COPY
-sub restaureSearch { 
-  unlink $aTsearch;
-  use File::Copy qw(copy); copy $aTcopy, $aTsearch; unlink $aTcopy;
-}
+sub restaureSearch { unlink $aTsearch; use File::Copy qw(copy); copy $aTcopy, $aTsearch; unlink $aTcopy; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## REMOVE DUPLICATE DOMAINES WPAFD/JOOMRFI/SUBDOMAINS/ADMIN
@@ -909,10 +903,7 @@ sub removeDupDom {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SAVE NON DUPLICATE DOMAINES
-sub saveCopy { 
-  my $URL=$_[0];
-  printFile($aTtargets, $URL); 
-}
+sub saveCopy { my $URL=$_[0]; printFile($aTtargets, $URL); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## REMOVE DUPLICATE RESULTS
@@ -934,10 +925,7 @@ sub checkDuplicate {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET CLEAN TARGETS DOMAINE
-sub IfDup { 
-  unlink $aTsearch;
-  use File::Copy qw(copy); copy $aTtargets, $aTsearch; unlink $aTtargets;
-}
+sub IfDup { unlink $aTsearch; use File::Copy qw(copy); copy $aTtargets, $aTsearch; unlink $aTtargets; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## END SCAN NO MORE PROCESS
@@ -971,17 +959,16 @@ sub countResultLists {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT SCAN PARTS
-sub bloc1 {
-  my $URL=$_[0];
-  stak(); print $c[12]."    "; timer();
-}
-## ##
+sub bloc1 { my $URL=$_[0]; stak(); print $c[12]."    "; timer(); }
+################
 sub bloc2 {
   my $URL=$_[0]; $URL=checkUrlSchema($URL); print $c[1]."    $DS[9]  "; print $c[10]."$URL\n";
   if (!defined $noinfo) { checkExtraInfo($URL); }
   if ((defined $replace)&&(defined $with)) { print $c[1]."    $OTHERS[14]   "; print $c[10]."[$replace] => [$with]\n"; }
 }
+################
 sub bloc3 { my $URL=$_[0]; print $c[5]."    "; timer(); }
+################
 sub bloc4 { my $URL=$_[0]; print $c[1]."    $DS[9]  "; print $c[7]."$URL\n"; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1061,8 +1048,7 @@ sub scanDetail {
     if (defined $pause) { print $c[8]."[$DS[57]\]"; }    
 	if ((defined $replace)&&(defined $with)) { print $c[8]."[$DS[48]"; print " Full" if defined $full; print "]";  }
     if (defined $exploit) { 
-    my $lc=countAtexp();
-    print $c[8]."[$exploit][$lc $DT[9]\]"; } print "\n";
+    my $lc=countAtexp(); print $c[8]."[$exploit][$lc $DT[9]\]"; } print "\n";
   }
   if ((defined $xss) || (defined $lfi) || (defined $adminPage) || (defined $JoomRfi) || (defined $WpAfd) || (defined $port) || (defined $mupload) || (defined $mzip) || (defined $eMails) || (defined $searchIps) || (defined $regex) || (defined $searchRegex)) { 
     print $c[5]." [::] $DS[4]:: ";
@@ -1916,7 +1902,8 @@ sub help {
   ltak(); print $c[12]."  External Command: \n".$c[10]
   ."   --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
   ."   -t <target | targets.txt> --command \"curl -v --TARGET\" \n"
-  ."   Wordpress AFD dl-skin.php Exploit: atscan -d \"index of /lib/scripts/dl-skin.php\" -l 20 -m 2 --replace \"scripts\" --with \"scripts/dl-skin.php\" --full --ifinurl \"lib/scripts\" --command \"php exploit.php --TARGET\" \n\n";
+  ."   Wordpress AFD dl-skin.php Exploit:\n"
+  ."   atscan -d \"index of /lib/scripts/dl-skin.php\" -l 20 -m 2 --replace \"scripts\" --with \"scripts/dl-skin.php\" --full --ifinurl \"lib/scripts\" --command \"php WP-dl-skin.php-exploit.php --TARGET\" \n\n";
   ltak(); print $c[12]."  Multiple Scan: \n".$c[10]
   ."   --dork <dork> --level <10> --xss --lfi --wp ..\n"
   ."   --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> [--xss | --lfi | --wp |...]\n"

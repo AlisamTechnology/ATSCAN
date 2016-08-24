@@ -1848,8 +1848,8 @@ sub help {
   ."   --update      | Update tool\n\n";
   ltak(); print $c[5]." [::] EXAMPLES: \n\n";
   ltak(); print $c[12]."  Proxy: \n".$c[10]
-  ."   Tor --proxy <proxy> [Ex: socks://localhost:9050].\n"
-  ."   Proxy --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <list.txt>.\n".$c[10]."   Random --random\n\n";
+  ."   Tor: --proxy <proxy> [Ex: socks://localhost:9050].\n"
+  ."   Proxy: --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <list.txt>.\n".$c[10]."   Random: --random\n\n";
   ltak(); print $c[12]."  Search engine: \n".$c[10]
   ."   Search: --dork <dork> --level <level> \n"
   ."   Search: -d <dork> -l <level> \n"

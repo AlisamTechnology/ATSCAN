@@ -1,7 +1,6 @@
     VERSION 10.3 RELEASE
     ===================
-    CHANGES: 23/08/2016
+    CHANGES: 24/08/2016
     =================== 
-     - Add --full arg.
-     - Remove unused --all arg.
+     - Added some engine filters.
      - Enjoy!

@@ -1011,7 +1011,7 @@ sub checkVersion {
       system("chmod +x $script | perl $script || atscan");
       mtak(); ptak();
       print $c[3]."[!] $DT[7]\n";
-      print color 'reset';
+      print $c[10];
       my ($res, $html, $status, $serverheader)=getHtml($logUrl);
       print $res->content."";  
     } unlink $script_bac if -e $script_bac;

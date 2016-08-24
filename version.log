@@ -2,5 +2,6 @@
     ===================
     CHANGES: 23/08/2016
     =================== 
-     - Add --replace --full arg.
+     - Add --full arg.
+     - Remove unused --all arg.
      - Enjoy!

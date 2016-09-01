@@ -73,7 +73,7 @@ my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCA
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## OTHERS DIALOG TEXT
-my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "HTTP/1.1", "", "", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is", "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC", "[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!");
+my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "HTTP/1.1", "[!] ATSCAN will be removed from your system! [Y/N]:", "[!] ATSCAN was moved successfully", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is", "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC", "[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SEPARATIONS
@@ -211,7 +211,7 @@ my ($misup, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adm
 ############################################################################################################################################################################################
 ## OPTIONS
 my %OPT;
-Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'full'=> \$full, 'proxy=s'=>\$proxy, 'random'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall) or badArgs();
+Getopt::Long::GetOptions(\%OPT, 'isup'=>\$misup, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command|c=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp|e=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'full'=> \$full, 'proxy=s'=>\$proxy, 'random|r'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CLEAN DIRECTORIES
@@ -229,13 +229,13 @@ sub printFile {
 ############################################################################################################################################################################################
 ## DELETE / UNINSTALL TOOL
 if (defined $uninstall) {
-  print $c[4]."[!] ATSCAN will be removed from your system! [Y/N]:";
+  print $c[4]."$OTHERS[8]";
   my $resp=<STDIN>;
   chomp ($resp);
   if ($resp=~/(Y|y)/) {
     unlink $scriptbash if -e $scriptbash;
     system "rm -rf $Bin";
-    print $c[3]."[!] ATSCAN was moved successfully\n";
+    print $c[3]."$OTHERS[9]\n";
   }
   logoff();
 }
@@ -1117,7 +1117,7 @@ sub infoSearch {
 	$printdork=~s/\+/ /g;
     print $c[5]." [::] $DS[0]::".$c[8]." [$printdork]";
     my $pattern='.txt';
-	if ($dork=~m/$pattern/i) { print $c[8]." [$lc $DT[12]\]"; }
+	if ($dork=~m/$pattern/i) { print $c[8]."[$lc $DT[12]\]"; }
     print "\n";
   }
   if (defined $mlevel) { print $c[5]." [::] $DS[18]:: ".$c[8]."[$mlevel]\n"; }
@@ -1919,4 +1919,3 @@ deleteLists();
 ## 2015
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-

@@ -5,26 +5,28 @@ echo "[ ]                  Atscan Tool Install Script                        [ ]
 echo "[ ]====================================================================[ ]";
 echo "";
 echo "[!] If you cannot install tool you can use it as portable tool!"; 
-echo "[!] Install.sh install atscan tool in linux platforms! is your case? [Y/n]:" ; 
+echo "[!] Install.sh install atscan tool in linux platforms! is your case? [Y/n]: ";
 read baba
 if [ $baba == "y" ] ; 
   then
     echo " "
   else
+    echo "[!] Installation canceled!";
     exit
 fi
-
-echo "[!] Where Do you want to install the tool? [Ex:/usr/share/doc]:";
+current=`pwd`
+echo "[!] ATSCAN will be installed in $current Set other path OR press Enter to continue: ";
 read refdir
 echo "[!] Checking directories..."
 if [ -d "$refdir/ATSCAN" ] ;
 then
-echo "[!] A directory ATSCAN was found! Do you want to replace it? [Y/n]:" ; 
+echo "[!] A directory named ATSCAN was found in $refdir/ATSCAN! Do you want to replace it? [Y/n]: ";
 read mama
 if [ $mama == "y" ] ; 
 then
  rm -R "$refdir/ATSCAN"
 else
+ echo "[!] Installation canceled!";
  exit
 fi
 fi
@@ -37,7 +39,6 @@ fi
  chmod +x atscan;
  sudo cp atscan /usr/bin/;
  rm atscan;
-
 
 if [ -d "$refdir/ATSCAN" ] ;
 then

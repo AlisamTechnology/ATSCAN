@@ -10,7 +10,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px"><b>ATSCAN version 10.3<b/></td>
+    <td width="780px"><b>ATSCAN version 10.4<b/></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -231,6 +231,10 @@
         <td class="main">shell link [Ex: http://www.site.com/shell.txt]</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--post</td>
+        <td class="main">Post data. See examples</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--wpafd</td>
         <td class="main">get wordpress sites with arbitery file download</td>
       </tr>
@@ -439,6 +443,11 @@
         atscan -d [dork] -l [level] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp | --admin | --shost | ...] <br/>
         atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
         atscan -t [targets] [--xss | --lfi | --wp |...]
+      </td></tr></table>
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
+      <b>Post Data:</b><br/>
+        atscan --dork [dork] --level [level] --host --exp [exploit] --post "field1:value1,field2:value2,field3:value3" .. <br/>
+        atscan --dork [dork] --level [level] --host --exp [exploit] --post "name:userfile,file:x.txt"
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
         <b>Check Tool and Update:</b><br/>

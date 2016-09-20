@@ -992,7 +992,8 @@ sub getHtml {
     $post=~s/:/'=>'/g;
     $post=~s/,/', '/g;
     $post="'".$post."'";
-    $response=$ua->request(POST $URL, ['Content_Type' => 'form-data', $post]);
+    #$response=$ua->request(POST $URL, ['Content_Type' => 'form-data', $post]);
+    $response=$ua->post($URL, ['Content_Type' => 'form-data', $post]);
   }else{
     my $request=HTTP::Request->new('GET', $URL);
     $response=$ua->request($request);
@@ -1352,12 +1353,12 @@ sub makeSscan {
         if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $post);
         }else{
           my $URL1=$URL; $URL1=~s/ //g;
-          if ($reg) { doScan($URL1, $filter, "", "", $reg, "", ""); }
-          elsif ($comnd) { doScan($URL1, $filter, "", "", "", $comnd, ""); }
-          elsif ($post) { doScan($URL1, $filter, "", "", "", "", $post); }
-          else{ doScan($URL1, $filter, "", "", "", "", ""); }
+          if ($reg) { doScan($URL1, $filter, "", "", $reg, "", "", ""); }
+          elsif ($comnd) { doScan($URL1, $filter, "", "", "", $comnd, "", ""); }
+          elsif ($post) { doScan($URL1, $filter, "", "", "", "", "", $post); }
+          else{ doScan($URL1, $filter, "", "", "", "", "", ""); }
         }
-      }else{ my $URL1=$URL; $URL1=~s/ //g; doScan($URL1, $filter, $result, "", "", "", ""); }
+      }else{ my $URL1=$URL; $URL1=~s/ //g; doScan($URL1, $filter, $result, "", "", "", "", ""); }
     }else{
       my $pm=0;
       foreach my $arr(@arr) { 
@@ -1479,7 +1480,7 @@ sub printResults {
   elsif ($reverse) { getSubDomaine($URL1); }
   elsif ($reg) { getRegex($URL1, $html, $reg); }
   elsif ($comnd) { getComnd($URL1, $comnd); }
-  elsif ($post) { post($URL1, $html); }
+  elsif ($post) { postData($URL1, $html); }
   else{ print $c[1]."    $DS[4]    ";    
     if ($isFilter) {
       if ($html=~/$filter/) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; } points();
@@ -1491,9 +1492,16 @@ sub printResults {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## POST DATA PROCESS
-sub post {
+sub postData {
   my ($URL1, $html)=@_;
-  dpoints(); print $c[8]."$html\n"; points();
+  dpoints();
+  if (defined $validText) {
+    print $c[1]."    $DS[4]    ";
+    if ($html=~/$validText/) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; }
+  }else{
+    print $c[8]."$html\n"; points();
+  }
+  points();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1619,9 +1627,6 @@ sub mpost {
   makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[23], "", "", "", "", "", "", "$post");
   stak(); adios(); logoff();
 }
-
-
-
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET WORDPRESS SITES
@@ -1732,7 +1737,7 @@ if (defined $exploit and substr($exploit, -4) eq '.txt') {
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
-  if ((!defined $xss)&&(!defined $exploit)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $misup)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $mlevel)&&(!defined $searchIps)&&(!defined $regex)) { advise(); }
+  if ((!defined $xss)&&(!defined $exploit)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $misup)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $mlevel)&&(!defined $searchIps)&&(!defined $regex)) { advise(); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1773,7 +1778,7 @@ if (defined $motor) {
 sub Menu { 
   ## SCANS MENU
   if (defined $misup) { misup(); }
-  if (defined $validText) { validation(); }
+  if (defined $validText and !defined $post) { validation(); }
   if (defined $WpSites) { WpSites(); }
   if (defined $JoomSites) { JoomSites(); }
   if (defined $xss) { xss(); }

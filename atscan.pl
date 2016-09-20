@@ -633,13 +633,10 @@ sub targetList {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BUILD EXPLOITS LIST
-sub expList { 
+sub expList {
+  my @exploits;
   if (substr($exploit, -4) eq '.txt') { use File::Copy qw(copy); copy $exploit, $aTexploits; }
-  else{ if ($exploit=~m/,/) { $exploit=~s/,/ /g; }
-  elsif ($exploit=~m/ /) { $exploit=~s/ /+/g; }
-    my @exploits=split / /, $exploit;
-    foreach my $exploit (@exploits) { printFile($aTexploits, $exploit); }
-  }
+  else{ printFile($aTexploits, $exploit); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1777,7 +1774,7 @@ if (defined $motor) {
 ## SCANS ARGUMENTS
 sub Menu { 
   ## SCANS MENU
-  if (defined $misup) { misup(); }
+  if (defined $misup and !defined $post) { misup(); }
   if (defined $validText and !defined $post) { validation(); }
   if (defined $WpSites) { WpSites(); }
   if (defined $JoomSites) { JoomSites(); }

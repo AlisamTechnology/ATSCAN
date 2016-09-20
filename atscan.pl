@@ -995,6 +995,7 @@ sub getHtml {
     $response=$ua->request($request);
   }  
   my $html=$response->content;
+   $html=~ s/\&#(\d+);/chr($1)/eg;
   my $status=$response->code;
   my $serverheader=$response->server;
   return ($response, $html, $status, $serverheader);

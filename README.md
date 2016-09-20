@@ -448,8 +448,8 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Post Data:</b><br/>
-        atscan --dork [dork] --level [level] --host --exp [exploit] --post "field1:value1,field2:value2,field3:value3" .. <br/>
-        atscan --dork [dork] --level [level] --host --exp [exploit] --post "name:userfile,file:x.txt"
+        Post data: atscan --dork [dork] --level [level] --host --exp [exploit] --post "field1:value1,field2:value2,field3:value3" .. <br/>
+        Post + Validation atscan --dork [dork] --level [level] --host --exp [exploit] --post "name:userfile,file:x.txt" -v [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
         <b>Check Tool and Update:</b><br/>

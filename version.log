@@ -1,7 +1,6 @@
-    VERSION 10.3 RELEASE
+    VERSION 10.4 RELEASE
     ===================
-    CHANGES: 24/08/2016
+    CHANGES: 20/09/2016
     =================== 
-     - Added some engine filters.
-     - Some windows compatibilities.
+     - Added post data arguments.
      - Enjoy!

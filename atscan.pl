@@ -1494,11 +1494,11 @@ sub printResults {
 ## POST DATA PROCESS
 sub postData {
   my ($URL1, $html)=@_;
-  dpoints();
   if (defined $validText) {
     print $c[1]."    $DS[4]    ";
     if ($html=~/$validText/) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; }
   }else{
+    dpoints();
     print $c[8]."$html\n"; points();
   }
   points();
@@ -1935,11 +1935,11 @@ sub help {
   ltak(); print $c[12]."  Encode / Decode: \n".$c[10]
   ."   Generate MD5: --md5 <string> \n"
   ."   Encode base64: --encode64 <string>  \n"
-  ."   Decode base64: --decode64 <string> \n\n";
-  
+  ."   Decode base64: --decode64 <string> \n\n";  
   ltak(); print $c[12]."  Post Data: \n".$c[10]
-  ."  --post <field1:value1,<field2:value2>,<field3:value3> \n"
-  ."  --post \"name:userfile,value:file.txt\"\n\n";
+  ."  Post data: --post <field1:value1,<field2:value2>,<field3:value3> \n"
+  ."             --post \"name:userfile,value:file.txt \n"
+  ."  Post + Validation: --post \"name:userfile,value:file.txt\" -v <string> \n\n";
   ltak(); print $c[12]."  External Command: \n".$c[10]
   ."   --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
   ."   -t <target | targets.txt> --command \"curl -v --TARGET\" \n"

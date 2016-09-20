@@ -989,8 +989,7 @@ sub getHtml {
     $post=~s/:/'=>'/g;
     $post=~s/,/', '/g;
     $post="'".$post."'";
-    #$response=$ua->request(POST $URL, ['Content_Type' => 'form-data', $post]);
-    $response=$ua->post($URL, ['Content_Type' => 'form-data', $post]);
+    $response=$ua->post($URL, Content_Type => 'form-data', Content => [$post]);    
   }else{
     my $request=HTTP::Request->new('GET', $URL);
     $response=$ua->request($request);

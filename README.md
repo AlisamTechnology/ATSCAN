@@ -399,8 +399,8 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Exploitation from Serach Engine:</b><br/>
-        Exploitation: atscan --dork [dork] --level [10] --xss | --lfi | --wp |... <br/>
-        Server Exploitation: atscan -t [ip] --level [10] --xss | --lfi | --wp |... <br/>
+        Exploitation: atscan --dork [dork] --level [10] --xss | --lfi | --wp | ... <br/>
+        Server Exploitation: atscan -t [ip] --level [10] --xss | --lfi | --wp | ... <br/>
         Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [payload] --valid [string] --xss.. <br/>
         atscan --dork [dork] --level [10] --exp "index.php?id=rang(1-10)" --valid [string] <br>
         atscan --dork [dork] --level [10] --exp "index.php?id=repeat(..%2F-10)wp-config.php" --valid [string]
@@ -417,7 +417,7 @@
       <b>Use List / Target:</b><br/>
         atscan -t [target | targets.txt] --exp [payload] --ifstatus [code] | --valid [string] <br/>
         atscan -t [target | targets.txt] --xss | --lfi | --wp |...
-        atscan -t "http://site.com/index.php?id=rang(1-9)" --xss | --lfi | --wp |... <br/>
+        atscan -t "http://site.com/index.php?id=rang(1-9)" --xss | --lfi | ... <br/>
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Server Ports:</b><br/>
@@ -443,8 +443,8 @@
       <b>Multiple Scans:</b><br/>
         atscan --dork [dork] --level [level] --xss --lfi --wp .. <br/>
         atscan -d [dork] -l [level] --replace [string] --with [string] --exp [payload] --xss | --lfi | --wp | --admin | --shost | ... <br/>
-        atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
-        atscan -t [targets] [--xss | --lfi | --wp |...]
+        atscan -t [ip] --level [10] --xss | --lfi | --wp | ... <br/>
+        atscan -t [targets] --xss | --lfi | --wp | ...
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Post Data:</b><br/>
@@ -460,4 +460,3 @@
 </table>  
 </body>
 </html>
-

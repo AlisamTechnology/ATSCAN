@@ -178,7 +178,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--valid/-v</td>
-        <td class="main">Text to validate results</td>
+        <td class="main">Validate by string.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--unique</td>
@@ -189,8 +189,8 @@
         <td class="main">Text to validate target url</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--isup</td>
-        <td class="main">check http status 200</td>
+        <td width="200px" class="main">--ifstatus</td>
+        <td class="main">Validate by http header status.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--noquery</td>
@@ -399,9 +399,9 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Exploitation from Serach Engine:</b><br/>
-        Exploitation: atscan --dork [dork] --level [10] [--xss | --lfi | --wp |...] <br/>
-        Server Exploitation: atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
-        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [exploit] [--valid [string] --xss..] <br/>
+        Exploitation: atscan --dork [dork] --level [10] --xss | --lfi | --wp |... <br/>
+        Server Exploitation: atscan -t [ip] --level [10] --xss | --lfi | --wp |... <br/>
+        Replace + Exploit: atscan --dork [dork] --level [10] --replace [string] --with [string] --exp [payload] --valid [string] --xss.. <br/>
         atscan --dork [dork] --level [10] --exp "index.php?id=rang(1-10)" --valid [string] <br>
         atscan --dork [dork] --level [10] --exp "index.php?id=repeat(..%2F-10)wp-config.php" --valid [string]
       </td></tr></table>
@@ -409,21 +409,21 @@
       <b>Validation:</b><br/>
         Search + Url Validation: atscan --dork [dork] --level [10] --ifinurl [string] <br/>
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
-        Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [--isup | --valid] [string] <br/>
-        Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [--isup | --valid] [string] <br/>
-        Replace + exploit or validate urls: atscan --dork [dork] --level [10] --replace [string] --with [string] [--isup | --valid [string]
+        Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [payload] --ifstatus [code] | --valid [string] <br/>
+        Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [payload] --ifstatus [code] | --valid [string] <br/>
+        Replace + exploit or validate urls: atscan --dork [dork] --level [10] --replace [string] --with [string] --ifstatus [code] | --valid [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Use List / Target:</b><br/>
-        atscan -t [target | targets.txt] --exp [--isup | --valid] [string]<br/>
-        atscan -t [target | targets.txt] [--xss | --lfi | --wp |...]
+        atscan -t [target | targets.txt] --exp [payload] --ifstatus [code] | --valid [string] <br/>
+        atscan -t [target | targets.txt] --xss | --lfi | --wp |...
         atscan -t "http://site.com/index.php?id=rang(1-9)" --xss<br/>
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Server Ports:</b><br/>
-        Scan a server ports for open and close udp or tcp ports: atscan -t [Ex: 12.21.22.133] --ports [--udp | --tcp] --port [8080] <br/>
-        atscan -t (ip start)-(ip end) --port [port] [--udp | --tcp]<br/>
-        atscan -t [ip] --port [port start]-[port end] [--udp | --tcp] --command [your extern command for each open port found]
+        Scan a server ports for open and close udp or tcp ports: atscan -t [Ex: 12.21.22.133] --ports --udp | --tcp --port [8080] <br/>
+        atscan -t [ip start-ip end] --port [port] --udp | --tcp <br/>
+        atscan -t [ip] --port [port start-port end] --udp | --tcp --command [your extern command for each open port found]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Encode / Decode:</b><br/>
@@ -442,14 +442,14 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Multiple Scans:</b><br/>
         atscan --dork [dork] --level [level] --xss --lfi --wp .. <br/>
-        atscan -d [dork] -l [level] --replace [string] --with [string] --exp [exploit] [--xss | --lfi | --wp | --admin | --shost | ...] <br/>
+        atscan -d [dork] -l [level] --replace [string] --with [string] --exp [payload] [--xss | --lfi | --wp | --admin | --shost | ...] <br/>
         atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
         atscan -t [targets] [--xss | --lfi | --wp |...]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Post Data:</b><br/>
-        Post data: atscan --dork [dork] --level [level] --host --exp [exploit] --post "field1:value1,field2:value2,field3:value3" .. <br/>
-        Post + Validation atscan --dork [dork] --level [level] --host --exp [exploit] --post "name:userfile,file:x.txt" -v [string]
+        Post data: atscan --dork [dork] --level [level] --host --exp [payload] --post "field1:value1,field2:value2,field3:value3" .. <br/>
+        Post + Validation atscan --dork [dork] --level [level] --host --exp [payload] --post "name:userfile,file:x.txt" -v [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
         <b>Check Tool and Update:</b><br/>

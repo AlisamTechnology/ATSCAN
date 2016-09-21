@@ -1,7 +1,8 @@
-    VERSION 10.4 RELEASE
+    VERSION 10.5 RELEASE
     ===================
-    CHANGES: 20/09/2016
+    CHANGES: 21/09/2016
     =================== 
      - Added post data arguments.
      - Fix validation process.
+     - Code optimisation.
      - Enjoy!

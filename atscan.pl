@@ -88,7 +88,7 @@ sub stak { my $sn6="-" x 75; print $c[10]."    $sn6\n"; }
 ############################################################################################################################################################################################
 ## TOOL VERSION
 my ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl);
-$Version="10.5";
+$Version="10.4";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
@@ -1736,6 +1736,7 @@ if (defined $dork) {
   }
 }
 if (defined $exploit) {
+  if ((!defined $xss)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $misup)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $searchIps)&&(!defined $regex)) { mtak();advise(); }
   if (-e $exploit) {
     if (substr($exploit, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
   }

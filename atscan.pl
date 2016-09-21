@@ -74,7 +74,7 @@ my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCA
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## OTHERS DIALOG TEXT
-my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "", "[!] ATSCAN will be removed from your system! [Y/N]:", "[!] ATSCAN was moved successfully", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is", "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC", "[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!");
+my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan is requiered! EX: --xss | --admin | --lfi ...", "[!] ATSCAN will be removed from your system! [Y/N]:", "[!] ATSCAN was moved successfully", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is", "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC", "[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SEPARATIONS
@@ -1750,7 +1750,7 @@ if (defined $dork) {
   }
 }
 if (defined $exploit) {
-  if ((!defined $xss)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $ifstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $searchIps)&&(!defined $regex)) { advise(); }
+  if ((!defined $xss)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $ifstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $searchIps)&&(!defined $regex)) { print $c[2]."[!] $OTHERS[7]\n"; logoff(); }
   if (-e $exploit) {
     if (substr($exploit, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
   }
@@ -1762,7 +1762,7 @@ if (defined $exploit) {
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
-  if ((!defined $xss)&&(!defined $exploit)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $ifstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $mlevel)&&(!defined $searchIps)&&(!defined $regex)) { advise(); }
+  if ((!defined $xss)&&(!defined $exploit)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $ifstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $mlevel)&&(!defined $searchIps)&&(!defined $regex)) { print $c[2]."[!] $OTHERS[7]\n"; logoff(); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################

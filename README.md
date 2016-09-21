@@ -10,7 +10,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px"><b>ATSCAN version 10.6<b/></td>
+    <td width="780px"><b>ATSCAN version 10.7<b/></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -181,15 +181,19 @@
         <td class="main">Validate by string.</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--vpost</td>
+        <td class="main">Validate post data forms by string.</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--unique</td>
         <td class="main">Get urls with exact dork matching</td>
       </tr>
       <tr>
         <td width="200px" class="main">--ifinurl</td>
-        <td class="main">Text to validate target url</td>
+        <td class="main">Validate target url by string.</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--ifstatus</td>
+        <td width="200px" class="main">--status</td>
         <td class="main">Validate by http header status.</td>
       </tr>
       <tr>
@@ -409,13 +413,13 @@
       <b>Validation:</b><br/>
         Search + Url Validation: atscan --dork [dork] --level [10] --ifinurl [string] <br/>
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
-        Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [payload] --ifstatus [code] | --valid [string] <br/>
-        Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [payload] --ifstatus [code] | --valid [string] <br/>
-        Replace + exploit or validate urls: atscan --dork [dork] --level [10] --replace [string] --with [string] --ifstatus [code] | --valid [string]
+        Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [payload] --status [code] | --valid [string] <br/>
+        Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [payload] --status [code] | --valid [string] <br/>
+        Replace + exploit or validate: atscan --dork [dork] --level [10] --replace [string] --with [string] --status [code] | --valid [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Use List / Target:</b><br/>
-        atscan -t [target | targets.txt] --exp [payload] --ifstatus [code] | --valid [string] <br/>
+        atscan -t [target | targets.txt] --exp [payload] --status [code] | --valid [string] <br/>
         atscan -t [target | targets.txt] --xss | --lfi | --wp |...
         atscan -t "http://site.com/index.php?id=rang(1-9)" --xss | --lfi | ... <br/>
       </td></tr></table>
@@ -449,7 +453,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Post Data:</b><br/>
         Post data: atscan --dork [dork] --level [level] --host --exp [payload] --post "field1:value1,field2:value2,field3:value3" .. <br/>
-        Post + Validation atscan --dork [dork] --level [level] --host --exp [payload] --post "name:userfile,file:x.txt" -v [string]
+        Post + Validation atscan --dork [dork] --level [level] --host --exp [payload] --post "name:userfile,file:x.txt" -vpost [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
         <b>Check Tool and Update:</b><br/>

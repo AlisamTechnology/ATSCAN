@@ -417,7 +417,7 @@
       <b>Use List / Target:</b><br/>
         atscan -t [target | targets.txt] --exp [payload] --ifstatus [code] | --valid [string] <br/>
         atscan -t [target | targets.txt] --xss | --lfi | --wp |...
-        atscan -t "http://site.com/index.php?id=rang(1-9)" --xss<br/>
+        atscan -t "http://site.com/index.php?id=rang(1-9)" --xss | --lfi | --wp |... <br/>
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Server Ports:</b><br/>
@@ -442,7 +442,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Multiple Scans:</b><br/>
         atscan --dork [dork] --level [level] --xss --lfi --wp .. <br/>
-        atscan -d [dork] -l [level] --replace [string] --with [string] --exp [payload] [--xss | --lfi | --wp | --admin | --shost | ...] <br/>
+        atscan -d [dork] -l [level] --replace [string] --with [string] --exp [payload] --xss | --lfi | --wp | --admin | --shost | ... <br/>
         atscan -t [ip] --level [10] [--xss | --lfi | --wp |...] <br/>
         atscan -t [targets] [--xss | --lfi | --wp |...]
       </td></tr></table>
@@ -460,3 +460,4 @@
 </table>  
 </body>
 </html>
+

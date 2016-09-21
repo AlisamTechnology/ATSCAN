@@ -261,7 +261,7 @@ my @ErrT=("LFI:", "MYSQL:", "Possible AFD:", "Microsoft:", "Oracle:", "DB2:", "O
 ## GENERAL DIALOG TEXT
 my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!", "SCAN FINISHED\!", "Unique Result\(s\) Found\!", "No Target list found\!", "[!] No Update found!",
 "Tool updeted with success\!", "Can not connect to the server\!", "Exploit\(s\)", "Check Your Connection OR Proxy Setting\!", " Upss.. Your Internet connection seems not active\!",
-"Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://].", "Given target file path is not true.", "Target file extension must be [.txt].", "You have to set a scan for exploited targets\![xss\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!", "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace <value> --with <value>]", "Invalid option\! Ex: t- <ip> --port [--udp | --tcp]", "--random need proxy or tor use\!", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines: [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]", "The scan use default payloads\! You can use your own using arguments\!\n    Ex: --exp [exploit \| payload] --valid [string]", "Please change proxy file ext to [file.txt]", "Failed to renew identity with", "Please wait...", "", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Possible positive result\\! Do you want to continue scan? [Y/n]: ", "Undefined", "Redirect To: ", "Proxy(s)", "Update Needed to", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]", "You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]", "Conflict!! Please change", "file ext to [.txt]!", "found!");
+"Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://].", "Given target file path is not true.", "Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![xss\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!", "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace <value> --with <value>]", "Invalid option\! Ex: t- <ip> --port [--udp | --tcp]", "--random need proxy or tor use\!", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines: [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]", "The scan use default payloads\! You can use your own using arguments\!\n    Ex: --exp [exploit \| payload] --valid [string]", "Please change proxy file ext to [file.txt]", "Failed to renew identity with", "Please wait...", "", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Possible positive result\\! Do you want to continue scan? [Y/n]: ", "Undefined", "Redirect To: ", "Proxy(s)", "Update Needed to", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]", "You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]", "Conflict!! Please change", "file ext to [.txt]!", "found!");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN DIALOG TEXT
@@ -307,6 +307,7 @@ my $V_EMAIL='((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]
 my $V_IP='((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3}))';
 my $V_RANG='(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\-(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})';
 my $V_SEARCH='((https?|ftps?):\/\/([^>\"\<\'\(\)]*))';
+my $ext=".txt";
 my $V_REGEX=$regex;
 my $S_REGEX=$searchRegex;
 ############################################################################################################################################################################################
@@ -485,7 +486,7 @@ if (defined $proxy) {
   if ($proxy=~/:/) { @resultarray=split / /, $proxy; }
   else{ 
     if (!-e $proxy) { desclaimer(); print $c[2]."[!] No [$proxy] found!\n"; logoff(); }
-    if (substr($proxy, -4) ne '.txt') { desclaimer(); print $c[2]."[!] $DT[29]\n"; logoff(); }
+    if ((-e $proxy)&&(substr($proxy, -4) ne $ext)) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
     open(my $filehandle, '<', $proxy);
     while(my $line=<$filehandle>) { chomp $line; my @linearray=split(" ", $line); push(@resultarray, @linearray); }
     close $filehandle;
@@ -565,7 +566,7 @@ sub progressbar {
 ## BUILD DORKS LIST
 sub dorkList { 
   if (defined $dork) { 
-	if (substr($dork, -4) eq '.txt') { use File::Copy qw(copy); copy $dork, $aTdorks; }
+	if (substr($dork, -4) eq $ext) { use File::Copy qw(copy); copy $dork, $aTdorks; }
     else{ 
       if ($dork=~m/,/) { $dork=~s/,/ /g; }elsif ($dork=~m/ /) { $dork=~s/ /+/g; }
       my @dorks=split / /, $dork; foreach my $dork (@dorks) { printFile($aTdorks, $dork); }
@@ -590,7 +591,7 @@ sub dorkList {
 	      }
 		}
       }
-    }elsif (substr($Target, -4) eq '.txt') { use File::Copy qw(copy); copy $Target, $aTdorks; }
+    }elsif (substr($Target, -4) eq $ext) { use File::Copy qw(copy); copy $Target, $aTdorks; }
     else{ 
       if ($Target=~m/,/) { $Target=~s/,/ /g;
       }elsif ($Target=~m/ /) { $Target=~s/ /+/g; }
@@ -622,7 +623,7 @@ sub targetList {
         }
 	  }
     }
-  }elsif (substr($Target, -4) eq '.txt') { use File::Copy qw(copy); copy $Target, $aTsearch; }
+  }elsif (substr($Target, -4) eq $ext) { use File::Copy qw(copy); copy $Target, $aTsearch; }
   else{ 
     if ($Target=~m/,/) { $Target=~s/,/ /g; }
     elsif ($Target=~m/ /) { $Target=~s/ /+/g; }
@@ -635,7 +636,10 @@ sub targetList {
 ## BUILD EXPLOITS LIST
 sub expList {
   my @exploits;
-  if (substr($exploit, -4) eq '.txt') { use File::Copy qw(copy); copy $exploit, $aTexploits; }
+  if (-e $exploit) {
+    if (substr($exploit, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
+  }
+  if (substr($exploit, -4) eq $ext) { use File::Copy qw(copy); copy $exploit, $aTexploits; }
   else{ printFile($aTexploits, $exploit); }
 }
 ############################################################################################################################################################################################
@@ -995,7 +999,7 @@ sub getHtml {
     $response=$ua->request($request);
   }  
   my $html=$response->content;
-   $html=~ s/\&#(\d+);/chr($1)/eg;
+  $html=~ s/\&#(\d+);/chr($1)/eg;
   my $status=$response->code;
   my $serverheader=$response->server;
   return ($response, $html, $status, $serverheader);
@@ -1036,7 +1040,7 @@ sub scanDetail {
   if (!defined $proxy) { print $c[8]."[$DS[46]\]\n";
   }else{ 
     if (defined $proxy) { print $c[8]."[$proxy]";
-	  if (substr($proxy, -4) eq '.txt') { my $lc=countAtproxies(); print "[$lc $DT[37]\]"; }
+	  if (substr($proxy, -4) eq $ext) { my $lc=countAtproxies(); print "[$lc $DT[37]\]"; }
 	}
 	if (defined $random) { print $c[8]."[$DS[44]\]"; } print "\n";
   }
@@ -1124,7 +1128,7 @@ sub infoSearch {
     my $printdork=$dork;
 	$printdork=~s/\+/ /g;
     print $c[5]." [::] $DS[0]::".$c[8]." [$printdork]";
-    my $pattern='.txt';
+    my $pattern=$ext;
 	if ($dork=~m/$pattern/i) { print $c[8]."[$lc $DT[12]\]"; }
     print "\n";
   }
@@ -1615,7 +1619,6 @@ sub mcommand {
   makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[16], "", "", "", "", $command, "", "");
   stak(); adios(); logoff();
 }
-
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## POST COMMAND
@@ -1718,17 +1721,27 @@ if ((defined $Target)&&(!defined $mlevel)) {
 ## CHECK ARGV IF IS TEXT FILE
 my $lst;
 if (defined $Target and $Target!~ /https?:\/\//) { $lst=$Target; }
-if (defined $lst) { 
-  if ($lst=~/([a-zA-Z0-9\-\_]\.)[a-zA-Z]/) { 
+if (defined $lst) {    
+  if ($lst=~/([a-zA-Z0-9\-\_]\.)[a-zA-Z]/) {   
     if (!-e $lst) { desclaimer(); print $c[2]."[!] No $lst $OTHERS[6]\n"; logoff(); }
-    if (substr($lst, -4) ne '.txt') { desclaimer(); print $c[2]."[!] $DT[42] $lst $DT[43]\n"; logoff(); }
+    if (substr($lst, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
   }
 }
-if (defined $dork and substr($dork, -4) eq '.txt') { 
-  if (!-e $dork) {  desclaimer(); print $c[2]."[!] No $dork $DT[44]\n"; logoff(); }
+if (defined $dork) {
+  if (-e $dork) {
+    if (substr($dork, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
+  }
+  if (substr($dork, -4) eq $ext) { 
+    if (!-e $dork) { desclaimer(); print $c[2]."[!] No $dork $DT[44]\n"; logoff(); }
+  }
 }
-if (defined $exploit and substr($exploit, -4) eq '.txt') { 
-  if (!-e $exploit) { desclaimer(); print $c[2]."[!] No $exploit $DT[44]\n"; logoff(); }
+if (defined $exploit) {
+  if (-e $exploit) {
+    if (substr($exploit, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
+  }
+  if (substr($exploit, -4) eq $ext) { 
+    if (!-e $exploit) { desclaimer(); print $c[2]."[!] No $exploit $DT[44]\n"; logoff(); }
+  }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################

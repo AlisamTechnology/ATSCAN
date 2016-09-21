@@ -88,7 +88,7 @@ sub stak { my $sn6="-" x 75; print $c[10]."    $sn6\n"; }
 ############################################################################################################################################################################################
 ## TOOL VERSION
 my ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl);
-$Version="10.6";
+$Version="10.7";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
@@ -207,12 +207,12 @@ sub badArgs { banner(); advise(); }
 ############################################################################################################################################################################################
 ## ARGUMENTS
 use Getopt::Long ();
-my ($ifstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $uninstall, $post);
+my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $random, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $pause, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $showOpt, $ifend, $uninstall, $post, $vPost);
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## OPTIONS
 my %OPT;
-Getopt::Long::GetOptions(\%OPT, 'ifstatus=s'=>\$ifstatus, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command|c=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp|e=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'full'=> \$full, 'proxy=s'=>\$proxy, 'random|r'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall, 'post=s'=> \$post) or badArgs();
+Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd, 'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command|c=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64, 'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp|e=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 'full'=> \$full, 'proxy=s'=>\$proxy, 'random|r'=>\$random, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'time=s'=>\$timeout, 'pause'=>\$pause, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'options'=> \$showOpt, 'ifend'=> \$ifend, 'uninstall'=> \$uninstall, 'post=s'=> \$post, 'vpost=s'=> \$vPost) or badArgs();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CLEAN DIRECTORIES
@@ -247,7 +247,7 @@ if (!defined $nobanner) { banner(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## MULTIPLE SCAN ARGUMENTS
-my @z=($ifstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $post);
+my @z=($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $post);
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CMS SCAN TYPES
@@ -255,13 +255,13 @@ my @cms=("CMS", "Wordpress", "Joomla", "Textpattern", "SMF", "PhpBB!", "VBulleti
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ERRORS DIALOG TEXT
-my @ErrT=("LFI:", "MYSQL:", "Possible AFD:", "Microsoft:", "Oracle:", "DB2:", "ODBC:", "POSTGRESQL:", "SYBASE:", "BOSSWEB:", "JDBC:", "Java Infinitydb:", "PHP:", "ASP:", "LUA:", "UNDEFINED:", "Mariadb:", "Possible Shell:", "ERRORS:", "Permissions\! Failed to write in", "Checking proxy connection...", "INFO:", "New Identity IP", "Traying again my solve problem or set timeout --time <time in s>", "Possible errors detected!");
+my @ErrT=("LFI:", "MYSQL:", "Possible AFD:", "Microsoft:", "Oracle:", "DB2:", "ODBC:", "POSTGRESQL:", "SYBASE:", "BOSSWEB:", "JDBC:", "Java Infinitydb:", "PHP:", "ASP:", "LUA:", "UNDEFINED:", "Mariadb:", "Possible Shell:", "ERRORS ", "Permissions\! Failed to write in", "Checking proxy connection...", "INFO:", "New Identity IP", "Traying again my solve problem or set timeout --time <time in s>", "Possible errors detected!");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GENERAL DIALOG TEXT
 my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!", "SCAN FINISHED\!", "Unique Result\(s\) Found\!", "No Target list found\!", "[!] No Update found!",
 "Tool updeted with success\!", "Can not connect to the server\!", "Exploit\(s\)", "Check Your Connection OR Proxy Setting\!", " Upss.. Your Internet connection seems not active\!",
-"Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://].", "Given target file path is not true.", "Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![xss\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!", "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace <value> --with <value>]", "Invalid option\! Ex: t- <ip> --port [--udp | --tcp]", "--random need proxy or tor use\!", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines: [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]", "The scan use default payloads\! You can use your own using arguments\!\n    Ex: --exp [exploit \| payload] --valid [string]", "Please change proxy file ext to [file.txt]", "Failed to renew identity with", "Please wait...", "", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Possible positive result\\! Do you want to continue scan? [Y/n]: ", "Undefined", "Redirect To: ", "Proxy(s)", "Update Needed to", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]", "You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]", "Conflict!! Please change", "file ext to [.txt]!", "found!");
+"Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://].", "Given target file path is not true.", "Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![xss\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!", "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace <value> --with <value>]", "Invalid option\! Ex: t- <ip> --port [--udp | --tcp]", "--random need proxy or tor use\!", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines: [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]", "The scan use default payloads\! You can use your own using arguments\!\n    Ex: --exp [exploit \| payload] --valid [string]", "Please change proxy file ext to [file.txt]", "Failed to renew identity with", "Please wait...", "[!] --vpost validation require --post argument! use -v to validate.", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Possible positive result\\! Do you want to continue scan? [Y/n]: ", "Undefined", "Redirect To: ", "Proxy(s)", "Update Needed to", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]", "You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]", "Conflict!! Please change", "file ext to [.txt]!", "found!");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN DIALOG TEXT
@@ -645,7 +645,9 @@ sub expList {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK IF NEEDED TARGET LIST
-sub ifGetTargetList { if (((!defined $mlevel)&&(!defined $validText)&&(!defined $ifstatus)) && (!defined $port and !defined $command)) { targetList(); } }
+sub ifGetTargetList {
+  if (((!defined $mlevel)&&(!defined $validText)&&(!defined $Hstatus)) && (!defined $port and !defined $command)) { targetList(); }
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## REMOVE URLS PROTOCOL
@@ -675,7 +677,7 @@ sub control {
 	$URL=removeProtocol($URL);
     $URL=~s/\/.*//s;
   }
-  if ((!defined $ifstatus)&&(!defined $validText)) { 
+  if (!defined $Hstatus and !defined $validText) { 
     if (defined $replace) {
 	  if (index($URL, $replace) != -1) {
         $URL=~s/$replace(.*)/$replace/g if defined $full; 
@@ -985,27 +987,6 @@ sub doRegex {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## GET HTML
-sub getHtml {
-  my ($URL, $post)=@_;
-  my $response;
-  if ($post) {
-    $post=~s/:/'=>'/g;
-    $post=~s/,/', '/g;
-    $post="'".$post."'";
-    $response=$ua->post($URL, Content_Type => 'form-data', Content => [$post]);    
-  }else{
-    my $request=HTTP::Request->new('GET', $URL);
-    $response=$ua->request($request);
-  }  
-  my $html=$response->content;
-  $html=~ s/\&#(\d+);/chr($1)/eg;
-  my $status=$response->code;
-  my $serverheader=$response->server;
-  return ($response, $html, $status, $serverheader);
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
 ## CHECK VERSION
 sub checkVersion {
   testConection(); mtak(); ptak();
@@ -1044,10 +1025,11 @@ sub scanDetail {
 	}
 	if (defined $random) { print $c[8]."[$DS[44]\]"; } print "\n";
   }
-  if ((defined $ifstatus) || (defined $validText) || (defined $ifinurl)) { 
+  if ((defined $Hstatus) || (defined $validText) || (defined $ifinurl) || (defined $vPost)) { 
     print $c[5]." [::] $DS[12]:: ";
     if (defined $validText) { print $c[8]."[$validText]"; }
-    if (defined $ifstatus) { print $c[8]."[$DS[13] $ifstatus]"; }
+    if (defined $vPost) { print $c[8]."[$SCAN_TITLE[23]:$vPost]"; }
+    if (defined $Hstatus) { print $c[8]."[$DS[13] $Hstatus]"; }
 	if (defined $ifinurl) { print $c[8]."[$DS[33]\]"; } print "\n";
   }
   if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64) || (defined $mdom) || (defined $exploit) || (defined $replace) || (defined $pause) || (defined $post)) { 
@@ -1202,6 +1184,27 @@ sub browseUrl {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## GET HTML
+sub getHtml {
+  my ($URL, $post)=@_;
+  my $response;
+  if ($post) {
+    $post=~s/:/'=>'/g;
+    $post=~s/,/', '/g;
+    $post="'".$post."'";
+    $response=$ua->post($URL, Content_Type => 'form-data', Content => [$post]);    
+  }else{
+    my $request=HTTP::Request->new('GET', $URL);
+    $response=$ua->request($request);
+  }  
+  my $html=$response->content;
+  $html=~ s/\&#(\d+);/chr($1)/eg;
+  my $status=$response->code;
+  my $serverheader=$response->server;
+  return ($response, $html, $status, $serverheader);
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## GET SUBDOMAINES
 sub getSubDomaine { 
   my $URL1=$_[0];
@@ -1331,7 +1334,7 @@ sub scanCode {
 ############################################################################################################################################################################################
 ## GET ALL PARAMS TO SCAN
 sub makeSscan { 
-  my ($at, $bt, $ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter, $post, $code)=@_;
+  my ($at, $bt, $ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus)=@_;
   if (defined $proxy) { UA(); }
   checkHeaders($at, $bt, $ct, $dt, $et);  
   print $c[11]."$title"; scanTitleEnd(); title($title);
@@ -1351,26 +1354,26 @@ sub makeSscan {
     $URL=control($URL);
     if (!@arr) {     
       if (!$result) {
-        if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $post, $code);
+        if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $post, $Hstatus);
         }else{
           my $URL1=$URL; $URL1=~s/ //g;
-          if ($reg) { doScan($URL1, $filter, "", "", $reg, "", "", "", ""); }
-          elsif ($comnd) { doScan($URL1, $filter, "", "", "", $comnd, "", "", ""); }
-          elsif ($post) { doScan($URL1, $filter, "", "", "", "", "", $post, ""); }
-          elsif ($code) { doScan($URL1, $filter, "", "", "", "", "", "", $code); }
-          else{ doScan($URL1, $filter, "", "", "", "", "", "", ""); }
+          if ($reg) { doScan($URL1, $filter, "", "", $reg, "", "", "", $Hstatus); }
+          elsif ($comnd) { doScan($URL1, $filter, "", "", "", $comnd, "", "", $Hstatus); }
+          elsif ($post) { doScan($URL1, $filter, "", "", "", "", "", $post, $Hstatus); }
+          else{ doScan($URL1, $filter, "", "", "", "", "", "", $Hstatus); }
         }
-      }else{ my $URL1=$URL; $URL1=~s/ //g; doScan($URL1, $filter, $result, "", "", "", "", "", ""); }
+      }else{ my $URL1=$URL; $URL1=~s/ //g; doScan($URL1, $filter, $result, "", "", "", "", "", $Hstatus); }
     }else{
       my $pm=0;
-      foreach my $arr(@arr) { 
-        $pm++;       
+      foreach my $arr(@arr) {
+        $pm++;
+        points() if $pm>1; 
+        print $c[1]."    $DS[5]  $c[10] [$pm/".scalar(grep { defined $_} @arr)."] $arr\n";
         if ((defined $exploit) || (defined $p)) {
-          points() if $pm>1; getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr), $post, $code);
-        }else{  
-          print $c[1]."    $DS[5]  $c[10] [$pm/".scalar(grep { defined $_} @arr)."] $arr\n";
-          if ($reverse) { $URL=removeProtocol($URL); my $URL1=$arr.$URL; $URL1=~s/ //g; points() if $pm>1; doScan($URL1, "", "", $reverse, "", "", $isFilter, $post, $code); }
-          else{ my $URL1=$URL.$arr; $URL1=~s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter, $post, $code); }
+          getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr), $post, $Hstatus);
+        }else{
+          if ($reverse) { $URL=removeProtocol($URL); my $URL1=$arr.$URL; $URL1=~s/ //g; points() if $pm>1; doScan($URL1, "", "", $reverse, "", "", $isFilter, $post, $Hstatus); }
+          else{ my $URL1=$URL.$arr; $URL1=~s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter, $post, $Hstatus); }
         }
       }
     }
@@ -1392,7 +1395,7 @@ sub checkHeaders {
 ############################################################################################################################################################################################
 ## MAKE SCAN WITH EXPLOIT IN ARRAY
 sub getExploitArrScan{
-  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $post, $code)=@_;  
+  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $post, $Hstatus)=@_;
   if (defined $exploit) {  
     my $lc=countAtexp();
     my $count3=0;
@@ -1402,24 +1405,24 @@ sub getExploitArrScan{
 	  $count3++;
       print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc][$exp]\n" if !defined $p;
       if (defined $p) {
-        if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $post, $code); }
-        else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $exp, $lc, $count3, $post, $code); }
+        if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $post, $Hstatus); }
+        else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $exp, $lc, $count3, $post, $Hstatus); }
       }else{
-        if ($arr) { my $URL1=$URL.$exp; $URL1=~s/ //g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $code); }
-       else{ my $URL1=$URL.$exp; $URL1=~s/ //g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $code); }
+        if ($arr) { my $URL1=$URL.$exp.$arr; $URL1=~s/ //g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus); }
+       else{ my $URL1=$URL.$exp; $URL1=~s/ //g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus); }
       }
     }
     close (EXP);
   }else{
-    if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, "", "", "", $post, $code); }
-    else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", "", "", "", $post, $code); }
+    if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, "", "", "", $post, $Hstatus); }
+    else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", "", "", "", $post, $Hstatus); }
   }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## MAKE SCAN WITH DEFINED PARAMETERS
 sub getPArrScan{
-  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $post, $code)=@_;
+  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $post, $Hstatus)=@_;
   if (defined $p) {
     my @P=split(",", $p);
     my $pc=0;
@@ -1430,8 +1433,8 @@ sub getPArrScan{
       print $c[1]."    $OTHERS[16]  $c[10] [$pc/".scalar(grep { defined $_} @P)."][$P]\n";
       if ($URL=~/$P/) {
         my $URL1=$URL;
-        if (index($URL, "?$P=") != -1) { $URL1=~s/\?$P=([^&]*)/\?$P=$1$exp$arr/g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $code); }
-        if (index($URL, "&$P=") != -1) { $URL1=~s/\&$P=([^&]*)/\&$P=$1$exp$arr/g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $code); }       
+        if (index($URL, "?$P=") != -1) { $URL1=~s/\?$P=([^&]*)/\?$P=$1$exp$arr/g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus); }
+        if (index($URL, "&$P=") != -1) { $URL1=~s/\&$P=([^&]*)/\&$P=$1$exp$arr/g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus); }       
       }else{ print $c[1]."    $DS[4]:   $c[2]$OTHERS[17]\n"; points(); }
     }
   }
@@ -1440,55 +1443,70 @@ sub getPArrScan{
 ############################################################################################################################################################################################
 ## MOVE URL TO SCAN
 sub doScan {
-  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $code)=@_;
+  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus)=@_;
   my $n=0;
   my ($i, $sl, $rangQ);
   if ($URL1=~/rang\((\d+)\-(\d+)\)/) {
     my @rangQ=($1 .. $2);
     $URL1=~s/rang\((\d+)\-(\d+)\)/ ATSCAN /g;
-    for $rangQ(@rangQ) { $n++; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, scalar(grep { defined $_} @rangQ), $n, $post, $code); }
+    for $rangQ(@rangQ) { $n++; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, scalar(grep { defined $_} @rangQ), $n, $post, $Hstatus); }
   }elsif ($URL1=~/repeat\((.*)\-(\d+)\)/) {
     $URL1=~s/repeat\((.*)\-(\d+)\)/ ATSCAN /g;
-    for($i=1;$i<=$2;$i++) { $n++; $sl="$1" x $i; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $sl, $2, $n, $post, $code); }
+    for($i=1;$i<=$2;$i++) { $n++; $sl="$1" x $i; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $sl, $2, $n, $post, $Hstatus); }
   }else{
-    buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $code);
+    buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus);
   }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DO SCAN
 sub doBuild {
-  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, $nn, $n, $post, $code)=@_;
+  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, $nn, $n, $post, $Hstatus)=@_;
   $URL1=~s/ ATSCAN /$rangQ/ig;
   my $PURL1=$URL1;
   print $c[1]."    URL    $c[10] [$n/$nn] $PURL1\n";
-  buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $code);
+  buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus);
   stak() if $nn==$n and !defined $exploit;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
-  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $code)=@_;
+  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus)=@_;
   my ($response, $status, $html)=browseUrl($URL1, $post);
-  printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $code);        
+  printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus);        
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK RESULTS TO PRINT
 sub printResults { 
-  my ($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $code)=@_; 
+  my ($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $Hstatus)=@_; 
   if ($result) { saveme($URL1); }
   elsif ($reverse) { getSubDomaine($URL1); }
   elsif ($reg) { getRegex($URL1, $html, $reg); }
   elsif ($comnd) { getComnd($URL1, $comnd); }
   elsif ($post) { postData($URL1, $html); }
-  elsif ($code) { getCodeStatus($URL1, $status, $code, $response); }
   else{ print $c[1]."    $DS[4]    ";    
     if ($isFilter) {
-      if ($html=~/$filter/) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; } points();
+      if ($html=~/$filter/) {
+        if ($Hstatus) {
+          getCodeStatus($URL1, $status, $Hstatus, $response);
+        }else{
+          doPrint($URL1);
+        }
+      }else{
+        print $c[2]."$DT[1]\n"; points();
+      }
     }else{
-      if ($response->is_success and !$response->previous) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; } points();
+      if ($response->is_success and !$response->previous) {
+        if ($Hstatus) {
+          getCodeStatus($URL1, $status, $Hstatus, $response);
+        }else{
+          doPrint($URL1);
+        }
+      }else{
+        print $c[2]."$DT[1]\n"; points();
+      }
     }
   }
 }
@@ -1497,25 +1515,22 @@ sub printResults {
 ## POST DATA PROCESS
 sub postData {
   my ($URL1, $html)=@_;
-  if (defined $validText) {
-    print $c[1]."    $DS[4]    ";
-    if ($html=~/$validText/) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; }
-  }else{
-    dpoints(); print $c[8]."$html\n"; points();
-  }
-  points();
+  print $c[1]."    $DS[4]    ";
+  if (defined $vPost) {
+    if ($html=~/$vPost/) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; }    
+  }else{ my $ee=":" x 67; print $c[0]."$ee\n".$c[8]."$html\n"; points(); }  
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## VALIDATION BY STATUS CODE
 sub getCodeStatus {
-  my ($URL1, $status, $code, $response)=@_;
-  print $c[1]."    $DS[4]    ";
-  if ($code==200) {
-    if ($status==$code and !$response->previous) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; }
+  my ($URL1, $status, $Hstatus, $response)=@_;
+  if ($Hstatus==200) {
+    if ($status==$Hstatus and !$response->previous) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; }
   }else{
-    if ($status==$code || $response->previous and $status==$code) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; }
+    if ($status==$Hstatus || $response->previous and $status==$Hstatus) { doPrint($URL1); }else{ print $c[2]."$DT[1]\n"; }
   }
+  points();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1611,19 +1626,18 @@ sub printSearch {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## VALIDATION IF STATUS 200
-sub ifstatus { 
+sub Hstatus { 
   unlink $aTscan if -e $aTscan;
   if (!defined $mlevel) { targetList(); }
-  makeSscan("1", "2", "", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "", "", "", "", "", "", $ifstatus); 
+  makeSscan("1", "2", "", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "", "", "", "", "", "", $Hstatus); 
   my $k=getK(0, 1); unlink $aTsearch; endScan($k, "1");
-}
-############################################################################################################################################################################################
+}############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## VALIDATION BY TEXT
 sub validation { 
   unlink $aTscan if -e $aTscan;
-  if ((!defined $mlevel)&&(!defined $ifstatus)) { targetList(); }
-  makeSscan("1", "2", "", "", "", \@TODO, \@V_VALID, $SCAN_TITLE[2], "", "", "", "", "", "1", "", "");  
+  if ((!defined $mlevel)&&(!defined $Hstatus)) { targetList(); }
+  makeSscan("1", "2", "", "", "", \@TODO, \@V_VALID, $SCAN_TITLE[2], "", "", "", "", "", "1", "", "");
   my $k=getK(0, 2); unlink $aTsearch; endScan($k, "1");
 }
 ############################################################################################################################################################################################
@@ -1639,7 +1653,7 @@ sub mcommand {
 ## POST COMMAND
 sub mpost {
   doUnlink();
-  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[23], "", "", "", "", "", "", "$post", "");
+  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[23], "", "", "", "", "", "", $post, "");
   stak(); adios(); logoff();
 }
 ############################################################################################################################################################################################
@@ -1750,7 +1764,7 @@ if (defined $dork) {
   }
 }
 if (defined $exploit) {
-  if ((!defined $xss)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $ifstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $searchIps)&&(!defined $regex)) { print $c[2]."[!] $OTHERS[7]\n"; logoff(); }
+  if ((!defined $xss)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $Hstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $searchIps)&&(!defined $regex)) { print $c[2]."[!] $OTHERS[7]\n"; logoff(); }
   if (-e $exploit) {
     if (substr($exploit, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
   }
@@ -1762,27 +1776,22 @@ if (defined $exploit) {
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
-  if ((!defined $xss)&&(!defined $exploit)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $ifstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $mlevel)&&(!defined $searchIps)&&(!defined $regex)) { print $c[2]."[!] $OTHERS[7]\n"; logoff(); }
+  if ((!defined $xss)&&(!defined $exploit)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $Hstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $mlevel)&&(!defined $searchIps)&&(!defined $regex)) { print $c[2]."[!] $OTHERS[7]\n"; logoff(); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (LEVEL / PORTS)
 if ((defined $dork)&&(!defined $mlevel)) { desclaimer(); print $c[2]."[!] $DT[40]\n"; logoff(); }
-if (defined $port) {
-  if (!defined $tcp or defined $udp) { advise(); }
-}
+if ((defined $port) && (!defined $tcp or defined $udp)) { advise(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## MORE ARGUMENTS PROCESS VERIFICATION
 if ((defined $dork) || (defined $Target)) { 
-  if (defined $JoomRfi) { 
-	if (!defined $shell) { desclaimer(); print $c[2]."[!] $DT[41]\n"; logoff(); }
-  }
+  if ((defined $JoomRfi) and (!defined $shell)) { desclaimer(); print $c[2]."[!] $DT[41]\n"; logoff(); }
   if ((defined $replace)&&(!defined $with)) { desclaimer(); print $c[2]."[!] $DT[22]\n"; logoff(); }
 }
-if (!defined $dork) { 
-  if ((defined $unique) || (defined $ifinurl)) { desclaimer(); print $c[2]."[!] $DT[21]\n"; logoff(); }
-}
+if ((!defined $dork) && ((defined $unique) || (defined $ifinurl))) { desclaimer(); print $c[2]."[!] $DT[21]\n"; logoff(); }
+if (defined $vPost and !defined $post) { desclaimer(); print $c[2]."$DT[32] \n"; logoff(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT INFO MENU
@@ -1806,8 +1815,8 @@ if (defined $motor) {
 ## SCANS ARGUMENTS
 sub Menu { 
   ## SCANS MENU
-  if (defined $ifstatus) { ifstatus(); }
-  if (defined $validText and !defined $post) { validation(); }
+  if (defined $Hstatus) { Hstatus(); }
+  if (defined $validText) { validation(); }
   if (defined $WpSites) { WpSites(); }
   if (defined $JoomSites) { JoomSites(); }
   if (defined $xss) { xss(); }
@@ -1872,7 +1881,8 @@ sub help {
   ."   --time        | set browser time out. \n"
   ."   --valid | -v  | Validate by string. \n"
   ."   --ifinurl     | Text to validate target url \n"
-  ."   --ifstatus    | Validate by http header status. \n"
+  ."   --status      | Validate by http header status. \n"
+  ."   --vpost       | Validate post data by string. \n"
   ."   --unique      | Get targets with exact dork matching.\n"
   ."   --exp         | Exploit/Payload\n"
   ."   -t            | Target [http://site.com]\n"
@@ -1948,12 +1958,12 @@ sub help {
   ltak(); print $c[12]."  Validation: \n".$c[10]
   ."   Search + Url Validation: --dork <dork> --level <10> --ifinurl <string>\n"
   ."   Search + dork Validation: --dork <dork> --level <10> --unique\n"
-  ."   Search + Exploit + Validation: --dork <dork> --level <10> --exp [--ifstatus <code>| --valid <string>] \n"
-  ."   Search + Server Exploit + Validation: -t <ip> --level <10> --exp [--ifstatus <code> | -v <string>] \n"
-  ."   Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> --full [--ifstatus <code>| --valid <string>]\n"
-  ."   Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> [--ifstatus <code> | --valid <string>] \n\n";
+  ."   Search + Exploit + Validation: --dork <dork> --level <10> --exp [--status <code>| --valid <string>] \n"
+  ."   Search + Server Exploit + Validation: -t <ip> --level <10> --exp [--status <code> | -v <string>] \n"
+  ."   Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> --full [--status <code>| --valid <string>]\n"
+  ."   Replace + Exploit: --dork <dork> --level <10> --replace <string> --with <string> [--status <code> | --valid <string>] \n\n";
   ltak(); print $c[12]."  Use List / Target: \n".$c[10]
-  ."   -t <target | targets.txt> --exp [--ifstatus <code> | --valid <string>] \n"  
+  ."   -t <target | targets.txt> --exp [--status <code> | --valid <string>] \n"  
   ."   -t site.com?index.php?id=rang(1-10) --xss\n"
   ."   -t <target> --exp \"/index.php?id=rang(1-10)\" --xss\n"
   ."   -t <target | targets.txt> [--xss | --lfi | --wp |...]\n\n";
@@ -1968,7 +1978,7 @@ sub help {
   ltak(); print $c[12]."  Post Data: \n".$c[10]
   ."  Post data: --post <field1:value1,<field2:value2>,<field3:value3> \n"
   ."             --post \"name:userfile,value:file.txt \n"
-  ."  Post + Validation: --post \"name:userfile,value:file.txt\" -v <string> \n\n";
+  ."  Post + Validation: --post \"name:userfile,value:file.txt\" --vpost <string> \n\n";
   ltak(); print $c[12]."  External Command: \n".$c[10]
   ."   --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
   ."   -t <target | targets.txt> --command \"curl -v --TARGET\" \n"

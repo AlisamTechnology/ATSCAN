@@ -1708,7 +1708,6 @@ sub mdecode64 { scanCode($SCAN_TITLE[19], $mdecode64, "", "", "1"); adios(); }
 ############################################################################################################################################################################################
 ## PRINT DESCLAIMER
 if ((!defined $dork)&&(!defined $help)&&(!defined $showOpt)&&(!defined $Target)&&(!defined $mmd5)&&(!defined $mencode64)&&(!defined $checkVersion)&&(!defined $mdecode64)&&(!defined $post)) { advise(); }
-osinfo();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK TARGET PROTOCOL
@@ -1736,7 +1735,7 @@ if (defined $dork) {
   }
 }
 if (defined $exploit) {
-  if ((!defined $xss)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $misup)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $searchIps)&&(!defined $regex)) { mtak();advise(); }
+  if ((!defined $xss)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $misup)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $searchIps)&&(!defined $regex)) { advise(); }
   if (-e $exploit) {
     if (substr($exploit, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
   }
@@ -1769,6 +1768,10 @@ if ((defined $dork) || (defined $Target)) {
 if (!defined $dork) { 
   if ((defined $unique) || (defined $ifinurl)) { desclaimer(); print $c[2]."[!] $DT[21]\n"; logoff(); }
 }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## PRINT INFO MENU
+osinfo();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK MOTORS ARGUMENTS

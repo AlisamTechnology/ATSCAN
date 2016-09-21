@@ -1,9 +1,10 @@
     VERSION 10.6 RELEASE
     ===================
-    CHANGES: 21/09/2016
+    CHANGES: 22/09/2016
     =================== 
-     - Added post data arguments.
-     - Fix validation process.
-     - Code optimisation.
-     - Change --isup arg to --ifstatus. Now you can validate by any header status code.
+     - change --ifstatus to --status
+     - Add possibility to validate by choosen header status code
+     - Add --vpost to validate post data forms.
+     - Fix payload use with arrays.
+     - Show payloads state and counter.
      - Enjoy!

@@ -1,10 +1,14 @@
-    VERSION 10.6 RELEASE
+    VERSION 10.8 RELEASE
     ===================
-    CHANGES: 22/09/2016
+    CHANGES: 23/09/2016
     =================== 
-     - change --ifstatus to --status
-     - Add possibility to validate by choosen header status code
-     - Add --vpost to validate post data forms.
-     - Fix payload use with arrays.
-     - Show payloads state and counter.
+     - Validation by chosen http header.
+     - Validation process before extern commandes.
+     - Validation after all intern commandes. (except ports and encode/decode).
+     - Validation after exploit process if not defined other intern scan.
+     - Validation is search engine too.
+     - Validate emails/IP/ and regex scan.
+     - Validate serach results and targets list.
+     - Added info scan to subdomaines scan.
+     - Generate more admin page paths.
      - Enjoy!

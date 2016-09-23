@@ -1220,13 +1220,9 @@ sub getSubDomaine {
   if ((defined $socket)&&($socket ne "")) {
     my $URL1=checkValidation($URL1, "", "$URL1", "", "");
     if ($URL1) {
-      my ($response, $status, $html)=browseUrl($URL1, "");
-      my $cV=checkValidation($URL1, $status, $html, $response, "");
-      if ($cV) {
-        print $c[3]."$URL1";    
-        if (defined $beep) { print chr(7); } saveme($URL1); print "\n";
-        if (defined $pause) { ifirst(); }
-      }
+      print $c[3]."$URL1";    
+      if (defined $beep) { print chr(7); } saveme($URL1); print "\n";
+      if (defined $pause) { ifirst(); }
     }
   }else{ noResult(); }
 }

@@ -1778,7 +1778,7 @@ if ((defined $dork) || (defined $Target)) {
   if ((defined $replace)&&(!defined $with)) { desclaimer(); print $c[2]."[!] $DT[22]\n"; logoff(); }
 }
 if ((!defined $dork) && ((defined $unique) || (defined $ifinurl))) { desclaimer(); print $c[2]."[!] $DT[21]\n"; logoff(); }
-if (defined $regex or defined $eMails or defined $subdomain or defined $searchRegex or defined $searchIps) { if (defined $Hstatus) { print $c[2]."[!] $SCAN_TITLE[2]"; exit(); } }
+if (defined $regex or defined $eMails or defined $subdomain or defined $searchRegex or defined $searchIps) { if (defined $Hstatus) { print $c[2]."[!] $SCAN_TITLE[2]"; logoff(); } }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT INFO MENU

@@ -415,7 +415,14 @@
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
         Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [payload] --status [code] | --valid [string] <br/>
         Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [payload] --status [code] | --valid [string] <br/>
-        Replace + exploit or validate: atscan --dork [dork] --level [10] --replace [string] --with [string] --status [code] | --valid [string]
+        Replace + exploit or validate: <br/>
+          - atscan --dork [dork] --level [10] --replace [string] --with [string] --status [code] | --valid [string]<br/>
+          - atscan -t [target] --status [code] | --valid [string] <br/>
+          - atscan -t [target] --admin --status [code] | --valid [string] <br/>
+          - atscan -t [target] --shost --status [code] | --valid [string] <br/>
+          - atscan -t [target] --email --valid [string] <br/>
+          - atscan --dork [dork] --level [10] --status [code] | --valid [string] <br/>
+          - atscan --dork [dork] --level [10] --regex [regex] --valid [string] <br/>
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Use List / Target:</b><br/>

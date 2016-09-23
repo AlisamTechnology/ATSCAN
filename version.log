@@ -3,6 +3,9 @@
     CHANGES: 23/09/2016
     =================== 
      - Validation by chosen http header.
+     - Validation by chosen string.
+     - All validation process are hiden now.
+     - Move validation process to the same exploitation process.
      - Validation process before extern commandes.
      - Validation after all intern commandes. (except ports and encode/decode).
      - Validation after exploit process if not defined other intern scan.

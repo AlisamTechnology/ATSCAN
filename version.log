@@ -11,7 +11,7 @@
      - Validation after exploit process if not defined other intern scan.
      - Validation is search engine too.
      - Validate emails/IP/ and regex scan.
-     - Validate searach results and targets list.
+     - Validate search results and targets list.
      - Added info scan to subdomaines scan.
      - Generate more admin page paths.
      - Enjoy!

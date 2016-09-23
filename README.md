@@ -44,7 +44,7 @@
         Random user agent. <br/> Random proxy. <br/>Extern commands execution.<br/>
         XSS scanner.<br />LFI / AFD scanner.<br /> Filter wordpress and Joomla sites in the server. <br />
         Find Admin page.<br />Decode / Encode MD5 + Base64.<br/> Ports scan. <br/>Extract IPs<br/>Extract E-mails. <br/>
-        Auto detect errors. <br/> Auto detect Cms.<br/>Post data.<br/>Auto sequence repeater.<br/>And more...
+        Auto detect errors. <br/> Auto detect Cms.<br/>Post data.<br/>Auto sequence repeater.<br/>Vlaidation.<br/>And more...
     </td>
   </tr>
 </table>

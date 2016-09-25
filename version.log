@@ -9,4 +9,5 @@
      - Remove validation to 1 call.
      - Added some errors dialog.
      - Full revision and tests.
+     - Added possiblity to post data from data list file.
      - Enjoy!

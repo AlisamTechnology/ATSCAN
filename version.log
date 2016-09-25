@@ -2,16 +2,11 @@
     ===================
     CHANGES: 23/09/2016
     =================== 
-     - Validation by chosen http header.
-     - Validation by chosen string.
-     - All validation process are hidden now.
-     - Move validation process to the same exploitation process.
-     - Validation process before extern commandes.
-     - Validation after all intern commandes. (except ports and encode/decode).
-     - Validation after exploit process if not defined other intern scan.
-     - Validation is search engine too.
-     - Validate emails/IP/ and regex scan.
-     - Validate search results and targets list.
-     - Added info scan to subdomaines scan.
-     - Generate more admin page paths.
+     - Optim LFI payloads.
+     - Optim admin page payloads.
+     - Optim wordpress payloads.
+     - Fix print results.
+     - Remove validation to 1 call.
+     - Added some errors dialog.
+     - Full revision and tests.
      - Enjoy!

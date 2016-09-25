@@ -594,7 +594,7 @@ sub progressbar {
 ## BUILD DORKS LIST
 sub dorkList { 
   if (defined $dork) { 
-	if (substr($dork, -4) eq $ext) { use File::Copy qw(copy); copy $dork, $aTdorks; }
+	if (-e $dork) { use File::Copy qw(copy); copy $dork, $aTdorks; }
     else{ 
       if ($dork=~m/,/) { $dork=~s/,/ /g; }elsif ($dork=~m/ /) { $dork=~s/ /+/g; }
       my @dorks=split / /, $dork; foreach my $dork (@dorks) { printFile($aTdorks, $dork); }
@@ -619,7 +619,7 @@ sub dorkList {
 	      }
 		}
       }
-    }elsif (substr($Target, -4) eq $ext) { use File::Copy qw(copy); copy $Target, $aTdorks; }
+    }elsif (-e $Target) { use File::Copy qw(copy); copy $Target, $aTdorks; }
     else{ 
       if ($Target=~m/,/) { $Target=~s/,/ /g;
       }elsif ($Target=~m/ /) { $Target=~s/ /+/g; }
@@ -651,7 +651,7 @@ sub targetList {
         }
 	  }
     }
-  }elsif (substr($Target, -4) eq $ext) { use File::Copy qw(copy); copy $Target, $aTsearch; }
+  }elsif (-e $Target) { use File::Copy qw(copy); copy $Target, $aTsearch; }
   else{ 
     if ($Target=~m/,/) { $Target=~s/,/ /g; }
     elsif ($Target=~m/ /) { $Target=~s/ /+/g; }
@@ -666,8 +666,8 @@ sub expList {
   my @exploits;
   if (-e $exploit) {
     if (substr($exploit, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
+    use File::Copy qw(copy); copy $exploit, $aTexploits;
   }
-  if (substr($exploit, -4) eq $ext) { use File::Copy qw(copy); copy $exploit, $aTexploits; }
   else{ printFile($aTexploits, $exploit); }
 }
 ############################################################################################################################################################################################
@@ -677,8 +677,8 @@ sub postList {
   my @posts;
   if (-e $post) {
     if (substr($post, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
+    use File::Copy qw(copy); copy $post, $aTposts;
   }
-  if (substr($post, -4) eq $ext) { use File::Copy qw(copy); copy $post, $aTposts; }
   else{ printFile($aTposts, $post); }
 }
 ############################################################################################################################################################################################
@@ -1061,7 +1061,7 @@ sub scanDetail {
   if (!defined $proxy) { print $c[8]."[$DS[46]\]\n";
   }else{ 
     if (defined $proxy) { print $c[8]."[$proxy]";
-	  if (substr($proxy, -4) eq $ext) { my $lc=countAtproxies(); print "[$lc $DT[37]\]"; }
+	  if (-e $proxy) { my $lc=countAtproxies(); print "[$lc $DT[37]\]"; }
 	}
 	if (defined $random) { print $c[8]."[$DS[44]\]"; } print "\n";
   }
@@ -1820,6 +1820,11 @@ if (defined $exploit) {
     if (!-e $exploit) { desclaimer(); print $c[2]."[!] No $exploit $DT[44]\n"; logoff(); }
   }
 }
+if (defined $post) {
+  if (substr($post, -4) eq $ext) { 
+    if (!-e $post) { desclaimer(); print $c[2]."[!] No $exploit $DT[44]\n"; logoff(); }
+  }
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
@@ -2033,6 +2038,7 @@ sub help {
   ltak(); print $c[12]."  Post Data: \n".$c[10]
   ."  Post data: --post <field1:value1,<field2:value2>,<field3:value3> \n"
   ."             --post \"name:userfile,value:file.txt \n"
+  ." Use list:   --post \"/Desktop/list.txt \n"
   ."  Post + Validation: --post \"name:userfile,value:file.txt\" -v <string> | --status <code> \n\n";
   ltak(); print $c[12]."  External Command: \n".$c[10]
   ."   --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"

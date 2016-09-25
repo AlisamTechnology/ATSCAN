@@ -4,8 +4,9 @@ echo "[ ]                     ALISAM  TECHNOLOGY                             [ ]
 echo "[ ]                  Atscan Tool Install Script                        [ ]";
 echo "[ ]====================================================================[ ]";
 echo "";
-echo "[!] If you cannot install tool you can use it as portable tool!"; 
-echo "[!] Install.sh install atscan tool in linux platforms! is your case? [Y/n]: ";
+if [ -d "/usr/bin/" ] ;
+then
+echo "[!] Install.sh install atscan tool in your system? [Y/n]: ";
 read baba
 if [ $baba == "y" ] ; 
   then
@@ -52,4 +53,7 @@ echo "";
 else
   echo "[!] Installation faid!! ";
   exit
+fi
+else
+echo "Tool can be installed only in linux os! Use it as portable!";
 fi

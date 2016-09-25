@@ -98,7 +98,7 @@ $ipUrl="http://dynupdate.no-ip.com/ip.php";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DEFINE SCAN LISTS
-my ($aTsearch, $aTtargets, $aTdorks, $aTmotors, $aTscan, $aTexploits, $aTports, $aTcopy, $script, $script_bac, $scriptbash);
+my ($aTsearch, $aTtargets, $aTdorks, $aTmotors, $aTscan, $aTexploits, $aTports, $aTcopy, $script, $script_bac, $scriptbash, $aTposts);
  $aTsearch=$Bin."/aTsearch.txt";
  $aTtargets=$Bin."/aTtargets.txt";
  $aTdorks=$Bin."/aTdorks.txt";
@@ -107,13 +107,14 @@ my ($aTsearch, $aTtargets, $aTdorks, $aTmotors, $aTscan, $aTexploits, $aTports, 
  $aTexploits=$Bin."/aTexploits.txt";
  $aTports=$Bin."/aTports.txt";
  $aTcopy=$Bin."/aTcopy.txt";
+ $aTposts=$Bin."/aTposts.txt";
  $script=$Bin."/atscan.pl";
  $script_bac=$Bin."/atscan_bac.pl";
  $scriptbash="/usr/bin/atscan";
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DELETE CLEAR LISTS
-sub deleteLists { unlink $aTsearch, $aTtargets, $aTdorks, $aTmotors, $aTscan, $aTexploits, $aTports, $aTcopy, $script_bac; }
+sub deleteLists { unlink $aTsearch, $aTtargets, $aTdorks, $aTmotors, $aTscan, $aTexploits, $aTports, $aTcopy, $script_bac, $aTposts;}
 deleteLists();
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -249,7 +250,7 @@ if (!defined $nobanner) { banner(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## MULTIPLE SCAN ARGUMENTS
-my @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $post, $msites);
+my @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $post);
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CMS SCAN TYPES
@@ -263,7 +264,7 @@ my @ErrT=("LFI:", "MYSQL:", "Possible AFD:", "Microsoft:", "Oracle:", "DB2:", "O
 ## GENERAL DIALOG TEXT
 my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!", "SCAN FINISHED\!", "Unique Result\(s\) Found\!", "No Target list found\!", "[!] No Update found!",
 "Tool updeted with success\!", "Can not connect to the server\!", "Exploit\(s\)", "Check Your Connection OR Proxy Setting\!", " Upss.. Your Internet connection seems not active\!",
-"Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://].", "Given target file path is not true.", "Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![xss\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!", "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace <value> --with <value>]", "Invalid option\! Ex: t- <ip> --port [--udp | --tcp]", "--random need proxy or tor use\!", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines: [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]", "The scan use default payloads\! You can use your own using arguments\!\n    Ex: --exp [exploit \| payload] --valid [string]", "Please change proxy file ext to [file.txt]", "Failed to renew identity with", "Please wait...", "", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Possible positive result\\! Do you want to continue scan? [Y/n]: ", "Undefined", "Redirect To: ", "Proxy(s)", "Update Needed to", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]", "You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]", "Conflict!! Please change", "file ext to [.txt]!", "found!");
+"Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://].", "Given target file path is not true.", "Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![xss\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!", "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace <value> --with <value>]", "Invalid option\! Ex: t- <ip> --port [--udp | --tcp]", "--random need proxy or tor use\!", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines: [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]", "The scan use default payloads\! You can use your own using arguments\!\n    Ex: --exp [exploit \| payload] --valid [string]", "Please change proxy file ext to [file.txt]", "Failed to renew identity with", "Please wait...", "DATA:", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Possible positive result\\! Do you want to continue scan? [Y/n]: ", "Undefined", "Redirect To: ", "Proxy(s)", "Update Needed to", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]", "You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]", "Conflict!! Please change", "file ext to [.txt]!", "found!");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN DIALOG TEXT
@@ -555,6 +556,7 @@ sub testConection {
 if (defined $mlevel) { dorkList($dork) if defined $dork or defined $Target; }
 else{ targetList($Target) if defined $Target; }
 expList($exploit) if defined $exploit;
+postList($post) if defined $post;
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PAYLOADS NOTICE
@@ -667,6 +669,17 @@ sub expList {
   }
   if (substr($exploit, -4) eq $ext) { use File::Copy qw(copy); copy $exploit, $aTexploits; }
   else{ printFile($aTexploits, $exploit); }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## BUILD POST DATA LIST
+sub postList {
+  my @posts;
+  if (-e $post) {
+    if (substr($post, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
+  }
+  if (substr($post, -4) eq $ext) { use File::Copy qw(copy); copy $post, $aTposts; }
+  else{ printFile($aTposts, $post); }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -969,6 +982,7 @@ sub countAtargets { my $file=$Target; my $lc=countLists($file); }
 sub countAtexp { my $file=$aTexploits; my $lc=countLists($file); }
 sub countAtdorks { my $file=$aTdorks; my $lc=countLists($file); }
 sub countAtresults { my $file=$aTscan; my $lc=countLists($file); }
+sub countAtposts { my $file=$aTposts; my $lc=countLists($file); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PROCESS COUNT
@@ -1067,7 +1081,8 @@ sub scanDetail {
 	if ((defined $replace)&&(defined $with)) { print $c[8]."[$DS[48]"; print " Full" if defined $full; print "]";  }   
     if (defined $exploit) { 
     my $lc=countAtexp(); print $c[8]."[$lc $DT[9]\]"; }
-    if (defined $post) { print $c[8]."[$SCAN_TITLE[23]\]"; } print "\n";
+    if (defined $post) { my $lc2=countAtposts(); print $c[8]."[$SCAN_TITLE[23]\]".$c[8]."[$lc2 $DS[5]\]"; }
+    print "\n";
   }
   if ((defined $xss) || (defined $lfi) || (defined $adminPage) || (defined $JoomRfi) || (defined $WpAfd) || (defined $port) || (defined $mupload) || (defined $mzip) || (defined $eMails) || (defined $searchIps) || (defined $regex) || (defined $searchRegex)) { 
     print $c[5]." [::] $DS[4]:: ";
@@ -1214,9 +1229,6 @@ sub getHtml {
   my ($URL, $post)=@_;
   my $response;
   if ($post) {
-    $post=~s/:/'=>'/g;
-    $post=~s/,/', '/g;
-    $post="'".$post."'";
     $response=$ua->post($URL, Content_Type => 'form-data', Content => [$post]);    
   }else{
     my $request=HTTP::Request->new('GET', $URL);
@@ -1227,6 +1239,14 @@ sub getHtml {
   my $status=$response->code;
   my $serverheader=$response->server;
   return ($response, $html, $status, $serverheader);
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## REMOVE HTML ENTITIES
+sub removeHtmlEntities {
+  my ($html)=$_[0];
+  $html=~ s/\&#(\d+);/chr($1)/eg;
+  return $html;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1330,7 +1350,7 @@ sub scanPorts {
           }          
         }else{ $socket=IO::Socket::INET->new(PeerAddr=> $URL, PeerPort=> $port, Proto=> $type) or $closed1++; }                
         close $socket if defined $socket;     
-	    print $c[1]."    $DS[7]    $c[10]$port\n $c[1]   $DS[8]    $c[10]$type\n $c[1]   $DS[4]    ";
+	    print $c[1]."    $DS[7]    $c[10]$port\n $c[1]   $DS[8]    $c[10]$type\n"; titleSCAN();;
 	    if ($closed1==0) {
           print $c[3]."$DS[42]\n";
           my $URL1;
@@ -1509,8 +1529,24 @@ sub doBuild {
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $subdomain)=@_;
-  my ($response, $status, $html)=browseUrl($URL1, $post) if !$subdomain;
-  printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post);        
+  if ($post) {
+    my $lc2=countAtposts($aTposts);
+    my $nt;
+    open (TX, $aTposts);
+    while (my $post=<TX>) { 
+      chomp $post;
+      $nt++; points if $nt>1;
+      print $c[1]."    $DT[32]   ".$c[10]."[$nt/$lc2][$post]\n";
+      $post=~s/:/'=>'/g;
+      $post=~s/,/', '/g;
+      $post="'".$post."'";
+      my ($response, $status, $html)=browseUrl($URL1, $post);
+      printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post);
+    }
+  }else{
+    my ($response, $status, $html)=browseUrl($URL1, $post) if !$subdomain;
+    printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post);
+  }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1673,7 +1709,8 @@ sub mcommand {
 sub mpost {
   doUnlink();
   makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[23], "", "", "", "", "", "", "6", "");
-  ltak(); adios(); logoff();
+  my $k=getK(0, 16); endScan($k);
+  #ltak(); adios(); logoff();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################

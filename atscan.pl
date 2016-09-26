@@ -258,7 +258,7 @@ my @cms=("CMS", "Wordpress", "Joomla", "Textpattern", "SMF", "PhpBB!", "VBulleti
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## ERRORS DIALOG TEXT
-my @ErrT=("LFI:", "MYSQL:", "Possible AFD:", "Microsoft:", "Oracle:", "DB2:", "ODBC:", "POSTGRESQL:", "SYBASE:", "BOSSWEB:", "JDBC:", "Java Infinitydb:", "PHP:", "ASP:", "LUA:", "UNDEFINED:", "Mariadb:", "Possible Shell:", "ERRORS ", "Permissions\! Failed to write in", "Checking proxy connection...", "INFO:", "New Identity IP", "Traying again my solve problem or set timeout --time <time in s>", "Possible errors detected!");
+my @ErrT=("LFI:", "MYSQL:", "AFD:", "Microsoft:", "Oracle:", "DB2:", "ODBC:", "POSTGRESQL:", "SYBASE:", "BOSSWEB:", "JDBC:", "Java Infinitydb:", "PHP:", "ASP:", "LUA:", "UNDEFINED:", "Mariadb:", "Possible Shell:", "ERRORS ", "Permissions\! Failed to write in", "Checking proxy connection...", "INFO:", "New Identity IP", "Traying again my solve problem or set timeout --time <time in s>", "Possible errors detected!");
 ############################################################################################################################################################################################
 ############################################################################################################################################################################################
 ## GENERAL DIALOG TEXT

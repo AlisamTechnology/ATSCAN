@@ -411,7 +411,7 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>Validation:</b><br/>
-        Search + Url Validation: atscan --dork [dork] --level [10] --ifinurl [string] <br/>
+        Search + Url filter: atscan --dork [dork] --level [10] --ifinurl [string] <br/>
         Search + dork Validation: atscan --dork [dork] --level [10] --unique <br/>
         Search + Exploit + Validation: atscan --dork [dork] --level [10] --exp [payload] --status [code] | --valid [string] <br/>
         Search + Server Exploit + Validation: atscan -t [ip] --level [10] --exp [payload] --status [code] | --valid [string] <br/>

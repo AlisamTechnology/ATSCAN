@@ -42,7 +42,7 @@
     <td class="main" width="890px">Search engine Google / Bing / Ask / Yandex / Sogou <br />
         Mass Dork Search<br/>Multiple instant scans. <br/>Mass Exploitation <br/>Use proxy. <br/>
         Random user agent. <br/> Random proxy. <br/>Extern commands execution.<br/>
-        XSS scanner.<br />LFI / AFD scanner.<br /> Filter wordpress and Joomla sites in the server. <br />
+        XSS/SQLI/LFI/AFD scanner.<br /> Filter wordpress and Joomla sites in the server. <br />
         Find Admin page.<br />Decode / Encode MD5 + Base64.<br/> Ports scan. <br/>Extract IPs<br/>Extract E-mails. <br/>
         Auto detect errors. <br/> Auto detect Cms.<br/>Post data.<br/>Auto sequence repeater.<br/>Validation.<br/>And more...
     </td>

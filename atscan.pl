@@ -1,4 +1,4 @@
--#!/usr/bin/perl
+#!/usr/bin/perl
 use File::Basename;
 use FindBin '$Bin';
 use strict;

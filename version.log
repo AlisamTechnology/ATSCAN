@@ -12,4 +12,5 @@
      - Added possiblity to post data from data list file.
      - Optimise arrays.
      - Optim output file.
+     - More xss payloads.
      - Enjoy!

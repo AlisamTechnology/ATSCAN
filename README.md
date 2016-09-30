@@ -250,8 +250,16 @@
         <td class="main">shell link [Ex: http://www.site.com/shell.txt]</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--data</td>
+        <td class="main">Data. See examples</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--post</td>
-        <td class="main">Post data. See examples</td>
+        <td class="main">Use post method</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--get</td>
+        <td class="main">Use get method</td>
       </tr>
       <tr>
         <td width="200px" class="main">--wpafd</td>
@@ -443,10 +451,10 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>POST/GET DATA:</b> <br/>
-       Post data: atscan -t [target] --post [field1:value1,field2:value2,field3:value3] <br/>
-                  atscan -t [target] --post "name:userfile,value:file.txt <br/>
-       Use list:  atscan -t [target] --post "/Desktop/list.txt <br/>
-       Post + Validation: --post "name:userfile,value:file.txt" -v [string] / --status [code]
+       Post data: atscan -t [target] --data [--post | --get] "field1:value1,field2:value2,field3:value3" <br/>
+                  atscan -t [target] --data [--post | --get] "name:userfile,value:file.txt" <br/>
+       Use list:  atscan -t [target] --data [--post | --get] "/Desktop/list.txt" <br/>
+       Post + Validation: --data [--post | --get] "name:userfile,value:file.txt" -v [string] / --status [code]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>EXTERNAL COMMANDES:</b> <br/>
@@ -479,7 +487,7 @@
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --full --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp [payload] --status [code] / --valid [string] <br/>
-       atscan --post "name:userfile,value:file.txt" -v [string] / --status [code] <br/>
+       atscan --data [--post | --get] "name:userfile,value:file.txt" -v [string] / --status [code] <br/>
        atscan -d [dork / dorks.txt] -l [level] [--xss / --shost ..] --status [code] / --valid [string] <br/>
       </td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>

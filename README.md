@@ -484,7 +484,7 @@
       </td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
         <td>
-         <b>PDATE TOOL:</b> <br/> 
+         <b>UPDATE TOOL:</b> <br/> 
          atscan --update
       </td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
@@ -492,10 +492,6 @@
         <b>UNINSTALL TOOL: </b><br/>     
         atscan --uninstall
        </td></tr></table>     
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
-       <b>UPDATE:</b> <br/>
-       atscan --update
-      </td></tr></table>
     </td>
   </tr>
 </table>  

@@ -450,7 +450,7 @@
        Decode base64: --decode64 [string]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
-       <b>POST/GET DATA:</b> <br/>
+       <b>DATA:</b> <br/>
        Post data: atscan -t [target] --data [--post | --get] "field1:value1,field2:value2,field3:value3" <br/>
                   atscan -t [target] --data [--post | --get] "name:userfile,value:file.txt" <br/>
        Use list:  atscan -t [target] --data [--post | --get] "/Desktop/list.txt" <br/>

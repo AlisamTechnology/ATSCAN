@@ -443,10 +443,10 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>POST/GET DATA:</b> <br/>
-       Post data: atscan -t [target] --post <field1:value1,<field2:value2>,<field3:value3> <br/>
+       Post data: atscan -t [target] --post [field1:value1,field2:value2,field3:value3] <br/>
                   atscan -t [target] --post "name:userfile,value:file.txt <br/>
        Use list:  atscan -t [target] --post "/Desktop/list.txt <br/>
-       Post + Validation: --post "name:userfile,value:file.txt" -v [string] / --status <code>
+       Post + Validation: --post "name:userfile,value:file.txt" -v [string] / --status [code]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>EXTERNAL COMMANDES:</b> <br/>
@@ -465,22 +465,22 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
        <td>
        <b>SEARCH VALIDATION: </b><br/>
-       atscan -d [dork / dorks.txt] -l [level] --status <code> / --valid [string] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --ifinurl [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --regex [regex] --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --unique </td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
        <td>
        <b>SCAN VALIDATION: </b><br/>
-       atscan -t <target / targets.txt] [--status <code> / --valid [string]] <br/>
-       atscan -d [dork / dorks.txt] -l [level] --exp [payload] --status <code> / --valid [string] <br/>
-       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status <code> / --valid [string] <br/>
-       atscan -d [dork / dorks.txt] -l [level] [--admin / --xss ..] --status <code> / --valid [string] <br/>  
-       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status <code> / --valid [string] <br/>
-       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --full --status <code> / --valid [string] <br/>
-       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp [payload] --status <code> / --valid [string] <br/>
-       atscan --post "name:userfile,value:file.txt" -v [string] / --status <code> <br/>
-       atscan -d [dork / dorks.txt] -l [level] [--xss / --shost ..] --status <code> / --valid [string] <br/>
+       atscan -t <target / targets.txt] [--status [code] / --valid [string]] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --exp [payload] --status [code] / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
+       atscan -d [dork / dorks.txt] -l [level] [--admin / --xss ..] --status [code] / --valid [string] <br/>  
+       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --full --status [code] / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp [payload] --status [code] / --valid [string] <br/>
+       atscan --post "name:userfile,value:file.txt" -v [string] / --status [code] <br/>
+       atscan -d [dork / dorks.txt] -l [level] [--xss / --shost ..] --status [code] / --valid [string] <br/>
       </td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
         <td>

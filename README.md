@@ -10,7 +10,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px"><b>ATSCAN version 11.0<b/></td>
+    <td width="780px"><b>ATSCAN version 11.1<b/></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -134,247 +134,240 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--proxy</td>
-        <td width="680px">Set tor proxy [Ex: socks://localhost:9050].<br/> 
-        User proxy  [Ex: http://12.231.54.87:8080 / list.txt].</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--random</td>
-        <td width="680px">Random all proxy / engine / agent.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--pr</td>
-        <td width="680px">Random proxy.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--mr</td>
-        <td width="680px">Random engine.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--br</td>
-        <td width="680px">Random agent.</td>
-      </tr>
-      <tr>
-         <td width="200px" class="main">--dork/-d</td>
-        <td class="main">dork to search [Ex: house,cars,hotel]</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--level/-l</td>
-        <td class="main">Scan level (+- Number of search engine results)</td>
-      </tr>
+        <td class="main">
+          Set tor proxy for scans [EX: --proxy "socks://localhost:9050"]</br>
+          Set proxy [EX: --proxy "http://12.45.44.2:8080"] </br>
+          Set proxy list [EX: --proxy list.txt] </td>
+      </tr> 
       <tr>
         <td width="200px" class="main">-m</td>
-        <td class="main">Set engine motor [Bing = 1][Google = 2][Ask = 3][Yandex = 4][Sogou = 5][All = all]</td>
-      </tr>
+        <td class="main">Set engine motors default bing EX: -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]</td>
+      </tr> 
       <tr>
-        <td width="200px" class="main">--save/-s</td>
-        <td class="main">Output.</td>
-      </tr>
+        <td width="200px" class="main">--proxy-random</td>
+        <td class="main">Random proxy [EX: --proxy-random list.txt] or --proxy-random "socks://localhost:9050"]</td>
+      </tr> 
       <tr>
-        <td width="200px" class="main">-t</td>
-        <td class="main">Target [http://site.com]</td>
-      </tr>
+        <td width="200px" class="main">--m-random</td>
+        <td class="main">Random of all disponibles engines</td> 
+      </tr> 
       <tr>
-        <td width="200px" class="main">-p</td>
-        <td class="main">Set test parameter EX:id,cat,product_ID</td>
-      </tr>
+        <td width="200px" class="main">--brandom</td>
+        <td class="main">Random all disponibles agents </td>
+      </tr> 
       <tr>
         <td width="200px" class="main">--time</td>
-        <td class="main">Set browser time out. default 10s.</td>
-      </tr>
+        <td class="main">set browser time out</td> 
+      </tr> 
       <tr>
-        <td width="200px" class="main">--host</td>
-        <td class="main">Domaine name Ex: site.com</td>
-      </tr>
+        <td width="200px" class="main">--dork / -d    </td>
+        <td class="main"> Dork to search [Ex: house,cars,hotel] 
+      </tr> 
       <tr>
-        <td width="200px" class="main">--exp</td>
-        <td class="main">Set exploit/payload</td>
-      </tr>
+        <td width="200px" class="main">-t</td>
+        <td class="main">Target </td>
+      </tr> 
       <tr>
-        <td width="200px" class="main">--valid/-v</td>
-        <td class="main">Validate by string.</td>
-      </tr>
+        <td width="200px" class="main">--level / -l</td>
+        <td class="main"> Scan level (+- Number of page results to scan) </td>
+      </tr> 
       <tr>
-        <td width="200px" class="main">--vpost</td>
-        <td class="main">Validate post data forms by string.</td>
-      </tr>
+        <td width="200px" class="main">-p </td>
+        <td class="main"> Set test parameter EX:id,cat,product_ID </td>
+      </tr> 
       <tr>
-        <td width="200px" class="main">--unique</td>
-        <td class="main">Get urls with exact dork matching</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--ifinurl</td>
-        <td class="main">Validate target url by string.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--status</td>
-        <td class="main">Validate by http header status.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--noquery</td>
-        <td class="main">Remove Query string from url. [url like: site.com/index.php?id=]</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--replace</td>
-        <td class="main">Exact string to replace</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--full</td>
-        <td class="main">--replace --full Will replace all url parametres from string to the end.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--with</td>
-        <td class="main">string to replace with</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--xss</td>
-        <td class="main">Xss scan</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--lfi</td>
-        <td class="main">local file inclusion</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--wp</td>
-        <td class="main">get wordpress sites</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--joom</td>
-        <td class="main">Get joomla sites</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--joomrfi</td>
-        <td class="main">joomla local file inclusion scan</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--shell</td>
-        <td class="main">shell link [Ex: http://www.site.com/shell.txt]</td>
-      </tr>
+        <td width="200px" class="main">--save / -s </td>
+        <td class="main"> Output.</td>
+      </tr> 
       <tr>
         <td width="200px" class="main">--data</td>
-        <td class="main">Data. See examples</td>
-      </tr>
+        <td class="main"> data. See examples </td>
+      </tr> 
       <tr>
         <td width="200px" class="main">--post</td>
-        <td class="main">Use post method</td>
-      </tr>
+        <td class="main"> Use post method </td>
+      </tr> 
       <tr>
         <td width="200px" class="main">--get</td>
-        <td class="main">Use get method</td>
-      </tr>
+        <td class="main"> Use get method </td>
+      </tr> 
       <tr>
-        <td width="200px" class="main">--wpafd</td>
-        <td class="main">get wordpress sites with arbitery file download</td>
-      </tr>
+        <td width="200px" class="main">--host </td>
+        <td class="main"> Domain name [Ex: site.com] </td>
+      </tr> 
       <tr>
-        <td width="200px" class="main">--admin</td>
-        <td class="main">get site admin page</td>
-      </tr>
+        <td width="200px" class="main">--nobanner </td>
+        <td class="main"> Hide tool banner</td>
+      </tr> 
       <tr>
-        <td width="200px" class="main">--shost</td>
-        <td class="main">get site subdomains</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--port</td>
-        <td class="main">port</td>
-      </tr>      
-      <tr>
-        <td width="200px" class="main">--udp</td>
-        <td class="main">UDP port</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--tcp</td>
-        <td class="main">TCP port</td>
-      </tr>      
-      <tr>
-        <td width="200px" class="main">--sites</td>
-        <td class="main">sites in the server</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--upload</td>
-        <td class="main">get sites with upload files</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--zip</td>
-        <td class="main">get sites with zip files</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--md5</td>
-        <td class="main">convert to md5</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--encode64</td>
-        <td class="main">encode base64 string</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--decode64</td>
-        <td class="main">decode base64 string</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--email</td>
-        <td class="main">Extract e-mails</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--ip</td>
-        <td class="main">Extract IPs.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--regex</td>
-        <td class="main">Crawl to get strings matching regex</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--sregex</td>
-        <td class="main">Get only urls with matching regex</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">rang(x-y)</td>
-        <td width="680px">EX: --exp /index.php?id=rang(1-2) --xss will try id=1 then id=2</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">repeat(string-y)</td>
-        <td width="680px">EX: --exp /index.php?id=repeat(../-3)wp-config.php
-        <br>OR -t site.com/index.php?id=repeat(../-3)wp-config.php
-        <br>means ../ will be repeated progressively 3 times:
-        <br>will try id=../wp-config.php  then id=../../wp-config.php then id=../../../wp-config.php.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--command</td>
-        <td class="main">External Command</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--TARGET</td>
-        <td class="main">Will be replaced by target in extern commands</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--HOST</td>
-        <td class="main">Will be replaced by hostname in extern commands</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--HOSTIP</td>
-        <td class="main">Will be replaced by target IP in extern commands</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--nobanner</td>
-        <td class="main">Hide tool banner</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--noinfo</td>
-        <td class="main">Jump extra results info.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--options</td>
-        <td class="main">Show scan configuration.</td>
-      </tr>      
-      <tr>
-        <td width="200px" class="main">--beep</td>
-        <td class="main">Produce beep sound if positive scan found</td>
+        <td width="200px" class="main">--beep </td>
+        <td class="main"> Produce beep sound if positive scan found.</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--ifend</td>
-        <td class="main">Produce beep sound when scan process is finished.</td>
+        <td class="main"> Produce beep sound when scan process is finished.</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--pause</td>
-        <td class="main">Pause scan when first result found.</td>
+        <td width="200px" class="main">--noinfo </td>
+        <td class="main"> Jump extra results info.</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--pause </td>
+        <td class="main"> Pause when scan reaches the defined amount of positive results.</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--valid | -v   </td>
+        <td class="main"> Validate by string </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--status  </td>
+        <td class="main"> Validate by http header status </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--ifinurl </td>
+        <td class="main"> Get targets with exact string matching</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--sregex </td>
+        <td class="main"> Get targets with exact regex matching</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--unique  </td>
+        <td class="main"> Get targets with exact dork matching</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--replace</td>
+        <td class="main"> String to replace </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--with  </td>
+        <td class="main"> String to replace with </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--full </td>
+        <td class="main"> --replace --full Will replace all url parametres from string to the end</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--payload  </td>
+        <td class="main"> Use your own payloads instead of tool ones</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--exp </td>
+        <td class="main"> Exploit/Payload </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--xss </td>
+        <td class="main"> Xss scan </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--lfi </td>
+        <td class="main"> Local file inclusion</td> 
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--joomrfi </td>
+        <td class="main"> Scan for joomla local file inclusion.</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--shell </td>
+        <td class="main"> Shell link [Ex: http://www.site.com/shell.txt] </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--wpafd  </td>
+        <td class="main"> Scan wordpress sites for arbitery file download</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--admin </td>
+        <td class="main"> Get site admin page </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--shost  </td>
+        <td class="main"> Get site subdomains </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--tcp </td>
+        <td class="main"> TCP port </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--udp </td>
+        <td class="main"> UDP port</td> 
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--sites  </td>
+        <td class="main"> Sites in the server </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--wp</td>
+        <td class="main"> Wordpress sites in the server</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--joom  </td>
+        <td class="main"> Joomla sites in the server</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--upload </td>
+        <td class="main"> Get sites with upload files in the server  </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--zip  </td>
+        <td class="main"> Get sites with zip files in the server </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--md5</td>
+        <td class="main"> Convert to md5 </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--encode64  </td>
+        <td class="main"> Encode base64 string </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--decode64  </td>
+        <td class="main"> decode base64 string 
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--TARGET </td>
+        <td class="main"> Will be replaced by target in extern command </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--HOST  </td>
+        <td class="main"> Will be replaced by host in extern command </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--HOSTIP </td>
+        <td class="main"> Will be replaced by host IP in extern command </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--ip  </td>
+        <td class="main"> Crawl to get Ips</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--regex</td>
+        <td class="main"> Crawl to get strings matching regex</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--noquery  </td>
+        <td class="main"> Remove string value from Query url [ex: site.com/index.php?id=string]  </td> 
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--command  </td>
+        <td class="main"> Extern Command to execute</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--email  </td>
+        <td class="main"> Get emails </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main"> rang(x-y) </td>
+           <td class="main">EX: --exp "/index.php?id=rang(1-9)" --xss OR -t "site.com/index.php?id=rang(1-9)" --xss</br>
+           site.com/index.php?id=1 -> 9.</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main"> repeat(txt-y) </td>
+           <td class="main">EX: --exp "/index.php?id=repeat(../-9)wp-config.php" --xss OR -t "site.com/index.php?id=../wp-config.php"</br>
+           In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times </td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--update</td>
+        <td class="main"> Update tool</td>
       </tr>
       <tr>
         <td width="200px" class="main">--update</td>
@@ -469,7 +462,12 @@
        atscan --dork [dork> --level [10] --xss --lfi --wp ..<br/>
        atscan --dork [dork> --level [10] --replace [string] --with [string] --exp [payload] [--xss / --lfi / --wp /...]<br/>
        atscan -t [ip] --level [10] [--xss / --lfi / --wp /...]<br/>
-       atscan -t [target] [--xss / --lfi / --wp /...]</td></tr></table>     
+       atscan -t [target] [--xss / --lfi / --wp /...]</td></tr></table> 
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
+       <td>
+       <b>USER PAYLOADS: </b><br/>
+       atscan --dork [dork] --level [10] [--lfi | --xss ..] --payload [payload | payloads.txt]
+       </td></tr></table>           
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
        <td>
        <b>SEARCH VALIDATION: </b><br/>
@@ -480,7 +478,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
        <td>
        <b>SCAN VALIDATION: </b><br/>
-       atscan -t <target / targets.txt] [--status [code] / --valid [string]] <br/>
+       atscan -t [target / targets.txt] [--status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --exp [payload] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] [--admin / --xss ..] --status [code] / --valid [string] <br/>  

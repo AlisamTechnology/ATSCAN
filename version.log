@@ -1,16 +1,13 @@
-    VERSION 11.0 RELEASE
+    VERSION 11.1 RELEASE
     ===================
-    CHANGES: 25/09/2016
+    CHANGES: 06/10/2016
     =================== 
-     - Optim LFI payloads.
-     - Optim admin page payloads.
-     - Optim wordpress payloads.
-     - Fix print results.
-     - Remove validation to 1 call.
-     - Added some errors dialog.
-     - Full revision and tests.
-     - Added possiblity to post data from data list file.
-     - Optimise arrays.
-     - Optim output file.
-     - More xss payloads.
+     - Add user random choice (engine and browser).
+     - Add user choice to use own payloads.
+     - Add limit positive scan results.
+     - Build all lists to arrays.
+     - User can use list with all extentions.
+     - Add post and get method user choice.
+     - Add scan info to each target scan.
+     - Fix random and proxy use.
      - Enjoy!

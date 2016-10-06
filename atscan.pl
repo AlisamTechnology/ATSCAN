@@ -1811,7 +1811,7 @@ sub msearch {
   desclaimer();
   testConnection();
   my @motors=getEngines();
-  headerSearch();
+  scanDetail();
   scanTitleBgn();
   print $c[11]."$SCAN_TITLE[0]"; scanTitleEnd();
   printMotor(@motors);

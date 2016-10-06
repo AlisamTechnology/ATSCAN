@@ -2159,10 +2159,10 @@ sub help {
   ."   Encode base64: --encode64 <string>  \n"
   ."   Decode base64: --decode64 <string> \n\n";
   ltak(); print $c[12]."  POST/GET DATA: \n".$c[10]
-  ."  Post data: atscan -t <target> --data \"<field1:value1,<field2:value2>,<field3:value3>\" \n"
+  ."  Post data: atscan -t <target> --data \"<field1:value1;<field2:value2>,<field3:value3>\" \n"
   ."             atscan -t <target> --data --post | --get \"name:userfile,value:file.txt \n"
   ."  Use list:  atscan -t <target> --data --post | --get \"/Desktop/list.txt \n"
-  ."  Post + Validation: --data --post \"name:userfile,value:file.txt\" -v <string> | --status <code> \n\n";
+  ."  Post + Validation: --data --post \"name:userfile;value:file.txt\" -v <string> | --status <code> \n\n";
   
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"

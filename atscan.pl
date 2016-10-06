@@ -2193,7 +2193,7 @@ sub help {
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --full --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --exp <payload> --status <code> | --valid <string>\n"
-  ."   atscan --data --post \"name:userfile,value:file.txt\" -v <string> | --status <code> \n"
+  ."   atscan --data --post \"name:userfile;value:file.txt\" -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--xss | --shost ..] --status <code> | --valid <string> \n\n";
   
   ltak(); print $c[12]."  UPDATE TOOL: \n".$c[10]."   --update\n";

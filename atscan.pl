@@ -94,7 +94,7 @@ my $sp=" " x 11;
 ######################################################################################################################################################################################################
 ## TOOL VERSION
 my ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl);
-$Version="11.1";
+$Version="11.2";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
@@ -216,7 +216,7 @@ sub badArgs { banner(); advise(); }
 use Getopt::Long ();
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites,
 $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout,
-$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $random, $data, $userArray, $mrandom);
+$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $random, $data, $userArray, $mrandom, $content);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## OPTIONS
@@ -228,7 +228,7 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor,
                          'time=s'=>\$timeout, 'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery,
                          'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'paylaod=s'=>\$userArray,
-                         'm-random'=>\$mrandom)
+                         'm-random'=>\$mrandom, 'content'=>\$content)
 or badArgs();
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
@@ -719,6 +719,7 @@ use IO::Socket::INET;
 use LWP::UserAgent;
 use HTTP::Cookies;
 use HTTP::Request;
+binmode STDOUT, ":utf8";
 for my $sys(@sys) {
   for my $vary(@vary) {
     my $ag="$sys) $vary";
@@ -1698,7 +1699,7 @@ sub printResults {
     if ($result) {
       titleSCAN() if $result && (defined $Hstatus || defined $validText);
       my $cV=checkValidation($URL1, $status, $html, $response, $result);
-      if ($cV) { doPrint($URL1, $result); }else{ noResult(); }
+      if ($cV) { doPrint($URL1, $result, $html); }else{ noResult(); }
     }
     elsif ($reg) {
       getRegex($URL1, $html, $reg); }
@@ -1714,17 +1715,17 @@ sub printResults {
       if ($isFilter) {
         if ($html=~/$filter/) { 
           my $cV=checkValidation($URL1, $status, $html, $response, "");
-          if ($cV) { doPrint($URL1, ""); }else{ noResult(); }
+          if ($cV) { doPrint($URL1, "", $html); }else{ noResult(); }
         }else{ noResult(); }
       }elsif ($reverse) {  
         if ($status==200) {
           my $cV=checkValidation($URL1, $status, $html, $response, "");        
-          if ($cV) { doPrint($URL1, ""); }else{ noResult(); }
+          if ($cV) { doPrint($URL1, "", $html); }else{ noResult(); }
         }else{ noResult(); }
       }else{
         if ($response->is_success and !$response->previous) {
           my $cV=checkValidation($URL1, $status, $html, $response, "");
-          if ($cV) { doPrint($URL1, ""); }else{ noResult(); }
+          if ($cV) { doPrint($URL1, "", $html); }else{ noResult(); }
         }else{ noResult(); }
       }
     }
@@ -1761,11 +1762,16 @@ sub checkValidation {
 ######################################################################################################################################################################################################
 ## PRINT RESULTS
 sub doPrint {
-  my ($URL1, $result)=@_;
+  my ($URL1, $result, $html)=@_;
   my $o=OO();
   if ($o<$limit) {
     print $c[3]."$URL1\n" unless (($result) && (!defined $Hstatus and !defined $validText));
     if (defined $beep) { print chr(7); } saveme($URL1, "");
+    if (defined $content) {
+      dpoints();
+      print color 'reset';
+      print "$html\n";
+    }
   }
 }
 ######################################################################################################################################################################################################
@@ -2100,6 +2106,7 @@ sub help {
   ."  --level | -l   | Scan level (+- Number of page results to scan) \n"
   ."  -p             | Set test parameter EX:id,cat,product_ID \n"
   ."  --save | -s    | Output.\n"
+  ."  --content      | Print response content.\n"  
   ."  --data         | data. See examples \n"
   ."  --post         | Use post method \n"
   ."  --get          | Use get method \n"
@@ -2254,4 +2261,3 @@ logoff();
 ######################################################################################################################################################################################################
 ## Copy@right Alisam Technology Team
 ## 2015  
-

@@ -10,7 +10,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px"><b>ATSCAN version 11.1<b/></td>
+    <td width="780px"><b>ATSCAN version 11.2<b/></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -178,6 +178,10 @@
       <tr>
         <td width="200px" class="main">--save / -s </td>
         <td class="main"> Output.</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--content</td>
+        <td class="main"> Print request content</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--data</td>

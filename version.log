@@ -1,14 +1,9 @@
-    VERSION 11.1 RELEASE
+    VERSION 11.2 RELEASE
     ===================
-    CHANGES: 06/10/2016
+    CHANGES: 07/10/2016
     =================== 
-     - Add user random choice (engine and browser).
-     - Add user choice to use own payloads.
-     - Add limit positive scan results.
-     - Build all lists to arrays.
-     - User can use list with all extentions.
-     - Add post and get method user choice.
-     - Add scan info to each target scan.
-     - Fix random and proxy use.
-     - Fix server sites scan.
+     - Add print request content option.
+     - Optimize subdomaines scanner.
+     - Fix limit positive results.
+     - Remove unused soubroutines.
      - Enjoy!

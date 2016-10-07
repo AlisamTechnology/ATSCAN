@@ -212,11 +212,11 @@
         <td class="main"> Jump extra results info.</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--pause </td>
-        <td class="main"> Pause when scan reaches the defined amount of positive results.</td>
+        <td width="200px" class="main">--limit </td>
+        <td class="main"> Limit max positive scan results.</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--valid | -v   </td>
+        <td width="200px" class="main">--valid / -v   </td>
         <td class="main"> Validate by string </td>
       </tr> 
       <tr>

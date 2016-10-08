@@ -233,7 +233,6 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'paylaod=s'=>\$userArray,
                          'm-random'=>\$mrandom, 'content'=>\$content)
 or badArgs();
-
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## CLEAN DIRECTORIES
@@ -1713,8 +1712,7 @@ sub printResults {
   if ($o<$limit) {
     if ($result) {
       titleSCAN() if $result && (defined $Hstatus || defined $validText);
-      my $cV=checkValidation($URL1, $status, $html, $response, $result);
-      if ($cV) { doPrint($URL1, $result, $html); }else{ noResult(); }
+      validateResult($URL1, $status, $html, $response, $result);
     }
     elsif ($reg) {
       getRegex($URL1, $html, $reg); }
@@ -1728,23 +1726,28 @@ sub printResults {
     }else{
       titleSCAN();
       if ($isFilter) {
-        if ($html=~/$filter/) { 
-          my $cV=checkValidation($URL1, $status, $html, $response, "");
-          if ($cV) { doPrint($URL1, "", $html); }else{ noResult(); }
+        if ($html=~/$filter/) {
+          validateResult($URL1, $status, $html, $response, "");
         }else{ noResult(); }
       }elsif ($reverse) {  
         if ($status==200) {
-          my $cV=checkValidation($URL1, $status, $html, $response, "");        
-          if ($cV) { doPrint($URL1, "", $html); }else{ noResult(); }
+          validateResult($URL1, $status, $html, $response, "");
         }else{ noResult(); }
       }else{
         if ($response->is_success and !$response->previous) {
-          my $cV=checkValidation($URL1, $status, $html, $response, "");
-          if ($cV) { doPrint($URL1, "", $html); }else{ noResult(); }
+          validateResult($URL1, $status, $html, $response, "");
         }else{ noResult(); }
       }
     }
   }
+}
+######################################################################################################################################################################################################
+######################################################################################################################################################################################################
+## VALIDATE RESULTS
+sub validateResult {
+  my ($URL1, $status, $html, $response, $result)=@_;
+  my $cV=checkValidation($URL1, $status, $html, $response, "");        
+  if ($cV) { doPrint($URL1, $result, $html); }else{ noResult(); }
 }
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
@@ -1754,8 +1757,7 @@ sub formData {
   my $o=OO();
   if ($o<$limit) {
     if (defined $Hstatus or defined $validText) {
-      my $cV=checkValidation($URL1, $status, $html, $response, "");
-      if ($cV) { doPrint($URL1, ""); }else{ noResult(); }
+      validateResult($URL1, $status, $html, $response, "");
     }else{
       if (length($html)>5) { stakScan(); print $c[8]."$html\n"; }
       else{ print "$c[2]$TT[18]\n"; }

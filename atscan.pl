@@ -80,7 +80,12 @@ my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCA
 my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan is requiered! EX: --xss | --admin | --lfi ...", "[!] ATSCAN will be removed from your system! [Y/N]:", 
 "[!] ATSCAN was moved successfully", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is",
 "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC",
-"[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!");
+"[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "", "", "", "");
+######################################################################################################################################################################################################
+######################################################################################################################################################################################################
+## USER AUTH
+my @AUTH=("Login:", "Incorrect password!", "A password is already assigned! Do you want to remove it ? [y|n]:", "Password successfully removed!",
+          "You will set an user password and will be requiered for each use!", "Enter password or press Cotrol+C to cancel", "Password successfully generated!");
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## SEPARATIONS
@@ -219,7 +224,7 @@ sub badArgs { banner(); advise(); }
 use Getopt::Long ();
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites,
 $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout,
-$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $random, $data, $userArray, $mrandom, $content);
+$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $random, $data, $userArray, $mrandom, $content, $pass);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## OPTIONS
@@ -231,7 +236,7 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor,
                          'time=s'=>\$timeout, 'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery,
                          'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'paylaod=s'=>\$userArray,
-                         'm-random'=>\$mrandom, 'content'=>\$content)
+                         'm-random'=>\$mrandom, 'content'=>\$content, 'pass'=>\$pass)
 or badArgs();
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
@@ -243,6 +248,42 @@ if (defined $output) { unlink "$outdir/$output" if -e "$outdir/$output"; }
 ######################################################################################################################################################################################################
 ## PRINT BANNER
 if (!defined $nobanner) { banner(); }
+######################################################################################################################################################################################################
+######################################################################################################################################################################################################
+## USER PASS AUTH
+if (-e $scriptPass) {
+  use Term::ReadKey;
+  open (PSS, $scriptPass);
+  while (my $PS=<PSS>) { 
+    chomp $PS;    
+    print $c[4]."[!] $AUTH[0] ";
+    ReadMode 2;
+    chomp(my $passwd=ReadLine(0));
+    ReadMode 0; 
+    $passwd=Digest::MD5->md5_hex($passwd);
+    if ($PS ne $passwd) { print $c[2]."\n[!] $AUTH[1]\n"; exit(); }else{ print "$c[3] OK!\n"; ptak(); }
+  }
+}
+######################################################################################################################################################################################################
+######################################################################################################################################################################################################
+## SET USER PASS
+if (defined $pass) {
+  if (-e $scriptPass) {
+    print $c[2]."[!] $AUTH[2] ";
+    my $askMe=<STDIN>;
+    chomp ($askMe);
+    if($askMe=~/(y|Y)/) {
+      chomp $askMe; unlink $scriptPass; print $c[3]."[!] $AUTH[3]\n";
+    }else{ exit(); }       
+  }else{
+    print $c[4]."\n[!] $AUTH[4]\n".$c[4]."[!] $AUTH[5]:$c[10] ";
+    my $ps=<STDIN>;
+    chomp ($ps);
+    $ps=Digest::MD5->md5_hex($ps);
+    printFile($scriptPass, $ps);
+    print $c[3]."[!] $AUTH[6]\n";
+  } exit();
+}
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## MULTIPLE SCAN ARGUMENTS
@@ -1160,8 +1201,7 @@ sub checkVersion {
       printFile($script, $response->content);
       system("chmod +x $script | perl $script || atscan");
       mtak(); ptak();
-      print $c[3]."[!] $DT[7]\n";
-      print $c[10];
+      print $c[3]."[!] $DT[7]$c[10]\n";
       my ($res, $html, $status, $serverheader)=getHtml($logUrl, "");
       print $res->content."";  
     }
@@ -1786,8 +1826,7 @@ sub doPrint {
     if (defined $beep) { print chr(7); } saveme($URL1, "");
     if (defined $content) {
       dpoints();
-      print color 'reset';
-      print "$html\n";
+      print $c[10]."$html\n";
     }
   }
 }
@@ -2170,8 +2209,10 @@ sub help {
   ."  rang(x-y)      | EX: --exp \"/index.php?id=rang(1-9)\" --xss OR -t \"site.com/index.php?id=rang(1-9)\" --xss\n"
   ."                 | site.com/index.php?id=1->9 \n"
   ."  repeat(txt-y)  | EX: --exp \"/index.php?id=repeat(../-9)wp-config.php\" --xss OR -t \"site.com/index.php?id=../wp-config.php\"\n"
-  ."                 | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n" 
-  ."  --update       | Update tool \n\n";
+  ."                 | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n"
+  ."  --pass         | Set or remove tool password. \n"  
+  ."  --update       | Update tool. \n"  
+  ."  --uninstall    | Uninstall tool \n\n";
   
   ltak(); print $c[11]." [::] EXAMPLES: \n";
   

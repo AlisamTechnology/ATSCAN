@@ -224,7 +224,7 @@ sub badArgs { banner(); advise(); }
 use Getopt::Long ();
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites,
 $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout,
-$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $random, $data, $payloads, $mrandom, $content, $pass);
+$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $payloads, $mrandom, $content, $pass);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## OPTIONS
@@ -403,7 +403,7 @@ my $motor4="http://www.yandex.com/search/?msid=MYMSID&text=MYDORK&lr=25402&p=MYN
 my $motor5="http://www.sogou.com/web?query=MYDORK&page=MYNPAGES&ie=utf8";
 my $motorparam="1|2|3|4|5|all";
 my @mrands=($motor1, $motor2, $motor3, $motor4, $motor5);
-my $mrands=$mrands[rand @mrands];
+my $mrand=$mrands[rand @mrands];
 my @allMotors=($motor1, $motor2, $motor3, $motor4, $motor5);
 my $pat2='inurl:|intitle:|intext:|allinurl:|index of|site:(.*)\+|\+site:(.*)';
 ######################################################################################################################################################################################################
@@ -1229,8 +1229,9 @@ sub testConnection {
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## SET ENGINES
-sub getEngines {
-  if (defined $motor) {
+if (defined $mlevel) {
+  if (defined $mrandom ) { push @motor, $mrand; }
+  elsif (defined $motor) { 
     if ($motor!~m/$motorparam/) { push @motor, $motor; }
     else{
       if ($motor=~/all/) { push @motor, @mrands; }
@@ -1239,9 +1240,7 @@ sub getEngines {
       if ($motor=~/3/) { push @motor, $motor3; }
       if ($motor=~/4/) { push @motor, $motor4; }
       if ($motor=~/5/) { push @motor, $motor5; }
-    }
-  }elsif (defined $mrandom or defined $random) {
-    push @motor, $mrands;
+    }    
   }else{
     push @motor, $motor1;
   }
@@ -1252,8 +1251,8 @@ sub getEngines {
     $mot=~s/MYMSID/$MsId/g;
     push @motors, $mot;
   }
-  return @motors;
-}######################################################################################################################################################################################################
+}
+######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## GET URLS FROM SEARCH ENGINE PAGES
 sub doSearch {
@@ -1860,7 +1859,7 @@ sub doUnlink {
 sub printMotor {
   my @motors=@_;
   print $c[1]."[::] $DS[29]   ".$c[10];
-  if (defined $mrandom or defined $random) { print "[$TT[12]\]"; }
+  if (defined $mrandom) { print "[$TT[12]\]"; }
   for my $motor(@motors) {
     $motor=~s/MYBROWSERLANG/$browserLang/g;
     $motor=~s/MYGOOGLEDOMAINE/$googleDomain/g;
@@ -1911,7 +1910,7 @@ sub printDork {
 sub msearch {
   desclaimer();
   testConnection();
-  my @motors=getEngines();
+  #my @motors=getEngines();
   scanDetail();
   scanTitleBgn();
   print $c[11]."$SCAN_TITLE[0]"; scanTitleEnd();
@@ -1927,6 +1926,8 @@ sub msearch {
       $mlevel=$mlevel+=-10 if $mlevel > 9;
       for(my $npages=0;$npages<=$mlevel;$npages+=10) {
         $motor=~s/MYNPAGES/$npages/g;
+        
+        
         my $search=$ua->get("$motor");
         $search->as_string;
         my $Res=$search->content;
@@ -1936,7 +1937,7 @@ sub msearch {
     }
   }
   printSearch();
-}
+} 
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## BUILD ENGINE URL

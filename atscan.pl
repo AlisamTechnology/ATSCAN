@@ -224,7 +224,7 @@ sub badArgs { banner(); advise(); }
 use Getopt::Long ();
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites,
 $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout,
-$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $random, $data, $userArray, $mrandom, $content, $pass);
+$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $random, $data, $payloads, $mrandom, $content, $pass);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## OPTIONS
@@ -235,7 +235,7 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'full'=> \$full, 'proxy=s'=>\$proxy, 'proxy-random=s'=>\$prandom, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork,
                          'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor,
                          'time=s'=>\$timeout, 'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery,
-                         'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'paylaod=s'=>\$userArray,
+                         'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'paylaod=s'=>\$payloads,
                          'm-random'=>\$mrandom, 'content'=>\$content, 'pass'=>\$pass)
 or badArgs();
 ######################################################################################################################################################################################################
@@ -842,7 +842,7 @@ sub buildArraysLists {
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## USER ARRAYS
-if (defined $userArray) { @userArraysList=buildArraysLists($userArray); }
+if (defined $payloads) { @userArraysList=buildArraysLists($payloads); }
 ## EXPLOITS ARRAYS
 if (defined $exploit) { @exploits=buildArraysLists($exploit); }
 ## DATA ARRAYS
@@ -1538,7 +1538,7 @@ sub makeSscan {
   if (!$no) { print $c[11]."$title"; scanTitleEnd(); title($title); }
   print $c[4]."$paylNote" if defined $paylNote;
   my @arr;
-  if (defined $userArray) { @arr=@userArraysList; }
+  if (defined $payloads) { @arr=@userArraysList; }
   else{ @arr=@{ $ar }; }  
   my @filter=@{ $v_ar };
   my $filter=join("|", @filter); 
@@ -2210,7 +2210,7 @@ sub help {
   ."                 | site.com/index.php?id=1->9 \n"
   ."  repeat(txt-y)  | EX: --exp \"/index.php?id=repeat(../-9)wp-config.php\" --xss OR -t \"site.com/index.php?id=../wp-config.php\"\n"
   ."                 | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n"
-  ."  --pass         | Set or remove tool password. \n"  
+  ."  --pass         | Set or edit tool password. \n"  
   ."  --update       | Update tool. \n"  
   ."  --uninstall    | Uninstall tool \n\n";
   

@@ -80,7 +80,7 @@ my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCA
 my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan is requiered! EX: --xss | --admin | --lfi ...", "[!] ATSCAN will be removed from your system! [Y/N]:", 
 "[!] ATSCAN was moved successfully", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is",
 "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC",
-"[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "", "", "", "");
+"[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "You cannot validate two times!");
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## USER AUTH
@@ -261,7 +261,7 @@ if (-e $scriptPass) {
     chomp(my $passwd=ReadLine(0));
     ReadMode 0; 
     $passwd=Digest::MD5->md5_hex($passwd);
-    if ($PS ne $passwd) { print $c[2]."\n[!] $AUTH[1]\n"; exit(); }else{ print "$c[3] OK!\n"; ptak(); }
+    if ($PS ne $passwd) { print $c[2]."\n[!] $AUTH[1]\n"; logoff(); }else{ print "$c[3] OK!\n"; ptak(); }
   }
 }
 ######################################################################################################################################################################################################
@@ -269,7 +269,7 @@ if (-e $scriptPass) {
 ## SET USER PASS
 if (defined $pass) {
   if (-e $scriptPass) {
-    print $c[2]."[!] $AUTH[2] ";
+    print $c[2]."[!] $AUTH[2]$c[10] ";
     my $askMe=<STDIN>;
     chomp ($askMe);
     if($askMe=~/(y|Y)/) {
@@ -282,7 +282,7 @@ if (defined $pass) {
     $ps=Digest::MD5->md5_hex($ps);
     printFile($scriptPass, $ps);
     print $c[3]."[!] $AUTH[6]\n";
-  } exit();
+  } logoff();
 }
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
@@ -731,6 +731,9 @@ if (defined $motor) {
     print "$DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m 1,2,...\n"; logoff();
   }
 }
+#########################################################
+## CHECK VALIDATION ARGUMENTS
+if (defined $validText && defined $Hstatus) { print $c[4]."[!] $OTHERS[18]\n"; logoff(); }
 #########################################################
 ## CHECK LEVEL
 if (defined $mlevel) {
@@ -1535,7 +1538,7 @@ sub makeSscan {
   ptak();
   checkHeaders($ct, $dt, $et);  
   if (!$no) { print $c[11]."$title"; scanTitleEnd(); title($title); }
-  print $c[4]."$paylNote" if defined $paylNote;
+  print $c[4]."$paylNote" if (defined $paylNote and !defined $payloads);
   my @arr;
   if (defined $payloads) { @arr=@userArraysList; }
   else{ @arr=@{ $ar }; }  

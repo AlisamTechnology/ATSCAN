@@ -6,4 +6,5 @@
      - Optimize subdomaines scanner.
      - Fix limit positive results.
      - Remove unused soubroutines.
+     - Add user auth.
      - Enjoy!

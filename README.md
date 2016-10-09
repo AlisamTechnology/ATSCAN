@@ -340,6 +340,10 @@
         <td class="main"> Will be replaced by host IP in extern command </td>
       </tr> 
       <tr>
+        <td width="200px" class="main">--PORT </td>
+        <td class="main"> Will be replaced by open port in extern command </td>
+      </tr> 
+      <tr>
         <td width="200px" class="main">--ip  </td>
         <td class="main"> Crawl to get Ips</td>
       </tr> 

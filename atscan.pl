@@ -235,7 +235,7 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'full'=> \$full, 'proxy=s'=>\$proxy, 'proxy-random=s'=>\$prandom, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork,
                          'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor,
                          'time=s'=>\$timeout, 'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery,
-                         'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'paylaod=s'=>\$payloads,
+                         'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'payload=s'=>\$payloads,
                          'm-random'=>\$mrandom, 'content'=>\$content, 'pass'=>\$pass)
 or badArgs();
 ######################################################################################################################################################################################################

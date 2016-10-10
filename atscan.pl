@@ -101,7 +101,7 @@ my $sp=" " x 11;
 ######################################################################################################################################################################################################
 ## TOOL VERSION
 my ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl);
-$Version="11.2";
+$Version="11.3";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
@@ -2210,6 +2210,8 @@ sub help {
   ."                 | site.com/index.php?id=1->9 \n"
   ."  repeat(txt-y)  | EX: --exp \"/index.php?id=repeat(../-9)wp-config.php\" --xss OR -t \"site.com/index.php?id=../wp-config.php\"\n"
   ."                 | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n"
+  ."  [DATA]         | To separate data values ex: --data \"name:username [OTHER]email:xxxxxx [OTHER]pass:xxxxx\"\n"
+  ."  [OTHER]        | To separate values ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n"
   ."  --pass         | Set or edit tool password. \n"  
   ."  --update       | Update tool. \n"  
   ."  --uninstall    | Uninstall tool \n\n";

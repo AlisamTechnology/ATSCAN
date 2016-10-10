@@ -274,7 +274,7 @@ if (defined $pass) {
     chomp ($askMe);
     if($askMe=~/(y|Y)/) {
       chomp $askMe; unlink $scriptPass; print $c[3]."[!] $AUTH[3]\n";
-    }else{ exit(); }       
+    }else{ logoff(); }       
   }else{
     print $c[4]."\n[!] $AUTH[4]\n".$c[4]."[!] $AUTH[5]:$c[10] ";
     my $ps=<STDIN>;
@@ -836,9 +836,7 @@ sub buildArraysLists {
       push @buildArrays, $buildArray;
     }
   }else{
-    $buildArrays=~s/\s+/+/g;
-    $buildArrays=~s/,/ /;
-    @buildArrays=split / /, $buildArrays;
+    @buildArrays=split /\[OTHER\]/, $buildArrays;
   }
   return @buildArrays;
 }
@@ -850,8 +848,6 @@ if (defined $payloads) { @userArraysList=buildArraysLists($payloads); }
 if (defined $exploit) { @exploits=buildArraysLists($exploit); }
 ## DATA ARRAYS
 if (defined $data) { @data=buildArraysLists($data); }
-## DATA ARRAYS
-if (defined $port) { @ports=buildArraysLists($port); }
 ## DORKS & TARGETS ARRAYS
 if (defined $mlevel) {
   if (defined $dork) { @dorks=buildArraysLists($dork); }
@@ -1109,7 +1105,7 @@ sub negative { ltak(); print $c[4]."[!] $DT[1]\n"; }
 ## DESCLAIMER
 sub desclaimer {
   mtak(); ptak(); print $c[10]."  $OTHERS[11] \n  $OTHERS[12]  \n  $OTHERS[13] \n";
-  mtak(); ptak(); #progressbar();
+  mtak(); ptak();
 }
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
@@ -1460,6 +1456,7 @@ sub scanPorts {
   my @PORTS=@{ $PORTS };
   my @TYPES=@{ $types };
   for my $URL(@aTsearch) {
+    $URL=~s/\s+$//;
     my $o=OO();
     if ($o>=$limit) { last; }
     else{
@@ -1548,6 +1545,7 @@ sub makeSscan {
   my $lc=scalar(grep { defined $_} @aTsearch);
   my $count=0;
   for my $URL(@aTsearch) {
+    $URL=~s/\s+$//;
     my $o=OO();
     if ($o>=$limit) { last; }
     else{
@@ -1610,6 +1608,7 @@ sub getExploitArrScan{
     my $lc=scalar(grep { defined $_} @exploits);
     my $count3=0;
     for my $exp(@exploits) {
+      $exp=~s/\s+$//;
       my $o=OO();
       if ($o<$limit) {
 	    $count3++; points() if $count3>1;
@@ -1665,7 +1664,7 @@ sub doScan {
   my $n=0;
   if ($URL1=~/rang\((\d+)\-(\d+)\)/) {
     my @rangQ=($1 .. $2);
-    $URL1=~s/rang\((\d+)\-(\d+)\)/ ATSCAN /g;
+    $URL1=~s/rang\((\d+)\-(\d+)\)/ RPEATR /g;
     for $rangQ(@rangQ) {
       my $o=OO();
       if ($o<$limit) {
@@ -1674,7 +1673,7 @@ sub doScan {
       }
     }
   }elsif ($URL1=~/repeat\((.*)\-(\d+)\)/) {
-    $URL1=~s/repeat\((.*)\-(\d+)\)/ ATSCAN /g;
+    $URL1=~s/repeat\((.*)\-(\d+)\)/ RPEATR /g;
     for($i=1;$i<=$2;$i++) {
       my $o=OO();
       if ($o<$limit) {
@@ -1691,7 +1690,7 @@ sub doBuild {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, $nn, $n, $data)=@_;
   my $o=OO();
   if ($o<$limit) {
-    $URL1=~s/ ATSCAN /$rangQ/ig;
+    $URL1=~s/ RPEATR /$rangQ/ig;
     my $PURL1=$URL1;
     print $c[1]."    URL    $c[10] [$n/$nn] $PURL1\n";
     buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $data);
@@ -1709,13 +1708,14 @@ sub buildPrint {
       my $lc2=scalar(grep { defined $_} @data);
       my $nt;
       for my $form(@data) {
+        $form=~s/\s+$//;
         my $o=OO();
         if ($o<$limit) {
           $nt++; points if $nt>1;
           print $c[1]."    $DT[32]    ".$c[10]."[$nt/$lc2] $form\n";
           if (defined $post) {
-            $form=~s/:/'=>'/g; $form=~s/;/', '/g; $form="'".$form."'";
-          }elsif(defined $get) { $form=~s/:/=/g; $form=~s/;/&/g; }
+            $form=~s/:/'=>'/g; $form=~s/\[OTHER\]/', '/g; $form="'".$form."'";
+          }elsif(defined $get) { $form=~s/:/=/g; $form=~s/\[DATA]/&/g; }
           my ($response, $status, $html)=browseUrl($URL1, $form);   
           printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $form);
         }
@@ -1826,10 +1826,7 @@ sub doPrint {
   if ($o<$limit) {
     print $c[3]."$URL1\n" unless (($result) && (!defined $Hstatus and !defined $validText));
     if (defined $beep) { print chr(7); } saveme($URL1, "");
-    if (defined $content) {
-      dpoints();
-      print $c[10]."$html\n";
-    }
+    if (defined $content) { dpoints(); print $c[10]."$html\n"; }
   }
 }
 ######################################################################################################################################################################################################
@@ -1847,8 +1844,7 @@ sub endScan {
   if ($o>0) {
     countResultLists();
     if (defined $output) { print $c[4]."[!] $DT[13] $outdir/$output!\n"; }
-  }
-  else{ negative(); logoff(); }
+  }else{ negative(); logoff(); }
 }
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
@@ -1893,7 +1889,7 @@ sub printDork {
   my @dor=@_;
   print $c[1]."[::] $DS[1]     $c[10]";     
   for my $dor(@dor) {
-    $dor=~s/\+/ /g;
+    $dor=~s/\s+$//;
     $dor=~s/ip%3A//g;
     print "[$dor]";
   }
@@ -1913,7 +1909,6 @@ sub printDork {
 sub msearch {
   desclaimer();
   testConnection();
-  #my @motors=getEngines();
   scanDetail();
   scanTitleBgn();
   print $c[11]."$SCAN_TITLE[0]"; scanTitleEnd();
@@ -1923,14 +1918,15 @@ sub msearch {
   for my $motor(@motors) {
     for my $dork(@dorks) {
       if (defined $Target) { $dork="ip%3A".$dork; }
+      $dork=~s/\s+$//;
+      $dork=~s/ /+/g;
+      $dork=~s/:/%3A/g;
       $dork=~s/^(\+|\s+)//g;
-      $motor=~s/MYDORK/$dork/g;      
+      $motor=~s/MYDORK/$dork/g;
       my $mlevel=$mlevel;
       $mlevel=$mlevel+=-10 if $mlevel > 9;
       for(my $npages=0;$npages<=$mlevel;$npages+=10) {
         $motor=~s/MYNPAGES/$npages/g;
-        
-        
         my $search=$ua->get("$motor");
         $search->as_string;
         my $Res=$search->content;
@@ -2159,7 +2155,7 @@ sub help {
   ."  --m-random     | Random of all disponibles engines \n"
   ."  --brandom      | Random all disponibles agents \n"
   ."  --time         | set browser time out \n"
-  ."  --dork | -d    | Dork to search [Ex: house,cars,hotel] \n"
+  ."  --dork | -d    | Dork to search [Ex: house [OTHER]cars [OTHER]hotel] \n"
   ."  -t             | Target \n"
   ."  --level | -l   | Scan level (+- Number of page results to scan) \n"
   ."  -p             | Set test parameter EX:id,cat,product_ID \n"
@@ -2232,11 +2228,11 @@ sub help {
   ."   Search: atscan -d <dork> -l <level> \n"
   ."   Set engine: atscan --dork <dork> --level <level> -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n"
   ."   Set selective engines: atscan -d <dork> -l <level> -m 1,2,3..\n"
-  ."   Search with many dorks: atscan --dork <dork1,dork2,dork3> --level <level> \n"  
+  ."   Search with many dorks: atscan --dork <dork1 [OTHER]dork2 [OTHER]dork3> --level <level> \n"  
   ."   Search and rand: atscan -d <dork> -l <level> --exp \"/index.php?id=rang(1-9)\" --xss\n"  
   ."   Get Server sites: atscan -t <ip> --level <value> --sites\n"
   ."   Get Server wordpress sites: atscan -t <ip> --level <value> --wp \n"
-  ."   Get Server joomla sites: atscan -t <ip> --level <value> --joom \n"
+  ."   Get Server joomla sites: atscan -t <ipbgn-ipend> --level <value> --joom \n"
   ."   Get Server upload sites: atscan -t <ip> --level <value> --upload \n"
   ."   Get Server zip sites files: atscan -t <ip> --level <value> --zip \n"
   ."   WP Arbitry File Download: atscan -t <ip> --level <value> --wpafd \n"
@@ -2267,10 +2263,10 @@ sub help {
   ."   Encode base64: --encode64 <string>  \n"
   ."   Decode base64: --decode64 <string> \n\n";
   ltak(); print $c[12]."  POST/GET DATA: \n".$c[10]
-  ."  Post data: atscan -t <target> --data \"<field1:value1;<field2:value2>;<field3:value3>\" \n"
-  ."             atscan -t <target> --data --post | --get \"name:userfile;value:file.txt \n"
+  ."  Post data: atscan -t <target> --data \"field1:value1[DATA]field2:value2[DATA]field3:value3\" \n"
+  ."             atscan -t <target> --data --post | --get \"name:userfile[DATA]value:file.txt \n"
   ."  Use list:  atscan -t <target> --data --post | --get \"/Desktop/list.txt \n"
-  ."  Post + Validation: --data --post \"name:userfile;value:file.txt\" -v <string> | --status <code> \n\n";
+  ."  Post + Validation: --data --post \"name:userfile[DATA]value:file.txt\" -v <string> | --status <code> \n\n";
   
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
@@ -2302,7 +2298,7 @@ sub help {
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --full --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --exp <payload> --status <code> | --valid <string>\n"
-  ."   atscan --data --post \"name:userfile;value:file.txt\" -v <string> | --status <code> \n"
+  ."   atscan --data --post \"name:userfile[DATA]value:file.txt\" -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--xss | --shost ..] --status <code> | --valid <string> \n\n";
   
   ltak(); print $c[12]."  UPDATE TOOL: \n".$c[10]."   --update\n";

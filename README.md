@@ -10,7 +10,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px"><b>ATSCAN version 11.2<b/></td>
+    <td width="780px"><b>ATSCAN version 11.3<b/></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -161,7 +161,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--dork / -d    </td>
-        <td class="main"> Dork to search [Ex: house,cars,hotel] 
+        <td class="main"> Dork to search [Ex: house [OTHER]cars [OTHER]hotel] 
       </tr> 
       <tr>
         <td width="200px" class="main">-t</td>
@@ -373,6 +373,15 @@
            <td class="main">EX: --exp "/index.php?id=repeat(../-9)wp-config.php" --xss OR -t "site.com/index.php?id=../wp-config.php"</br>
            In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times </td>
       </tr> 
+      
+      <tr>
+        <td width="200px" class="main">[OTHER]</td>
+        <td class="main">To separate values ex: dork1 [OTHER]DORK2 [OTHER]DORK3</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">[DATA]</td>
+        <td class="main">To separate data values ex: --data "name:username [OTHER]email:xxxxxx [OTHER]pass:xxxxx"</td>
+      </tr>      
       <tr>
         <td width="200px" class="main">--update</td>
         <td class="main"> Update tool</td>
@@ -416,9 +425,12 @@
        Search: atscan -d [dork> -l [level]  <br/>
        Set engine: atscan --dork [dork> --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
        Set selective engines: atscan -d [dork> -l [level] -m 1,2,3.. <br/>
-       Search with many dorks: atscan --dork [dork1,dork2,dork3> --level [level]    <br/>
+       Search with many dorks: atscan --dork [dork1 [OTHER]dork2 [OTHER]dork3> --level [level]    <br/>
        Search and rand: atscan -d [dork> -l [level] --exp "/index.php?id=rang(1-9)" --xss   <br/>
        Get Server sites: atscan -t [ip] --level <value> --sites <br/>
+       Get Server sites: atscan -t [ipbgn-ipend] --level <value> --sites <br/>
+       Get Server sites: atscan -t [ip1 [OTHER]ip2] --level <value> --sites <br/>
+       
        Get Server wordpress sites: atscan -t [ip] --level <value> --wp  <br/>
        Get Server joomla sites: atscan -t [ip] --level <value> --joom  <br/>
        Get Server upload sites: atscan -t [ip] --level <value> --upload  <br/>
@@ -456,10 +468,10 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>DATA:</b> <br/>
-       Post data: atscan -t [target] --data [--post / --get] "field1:value1;field2:value2,field3:value3" <br/>
-                  atscan -t [target] --data [--post / --get] "name:userfile;value:file.txt" <br/>
+       Post data: atscan -t [target] --data [--post / --get] "field1:value1 [DATA]field2:value2 [DATA]field3:value3" <br/>
+                  atscan -t [target] --data [--post / --get] "name:userfile [DATA]value:file.txt" <br/>
        Use list:  atscan -t [target] --data [--post / --get] "/Desktop/list.txt" <br/>
-       Post + Validation: --data [--post / --get] "name:userfile;value:file.txt" -v [string] / --status [code]
+       Post + Validation: --data [--post / --get] "name:userfile [DATA]value:file.txt" -v [string] / --status [code]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>EXTERNAL COMMANDES:</b> <br/>

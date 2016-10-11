@@ -78,7 +78,7 @@ my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCA
 ######################################################################################################################################################################################################
 ## OTHERS DIALOG TEXT
 my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan is requiered! EX: --xss | --admin | --lfi ...", "[!] ATSCAN will be removed from your system! [Y/N]:", 
-"[!] ATSCAN was moved successfully", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is",
+"[!] ATSCAN was moved successfully", "You cannot use payloads here! Use --exp", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is",
 "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC",
 "[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "You cannot validate two times!", "METHOD");
 ######################################################################################################################################################################################################
@@ -760,7 +760,7 @@ if (defined $data) {
 ## CHECK PAYLOAD ARGUMENT
 if (defined $payloads) {
   if (!defined $xss && !defined $lfi && !defined $JoomRfi && !defined $WpAfd && !defined $adminPage && !defined $subdomain && !defined $mupload && !defined $mzip) {
-    print $c[4]."You cannot use payloads here! Use --exp $payloads\n"; logoff(); }
+    print $c[4]."$OTHERS[10] $payloads\n"; logoff();
   }
 }
 ######################################################################################################################################################################################################
@@ -2331,3 +2331,4 @@ logoff();
 ######################################################################################################################################################################################################
 ## Copy@right Alisam Technology Team
 ## 2015  
+

@@ -737,7 +737,7 @@ if (defined $validText && defined $Hstatus) { print $c[4]."[!] $OTHERS[18]\n"; l
 #########################################################
 ## CHECK LEVEL
 if (defined $mlevel) {
-  if ($mlevel!~/^[0-9,.E]+$/) { print $c[4]."[!] $TT[15]\n"; logoff(); }
+  if ($mlevel!~/^[0-9,.E]+$/) { print $c[4]."$TT[15]\n"; logoff(); }
 }
 #########################################################
 ## ADVISE DATA WITHOUT METHOD
@@ -753,14 +753,14 @@ sub advise {
 ## CHECK PAUSE ARGUMENT
 if (defined $data) {
   if ($limit<500) {
-    if (!defined $Hstatus && !defined $validText) { print $c[4]."$TT[17]\n"; logoff(); }
+    if (!defined $Hstatus && !defined $validText) { print $c[4]."[!] $TT[17]\n"; logoff(); }
   }
 }
 #########################################################
 ## CHECK PAYLOAD ARGUMENT
 if (defined $payloads) {
   if (!defined $xss && !defined $lfi && !defined $JoomRfi && !defined $WpAfd && !defined $adminPage && !defined $subdomain && !defined $mupload && !defined $mzip) {
-    print $c[4]."$OTHERS[10] $payloads\n"; logoff();
+    print $c[4]."[!] $OTHERS[10] $payloads\n"; logoff();
   }
 }
 ######################################################################################################################################################################################################
@@ -2331,4 +2331,3 @@ logoff();
 ######################################################################################################################################################################################################
 ## Copy@right Alisam Technology Team
 ## 2015  
-

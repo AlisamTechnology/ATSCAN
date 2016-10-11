@@ -756,6 +756,13 @@ if (defined $data) {
     if (!defined $Hstatus && !defined $validText) { print $c[4]."$TT[17]\n"; logoff(); }
   }
 }
+#########################################################
+## CHECK PAYLOAD ARGUMENT
+if (defined $payloads) {
+  if (!defined $xss && !defined $lfi && !defined $JoomRfi && !defined $WpAfd && !defined $adminPage && !defined $subdomain && !defined $mupload && !defined $mzip) {
+    print $c[4]."You cannot use payloads here! Use --exp $payloads\n"; logoff(); }
+  }
+}
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## SET BROWSER TIME

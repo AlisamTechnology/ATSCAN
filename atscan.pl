@@ -836,6 +836,8 @@ sub buildArraysLists {
       push @buildArrays, $buildArray;
     }
   }else{
+    $buildArrays=~s/\s+$//g;
+    $buildArrays=~s/^\[OTHER]//g;
     @buildArrays=split /\[OTHER\]/, $buildArrays;
   }
   return @buildArrays;
@@ -1708,13 +1710,14 @@ sub buildPrint {
       my $lc2=scalar(grep { defined $_} @data);
       my $nt;
       for my $form(@data) {
-        $form=~s/\s+$//;
+        $form=~s/\s+$//g;
+        $form=~s/^\[DATA\]//g;
         my $o=OO();
         if ($o<$limit) {
           $nt++; points if $nt>1;
           print $c[1]."    $DT[32]    ".$c[10]."[$nt/$lc2] $form\n";
           if (defined $post) {
-            $form=~s/:/'=>'/g; $form=~s/\[OTHER\]/', '/g; $form="'".$form."'";
+            $form=~s/:/'=>'/g; $form=~s/\[DATA\]/', '/g; $form="'".$form."'";
           }elsif(defined $get) { $form=~s/:/=/g; $form=~s/\[DATA]/&/g; }
           my ($response, $status, $html)=browseUrl($URL1, $form);   
           printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $form);
@@ -2210,7 +2213,7 @@ sub help {
   ."  repeat(txt-y)  | EX: --exp \"/index.php?id=repeat(../-9)wp-config.php\" --xss OR -t \"site.com/index.php?id=../wp-config.php\"\n"
   ."                 | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n"
   ."  [DATA]         | To separate data values ex: --data \"name:username [DATA]email:xxxxxx [DATA]pass:xxxxx\"\n"
-  ."  [OTHER]        | To separate values ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n"
+  ."  [OTHER]        | To separate all others values (dork exploit payload proxy target..) ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n"
   ."  --pass         | Set or edit tool password. \n"  
   ."  --update       | Update tool. \n"  
   ."  --uninstall    | Uninstall tool \n\n";
@@ -2264,10 +2267,10 @@ sub help {
   ."   Encode base64: --encode64 <string>  \n"
   ."   Decode base64: --decode64 <string> \n\n";
   ltak(); print $c[12]."  POST/GET DATA: \n".$c[10]
-  ."  Post data: atscan -t <target> --data \"field1:value1[DATA]field2:value2[DATA]field3:value3\" \n"
-  ."             atscan -t <target> --data --post | --get \"name:userfile[DATA]value:file.txt \n"
-  ."  Use list:  atscan -t <target> --data --post | --get \"/Desktop/list.txt \n"
-  ."  Post + Validation: --data --post \"name:userfile[DATA]value:file.txt\" -v <string> | --status <code> \n\n";
+  ."  Post data: atscan -t <target> --data \"field1:value1[DATA]field2:value2[DATA]field3:value3\" --post | --get\n"
+  ."             atscan -t <target> --data \"name:userfile[DATA]value:file.txt --post | --get\n"
+  ."  Use list:  atscan -t <target> --data \"/Desktop/list.txt --post | --get\n"
+  ."  Post + Validation: --data \"name:userfile[DATA]value:file.txt\" -v <string> | --status <code> --post | --get\n\n";
   
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
@@ -2299,7 +2302,7 @@ sub help {
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --full --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --exp <payload> --status <code> | --valid <string>\n"
-  ."   atscan --data --post \"name:userfile[DATA]value:file.txt\" -v <string> | --status <code> \n"
+  ."   atscan --data \"name:userfile[DATA]value:file.txt\" --post -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--xss | --shost ..] --status <code> | --valid <string> \n\n";
   
   ltak(); print $c[12]."  UPDATE TOOL: \n".$c[10]."   --update\n";

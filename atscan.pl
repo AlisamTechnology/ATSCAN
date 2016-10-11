@@ -80,7 +80,7 @@ my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCA
 my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan is requiered! EX: --xss | --admin | --lfi ...", "[!] ATSCAN will be removed from your system! [Y/N]:", 
 "[!] ATSCAN was moved successfully", "OK! Last", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is",
 "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC",
-"[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "You cannot validate two times!");
+"[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "You cannot validate two times!", "METHOD");
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## USER AUTH
@@ -1330,7 +1330,7 @@ sub printInfoUrl {
       print $c[1]."    $SCAN_TITLE[23]   ";
       if (defined $brandom) { print $c[10]."[$TT[12]\] "; }
       print "$c[10]$agent\n";
-      print $c[1]."    METHOD  $c[10]";
+      print $c[1]."    $OTHERS[19]  $c[10]";
       if (defined $get) { print "$DS[15]\n"; }
       elsif (defined $post) { print "$DT[32]\n"; }
       else{ print "$DS[15]\n"; }
@@ -1710,12 +1710,12 @@ sub buildPrint {
       my $lc2=scalar(grep { defined $_} @data);
       my $nt;
       for my $form(@data) {
-        $form=~s/\s+$//g;
-        $form=~s/^\[DATA\]//g;
+        $form=~s/\s+$//g;       
         my $o=OO();
         if ($o<$limit) {
           $nt++; points if $nt>1;
           print $c[1]."    $DT[32]    ".$c[10]."[$nt/$lc2] $form\n";
+          $form=~s/^\[DATA\]//g;
           if (defined $post) {
             $form=~s/:/'=>'/g; $form=~s/\[DATA\]/', '/g; $form="'".$form."'";
           }elsif(defined $get) { $form=~s/:/=/g; $form=~s/\[DATA]/&/g; }

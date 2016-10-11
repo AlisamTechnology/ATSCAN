@@ -5,4 +5,7 @@
      - Remove unused soubroutines.
      - Add user auth.
      - Fix multiple values in all arrays.
+    CHANGES: 11/10/2016
+    =================== 
+     - fix help menu.
      - Enjoy!

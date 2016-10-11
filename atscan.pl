@@ -1727,7 +1727,7 @@ sub buildPrint {
         $form=~s/\s+$//g;       
         my $o=OO();
         if ($o<$limit) {
-          $nt++; points if $nt>1;
+          $nt++; points() if $nt>1;
           print $c[1]."    $DT[32]    ".$c[10]."[$nt/$lc2] $form\n";
           $form=~s/^\[DATA\]//g;
           if (defined $post) {

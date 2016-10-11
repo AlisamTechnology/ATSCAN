@@ -737,11 +737,11 @@ if (defined $validText && defined $Hstatus) { print $c[4]."[!] $OTHERS[18]\n"; l
 #########################################################
 ## CHECK LEVEL
 if (defined $mlevel) {
-  if ($mlevel!~/^[0-9,.E]+$/) { print $c[4]."$TT[15]\n"; logoff(); }
+  if ($mlevel!~/^[0-9,.E]+$/) { print $c[4]."[!] $TT[15]\n"; logoff(); }
 }
 #########################################################
 ## ADVISE DATA WITHOUT METHOD
-if (defined $data and (!defined $post && !defined $get)) { print $c[4]."$TT[16]\n"; logoff(); }
+if (defined $data and (!defined $post && !defined $get)) { print $c[4]."[!] $TT[16]\n"; logoff(); }
 #########################################################
 ## ADVISE
 sub advise {

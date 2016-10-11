@@ -8,5 +8,6 @@
     CHANGES: 11/10/2016
     =================== 
      - fix help menu.
-     - Change values separators
+     - Change values separators.
+     - Add payload use errors.
      - Enjoy!

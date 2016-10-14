@@ -3,5 +3,6 @@ VERSION 11.4 RELEASE
   CHANGES: 14/10/2016
   ====================================== 
   - New build in separate files.
+  - Full tested.
   - Enjoy!
   ======================================

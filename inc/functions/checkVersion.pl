@@ -8,7 +8,7 @@ use File::Path;
 ######################################################################################################################################################################################################
 ## CHECK VERSION AND UPDATE
   our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, @ErrT, @DT, @c);
-  osinfo(); desclaimer();
+  desclaimer();
   print $c[4]."[!] $DT[31]\n";
   testConnection();
   if (!-e $scriptv) { print $c[2]."[!] No version.log found! in $Bin/!\n    Dowmload and reinstall tool manually!\n"; logoff(); }

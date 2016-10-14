@@ -15,7 +15,7 @@ our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $
 $Version="11.4";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
-$logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/version.log";
+$logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";
 $ipUrl="http://dynupdate.no-ip.com/ip.php";
 $conectUrl="http://www.bing.com";
 ######################################################################################################################################################################################################

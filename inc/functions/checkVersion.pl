@@ -32,7 +32,7 @@ use File::Path;
       system("chmod +x $script | perl $script || atscan");
       mtak(); ptak();
       print $c[3]."[!] $DT[7]$c[10]\n";
-      print $response->content."";  
+      print "\n".$response->content."";  
     }
     unlink $script_bac if -e $script_bac;
     

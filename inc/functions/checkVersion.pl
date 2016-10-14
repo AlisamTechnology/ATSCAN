@@ -16,6 +16,7 @@ use File::Path;
   if ($response->is_success) {
     unlink $script_bac if -e $script_bac;
     printFile($script_bac, $response->content);    
+    open (FILE, '>>', $scriptv); print FILE "\n";
     use File::Compare;      
     if (compare($script_bac, $scriptv) == 0) {
       print $c[3]."$DT[6]\n"; }

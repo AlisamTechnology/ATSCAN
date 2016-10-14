@@ -16,7 +16,6 @@ use File::Path;
   if ($response->is_success) {
     unlink $script_bac if -e $script_bac;
     printFile($script_bac, $response->content);    
-   # open (FILE, '>>', $scriptv); print FILE "\n";
     use File::Compare;      
     if (compare($script_bac, $scriptv) == 0) {
       print $c[3]."$DT[6]\n"; }
@@ -28,6 +27,7 @@ use File::Path;
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/ATSCAN1");     
       use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
       dircopy("$Bin/ATSCAN1", $Bin);
+      open (FILE, '>>', $scriptv); print FILE "\n";
       rmtree("$Bin/ATSCAN1");
       system("chmod +x $script | perl $script || atscan");
       mtak(); ptak();

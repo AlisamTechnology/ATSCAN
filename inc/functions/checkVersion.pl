@@ -7,14 +7,14 @@ use File::Path;
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## CHECK VERSION AND UPDATE
-  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, @ErrT, @DT, @c); 
+  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, @ErrT, @DT, @c);
   osinfo(); desclaimer();
   print $c[4]."[!] $DT[31]\n";
   testConnection();
-  print $c[2]."[!] No version.log found! in $Bin/!\n    Dowmload and reinstall tool manually!\n" if !-e $scriptv; logoff();
+  if (!-e $scriptv) { print $c[2]."[!] No version.log found! in $Bin/!\n    Dowmload and reinstall tool manually!\n"; logoff(); }
   my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
   if ($response->is_success) {
-    printFile($script_bac, $response->content);
+    printFile($script_bac, $response->content);    
     use File::Compare;      
     if (compare($script_bac, $scriptv) == 0) {
       print $c[3]." $DT[6]\n"; }

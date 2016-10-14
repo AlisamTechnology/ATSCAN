@@ -14,6 +14,7 @@ use File::Path;
   if (!-e $scriptv) { print $c[2]."[!] No version.log found! in $Bin/!\n    Dowmload and reinstall tool manually!\n"; logoff(); }
   my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
   if ($response->is_success) {
+    unlink $script_bac if -e $script_bac;
     printFile($script_bac, $response->content);    
     use File::Compare;      
     if (compare($script_bac, $scriptv) == 0) {

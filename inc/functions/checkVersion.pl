@@ -23,7 +23,7 @@ use File::Path;
       unlink glob "'$Bin/*'";
       rmtree("$Bin/inc/");
       if (-e $script) { print $c[4]." [!] $ErrT[19] $script\n"; logoff(); }
-      print $c[10]."\n";
+      print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/ATSCAN1");     
       use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
       dircopy("$Bin/ATSCAN1", $Bin);

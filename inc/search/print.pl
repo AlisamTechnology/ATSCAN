@@ -101,7 +101,7 @@ our ($exploit, $replace, $noQuery);
 sub validateResult {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV=checkValidation($URL1, $status, $html, $response, "");        
-  if ($cV) { doPrint($URL1, $result, $html); }else{ noResult() unless ($result && (defined $exploit || defined $replace || defined $noQuery)); }
+  if ($cV) { doPrint($URL1, $result, $html); }else{ noResult() unless (($result && (!defined $Hstatus && !defined $validText)) || ($result && (defined $exploit || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText))); }
 }
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################

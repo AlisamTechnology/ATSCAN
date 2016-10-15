@@ -23,10 +23,10 @@ sub buildPrint {
         if ($o<$limit) {
           $nt++; points() if $nt>1;
           print $c[1]."    $DT[32]    ".$c[10]."[$nt/$lc2] $form\n";
-          $form=~s/^\[DATA\]//g;
+          $form=~s/^\[DATA]//g;     
           if (defined $post) {
-            $form=~s/:/'=>'/g; $form=~s/\[DATA\]/', '/g; $form="'".$form."'";
-          }elsif(defined $get) { $form=~s/:/=/g; $form=~s/\[DATA]/&/g; }
+            $form=~s/:/'=>'/g; $form=~s/\[DATA\]/', '/g; $form="\"".$form."\"";
+          }elsif(defined $get) { $form=~s/:/=/g; $form=~s/\[DATA\]/&/g; }
           my ($response, $status, $html)=browseUrl($URL1, $form);   
           printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $form);
         }

@@ -29,13 +29,12 @@ use File::Path;
       dircopy("$Bin/ATSCAN1", $Bin);
       open (FILE, '>>', $scriptv); print FILE "\n";
       rmtree("$Bin/ATSCAN1");
-      system("chmod +x $script | perl $script || atscan");
+      system("chmod +x $script | perl $script --updtd|| atscan --updtd");
       mtak(); ptak();
       print $c[3]."[!] $DT[7]$c[10]\n";
       print "\n".$response->content."";  
     }
-    unlink $script_bac if -e $script_bac;
-    
+    unlink $script_bac if -e $script_bac; 
   }else{ print $c[2]."[!] $DT[8]!\n"; }
   
 ######################################################################################################################################################################################################

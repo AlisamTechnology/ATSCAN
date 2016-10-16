@@ -1,6 +1,6 @@
 VERSION 11.5 RELEASE
 ===================
-  CHANGES: 1/10/2016
+  CHANGES: 16/10/2016
   ====================================== 
   - Move args to configure.pl.
   - Regroup arrays and variables.

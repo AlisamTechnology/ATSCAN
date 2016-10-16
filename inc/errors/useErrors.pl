@@ -11,10 +11,10 @@ our ($regex, $V_IP, $mrandom , $tcp, $udp, $dork, $motor, $searchRegex, $replace
 ######################################################################################################################################################################################################
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
-  if ((!defined $xss)&&(!defined $data)&&(!defined $lfi)&&(!defined $ifinurl)&&(!defined $WpSites)&&(!defined $Hstatus)&&(!defined $validText)&&(!defined $adminPage)&&(!defined $subdomain)&&
-    (!defined $JoomRfi)&&(!defined $WpAfd)&&(!defined $msites)&&(!defined $port)&&(!defined $mupload)&&(!defined $mzip)&&(!defined $command)&&(!defined $JoomSites)&&(!defined $eMails)&&
-    (!defined $mlevel)&&(!defined $searchIps)&&(!defined $regex)) { print $c[4]."[!] $OTHERS[7]\n"; logoff();
-  }
+  my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $msites, $port, $mupload, $mzip, $command, $JoomSites, $eMails, $mlevel, $searchIps, $regex);
+  my $Targ=0;
+  for (@Targs) { $Targ++ if defined $_; }
+  if ($Targ<1) { print $c[4]."[!] $OTHERS[7]\n"; logoff(); }
 }
 #########################################################
 ## CHECK TARGET PROTOCOL

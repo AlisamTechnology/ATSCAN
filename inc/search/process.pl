@@ -353,8 +353,7 @@ sub getPArrScan{
           my $URL1=$URL;
           if (index($URL, "?$P=") != -1) { $URL1=~s/\?$P=([^&]*)/\?$P=$1$exp$arr/g; doScan($URL1, $filter, $result, "", $reg, $comnd, $isFilter, $data); }
           elsif (index($URL, "&$P=") != -1) { $URL1=~s/\&$P=([^&]*)/\&$P=$1$exp$arr/g; doScan($URL1, $filter, $result, "", $reg, $comnd, $isFilter, $data); }
-          else{ print $c[1]."    $DS[4]:   $c[2]$OTHERS[17] [$P]\n"; }
-        }
+        }else{ print $c[1]."    $DS[4]:   $c[2]$OTHERS[17] [$P]\n"; }
       }
     }
   }

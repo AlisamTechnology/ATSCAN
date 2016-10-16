@@ -81,7 +81,7 @@ our ($V_EMAIL, $V_IP, $V_RANG, $V_SEARCH, $V_REGEX, $S_REGEX, $motor1, $motor2, 
 use Getopt::Long ();
 our ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites,
 $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout,
-$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $payloads, $mrandom, $content, $pass);
+$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $payloads, $mrandom, $content, $pass, $updtd);
 ######################################################################################################################################################################################################
 ## OPTIONS ###########################################################################################################################################################################################
 my %OPT;
@@ -92,7 +92,7 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor,
                          'time=s'=>\$timeout, 'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery,
                          'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'payload=s'=>\$payloads,
-                         'm-random'=>\$mrandom, 'content'=>\$content, 'pass'=>\$pass) or badArgs();
+                         'm-random'=>\$mrandom, 'content'=>\$content, 'pass'=>\$pass, 'updtd'=>\$updtd) or badArgs();
 ######################################################################################################################################################################################################
 ## VALIDATION ARRAYS #################################################################################################################################################################################
 our (@V_WP, @V_JOOM, @V_TP, @V_SMF, @V_VB, @V_MyBB, @V_CF, @V_DRP, @V_PN, @V_AT, @V_PHPN, @V_MD, @V_ACM, @V_SS, @V_MX, @V_XO, @V_OSC, @V_PSH, @V_BB2, @V_MG, @V_ZC, @V_CC5,
@@ -102,7 +102,7 @@ our (@V_WP, @V_JOOM, @V_TP, @V_SMF, @V_VB, @V_MyBB, @V_CF, @V_DRP, @V_PN, @V_AT,
 our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $regex, $port, $data, $command);
 ######################################################################################################################################################################################################
 ## NO ARGUMENTS ######################################################################################################################################################################################
-advise() if ((!defined $dork)&&(!defined $help)&&(!defined $Target)&&(!defined $mmd5)&&(!defined $mencode64)&&(!defined $checkVersion)&&(!defined $data)&&(!defined $uninstall)&&(!defined $pass));
+advise() if ((!defined $dork)&&(!defined $help)&&(!defined $Target)&&(!defined $mmd5)&&(!defined $mencode64)&&(!defined $checkVersion)&&(!defined $data)&&(!defined $uninstall)&&(!defined $pass)&&(!defined $updtd));
 ######################################################################################################################################################################################################
 ## INCLUDES ##########################################################################################################################################################################################
 require "$Bin/inc/includes.pl";

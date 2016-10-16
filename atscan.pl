@@ -74,25 +74,41 @@ our (@c, @XSS, @LFI, @RFI, @ADFWP, @ADMIN, @SUBDOMAIN, @UPLOAD, @ZIP, @TT, @OTHE
 require "$Bin/inc/top.pl";
 ######################################################################################################################################################################################################
 ## TOOL SETTINGS #####################################################################################################################################################################################
-our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $script_bac, $scriptbash, $scriptPass, $paylNote, $psx, $dork, $help, $Target, $mmd5, $mencode64, $checkVersion,
-     $data, $uninstall, $pass, $updtd, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $regex, $port, $command, $V_EMAIL, $V_IP, $V_RANG,
-     $V_SEARCH, $V_REGEX, $S_REGEX, $motor1, $motor2, $motor3, $motor4, $motor5, $motorparam, $mrand, $pat2, $nolisting);
-######################################################################################################################################################################################################
-## ARGUMENTS #########################################################################################################################################################################################
-use Getopt::Long qw(GetOptions);
-our %OPT;
-######################################################################################################################################################################################################
-## NO ARGUMENTS ######################################################################################################################################################################################
-advise() if ((!defined $dork)&&(!defined $help)&&(!defined $Target)&&(!defined $mmd5)&&(!defined $mencode64)&&(!defined $checkVersion)&&(!defined $data)&&(!defined $uninstall)&&(!defined $pass)&&(!defined $updtd));
+our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $script_bac, $scriptbash, $scriptPass, $paylNote, $psx, $updtd, $V_EMAIL, $V_IP, $V_RANG, $V_SEARCH, $V_REGEX,
+     $S_REGEX, $motor1, $motor2, $motor3, $motor4, $motor5, $motorparam, $mrand, $pat2, $nolisting, $Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain,
+     $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork,
+     $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom,
+     $data, $payloads, $mrandom, $content, $pass);
 ######################################################################################################################################################################################################
 ## SCANS ARGUMENTS   #################################################################################################################################################################################
 our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $regex, $port, $data, $command);
+######################################################################################################################################################################################################
+## ARGUMENTS #########################################################################################################################################################################################
+######################################################################################################################################################################################################
+use Getopt::Long qw(GetOptions);
+our %OPT;
+######################################################################################################################################################################################################
+## ARGUMENTS #########################################################################################################################################################################################
+Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd,
+                         'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command|c=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64,
+                         'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp|e=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp,
+                         'full'=> \$full, 'proxy=s'=>\$proxy, 'proxy-random=s'=>\$prandom, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork,
+                         'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor,
+                         'time=s'=>\$timeout, 'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery,
+                         'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'payload=s'=>\$payloads,
+                         'm-random'=>\$mrandom, 'content'=>\$content, 'pass'=>\$pass, 'updtd'=>\$updtd) or badArgs();
+######################################################################################################################################################################################################
+## NO ARGUMENTS ######################################################################################################################################################################################
+our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $pass, $updtd);
+my $NoArg=0;
+for (@NoArg) { $NoArg++ if defined $_; }
+advise() if $NoArg<1;
 ######################################################################################################################################################################################################
 ## INCLUDES ##########################################################################################################################################################################################
 require "$Bin/inc/includes.pl";
 ######################################################################################################################################################################################################
 ## INFO PANEL ########################################################################################################################################################################################
-osinfo();
+#osinfo();
 ######################################################################################################################################################################################################
 ## PASS LOGIN ########################################################################################################################################################################################
 if (-e $scriptPass) { logg(); }

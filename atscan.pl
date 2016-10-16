@@ -66,43 +66,27 @@ if (!-e $Bin."/inc") { print "[!] No $Bin/inc Directory found! \n[!] To download
 ######################################################################################################################################################################################################
 ## ALL ARRAYS ########################################################################################################################################################################################
 our (@c, @XSS, @LFI, @RFI, @ADFWP, @ADMIN, @SUBDOMAIN, @UPLOAD, @ZIP, @TT, @OTHERS, @AUTH, @ErrT, @DT, @DS, @cms, @SCAN_TITLE, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE,
-     @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_LUA, @E_UNDEFINED, @E_MARIADB, @E_SHELL, @strings, @browserlangs, @googleDomains, @Ids, @MsIds, @sys, @vary, $nolisting, @buildArrays, @dorks,
-     @userArraysList, @exploits, @data, @proxies, @aTsearch, @aTscans, @aTtargets, @aTcopy, @ports, @motor, @motors, @systems)=();
+     @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_LUA, @E_UNDEFINED, @E_MARIADB, @E_SHELL, @strings, @browserlangs, @googleDomains, @Ids, @MsIds, @sys, @vary, @buildArrays, @dorks,
+     @userArraysList, @exploits, @data, @proxies, @aTsearch, @aTscans, @aTtargets, @aTcopy, @ports, @motor, @motors, @systems, , @mrands, @allMotors, @V_WP, @V_JOOM, @V_TP, @V_SMF, @V_VB, @V_MyBB,
+     @V_CF, @V_DRP, @V_PN, @V_AT, @V_PHPN, @V_MD, @V_ACM, @V_SS, @V_MX, @V_XO, @V_OSC, @V_PSH, @V_BB2, @V_MG, @V_ZC, @V_CC5, @V_OCR, @V_XSS, @V_LFI,@V_TODO, @V_AFD, @TODO, @V_VALID, @ERR, @CMS)=();
 ######################################################################################################################################################################################################
 ## TOP CONFIG ########################################################################################################################################################################################
 require "$Bin/inc/top.pl";
-## TOOL VERSION ######################################################################################################################################################################################
-our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $script_bac, $scriptbash, $scriptPass, $paylNote, $psx);
 ######################################################################################################################################################################################################
-## ENGINES ## CONFIGURE ##############################################################################################################################################################################
-our ($V_EMAIL, $V_IP, $V_RANG, $V_SEARCH, $V_REGEX, $S_REGEX, $motor1, $motor2, $motor3, $motor4, $motor5, $motorparam, $mrand, $pat2, @mrands, @allMotors);
+## TOOL SETTINGS #####################################################################################################################################################################################
+our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $script_bac, $scriptbash, $scriptPass, $paylNote, $psx, $dork, $help, $Target, $mmd5, $mencode64, $checkVersion,
+     $data, $uninstall, $pass, $updtd, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $regex, $port, $command, $V_EMAIL, $V_IP, $V_RANG,
+     $V_SEARCH, $V_REGEX, $S_REGEX, $motor1, $motor2, $motor3, $motor4, $motor5, $motorparam, $mrand, $pat2, $nolisting);
 ######################################################################################################################################################################################################
 ## ARGUMENTS #########################################################################################################################################################################################
-use Getopt::Long ();
-our ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites,
-$mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout,
-$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $payloads, $mrandom, $content, $pass, $updtd);
-######################################################################################################################################################################################################
-## OPTIONS ###########################################################################################################################################################################################
-my %OPT;
-Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd,
-                         'admin'=>\$adminPage, 'shost'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command|c=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64,
-                         'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'sites'=>\$msites, 'host'=>\$mdom, 't=s'=>\$Target, 'exp|e=s'=>\$exploit, 'p=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp,
-                         'full'=> \$full, 'proxy=s'=>\$proxy, 'proxy-random=s'=>\$prandom, 'help|h|?'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'with=s'=>\$with, 'dork|d=s'=>\$dork,
-                         'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor,
-                         'time=s'=>\$timeout, 'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery,
-                         'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'payload=s'=>\$payloads,
-                         'm-random'=>\$mrandom, 'content'=>\$content, 'pass'=>\$pass, 'updtd'=>\$updtd) or badArgs();
-######################################################################################################################################################################################################
-## VALIDATION ARRAYS #################################################################################################################################################################################
-our (@V_WP, @V_JOOM, @V_TP, @V_SMF, @V_VB, @V_MyBB, @V_CF, @V_DRP, @V_PN, @V_AT, @V_PHPN, @V_MD, @V_ACM, @V_SS, @V_MX, @V_XO, @V_OSC, @V_PSH, @V_BB2, @V_MG, @V_ZC, @V_CC5,
-     @V_OCR, @V_XSS, @V_LFI,@V_TODO, @V_AFD, @TODO, @V_VALID, @ERR, @CMS);
-######################################################################################################################################################################################################
-## SCANS ARGUMENTS   #################################################################################################################################################################################
-our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $regex, $port, $data, $command);
+use Getopt::Long qw(GetOptions);
+our %OPT;
 ######################################################################################################################################################################################################
 ## NO ARGUMENTS ######################################################################################################################################################################################
 advise() if ((!defined $dork)&&(!defined $help)&&(!defined $Target)&&(!defined $mmd5)&&(!defined $mencode64)&&(!defined $checkVersion)&&(!defined $data)&&(!defined $uninstall)&&(!defined $pass)&&(!defined $updtd));
+######################################################################################################################################################################################################
+## SCANS ARGUMENTS   #################################################################################################################################################################################
+our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $regex, $port, $data, $command);
 ######################################################################################################################################################################################################
 ## INCLUDES ##########################################################################################################################################################################################
 require "$Bin/inc/includes.pl";

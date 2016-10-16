@@ -4,6 +4,7 @@ VERSION 11.5 RELEASE
   ====================================== 
   - Move args to configure.pl.
   - Regroup arrays and variables.
+  - Fix no xss parameter found
   - Fix post data.
   - Remove repeated tool info when updating.
   - Remove unusefful subroutines.

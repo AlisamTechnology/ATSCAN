@@ -7,7 +7,7 @@ use FindBin '$Bin';
 ######################################################################################################################################################################################################
 ## FUNCTS
 our ($payloads, $exploit, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $ifendour, $port, $outdir, $output, $ifend);
-our (@z, @aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies);
+our (@aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## PRINT FILES 

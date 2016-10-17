@@ -6,7 +6,7 @@ use FindBin '$Bin';
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## DELETE / UNINSTALL TOOL
-our ($uninstall, $scriptbash, $script, @TT, @c, @OTHERS);
+our ($uninstall, $scriptbash, $script, @TT, @c, @OTHERS, @DT);
 if (defined $uninstall) {
   desclaimer();
   print $c[2]."$OTHERS[8]";
@@ -14,10 +14,12 @@ if (defined $uninstall) {
   my $resp=<STDIN>;
   chomp ($resp);
   if ($resp=~/(Y|y)/) {
+    print $c[4]."$DT[31]\n";
     unlink $scriptbash if -e $scriptbash;
     my $df="/etc/bash_completion.d/atscan";
     unlink $df if -e $df;
     system "rm -rf $Bin";
+    sleep(3);
     print $c[3]."$OTHERS[9]\n";
   }else{
     system("perl $script --updtd || atscan --updtd ");

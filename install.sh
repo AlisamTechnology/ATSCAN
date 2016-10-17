@@ -43,6 +43,7 @@ fi
  sudo cp atscan /usr/bin/;
  echo "[!] Removing install files ...";
  rm atscan;
+ rm $refdir/ATSCAN/inc/atscan;
 
 if [ -d "$refdir/ATSCAN" ] ;
 then

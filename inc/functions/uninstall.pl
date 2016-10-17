@@ -15,6 +15,8 @@ if (defined $uninstall) {
   chomp ($resp);
   if ($resp=~/(Y|y)/) {
     unlink $scriptbash if -e $scriptbash;
+    my $df="/etc/bash_completion.d/atscan";
+    unlink $df if -e $df;
     system "rm -rf $Bin";
     print $c[3]."$OTHERS[9]\n";
   }else{

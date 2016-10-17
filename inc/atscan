@@ -7,7 +7,7 @@ _atscan()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="--status --valid -v --wp --joom --xss --lfi --joomrfi --wpafd --admin --shost --upload --zip --email --command --c --md5 --encode64 --decode64 --port --sites --host -t --exp -e -p --tcp --udp --full --proxy --proxy-random --help -h -? --save -s --replace --with --dork -d --level -l --unique --shell --nobanner --beep --ifinurl --noinfo -m --time --limit --update --ip --regex --sregex --noquery --ifend --uninstall --post --get --b-random --data --payload --m-random --content --pass --updtd"
+    opts="--status --valid -v --wp --joom --xss --lfi --joomrfi --wpafd --admin --shost --upload --zip --email --command -c --md5 --encode64 --decode64 --port --sites --host -t --exp -e -p --tcp --udp --full --proxy --proxy-random --help -h --save -s --replace --with --dork -d --level -l --unique --shell --nobanner --beep --ifinurl --noinfo -m --time --limit --update --ip --regex --sregex --noquery --ifend --uninstall --post --get --b-random --data --payload --m-random --content --pass"
 
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )

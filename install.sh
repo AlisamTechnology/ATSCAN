@@ -61,3 +61,4 @@ fi
 else
 echo "Tool can be installed only in linux os! Use it as portable!";
 fi
+

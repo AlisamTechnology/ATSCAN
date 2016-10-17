@@ -18,7 +18,7 @@ $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $unin
 ######################################################################################################################################################################################################
 ## VERSION
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $script_bac, $scriptbash, $scriptPass, $scriptv, $scriptCompletion);
-$Version="11.5";
+$Version="11.6";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";

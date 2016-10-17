@@ -10,5 +10,6 @@ VERSION 11.5 RELEASE
   - Remove repeated tool info when updating.
   - Remove unusefful subroutines.
   - Save login when update tool.
+  - Add bash autocomplete.
   - Enjoy!
   ======================================

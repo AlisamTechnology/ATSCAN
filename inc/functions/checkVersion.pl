@@ -3,11 +3,12 @@ use strict;
 use warnings;
 use FindBin '$Bin';
 use File::Path;
+use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 ## ALISAM TECHNOLOGY 2015
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## CHECK VERSION AND UPDATE
-  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptComplInstall, @scriptPass, @ErrT, @DT, @c);
+  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptComplInstall, $scriptComplete, $scriptbash, @scriptPass, @ErrT, @DT, @c);
   desclaimer();
   print $c[4]."[!] $DT[31]\n";
   testConnection();
@@ -25,13 +26,15 @@ use File::Path;
         chomp(@scriptPass = <$dle>);
         close $dle;
       }
+      if (-e $scriptbash) {
+        if (!-e $scriptComplete) { fmove($scriptComplInstall, "/etc/bash_completion.d/"); }
+      }
       system "rm -rf $Bin";
       if (-e $script) { print $c[4]." [!] $ErrT[19] $script\n"; logoff(); }
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/ATSCAN1");     
-      use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
       dircopy("$Bin/ATSCAN1", $Bin);
-      open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);     
+      open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
       unlink $scriptComplInstall if -e $scriptComplInstall;      
       if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }     
       rmtree("$Bin/ATSCAN1");

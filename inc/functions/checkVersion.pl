@@ -8,7 +8,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## CHECK VERSION AND UPDATE
-  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptComplInstall, $scriptComplete, $scriptbash, @scriptPass, @ErrT, @DT, @c);
+  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptComplInstall, $scriptCompletion, $scriptbash, @scriptPass, @ErrT, @DT, @c);
   desclaimer();
   print $c[4]."[!] $DT[31]\n";
   testConnection();
@@ -27,7 +27,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
         close $dle;
       }
       if (-e $scriptbash) {
-        if (!-e $scriptComplete) { fmove($scriptComplInstall, "/etc/bash_completion.d/"); }
+        if (!-e $scriptCompletion) { fmove($scriptComplInstall, "/etc/bash_completion.d/"); }
       }
       system "rm -rf $Bin";
       if (-e $script) { print $c[4]." [!] $ErrT[19] $script\n"; logoff(); }

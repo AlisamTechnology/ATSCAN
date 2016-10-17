@@ -35,7 +35,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
       if (-e $scriptbash) {
         if (!-e $scriptCompletion) { fmove($scriptComplInstall, "/etc/bash_completion.d/"); } 
       } 
-      unlink $scriptComplInstall if -e $scriptComplInstall; }   
+      unlink $scriptComplInstall if -e $scriptComplInstall;  
       if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }     
       rmtree("$Bin/ATSCAN1");
       system("chmod +x $script | perl $script --updtd || atscan --updtd");

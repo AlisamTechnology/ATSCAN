@@ -8,7 +8,7 @@ if [ -d "/usr/bin/" ] ;
 then
 echo "[!] Install.sh install atscan tool in your system? [Y/n]: ";
 read baba
-if [ $baba == "y" ] || [ $mama == "Y" ]; 
+if [ $baba == "y" ] || [ $baba == "Y" ]; 
   then
     echo " "
   else

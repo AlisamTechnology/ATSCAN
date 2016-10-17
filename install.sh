@@ -16,12 +16,12 @@ if [ $baba == "y" ] ;
     exit
 fi
 current=`pwd`
-echo "[!] ATSCAN will be installed in $current Set other path OR press Enter to continue: ";
+echo "[!] ATSCAN will be installed in $current Set other path OR press Enter to continue: "
 read refdir
 echo "[!] Checking directories..."
 if [ -d "$refdir/ATSCAN" ] ;
 then
-echo "[!] A directory named ATSCAN was found in $refdir/ATSCAN! Do you want to replace it? [Y/n]: ";
+echo "[!] A directory named ATSCAN was found in $refdir/ATSCAN! Do you want to replace it? [Y/n]: "
 read mama
 if [ $mama == "y" ] ; 
 then
@@ -37,8 +37,11 @@ fi
  git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/ATSCAN;
  echo "#!/bin/bash 
  perl $refdir/ATSCAN/atscan.pl" '${1+"$@"}' > atscan;
+ chmod +x $refdir/ATSCAN/inc/atscan;
+ sudo cp $refdir/ATSCAN/inc/atscan /etc/bash_completion.d/;
  chmod +x atscan;
  sudo cp atscan /usr/bin/;
+ echo "[!] Removing install files ...";
  rm atscan;
 
 if [ -d "$refdir/ATSCAN" ] ;

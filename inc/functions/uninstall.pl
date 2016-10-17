@@ -14,7 +14,7 @@ if (defined $uninstall) {
   my $resp=<STDIN>;
   chomp ($resp);
   if ($resp=~/(Y|y)/) {
-    print $c[4]."$DT[31]\n";
+    print $c[4]."[!] $DT[31]\n";
     unlink $scriptbash if -e $scriptbash;
     unlink $scriptCompletion if -e $scriptCompletion;
     system "rm -rf $Bin";

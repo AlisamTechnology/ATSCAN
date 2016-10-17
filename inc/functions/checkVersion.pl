@@ -7,7 +7,7 @@ use File::Path;
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## CHECK VERSION AND UPDATE
-  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptCompletion, @scriptPass, @ErrT, @DT, @c);
+  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptComplInstall, @scriptPass, @ErrT, @DT, @c);
   desclaimer();
   print $c[4]."[!] $DT[31]\n";
   testConnection();
@@ -31,8 +31,8 @@ use File::Path;
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/ATSCAN1");     
       use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
       dircopy("$Bin/ATSCAN1", $Bin);
-      open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
-      unlink $scriptCompletion if -e $scriptCompletion;
+      open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);     
+      unlink $scriptComplInstall if -e $scriptComplInstall;      
       if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }     
       rmtree("$Bin/ATSCAN1");
       system("chmod +x $script | perl $script --updtd || atscan --updtd");

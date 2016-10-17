@@ -8,5 +8,6 @@ VERSION 11.5 RELEASE
   - Fix post data.
   - Remove repeated tool info when updating.
   - Remove unusefful subroutines.
+  - Save login when update tool.
   - Enjoy!
   ======================================

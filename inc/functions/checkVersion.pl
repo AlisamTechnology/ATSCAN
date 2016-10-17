@@ -27,7 +27,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
         close $dle;
       }
       if (-e $scriptbash) {
-        if (!-e $scriptCompletion) { fmove($scriptComplInstall, "/etc/bash_completion.d/"); }
+        if (!-e $scriptCompletion) { fcopy($scriptComplInstall, "/etc/bash_completion.d/"); }
       }
       system "rm -rf $Bin";
       if (-e $script) { print $c[4]." [!] $ErrT[19] $script\n"; logoff(); }

@@ -26,18 +26,17 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
         chomp(@scriptPass = <$dle>);
         close $dle;
       }
-      if (-e $scriptbash) {
-        if (!-e $scriptCompletion) {
-          use File::Copy;
-          copy($scriptComplInstall, "/etc/bash_completion.d/");
-        } 
-      }
       system "rm -rf $Bin";
       if (-e $script) { print $c[4]." [!] $ErrT[19] $script\n"; logoff(); }
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/ATSCAN1");     
       dircopy("$Bin/ATSCAN1", $Bin);
       open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
+      if (-e $scriptbash) {
+        if (!-e $scriptCompletion) {
+          fcopy($scriptComplInstall, "/etc/bash_completion.d/");
+        } 
+      }      
       unlink $scriptComplInstall if -e $scriptComplInstall;      
       if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }     
       rmtree("$Bin/ATSCAN1");

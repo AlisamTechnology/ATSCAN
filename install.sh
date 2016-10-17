@@ -8,7 +8,7 @@ if [ -d "/usr/bin/" ] ;
 then
 echo "[!] Install.sh install atscan tool in your system? [Y/n]: ";
 read baba
-if [ $baba == "y" ] ; 
+if [ $baba == "y" ] || [ $mama == "Y" ]; 
   then
     echo " "
   else
@@ -23,7 +23,7 @@ if [ -d "$refdir/ATSCAN" ] ;
 then
 echo "[!] A directory named ATSCAN was found in $refdir/ATSCAN! Do you want to replace it? [Y/n]: "
 read mama
-if [ $mama == "y" ] ; 
+if [ $mama == "y" ] || [ $mama == "Y" ]; 
 then
  rm -R "$refdir/ATSCAN"
 else

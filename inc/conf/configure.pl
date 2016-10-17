@@ -17,7 +17,7 @@ $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $unin
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## VERSION
-our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $script_bac, $scriptbash, $scriptPass, $scriptv);
+our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $script_bac, $scriptbash, $scriptPass, $scriptv, $scriptCompletion);
 $Version="11.5";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
@@ -31,6 +31,7 @@ $script=$Bin."/atscan.pl";
 $scriptPass=$Bin."/inc/conf/conf.xml";
 $script_bac=$Bin."/version_bac.log";
 $scriptbash="/usr/bin/atscan";
+$scriptCompletion="/etc/bash_completion.d/atscan";
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## HEADER
@@ -157,7 +158,6 @@ our $mrand=$mrands[rand @mrands];
 our @allMotors=($motor1, $motor2, $motor3, $motor4, $motor5);
 our $pat2='inurl:|intitle:|intext:|allinurl:|index of|site:(.*)\+|\+site:(.*)';
 our $paylNote="[!] $DT[28]\n";
-
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 our $browserLang=$browserlangs[rand @browserlangs];

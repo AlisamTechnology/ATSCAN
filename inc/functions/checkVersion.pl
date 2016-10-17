@@ -7,7 +7,7 @@ use File::Path;
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## CHECK VERSION AND UPDATE
-  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, @ErrT, @DT, @c);
+  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, @scriptPass, @ErrT, @DT, @c);
   desclaimer();
   print $c[4]."[!] $DT[31]\n";
   testConnection();
@@ -20,6 +20,11 @@ use File::Path;
     if (compare($script_bac, $scriptv) == 0) {
       print $c[3]."$DT[6]\n"; }
     else{
+      if (-e $scriptPass) {
+        open my $handle, '<', $scriptPass;
+        chomp(@scriptPass = <$handle>);
+        close $handle;
+      }
       unlink glob "'$Bin/*'";
       rmtree("$Bin/inc/");
       if (-e $script) { print $c[4]." [!] $ErrT[19] $script\n"; logoff(); }
@@ -27,7 +32,12 @@ use File::Path;
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/ATSCAN1");     
       use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
       dircopy("$Bin/ATSCAN1", $Bin);
-      open (FILE, '>>', $scriptv); print FILE "\n";
+      open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);      
+      if (@scriptPass) {
+        for my $spss(@scriptPass) {
+          open (FE, '>>', $scriptPass); print FE "$spss"; close(FE);
+        }
+      }     
       rmtree("$Bin/ATSCAN1");
       system("chmod +x $script | perl $script --updtd|| atscan --updtd");
       mtak(); ptak();

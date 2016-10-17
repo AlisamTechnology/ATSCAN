@@ -1,14 +1,8 @@
-VERSION 11.5 RELEASE
+VERSION 11.6 RELEASE
 ===================
-  CHANGES: 16/10/2016
+  CHANGES: 17/10/2016
   ====================================== 
-  - Move args to configure.pl.
-  - Regroup arrays and variables.
-  - Fix no xss parameter found
   - Fix exit when no scan set for search.
-  - Fix post data.
-  - Remove repeated tool info when updating.
-  - Remove unusefful subroutines.
   - Save login when update tool.
   - Add bash autocomplete.
   - Enjoy!

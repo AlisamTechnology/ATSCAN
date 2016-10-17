@@ -21,12 +21,11 @@ use File::Path;
       print $c[3]."$DT[6]\n"; }
     else{
       if (-e $scriptPass) {
-        open my $handle, '<', $scriptPass;
-        chomp(@scriptPass = <$handle>);
-        close $handle;
+        open my $dle, '<', $scriptPass;
+        chomp(@scriptPass = <$dle>);
+        close $dle;
       }
-      unlink glob "'$Bin/*'";
-      rmtree("$Bin/inc/");
+      system "rm -rf $Bin";
       if (-e $script) { print $c[4]." [!] $ErrT[19] $script\n"; logoff(); }
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/ATSCAN1");     

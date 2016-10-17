@@ -10,6 +10,7 @@ our ($uninstall, $scriptbash, $script, @TT, @c, @OTHERS);
 if (defined $uninstall) {
   desclaimer();
   print $c[2]."$OTHERS[8]";
+  print $c[10];
   my $resp=<STDIN>;
   chomp ($resp);
   if ($resp=~/(Y|y)/) {
@@ -17,7 +18,7 @@ if (defined $uninstall) {
     system "rm -rf $Bin";
     print $c[3]."$OTHERS[9]\n";
   }else{
-    system("chmod +x $script | perl $script || atscan");
+    system("perl $script --updtd || atscan --updtd ");
     mtak(); ptak();
     print $c[4]."[!] $TT[13]\n";
   }

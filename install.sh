@@ -35,9 +35,9 @@ fi
 echo "[!] ATSCAN will be installed in $current Set other path OR press Enter to continue: "
 read refdir
 echo "[!] Checking directories..."
-if [ -d "$refdir/atscan" ] ;
+if [ -d "$refdir/atscan" ] || [ -d "$refdir/ATSCAN" ];
 then
-echo "[!] A directory named ATSCAN was found in $refdir/atscan/! Do you want to replace it? [y/n]: "
+echo "[!] A directory named ATSCAN was found $refdir/atscan/! Do you want to replace it? [y/n]: "
 read mama
 if [ $mama == "y" ] || [ $mama == "Y" ]; 
 then

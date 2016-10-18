@@ -63,11 +63,11 @@ use MIME::Base64;
 #### CHECK INC DIR ###################################################################################################################################################################################
 ## CHECK INC DIR
 if (!-d $Bin."/inc") {
-  print "[!] No $Bin/inc Directory found! \n";
-  print "[!] Mybe you come from an old version:\n";
-  print "    1\) Download: \"git clone https://github.com/AlisamTechnology/ATSCAN\"\n";  
-  print "    2\) Unzip and copy all ATSCAN-master content to $Bin\n";
-  exit();
+  print "[!] Downoloading conponents Please wait..";
+  system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/ATSCAN1");
+  dircopy("$Bin/ATSCAN1", $Bin);
+  system "rm -rf $Bin/ATSCAN1";
+  system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl || atscan");
 }
 ######################################################################################################################################################################################################
 ## ALL ARRAYS ########################################################################################################################################################################################

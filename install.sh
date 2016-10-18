@@ -80,6 +80,6 @@ else
   exit
 fi
 else
-echo "Tool can be installed only in linux os! Use it as portable!";
+echo "Tool can be installed on your system! Use it as portable!";
 fi
 

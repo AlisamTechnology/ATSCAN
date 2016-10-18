@@ -50,8 +50,13 @@ fi
 fi
 
  echo "[!] Installing ...";
- echo "";
  git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/atscan;
+ if [ -e "/usr/bin/atscan" ];
+ then
+   chmod +x /usr/bin/atscan;
+   rm /usr/bin/atscan;
+ fi
+ 
  echo "#!/bin/bash 
  perl $refdir/atscan/atscan.pl" '${1+"$@"}' > atscan;
  chmod +x atscan;

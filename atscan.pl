@@ -62,7 +62,13 @@ use MIME::Base64;
 ######################################################################################################################################################################################################
 #### CHECK INC DIR ###################################################################################################################################################################################
 ## CHECK INC DIR
-if (!-e $Bin."/inc") { print "[!] No $Bin/inc Directory found! \n[!] To download: \"git clone https://github.com/AlisamTechnology/ATSCAN\"\n"; exit(); }
+if (!-e $Bin."/inc") {
+  print "[!] No $Bin/inc Directory found! \n";
+  print "[!] Mybe you come from an old version:\n";
+  print "    1\) Download: \"git clone https://github.com/AlisamTechnology/ATSCAN\"\n";  
+  print "    2\) Unzip and copy all downloaded files + directories in ATSCAN-master to $Bin\n";
+  exit();
+}
 ######################################################################################################################################################################################################
 ## ALL ARRAYS ########################################################################################################################################################################################
 our (@c, @XSS, @LFI, @RFI, @ADFWP, @ADMIN, @SUBDOMAIN, @UPLOAD, @ZIP, @TT, @OTHERS, @AUTH, @ErrT, @DT, @DS, @cms, @SCAN_TITLE, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE,

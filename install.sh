@@ -16,7 +16,11 @@ if [ $baba == "y" ] || [ $baba == "Y" ];
     exit
 fi
 current=`pwd`
-if [ !-d "$current/inc/" ]; then exit fi
+if [ ! -d "$current/inc" ]; 
+then 
+  echo "[!] Please make sure you have inc/ directory in $current/!";
+  exit 
+fi
 echo "[!] ATSCAN will be installed in $current Set other path OR press Enter to continue: "
 read refdir
 echo "[!] Checking directories..."

@@ -6,7 +6,7 @@
 ############################
 # PLACEMENT:
 # Parent directory => User choice.
-# Bash completion in /etc/bash_completion.d/atscan
+# /inc/conf/atscan => /etc/bash_completion.d/atscan
 # Bash link in /usr/bin/atscan
 ############################
 ##

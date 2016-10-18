@@ -6,7 +6,7 @@ use FindBin '$Bin';
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## DELETE / UNINSTALL TOOL
-our ($uninstall, $scriptbash, $script, $scriptCompletion, $scriptIstall, @TT, @c, @OTHERS, @DT);
+our ($uninstall, $scriptbash, $script, $scriptIstall, @TT, @c, @OTHERS, @DT);
 if (defined $uninstall) {
   desclaimer();
   print $c[2]."$OTHERS[8]";
@@ -16,7 +16,6 @@ if (defined $uninstall) {
   if ($resp=~/(Y|y)/) {
     print $c[4]."[!] $DT[31]\n";
     unlink $scriptbash if -e $scriptbash;
-    unlink $scriptCompletion if -e $scriptCompletion;
     unlink $scriptIstall if -e $scriptIstall;
     system "rm -rf $Bin";
     sleep(3);

@@ -70,6 +70,9 @@ if [ -d "$refdir/atscan" ] ;
 then
 chmod +x $refdir/atscan/inc/conf/version.log;
 echo "" >> $refdir/atscan/inc/conf/version.log;
+echo "[!] Tool successfully installed";
+echo "[!] Updating tool.. ";
+sleep 2;
 . ~/.bashrc;
 atscan --update;
 else

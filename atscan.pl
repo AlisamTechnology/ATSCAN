@@ -66,7 +66,7 @@ if (!-d $Bin."/inc") {
   print "[!] No $Bin/inc Directory found! \n";
   print "[!] Mybe you come from an old version:\n";
   print "    1\) Download: \"git clone https://github.com/AlisamTechnology/ATSCAN\"\n";  
-  print "    2\) Unzip and copy all downloaded files + directories in ATSCAN-master to $Bin\n";
+  print "    2\) Unzip and copy all ATSCAN-master content to $Bin\n";
   exit();
 }
 ######################################################################################################################################################################################################

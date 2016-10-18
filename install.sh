@@ -76,4 +76,3 @@ fi
 else
 echo "Tool can be installed on your system! Use it as portable!";
 fi
-

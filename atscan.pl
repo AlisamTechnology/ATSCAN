@@ -78,7 +78,7 @@ our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $
      $S_REGEX, $motor1, $motor2, $motor3, $motor4, $motor5, $motorparam, $mrand, $pat2, $nolisting, $Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain,
      $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork,
      $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom,
-     $data, $payloads, $mrandom, $content, $pass, $scriptComplInstall, $scriptCompletion);
+     $data, $payloads, $mrandom, $content, $pass, $scriptComplInstall, $scriptCompletion, $scriptInstall);
 ######################################################################################################################################################################################################
 ## ARGUMENTS #########################################################################################################################################################################################
 ######################################################################################################################################################################################################

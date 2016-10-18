@@ -37,13 +37,13 @@ fi
  git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/ATSCAN;
  echo "#!/bin/bash 
  perl $refdir/ATSCAN/atscan.pl" '${1+"$@"}' > atscan;
- chmod +x $refdir/ATSCAN/inc/bash/atscan;
- sudo cp $refdir/ATSCAN/inc/bash/atscan /etc/bash_completion.d/;
+ chmod +x $refdir/ATSCAN/inc/conf/atscan;
+ sudo cp $refdir/ATSCAN/inc/conf/atscan /etc/bash_completion.d/;
  chmod +x atscan;
  sudo cp atscan /usr/bin/;
  echo "[!] Removing install files ...";
  rm atscan;
- rm $refdir/ATSCAN/inc/bash/atscan;
+ rm $refdir/ATSCAN/inc/conf/atscan;
 
 if [ -d "$refdir/ATSCAN" ] ;
 then

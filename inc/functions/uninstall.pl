@@ -16,7 +16,7 @@ if (defined $uninstall) {
   if ($resp=~/(Y|y)/) {
     print $c[4]."[!] $DT[31]\n";
     unlink $scriptbash if -e $scriptbash;
-    unlink $scriptCompletion if -e $scriptCompletion;
+    unlink "$scriptCompletion/atscan" if -e "$scriptCompletion/atscan";
     system "rm -rf $Bin";
     sleep(3);
     print $c[3]."$OTHERS[9]\n";

@@ -1,9 +1,10 @@
 VERSION 11.6 RELEASE
-===================
+=====================================================
   CHANGES: 17/10/2016
-  ====================================== 
+  =================================================== 
   - Fix exit when no scan set for search.
   - Save login when update tool.
   - Add bash autocomplete.
+  - Remove bash completion when tool is removed.
   - Enjoy!
-  ======================================
+  ===================================================

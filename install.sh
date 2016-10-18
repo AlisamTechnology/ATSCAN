@@ -44,6 +44,8 @@ fi
  echo "[!] Removing install files ...";
  rm atscan;
  rm $refdir/ATSCAN/inc/conf/atscan;
+ chmod +x $refdir/ATSCAN/install.sh;
+ rm $refdir/ATSCAN/install.sh;
 
 if [ -d "$refdir/ATSCAN" ] ;
 then

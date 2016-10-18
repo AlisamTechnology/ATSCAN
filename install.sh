@@ -32,7 +32,8 @@ then
   echo "[!] Please make sure you have inc/ directory in $current/!";
   exit 
 fi
-echo "[!] ATSCAN will be installed in $current Set other path OR press Enter to continue: "
+echo "[!] Where do you want to install ATSCAN?;
+echo "[!] Set path or press enter to use default dir $current: "
 read refdir
 echo "[!] Checking directories..."
 if [ -d "$refdir/atscan" ] || [ -d "$refdir/ATSCAN" ];

@@ -50,7 +50,7 @@ fi
 
  echo "[!] Installing ...";
  echo "";
- git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/ATSCAN;
+ git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/atscan;
  echo "#!/bin/bash 
  perl $refdir/atscan/atscan.pl" '${1+"$@"}' > atscan;
  chmod +x atscan;

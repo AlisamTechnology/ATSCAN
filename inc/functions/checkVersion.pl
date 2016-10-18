@@ -39,7 +39,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
       unlink $scriptInstall if -e $scriptInstall; 
       if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }     
       rmtree("$Bin/ATSCAN1");
-      system("chmod +x $script | perl $script --updtd || atscan --updtd");
+      system(". ~/.bashrc | chmod +x $script | perl $script --updtd || atscan --updtd");
       mtak(); ptak();
       print $c[3]."[!] $DT[7]$c[10]\n";
       print "\n".$response->content."";  

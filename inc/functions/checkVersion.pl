@@ -49,6 +49,7 @@ use File::Path 'remove_tree';
       print "\n".$response->content.""; 
     }
     unlink $script_bac if -e $script_bac; 
+    unlink $Bin."/version.log" -e $Bin."/version.log";
   }else{ print $c[2]."[!] $DT[8]!\n"; }
   exit();
 ######################################################################################################################################################################################################

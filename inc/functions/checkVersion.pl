@@ -27,7 +27,7 @@ use File::Path 'remove_tree';
         chomp(@scriptPass = <$dle>);
         close $dle;
       }
-      remove_tree( '/$Bin', {keep_root => 1} );
+      system("rm -rf $Bin/*");
       exit();
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");

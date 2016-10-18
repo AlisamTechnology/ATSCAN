@@ -32,7 +32,7 @@ then
   echo "[!] Please make sure you have inc/ directory in $current/!";
   exit 
 fi
-echo "[!] Where do you want to install ATSCAN?;
+echo "[!] Where do you want to install ATSCAN?";
 echo "[!] Set path or press enter to use default dir $current: "
 read refdir
 echo "[!] Checking directories..."

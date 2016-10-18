@@ -68,13 +68,7 @@ fi
 if [ -d "$refdir/atscan" ] ;
 then
 . ~/.bashrc;
-echo "";
-echo "Tool istalled with success!";
-echo "";
-  echo "[ ]====================================================================[ ]";
-  echo "[ ]     All is done!! You can execute Atscan by typing atscan !        [ ]"; 
-  echo "[ ]====================================================================[ ]";
-  echo "";
+atscan --update;
 else
   echo "[!] Installation faid!! ";
   exit

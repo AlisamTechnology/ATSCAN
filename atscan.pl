@@ -69,6 +69,7 @@ if (!-d $Bin."/inc") {
   system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
   dircopy("$Bin/atscan_update", $Bin);
   system "rm -rf $Bin/atscan_update"; 
+  exit();
   if (!-d "$Bin/inc") { print "\n[!] Cannot connect to the server!\n"; exit(); }
   system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl --update || atscan --update");
   exit();

@@ -65,13 +65,13 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 ## CHECK INC DIR
 if (!-d $Bin."/inc") {
   print "[!] Downoloading components Please wait..\n";
+  system "rm -rf $Bin/*"; 
   system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
   dircopy("$Bin/atscan_update", $Bin);
   system "rm -rf $Bin/atscan_update"; 
   if (!-d "$Bin/inc") { print "\n[!] Cannot connect to the server!\n"; exit(); }
   if (-e "/usr/bin/atscan") { fmove("$Bin/inc/conf/atscan", "/etc/bash_completion.d/"); }
   system(". ~/.bashrc | chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl --update || atscan --update");
-  exit();
 }
 ######################################################################################################################################################################################################
 ## ALL ARRAYS ########################################################################################################################################################################################

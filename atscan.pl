@@ -71,6 +71,8 @@ if (!-d $Bin."/inc") {
   if (!-d "$Bin/inc") { print "\n[!] Cannot connect to the server!\n"; exit(); }
   if (-e "/usr/bin/atscan") { fmove("$Bin/inc/conf/atscan", "/etc/bash_completion.d/"); }
   system(". ~/.bashrc | chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl --updtd || atscan --updtd");
+  mtak(); ptak();
+  print "[!] Tool updeted with success!\n";
   exit();
 }
 ######################################################################################################################################################################################################

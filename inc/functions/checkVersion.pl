@@ -46,7 +46,6 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
       mtak(); ptak();
       print $c[3]."[!] $DT[7]$c[10]\n";
       print "\n".$response->content.""; 
-      exit();
     }
     unlink $script_bac if -e $script_bac; 
   }else{ print $c[2]."[!] $DT[8]!\n"; }

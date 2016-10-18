@@ -12,7 +12,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
   desclaimer();
   print $c[4]."[!] $OTHERS[20] \n[!] $DT[31]\n";
   testConnection();
-  if (!-e $scriptv) { print $c[2]."[!] No version.log found! in $Bin/!\n    Dowmload and reinstall tool manually!\n"; logoff(); }
+  if (!-e $scriptv) { print $c[2]."[!] No $scriptv found!\n    Dowmload and reinstall tool manually!\n"; logoff(); }
   my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
   if ($response->is_success) {
     unlink $script_bac if -e $script_bac;
@@ -27,10 +27,11 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
         close $dle;
       }
       #system "rm -rf $Bin";
-      if (-e $script) { print $c[4]." [!] $ErrT[19] $script\n"; logoff(); }
+      #if (-e $script) { print $c[4]." [!] $ErrT[19] $script\n"; logoff(); }
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
       dircopy("$Bin/atscan_update", $Bin);
+      
       open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
       if (-e $scriptbash) {
         if (-d $scriptCompletion) {

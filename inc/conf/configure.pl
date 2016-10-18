@@ -17,7 +17,7 @@ $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $unin
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## VERSION
-our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $script_bac, $scriptbash, $scriptPass, $scriptv, $scriptCompletion, $scriptComplInstall);
+our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptPass, $scriptv, $scriptCompletion, $scriptComplInstall);
 $Version="11.5";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
@@ -28,11 +28,12 @@ $conectUrl="http://www.bing.com";
 ## DEFINE SCAN LISTS  ################################################################################################################################################################################
 $scriptv=$Bin."/inc/conf/version.log";
 $script=$Bin."/atscan.pl";
+$scriptComplInstall="$Bin/inc/conf/atscan";
+$scriptInstall="$Bin/install.sh";
 $scriptPass=$Bin."/inc/conf/conf.xml";
 $script_bac=$Bin."/version_bac.log";
 $scriptbash="/usr/bin/atscan";
 $scriptCompletion="/etc/bash_completion.d/atscan";
-$scriptComplInstall="$Bin/inc/conf/atscan";
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## HEADER

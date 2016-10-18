@@ -35,7 +35,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
       if (-e $scriptbash) {
         if (-d $scriptCompletion) {
           my $scbs="$scriptCompletion/atscan";
-          if (!-e $scbs) { fmove($scriptComplInstall, "/etc/bash_completion.d/"); }
+          if (!-e $scbs) { fmove($scriptComplInstall, "$scriptCompletion/"); }
         }
       } 
       unlink $scriptComplInstall if -e $scriptComplInstall;  

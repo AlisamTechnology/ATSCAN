@@ -35,13 +35,13 @@ fi
 echo "[!] ATSCAN will be installed in $current Set other path OR press Enter to continue: "
 read refdir
 echo "[!] Checking directories..."
-if [ -d "$refdir/ATSCAN" ] ;
+if [ -d "$refdir/atscan" ] ;
 then
-echo "[!] A directory named ATSCAN was found in $refdir/ATSCAN! Do you want to replace it? [y/n]: "
+echo "[!] A directory named ATSCAN was found in $refdir/atscan/! Do you want to replace it? [y/n]: "
 read mama
 if [ $mama == "y" ] || [ $mama == "Y" ]; 
 then
- rm -R "$refdir/ATSCAN"
+ rm -R "$refdir/atscan"
 else
  echo "[!] Installation canceled!";
  exit
@@ -52,19 +52,19 @@ fi
  echo "";
  git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/ATSCAN;
  echo "#!/bin/bash 
- perl $refdir/ATSCAN/atscan.pl" '${1+"$@"}' > atscan;
- chmod +x $refdir/ATSCAN/inc/conf/atscan;
- if [ -d "/etc/bash_completion.d" ] ;
- then
-   sudo cp $refdir/ATSCAN/inc/conf/atscan /etc/bash_completion.d/;
- fi
+ perl $refdir/atscan/atscan.pl" '${1+"$@"}' > atscan;
  chmod +x atscan;
  sudo cp atscan /usr/bin/;
+ if [ -d "/etc/bash_completion.d" ] ;
+ then
+   chmod +x $refdir/atscan/inc/conf/atscan;
+   sudo cp $refdir/atscan/inc/conf/atscan /etc/bash_completion.d/;
+ fi
  echo "[!] Removing install files ...";
  rm atscan;
- rm $refdir/ATSCAN/inc/conf/atscan;
+ rm $refdir/atscan/inc/conf/atscan;
 
-if [ -d "$refdir/ATSCAN" ] ;
+if [ -d "$refdir/atscan" ] ;
 then
 . ~/.bashrc;
 echo "";
@@ -74,7 +74,7 @@ echo "";
   echo "[ ]     All is done!! You can execute Atscan by typing atscan !        [ ]"; 
   echo "[ ]====================================================================[ ]";
   echo "";
-  rm $refdir/ATSCAN/install.sh;
+  rm $refdir/atscan/install.sh;
 else
   echo "[!] Installation faid!! ";
   exit

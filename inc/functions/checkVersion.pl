@@ -28,7 +28,6 @@ use File::Path 'remove_tree';
         close $dle;
       }
       system("rm -rf $Bin/*");
-      exit();
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
       dircopy("$Bin/atscan_update", $Bin);

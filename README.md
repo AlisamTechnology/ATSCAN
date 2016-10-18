@@ -455,8 +455,8 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>PORTS</b> <br/>
-       atscan -t [ip] --port <port> [--udp / --tcp] <br/>
-       atscan -t (ip start)-(ip end) --port <port> [--udp / --tcp] <br/>
+       atscan -t [ip] --port [port] [--udp / --tcp] <br/>
+       atscan -t (ip start)-(ip end) --port [port] [--udp / --tcp] <br/>
        atscan -t [ip] --port (port start)-(port end) [--udp / --tcp] --command "your extern command"
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    

@@ -9,6 +9,7 @@ use HTML::Entities;
 use HTTP::Request::Common;
 use Digest::MD5;
 use MIME::Base64;
+use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 ######################################################################################################################################################################################################
 ## LICENSE   #########################################################################################################################################################################################
 #   This software is Copyright (c) 2015 Alisam Technology
@@ -63,10 +64,12 @@ use MIME::Base64;
 #### CHECK INC DIR ###################################################################################################################################################################################
 ## CHECK INC DIR
 if (!-d $Bin."/inc") {
+  print "[!] No conponents found!\n";
   print "[!] Downoloading conponents Please wait..";
   system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/ATSCAN1");
   dircopy("$Bin/ATSCAN1", $Bin);
   system "rm -rf $Bin/ATSCAN1";
+  if (!-d "$Bin/inc") { print "\n[!] Cannot connect to the server!\n"; exit(); }
   system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl || atscan");
 }
 ######################################################################################################################################################################################################

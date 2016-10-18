@@ -49,6 +49,7 @@ fi
 
 if [ -d "$refdir/ATSCAN" ] ;
 then
+. ~/.bashrc;
 echo "";
 echo "Tool istalled with success!";
 echo "";

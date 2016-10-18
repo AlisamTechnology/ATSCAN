@@ -54,14 +54,15 @@ fi
  echo "#!/bin/bash 
  perl $refdir/ATSCAN/atscan.pl" '${1+"$@"}' > atscan;
  chmod +x $refdir/ATSCAN/inc/conf/atscan;
- sudo cp $refdir/ATSCAN/inc/conf/atscan /etc/bash_completion.d/;
+ if [ -d "/etc/bash_completion.d" ] ;
+ then
+   sudo cp $refdir/ATSCAN/inc/conf/atscan /etc/bash_completion.d/;
+ fi
  chmod +x atscan;
  sudo cp atscan /usr/bin/;
  echo "[!] Removing install files ...";
  rm atscan;
  rm $refdir/ATSCAN/inc/conf/atscan;
- chmod +x $refdir/ATSCAN/install.sh;
- rm $refdir/ATSCAN/install.sh;
 
 if [ -d "$refdir/ATSCAN" ] ;
 then
@@ -73,6 +74,7 @@ echo "";
   echo "[ ]     All is done!! You can execute Atscan by typing atscan !        [ ]"; 
   echo "[ ]====================================================================[ ]";
   echo "";
+  rm $refdir/ATSCAN/install.sh;
 else
   echo "[!] Installation faid!! ";
   exit

@@ -8,9 +8,9 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## CHECK VERSION AND UPDATE
-  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, @scriptPass, @ErrT, @DT, @c);
+  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, @scriptPass, @ErrT, @DT, @c, @OTHERS);
   desclaimer();
-  print $c[4]."[!] $DT[31]\n";
+  print $c[4]."[!] $OTHERS[20] \n[!] $DT[31]\n";
   testConnection();
   if (!-e $scriptv) { print $c[2]."[!] No version.log found! in $Bin/!\n    Dowmload and reinstall tool manually!\n"; logoff(); }
   my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");

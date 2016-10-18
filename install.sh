@@ -6,7 +6,7 @@ echo "[ ]====================================================================[ ]
 echo "";
 if [ -d "/usr/bin/" ];
 then
-echo "[!] Install.sh install atscan tool in your system? [Y/n]: ";
+echo "[!] Install.sh install atscan tool in your system? [y/n]: ";
 read baba
 if [ $baba == "y" ] || [ $baba == "Y" ]; 
   then
@@ -26,7 +26,7 @@ read refdir
 echo "[!] Checking directories..."
 if [ -d "$refdir/ATSCAN" ] ;
 then
-echo "[!] A directory named ATSCAN was found in $refdir/ATSCAN! Do you want to replace it? [Y/n]: "
+echo "[!] A directory named ATSCAN was found in $refdir/ATSCAN! Do you want to replace it? [y/n]: "
 read mama
 if [ $mama == "y" ] || [ $mama == "Y" ]; 
 then

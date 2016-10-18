@@ -65,12 +65,12 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 ## CHECK INC DIR
 if (!-d $Bin."/inc") {
   print "[!] No conponents found!\n";
-  print "[!] Downoloading conponents Please wait..";
-  system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/ATSCAN1");
-  dircopy("$Bin/ATSCAN1", $Bin);
-  system "rm -rf $Bin/ATSCAN1";
+  print "[!] Downoloading conponents Please wait..\n";
+  system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
+  dircopy("$Bin/atscan_update", $Bin);
+  system "rm -rf $Bin/atscan_update"; 
   if (!-d "$Bin/inc") { print "\n[!] Cannot connect to the server!\n"; exit(); }
-  system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl || atscan");
+  system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl --update || atscan --update");
 }
 ######################################################################################################################################################################################################
 ## ALL ARRAYS ########################################################################################################################################################################################

@@ -356,7 +356,7 @@
         <td class="main"> Remove string value from Query url [ex: site.com/index.php?id=string]  </td> 
       </tr> 
       <tr>
-        <td width="200px" class="main">--command  </td>
+        <td width="200px" class="main">--command /-c  </td>
         <td class="main"> Extern Command to execute</td>
       </tr> 
       <tr>

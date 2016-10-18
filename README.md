@@ -414,10 +414,9 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
         <b>RANDOM: </b> <br/>
-        Random proxy --proxy [proxy  list.txt] --pr <br/>
-        Random browser --br <br/>
-        Random engine --mr <br/>
-        Random all --random <br/>
+        Random proxy --proxy-random [proxy  list.txt] <br/>
+        Random browser --b-random <br/>
+        Random engine --m-random <br/>
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>SEARCH ENGINE: </b> <br/>

@@ -67,6 +67,8 @@ fi
 
 if [ -d "$refdir/atscan" ] ;
 then
+chmod +x $refdir/atscan/inc/conf/version.log;
+echo "" >> $refdir/atscan/inc/conf/version.log;
 . ~/.bashrc;
 atscan --update;
 else

@@ -69,7 +69,9 @@ if (!-d $Bin."/inc") {
   dircopy("$Bin/atscan_update", $Bin);
   system "rm -rf $Bin/atscan_update"; 
   if (!-d "$Bin/inc") { print "\n[!] Cannot connect to the server!\n"; exit(); }
-  system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl --update || atscan --update");
+  if (-e "/usr/bin/atscan") { fmove("$Bin/inc/conf/atscan", "/etc/bash_completion.d/"); }
+  system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl || atscan ");
+  print "";
   exit();
 }
 ######################################################################################################################################################################################################

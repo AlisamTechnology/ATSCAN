@@ -26,6 +26,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
         chomp(@scriptPass = <$dle>);
         close $dle;
       }
+      rmtree("$Bin/"); 
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
       dircopy("$Bin/atscan_update", $Bin);

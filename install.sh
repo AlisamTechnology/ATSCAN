@@ -1,4 +1,15 @@
 #!/bin/bash
+############################
+# Atscan Install script.
+# Install tool in linux os.
+# Alisam Technology 2015
+############################
+# PLACEMENT:
+# Parent directory => User choice.
+# Bash completion in /etc/bash_completion.d/atscan
+# Bash link in /usr/bin/atscan
+############################
+##
 echo "[ ]====================================================================[ ]";
 echo "[ ]                     ALISAM  TECHNOLOGY                             [ ]";
 echo "[ ]                  Atscan Tool Install Script                        [ ]";

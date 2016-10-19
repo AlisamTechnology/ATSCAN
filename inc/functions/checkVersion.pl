@@ -26,6 +26,7 @@ if ($response->is_success) {
       close $dle;
     }
     my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");
+    $script=$Bin."/", basename($0);
     open (LE, '>', $script); print LE $r->content; close(FILE);
     print $c[3]."\n";
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");

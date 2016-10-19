@@ -8,19 +8,22 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## CHECK VERSION AND UPDATE
-  our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, @scriptPass, @ErrT, @DT, @c, @OTHERS);
-  desclaimer();
-  print $c[4]."[!] $OTHERS[20] \n[!] $DT[31]\n";
-  testConnection();
-  my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
-  if ($response->is_success) {
-    unlink $script_bac if -e $script_bac;
-    printFile($script_bac, $response->content);    
-    use File::Compare;      
-    if (compare($script_bac, $scriptv) == 0) {
-      print $c[3]."$DT[6]\n"; }
-    else{
-      if ($scriptbash eq $Bin) { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
+our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, @scriptPass, @ErrT, @DT, @c, @OTHERS);
+desclaimer();
+print $c[4]."[!] $OTHERS[20] \n[!] $DT[31]\n";
+testConnection();
+my $response=getHtml($logUrl, "");
+if ($response->is_success) {
+  unlink $script_bac if -e $script_bac;
+  printFile($script_bac, $response->content);    
+  use File::Compare;      
+  if (compare($script_bac, $scriptv) == 0) {
+    print $c[3]."$DT[6]\n"; }
+  else{
+    if ($scriptbash eq $Bin) { 
+      my $response=getHtml($scriptUrl, "");
+      printFile("$Bin/$0", $response->content);
+    }else{
       if (-e $scriptPass) {
         open my $dle, '<', $scriptPass;
         chomp(@scriptPass = <$dle>);
@@ -41,16 +44,19 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
       unlink $scriptComplInstall if -e $scriptComplInstall;  
       unlink $scriptInstall if -e $scriptInstall; 
       if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }     
-      system "rm -rf $Bin/atscan_update";     
-      system(". ~/.bashrc | chmod +x $script | perl $script --updtd || atscan --updtd");
-      mtak(); ptak();
-      print $c[3]."[!] $DT[7]$c[10]\n";
-      print "\n".$response->content.""; 
+      system "rm -rf $Bin/atscan_update"; 
     }
-    unlink $script_bac if -e $script_bac; 
-    unlink $Bin."/version.log" if -e $Bin."/version.log";
-  }else{ print $c[2]."[!] $DT[8]!\n"; }
-  exit();
+    system(". ~/.bashrc | chmod +x $script | perl $script --updtd || atscan --updtd");
+    mtak(); ptak();
+    print $c[3]."[!] $DT[7]$c[10]\n";
+    print "\n".$response->content.""; 
+  }
+  unlink $script_bac if -e $script_bac; 
+  unlink $Bin."/version.log" if -e $Bin."/version.log";
+}else{ 
+  print $c[2]."[!] $DT[8]!\n";
+}
+exit();
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 1;

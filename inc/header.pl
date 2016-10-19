@@ -12,7 +12,7 @@ our ($nobanner, $logoVersion, @OTHERS, @c, @TT);
 sub advise {
   mtak(); ptak();
   if (-e "/usr/bin/atscan") { print $c[4]."[!] $OTHERS[5]: $TT[7]\n"; }
-  else{ print "[!] $OTHERS[5]: perl ./",basename($0)," $TT[8] ./",basename($0)," $TT[9]\n"; }
+  else{ print $c[4]."[!] $OTHERS[5]: perl ./",basename($0)," $TT[8] ./",basename($0)," $TT[9]\n"; }
   logoff();
 }
 ######################################################################################################################################################################################################

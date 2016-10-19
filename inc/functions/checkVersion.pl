@@ -25,7 +25,6 @@ if ($response->is_success) {
       chomp(@scriptPass = <$dle>);
       close $dle;
     }
-    unlink $script;
     my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");    
     printFile($script, $r->content);
     system("rm -rf $Bin/inc");

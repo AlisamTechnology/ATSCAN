@@ -20,33 +20,30 @@ if ($response->is_success) {
   if (compare($script_bac, $scriptv) == 0) {
     print $c[3]."$DT[6]\n"; }
   else{
-    if (substr($0, -3) ne '.pl') {
-      my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");
-      printFile("$Bin/$0", $r->content);
-    }else{
-      if (-e $scriptPass) {
-        open my $dle, '<', $scriptPass;
-        chomp(@scriptPass = <$dle>);
-        close $dle;
-      }
-      system("rm -rf $Bin/inc");
-      unlink $script;
-      if (-e $script) { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
-      print $c[3]."\n";
-      system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
-      dircopy("$Bin/atscan_update", $Bin);      
-      open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
-      if (-e $scriptbash) {
-        if (-d $scriptCompletion) {
-          my $scbs="$scriptCompletion/atscan";
-          if (!-e $scbs) { fmove($scriptComplInstall, "$scriptCompletion/"); }
-        }
-      } 
-      unlink $scriptComplInstall if -e $scriptComplInstall;  
-      unlink $scriptInstall if -e $scriptInstall; 
-      if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }     
-      system "rm -rf $Bin/atscan_update"; 
+    if (-e $scriptPass) {
+      open my $dle, '<', $scriptPass;
+      chomp(@scriptPass = <$dle>);
+      close $dle;
     }
+    unlink $script;
+    my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");    
+    printFile($script, $r->content);
+    system("rm -rf $Bin/inc");
+    if (-e "$Bin/inc") { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
+    print $c[3]."\n";
+    system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
+    dircopy("$Bin/atscan_update", $Bin);      
+    open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
+    if (-e $scriptbash) {
+      if (-d $scriptCompletion) {
+        my $scbs="$scriptCompletion/atscan";
+        if (!-e $scbs) { fmove($scriptComplInstall, "$scriptCompletion/"); }
+      }
+    }            
+    system "rm -rf $Bin/atscan_update"; 
+    if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }
+    unlink $scriptComplInstall if -e $scriptComplInstall;  
+    unlink $scriptInstall if -e $scriptInstall; 
     system(". ~/.bashrc | chmod +x $script | perl $script --updtd || atscan --updtd");
     mtak(); ptak();
     print $c[3]."[!] $DT[7]$c[10]\n";

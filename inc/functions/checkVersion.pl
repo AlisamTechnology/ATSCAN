@@ -26,8 +26,9 @@ if ($response->is_success) {
       close $dle;
     }
     my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");
-    my $s=$Bin."/$0";
-    open (LE, '>', $s)or die "Couldn't open: $!"; print LE $r->content; close(LE);
+    my $mysc="atscan";
+    if (substr($0, -3) eq '.pl') { $mysc.=".pl"; }
+    open (LE, '>', "$Bin/$mysc") or die "Couldn't open: $!"; print LE $r->content; close(LE);
     print $c[3]."\n";
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
     dircopy("$Bin/atscan_update/inc", $Bin);      

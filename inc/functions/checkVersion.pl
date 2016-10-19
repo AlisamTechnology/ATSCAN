@@ -21,8 +21,8 @@ if ($response->is_success) {
     print $c[3]."$DT[6]\n"; }
   else{
     if ($scriptbash eq $Bin) { 
-      my $response=getHtml($scriptUrl, "");
-      printFile("$Bin/$0", $response->content);
+      my $r=getHtml($scriptUrl, "");
+      printFile("$Bin/$0", $r->content);
     }else{
       if (-e $scriptPass) {
         open my $dle, '<', $scriptPass;

@@ -29,7 +29,7 @@ if ($response->is_success) {
         chomp(@scriptPass = <$dle>);
         close $dle;
       }
-      system("rm -rf $Bin/*");
+      #system("rm -rf $Bin/*");
       if (-e $script) { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");

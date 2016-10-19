@@ -66,7 +66,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 if (!-d $Bin."/inc") {
   print "[!] Downoloading components Please wait..\n";
   system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
-  chmod +x "Bin/atscan.pl";
+  chmod +x Bin."/atscan.pl";
   unlink "Bin/atscan.pl";
   dircopy("$Bin/atscan_update", $Bin);
   system "rm -rf $Bin/atscan_update"; 

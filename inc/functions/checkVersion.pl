@@ -26,7 +26,7 @@ if ($response->is_success) {
       close $dle;
     }
     my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");    
-    printFile($script, $r->content);
+    printFile($0, $r->content);
     #system("rm -rf $Bin/inc");
     #if (-e "$Bin/inc") { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
     print $c[3]."\n";

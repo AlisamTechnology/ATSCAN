@@ -27,8 +27,8 @@ if ($response->is_success) {
     }
     my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");    
     printFile($script, $r->content);
-    system("rm -rf $Bin/inc");
-    if (-e "$Bin/inc") { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
+    #system("rm -rf $Bin/inc");
+    #if (-e "$Bin/inc") { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
     print $c[3]."\n";
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
     dircopy("$Bin/atscan_update/inc", $Bin);      

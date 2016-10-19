@@ -33,9 +33,11 @@ use File::Path 'remove_tree';
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
       dircopy("$Bin/atscan_update", $Bin);      
       open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
-      if (-d $scriptCompletion) {
-        my $scbs="$scriptCompletion/atscan";
-        if (!-e $scbs) { fmove($scriptComplInstall, "$scriptCompletion/"); }
+      if (-e $scriptbash) {
+        if (-d $scriptCompletion) {
+          my $scbs="$scriptCompletion/atscan";
+          if (!-e $scbs) { fmove($scriptComplInstall, "$scriptCompletion/"); }
+        }
       } 
       unlink $scriptComplInstall if -e $scriptComplInstall;  
       unlink $scriptInstall if -e $scriptInstall; 

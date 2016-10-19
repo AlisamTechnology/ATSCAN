@@ -32,7 +32,7 @@ if ($response->is_success) {
     if (-e "$Bin/inc") { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
     print $c[3]."\n";
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
-    dircopy("$Bin/atscan_update", $Bin);      
+    dircopy("$Bin/atscan_update/inc", $Bin);      
     open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
     if (-e $scriptbash) {
       if (-d $scriptCompletion) {

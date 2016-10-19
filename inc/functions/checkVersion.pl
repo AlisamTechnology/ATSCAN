@@ -12,7 +12,7 @@ our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptIn
 desclaimer();
 print $c[4]."[!] $OTHERS[20] \n[!] $DT[31]\n";
 testConnection();
-my $response=getHtml($logUrl, "");
+my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
 if ($response->is_success) {
   unlink $script_bac if -e $script_bac;
   printFile($script_bac, $response->content);    
@@ -21,7 +21,7 @@ if ($response->is_success) {
     print $c[3]."$DT[6]\n"; }
   else{
     if (substr($0, -3) ne '.pl') {
-      my $r=getHtml($scriptUrl, "");
+      my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");
       printFile("$Bin/$0", $r->content);
     }else{
       if (-e $scriptPass) {

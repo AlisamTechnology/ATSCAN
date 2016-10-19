@@ -13,7 +13,6 @@ use File::Path 'remove_tree';
   desclaimer();
   print $c[4]."[!] $OTHERS[20] \n[!] $DT[31]\n";
   testConnection();
-  if (!-e $scriptv) { print $c[2]."[!] No $scriptv found!\n    Dowmload and reinstall tool manually!\n"; logoff(); }
   my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
   if ($response->is_success) {
     unlink $script_bac if -e $script_bac;
@@ -28,6 +27,7 @@ use File::Path 'remove_tree';
         close $dle;
       }
       system("rm -rf $Bin/*");
+      if (-e $script) { print $c[2]."[!] Some thing wrong cannot update tool!\n"; logoff(); }
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
       dircopy("$Bin/atscan_update", $Bin);      

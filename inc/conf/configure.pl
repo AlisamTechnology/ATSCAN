@@ -28,6 +28,7 @@ $conectUrl="http://www.bing.com";
 ## DEFINE SCAN LISTS  ################################################################################################################################################################################
 $scriptv=$Bin."/inc/conf/version.log";
 $script=$Bin."/atscan";
+if (substr($0, -3) eq '.pl') { $script.=".pl"; }
 $scriptComplInstall="$Bin/inc/conf/atscan";
 $scriptInstall="$Bin/install.sh";
 $scriptPass=$Bin."/inc/conf/conf.xml";

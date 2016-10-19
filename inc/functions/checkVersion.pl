@@ -40,7 +40,8 @@ if ($response->is_success) {
     system "rm -rf $Bin/atscan_update"; 
     if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }
     unlink $scriptComplInstall if -e $scriptComplInstall;  
-    unlink $scriptInstall if -e $scriptInstall; 
+    unlink $scriptInstall if -e $scriptInstall;
+    if (substr($0, -3) ne '.pl') { my $zs=$script.".pl"; unlink $zs; }
     system(". ~/.bashrc | chmod +x $script | perl $script --updtd || atscan --updtd");
     mtak(); ptak();
     print $c[3]."[!] $DT[7]$c[10]\n";

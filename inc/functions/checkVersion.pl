@@ -20,7 +20,7 @@ if ($response->is_success) {
   if (compare($script_bac, $scriptv) == 0) {
     print $c[3]."$DT[6]\n"; }
   else{
-    if ($scriptbash eq $Bin) { 
+    if (substr($0, -3) ne '.pl') {
       my $r=getHtml($scriptUrl, "");
       printFile("$Bin/$0", $r->content);
     }else{
@@ -29,7 +29,8 @@ if ($response->is_success) {
         chomp(@scriptPass = <$dle>);
         close $dle;
       }
-      #system("rm -rf $Bin/*");
+      system("rm -rf $Bin/inc");
+      unlink $script;
       if (-e $script) { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");

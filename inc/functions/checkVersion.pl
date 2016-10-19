@@ -21,13 +21,14 @@ use File::Path 'remove_tree';
     if (compare($script_bac, $scriptv) == 0) {
       print $c[3]."$DT[6]\n"; }
     else{
+      if ($scriptbash eq $Bin) { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
       if (-e $scriptPass) {
         open my $dle, '<', $scriptPass;
         chomp(@scriptPass = <$dle>);
         close $dle;
       }
       system("rm -rf $Bin/*");
-      if (-e $script) { print $c[2]."[!] Some thing wrong cannot update tool!\n"; logoff(); }
+      if (-e $script) { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }
       print $c[3]."\n";
       system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
       dircopy("$Bin/atscan_update", $Bin);      

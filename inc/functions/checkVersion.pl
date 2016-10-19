@@ -25,7 +25,8 @@ if ($response->is_success) {
       chomp(@scriptPass = <$dle>);
       close $dle;
     }
-    my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");    
+    my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");
+    unlink $script;
     printFile($script, $r->content);
     #system("rm -rf $Bin/inc");
     #if (-e "$Bin/inc") { print $c[2]."[!] Some thing wrong cannot update tool!\n"; exit(); }

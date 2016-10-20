@@ -30,8 +30,8 @@ if ($response->is_success) {
     print $c[3]."\n";
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
     system "rm -rf $Bin/inc";
-    mkdir "Bin/inc";
-    dircopy("$Bin/atscan_update/inc", $Bin);      
+    mkdir "$Bin/inc", 0755 or die "cannot write in $Bin!"; }
+    dircopy("$Bin/atscan_update/inc/", "$Bin/inc");      
     open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
     if (-e $scriptbash) {
       if (-d $scriptCompletion) {

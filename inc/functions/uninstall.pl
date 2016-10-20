@@ -28,10 +28,8 @@ if (defined $uninstall) {
     system "rm $Bin/atscan.pl" if -e "$Bin/atscan.pl";
     
     if (is_folder_empty($Bin)) {
-      #system "rm -rf $Bin";
-      print "In $Bin there is no files\n";
-    }
-    
+      system "rm -rf $Bin";
+    }   
     
     sleep(3);
     print $c[3]."$OTHERS[9]\n";

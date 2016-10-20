@@ -63,6 +63,7 @@ fi
    chmod +x $refdir/inc/conf/atscan;
    sudo cp $refdir/inc/conf/atscan /etc/bash_completion.d/;
    chmod +x $refdir/README.md;
+   mkdir "/usr/share/doc/atscan";
    sudo cp $refdir/README.md /usr/share/doc/atscan/;
  fi
  echo "[!] Removing install files ...";

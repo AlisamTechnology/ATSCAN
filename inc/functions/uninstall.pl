@@ -12,7 +12,7 @@ sub is_folder_empty {
   return scalar(grep { $_ ne "." && $_ ne ".." } readdir($dh)) == 0;
 }    
 ## 
-our ($uninstall, $scriptbash, $script, $scriptCompletion, @TT, @c, @OTHERS, @DT);
+our ($uninstall, $scriptbash, $script, $scriptCompletion, $readme, @TT, @c, @OTHERS, @DT);
 if (defined $uninstall) {
   desclaimer();
   print $c[2]."$OTHERS[8]";
@@ -26,7 +26,8 @@ if (defined $uninstall) {
     system "rm -rf $Bin/inc" if -e "$Bin/inc";
     system "rm $Bin/atscan.pl" if -e "$Bin/atscan.pl";
     system "rm $Bin/atscan" if -e "$Bin/atscan";
-    system "rm $Bin/usr/share/doc/atscan/README.md" if -e "$Bin/usr/share/doc/atscan/README.md";
+    $readme.="/README.md";
+    system "rm $readme if -e $readme";
     if (is_folder_empty($Bin)) {
       system "rm -rf $Bin";
     }   

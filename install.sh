@@ -63,10 +63,11 @@ fi
    chmod +x $refdir/inc/conf/atscan;
    sudo cp $refdir/inc/conf/atscan /etc/bash_completion.d/;
  fi
- chmod +x $refdir/README.md;
  if [ ! -d "/usr/share/doc/atscan" ]; then
    mkdir "/usr/share/doc/atscan";
  fi
+ chmod +x "/usr/share/doc/atscan/";
+ chmod +x $refdir/README.md;
  sudo cp $refdir/README.md /usr/share/doc/atscan/;
    
  echo "[!] Removing install files ...";
@@ -81,7 +82,7 @@ echo "[!] Tool successfully installed";
 echo "[!] Updating tool.. ";
 sleep 2;
 . ~/.bashrc;
-atscan --update;
+atscan;
 else
   echo "[!] Installation faid!! ";
   exit

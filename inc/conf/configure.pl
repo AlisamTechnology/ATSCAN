@@ -14,7 +14,7 @@ $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $unin
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## VERSION
-our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptPass, $scriptv, $scriptCompletion, $scriptComplInstall);
+our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptPass, $scriptv, $scriptCompletion, $scriptComplInstall, $readme);
 $Version="11.6";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
@@ -32,6 +32,7 @@ $scriptPass=$Bin."/inc/conf/conf.xml";
 $script_bac=$Bin."/version_bac.log";
 $scriptbash="/usr/bin/atscan";
 $scriptCompletion="/etc/bash_completion.d";
+$readme="/usr/share/doc/atscan";
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## DELETE CLEAR LISTS

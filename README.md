@@ -77,7 +77,7 @@
   <tr>
     <td class="main">
       cd ATSCAN <br/>
-      chmod +x ATSCAN
+      chmod +x ./atscan.pl
     </td>
   </tr>
 </table>

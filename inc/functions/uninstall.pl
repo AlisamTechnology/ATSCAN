@@ -26,6 +26,7 @@ if (defined $uninstall) {
     unlink "$scriptCompletion/atscan" if -e "$scriptCompletion/atscan";
     system "rm -rf $Bin/inc" if -e "$Bin/inc";
     system "rm $Bin/atscan.pl" if -e "$Bin/atscan.pl";
+    system "rm $Bin/usr/share/doc/atscan/README.md" if -e "$Bin/usr/share/doc/atscan/README.md";
     
     if (is_folder_empty($Bin)) {
       system "rm -rf $Bin";

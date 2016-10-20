@@ -41,30 +41,17 @@ if ($response->is_success) {
     if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }
     unlink $scriptComplInstall if -e $scriptComplInstall;  
     unlink $scriptInstall if -e $scriptInstall;
+    unlink $script_bac if -e $script_bac; 
+    unlink $Bin."/version.log" if -e $Bin."/version.log";
 
-    if (-e "$Bin/inc") {
+    if (-e $scriptv) {
       print $c[3]."[!] $DT[7]$c[10]\n";
       print "\n".$response->content.""; 
-    }else{ print $c[2]."[!] $DT[8]!\n"; }
-    
-    if (substr($0, -3) ne '.pl') { my $zs=$script.".pl"; unlink $zs if -e $zs; }
-
-    use Time::HiRes qw(usleep);
-    local $| = 1;
-    my @nums = -5 .. -1;
-    print $c[3]."[!] $DT[7] and will restart in ";
-    foreach my $c (@nums) {
-      print "$c";
-      usleep(1000000);
-      print ("\b" x length($c));
+      if (substr($0, -3) ne '.pl') { my $zs=$script.".pl"; unlink $zs if -e $zs; }
+    }else{
+      print $c[2]."[!] Uppss.. something went wrong!\n";
     }
-    print "\n";
-    system(". ~/.bashrc | chmod +x $script | perl $script --updtd || atscan --updtd");
-    mtak(); ptak();
-    print $c[3]."[!] $DT[7]$c[10]\n";
   }
-  unlink $script_bac if -e $script_bac; 
-  unlink $Bin."/version.log" if -e $Bin."/version.log";
 }else{ 
   print $c[2]."[!] $DT[8]!\n";
 }

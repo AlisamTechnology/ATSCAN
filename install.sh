@@ -82,7 +82,7 @@ echo "[!] Tool successfully installed";
 echo "[!] Updating tool.. ";
 sleep 2;
 . ~/.bashrc;
-atscan;
+atscan --update;
 else
   echo "[!] Installation faid!! ";
   exit

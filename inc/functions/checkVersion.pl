@@ -30,12 +30,14 @@ if ($response->is_success) {
     print $c[3]."\n";
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
     
-    print $c[10]."[!] Placing components...!\n";
+    print $c[10]."[!] Placing components...\n";
+    sleep(1);
     dirmove("$Bin/atscan_update/inc/.", "$Bin/inc/");
-    
     print $c[10]."[!] Placing README.md to $readme/ ...\n";
+    sleep(1);
     fmove("$Bin/atscan_update/README.md", "/usr/share/doc/atscan/");
     print $c[10]."[!] Checking others components ...\n";
+    sleep(1);
     open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
     if (-e $scriptbash) {
       if (-d $scriptCompletion) {
@@ -46,6 +48,7 @@ if ($response->is_success) {
     if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }
     
     print $c[10]."[!] Deleting install files...\n";
+    sleep(1);
     system "rm -rf $Bin/atscan_update"; 
     unlink $scriptComplInstall if -e $scriptComplInstall;  
     unlink $scriptInstall if -e $scriptInstall;

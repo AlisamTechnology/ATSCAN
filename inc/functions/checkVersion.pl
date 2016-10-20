@@ -33,10 +33,10 @@ if ($response->is_success) {
     print $c[10]."[!] Placing components...!\n";
     dirmove("$Bin/atscan_update/inc/.", "$Bin/inc/");
     
-    print $c[10]."[!] Placing README.md to $readme/ ...!\n";
+    print $c[10]."[!] Placing README.md to $readme/ ...\n";
     fmove("$Bin/atscan_update/README.md", "$readme/");
     
-    print $c[10]."[!] Checking others components ...!\n";
+    print $c[10]."[!] Checking others components ...\n";
     open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
     if (-e $scriptbash) {
       if (-d $scriptCompletion) {
@@ -46,7 +46,7 @@ if ($response->is_success) {
     }            
     if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }
     
-    print $c[10]."[!] Deleting install files...!\n";
+    print $c[10]."[!] Deleting install files...\n";
     system "rm -rf $Bin/atscan_update"; 
     unlink $scriptComplInstall if -e $scriptComplInstall;  
     unlink $scriptInstall if -e $scriptInstall;

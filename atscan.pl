@@ -64,6 +64,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 #### CHECK INC DIR ###################################################################################################################################################################################
 ## CHECK INC DIR
 if (!-d $Bin."/inc") {
+  print "[!] No components found..\n";
   print "[!] Downoloading components Please wait..\n";
   system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
   if (-e "$Bin/atscan.pl") {

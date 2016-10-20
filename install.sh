@@ -27,22 +27,22 @@ if [ $baba == "y" ] || [ $baba == "Y" ];
     exit
 fi
 current=`pwd`
-if [ ! -d "$current/inc" ]; 
-then 
-  echo "[!] Please make sure you have inc/ directory in $current/!";
-  exit 
-fi
 echo "[!] Where do you want to install ATSCAN?";
 echo "[!] Set path or press enter to use default dir $current: "
 read refdir
-echo "[!] Checking directories..."
-if [ -d "$refdir/atscan" ] || [ -d "$refdir/ATSCAN" ];
+if [ -z "$refdir" ];
 then
-echo "[!] A directory named ATSCAN was found $refdir/atscan/! Do you want to replace it? [y/n]: "
+ refdir=`pwd`;
+fi
+
+echo "[!] Checking directories..."
+if [ -e "/usr/bin/atscan" ];
+then
+echo "[!] A previous instalation was found in /usr/bin/! Do you want to replace it? [y/n]: "
 read mama
 if [ $mama == "y" ] || [ $mama == "Y" ]; 
 then
- rm -R "$refdir/atscan"
+ rm "/usr/bin/atscan"
 else
  echo "[!] Installation canceled!";
  exit
@@ -50,22 +50,25 @@ fi
 fi
 
  echo "[!] Installing ...";
- git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/atscan;
+ rm -r $refdir/*;
+ git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/atscan_install;
+ cp -r $refdir/atscan_install/* $refdir/;
  echo "#!/bin/bash 
- perl $refdir/atscan/atscan.pl" '${1+"$@"}' > atscan;
+ perl $refdir/atscan.pl" '${1+"$@"}' > atscan;
  chmod +x atscan;
  sudo cp atscan /usr/bin/;
  rm atscan;
  if [ -d "/etc/bash_completion.d" ] ;
  then
-   chmod +x $refdir/atscan/inc/conf/atscan;
-   sudo cp $refdir/atscan/inc/conf/atscan /etc/bash_completion.d/;
+   chmod +x $refdir/inc/conf/atscan;
+   sudo cp $refdir/inc/conf/atscan /etc/bash_completion.d/;
  fi
  echo "[!] Removing install files ...";
- rm $refdir/atscan/inc/conf/atscan;
- rm $refdir/atscan/install.sh;
+ rm $refdir/inc/conf/atscan;
+ rm $refdir/install.sh;
+ rm -r $refdir/atscan_install;
 
-if [ -d "$refdir/atscan" ] ;
+if [ -e "$refdir/atscan" ] || [ -e "$refdir/atscan.pl" ];
 then
 echo "[!] Tool successfully installed";
 echo "[!] Updating tool.. ";

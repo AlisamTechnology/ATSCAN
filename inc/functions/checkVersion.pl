@@ -8,7 +8,7 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## CHECK VERSION AND UPDATE
-our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, @scriptPass, @ErrT, @DT, @c, @OTHERS, @AUTH);
+our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme, @scriptPass, @ErrT, @DT, @c, @OTHERS, @AUTH);
 desclaimer();
 print $c[4]."[!] $OTHERS[20] \n[!] $DT[31]\n";
 testConnection();
@@ -30,7 +30,7 @@ if ($response->is_success) {
     print $c[3]."\n";
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
     dirmove("$Bin/atscan_update/inc/.", "$Bin/inc/"); 
-    fmove("$Bin/atscan_update/README.md", "/usr/share/doc/atscan/"); 
+    fmove("$Bin/atscan_update/README.md", "$readme/"); 
     open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
     if (-e $scriptbash) {
       if (-d $scriptCompletion) {

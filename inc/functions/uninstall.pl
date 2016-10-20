@@ -23,7 +23,7 @@ if (defined $uninstall) {
     system "rm -rf $readme if -d $readme";
     if (is_folder_empty($Bin)) {
       system "rm -rf $Bin";
-    }   
+    }else{ print "$Bin still have files\n";}
     sleep(3);
     print $c[3]."$OTHERS[9]\n";
   }else{

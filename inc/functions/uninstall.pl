@@ -19,7 +19,7 @@ if (defined $uninstall) {
     unlink "$scriptCompletion/atscan" if -e "$scriptCompletion/atscan";
     system "rm -rf $Bin/inc" if -e "$Bin/inc";
     system "rm $Bin/atscan.pl" if -e "$Bin/atscan.pl";
-    system "rm $outdir" if -e "$outdir";
+    system "rm -rf $outdir" if -e "$outdir";
     sleep(3);
     print $c[3]."$OTHERS[9]\n";
   }else{

@@ -11,7 +11,6 @@ sub is_folder_empty {
   opendir(my $dh, $dirname);
   return scalar(grep { $_ ne "." && $_ ne ".." } readdir($dh)) == 0;
 }    
-
 ## 
 our ($uninstall, $scriptbash, $script, $scriptCompletion, @TT, @c, @OTHERS, @DT);
 if (defined $uninstall) {
@@ -26,12 +25,11 @@ if (defined $uninstall) {
     unlink "$scriptCompletion/atscan" if -e "$scriptCompletion/atscan";
     system "rm -rf $Bin/inc" if -e "$Bin/inc";
     system "rm $Bin/atscan.pl" if -e "$Bin/atscan.pl";
+    system "rm $Bin/atscan" if -e "$Bin/atscan";
     system "rm $Bin/usr/share/doc/atscan/README.md" if -e "$Bin/usr/share/doc/atscan/README.md";
-    
     if (is_folder_empty($Bin)) {
       system "rm -rf $Bin";
     }   
-    
     sleep(3);
     print $c[3]."$OTHERS[9]\n";
   }else{

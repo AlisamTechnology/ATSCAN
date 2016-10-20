@@ -29,7 +29,7 @@ if ($response->is_success) {
     open (LE, '>', $script) or die "Couldn't open: $!"; print LE $r->content; close(LE);
     print $c[3]."\n";
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
-    dirmove("$Bin/atscan_update/inc/", "$Bin/inc/");      
+    dirmove("$Bin/atscan_update/inc/.", "$Bin/inc/");      
     open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
     if (-e $scriptbash) {
       if (-d $scriptCompletion) {

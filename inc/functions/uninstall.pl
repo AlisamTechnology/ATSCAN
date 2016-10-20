@@ -6,6 +6,13 @@ use FindBin '$Bin';
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## DELETE / UNINSTALL TOOL
+sub is_folder_empty {
+  my $dirname = shift;
+  opendir(my $dh, $dirname);
+  return scalar(grep { $_ ne "." && $_ ne ".." } readdir($dh)) == 0;
+}    
+
+## 
 our ($uninstall, $scriptbash, $script, $scriptCompletion, @TT, @c, @OTHERS, @DT);
 if (defined $uninstall) {
   desclaimer();
@@ -19,6 +26,13 @@ if (defined $uninstall) {
     unlink "$scriptCompletion/atscan" if -e "$scriptCompletion/atscan";
     system "rm -rf $Bin/inc" if -e "$Bin/inc";
     system "rm $Bin/atscan.pl" if -e "$Bin/atscan.pl";
+    
+    if (is_folder_empty($Bin)) {
+      #system "rm -rf $Bin";
+      print "In $Bin there is no files\n";
+    }
+    
+    
     sleep(3);
     print $c[3]."$OTHERS[9]\n";
   }else{

@@ -52,7 +52,7 @@ if ($response->is_success) {
     use Time::HiRes qw(usleep);
     local $| = 1;
     my @nums = -5 .. -1;
-    print $c[3]."[!] $DT[7]$c[10] and will restart in ";
+    print $c[3]."[!] $DT[7] and will restart in ";
     foreach my $c (@nums) {
       print "$c";
       usleep(1000000);

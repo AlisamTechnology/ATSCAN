@@ -34,9 +34,9 @@ if ($response->is_success) {
     dirmove("$Bin/atscan_update/inc/.", "$Bin/inc/");
     
     print $c[10]."[!] Placing README.md to $readme/ ...\n";
-    #if (!-e "$Bin/atscan_update/README.md") {    
-      fmove("$Bin/atscan_update/README.md", "$readme");
-    #}
+    if (!-e "$Bin/atscan_update/README.md") {    
+      fmove("$Bin/atscan_update/README.md", "/usr/share/doc/atscan/");
+    }
     print $c[10]."[!] Checking others components ...\n";
     open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
     if (-e $scriptbash) {

@@ -19,7 +19,7 @@ if [ -d "/usr/bin/" ];
 then
 echo "[!] Install.sh install atscan tool in your system? [y/n]: ";
 read baba
-if [ $baba == "y" ] || [ $baba == "Y" ] || [ -z "$baba" ]; 
+if [ "$baba" == "y" ] || [ "$baba" == "Y" ] || [ -z "$baba" ]; 
   then
     echo " "
   else
@@ -40,7 +40,7 @@ if [ -e "/usr/bin/atscan" ];
 then
 echo "[!] A previous instalation was found in /usr/bin/! Do you want to replace it? [y/n]: "
 read mama
-if [ $mama == "y" ] || [ $mama == "Y" ] || [ -z "$mama" ];  
+if [ "$mama" == "y" ] || [ "$mama" == "Y" ] || [ -z "$mama" ];  
 then
  rm "/usr/bin/atscan"
 else

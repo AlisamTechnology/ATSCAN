@@ -17,7 +17,9 @@ if (defined $uninstall) {
     print $c[4]."[!] $DT[31]\n";
     unlink $scriptbash if -e $scriptbash;
     unlink "$scriptCompletion/atscan" if -e "$scriptCompletion/atscan";
-    system "rm -rf $Bin";
+    system "rm -rf $Bin/inc";
+    system "rm $Bin/atscan.pl";
+    system "rm $Bin/$outdir";
     sleep(3);
     print $c[3]."$OTHERS[9]\n";
   }else{

@@ -29,9 +29,7 @@ if ($response->is_success) {
     open (LE, '>', $script) or die "Couldn't open: $!"; print LE $r->content; close(LE);
     print $c[3]."\n";
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
-    system "rm -rf $Bin/inc";
-    mkdir "$Bin/inc", 0755 or die "cannot write in $Bin!";
-    dirmove("$Bin/atscan_update/inc", "$Bin/");      
+    dirmove("$Bin/atscan_update/inc", "$Bin");      
     open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
     if (-e $scriptbash) {
       if (-d $scriptCompletion) {

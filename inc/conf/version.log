@@ -1,7 +1,8 @@
-VERSION 11.6 RELEASE
+VERSION 11.7 RELEASE
 =====================================================
-  CHANGES: 19/10/2016 
+  CHANGES: 21/10/2016 
   =================================================== 
   - Fix update bug for old versions.
+  - Fix uninstall process.
   - Enjoy!
   ===================================================

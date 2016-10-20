@@ -26,8 +26,7 @@ if (defined $uninstall) {
     system "rm -rf $Bin/inc" if -e "$Bin/inc";
     system "rm $Bin/atscan.pl" if -e "$Bin/atscan.pl";
     system "rm $Bin/atscan" if -e "$Bin/atscan";
-    $readme.="/README.md";
-    system "rm $readme if -e $readme";
+    system "rm -rf $readme if -d $readme";
     if (is_folder_empty($Bin)) {
       system "rm -rf $Bin";
     }   

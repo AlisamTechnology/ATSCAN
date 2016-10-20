@@ -30,7 +30,7 @@ if ($response->is_success) {
     print $c[3]."\n";
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
     dirmove("$Bin/atscan_update/inc/.", "$Bin/inc/"); 
-    fmove("$Bin/README.md.", "$Bin/usr/share/doc/atscan/"); 
+    fmove("$Bin/README.md.", "/usr/share/doc/atscan/"); 
     open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
     if (-e $scriptbash) {
       if (-d $scriptCompletion) {

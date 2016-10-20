@@ -23,12 +23,12 @@ if [ $baba == "y" ] || [ $baba == "Y" ];
   then
     echo " "
   else
-    echo "[!] Installation canceled!";
+    echo "[!] Installation aborted!";
     exit
 fi
 current=`pwd`
 echo "[!] Where do you want to install ATSCAN?";
-echo "[!] Set path or press enter to use default dir $current: "
+echo "[!] Set path or press enter to use default dir [$current]: "
 read refdir
 if [ -z "$refdir" ];
 then
@@ -44,7 +44,7 @@ if [ $mama == "y" ] || [ $mama == "Y" ];
 then
  rm "/usr/bin/atscan"
 else
- echo "[!] Installation canceled!";
+ echo "[!] Installation aborted!";
  exit
 fi
 fi

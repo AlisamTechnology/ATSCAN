@@ -70,7 +70,7 @@ if (!-d $Bin."/inc") {
     system("chmod +x $Bin/atscan.pl");
     unlink "$Bin/atscan.pl";
   }
-  mkdir "$Bin/inc", 0755 or die "cannot write in $Bin!"; }
+  mkdir "$Bin/inc", 0755 or die "cannot write in $Bin!";
   dircopy("$Bin/atscan_update", $Bin);
   system "rm -rf $Bin/atscan_update"; 
   if (!-d "$Bin/inc") { print "\n[!] Cannot connect to the server!\n"; exit(); }

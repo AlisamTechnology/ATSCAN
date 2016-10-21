@@ -14,15 +14,20 @@ if (defined $uninstall) {
   my $resp=<STDIN>;
   chomp ($resp);
   if ($resp=~/(Y|y)/) {
-    print $c[4]."[!] $DT[31]\n";
-    print $c[10]."[!] Removing ...\n";
- 
-    unlink $scriptbash if -e $scriptbash;
-    unlink "$scriptCompletion/atscan" if -e "$scriptCompletion/atscan";
+    my @uninstall=($scriptbash, "$scriptCompletion/atscan", $script);
+    for my $mm(@uninstall) {
+      print $c[10]."[!] Removing $mm... ";
+      unlink $mm if -e $mm;
+      if (!-e $mm) { cc(); }else{ bb(); }
+    }
+    
+    print $c[10]."[!] Removing $Bin/inc... ";
     system "rm -rf $Bin/inc" if -e "$Bin/inc";
-    system "rm $Bin/atscan.pl" if -e "$Bin/atscan.pl";
-    system "rm $Bin/atscan" if -e "$Bin/atscan";
+    if (!-d "$Bin/inc") { cc(); }else{ bb(); }
+    
+    print $c[10]."[!] Removing $readme... ";
     system "rm -rf $readme if -d $readme";
+    if (!-d $readme) { cc(); }else{ bb(); }
     
     if (is_folder_empty($Bin)) {
       system "rm -rf $Bin";
@@ -33,6 +38,7 @@ if (defined $uninstall) {
     print $c[4]."[!] $TT[13]\n";
   }
 }
+exit();
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 1;

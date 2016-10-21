@@ -124,11 +124,9 @@ sub formData {
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV;
-  if ($status == 200) {
-    if (defined $Hstatus) { if ($status==$Hstatus) { $cV=$URL1; }else{ $cV=""; } }
-    elsif (defined $validText) { if ($html=~/$validText/) { $cV=$URL1; }else{ $cV=""; } }
-    else{ $cV=$URL1; }
-  }
+  if (defined $Hstatus) { if ($status==$Hstatus) { $cV=$URL1; }else{ $cV=""; } }
+  elsif (defined $validText) { if ($html=~/$validText/) { $cV=$URL1; }else{ $cV=""; } }
+  else{ $cV=$URL1; }
   return $cV;
 }
 ######################################################################################################################################################################################################

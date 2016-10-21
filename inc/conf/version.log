@@ -4,5 +4,6 @@ VERSION 11.7 RELEASE
   =================================================== 
   - Fix update bug for old versions.
   - Fix uninstall process.
+  - Remove tool info to arguments.
   - Enjoy!
   ===================================================

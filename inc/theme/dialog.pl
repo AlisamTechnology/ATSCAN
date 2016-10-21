@@ -6,7 +6,7 @@ use FindBin '$Bin';
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## INFO PANEL TEXT
-my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCANNER", "atscan <arg> / Help: atscan [--help | -h | -?] to see examples!", "<option> \/ Help: perl",
+my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCANNER", "atscan <arg> / Help: atscan [--help | -h | -?]", "<option> \/ Help: perl",
 "[--help|-h|-?]", "TIMEOUT", "Cannot get IP!", "Random", "No changes have been made!", "[!] Random not allowed when engines are defined!", "[!] Level not defined or not numeric!",
 "[!] You have to set a method: --get or --post!", "[!] You have to validate data post! ex: -v text or --status 200", "No response recieved!", "ifinurl", "is not an IP address!");
 ######################################################################################################################################################################################################

@@ -83,7 +83,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px"><b>Installation on Kali Linux:</b></td>
+    <td class="main3" width="890px"><b>Installation:</b></td>
   </tr>
   <tr>
     <td class="main">chmod +x ./install.sh <br/>./install.sh </td>

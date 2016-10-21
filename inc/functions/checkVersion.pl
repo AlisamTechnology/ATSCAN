@@ -28,38 +28,34 @@ if ($response->is_success) {
     my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");
     open (LE, '>', $script) or die "Couldn't open: $!"; print LE $r->content; close(LE);
     print $c[3]."\n";
-    system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
-    
+    system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");    
     print $c[10]."[!] Placing components...\n";
-    sleep(1);
     dirmove("$Bin/atscan_update/inc/.", "$Bin/inc/");
+    sleep(1);
     print $c[10]."[!] Placing README.md to $readme/ ...\n";
-    sleep(1);
     fmove("$Bin/atscan_update/README.md", "/usr/share/doc/atscan/");
-    print $c[10]."[!] Checking others components ...\n";
     sleep(1);
+    print $c[10]."[!] Checking others components ...\n";
     open (FILE, '>>', $scriptv); print FILE "\n"; close(FILE);
     if (-e $scriptbash) {
       if (-d $scriptCompletion) {
-        my $scbs="$scriptCompletion/atscan";
-        if (!-e $scbs) {
-          print $c[10]."[!] Moving $scriptComplInstall to $scriptCompletion/ ...\n";
-          sleep(1);
-          fmove($scriptComplInstall, "$scriptCompletion/");
-        }
+        my $scbs="$scriptCompletion/atscan";        
+        unlink $scbs if -e $scbs;
+        print $c[10]."[!] Moving $scriptComplInstall to $scriptCompletion/ ...\n";
+        fmove($scriptComplInstall, "$scriptCompletion/");
+        sleep(1);       
       }
-    }            
+    }      
     if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }
-    
-    print $c[10]."[!] Deleting install files...\n";
     sleep(1);
+    print $c[10]."[!] Deleting install files...\n";
     system "rm -rf $Bin/atscan_update"; 
     unlink $scriptComplInstall if -e $scriptComplInstall;  
     unlink $scriptInstall if -e $scriptInstall;
     unlink $script_bac if -e $script_bac; 
     unlink $Bin."/version.log" if -e $Bin."/version.log";
     unlink $Bin."/README.md" if -e $Bin."/README.md";
-
+    sleep(1);
     if (-e $scriptv) {
       print $c[3]."[!] $DT[7]$c[10]\n";
       print "\n".$response->content.""; 

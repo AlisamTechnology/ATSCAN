@@ -6,17 +6,17 @@ use FindBin '$Bin';
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $data, $mmd5,
-     $mdecode64, $mencode64, $checkVersion, $help, $pass, $updtd);
+     $mdecode64, $mencode64, $checkVersion, $help, $pass, $updtd, $uninstall);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## VERIFY TARGETS AND PRESCAN
 our ($mlevel, $Target, $dork, @c, @DT, @TODO, @V_TODO, @SCAN_TITLE);
 if (defined $mlevel) {
   if ($mlevel < 10) { print $c[4]."[!] $DT[26]\n"; logoff(); }
-  if ((defined $dork) || (defined $Target)) { msearch(); }
+  if ((defined $dork) || (defined $Target)) { desclaimer(); testConnection(); msearch(); }
 }else{
   if (defined $Target) {
-    scanDetail(); my $k=getK(0, 0);    
+    desclaimer(); testConnection(); my $k=getK(0, 0);    
     if (!$k) { makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "", "", "", "", "", "", ""); }else{ Menu(); }
   }
 }
@@ -40,16 +40,19 @@ sub Menu {
   if (defined $command) { mcommand(); }
   if (defined $data) { mdata(); }
 }
-
-if ((defined $mmd5) || (defined $mdecode64) || (defined $mencode64)) {
-if (defined $mmd5) { mmd5();
-}elsif (defined $mencode64) { mencode64(); } }
-
-if (defined $pass) { pass(); }
-if (defined $checkVersion) { checkVersion(); }
-if (defined $updtd) { updtd(); }
-if (defined $help) { help(); }
-
+if (defined $mmd5 || defined $mencode64 || defined $mdecode64) {
+  desclaimer();
+  if (defined $mmd5) { mmd5(); }
+  if (defined $mencode64) { mencode64(); }
+  if (defined $mdecode64) { mdecode64(); }
+}
+if (defined $pass || defined $checkVersion || defined $updtd || defined $help) {
+  desclaimer();
+  if (defined $pass) { pass(); }
+  if (defined $checkVersion) { checkVersion(); }
+  if (defined $updtd) { updtd(); }
+  if (defined $help) { help(); }
+}
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 1;

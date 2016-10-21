@@ -12,7 +12,7 @@ our (@c, @OTHERS);
 sub scanCode {
   my ($title, $string, $scan1, $scan2, $scan3)=@_;
   my @aTscans=();
-  scanDetail(); scanTitleBgn(); print $c[11]."$title"; scanTitleEnd();
+  scanTitleBgn(); print $c[11]."$title"; scanTitleEnd();
   points(); dpoints(); points();
   print $c[1]."    $OTHERS[4]  $c[10]$string\n";
   titleSCAN();

@@ -8,7 +8,7 @@ use FindBin '$Bin';
 ## HELP
  
   our (@c);
-  desclaimer(); print $c[1]."[::] HELP\n";
+  print $c[1]."[::] HELP\n";
   ltak();
   print $c[10]
   ."   --proxy       | Set tor proxy for scans [EX: --proxy \"socks://localhost:9050\"]\n"
@@ -77,7 +77,8 @@ use FindBin '$Bin';
   ."  [DATA]         | To separate data values ex: --data \"name:username [DATA]email:xxxxxx [DATA]pass:xxxxx\"\n"
   ."  [OTHER]        | To separate all others values (dork exploit payload proxy target..) ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n"
   ."  --pass         | Set or edit tool password. \n"  
-  ."  --update       | Update tool. \n"  
+  ."  --update       | Update tool. \n"
+  ."  --tool         | Tool info. \n"
   ."  --uninstall    | Uninstall tool \n\n";
   
   ltak(); print $c[11]." [::] EXAMPLES: \n";

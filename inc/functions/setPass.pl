@@ -15,7 +15,6 @@ use FindBin '$Bin';
       chomp $askMe; unlink $scriptPass; print $c[3]."[!] $AUTH[3]\n";
     }else{ logoff(); }       
   }else{
-    desclaimer();
     print $c[4]."\n[!] $AUTH[4]\n".$c[4]."[!] $AUTH[5]:$c[10] ";
     my $ps=<STDIN>;
     chomp ($ps);

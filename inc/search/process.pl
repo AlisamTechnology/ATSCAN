@@ -119,9 +119,6 @@ sub printDork {
 ######################################################################################################################################################################################################
 ## ENGINE PROCEDURE
 sub msearch {
-  desclaimer();
-  testConnection();
-  scanDetail();
   scanTitleBgn();
   print $c[11]."$SCAN_TITLE[0]"; scanTitleEnd();
   printMotor(@motors);

@@ -68,7 +68,7 @@ sub printResults {
       validateResult($URL1, $status, $html, $response, $result);
     }
     elsif ($reg) {
-      getRegex($URL1, $html, $reg); }
+      getRegex($URL1, $status, $html, $reg); }
     elsif ($comnd) {
       my $cV=checkValidation($URL1, $status, $html, $response, "");
       print "$c[1]    $DT[24]   $c[10]$comnd\n";
@@ -124,7 +124,7 @@ sub formData {
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV;
-  if (!$response->previous) {
+  if ($status == 200) {
     if (defined $Hstatus) { if ($status==$Hstatus) { $cV=$URL1; }else{ $cV=""; } }
     elsif (defined $validText) { if ($html=~/$validText/) { $cV=$URL1; }else{ $cV=""; } }
     else{ $cV=$URL1; }

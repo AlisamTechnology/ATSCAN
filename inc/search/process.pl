@@ -247,7 +247,7 @@ sub getHtml {
 ######################################################################################################################################################################################################
 ## REGEX SCANS / EMAIL / IP / REGEX
 sub getRegex {
-  my ($URL1, $html, $reg)=@_;
+  my ($URL1, $status, $html, $reg)=@_;
   my $o=OO();
   if ($o<$limit) {
     if (!defined $searchIps and !defined $eMails) { print $c[1]."    $SCAN_TITLE[25]  $c[10] [$reg]\n"; }
@@ -256,7 +256,7 @@ sub getRegex {
     while ($html=~/$reg/g) {
       my $o=OO();
       if ($o<$limit) {
-        my $validRegex=checkValidation($1, "", $html, "", "");
+        my $validRegex=checkValidation($1, $status, $html, "", "");
         if ($validRegex) {     
           $hssab++;
           print " | " if $hssab>1;

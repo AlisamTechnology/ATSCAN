@@ -32,7 +32,7 @@ sub makeSscan {
       $URL=checkUrlSchema($URL);
       $URL=control($URL);
       print $c[1]."    $DS[9]  "; print $c[10].$c[7]."[$count/$lc] $URL\n";
-      if (!@arr) {     
+      if (!@arr) {
         if (!$result) {
           if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, "");
           }else{
@@ -42,7 +42,7 @@ sub makeSscan {
             elsif ($data) { doScan($URL1, $filter, "", "", "", "", "", $data); }
             else{ doScan($URL1, $filter, "", "", "", "", $isFilter, ""); }
           }
-        }else{
+        }else{ 
           if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, ""); }
           else{ my $URL1=$URL; $URL1=~s/ //g; doScan($URL1, $filter, $result, "", "", "", $isFilter, $data); }
         }

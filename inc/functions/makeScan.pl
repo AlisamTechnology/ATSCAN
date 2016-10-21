@@ -25,7 +25,7 @@ sub makeSscan {
   for my $URL(@aTsearch) {
     $URL=~s/\s+$//;
     my $o=OO();
-    if ($o>=$limit) { last; }
+    if ($o==$limit) { last; }
     else{
       $count++;
       points(); dpoints(); points();

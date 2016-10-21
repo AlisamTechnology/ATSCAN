@@ -27,7 +27,7 @@ if ($response->is_success) {
     }
     my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");
     open (LE, '>', $script) or die "Couldn't open: $!"; print LE $r->content; close(LE);
-    print $c[3]."\n";
+    print $c[3];
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");    
     print $c[10]."[!] Placing components...\n";
     dirmove("$Bin/atscan_update/inc/.", "$Bin/inc/");

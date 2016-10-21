@@ -7,8 +7,8 @@ use FindBin '$Bin';
 ######################################################################################################################################################################################################
 ## DELETE / UNINSTALL TOOL
 our ($uninstall, $scriptbash, $script, $scriptCompletion, $readme, @TT, @c, @OTHERS, @DT);
+desclaimer();
 if (defined $uninstall) {
-  desclaimer();
   print $c[2]."$OTHERS[8]";
   print $c[10];
   my $resp=<STDIN>;
@@ -31,7 +31,6 @@ if (defined $uninstall) {
     print $c[3]."$OTHERS[9]\n";
   }else{
     system("perl $script --updtd || atscan --updtd ");
-    mtak(); ptak();
     print $c[4]."[!] $TT[13]\n";
   }
 }

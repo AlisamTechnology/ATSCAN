@@ -8,6 +8,7 @@ use FindBin '$Bin';
 ## DELETE / UNINSTALL TOOL
 our ($uninstall, $scriptbash, $script, $scriptCompletion, $readme, @TT, @c, @OTHERS, @DT);
 if (defined $uninstall) {
+  desclaimer();
   print $c[2]."$OTHERS[8]";
   print $c[10];
   my $resp=<STDIN>;

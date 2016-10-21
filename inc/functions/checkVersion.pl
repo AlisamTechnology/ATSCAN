@@ -42,7 +42,11 @@ if ($response->is_success) {
     if (-e $scriptbash) {
       if (-d $scriptCompletion) {
         my $scbs="$scriptCompletion/atscan";
-        if (!-e $scbs) { fmove($scriptComplInstall, "$scriptCompletion/"); }
+        if (!-e $scbs) {
+          print $c[10]."[!] Moving $scriptComplInstall to $scriptCompletion/ ...\n";
+          sleep(1);
+          fmove($scriptComplInstall, "$scriptCompletion/");
+        }
       }
     }            
     if (@scriptPass) { for my $spss(@scriptPass) { open (FE, '>>', $scriptPass); print FE "$spss"; close(FE); } }

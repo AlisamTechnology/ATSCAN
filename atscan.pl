@@ -17,7 +17,6 @@ use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 #
 #   This is free software, licensed under:
 #   The Artistic License 2.0
-#   The Artistic License
 #   Copyright (c) 2000-2006, The Perl Foundation.
 ######################################################################################################################################################################################################
 ## INTRODUCTION #######################################################################################################################################################################################
@@ -92,7 +91,7 @@ our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $
      $S_REGEX, $motor1, $motor2, $motor3, $motor4, $motor5, $motorparam, $mrand, $pat2, $nolisting, $Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain,
      $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork,
      $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom,
-     $data, $payloads, $mrandom, $content, $pass, $scriptComplInstall, $scriptCompletion, $scriptInstall);
+     $data, $payloads, $mrandom, $content, $pass, $scriptComplInstall, $scriptCompletion, $scriptInstall, $toolInfo);
 ######################################################################################################################################################################################################
 ## ARGUMENTS #########################################################################################################################################################################################
 ######################################################################################################################################################################################################
@@ -107,7 +106,7 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'level|l=s'=>\$mlevel, 'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor,
                          'time=s'=>\$timeout, 'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery,
                          'ifend'=>\$ifend, 'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'payload=s'=>\$payloads,
-                         'm-random'=>\$mrandom, 'content'=>\$content, 'pass'=>\$pass, 'updtd'=>\$updtd) or badArgs();
+                         'm-random'=>\$mrandom, 'content'=>\$content, 'pass'=>\$pass, 'updtd'=>\$updtd, 'tool'=>\$toolInfo) or badArgs();
 ######################################################################################################################################################################################################
 ## INCLUDES ##########################################################################################################################################################################################
 require "$Bin/inc/includes.pl";
@@ -116,7 +115,7 @@ require "$Bin/inc/includes.pl";
 sub pass { password(); }
 ######################################################################################################################################################################################################
 ## NO ARGUMENTS ######################################################################################################################################################################################
-our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $pass, $updtd);
+our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $pass, $updtd, $toolInfo);
 my $NoArg=0;
 for (@NoArg) { $NoArg++ if defined $_; }
 advise() if $NoArg<1;
@@ -131,7 +130,7 @@ require "$Bin/inc/index.pl";
 sub help { require "$Bin/inc/help.pl"; }
 ######################################################################################################################################################################################################
 ## EXIT ##############################################################################################################################################################################################
-if (!defined $checkVersion && !defined $help && !defined $updtd && !defined $uninstall) { subfin(); logoff(); }
+if (!defined $checkVersion && !defined $help && !defined $updtd && !defined $uninstall && !defined $toolInfo) { subfin(); logoff(); }
 ######################################################################################################################################################################################################
 ## FIN ###############################################################################################################################################################################################
 ######################################################################################################################################################################################################

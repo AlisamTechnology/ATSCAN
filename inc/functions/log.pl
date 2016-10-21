@@ -18,7 +18,7 @@ if (!defined $updtd) {
     chomp(my $passwd=ReadLine(0));
     ReadMode 0; 
     $passwd=Digest::MD5->md5_hex($passwd);
-    if ($PS ne $passwd) { print $c[2]."\n[!] $AUTH[1]\n"; logoff(); }else{ print "$c[3] Logged in!\n"; ptak(); }
+    if ($PS ne $passwd) { print $c[2]."\n[!] $AUTH[1]\n"; logoff(); }else{ print "$c[3] Logged in!\n"; mtak(); }
   }
 }
 ######################################################################################################################################################################################################

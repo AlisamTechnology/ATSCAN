@@ -349,7 +349,7 @@ sub title {
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## CHECK IF THERE MORE SCANS TO DO
-our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $regex, $command, $eMails);
+our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $command);
 our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $data, $command);
 sub getK {
   our @z;

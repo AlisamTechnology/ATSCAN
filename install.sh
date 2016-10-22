@@ -50,7 +50,6 @@ fi
 fi
 
  echo "[!] Installing ...";
- rm -r $refdir/*;
  git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/atscan_install;
  cp -r $refdir/atscan_install/* $refdir/;
  echo "#!/bin/bash 

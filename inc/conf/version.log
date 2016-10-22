@@ -1,9 +1,10 @@
 VERSION 11.7 RELEASE
 =====================================================
-  CHANGES: 21/10/2016 
+  CHANGES: 22/10/2016 
   =================================================== 
-  - Fix update bug for old versions.
   - Fix uninstall process.
   - Remove tool info to arguments.
+  - Fix E-mails scan.
+  - Set output to anywhere.
   - Enjoy!
   ===================================================

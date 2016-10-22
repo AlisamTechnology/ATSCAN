@@ -82,7 +82,7 @@ if ($response->is_success) {
     if (!-d "$Bin/atscan_update") { cc(); }
     else{ bb(); }
     
-    my @unlinks=($scriptComplInstall, $scriptInstall, $script_bac, $Bin."/version.log", $Bin."/README.md");
+    my @unlinks=($scriptComplInstall, $scriptInstall, $script_bac, $Bin."/version.log", $Bin."/README.md", $Bin."/License.txt");
     for my $unlink(@unlinks) {
       print $c[10]."[!] $ZT[8] $unlink... ";
       unlink $unlink if -e $unlink;

@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use FindBin '$Bin';
 use File::Path;
-use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 ## ALISAM TECHNOLOGY 2015
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
@@ -42,12 +41,12 @@ if ($response->is_success) {
     if (!-d "$Bin/atscan_update") { dd(); exit(); }
     
     print $c[10]."[!] Placing components... ";
-    dirmove("$Bin/atscan_update/inc/.", "$Bin/inc/");
+    system "sudo cp -r $Bin/atscan_update/inc $Bin";
     if (!-d "$Bin/inc") { bb(); exit(); }
     else{ cc(); }
     
     print $c[10]."[!] Placing README.md to $readme/ ... ";
-    fmove("$Bin/atscan_update/README.md", "/usr/share/doc/atscan/");
+    system "sudo cp -r $Bin/atscan_update/README.md /usr/share/doc/atscan/";
     if (!-e "/usr/share/doc/atscan/README.md") { bb(); }
     else{ cc(); }
 
@@ -61,7 +60,7 @@ if ($response->is_success) {
         my $scbs="$scriptCompletion/atscan";        
         unlink $scbs if -e $scbs;
         print $c[10]."[!] Moving $scriptComplInstall to $scriptCompletion/... ";
-        fmove($scriptComplInstall, "$scriptCompletion/");
+        system "sudo cp $scriptComplInstall $scriptCompletion/";
         if (!-e "$scriptCompletion/atscan") { bb(); }
         else{ cc(); }
       }

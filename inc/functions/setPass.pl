@@ -7,12 +7,11 @@ use FindBin '$Bin';
 ######################################################################################################################################################################################################
   our (@AUTH, @c, $scriptPass, $script);
   if (-e $scriptPass) {
-    mtak(); ltak();
     print $c[2]."[!] $AUTH[2]$c[10] ";
     my $askMe=<STDIN>;
     chomp ($askMe);
     if($askMe=~/(y|Y)/) {
-      chomp $askMe; unlink $scriptPass; print $c[3]."[!] $AUTH[3]\n";
+      chomp $askMe; unlink $scriptPass; sleep(2); print $c[3]."[!] $AUTH[3]\n";
     }else{ logoff(); }       
   }else{
     print $c[4]."\n[!] $AUTH[4]\n".$c[4]."[!] $AUTH[5]:$c[10] ";

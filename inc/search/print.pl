@@ -68,7 +68,7 @@ sub printResults {
       validateResult($URL1, $status, $html, $response, $result);
     }
     elsif ($reg) {
-      getRegex($URL1, $status, $html, $reg); }
+      getRegex($URL1, $html, $reg); }
     elsif ($comnd) {
       my $cV=checkValidation($URL1, $status, $html, $response, "");
       print "$c[1]    $DT[24]   $c[10]$comnd\n";

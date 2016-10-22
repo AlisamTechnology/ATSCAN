@@ -77,8 +77,7 @@ use FindBin '$Bin';
   ."  [DATA]         | To separate data values ex: --data \"name:username [DATA]email:xxxxxx [DATA]pass:xxxxx\"\n"
   ."  [OTHER]        | To separate all others values (dork exploit payload proxy target..) ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n"
   ."  --pass         | Set or edit tool password. \n"  
-  ."  --update       | Update tool. \n"
-  ."  --tool         | Tool info. \n"
+  ."  --update       | Update tool. \n"  
   ."  --uninstall    | Uninstall tool \n\n";
   
   ltak(); print $c[11]." [::] EXAMPLES: \n";

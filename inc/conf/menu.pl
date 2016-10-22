@@ -6,7 +6,7 @@ use FindBin '$Bin';
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $data, $mmd5,
-     $mdecode64, $mencode64, $checkVersion, $help, $pass, $updtd, $uninstall);
+     $mdecode64, $mencode64, $checkVersion, $help, $pass, $updtd, $toolInfo, $uninstall);
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## VERIFY TARGETS AND PRESCAN
@@ -46,12 +46,14 @@ if (defined $mmd5 || defined $mencode64 || defined $mdecode64) {
   if (defined $mencode64) { mencode64(); }
   if (defined $mdecode64) { mdecode64(); }
 }
-if (defined $pass || defined $checkVersion || defined $updtd || defined $help) {
+if (defined $pass || defined $checkVersion || defined $updtd || defined $help || defined $toolInfo || defined $uninstall) {
   desclaimer();
   if (defined $pass) { pass(); }
   if (defined $checkVersion) { checkVersion(); }
   if (defined $updtd) { updtd(); }
   if (defined $help) { help(); }
+  if (defined $toolInfo) { tool(); }
+  if (defined $uninstall) { uninstall(); }
 }
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################

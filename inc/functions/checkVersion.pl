@@ -45,10 +45,13 @@ if ($response->is_success) {
     if (!-d "$Bin/inc") { bb(); exit(); }
     else{ cc(); }
     
-    print $c[10]."[!] $ZT[3] to $readme/... ";
-    system "sudo cp -r $Bin/atscan_update/README.md /usr/share/doc/atscan/";
-    if (!-e "/usr/share/doc/atscan/README.md") { bb(); }
-    else{ cc(); }
+    my @f=("README.md", "License.txt");
+    for my $f(@f) {
+      print $c[10]."[!] $ZT[5] $f to $readme/... ";
+      system "sudo cp -r $Bin/atscan_update/$f /usr/share/doc/atscan/";
+      if (!-e "/usr/share/doc/atscan/$f") { bb(); }
+      else{ cc(); }
+    }
 
     print $c[10]."[!] $ZT[4] ";
     open (FILE, '>>', $scriptv) or nochmod($scriptv, "");

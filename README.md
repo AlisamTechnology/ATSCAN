@@ -395,6 +395,10 @@
         <td class="main">Set or edit tool password.</td>
       </tr> 
       <tr>
+        <td width="200px" class="main">--tool</td>
+        <td class="main">Tool info.</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--uninstall</td>
         <td class="main">Uninstall Tool.</td>
       </tr> 

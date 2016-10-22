@@ -31,7 +31,7 @@ if (defined $uninstall) {
     if (is_folder_empty($Bin)) {
       system "rm -rf $Bin";
     }
-    sleep(3);
+    sleep(1);
     print $c[3]."$OTHERS[9]\n";
   }else{
     print $c[4]."[!] $TT[13]\n";

@@ -66,6 +66,7 @@ our @ErrT=get_text_ErrT();
 our @DT=get_text_dt();
 our @DS=get_text_ds();
 our @cms=get_text_cms();
+our @ZT=get_text_zt();
 our @SCAN_TITLE=get_text_scan_title();
 
 ## VALIDATION CODE ERRORS

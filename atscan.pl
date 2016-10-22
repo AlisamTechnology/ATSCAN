@@ -10,24 +10,19 @@ use HTTP::Request::Common;
 use Digest::MD5;
 use MIME::Base64;
 ######################################################################################################################################################################################################
-## LICENSE   #########################################################################################################################################################################################
-#   This software is Copyright (c) 2015 Alisam Technology
-#   Tool coded by Ali Mehdioui founder of Alisam Technology.
-#
-#   This is free software, licensed under:
-#   The Artistic License 2.0
-#   Copyright (c) 2000-2006, The Perl Foundation.
 ######################################################################################################################################################################################################
 ## INTRODUCTION #######################################################################################################################################################################################
 #   This script is Copyright (c) 2015 Alisam Technology
-#   Tool coded by Ali Mehdioui.
-#   Script name: Atscan Scanner.
-#   Codename: Anon4t.
-#   Works in linux platforms. Best Run on Ubuntu 14.04, Kali Linux 2.0, Arch Linux, Fedora Linux, Centos..
-#   Windows with perl required!
+#   [::] SCRIPT NAME:  atscan scanner
+#   [::] AUTOR:        Ali Mehdioui founder of Alisam Technology.
+#   [::] FB:           https://facebook.com/Forces.des.tempetes.marocaines
+#   [::] Twitter:      https://twitter.com/AlisamTechno
+#   [::] Pastebin      http://http://pastebin.com/u/Alisam_Technology
+#   [::] GIT:          https://github.com/AlisamTechnology
+#   [::] YOUTUBE:      http://youtube.com/c/AlisamTechnology
+#
 ######################################################################################################################################################################################################
 ## DESCRIPTION #######################################################################################################################################################################################
-#   ATSCAN Scanner
 #   Tool to scan engines, dorks and sites for commune errors and vulnerabilities.
 #   Search engine 
 #   XSS scanner. 
@@ -42,21 +37,12 @@ use MIME::Base64;
 #   Random proxy. 
 #   Scan errors. 
 #   Detect Cms.
-#   Multiple instant scan. 
+#   Multiple instant scans. 
 #   Extern commands execution.
 #   Disponible on BlackArch Linux Platform.
+#   Works in all platforms.
+#   Perl required!
 #
-#   [::] AUTOR:        Alisam Technology - MEZGUIDA DEVELOPERS --
-#   [::] FB:           https://facebook.com/Forces.des.tempetes.marocaines
-#   [::] Twitter:      https://twitter.com/AlisamTechno
-#   [::] Pastebin      http://http://pastebin.com/u/Alisam_Technology
-#   [::] GIT:          https://github.com/AlisamTechnology
-#   [::] YOUTUBE:      http://youtube.com/c/AlisamTechnology
-#
-######################################################################################################################################################################################################
-## REQUIREMENT  ######################################################################################################################################################################################
-# Requiered libreries
-# apt-get install libxml-simple-perl
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 #### CHECK INC DIR ###################################################################################################################################################################################

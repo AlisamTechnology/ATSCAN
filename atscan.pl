@@ -9,7 +9,6 @@ use HTML::Entities;
 use HTTP::Request::Common;
 use Digest::MD5;
 use MIME::Base64;
-use File::Copy::Recursive qw(fcopy rcopy dircopy fmove rmove dirmove);
 ######################################################################################################################################################################################################
 ## LICENSE   #########################################################################################################################################################################################
 #   This software is Copyright (c) 2015 Alisam Technology
@@ -71,7 +70,7 @@ if (!-d $Bin."/inc") {
     unlink "$Bin/atscan.pl";
   }
   mkdir "$Bin/inc", 0755 or die "cannot write in $Bin!";
-  dircopy("$Bin/atscan_update", $Bin);
+  system "sudo cp -r $Bin/atscan_update/* $Bin/";
   system "rm -rf $Bin/atscan_update"; 
   if (!-d "$Bin/inc") { print "\n[!] Cannot connect to the server!\n"; exit(); }
   system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl --update || atscan --update");

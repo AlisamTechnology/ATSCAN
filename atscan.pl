@@ -23,7 +23,7 @@ use MIME::Base64;
 #
 ######################################################################################################################################################################################################
 ## DESCRIPTION #######################################################################################################################################################################################
-#   Tool to scan engines, dorks and sites for commune errors and vulnerabilities.
+#   Tool to scan engines, dorks and sites for commun errors and vulnerabilities.
 #   Search engine 
 #   XSS scanner. 
 #   LFI / ADF scanner.

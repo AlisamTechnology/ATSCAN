@@ -13,7 +13,7 @@ $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $post
 
 ## VERSION
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptPass, $scriptv, $scriptCompletion, $scriptComplInstall, $readme, $uplog);
-$Version="11.7";
+$Version="11.8";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";

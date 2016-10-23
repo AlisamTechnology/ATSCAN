@@ -1,21 +1,46 @@
 #!/bin/bash
-####################################################################################################
+#
+#############################################################################################
 # Atscan Install script.
 # Install tool in linux os.
 # Alisam Technology 2015
-####################################################################################################
+#############################################################################################
 # PATHs:
 # Parent directory => User choice.
 # /inc/conf/atscan => /etc/bash_completion.d/atscan
 # Bash link in /usr/bin/atscan
 # Readme /usr/share/doc/atscan/README.md
 # License /usr/share/doc/atscan/License.txt
-####################################################################################################
+#############################################################################################
 ##
-echo "[ ]====================================================================[ ]";
-echo "[ ]                     ALISAM  TECHNOLOGY                             [ ]";
-echo "[ ]                  Atscan Tool Install Script                        [ ]";
-echo "[ ]====================================================================[ ]";
+echo "[ ]=======================================================================[ ]";
+echo "[ ]                      ALISAM  TECHNOLOGY                               [ ]";
+echo "[ ]                   Atscan Tool Install Script                          [ ]";
+echo "[ ]=======================================================================[ ]";
+echo "[ ] MIT License                                                           [ ]";
+echo "[ ]                                                                       [ ]";
+echo "[ ] Copyright (c) 2015 Alisam Technology                                  [ ]";
+echo "[ ]                                                                       [ ]";
+echo "[ ] Permission is hereby granted, free of charge, to any person obtaining [ ]";
+echo "[ ] a copy of this software and associated documentation files (atscan),  [ ]";
+echo "[ ] to dealin the Software without restriction, including without         [ ]";
+echo "[ ] limitation the rights to use, copy, modify, merge, publish,           [ ]";
+echo "[ ] distribute, sublicense, and/or sellcopies of the Software, end to     [ ]";
+echo "[ ] permit persons to whom the Software is furnished to do so, subject    [ ]";
+echo "[ ] to the following conditions:                                          [ ]";
+echo "[ ]                                                                       [ ]";
+echo "[ ] The above copyright notice and this permission notice shall be        [ ]";
+echo "[ ] included in all copies or substantial portions of the Software.       [ ]";
+echo "[ ]                                                                       [ ]";
+echo "[ ] THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS [ ]";
+echo "[ ] OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF            [ ]";
+echo "[ ] MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT [ ]";
+echo "[ ] IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY  [ ]";
+echo "[ ] CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,  [ ]";
+echo "[ ] TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     [ ]";
+echo "[ ] SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                [ ]";
+echo "[ ]=======================================================================[ ]";
+
 echo "";
 if [ -d "/usr/bin/" ];
 then
@@ -92,3 +117,5 @@ fi
 else
 echo "Tool can be installed on your system! Use it as portable!";
 fi
+#############################################################################################
+## END ######################################################################################

@@ -19,8 +19,9 @@ my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan 
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## USER AUTH
-my @AUTH=("Login:", "Incorrect password!", "A password is already assigned! Do you want to remove it ? [y|n]:", "Password successfully removed!",
-          "You will set an user password and will be requiered for each use!", "Enter password or press Cotrol+C to cancel", "Password successfully generated!");
+my @AUTH=("Login:", "Incorrect password!", "A password is already assigned! Do you want to remove it ? [y/n]:", "Password successfully removed!",
+          "You will set an user password and will be requiered for each use!", "Enter password or press Cotrol+C to cancel", "Password successfully generated!", "No password have been set!",
+          "Password must have at least 3 caracters!", "Tool will restart in");
 ######################################################################################################################################################################################################
 ######################################################################################################################################################################################################
 ## ERRORS DIALOG TEXT

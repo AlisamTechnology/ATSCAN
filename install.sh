@@ -68,8 +68,8 @@ fi
  chmod +x "/usr/share/doc/atscan/";
  chmod +x $refdir/README.md;
  sudo cp $refdir/README.md /usr/share/doc/atscan/;
- chmod +x $refdir/Lisence.txt;
- sudo cp $refdir/Lisence.txt /usr/share/doc/atscan/;
+ chmod +x $refdir/License.txt;
+ sudo cp $refdir/License.txt /usr/share/doc/atscan/;
  echo "[!] Removing install files ...";
  rm $refdir/inc/conf/atscan;
  rm $refdir/install.sh;

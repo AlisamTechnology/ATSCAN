@@ -130,6 +130,8 @@ sub compareme {
     if (compare($script_bac, $scriptv) == 0) {
       $same="1";
       unlink $script_bac;
+    }else{
+      dd();
     }
   }
   return ($same, $response);

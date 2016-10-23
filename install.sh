@@ -8,6 +8,8 @@
 # Parent directory => User choice.
 # /inc/conf/atscan => /etc/bash_completion.d/atscan
 # Bash link in /usr/bin/atscan
+# Readme /usr/share/doc/atscan/README.md
+# License /usr/share/doc/atscan/License.txt
 ####################################################################################################
 ##
 echo "[ ]====================================================================[ ]";

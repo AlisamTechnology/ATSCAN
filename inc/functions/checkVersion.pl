@@ -88,7 +88,7 @@ if ($response->is_success) {
       unlink $unlink if -e $unlink;
       if (!-e $unlink) { cc(); }      
     }
-
+    sleep(1);
     print $c[3]."[!] $DT[7]\n";
     print "$c[10]\n".$response->content.""; 
     if (substr($0, -3) ne '.pl') {

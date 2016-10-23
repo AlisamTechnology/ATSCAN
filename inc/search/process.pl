@@ -112,7 +112,6 @@ sub printDork {
 
 ## ENGINE PROCEDURE
 sub msearch {  
-  testConnection();
   scanTitleBgn();
   print $c[11]."$SCAN_TITLE[0]"; scanTitleEnd();
   printMotor(@motors);

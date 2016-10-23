@@ -8,7 +8,7 @@
 # PATHs:
 # Parent directory => User choice.
 # /inc/conf/atscan => /etc/bash_completion.d/atscan
-# Bash link in /usr/bin/atscan
+# Sym link in /usr/bin/atscan
 # Readme /usr/share/doc/atscan/README.md
 # License /usr/share/doc/atscan/License.txt
 #############################################################################################
@@ -16,7 +16,6 @@
 echo "[ ]=======================================================================[ ]";
 echo "[ ]                      ALISAM  TECHNOLOGY                               [ ]";
 echo "[ ]                   Atscan Tool Install Script                          [ ]";
-echo "[ ]                    Developed by Ali MEHDIOUI                          [ ]";
 echo "[ ]=======================================================================[ ]";
 echo "[ ] MIT License                                                           [ ]";
 echo "[ ]                                                                       [ ]";
@@ -77,14 +76,17 @@ else
 fi
 fi
 
- echo "[!] Installing ...";
+ echo "[!] Connecting...";
  git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/atscan_install;
+ echo "[!] Installing...";
  cp -r $refdir/atscan_install/* $refdir/;
+ sleep 1 && echo "[!] Creating symbolic link...";
  echo "#!/bin/bash 
  perl $refdir/atscan.pl" '${1+"$@"}' > atscan;
  chmod +x atscan;
  sudo cp atscan /usr/bin/;
  rm atscan;
+ sleep 1 && echo "[!] Creating Completion link...";
  if [ -d "/etc/bash_completion.d" ] ;
  then
    chmod +x $refdir/inc/conf/atscan;
@@ -93,12 +95,14 @@ fi
  if [ ! -d "/usr/share/doc/atscan" ]; then
    mkdir "/usr/share/doc/atscan";
  fi
+ sleep 1 && echo "[!] Copying README.md to /usr/share/doc/atscan...";
  chmod +x "/usr/share/doc/atscan/";
  chmod +x $refdir/README.md;
  sudo cp $refdir/README.md /usr/share/doc/atscan/;
+ sleep 1 && echo "[!] Copying License.txt to /usr/share/doc/atscan...";
  chmod +x $refdir/License.txt;
  sudo cp $refdir/License.txt /usr/share/doc/atscan/;
- echo "[!] Removing install files ...";
+ echo "[!] Removing install files...";
  rm $refdir/inc/conf/atscan;
  rm $refdir/install.sh;
  rm -r $refdir/atscan_install;
@@ -106,7 +110,7 @@ fi
 
 if [ -e "$refdir/atscan" ] || [ -e "$refdir/atscan.pl" ];
 then
-echo "[!] Tool successfully installed";
+sleep 1 && echo "[!] Tool successfully installed";
 echo "[!] Updating tool.. ";
 sleep 2;
 . ~/.bashrc;

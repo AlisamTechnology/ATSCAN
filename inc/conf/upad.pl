@@ -7,12 +7,28 @@ use File::Path;
 
 ## CHECK FOR UPDATES
 our ($uplog, $script_bac, $fulldate, @c);
-use File::Compare;
-unlink $script_bac if -e $script_bac;
-printFile($script_bac, $fulldate);
-if (compare($uplog, $script_bac) != 0) {  
-  print $c[4]."  [!] A new update is aviable! To update: --update\n";
-  unlink $script_bac;
+my (@date1, @date2);
+
+open (UPLOG, $uplog);
+while (my $lg=<UPLOG>) {
+  chomp $lg;
+  @date1=split(":", $lg);   
 }
+@date2=split(":", $fulldate);    
+
+if ($date1[1]<$date2[1]) {
+  updateMessage();
+}else{
+  if (($date1[0]+10)<$date2[0]) {
+    updateMessage();
+  }
+}
+
+sub updateMessage  {
+  my ($same, $response)=compareme();
+  if (!$same) {
+    print $c[4]."  [!] A new update is aviable! To update: --update\n";
+  }
+}      
 
 1;

@@ -13,7 +13,7 @@ $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $post
 
 ## VERSION
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptPass, $scriptv, $scriptCompletion, $scriptComplInstall, $readme, $uplog);
-$Version="11.8";
+$Version="11.7";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";
@@ -36,7 +36,7 @@ $readme="/usr/share/doc/atscan";
 ## TIME
 use POSIX qw(strftime);
 our $date = strftime "%H:%M:%S", localtime;
-our $fulldate = strftime "%Y:%m:%d:%H:%M:%S", localtime;
+our $fulldate = strftime "%j:%Y:%m:%d", localtime;
 
 ## DELETE CLEAR LISTS
 sub deleteLists {

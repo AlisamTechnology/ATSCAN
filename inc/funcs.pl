@@ -118,20 +118,38 @@ if (defined $mlevel) {
 ## TIMER
 sub timer { our $date; print "[$date]"; }
 
+## CHECK VERSION LOG
+sub compareme {
+  my $same="";
+  our ($logUrl, $script_bac, $scriptv);
+  my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
+  if ($response->is_success) {
+    unlink $script_bac if -e $script_bac;
+    printFile($script_bac, $response->content);    
+    use File::Compare;      
+    if (compare($script_bac, $scriptv) == 0) {
+      $same="1";
+      unlink $script_bac;
+    }
+  }
+  return ($same, $response);
+}
 ## RETURN NEGATIVE SCAN
 sub negative { ltak(); print $c[4]."[!] $DT[1]\n"; }
 
 ## DESCLAIMER
 sub desclaimer {
-  our $nobanner;
+  our ($nobanner, $checkVersion);
   if (defined $nobanner) { mtak(); ptak(); }
   print $c[10]."  $OTHERS[11] \n  $OTHERS[12]  \n  $OTHERS[13] \n";
-  our $uplog;
-  #if (-e $uplog) { require "$Bin/inc/conf/upad.pl"; }
+  
+  if (defined $dork || defined $Target) {
+    our $uplog;
+    if (-e $uplog) { require "$Bin/inc/conf/upad.pl"; }
+  }
   mtak(); ptak();
-  our ($help, $updtd, $uninstall, $toolInfo, $pass);
-  if (!defined $help && !defined $updtd && !defined $uninstall && !defined $toolInfo && !defined $pass) {
-    print $c[4]."[!] $DT[31]\n";
+  if (defined $dork || defined $Target || defined $checkVersion) {    
+    testConnection();
   }
 }
 

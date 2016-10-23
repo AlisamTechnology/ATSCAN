@@ -11,10 +11,10 @@ our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain,
 our ($mlevel, $Target, $dork, @c, @DT, @TODO, @V_TODO, @SCAN_TITLE);
 if (defined $mlevel) {
   if ($mlevel < 10) { print $c[4]."[!] $DT[26]\n"; logoff(); }
-  if ((defined $dork) || (defined $Target)) { desclaimer(); testConnection(); msearch(); }
+  if ((defined $dork) || (defined $Target)) { desclaimer(); msearch(); }
 }else{
   if (defined $Target) {
-    desclaimer(); testConnection(); my $k=getK(0, 0);    
+    desclaimer(); my $k=getK(0, 0);    
     if (!$k) { makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "", "", "", "", "", "", ""); }else{ Menu(); }
   }
 }

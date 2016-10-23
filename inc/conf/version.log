@@ -2,6 +2,7 @@ VERSION 11.8 RELEASE
 =====================================================
   CHANGES: 23/10/2016 
   ===================================================
+  - Removed unused comments.
   - Add check for updates message.
   - Add license.
   - Fix uninstall process.

@@ -2,9 +2,8 @@
 use strict;
 use warnings;
 use FindBin '$Bin';
-## ALISAM TECHNOLOGY 2015
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+## Copy@right Alisam Technology see License.txt
+
 my @E_MICROSOFT=("Microsoft JET Database", "ADODB.Recordset", "500 - Internal server error", "Microsoft OLE DB Provider", "Unclosed quotes", "ADODB.Command", "ADODB.Field error", "Microsoft VBScript",
                  "Microsoft OLE DB Provider for SQL Server", "Unclosed quotation mark", "Microsoft OLE DB Provider for Oracle", "Active Server Pages error", "OLE/DB provider returned message",
                  "OLE DB Provider for ODBC", "error \"800a0d5d\"", "error \"800a000d\"", "Unclosed quotation mark after the character string", "SQL Server", "Warning: odbc_");
@@ -31,8 +30,7 @@ my @E_SHELL=("c99shell<\/title\>", "C99Shell v", "<form method=\"POST\" action=\
              "<title\>SyRiAn Sh3ll", "<title\>Mini Php Shell", "<title>ASPX Shell<\/title>", "<title>ZoRBaCK Connect<\/title>", "<title>.+Ani-Shell.+<\/title>",
              "<title>Stored Procedure Execute<\/title\>", "<title\>:: www.h4ckcity.org :: Coded By 2MzRp & LocalMan ::<\/title\>", "<title\>PhpShell 2.0<\/title\>",
              "<title\>(.*)NTDaddy(.*)<\/title\>", "<title\>PHP-Terminal");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## MENU
 sub get_validate_microsoft { return @E_MICROSOFT; }
 sub get_validate_oracle { return @E_ORACLE; }
@@ -49,8 +47,5 @@ sub get_validate_lua { return @E_LUA; }
 sub get_validate_undefined { return @E_UNDEFINED; }
 sub get_validate_mariadb { return @E_MARIADB; }
 sub get_validate_shell { return @E_SHELL; }
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 1;
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################

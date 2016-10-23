@@ -3,11 +3,11 @@ use strict;
 use warnings;
 use FindBin '$Bin';
 use File::Path;
-## ALISAM TECHNOLOGY 2015
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+## Copy@right Alisam Technology see License.txt
+
 ## CHECK VERSION AND UPDATE
-our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme, @scriptPass, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
+our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme,
+     $uplog, $fulldate, @scriptPass, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
 testConnection();
 print $c[4]."[!] $OTHERS[20]\n";
 my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
@@ -52,7 +52,7 @@ if ($response->is_success) {
       if (!-e "/usr/share/doc/atscan/$f") { bb(); }
       else{ cc(); }
     }
-
+    
     print $c[10]."[!] $ZT[4] ";
     open (FILE, '>>', $scriptv) or nochmod($scriptv, "");
     print FILE "\n"; close(FILE);
@@ -67,7 +67,14 @@ if ($response->is_success) {
         if (!-e "$scriptCompletion/atscan") { bb(); }
         else{ cc(); }
       }
-    }      
+    }
+    
+    print $c[10]."[!] $ZT[9] ";
+    open (MN, '>>', $uplog) or nochmod($uplog, "");
+    print MN "$fulldate"; close(FE);
+    sleep(1);
+    cc();
+    
     if (@scriptPass) {
       for my $spss(@scriptPass) {
         print $c[10]."[!] $ZT[6] ";
@@ -82,7 +89,7 @@ if ($response->is_success) {
     if (!-d "$Bin/atscan_update") { cc(); }
     else{ bb(); }
     
-    my @unlinks=($scriptComplInstall, $scriptInstall, $script_bac, $Bin."/version.log", $Bin."/README.md", $Bin."/License.txt");
+    my @unlinks=($scriptComplInstall, $scriptInstall, $Bin."/README.md", $Bin."/License.txt", $script_bac);
     for my $unlink(@unlinks) {
       print $c[10]."[!] $ZT[8] $unlink... ";
       unlink $unlink if -e $unlink;
@@ -99,9 +106,6 @@ if ($response->is_success) {
 }else{ 
   dd();
 }
-exit();
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+#exit();
+
 1;
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################

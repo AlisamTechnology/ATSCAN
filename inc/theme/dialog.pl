@@ -2,34 +2,29 @@
 use strict;
 use warnings;
 use FindBin '$Bin';
-## ALISAM TECHNOLOGY 2015
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+## Copy@right Alisam Technology see License.txt
+
 ## INFO PANEL TEXT
 my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCANNER", "atscan <arg> / Help: atscan [--help | -h | -?]", "<option> \/ Help: perl",
 "[--help|-h|-?]", "TIMEOUT", "Cannot get IP!", "Random", "No changes have been made!", "[!] Random not allowed when engines are defined!", "[!] Level not defined or not numeric!",
 "[!] You have to set a method: --get or --post!", "[!] You have to validate data post! ex: -v text or --status 200", "No response recieved!", "ifinurl", "is not an IP address!");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## OTHERS DIALOG TEXT
 my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan is requiered! EX: --xss or validation EX: --status 200", "[!] ATSCAN will be removed from your system! [Y/N]:", 
 "[!] ATSCAN was moved successfully", "You cannot use payloads here! Use --exp", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is",
 "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC",
 "[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "You cannot validate two times!", "METHOD", "Checking for updates..");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## USER AUTH
 my @AUTH=("Login:", "Incorrect password!", "A password is already assigned! Do you want to remove it ? [y/n]:", "Password successfully removed!",
           "You will set an user password and will be requiered for each use!", "Enter password or press Cotrol+C to cancel", "Password successfully generated!", "No password have been set!",
           "Password must have at least 3 caracters!", "Tool will restart in");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## ERRORS DIALOG TEXT
 my @ErrT=("LFI:", "MYSQL:", "AFD:", "Microsoft:", "Oracle:", "DB2:", "ODBC:", "POSTGRESQL:", "SYBASE:", "BOSSWEB:", "JDBC:", "Java Infinitydb:", "PHP:", "ASP:", "LUA:", "UNDEFINED:", "Mariadb:",
           "Possible Shell:", "ERRORS ", "Permissions\! Failed to write in", "Checking proxy connection via", "INFO:", "New Identity IP",
           "Traying again my solve problem or set timeout --time <time in s>", "Possible errors detected!");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## GENERAL DIALOG TEXT
 my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!", "SCAN FINISHED\!", "Unique Result\(s\) Found\!", "No Target list found\!", "[!] The tool is up to date!",
 "Tool updeted with success\!", "Can not connect to the server\!", "Exploit\(s\)", "Check Your Connection or Proxy Setting\!", "Your Internet connection seems not active\!",
@@ -41,32 +36,27 @@ my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!
 "Failed to renew identity with", "Please wait...", "POST", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Max Positive results defined by user reached",
 "Undefined", "Redirect To: ", "Proxy(s)", "Random engine just when using engine!", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]",
 "You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]", "Conflict!! Please change", "file ext to [.txt]!", "found!");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## SCAN DIALOG TEXT
 my @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLOIT", "PORT", "TYPE", "TARGET", "IP", "PROXY", "VALID", "HTTP/1.1", "EXPLOIT", "GET", "EXTRA", "SHELL", "LEVEL", "OUTPUT",
         "EXT CMD", "TASK", "BING", "GOOGLE", "ASK [com]", "YANDEX [com]", "SOGOU [com]", "BING GOOGLE ASK YANDEX DOGOU", "DEFAULT BING", "ENGINE", "Unique Results", "Ifinurl", "URL REGEX",
         "Validate URL", "Server Sites", "WP sites", "JOOM sites", "Subdomains", "No extra info", "Beep Sound", "Remove Query", "Regex", "Open", "Closed", "Random Proxy", "Tor Proxy", "No Proxy",
         "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Get host", "Pause Mode", "ADMIN", "PORTS", "XSS",
         "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING", "Md5", "Proxy");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## CMS SCAN TYPES
 my @cms=("CMS", "Wordpress", "Joomla", "Textpattern", "SMF", "PhpBB!", "VBulletin", "MyBB", "CloudFlare", "Post Nuke", "Drupal", "ATutor", "Php Nuke", "Moodle", "Adapt Cms", "Silver Stripe",
          "Modx", "XOOPS", "Oscommerce", "PrestaShop", "B2evolution", "Smart Solutions", "Zen Cart", "concrete5", "OpenCart");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## SCAN TITLES
 my @SCAN_TITLE=("SEARCH ENGINE", "VALIDATION", "Validate by HTTP header is not allowed here!\n", "WORDPRESS SITES", "JOOMLA SITES", "XSS", "LOCAL FILE INCLUSION", "JOOMLA REMOTE FILE INCLUSION",
                 "WORDPRESS ARBITRARY FILE DOWNLOAD", "ADMIN PAGE", "SUBDOMAINS", "UPLOAD FILES", "ZIP FILES", "E-MAILS", "WORDPRESS BRUTE FORCE", "JOOMLA BRUTE FORCE", "EXTERN COMMAND SUBPROCESS",
                 "MD5 GENERATOR", "ENCODE BASE64", "DECODE BASE64", "PORTS", "IP", "USER REGEX", "AGENT", "FILTER", "REGEX");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## INSTALL / UNINSTALL / UPDATE
 my @ZT=("Copying user components...", "Placing main script...", "Placing components...", "Placing README.md", "Checking others components...", "Moving", "Restauring user files...",
-        "Deleting install files...", "Deleting");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+        "Deleting install files...", "Deleting", "Printing update log...");
+
 ## MENU
 sub get_text_tt { return @TT; }
 sub get_text_others { return @OTHERS; }
@@ -77,8 +67,5 @@ sub get_text_ds { return @DS; }
 sub get_text_cms { return @cms; }
 sub get_text_zt { return @ZT; }
 sub get_text_scan_title { return @SCAN_TITLE; }
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 1;
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################

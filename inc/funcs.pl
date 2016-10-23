@@ -127,7 +127,7 @@ sub desclaimer {
   if (defined $nobanner) { mtak(); ptak(); }
   print $c[10]."  $OTHERS[11] \n  $OTHERS[12]  \n  $OTHERS[13] \n";
   our $uplog;
-  if (-e $uplog) { require "$Bin/inc/conf/upad.pl"; }
+  #if (-e $uplog) { require "$Bin/inc/conf/upad.pl"; }
   mtak(); ptak();
   our ($help, $updtd, $uninstall, $toolInfo, $pass);
   if (!defined $help && !defined $updtd && !defined $uninstall && !defined $toolInfo && !defined $pass) {

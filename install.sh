@@ -16,6 +16,7 @@
 echo "[ ]=======================================================================[ ]";
 echo "[ ]                      ALISAM  TECHNOLOGY                               [ ]";
 echo "[ ]                   Atscan Tool Install Script                          [ ]";
+echo "[ ]                    Developed by Ali MEHDIOUI                          [ ]";
 echo "[ ]=======================================================================[ ]";
 echo "[ ] MIT License                                                           [ ]";
 echo "[ ]                                                                       [ ]";

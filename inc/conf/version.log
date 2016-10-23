@@ -1,8 +1,8 @@
-VERSION 11.7 RELEASE
+VERSION 11.8 RELEASE
 =====================================================
-  CHANGES: 22/10/2016 
+  CHANGES: 23/10/2016 
   ===================================================
-  - Add check for updates message. 
+  - Add check for updates message.
   - Add license.
   - Fix uninstall process.
   - Remove tool info to arguments.

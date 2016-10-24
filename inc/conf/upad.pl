@@ -33,7 +33,7 @@ if ($date1[1]<$date2[1]) {
 sub updateMessage  {
   my ($same, $rp)=compareme();
   if ($rp->is_success) {  
-    if ($same==1) { print $c[4]."  [!] A new update is aviable! To update: --update\n"; }
+    if (!$same) { print $c[4]."  [!] A new update is aviable! To update: --update\n"; }
   }else{
     print "  "; dd();
   }

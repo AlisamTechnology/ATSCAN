@@ -120,7 +120,7 @@ sub timer { our $date; print "[$date]"; }
 
 ## CHECK VERSION LOG
 sub compareme {
-  my ($same, $rp);
+  my ($same);
   our ($logUrl, $script_bac, $scriptv);
   my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
   if ($response->is_success) {
@@ -142,8 +142,7 @@ sub negative { ltak(); print $c[4]."[!] $DT[1]\n"; }
 sub desclaimer {
   our ($nobanner, $checkVersion);
   if (defined $nobanner) { mtak(); ptak(); }
-  print $c[10]."  $OTHERS[11] \n  $OTHERS[12]  \n  $OTHERS[13] \n";
-  
+  print $c[10]."  $OTHERS[11] \n  $OTHERS[12]  \n  $OTHERS[13] \n"; 
   if (defined $dork || defined $Target) {
     our $uplog;
     if (-e $uplog) { require "$Bin/inc/conf/upad.pl"; }
@@ -358,6 +357,6 @@ sub nochmod {
 }
 sub cc { sleep(1); print $c[3]."OK\n"; }
 sub bb { sleep(1); print $c[4]."Failed!\n"; }
-sub dd { sleep(1); print $c[2]."\n[!] $DT[8]!\n"; }
+sub dd { sleep(1); print $c[4]."[!] $DT[8]\n"; }
 
 1;

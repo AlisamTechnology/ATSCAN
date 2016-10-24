@@ -23,7 +23,7 @@ if ($same) {
   }
     
   my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");
-  if (!$r->is_success) { dd(); exit(); }
+  if (!$r->is_success) { print "\n"; dd(); exit(); }
     
   print $c[10]."[!] $ZT[1] ";
   open (LE, '>', $script) or nochmod($script, "exit");
@@ -32,7 +32,7 @@ if ($same) {
     
   print $c[10];
   system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
-  if (!-d "$Bin/atscan_update") { dd(); exit(); }
+  if (!-d "$Bin/atscan_update") { print "\n"; dd(); exit(); }
     
   print $c[10]."[!] $ZT[2] ";
   system "sudo cp -r $Bin/atscan_update/inc $Bin";

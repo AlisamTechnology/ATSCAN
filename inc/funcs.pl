@@ -120,7 +120,7 @@ sub timer { our $date; print "[$date]"; }
 
 ## CHECK VERSION LOG
 sub compareme {
-  my $same="";
+  my ($same, $rp);
   our ($logUrl, $script_bac, $scriptv);
   my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
   if ($response->is_success) {
@@ -130,12 +130,11 @@ sub compareme {
     if (compare($script_bac, $scriptv) == 0) {
       $same="1";
       unlink $script_bac;
-    }else{
-      dd();
     }
   }
   return ($same, $response);
 }
+
 ## RETURN NEGATIVE SCAN
 sub negative { ltak(); print $c[4]."[!] $DT[1]\n"; }
 

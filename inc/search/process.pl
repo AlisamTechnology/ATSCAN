@@ -93,7 +93,7 @@ sub printProxy {
 ## PRINT INFO DORK
 sub printDork {
   my @dor=@_;
-  print $c[1]."[::] $DS[1]     $c[10]";     
+  print $c[1]."[::] $DS[0]     $c[10]";     
   for my $dor(@dor) {
     $dor=~s/\s+$//;
     $dor=~s/ip%3A//g;

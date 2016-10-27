@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 ## FUNCTS
-our ($payloads, $exploit, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $ifendour, $port, $output, $ifend);
+our ($payloads, $exploit, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend);
 our (@aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies);
 
 ## PRINT FILES 
@@ -19,6 +19,22 @@ sub is_folder_empty {
   my $dirname = $_[0];
   opendir(my $dh, $dirname);
   return scalar(grep { $_ ne "." && $_ ne ".." } readdir($dh)) == 0;
+}
+
+## USER PRE-CONFIGURATION
+our($userSetting, $uproxy, $uproxyrandom, $upassword, $upayloads, $ubrandom, $umrandom, $uzone, $uengine, $unobanner, $unoinfo, $ubeep, $uifend, $uunique, $utimeout, $udateupdate, $activeUconf);
+sub checkSetting {
+  my $object=$_[0];
+  my @ans;
+  open(F2, $userSetting);
+  while (my $l=<F2>) {
+    chomp $l;
+    if ($l=~/$object\s(.*)\s$object/) {
+      @ans=split(" ", $l);
+    }    
+  }
+  close(F2);
+  return $ans[1];
 }
 
 ## BUILT ARRAYS
@@ -48,13 +64,56 @@ sub getProx {
   return @proxies;
 }
 
+## DELETE USER SETTING
+sub deletSetting {
+  our (@configuration, @LI2, $userSetting);
+  my $val=$_[0];
+  for my $lines(@configuration) {
+    if ($lines!~/^$val\s(.*)/) {
+      push @LI2, $lines;
+    }
+  }
+  unlink $userSetting; @configuration=();
+  for my $lines2(@LI2) { printFile($userSetting, $lines2); }
+}
+
+## CHECK USER CONFIGURATION
+$activeUconf=checkSetting("config");
+$upassword=checkSetting("password");
+
+if ($activeUconf) {
+  $uproxy=checkSetting("proxy");
+  $uproxyrandom=checkSetting("proxy-random");
+  $upayloads=checkSetting("payload");
+  $ubrandom=checkSetting("b-random");
+  $umrandom=checkSetting("m-random");
+  $uzone=checkSetting("zone");
+  $uengine=checkSetting("engine");
+  $unobanner=checkSetting("nobanner");
+  $unoinfo=checkSetting("noinfo");
+  $ubeep=checkSetting("beep");
+  $uifend=checkSetting("ifend");
+  $uunique=checkSetting("unique");
+  $utimeout=checkSetting("timeout");
+  $udateupdate=checkSetting("update");
+}
 ## SET PROXY
 if (defined $proxy) { @proxies=getProx($proxy); }
 if (defined $prandom) { @proxies=getProx($prandom); }
-our $psx=$proxies[rand @proxies];
+if ($uproxy && (!defined $proxy && !defined $prandom)) { @proxies=getProx($uproxy); }
+if ($uproxyrandom && (!defined $proxy && !defined $prandom)) { @proxies=getProx($uproxyrandom); }
+
+## UA
+sub UA {
+  our ($psx, $ua);
+  $psx=$proxies[rand @proxies];
+  $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
+  return $psx;
+}
 
 ## USER ARRAYS
 if (defined $payloads) { @userArraysList=buildArraysLists($payloads); }
+if ($upayloads && !defined $payloads) { @userArraysList=buildArraysLists($upayloads); }
 
 ## EXPLOITS ARRAYS
 if (defined $exploit) { @exploits=buildArraysLists($exploit); }
@@ -263,7 +322,7 @@ sub checkFilters {
 ## GET FILTRED URLS
 sub filterUr {
   my ($URL, $dorkToCheeck)=@_;
-  if (defined $unique) {
+  if (defined $unique || $uunique) {
     if (index($URL, $dorkToCheeck) != -1) { $URL=$URL; }else{ $URL=""; }
   }
   if (defined $ifinurl) {
@@ -293,8 +352,9 @@ sub OO { my $o=scalar(grep { defined $_} @aTscans); return $o; }
 
 ## END SCAN PROCESS
 sub subfin {
+  our $uifend;
   print $c[2]."[!] "; timer(); print " $DT[3]!\n";
-  if (defined $ifend) { print chr(7); }
+  if (defined $ifend || $uifend) { print chr(7); }
 }
 
 ## COUNT SCAN RESULTS

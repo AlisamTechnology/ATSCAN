@@ -80,8 +80,8 @@ sub mdecode64 { scanCode($SCAN_TITLE[19], $mdecode64, "", "", "1"); }
 ## UPDATE SUCCESS
 sub updtd {}
 
-## USER PASS AUTH 
-sub pass { require "$Bin/inc/functions/setPass.pl"; }
+## USER CONFIGURATION
+sub userconfig { require "$Bin/inc/functions/userConfig.pl"; }
 
 ## TOOL UPDATE ###
 sub checkVersion { require "$Bin/inc/functions/checkVersion.pl"; }

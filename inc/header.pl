@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($nobanner, $logoVersion, @OTHERS, @c, @TT);
+our (@OTHERS, @c, @TT);
 
 ## ADVISE
 sub advise {

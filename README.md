@@ -10,7 +10,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px"><b>ATSCAN version 11.8<b/></td>
+    <td width="780px"><b>ATSCAN version 11.9<b/></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -260,7 +260,7 @@
         <td class="main"> Exploit/Payload </td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--xss </td>
+        <td width="200px" class="main">--sql </td>
         <td class="main"> Xss scan </td>
       </tr> 
       <tr>
@@ -365,15 +365,14 @@
       </tr> 
       <tr>
         <td width="200px" class="main"> rang(x-y) </td>
-           <td class="main">EX: --exp "/index.php?id=rang(1-9)" --xss OR -t "site.com/index.php?id=rang(1-9)" --xss</br>
+           <td class="main">EX: --exp "/index.php?id=rang(1-9)" --sql OR -t "site.com/index.php?id=rang(1-9)" --sql</br>
            site.com/index.php?id=1 -> 9.</td>
       </tr> 
       <tr>
         <td width="200px" class="main"> repeat(txt-y) </td>
-           <td class="main">EX: --exp "/index.php?id=repeat(../-9)wp-config.php" --xss OR -t "site.com/index.php?id=../wp-config.php"</br>
+           <td class="main">EX: --exp "/index.php?id=repeat(../-9)wp-config.php" --sql OR -t "site.com/index.php?id=../wp-config.php"</br>
            In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times </td>
-      </tr> 
-      
+      </tr>       
       <tr>
         <td width="200px" class="main">[OTHER]</td>
         <td class="main">To separate values ex: dork1 [OTHER]DORK2 [OTHER]DORK3</td>
@@ -391,12 +390,12 @@
         <td class="main">Update.</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--pass</td>
-        <td class="main">Set or edit tool password.</td>
-      </tr> 
-      <tr>
         <td width="200px" class="main">--tool</td>
         <td class="main">Tool info.</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--config</td>
+        <td class="main">User configuration.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--uninstall</td>
@@ -429,7 +428,7 @@
        Set engine: atscan --dork [dork> --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
        Set selective engines: atscan -d [dork> -l [level] -m 1,2,3.. <br/>
        Search with many dorks: atscan --dork [dork1 [OTHER]dork2 [OTHER]dork3> --level [level]    <br/>
-       Search and rand: atscan -d [dork] -l [level] --exp "/index.php?id=rang(1-9)" --xss   <br/>
+       Search and rand: atscan -d [dork] -l [level] --exp "/index.php?id=rang(1-9)" --sql   <br/>
        Get Server sites: atscan -t [ip] --level <value> --sites <br/>
        Get Server sites: atscan -t "[ip from]-[ip to]" --level <value> --sites <br/>
        Get Server sites: atscan -t "ip1 [OTHER]ip2" --level <value> --sites <br/>
@@ -453,8 +452,8 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>REPEATER:</b> <br/>
-       atscan -t site.com?index.php?id=rang(1-10) --xss <br/>
-       atscan -t [target] --exp "/index.php?id=rang(1-10)" --xss <br/>
+       atscan -t site.com?index.php?id=rang(1-10) --sql <br/>
+       atscan -t [target] --exp "/index.php?id=rang(1-10)" --sql <br/>
        atscan -t [target] --exp "/index.php?id=repeat(../-9)wp-config.php"
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
@@ -486,14 +485,14 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
         <td>
        <b>MULTIPLE SCANS: </b><br/>
-       atscan --dork [dork> --level [10] --xss --lfi --wp ..<br/>
-       atscan --dork [dork> --level [10] --replace [string] --with [string] --exp [payload] [--xss / --lfi / --wp /...]<br/>
-       atscan -t [ip] --level [10] [--xss / --lfi / --wp /...]<br/>
-       atscan -t [target] [--xss / --lfi / --wp /...]</td></tr></table> 
+       atscan --dork [dork> --level [10] --sql --lfi --wp ..<br/>
+       atscan --dork [dork> --level [10] --replace [string] --with [string] --exp [payload] [--sql / --lfi / --wp /...]<br/>
+       atscan -t [ip] --level [10] [--sql / --lfi / --wp /...]<br/>
+       atscan -t [target] [--sql / --lfi / --wp /...]</td></tr></table> 
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
        <td>
        <b>USER PAYLOADS: </b><br/>
-       atscan --dork [dork] --level [10] [--lfi | --xss ..] --payload [payload | payloads.txt]
+       atscan --dork [dork] --level [10] [--lfi | --sql ..] --payload [payload | payloads.txt]
        </td></tr></table>           
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
        <td>
@@ -508,12 +507,12 @@
        atscan -t [target / targets.txt] [--status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --exp [payload] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
-       atscan -d [dork / dorks.txt] -l [level] [--admin / --xss ..] --status [code] / --valid [string] <br/>  
+       atscan -d [dork / dorks.txt] -l [level] [--admin / --sql ..] --status [code] / --valid [string] <br/>  
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --full --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp [payload] --status [code] / --valid [string] <br/>
        atscan --data [--post / --get] "name:userfile;value:file.txt" -v [string] / --status [code] <br/>
-       atscan -d [dork / dorks.txt] -l [level] [--xss / --shost ..] --status [code] / --valid [string] <br/>
+       atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
       </td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
         <td>

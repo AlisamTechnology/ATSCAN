@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, @data, @c, @DT, @DS, @TT, @aTsearch, @aTscans);
+our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $ubeep, $output, @data, @c, @DT, @DS, @TT, @aTsearch, @aTscans);
 
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
@@ -128,7 +128,7 @@ sub doPrint {
   my $o=OO();
   if ($o<$limit) {
     print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText)) || ($result && (defined $exploit || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText)));
-    if (defined $beep) { print chr(7); } saveme($URL1, "");
+    if (defined $beep || $ubeep) { print chr(7); } saveme($URL1, "");
     if (defined $content) { dpoints(); print $c[10]."$html\n"; }
   }
 }

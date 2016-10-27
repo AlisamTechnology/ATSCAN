@@ -39,11 +39,21 @@ if ((!defined $dork) && (defined $unique)) { print $c[4]."[!] $DT[21]\n"; logoff
 if (defined $regex or defined $eMails or defined $searchRegex or defined $searchIps) { if (defined $Hstatus) { print $c[4]."[!] $SCAN_TITLE[2]"; logoff(); } }
 
 ## CHECK MOTORS ARGUMENTS
+our ($motorparam, $uengine);
 if (defined $motor) {
-  if (defined $mrandom) { print $c[4]."$TT[14]\n"; logoff(); }
-  if ($motor!~/1|2|3|4|5|all/) { 
-    print $c[2]."[!] "; timer();
-    print "$DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m 1,2,...\n"; logoff();
+  if (defined $mrandom) {
+    print $c[4]."$TT[14]\n"; logoff();
+  }
+  abcd($motor);
+}
+if ($uengine) { abcd($uengine); }
+sub abcd {
+  my $abcd=$_[0];
+  my @abcd;
+  if ($abcd=~/,/) { @abcd=split(", ", $abcd); }
+  else{ push @abcd, $abcd; }
+  for my $ad(@abcd) {
+    if ($ad>5) { print $c[2]."[!] $DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m 1,2,...\n"; logoff(); }
   }
 }
 

@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $data, $mmd5,
-     $mdecode64, $mencode64, $checkVersion, $help, $pass, $updtd, $toolInfo, $uninstall);
+     $mdecode64, $mencode64, $checkVersion, $help, $updtd, $toolInfo, $uninstall, $config);
 
 ## VERIFY TARGETS AND PRESCAN
 our ($mlevel, $Target, $dork, @c, @DT, @TODO, @V_TODO, @SCAN_TITLE);
@@ -43,14 +43,14 @@ if (defined $mmd5 || defined $mencode64 || defined $mdecode64) {
   if (defined $mencode64) { mencode64(); }
   if (defined $mdecode64) { mdecode64(); }
 }
-if (defined $pass || defined $checkVersion || defined $updtd || defined $help || defined $toolInfo || defined $uninstall) {
+if (defined $checkVersion || defined $updtd || defined $help || defined $toolInfo || defined $uninstall || defined $config) {
   desclaimer();
-  if (defined $pass) { pass(); }
   if (defined $checkVersion) { checkVersion(); }
   if (defined $updtd) { updtd(); }
   if (defined $help) { help(); }
   if (defined $toolInfo) { tool(); }
   if (defined $uninstall) { uninstall(); }
+  if (defined $config) { userconfig(); }
 }
 
 1;

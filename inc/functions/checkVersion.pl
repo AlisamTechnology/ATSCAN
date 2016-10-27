@@ -6,18 +6,18 @@ use File::Path;
 ## Copy@right Alisam Technology see License.txt
 
 ## CHECK VERSION AND UPDATE
-our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $scriptPass, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme,
-     $uplog, $fulldate, @scriptPass, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
+our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $userSetting, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme,
+     $uplog, $fulldate, @userSetting, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
 print $c[4]."[!] $OTHERS[20]\n";
 my ($same, $response)=compareme();
 if ($same) {   
   print $c[3]."$DT[6]\n";
 }else{
-  if (-e $scriptPass) {
+  if (-e $userSetting) {
     print $c[10]."[!] $ZT[0] ";
-    chmod +x $scriptPass;
-    open my $dle, '<', $scriptPass or nochmod($scriptPass, "");
-    chomp(@scriptPass = <$dle>);
+    chmod +x $userSetting;
+    open my $dle, '<', $userSetting or nochmod($userSetting, "");
+    chomp(@userSetting = <$dle>);
     close $dle;
     cc();
   }
@@ -69,10 +69,10 @@ if ($same) {
   sleep(1);
   cc();
     
-  if (@scriptPass) {
-    for my $spss(@scriptPass) {
-       print $c[10]."[!] $ZT[6] ";
-      open (FE, '>>', $scriptPass) or nochmod($scriptPass, "");
+  if (@userSetting) {
+    for my $spss(@userSetting) {
+      print $c[10]."[!] $ZT[6] ";
+      open (FE, '>>', $userSetting) or nochmod($userSetting, "");
       print FE "$spss"; close(FE);
       cc();
     }

@@ -42,7 +42,7 @@ use FindBin '$Bin';
   ."  --full         | --replace --full Will replace all url parametres from string to the end\n"
   ."  --payload      | Use your own payloads instead of tool ones\n"
   ."  --exp          | Exploit/Payload \n"
-  ."  --xss          | Xss scan \n"
+  ."  --sql          | Xss scan \n"
   ."  --lfi          | Local file inclusion \n"
   ."  --joomrfi      | Scan for joomla local file inclusion.\n"
   ."  --shell        | Shell link [Ex: http://www.site.com/shell.txt] \n"
@@ -68,13 +68,14 @@ use FindBin '$Bin';
   ."  --noquery      | Remove string value from Query url [ex: site.com/index.php?id=string] \n"  
   ."  --command      | Extern Command to execute\n"
   ."  --email        | Get emails \n"
-  ."  rang(x-y)      | EX: --exp \"/index.php?id=rang(1-9)\" --xss OR -t \"site.com/index.php?id=rang(1-9)\" --xss\n"
+  ."  rang(x-y)      | EX: --exp \"/index.php?id=rang(1-9)\" --sql OR -t \"site.com/index.php?id=rang(1-9)\" --sql\n"
   ."                 | site.com/index.php?id=1->9 \n"
-  ."  repeat(txt-y)  | EX: --exp \"/index.php?id=repeat(../-9)wp-config.php\" --xss OR -t \"site.com/index.php?id=../wp-config.php\"\n"
+  ."  repeat(txt-y)  | EX: --exp \"/index.php?id=repeat(../-9)wp-config.php\" --sql OR -t \"site.com/index.php?id=../wp-config.php\"\n"
   ."                 | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n"
   ."  [DATA]         | To separate data values ex: --data \"name:username [DATA]email:xxxxxx [DATA]pass:xxxxx\"\n"
   ."  [OTHER]        | To separate all others values (dork exploit payload proxy target..) ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n"
-  ."  --pass         | Set or edit tool password. \n"  
+  ."  --pass         | Set or edit tool password. \n"
+  ."  --config       | Set configuration. \n"  
   ."  --update       | Update tool. \n"  
   ."  --uninstall    | Uninstall tool \n\n";
   
@@ -93,7 +94,7 @@ use FindBin '$Bin';
   ."   Set engine: atscan --dork <dork> --level <level> -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n"
   ."   Set selective engines: atscan -d <dork> -l <level> -m 1,2,3..\n"
   ."   Search with many dorks: atscan --dork <dork1 [OTHER]dork2 [OTHER]dork3> --level <level> \n"  
-  ."   Search and rand: atscan -d <dork> -l <level> --exp \"/index.php?id=rang(1-9)\" --xss\n"  
+  ."   Search and rand: atscan -d <dork> -l <level> --exp \"/index.php?id=rang(1-9)\" --sql\n"  
   ."   Get Server sites: atscan -t <ip> --level <value> --sites\n"
   ."   Get Server wordpress sites: atscan -t <ip> --level <value> --wp \n"
   ."   Get Server joomla sites: atscan -t <ipbgn-ipend> --level <value> --joom \n"
@@ -113,8 +114,8 @@ use FindBin '$Bin';
   ."   E-mails: ".'((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})'."\n\n";
   
   ltak(); print $c[12]."  REPEATER: \n".$c[10]
-  ."   atscan -t \"site.com?index.php?id=rang(1-10)\" --xss\n"
-  ."   atscan -t <target> --exp \"/index.php?id=rang(1-10)\" --xss\n"
+  ."   atscan -t \"site.com?index.php?id=rang(1-10)\" --sql\n"
+  ."   atscan -t <target> --exp \"/index.php?id=rang(1-10)\" --sql\n"
   ."   atscan -t <target> --exp \"/index.php?id=repeat(../-9)wp-config.php\" \n\n";
   
   ltak(); print $c[12]."  PORTS: \n".$c[10]
@@ -140,13 +141,13 @@ use FindBin '$Bin';
   ."   atscan -d \"index of /lib/scripts/dl-skin.php\" -l 20 -m 2 --command \"php WP-dl-skin.php-exploit.php --TARGET\" \n\n";
   
   ltak(); print $c[12]."  MULTIPLE SCANS: \n".$c[10]
-  ."   atscan --dork <dork> --level <10> --xss --lfi --wp ..\n"
-  ."   atscan --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> [--xss | --lfi | --wp |...]\n"
-  ."   atscan -t <ip> --level <10> [--xss | --lfi | --wp |...]\n"
-  ."   atscan -t <targets> [--xss | --lfi | --wp |...]\n\n";
+  ."   atscan --dork <dork> --level <10> --sql --lfi --wp ..\n"
+  ."   atscan --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> [--sql | --lfi | --wp |...]\n"
+  ."   atscan -t <ip> --level <10> [--sql | --lfi | --wp |...]\n"
+  ."   atscan -t <targets> [--sql | --lfi | --wp |...]\n\n";
   
   ltak(); print $c[12]."  PAYLOADS USE: \n".$c[10]
-  ."   atscan --dork <dork> --level <10> [--lfi | --xss ..] --payload <payload | payloads.txt> \n\n";
+  ."   atscan --dork <dork> --level <10> [--lfi | --sql ..] --payload <payload | payloads.txt> \n\n";
   
   ltak(); print $c[12]."  SEARCH VALIDATION: \n".$c[10]
   ."   atscan -d <dork | dorks.txt> -l <level> --status <code> | --valid <string> \n"
@@ -158,12 +159,12 @@ use FindBin '$Bin';
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string>] \n"
   ."   atscan -d <dork | dorks.txt> -l <level> --exp <payload> --status <code> | --valid <string> \n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string> \n"
-  ."   atscan -d <dork | dorks.txt> -l <level> [--admin | --xss ..] --status <code> | --valid <string> \n"  
+  ."   atscan -d <dork | dorks.txt> -l <level> [--admin | --sql ..] --status <code> | --valid <string> \n"  
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --full --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --exp <payload> --status <code> | --valid <string>\n"
   ."   atscan --data \"name:userfile[DATA]value:file.txt\" --post -v <string> | --status <code> \n"
-  ."   atscan -d <dork | dorks.txt> -l <level> [--xss | --shost ..] --status <code> | --valid <string> \n\n";
+  ."   atscan -d <dork | dorks.txt> -l <level> [--sql | --shost ..] --status <code> | --valid <string> \n\n";
   
   ltak(); print $c[12]."  UPDATE TOOL: \n".$c[10]."   --update\n";
   

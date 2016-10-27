@@ -5,22 +5,15 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $umrandom, $uproxyrandom, $uproxy, $uzone, $uengine, $uunique);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch);
 
 ## SET ENGINES
 if (defined $mlevel) {
-  if (defined $mrandom ) { push @motor, $mrand; }
-  elsif (defined $motor) { 
-    if ($motor!~m/$motorparam/) { push @motor, $motor; }
-    else{
-      if ($motor=~/all/) { push @motor, @mrands; }
-      if ($motor=~/1/) { push @motor, $motor1; }
-      if ($motor=~/2/) { push @motor, $motor2; }
-      if ($motor=~/3/) { push @motor, $motor3; }
-      if ($motor=~/4/) { push @motor, $motor4; }
-      if ($motor=~/5/) { push @motor, $motor5; }
-    }    
+  if (defined $mrandom || $umrandom) { push @motor, $mrand; }
+  elsif (defined $motor || $uengine) { 
+    if (defined $motor) { buildenginearray($motor); }
+    if (!defined $motor || $uengine) { buildenginearray($uengine); }
   }else{
     push @motor, $motor1;
   }
@@ -31,6 +24,16 @@ if (defined $mlevel) {
     $mot=~s/MYMSID/$MsId/g;
     push @motors, $mot;
   }
+}
+
+sub buildenginearray {
+  my $mtr=$_[0];
+  if ($mtr=~/all/) { push @motor, @mrands; }
+  if ($mtr=~/1/) { push @motor, $motor1; }
+  if ($mtr=~/2/) { push @motor, $motor2; }
+  if ($mtr=~/3/) { push @motor, $motor3; }
+  if ($mtr=~/4/) { push @motor, $motor4; }
+  if ($mtr=~/5/) { push @motor, $motor5; }
 }
 
 ## GET URLS FROM SEARCH ENGINE PAGES
@@ -44,7 +47,7 @@ sub doSearch {
 	$URL=decode_entities($URL);
     $URL=~s/<.*//s;
     if ($URL!~/$nolisting/) {
-      if (defined $unique or defined $ifinurl) {
+      if (defined $unique or defined $ifinurl || $uunique) {
         my $dorkToCheeck=checkFilters($dork);
         $URL=filterUr($URL, $dorkToCheeck);
       }
@@ -61,12 +64,11 @@ sub doSearch {
   }
 }
 
-
 ## PRINT INFO ENGINE
 sub printMotor {
   my @motors=@_;
   print $c[1]."[::] $DS[29]   ".$c[10];
-  if (defined $mrandom) { print "[$TT[12]\]"; }
+  if (defined $mrandom || $umrandom) { print "[$TT[12]\]"; }
   for my $motor(@motors) {
     $motor=~s/MYBROWSERLANG/$browserLang/g;
     $motor=~s/MYGOOGLEDOMAINE/$googleDomain/g;
@@ -84,8 +86,8 @@ sub printMotor {
 ## PRINT INFO PROXY
 sub printProxy {
   print $c[1]."    $DS[11]   ";
-  if (defined $prandom) { print $c[10]."[$TT[12]\] "; }
-  if (defined $proxy || defined $prandom) { print $c[10]."[$psx]"; }
+  if (defined $prandom || $uproxyrandom) { print $c[10]."[$TT[12]\] "; }
+  if (defined $proxy || defined $prandom || $uproxyrandom || $uproxy) { print $c[10]."[$psx]"; }
   else{ print $c[10]."$DS[46]"; }
   print "\n";
 }
@@ -100,11 +102,13 @@ sub printDork {
     print "[$dor]";
   }
   print "\n";
+  if ($uzone) { print $c[1]."[::] ZONE    $c[10] [$uzone]\n"; }
+  
   print $c[1]."[::] $DS[18]   $c[10] [$mlevel]\n";
-  if (defined $ifinurl || defined $unique || defined $searchRegex) {
+  if (defined $ifinurl || defined $unique || $uunique || defined $searchRegex) {
     print $c[1]."[::] $SCAN_TITLE[24]   $c[10]";
     if (defined $ifinurl) { print "[$TT[19]\]\n"; }
-    if (defined $unique) { print "[$DS[30]\]\n"; }
+    if (defined $unique || $uunique) { print "[$DS[30]\]\n"; }
     if (defined $searchRegex) { print "[$searchRegex]\n"; }
   }
   ptak();
@@ -120,6 +124,7 @@ sub msearch {
   for my $motor(@motors) {
     for my $dork(@dorks) {
       if (defined $Target) { $dork="ip%3A".$dork; }
+      if ($uzone) { $dork="site:$uzone ".$dork; }    
       $dork=~s/\s+$//;
       $dork=~s/ /+/g;
       $dork=~s/:/%3A/g;
@@ -159,24 +164,24 @@ sub goToEngine {
   doSearch($Res, $motor);
 }
 
-our ($limit, $noinfo, $brandom, $agent, $post, $get, $timeout, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, @OTHERS);
+our ($limit, $noinfo, $brandom, $agent, $post, $get, $timeout, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $ubrandom, $unoinfo, $utimeout, @OTHERS);
 
 ## INFO URL SCAN
 sub printInfoUrl {
   my ($URL1, $data)=@_;
   my $o=OO();
   if ($o<$limit) {    
-    if (!defined $noinfo) {
+    if (!defined $noinfo && !$unoinfo) {
       if (defined $noQuery) { print $c[1]."    $DS[16] $c[10]  $DS[40]\n"; }
       printProxy();
       print $c[1]."    $SCAN_TITLE[23]   ";
-      if (defined $brandom) { print $c[10]."[$TT[12]\] "; }
+      if (defined $brandom || $ubrandom) { print $c[10]."[$TT[12]\] "; }
       print "$c[10]$agent\n";
       print $c[1]."    $OTHERS[19]  $c[10]";
       if (defined $get) { print "$DS[15]\n"; }
       elsif (defined $post) { print "$DT[32]\n"; }
       else{ print "$DS[15]\n"; }
-      if ($timeout>10) { print $c[1]."    $TT[10] ".$c[10]."$timeout s\n"; }  
+      if ($timeout>10 || $utimeout) { print $c[1]."    $TT[10] ".$c[10]."$timeout s\n"; }  
       if ((defined $replace)&&(defined $with)) { print $c[1]."    $OTHERS[14]   "; print $c[10]."[$replace] => [$with]\n"; }
     }
   }
@@ -186,12 +191,12 @@ sub printInfoUrl {
 sub browseUrl {
   my ($URL1, $form)=@_;
   printInfoUrl($URL1, $data);
-  if (defined $proxy) { UA(); }
-  elsif (defined $prandom) { newIdentity(); UA(); }
+  if (defined $proxy || $uproxy) { UA(); }
+  if (defined $prandom || $uproxyrandom) { newIdentity(); UA(); }
   my ($response, $html, $status, $serverheader)=getHtml($URL1, $form);
   my $o=OO();
   if ($o<$limit) {
-    if (!defined $noinfo) { 
+    if (!defined $noinfo && !$unoinfo) { 
       if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }    
       print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
       if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
@@ -211,7 +216,7 @@ sub browseUrl {
 sub getHtml {
   my ($URL, $form)=@_;
   my $response;
-  if (defined $brandom) { getNewAgent(); }
+  if (defined $brandom || $ubrandom) { getNewAgent(); }
   if ($form) {
     if (defined $post) {
       $response=$ua->post($URL, Content_Type => 'form-data', Content => [$form]); }
@@ -285,7 +290,6 @@ sub getComnd {
 }
 
 our ($exploit, $p, $shell, @exploits);
-
 ## MAKE SCAN WITH EXPLOIT IN ARRAY
 sub getExploitArrScan{
   my ($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, $pmarr, $data)=@_;

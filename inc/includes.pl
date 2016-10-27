@@ -4,26 +4,29 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
+## GET FUNCTIONS 
+require "$Bin/inc/funcs.pl";
+
 ## PRINT BANNER 
-our ($nobanner, $output);
-if (!defined $nobanner) { banner(); }
+our ($nobanner, $output, $unobanner);
+if (!defined $nobanner && !$unobanner) { banner(); }
+else{ mtak(); ptak(); }
+## CLEAN OUTPUT 
+if (defined $output) { unlink $output if -e $output; }
 
 ## PASS LOGIN ##
-our $scriptPass;
-if (-e $scriptPass) { require "$Bin/inc/functions/log.pl"; }
+our $upassword;
+if ($upassword) { require "$Bin/inc/functions/log.pl"; }
 
 ## NO ARGUMENTS ##
-our ($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $pass, $updtd, $toolInfo);
-our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $pass, $updtd, $toolInfo);
+our ($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $updtd, $toolInfo, $config);
+our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $updtd, $toolInfo, $config);
 my $NoArg=0;
 for (@NoArg) { $NoArg++ if defined $_; }
 advise() if $NoArg<1;
 
-## CLEAN OUTPUT 
-if (defined $output) { unlink $output if -e $output; }
-
-## GET FUNCTIONS 
-require "$Bin/inc/funcs.pl";
+## BROWSER
+require "$Bin/inc/search/browser.pl";
 
 ## TEST INTERNET CONNECTION 
 require "$Bin/inc/functions/testConnection.pl";

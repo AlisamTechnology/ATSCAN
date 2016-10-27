@@ -6,7 +6,7 @@ use File::Path;
 ## Copy@right Alisam Technology see License.txt
 
 ## CHECK FOR UPDATES
-our ($uplog, $script_bac, $fulldate, @c);
+our ($uplog, $script_bac, $fulldate, $udateupdate, @c);
 my (@date1, @date2);
 
 ## date of last update
@@ -24,8 +24,10 @@ if ($date1[1]<$date2[1]) {
   updateMessage();
 }else{
   ## check i day number is great than 10 days : check updates frequency
-  if (($date1[0]+10)<$date2[0]) {
-    updateMessage();
+  if ($udateupdate) {
+    if (($date1[0]+$udateupdate)<$date2[0]) { updateMessage(); }
+  }else{
+    if (($date1[0]+10)<$date2[0]) { updateMessage(); }
   }
 }
 

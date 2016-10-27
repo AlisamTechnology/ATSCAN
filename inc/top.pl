@@ -10,7 +10,7 @@ require "$Bin/inc/theme/separators.pl";
 ## CONFIGURE 
 require "$Bin/inc/conf/configure.pl";
 
-## HEADER 
+## GET FUNCTIONS 
 require "$Bin/inc/header.pl";
 
 1;

@@ -1,13 +1,7 @@
-VERSION 11.8 RELEASE
+VERSION 11.9 RELEASE
 =====================================================
-  CHANGES: 23/10/2016 
+  CHANGES: 27/10/2016 
   ===================================================
-  - Removed unused comments.
-  - Add check for updates message.
-  - Add license.
-  - Fix uninstall process.
-  - Remove tool info to arguments.
-  - Fix E-mails scan.
-  - Set output to anywhere.
+  - Add user configuration.
   - Enjoy!
   ===================================================

@@ -7,13 +7,10 @@ use POSIX qw(strftime);
 
 if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
-our ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites,
-$mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout,
-$limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $post, $get, $brandom, $data, $payloads, $mrandom, $content, $pass, $updtd);
 
 ## VERSION
-our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptPass, $scriptv, $scriptCompletion, $scriptComplInstall, $readme, $uplog);
-$Version="11.8";
+our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv, $scriptCompletion, $scriptComplInstall, $readme, $uplog);
+$Version="11.9";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";
@@ -26,12 +23,12 @@ $script=$Bin."/atscan";
 if (substr($0, -3) eq '.pl') { $script.=".pl"; }
 $scriptComplInstall="$Bin/inc/conf/atscan";
 $scriptInstall="$Bin/install.sh";
-$scriptPass=$Bin."/inc/conf/conf.xml";
 $script_bac=$Bin."/version_bac.log";
 $uplog="$Bin/inc/conf/uplog.log";
 $scriptbash="/usr/bin/atscan";
 $scriptCompletion="/etc/bash_completion.d";
 $readme="/usr/share/doc/atscan";
+our $userSetting="$Bin/inc/conf/userSetting";
 
 ## TIME
 use POSIX qw(strftime);
@@ -132,11 +129,28 @@ our @V_LFI=get_validate_lfi();
 our @V_TODO=get_validate_todo();
 our @V_AFD=get_validate_afd();
 our @TODO=();
+our $validText;
 our @V_VALID=($validText) if defined $validText;
 our @ERR=(@V_LFI, @V_XSS, @V_AFD, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE, @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_UNDEFINED, @E_MARIADB, @E_SHELL);
 our @CMS=(@V_WP, @V_JOOM, @V_TP, @V_SMF, @V_PhpBB, @V_VB, @V_MyBB, @V_CF, @V_DRP, @V_PN, @V_AT, @V_PHPN, @V_MD, @V_ACM, @V_SS, @V_MX, @V_XO, @V_OSC, @V_PSH, @V_BB2, @V_MG, @V_ZC, @V_CC5, @V_OCR);
 
+our @configuration=get_configuration();
+sub get_configuration {
+  @configuration=();
+  if (-e $userSetting) {
+    open(F1, $userSetting);
+    while (my $set=<F1>) {             
+      if (!($set=~/^$/)) {
+        push @configuration, $set;
+      }
+    }
+    close( F1 );
+  }
+  return @configuration;
+}
+
 ## MAIL VALIDATION
+our ($searchRegex, $regex);
 our $V_EMAIL='((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})';
 our $V_IP='((\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3}))';
 our $V_RANG='(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\-(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})';
@@ -167,41 +181,5 @@ our $Id=$Ids[rand @Ids];
 
 ## MSID RANDOM
 our $MsId=$MsIds[rand @MsIds];
-
-## MAX POSITIVE SCAN RESULTS
-## Chnage for more positive scans!!
-$limit="500" if !defined $limit;
-$timeout=10 if !defined $timeout;
-
-## BUILD PROXIES ARRAY
-
-## BROWSER 
-use IO::Socket::INET;
-use LWP::UserAgent;
-use HTTP::Cookies;
-use HTTP::Request;
-binmode STDOUT, ":utf8";
-for my $sys(@sys) {
-  for my $vary(@vary) {
-    my $ag="$sys) $vary";
-    push @systems, $ag;
-  }
-}
-our ($system, $agent, $ua);
-$agent="Mozilla/5.0 (".$systems[rand @systems];
-$ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
-$ua->default_header('Accept' => ('text/html'));
-$ua->env_proxy;
-$ua->timeout($timeout);
-
-## RENEW AGENT
-sub getNewAgent {
-  $agent="Mozilla/5.0 (".$systems[rand @systems];
-  $ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
-}
-
-## SET BROWSER
-our ($psx);
-sub UA { $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ }); }
 
 1;

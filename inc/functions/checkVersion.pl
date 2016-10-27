@@ -15,7 +15,6 @@ if ($same) {
 }else{
   if (-e $userSetting) {
     print $c[10]."[!] $ZT[0] ";
-    chmod +x $userSetting;
     open my $dle, '<', $userSetting or nochmod($userSetting, "");
     chomp(@userSetting = <$dle>);
     close $dle;

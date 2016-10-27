@@ -113,7 +113,6 @@ then
 sleep 1 && echo "[!] Tool successfully installed";
 echo "[!] Updating tool.. ";
 sleep 2;
-. ~/.bashrc;
 atscan --update;
 else
   echo "[!] Installation faid!! ";

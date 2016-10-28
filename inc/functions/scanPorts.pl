@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our (@SCAN_TITLE, @DS, @TT, @c, @aTscans, @aTsearch, @userArraysList, $limit, $proxy, $V_IP, $prandom, $psx, $command, $port, $udp, $tcp);
+our (@SCAN_TITLE, @DS, @TT, @c, @aTscans, @aTsearch, @userArraysList, $limit, $proxy, $V_IP, , $uproxy, $uproxyrandom, $prandom, $psx, $command, $port, $udp, $tcp);
 ## SCAN PORTS
 sub scanPorts {
   my ($PORTS, $types)=@_;
@@ -38,8 +38,8 @@ sub scanPorts {
               $c2++;
               points() if $c2>1;
               my $socket;
-              if (defined $proxy || defined $prandom) { UA();
-                if (defined $prandom) { newIdentity(); }       
+              if (defined $proxy || $uproxy || defined $prandom || $uproxyrandom) {
+                if (defined $prandom || $uproxyrandom) { newIdentity(); }       
                 my $px=removeProtocol($psx);
                 if ($px=~/((.*)\:(\d{1,6}))/) {
                   my $ProxyAddr=$1;

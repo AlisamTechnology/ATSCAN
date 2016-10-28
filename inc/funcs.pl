@@ -5,8 +5,8 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 ## FUNCTS
-our ($payloads, $exploit, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend);
-our (@aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies);
+our ($payloads, $exploit, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo, $V_IP);
+our (@aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT);
 
 ## PRINT FILES 
 sub printFile {
@@ -22,7 +22,8 @@ sub is_folder_empty {
 }
 
 ## USER PRE-CONFIGURATION
-our($userSetting, $uproxy, $uproxyrandom, $upassword, $upayloads, $ubrandom, $umrandom, $uzone, $uengine, $unobanner, $unoinfo, $ubeep, $uifend, $uunique, $utimeout, $udateupdate, $activeUconf);
+our($userSetting, $uproxy, $uproxyrandom, $upassword, $upayloads, $brandom, $ubrandom, $umrandom, $uzone, $uengine, $unobanner, $unoinfo, $ubeep, $uifend, $uunique, $utimeout, $udateupdate,
+    $activeUconf);
 sub checkSetting {
   my $object=$_[0];
   my @ans;
@@ -103,19 +104,105 @@ if (defined $prandom) { @proxies=getProx($prandom); }
 if ($uproxy && (!defined $proxy && !defined $prandom)) { @proxies=getProx($uproxy); }
 if ($uproxyrandom && (!defined $proxy && !defined $prandom)) { @proxies=getProx($uproxyrandom); }
 
-## UA
-sub UA {
-  our ($psx, $ua);
-  $psx=$proxies[rand @proxies];
-  $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
-}
-
 ## USER ARRAYS
 if (defined $payloads) { @userArraysList=buildArraysLists($payloads); }
 if ($upayloads && !defined $payloads) { @userArraysList=buildArraysLists($upayloads); }
 
 ## EXPLOITS ARRAYS
 if (defined $exploit) { @exploits=buildArraysLists($exploit); }
+
+## MAX POSITIVE SCAN RESULTS
+## Chnage for more positive scans!!
+$limit="500" if !defined $limit;
+
+sub get_psx {
+  if (scalar(grep { defined $_} @proxies)>0) {
+    my $fin = 0;
+    my $psx;
+    while(!$fin) {
+      $psx=$proxies[rand @proxies];
+      if ($psx) { $fin = 1; }
+    }
+    return $psx;
+  }
+}
+
+## SET CURRENT PROXY
+our $psx=get_psx();
+
+## BROWSER
+our (@sys, @vary, @systems);
+use IO::Socket::INET;
+use LWP::UserAgent;
+use HTTP::Cookies;
+use HTTP::Request;
+binmode STDOUT, ":utf8";
+for my $sys(@sys) {
+  for my $vary(@vary) {
+    my $ag="$sys) $vary";
+    push @systems, $ag;
+  }
+}
+
+our ($system, $agent, $ua, $timeout);
+
+## TIMEOUT
+if (defined $timeout) { $timeout=$timeout; }
+elsif ($utimeout) { $timeout=$utimeout; }
+else{ $timeout=10; }
+
+## SET PROXY
+$agent="Mozilla/5.0 (".$systems[rand @systems];
+$ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
+$ua->default_header('Accept' => ('text/html'));
+$ua->env_proxy;
+$ua->timeout($timeout);
+if ($uproxy || $uproxyrandom || defined $proxy || defined $prandom) {  
+  $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
+}
+
+## RENEW IDENTITY
+sub newIdentity {
+  if (defined $prandom || $uproxyrandom) {
+    if ($psx=~/(localhost|127.0.0.1)/) {
+      system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;"); 
+    }else{
+      my $psx=$proxies[rand @proxies]; UA();
+    }
+    my $r=$ua->get($ipUrl);
+    if ($r->is_success) { 
+      if (!defined $noinfo && !$unoinfo) { 
+	    if ($r->content=~m/$V_IP/g) { my $ipadress="$1"; print $c[1]."    $ErrT[21] $c[8]  $ErrT[22] ::: $ipadress :::\n"; }
+	  }
+    }
+    else{ ltak(); print $c[4]."[!] $DT[30] [$psx]!\n"; logoff(); }
+  }
+}
+
+## RENEW AGENT
+sub getNewAgent {
+  $agent="Mozilla/5.0 (".$systems[rand @systems];
+  $ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
+}
+
+## CHECK CONNECTION
+sub testConnection { 
+  print $c[4]."[!] $DT[31]\n";
+  if ($uproxy || $uproxyrandom || defined $proxy || defined $prandom) { print $c[4]."[!] $ErrT[20] [$psx].. "; }    
+  my $respons=$ua->get($ipUrl);
+  if (!$respons->is_success) {
+    if ($uproxy || $uproxyrandom || defined $proxy || defined $prandom) { print "\n"; }
+    print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff();
+  }else{
+    if ($uproxy || $uproxyrandom || defined $proxy || defined $prandom) { print $c[3]."[!] OK!\n"; ltak(); }
+  }
+}
+
+## UA
+sub UA {
+  $psx=$proxies[rand @proxies];
+  $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
+}
 
 ## DATA ARRAYS
 if (defined $data) { @data=buildArraysLists($data); }

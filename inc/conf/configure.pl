@@ -5,12 +5,12 @@ use FindBin '$Bin';
 use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
+## CLEAR
 if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
-
 
 ## VERSION
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv, $scriptCompletion, $scriptComplInstall, $readme, $uplog);
-$Version="11.9";
+$Version="12";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";
@@ -181,5 +181,6 @@ our $Id=$Ids[rand @Ids];
 
 ## MSID RANDOM
 our $MsId=$MsIds[rand @MsIds];
+
 
 1;

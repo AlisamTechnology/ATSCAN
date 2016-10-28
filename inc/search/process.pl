@@ -5,9 +5,9 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $umrandom, $uproxyrandom, $uproxy, $uzone, $uengine, $uunique);
-our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch);
-
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $umrandom, $uproxyrandom, $uproxy, $uzone, $uengine, $uunique, $agent);
+our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
+our ($limit, $noinfo, $brandom, $post, $get, $timeout, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $ubrandom, $unoinfo, $utimeout, @OTHERS);
 ## SET ENGINES
 if (defined $mlevel) {
   if (defined $mrandom || $umrandom) { push @motor, $mrand; }
@@ -102,6 +102,7 @@ sub printDork {
     print "[$dor]";
   }
   print "\n";
+    
   if ($uzone) { print $c[1]."[::] ZONE    $c[10] [$uzone]\n"; }
   
   print $c[1]."[::] $DS[18]   $c[10] [$mlevel]\n";
@@ -164,7 +165,7 @@ sub goToEngine {
   doSearch($Res, $motor);
 }
 
-our ($limit, $noinfo, $brandom, $agent, $post, $get, $timeout, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $ubrandom, $unoinfo, $utimeout, @OTHERS);
+#our ($limit, $noinfo, $brandom, $post, $get, $timeout, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $ubrandom, $unoinfo, $utimeout, @OTHERS);
 
 ## INFO URL SCAN
 sub printInfoUrl {
@@ -191,8 +192,6 @@ sub printInfoUrl {
 sub browseUrl {
   my ($URL1, $form)=@_;
   printInfoUrl($URL1, $data);
-  if (defined $proxy || $uproxy) { UA(); }
-  if (defined $prandom || $uproxyrandom) { newIdentity(); UA(); }
   my ($response, $html, $status, $serverheader)=getHtml($URL1, $form);
   my $o=OO();
   if ($o<$limit) {
@@ -216,7 +215,11 @@ sub browseUrl {
 sub getHtml {
   my ($URL, $form)=@_;
   my $response;
+  our ($ipUrl, @ErrT);
+  
   if (defined $brandom || $ubrandom) { getNewAgent(); }
+  if (defined $prandom || $uproxyrandom) { newIdentity(); }
+  
   if ($form) {
     if (defined $post) {
       $response=$ua->post($URL, Content_Type => 'form-data', Content => [$form]); }

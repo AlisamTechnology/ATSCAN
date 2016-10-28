@@ -1,1 +1,2 @@
-This folder countains the user config
+## Copy@right Alisam Technology see License.txt
+## THIS FOLDER CONTAINS USER CONFIGURATION DON'T DELETE  !!

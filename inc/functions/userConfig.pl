@@ -15,34 +15,38 @@ if (-e $userSetting) {
     my $aa=0;
     
     if (grep(/^config/, @configuration)) {
-        print $c[1]."[::]$c[3] [X] $c[10]Configuration: $c[3]ON\n";
+        print $c[1]."[::]$c[3] [X] $c[11]CONFIGURATION IS: $c[3]ON\n";
     }else{
-      print $c[1]."[::]$c[2] [X] $c[10]Configuration: $c[2]OFF\n";
+      print $c[1]."[::]$c[2] [X] $c[11]CONFIGURATION IS: $c[2]OFF $c[4](Must be active to use configuration!)\n";
     }
     
+    print $c[1]."   +"."-" x 71 ."\n";
+    
     if (grep(/^password/, @configuration)) {
-      print $c[1]."[::]$c[3] [X] $c[10]Password: $c[3]********\n";
+      print "$c[1]    |$c[3] [X] $c[10]Password: $c[3]********\n";
     }
     
     for my $lines(@configuration) {
       if (($lines=~/$res1/)&&($lines!~/(password|##|config)/ and !($lines=~/^$/))) {
         $aa++;
         my @printConf=split(" ", $lines);
-        print $c[1]."[::]$c[3] [X] $c[10]$printConf[0]\n";
+        print "$c[1]   |$c[3] [X] $c[10]$printConf[0]\n";
       }
     }
-    print $c[2]."     [x]$c[4] $AUTH[11]\n" if $aa<1;   
+    print $c[1]."   |$c[2] [x]$c[4] $AUTH[11]\n" if $aa<1;   
   
-    print $c[1]."-" x 75;
-    print $c[10]."\n";
+    print $c[1]."   +"."-" x 71 ."\n";
+    
+    print $c[10];
     print "   +----------------------------------------------------------------------+\n";
+    print "   |          ACTIVATION:  set config on  /  set config off               |\n";
+    print "   +---------------+---------------------------------+--------------------+\n";
     print "   |    SHOW       |           SET                   |      RESET         |\n";
     print "   +---------------+---------------------------------+--------------------+\n";
-    print "   | show config   | set config on / off             |                    |\n";
     print "   |               | set password                    | reset password     |\n";
     print "   |               | set proxy <proxy>               | reset proxy        |\n";
     print "   |               | set proxy-random <proxy>        | reset proxy-random |\n";
-    print "   |               | set b-random b-random           | reset b-random     |\n";
+    print "   | show config   | set b-random b-random           | reset b-random     |\n";
     print "   |               | set engine <option>             | reset engine       |\n";
     print "   |               | set m-random m-random           | reset m-random     |\n";
     print "   |               | set payload <payload>           | reset payload      |\n";

@@ -25,17 +25,8 @@ my $NoArg=0;
 for (@NoArg) { $NoArg++ if defined $_; }
 advise() if $NoArg<1;
 
-## BROWSER
-require "$Bin/inc/search/browser.pl";
-
-## TEST INTERNET CONNECTION 
-require "$Bin/inc/functions/testConnection.pl";
-
 ## COMMANDE LINE ERRORS 
 require "$Bin/inc/errors/useErrors.pl";
-
-## RENEW PROXY
-require "$Bin/inc/functions/newIdentity.pl";
 
 ## DEFINE HTML CMS 
 require "$Bin/inc/functions/checkCmsType.pl";

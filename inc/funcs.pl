@@ -108,7 +108,6 @@ sub UA {
   our ($psx, $ua);
   $psx=$proxies[rand @proxies];
   $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
-  return $psx;
 }
 
 ## USER ARRAYS

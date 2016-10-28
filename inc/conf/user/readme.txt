@@ -1,0 +1,1 @@
+This folder countains the user config

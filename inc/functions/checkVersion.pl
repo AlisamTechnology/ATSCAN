@@ -73,8 +73,8 @@ if ($same) {
     for my $spss(@userSetting) {
       open (FE, '>>', $userSetting) or nochmod($userSetting, "");
       print FE "$spss"; close(FE);
-      cc();
     }
+    cc();
   }
 
   print $c[10]."[!] $ZT[7] ";

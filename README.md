@@ -154,7 +154,11 @@
       <tr>
         <td width="200px" class="main">--brandom</td>
         <td class="main">Random all disponibles agents </td>
-      </tr> 
+      </tr>
+      <tr>
+        <td width="200px" class="main">--freq</td>
+        <td class="main">Random time frequency (in seconds) </td>
+      </tr>
       <tr>
         <td width="200px" class="main">--time</td>
         <td class="main">set browser time out</td> 

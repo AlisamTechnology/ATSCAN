@@ -20,8 +20,6 @@ if ($same) {
     close $dle;
     cc();
   }
-  
-  unlink $userSetting if -e $userSetting;
     
   my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");
   if (!$r->is_success) { print "\n"; dd(); exit(); }
@@ -69,7 +67,8 @@ if ($same) {
   print MN "$fulldate"; close(FE);
   sleep(1);
   cc();
-    
+  
+  unlink $userSetting if -e $userSetting;   
   if (@userSetting) {
     print $c[10]."[!] $ZT[6] ";
     for my $spss(@userSetting) {

@@ -7,7 +7,7 @@ use FindBin '$Bin';
 ## USER CONFIGURATION SETTING
 our($config, $userSetting, $script_bac, @AUTH, @c, @configuration);
 my @res=("proxy", "proxy-random", "show", "payload", "config", "m-random", "b-random", "zone", "timeout", "update", "engine", "nobanner",
-         "noinfo", "beep", "ifend", "unique", "all", "config", "exit", "password");
+         "noinfo", "beep", "ifend", "unique", "all", "config", "exit", "password", "freq");
 my $res1=join("|", @res);
 
 if (-e $userSetting) {
@@ -49,6 +49,7 @@ if (-e $userSetting) {
     print "   | show config   | set b-random b-random           | reset b-random     |\n";
     print "   |               | set engine <option>             | reset engine       |\n";
     print "   |               | set m-random m-random           | reset m-random     |\n";
+    print "   |               | set freq <time in s>            | reset freq         |\n";    
     print "   |               | set payload <payload>           | reset payload      |\n";
     print "   |               | set zone <zone>                 | reset zone         |\n";
     print "   |               | set timeout <in s> Default 10   | reset timeout      |\n";    

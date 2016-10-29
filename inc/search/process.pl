@@ -165,8 +165,6 @@ sub goToEngine {
   doSearch($Res, $motor);
 }
 
-#our ($limit, $noinfo, $brandom, $post, $get, $timeout, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $ubrandom, $unoinfo, $utimeout, @OTHERS);
-
 ## INFO URL SCAN
 sub printInfoUrl {
   my ($URL1, $data)=@_;
@@ -215,11 +213,15 @@ sub browseUrl {
 sub getHtml {
   my ($URL, $form)=@_;
   my $response;
-  our ($ipUrl, @ErrT);
-  
-  if (defined $brandom || $ubrandom) { getNewAgent(); }
-  if (defined $prandom || $uproxyrandom) { newIdentity(); }
-  
+  our ($ipUrl, @ErrT, $freq, $start, $date);  
+  if (defined $brandom || $ubrandom) {
+    if ($freq || defined $freq) { make_freq(); }
+    else{ getNewAgent(); }
+  }    
+  if (defined $prandom || $uproxyrandom) {
+    if ($freq || defined $freq) { make_freq(); }
+    else{ newIdentity(); }
+  }    
   if ($form) {
     if (defined $post) {
       $response=$ua->post($URL, Content_Type => 'form-data', Content => [$form]); }

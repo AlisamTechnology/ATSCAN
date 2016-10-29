@@ -20,6 +20,8 @@ if ($same) {
     close $dle;
     cc();
   }
+  
+  unlink $userSetting if -e $userSetting;
     
   my ($r, $ht, $stats, $serverh)=getHtml($scriptUrl, "");
   if (!$r->is_success) { print "\n"; dd(); exit(); }

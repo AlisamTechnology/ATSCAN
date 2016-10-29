@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use FindBin '$Bin';
+use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
 ## FUNCTS
@@ -23,7 +24,7 @@ sub is_folder_empty {
 
 ## USER PRE-CONFIGURATION
 our($userSetting, $uproxy, $uproxyrandom, $upassword, $upayloads, $brandom, $ubrandom, $umrandom, $uzone, $uengine, $unobanner, $unoinfo, $ubeep, $uifend, $uunique, $utimeout, $udateupdate,
-    $activeUconf);
+    $activeUconf, $freq);
 sub checkSetting {
   my $object=$_[0];
   my @ans;
@@ -97,6 +98,7 @@ if ($activeUconf) {
   $uunique=checkSetting("unique");
   $utimeout=checkSetting("timeout");
   $udateupdate=checkSetting("update");
+  $freq=checkSetting("freq");
 }
 ## SET PROXY
 if (defined $proxy) { @proxies=getProx($proxy); }
@@ -115,6 +117,14 @@ if (defined $exploit) { @exploits=buildArraysLists($exploit); }
 ## Chnage for more positive scans!!
 $limit="500" if !defined $limit;
 
+## SET RANDOM FREQUENCY START TIME
+sub get_frequecy {
+  my $now = strftime "%H%M%S", localtime;
+  return $now;
+}
+our $start=get_frequecy();
+
+## CURRENT PROXY
 sub get_psx {
   if (scalar(grep { defined $_} @proxies)>0) {
     my $fin = 0;
@@ -161,6 +171,20 @@ if ($uproxy || $uproxyrandom || defined $proxy || defined $prandom) {
   $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
 }
 
+## MEKE FREQUENCY RANDOM 
+sub make_freq {
+  if ($freq || defined $freq) {
+    my $stop=get_frequecy();
+    if ($freq || defined $freq) {
+      my $def=$stop - $start; 
+      if ($def >= $freq) {
+        if (defined $brandom || $ubrandom) { getNewAgent(); }
+        if (defined $prandom || $uproxyrandom) { newIdentity(); }
+      }
+    }
+  }
+}
+
 ## RENEW IDENTITY
 sub newIdentity {
   if (defined $prandom || $uproxyrandom) {
@@ -186,7 +210,7 @@ sub getNewAgent {
 }
 
 ## CHECK CONNECTION
-sub testConnection { 
+sub testConnection {
   print $c[4]."[!] $DT[31]\n";
   if ($uproxy || $uproxyrandom || defined $proxy || defined $prandom) { print $c[4]."[!] $ErrT[20] [$psx].. "; }    
   my $respons=$ua->get($ipUrl);

@@ -16,7 +16,8 @@ use FindBin '$Bin';
   ."  --proxy-random | Random proxy [EX: --proxy-random list.txt] or --proxy-random \"socks://localhost:9050\"]\n"
   ."  --m-random     | Random of all disponibles engines \n"
   ."  --brandom      | Random all disponibles agents \n"
-  ."  --time         | set browser time out \n"
+  ."  --timeout      | set browser timeout (in seconds)\n"
+  ."  --freq         | Random time frequency (in seconds) \n" 
   ."  --dork | -d    | Dork to search [Ex: house [OTHER]cars [OTHER]hotel] \n"
   ."  -t             | Target \n"
   ."  --level | -l   | Scan level (+- Number of page results to scan) \n"
@@ -172,4 +173,3 @@ use FindBin '$Bin';
   ltak(); ltak();
 
 1;
-

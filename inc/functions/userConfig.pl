@@ -38,7 +38,7 @@ if (-e $userSetting) {
     print "   +---------------+---------------------------------+--------------------+\n";
     print "   |               | set proxy <proxy>               | reset proxy        |\n";
     print "   |               | set proxy-random <proxy>        | reset proxy-random |\n";
-    print "   |               | set motor <option>             | reset engine       |\n";
+    print "   |               | set motor <option>              | reset motor        |\n";
     print "   |               | set timeout <in s> Default 10   | reset timeout      |\n";    
     print "   |               | set update <in days> Default 10 | reset update       |\n";
     print "   |               | set timeout <in s> Default 10   | reset timeout      |\n";

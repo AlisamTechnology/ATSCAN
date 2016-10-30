@@ -23,8 +23,7 @@ sub is_folder_empty {
 }
 
 ## USER PRE-CONFIGURATION
-our($userSetting, $uproxy, $uproxyrandom, $upassword, $upayloads, $brandom, $ubrandom, $umrandom, $uzone, $uengine, $unobanner, $unoinfo, $ubeep, $uifend, $uunique, $utimeout, $udateupdate,
-    $activeUconf, $freq);
+our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $activeUconf, $freq, $method, $checkVersion, $get, $post);
 sub checkSetting {
   my $object=$_[0];
   my @ans;
@@ -58,7 +57,6 @@ sub buildArraysLists {
 }
 
 ## BUILD PROXIES ARRAY
-our ($proxy, $prandom);
 sub getProx {
   my $getProx=$_[0];
   if ($getProx=~/:/) { @proxies=split / /, $getProx; }
@@ -81,34 +79,33 @@ sub deletSetting {
 
 ## CHECK USER CONFIGURATION
 $activeUconf=checkSetting("config");
-$upassword=checkSetting("password");
+$password=checkSetting("password");
 
 if ($activeUconf) {
-  $uproxy=checkSetting("proxy");
-  $uproxyrandom=checkSetting("proxy-random");
-  $upayloads=checkSetting("payload");
-  $ubrandom=checkSetting("b-random");
-  $umrandom=checkSetting("m-random");
-  $uzone=checkSetting("zone");
-  $uengine=checkSetting("engine");
-  $unobanner=checkSetting("nobanner");
-  $unoinfo=checkSetting("noinfo");
-  $ubeep=checkSetting("beep");
-  $uifend=checkSetting("ifend");
-  $uunique=checkSetting("unique");
-  $utimeout=checkSetting("timeout");
-  $udateupdate=checkSetting("update");
-  $freq=checkSetting("freq");
+  $proxy=checkSetting("proxy") if !defined $proxy;
+  $prandom=checkSetting("proxy-random") if !defined $prandom;
+  $payloads=checkSetting("payload") if !defined $payloads;
+  $brandom=checkSetting("b-random") if !defined $brandom;
+  $mrandom=checkSetting("m-random") if !defined $mrandom;  
+  $mlevel=checkSetting("level") if !defined $mlevel;
+  $method=checkSetting("method") if !defined $get and !defined $post;
+  $zone=checkSetting("zone");
+  $motor=checkSetting("motor") if !defined $motor;
+  $nobanner=checkSetting("nobanner") if !defined $nobanner;
+  $noinfo=checkSetting("noinfo") if !defined $noinfo;
+  $beep=checkSetting("beep") if !defined $beep;
+  $ifend=checkSetting("ifend") if !defined $ifend;
+  $unique=checkSetting("unique") if !defined $unique;
+  $timeout=checkSetting("timeout") if !defined $timeout;
+  $dateupdate=checkSetting("update");
+  $freq=checkSetting("freq") if !defined $freq;
 }
 ## SET PROXY
-if (defined $proxy) { @proxies=getProx($proxy); }
-if (defined $prandom) { @proxies=getProx($prandom); }
-if ($uproxy && (!defined $proxy && !defined $prandom)) { @proxies=getProx($uproxy); }
-if ($uproxyrandom && (!defined $proxy && !defined $prandom)) { @proxies=getProx($uproxyrandom); }
+if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
+if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
 
 ## USER ARRAYS
-if (defined $payloads) { @userArraysList=buildArraysLists($payloads); }
-if ($upayloads && !defined $payloads) { @userArraysList=buildArraysLists($upayloads); }
+if (defined $payloads || $payloads) { @userArraysList=buildArraysLists($payloads); }
 
 ## EXPLOITS ARRAYS
 if (defined $exploit) { @exploits=buildArraysLists($exploit); }
@@ -154,20 +151,24 @@ for my $sys(@sys) {
   }
 }
 
-our ($system, $agent, $ua, $timeout);
+our ($system, $agent, $ua);
 
 ## TIMEOUT
-if (defined $timeout) { $timeout=$timeout; }
-elsif ($utimeout) { $timeout=$utimeout; }
-else{ $timeout=10; }
+sub get_timeout {
+  my $timeout;
+  if (defined $timeout || $timeout) { $timeout=$timeout; }
+  else{ $timeout=10; }
+  return $timeout;
+}
 
 ## SET PROXY
 $agent="Mozilla/5.0 (".$systems[rand @systems];
 $ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
 $ua->default_header('Accept' => ('text/html'));
 $ua->env_proxy;
+$timeout=get_timeout();
 $ua->timeout($timeout);
-if ($uproxy || $uproxyrandom || defined $proxy || defined $prandom) {  
+if ($proxy || $prandom || defined $proxy || defined $prandom) {  
   $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
 }
 
@@ -178,47 +179,77 @@ sub make_freq {
     if ($freq || defined $freq) {
       my $def=$stop - $start; 
       if ($def >= $freq) {
-        if (defined $brandom || $ubrandom) { getNewAgent(); }
-        if (defined $prandom || $uproxyrandom) { newIdentity(); }
+        if (defined $brandom || $brandom) { getNewAgent(); }
+        if (defined $prandom || $prandom) { newIdentity(); }
       }
     }
   }
 }
 
+## GET CURRENT IDENTITY
+sub get_ipAddress {
+  my $ipadress;
+  my $r=$ua->get($ipUrl);
+  if ($r->is_success) {
+    if ($r->content=~m/$V_IP/g) { $ipadress="$1"; }
+  }
+  return $ipadress;
+}
+
+## GET NEW PROXY
+sub getNewproxy {
+  my $currentpsx=$psx;
+  my $newpsx;
+  my $fi=0;
+  while(!$fi) {
+    $newpsx=$proxies[rand @proxies];
+    if ($newpsx ne $psx) {
+      $fi=1;
+    }
+  }
+  return $newpsx;
+}
+
 ## RENEW IDENTITY
 sub newIdentity {
-  if (defined $prandom || $uproxyrandom) {
+  if (defined $prandom || $prandom) {
     if ($psx=~/(localhost|127.0.0.1)/) {
-      system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;"); 
+      my $add=get_ipAddress();
+      my $ff=0;
+      while (!$ff) {
+        system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;");
+        my $newadd=get_ipAddress();
+        if ($newadd ne $add) { $ff=1; }
+      }
     }else{
-      my $psx=$proxies[rand @proxies]; UA();
+      my $psx=getNewproxy(); UA();
     }
-    my $r=$ua->get($ipUrl);
-    if ($r->is_success) { 
-      if (!defined $noinfo && !$unoinfo) { 
-	    if ($r->content=~m/$V_IP/g) { my $ipadress="$1"; print $c[1]."    $ErrT[21] $c[8]  $ErrT[22] ::: $ipadress :::\n"; }
-	  }
-    }
-    else{ ltak(); print $c[4]."[!] $DT[30] [$psx]!\n"; logoff(); }
   }
 }
 
 ## RENEW AGENT
 sub getNewAgent {
-  $agent="Mozilla/5.0 (".$systems[rand @systems];
+  my $currentagent=$agent;
+  my $fin=0;
+  while (!$fin) {
+    $agent="Mozilla/5.0 (".$systems[rand @systems];
+    if ($currentagent ne $agent) {
+      $fin=1;
+    }   
+  }
   $ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
 }
 
 ## CHECK CONNECTION
 sub testConnection {
   print $c[4]."[!] $DT[31]\n";
-  if ($uproxy || $uproxyrandom || defined $proxy || defined $prandom) { print $c[4]."[!] $ErrT[20] [$psx].. "; }    
+  if ($proxy || $prandom || defined $proxy || defined $prandom) { print $c[4]."[!] $ErrT[20] [$psx].. "; }    
   my $respons=$ua->get($ipUrl);
   if (!$respons->is_success) {
-    if ($uproxy || $uproxyrandom || defined $proxy || defined $prandom) { print "\n"; }
+    if ($proxy || $prandom || defined $proxy || defined $prandom) { print "\n"; }
     print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff();
   }else{
-    if ($uproxy || $uproxyrandom || defined $proxy || defined $prandom) { print $c[3]."[!] OK!\n"; ltak(); }
+    if ($proxy || $prandom || defined $proxy || defined $prandom) { print $c[3]."[!] OK!\n"; ltak(); }
   }
 }
 
@@ -432,7 +463,7 @@ sub checkFilters {
 ## GET FILTRED URLS
 sub filterUr {
   my ($URL, $dorkToCheeck)=@_;
-  if (defined $unique || $uunique) {
+  if (defined $unique || $unique) {
     if (index($URL, $dorkToCheeck) != -1) { $URL=$URL; }else{ $URL=""; }
   }
   if (defined $ifinurl) {
@@ -462,9 +493,9 @@ sub OO { my $o=scalar(grep { defined $_} @aTscans); return $o; }
 
 ## END SCAN PROCESS
 sub subfin {
-  our $uifend;
+  our $ifend;
   print $c[2]."[!] "; timer(); print " $DT[3]!\n";
-  if (defined $ifend || $uifend) { print chr(7); }
+  if (defined $ifend || $ifend) { print chr(7); }
 }
 
 ## COUNT SCAN RESULTS

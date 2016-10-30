@@ -6,26 +6,21 @@ use FindBin '$Bin';
 
 ## USER CONFIGURATION SETTING
 our($config, $userSetting, $script_bac, @AUTH, @c, @configuration);
-my @res=("proxy", "proxy-random", "show", "payload", "config", "m-random", "b-random", "zone", "timeout", "update", "engine", "nobanner",
-         "noinfo", "beep", "ifend", "unique", "all", "config", "exit", "password", "freq");
+my @res=("proxy", "proxy-random", "show", "payload", "config", "m-random", "b-random", "zone", "timeout", "update", "motor", "nobanner",
+         "noinfo", "beep", "ifend", "unique", "all", "config", "exit", "password", "freq", "level", "method");
 my $res1=join("|", @res);
-
 if (-e $userSetting) {
   if (-e $userSetting) {
     my $aa=0;
-    
     if (grep(/^config/, @configuration)) {
         print $c[1]."[::]$c[3] [X] $c[11]CONFIGURATION IS: $c[3]ON\n";
     }else{
       print $c[1]."[::]$c[2] [X] $c[11]CONFIGURATION IS: $c[2]OFF $c[4](Must be active to use configuration!)\n";
     }
-    
     print $c[1]."   +"."-" x 71 ."\n";
-    
     if (grep(/^password/, @configuration)) {
       print "$c[1]    |$c[3] [X] $c[10]Password: $c[3]********\n";
     }
-    
     for my $lines(@configuration) {
       if (($lines=~/$res1/)&&($lines!~/(password|##|config)/ and !($lines=~/^$/))) {
         $aa++;
@@ -34,36 +29,36 @@ if (-e $userSetting) {
       }
     }
     print $c[1]."   |$c[2] [x]$c[4] $AUTH[11]\n" if $aa<1;   
-  
     print $c[1]."   +"."-" x 71 ."\n";
-    
     print $c[10];
     print "   +----------------------------------------------------------------------+\n";
     print "   |          ACTIVATION:  set config on  /  set config off               |\n";
     print "   +---------------+---------------------------------+--------------------+\n";
     print "   |    SHOW       |           SET                   |      RESET         |\n";
     print "   +---------------+---------------------------------+--------------------+\n";
-    print "   |               | set password                    | reset password     |\n";
     print "   |               | set proxy <proxy>               | reset proxy        |\n";
     print "   |               | set proxy-random <proxy>        | reset proxy-random |\n";
-    print "   | show config   | set b-random b-random           | reset b-random     |\n";
-    print "   |               | set engine <option>             | reset engine       |\n";
-    print "   |               | set m-random m-random           | reset m-random     |\n";
-    print "   |               | set freq <time in s>            | reset freq         |\n";    
-    print "   |               | set payload <payload>           | reset payload      |\n";
-    print "   |               | set zone <zone>                 | reset zone         |\n";
+    print "   |               | set motor <option>             | reset engine       |\n";
     print "   |               | set timeout <in s> Default 10   | reset timeout      |\n";    
-    print "   |               | set nobanner nobanner           | reset nobanner     |\n";
-    print "   |               | set noinfo noinfo               | reset noinfo       |\n";
-    print "   |               | set beep beep                   | reset beep         |\n";
-    print "   |               | set ifend ifend                 | reset ifend        |\n";
-    print "   |               | set unique unique               | reset unique       |\n";
     print "   |               | set update <in days> Default 10 | reset update       |\n";
+    print "   |               | set timeout <in s> Default 10   | reset timeout      |\n";
+    print "   |               | set password <password>         | reset password     |\n";
+    print "   |               | set method <get/post>           | reset method       |\n";
+    print "   | show config   | set freq <time in s>            | reset freq         |\n";
+    print "   |               | set payload <payload>           | reset payload      |\n";
+    print "   |               | set zone <zone>                 | reset zone         |\n";    
+    print "   |               | set level <level>               | reset level        |\n";
+    print "   |               | set b-random on                 | reset b-random     |\n";
+    print "   |               | set m-random on                 | reset m-random     |\n";
+    print "   |               | set nobanner on                 | reset nobanner     |\n";
+    print "   |               | set noinfo on                   | reset noinfo       |\n";
+    print "   |               | set beep on                     | reset beep         |\n";
+    print "   |               | set ifend on                    | reset ifend        |\n";
+    print "   |               | set unique on                   | reset unique       |\n";
     print "   |               |                                 | reset all          |\n";
     print "   +---------------+---------------------------------+--------------------+\n";
     print "   |         $c[4]NOTE: Password is requiered even configuration is off!$c[10]       |\n";
     print "   +----------------------------------------------------------------------+\n\n";
-  
     my $ps;
     my $finish = 0;
     while(!$finish) {

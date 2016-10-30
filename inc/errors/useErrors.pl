@@ -5,18 +5,19 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $msites, $content);
-our ($regex, $V_IP, $mrandom , $tcp, $udp, $dork, $motor, $searchRegex, $replace, $with, $shell, $unique, $post, $limit, $validText, $get, , $payloads, $exploit, @TT, @SCAN_TITLE, @DT, @OTHERS, @c);
+our ($regex, $V_IP, $mrandom , $tcp, $udp, $dork, $motor, $searchRegex, $replace, $with, $shell, $unique, $post, $limit, $validText, $get, , $payloads, $exploit, $method, @TT, @SCAN_TITLE, @DT, @OTHERS, @c);
 
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
-  my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $msites, $port, $mupload, $mzip, $command, $JoomSites, $eMails, $mlevel, $searchIps, $regex);
+  my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $msites, $port, $mupload, $mzip, $command, $JoomSites, $eMails, $mlevel, $searchIps,
+             $regex);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   if ($Targ<1) { print $c[4]."[!] $OTHERS[7]\n"; logoff(); }
 }
 
 ## CHECK TARGET PROTOCOL
-if ((defined $Target)&&(!defined $mlevel)) { 
+if ((defined $Target)&&(!defined $mlevel && !$mlevel)) { 
   if (defined $msites and $Target=~/$V_IP/) { print $c[4]."[!] $DT[20]\n"; logoff(); }
   if ((!-e $Target)&&($Target!~/$V_IP/)) {
     if ($Target!~/https?:\/\//) { print $c[4]."[!] $DT[16]\n"; logoff(); }
@@ -24,10 +25,10 @@ if ((defined $Target)&&(!defined $mlevel)) {
 }
 
 ## CHECK RANDOM PARAMS
-if (defined $mrandom && !defined $mlevel) { print $c[4]."[!] $DT[38]\n"; logoff(); }
+if (defined $mrandom && (!defined $mlevel && !$mlevel)) { print $c[4]."[!] $DT[38]\n"; logoff(); }
 
 ## ARGUMENTS VERIFICATION (LEVEL / PORTS)
-if ((defined $dork)&&(!defined $mlevel)) { print $c[4]."[!] $DT[40]\n"; logoff(); }
+if ((defined $dork)&&(!defined $mlevel && !$mlevel)) { print $c[4]."[!] $DT[40]\n"; logoff(); }
 if ((defined $port) && (!defined $tcp and !defined $udp)) { print $c[4]."$DT[23]\n"; logoff(); }
 
 ## MORE ARGUMENTS PROCESS VERIFICATION
@@ -39,14 +40,14 @@ if ((!defined $dork) && (defined $unique)) { print $c[4]."[!] $DT[21]\n"; logoff
 if (defined $regex or defined $eMails or defined $searchRegex or defined $searchIps) { if (defined $Hstatus) { print $c[4]."[!] $SCAN_TITLE[2]"; logoff(); } }
 
 ## CHECK MOTORS ARGUMENTS
-our ($motorparam, $uengine);
-if (defined $motor) {
-  if (defined $mrandom) {
+our ($motorparam);
+if (defined $motor || $motor) {
+  if (defined $mrandom || $mrandom) {
     print $c[4]."$TT[14]\n"; logoff();
   }
   abcd($motor);
 }
-if ($uengine) { abcd($uengine); }
+if ($motor) { abcd($motor); }
 sub abcd {
   my $abcd=$_[0];
   my @abcd;
@@ -61,12 +62,12 @@ sub abcd {
 if (defined $validText && defined $Hstatus) { print $c[4]."[!] $OTHERS[18]\n"; logoff(); }
 
 ## CHECK LEVEL
-if (defined $mlevel) {
+if (defined $mlevel || $mlevel) {
   if ($mlevel!~/^[0-9,.E]+$/) { print $c[4]."$TT[15]\n"; logoff(); }
 }
 
 ## ADVISE DATA WITHOUT METHOD
-if (defined $data and (!defined $post && !defined $get)) { print $c[4]."[!] $TT[16]\n"; logoff(); }
+if (defined $data and (!defined $post && !defined $get && !$method)) { print $c[4]."[!] $TT[16]\n"; logoff(); }
 
 ## CHECK PAUSE ARGUMENT
 if (defined $data) {

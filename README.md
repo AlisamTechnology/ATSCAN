@@ -152,7 +152,7 @@
         <td class="main">Random of all disponibles engines</td> 
       </tr> 
       <tr>
-        <td width="200px" class="main">--brandom</td>
+        <td width="200px" class="main">--b-random</td>
         <td class="main">Random all disponibles agents </td>
       </tr>
       <tr>
@@ -389,10 +389,6 @@
         <td width="200px" class="main">--update</td>
         <td class="main"> Update tool</td>
       </tr>
-      <tr>
-        <td width="200px" class="main">--update</td>
-        <td class="main">Update.</td>
-      </tr> 
       <tr>
         <td width="200px" class="main">--tool</td>
         <td class="main">Tool info.</td>

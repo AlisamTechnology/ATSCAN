@@ -8,15 +8,15 @@ use FindBin '$Bin';
 require "$Bin/inc/funcs.pl";
 
 ## PRINT BANNER 
-our ($nobanner, $output, $unobanner);
-if (!defined $nobanner && !$unobanner) { banner(); }
+our ($nobanner, $output);
+if (!defined $nobanner && !$nobanner) { banner(); }
 else{ mtak(); ptak(); }
 ## CLEAN OUTPUT 
 if (defined $output) { unlink $output if -e $output; }
 
 ## PASS LOGIN ##
-our $upassword;
-if ($upassword) { require "$Bin/inc/functions/log.pl"; }
+our $password;
+if ($password) { require "$Bin/inc/functions/log.pl"; }
 
 ## NO ARGUMENTS ##
 our ($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $updtd, $toolInfo, $config);

@@ -117,8 +117,9 @@
   </tr>
   <tr>
     <td align="center" width="890px">
-    <img src="http://i.imgur.com/Q0OHwlA.jpg" /> <br/><br/>
-    <img src="http://i.imgur.com/kBiGR7H.jpg" /> <br/><br/>
+    <img src="http://i.imgur.com/PW0q9us.jpg" /> <br/><br/>
+    <img src="http://i.imgur.com/PtYAitD.jpg" /> <br/><br/>
+    <img src="http://i.imgur.com/6Eg3bxo.jpg" /> <br/><br/>
     </td>
   </tr>
 </table>

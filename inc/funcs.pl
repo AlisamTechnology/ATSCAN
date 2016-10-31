@@ -90,7 +90,7 @@ if ($activeUconf) {
   $mlevel=checkSetting("level") if !defined $mlevel;
   $method=checkSetting("method") if !defined $get and !defined $post;
   $zone=checkSetting("zone");
-  $motor=checkSetting("motor") if !defined $motor;
+  $motor=checkSetting("engine") if !defined $motor;
   $nobanner=checkSetting("nobanner") if !defined $nobanner;
   $noinfo=checkSetting("noinfo") if !defined $noinfo;
   $beep=checkSetting("beep") if !defined $beep;

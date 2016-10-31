@@ -57,7 +57,7 @@ if (-e $userSetting) {
     print "   |               | set unique on                   | reset unique       |\n";
     print "   |               |                                 | reset all          |\n";
     print "   +---------------+---------------------------------+--------------------+\n";
-    print "   |         $c[4]NOTE: Password is required even configuration is off!$c[10]       |\n";
+    print "   |         $c[4]NOTE: Password is required even configuration is off! $c[10]       |\n";
     print "   +----------------------------------------------------------------------+\n\n";
     my $ps;
     my $finish = 0;

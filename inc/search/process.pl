@@ -178,7 +178,7 @@ sub printInfoUrl {
       if (defined $get || ($method and $method eq "get")) { print "$DS[15]\n"; }
       elsif (defined $post || ($method and $method eq "post")) { print "$DT[32]\n"; }
       else{ print "$DS[15]\n"; }
-      if (($timeout || $timeout) > 10) { print $c[1]."    $TT[10] ".$c[10]."$timeout s\n"; }  
+      if ((defined $timeout && $timeout !=10) || $timeout) { print $c[1]."    $TT[10] ".$c[10]."$timeout s\n"; }  
       if ((defined $replace)&&(defined $with)) { print $c[1]."    $OTHERS[14]   "; print $c[10]."[$replace] => [$with]\n"; }
     }
   }

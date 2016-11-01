@@ -22,7 +22,7 @@
     <td width="100px" class="main2"><b>GROUP:</b></td><td width="780px">Alisam Technology</td>
   </tr>
   <tr>
-    <td width="100px" class="main2"><b>FACE:</b></td><td>facebook.com/Forces.des.tempetes.marocaines </td>
+    <td width="100px" class="main2"><b>FACE:</b></td><td>facebook.com/Alisam.Technology </td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>YOUTUBE:</b></td><td>youtube.com/c/AlisamTechnology</td>

@@ -15,7 +15,7 @@ use MIME::Base64;
 #   This script is Copyright (c) 2015 Alisam Technology
 #   [::] SCRIPT NAME:  atscan scanner
 #   [::] AUTOR:        Ali Mehdioui founder of Alisam Technology.
-#   [::] FB:           https://facebook.com/Forces.des.tempetes.marocaines
+#   [::] FB:           https://facebook.com/Alisam.Technology
 #   [::] Twitter:      https://twitter.com/AlisamTechno
 #   [::] Pastebin      http://http://pastebin.com/u/Alisam_Technology
 #   [::] GIT:          https://github.com/AlisamTechnology

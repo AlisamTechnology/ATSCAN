@@ -9,7 +9,7 @@ use HTML::Entities;
 use HTTP::Request::Common;
 use Digest::MD5;
 use MIME::Base64;
-## Copy@right Alisam Technology see License.txt see License.txt
+## Copy@right Alisam Technology see License.txt
 
 ## INTRODUCTION ###########################################################################################
 #   This script is Copyright (c) 2015 Alisam Technology

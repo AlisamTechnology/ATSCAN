@@ -155,10 +155,10 @@ our ($system, $agent, $ua);
 
 ## TIMEOUT
 sub get_timeout {
-  my $timeout;
-  if (defined $timeout || $timeout) { $timeout=$timeout; }
-  else{ $timeout=10; }
-  return $timeout;
+  my $time;
+  if (defined $timeout || $timeout) { $time=$timeout; }
+  else{ $time=10; }
+  return $time;
 }
 
 ## SET PROXY

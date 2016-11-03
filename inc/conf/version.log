@@ -1,7 +1,8 @@
 VERSION 12 RELEASE
 =====================================================
-  CHANGES: 30/10/2016 
+  CHANGES: 03/11/2016 
   ===================================================
+  - Fix timeout set.
   - Add user configuration.
   - Fix proxy bug.
   - Add time random frequency.

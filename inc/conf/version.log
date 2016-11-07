@@ -1,14 +1,7 @@
 VERSION 12 RELEASE
 =====================================================
-  CHANGES: 03/11/2016 
+  CHANGES: 07/11/2016 
   ===================================================
-  - Fix timeout set.
-  - Add user configuration.
-  - Fix proxy bug.
-  - Add time random frequency.
-  - Add level to user config.
-  - Add method get/post to user config.
-  - Validate all randoms engine / browser / proxy.
-  - Optimize user variables.
+  - Fix some admin page payloads.
   - Enjoy!
   ===================================================

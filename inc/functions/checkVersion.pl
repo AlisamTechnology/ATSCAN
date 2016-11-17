@@ -61,10 +61,10 @@ if ($same) {
       else{ cc(); }
     }
   }
-    
+  
   print $c[10]."[!] $ZT[9] ";
   open (MN, '>', $uplog) or nochmod($uplog, "");
-  print MN "$fulldate"; close(FE);
+  print MN "$fulldate"; close(MN);
   sleep(1);
   cc();
   

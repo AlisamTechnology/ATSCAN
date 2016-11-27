@@ -431,7 +431,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>SET HEADERS:</b> <br/>
        atscan --dork [dork / dorks.txt] --level [level] --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" <br/>
-       atscan -t <target> --data "name:userfile[DATAFILE]value:file.txt --post --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" \n"
+       atscan -t <target> --data "name:userfile[DATAFILE]value:file.txt --post --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1"
       </td></tr></table>
       
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    

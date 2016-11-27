@@ -161,9 +161,17 @@ sub get_timeout {
   return $time;
 }
 
+## HEADERS
+our $headers;
+if (defined $headers) {
+  $headers=~s/\:/\=\>/g;
+  $headers=~s/^\[OTHER\]//g;
+  $headers=~s/\[OTHER\]/\,/g;
+}else{ $headers=""; }
+
 ## SET PROXY
 $agent="Mozilla/5.0 (".$systems[rand @systems];
-$ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
+$ua=LWP::UserAgent->new( agent => $agent, $headers, cookie_jar => HTTP::Cookies->new());
 $ua->default_header('Accept' => ('text/html'));
 $ua->env_proxy;
 $timeout=get_timeout();
@@ -269,11 +277,11 @@ if (defined $data) {
       $d_d=~s/\[DATAFILE\]/\[DATA\]/g;      
       $f_data=$d_d;  
       $d_d=~s/\s+$//g;       
-      $d_d=~s/^\[DATA\]//g; ## remove DATA from bgn
-      $d_d=~s/\[DATA\]/ ATSCAN /g; ## remove DATA from bgn
-      my @data7=split("ATSCAN", $d_d); ## data into parts
+      $d_d=~s/^\[DATA\]//g; 
+      $d_d=~s/\[DATA\]/ ATSCAN /g; 
+      my @data7=split("ATSCAN", $d_d); 
       for my $data7(@data7) {    
-        my @data3=split(":", $data7); ## each part to array pass:1234
+        my @data3=split(":", $data7);
         $data3[1]=~s/ //g;
         if (-e $data3[1]) {
           $f_data=~s/ATSCAN/\[DATA\]/g;
@@ -292,16 +300,6 @@ if (defined $data) {
       push @data, $data;
     }
   }
-}
-
-## IF DATA FILE NOT EXISTS
-sub advise_no_file {
-  my $gff=$_[0];
-  print $c[2]."    [!] No $gff found!\n"; logoff();
-}
-## IF DATA FILES > 1
-sub adviseDataFile {
-  print $c[2]."    [!] You cannot use more than 1 wordlist!\n"; logoff();
 }
 
 ## DORKS & TARGETS ARRAYS

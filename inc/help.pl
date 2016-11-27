@@ -27,6 +27,7 @@ use FindBin '$Bin';
   ."  --data         | data. See examples \n"
   ."  --post         | Use post method \n"
   ."  --get          | Use get method \n"
+  ."  --header       | Set headers. \n"
   ."  --host         | Domain name [Ex: site.com] \n"
   ."  --nobanner     | Hide tool banner\n"
   ."  --beep         | Produce beep sound if positive scan found.\n"
@@ -74,7 +75,7 @@ use FindBin '$Bin';
   ."  repeat(txt-y)  | EX: --exp \"/index.php?id=repeat(../-9)wp-config.php\" --sql OR -t \"site.com/index.php?id=../wp-config.php\"\n"
   ."                 | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n"
   ."  [DATA/DATAFILE]| To separate data values ex: --data \"name:username [DATA]email:xxxxxx [DATA]pass:xxxxx\"\n"
-  ."                 | Wordlist: --data \"name:username [DATA]email:xxxx\@xx [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
+  ."                 | Wordlist: --data \"name:username [DATA]email:xxxx\@xx.com [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
   ."  [OTHER]        | To separate all others values (dork exploit payload proxy target..) ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n"
   ."  --pass         | Set or edit tool password. \n"
   ."  --config       | Set configuration. \n"  
@@ -85,7 +86,9 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  PROXY: \n".$c[10]
   ."   Tor: --proxy socks://localhost:9050 \n"
-  ."   Proxy: --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <list.txt>.\n".$c[10]."\n\n";
+  ."   Proxy: --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <list.txt>.\n".$c[10]."\n\n";  
+  ltak(); print $c[12]."  SET HEADERS: \n".$c[10]
+  ."   --header \"Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1\"\n\n" ;  
   ltak(); print $c[12]."  RANDOM: \n".$c[10]
   ."   Random proxy: --proxy-random [proxy | list.txt] \n"
   ."   Random agent: --b-random \n"
@@ -131,10 +134,10 @@ use FindBin '$Bin';
   ."   Decode base64: --decode64 <string> \n\n";
   ltak(); print $c[12]."  POST/GET DATA: \n".$c[10]
   ."  Post data: atscan -t <target> --data \"field1:value1[DATA]field2:value2[DATA]field3:value3\" --post | --get\n"
-  ."             atscan -t <target> --data \"name:userfile[DATA]value:file.txt --post | --get\n"
+  ."             atscan -t <target> --data \"name:userfile[DATAFILE]value:file.txt --post | --get\n"
   ."  Use list:  atscan -t <target> --data \"/Desktop/list.txt --post | --get\n"
   ."  Wordlist: atscan -t <target> --data \"name:username [DATA]email:xxxx\@xx [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
-  ."  Post + Validation: --data \"name:userfile[DATA]value:file.txt\" -v <string> | --status <code> --post | --get\n\n";
+  ."  Post + Validation: --data \"name:userfile[DATAFILE]value:file.txt\" -v <string> | --status <code> --post | --get\n\n";
   
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
@@ -166,7 +169,7 @@ use FindBin '$Bin';
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --full --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --exp <payload> --status <code> | --valid <string>\n"
-  ."   atscan --data \"name:userfile[DATA]value:file.txt\" --post -v <string> | --status <code> \n"
+  ."   atscan --data \"name:userfile[DATAFILE]value:file.txt\" --post -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--sql | --shost ..] --status <code> | --valid <string> \n\n";
   
   ltak(); print $c[12]."  UPDATE TOOL: \n".$c[10]."   --update\n";

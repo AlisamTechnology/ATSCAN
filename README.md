@@ -199,7 +199,11 @@
       <tr>
         <td width="200px" class="main">--get</td>
         <td class="main"> Use get method </td>
-      </tr> 
+      </tr>      
+      <tr>
+        <td width="200px" class="main">--header</td>
+        <td class="main"> Set headers </td>
+      </tr>      
       <tr>
         <td width="200px" class="main">--host </td>
         <td class="main"> Domain name [Ex: site.com] </td>
@@ -384,7 +388,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">[DATA/DATAFILE]</td>
-        <td class="main">To separate data values ex: --data "name:username [DATA]email:xxxxxx [DATA]pass:xxxxx"</td>
+        <td class="main">To separate data values ex: --data "name:username [DATA]email:xxxxxx [DATA]pass:xxxxx/[DATAFILE]pass:file.txt"</td>
       </tr>      
       <tr>
         <td width="200px" class="main">--update</td>
@@ -416,12 +420,20 @@
         Tor: --proxy [proxy] [Ex: --proxy socks://localhost:9050].<br/>
         Proxy: Proxy: --proxy [proxy] [Ex: http://12.32.1.5:8080] or --proxy [list.txt] [Ex: --proxy /root/Desktop/Documents/my_proxies.txt]
       </td></tr></table>
+      
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
         <b>RANDOM: </b> <br/>
         Random proxy --proxy-random [proxy  list.txt] <br/>
         Random browser --b-random <br/>
         Random engine --m-random <br/>
       </td></tr></table>
+      
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
+       <b>SET HEADERS:</b> <br/>
+       atscan --dork [dork / dorks.txt] --level [level] --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" <br/>
+       atscan -t <target> --data "name:userfile[DATAFILE]value:file.txt --post --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" \n"
+      </td></tr></table>
+      
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
       <b>SEARCH ENGINE: </b> <br/>
        Search: atscan --dork [dork> --level [level]  <br/>
@@ -445,45 +457,51 @@
        Search + get site emails: atscan --dork <site:site.com> --level [level] --email  <br/>
        Search + get ips: atscan --dork [dork> --level [level] --ip 
       </td></tr></table>
+      
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>REGULAR EXPRESSIONS: </b> <br/>
        Regex use: atscan [--dork [dork> / -t [target]] --level [level] --regex [regex] <br/>
        IP: ((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){ 3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)) <br/>
        E-mails: '((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})'
       </td></tr></table>
+      
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>REPEATER:</b> <br/>
        atscan -t site.com?index.php?id=rang(1-10) --sql <br/>
        atscan -t [target] --exp "/index.php?id=rang(1-10)" --sql <br/>
        atscan -t [target] --exp "/index.php?id=repeat(../-9)wp-config.php"
       </td></tr></table>
+      
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>PORTS</b> <br/>
        atscan -t [ip] --port [port] [--udp / --tcp] <br/>
        atscan -t (ip start)-(ip end) --port [port] [--udp / --tcp] <br/>
        atscan -t [ip] --port (port start)-(port end) [--udp / --tcp] --command "your extern command"
       </td></tr></table>
+      
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>ENCODE / DECODE:</b> <br/>
        Generate MD5: --md5 [string] <br/>
        Encode base64: --encode64 [string] <br/>
        Decode base64: --decode64 [string]
       </td></tr></table>
+      
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>DATA:</b> <br/>
        Post data: atscan -t [target] --data "field1:value1 [DATA]field2:value2 [DATA]field3:value3" [--post / --get]<br/>
        Wordlist:  atscan -t [target] --data "name:userfile [DATAFILE]value:file.txt" [--post / --get]<br/>
-       Post + Validation: --data "name:userfile [DATA]value:file.txt" -v [string] / --status [code] [--post / --get]
+       Post + Validation: --data "name:userfile [DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get]
       </td></tr></table>
+      
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>EXTERNAL COMMANDES:</b> <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --HOST"  <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "nmap sV -p 21,22,80 --HOSTIP"  <br/>
        atscan -d "index of /lib/scripts/dl-skin.php" -l 20 -m 2 --command "php WP-dl-skin.php-exploit.php --TARGET" <br/>
-      </td></tr></table>     
-      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>
-        <td>
+      </td></tr></table>
+      
+      <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>
        <b>MULTIPLE SCANS: </b><br/>
        atscan --dork [dork> --level [10] --sql --lfi --wp ..<br/>
        atscan --dork [dork> --level [10] --replace [string] --with [string] --exp [payload] [--sql / --lfi / --wp /...]<br/>
@@ -511,7 +529,7 @@
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --full --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp [payload] --status [code] / --valid [string] <br/>
-       atscan --data "name:userfile;value:file.txt" -v [string] / --status [code] [--post / --get]<br/>
+       atscan --data "name:userfile[DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get]<br/>
        
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
       </td></tr></table>     

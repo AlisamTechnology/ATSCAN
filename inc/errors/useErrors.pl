@@ -76,6 +76,25 @@ if (defined $data) {
   }
 }
 
+## CHECK DATA PARAMS
+if (defined $data) {
+  if ($data=~/\[DATAFILE\]/) {
+    my $number=()=$data=~/\[DATAFILE\]/gi;
+    if ($number>1) { adviseDataFile(); }
+  }
+}
+
+## IF DATA FILES > 1
+sub adviseDataFile {
+  print $c[2]."[!] You cannot use more than 1 wordlist!\n"; logoff();
+}
+
+## IF DATA FILE NOT EXISTS
+sub advise_no_file {
+  my $no_file=$_[0];
+  print $c[2]."[!] Cannot whrite in $no_file !\n"; logoff();
+}
+
 ## CHECK PAYLOAD ARGUMENT
 if (defined $payloads) {
   if (!defined $xss && !defined $lfi && !defined $JoomRfi && !defined $WpAfd && !defined $adminPage && !defined $subdomain && !defined $mupload && !defined $mzip) {

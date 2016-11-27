@@ -211,7 +211,7 @@ sub browseUrl {
 sub getHtml {
   my ($URL, $form)=@_;
   my $response;
-  our $method;
+  our ($method, $headers);  
   our ($ipUrl, @ErrT, $freq, $start, $date);  
   if (defined $brandom || $brandom) {
     if ($freq || defined $freq) { make_freq(); }
@@ -223,13 +223,13 @@ sub getHtml {
   }    
   if ($form) {
     if (defined $post || ($method && $method eq "post")) {
-      $response=$ua->post($URL, Content_Type => 'form-data', Content => [$form]); }
+      $response=$ua->post($URL, $headers, Content_Type => 'form-data', Content => [$form]); }
     elsif (defined $get || ($method && $method eq "get")) { 
       $URL.="?".$form;
       my $request=HTTP::Request->new($DS[15], $URL); $response=$ua->request($request);
     }
   }else{
-    if (defined $post || ($method && $method eq "post")) { $response=$ua->post($URL); }
+    if (defined $post || ($method && $method eq "post")) { $response=$ua->post($URL, $headers); }
     elsif (defined $get || ($method && $method eq "get")) { my $request=HTTP::Request->new($DS[15], $URL); $response=$ua->request($request);
     }else{ my $request=HTTP::Request->new($DS[15], $URL); $response=$ua->request($request); }
   }

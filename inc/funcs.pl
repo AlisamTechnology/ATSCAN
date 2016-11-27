@@ -260,7 +260,49 @@ sub UA {
 }
 
 ## DATA ARRAYS
-if (defined $data) { @data=buildArraysLists($data); }
+if (defined $data) {
+  my @data_full=buildArraysLists($data);
+  my @data44;
+  my $f_data;
+  for my $d_d(@data_full) {
+    if ($d_d=~/\[DATAFILE\]/) {
+      $d_d=~s/\[DATAFILE\]/\[DATA\]/g;      
+      $f_data=$d_d;  
+      $d_d=~s/\s+$//g;       
+      $d_d=~s/^\[DATA\]//g; ## remove DATA from bgn
+      $d_d=~s/\[DATA\]/ ATSCAN /g; ## remove DATA from bgn
+      my @data7=split("ATSCAN", $d_d); ## data into parts
+      for my $data7(@data7) {    
+        my @data3=split(":", $data7); ## each part to array pass:1234
+        $data3[1]=~s/ //g;
+        if (-e $data3[1]) {
+          $f_data=~s/ATSCAN/\[DATA\]/g;
+          open(F5, $data3[1]) or advise_no_file($data3[1]);
+          while (my $f=<F5>) {
+            chomp $f;
+            $f_data=~s/$data3[1]/$f/g;
+            $f_data=~s/ //g;
+            push @data44, $f_data;
+            $f_data=~s/$f/$data3[1]/g;
+          }
+          push @data, @data44;
+        }
+      }
+    }else{
+      push @data, $data;
+    }
+  }
+}
+
+## IF DATA FILE NOT EXISTS
+sub advise_no_file {
+  my $gff=$_[0];
+  print $c[2]."    [!] No $gff found!\n"; logoff();
+}
+## IF DATA FILES > 1
+sub adviseDataFile {
+  print $c[2]."    [!] You cannot use more than 1 wordlist!\n"; logoff();
+}
 
 ## DORKS & TARGETS ARRAYS
 if (defined $mlevel) {

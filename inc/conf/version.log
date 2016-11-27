@@ -1,7 +1,8 @@
 VERSION 12 RELEASE
 =====================================================
-  CHANGES: 21/11/2016 
+  CHANGES: 27/11/2016 
   ===================================================
-  - Fix multi engine scan.
+  - Add headers argument.
+  - Add possibility to use list in data.
   - Enjoy!
   ===================================================

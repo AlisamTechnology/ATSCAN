@@ -134,8 +134,7 @@ use FindBin '$Bin';
   ."   Decode base64: --decode64 <string> \n\n";
   ltak(); print $c[12]."  POST/GET DATA: \n".$c[10]
   ."  Post data: atscan -t <target> --data \"field1:value1[DATA]field2:value2[DATA]field3:value3\" --post | --get\n"
-  ."             atscan -t <target> --data \"name:userfile[DATAFILE]value:file.txt --post | --get\n"
-  ."  Use list:  atscan -t <target> --data \"/Desktop/list.txt --post | --get\n"
+  ."             atscan -t <target> --data \"username:john[DATA]pass:1234 --post | --get\n"
   ."  Wordlist: atscan -t <target> --data \"name:username [DATA]email:xxxx\@xx [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
   ."  Post + Validation: --data \"name:userfile[DATAFILE]value:file.txt\" -v <string> | --status <code> --post | --get\n\n";
   

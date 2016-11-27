@@ -383,7 +383,7 @@
         <td class="main">To separate values ex: dork1 [OTHER]DORK2 [OTHER]DORK3</td>
       </tr>
       <tr>
-        <td width="200px" class="main">[DATA]</td>
+        <td width="200px" class="main">[DATA/DATAFILE]</td>
         <td class="main">To separate data values ex: --data "name:username [OTHER]email:xxxxxx [OTHER]pass:xxxxx"</td>
       </tr>      
       <tr>
@@ -471,10 +471,9 @@
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>DATA:</b> <br/>
-       Post data: atscan -t [target] --data [--post / --get] "field1:value1 [DATA]field2:value2 [DATA]field3:value3" <br/>
-                  atscan -t [target] --data [--post / --get] "name:userfile [DATA]value:file.txt" <br/>
-       Use list:  atscan -t [target] --data [--post / --get] "/Desktop/list.txt" <br/>
-       Post + Validation: --data [--post / --get] "name:userfile [DATA]value:file.txt" -v [string] / --status [code]
+       Post data: atscan -t [target] --data "field1:value1 [DATA]field2:value2 [DATA]field3:value3" [--post / --get]<br/>
+       Wordlist:  atscan -t [target] --data "name:userfile [DATAFILE]value:file.txt" [--post / --get]<br/>
+       Post + Validation: --data "name:userfile [DATA]value:file.txt" -v [string] / --status [code] [--post / --get]
       </td></tr></table>
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>EXTERNAL COMMANDES:</b> <br/>
@@ -512,7 +511,8 @@
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --full --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp [payload] --status [code] / --valid [string] <br/>
-       atscan --data [--post / --get] "name:userfile;value:file.txt" -v [string] / --status [code] <br/>
+       atscan --data "name:userfile;value:file.txt" -v [string] / --status [code] [--post / --get]<br/>
+       
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
       </td></tr></table>     
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr>

@@ -490,8 +490,10 @@
        <b>DATA:</b> <br/>
        Post data: atscan -t [target] --data "field1:value1 [DATA]field2:value2 [DATA]field3:value3" [--post / --get]<br/>
        Wordlist:  atscan -t [target] --data "name:userfile [DATAFILE]value:file.txt" [--post / --get]<br/>
+                  atscan -t [target] --data "username:john [DATA]pass:1234" [--post / --get]<br/>
        Post + Validation: --data "name:userfile [DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get]
       </td></tr></table>
+
       
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>EXTERNAL COMMANDES:</b> <br/>

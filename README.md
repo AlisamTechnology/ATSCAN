@@ -384,7 +384,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">[DATA/DATAFILE]</td>
-        <td class="main">To separate data values ex: --data "name:username [OTHER]email:xxxxxx [OTHER]pass:xxxxx"</td>
+        <td class="main">To separate data values ex: --data "name:username [DATA]email:xxxxxx [DATA]pass:xxxxx"</td>
       </tr>      
       <tr>
         <td width="200px" class="main">--update</td>

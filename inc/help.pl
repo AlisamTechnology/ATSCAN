@@ -74,6 +74,7 @@ use FindBin '$Bin';
   ."  repeat(txt-y)  | EX: --exp \"/index.php?id=repeat(../-9)wp-config.php\" --sql OR -t \"site.com/index.php?id=../wp-config.php\"\n"
   ."                 | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n"
   ."  [DATA]         | To separate data values ex: --data \"name:username [DATA]email:xxxxxx [DATA]pass:xxxxx\"\n"
+  ."                 | Wordlist: --data \"name:username [DATA]email:xxxx\@xx [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
   ."  [OTHER]        | To separate all others values (dork exploit payload proxy target..) ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n"
   ."  --pass         | Set or edit tool password. \n"
   ."  --config       | Set configuration. \n"  
@@ -132,6 +133,7 @@ use FindBin '$Bin';
   ."  Post data: atscan -t <target> --data \"field1:value1[DATA]field2:value2[DATA]field3:value3\" --post | --get\n"
   ."             atscan -t <target> --data \"name:userfile[DATA]value:file.txt --post | --get\n"
   ."  Use list:  atscan -t <target> --data \"/Desktop/list.txt --post | --get\n"
+  ."  Wordlist: atscan -t <target> --data \"name:username [DATA]email:xxxx\@xx [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
   ."  Post + Validation: --data \"name:userfile[DATA]value:file.txt\" -v <string> | --status <code> --post | --get\n\n";
   
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]

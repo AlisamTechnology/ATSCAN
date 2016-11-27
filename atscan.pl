@@ -85,7 +85,7 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm=s'=>\$motor, 'timeout=s'=>\$timeout,
                          'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'ifend'=>\$ifend,
                          'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'payload=s'=>\$payloads, 'm-random'=>\$mrandom, 'content'=>\$content,
-                         'updtd'=>\$updtd, 'tool'=>\$toolInfo, 'config'=>\$config, 'freq=s'=>\$freq, 'header'=>\$headers) or badArgs();
+                         'updtd'=>\$updtd, 'tool'=>\$toolInfo, 'config'=>\$config, 'freq=s'=>\$freq, 'header=s'=>\$headers) or badArgs();
 
 ## INCLUDES
 require "$Bin/inc/includes.pl";

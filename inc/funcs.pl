@@ -368,10 +368,10 @@ sub compareme {
     printFile($script_bac, $response->content);    
     use File::Compare;      
     if (compare($script_bac, $scriptv) == 0) {
-      $same="1";
+      $same=1;
       unlink $script_bac;
-    }
-  }
+    }else{ $same=0; }
+  }else{ $same=1; }
   return ($same, $response);
 }
 

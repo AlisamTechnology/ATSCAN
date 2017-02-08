@@ -10,7 +10,7 @@ our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $userSetting, $scriptI
      $uplog, $fulldate, @userSetting, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
 print $c[4]."[!] $OTHERS[20]\n";
 my ($same, $response)=compareme();
-if ($same) {   
+if ($same==0) {   
   print $c[3]."$DT[6]\n";
 }else{
   if (-e $userSetting) {

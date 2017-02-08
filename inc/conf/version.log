@@ -3,6 +3,6 @@ VERSION 12 RELEASE
   CHANGES: 09/02/2017
   ===================================================
   - Fixe nmap commande in help menu.
-  * Fix update interval.
+  - Fix update interval.
   - Enjoy!
   ===================================================

@@ -1,8 +1,7 @@
 VERSION 12 RELEASE
 =====================================================
-  CHANGES: 27/11/2016 
+  CHANGES: 09/02/2017
   ===================================================
-  - Add headers argument.
-  - Add possibility to use list in data.
+  - Fixe nmap commande in help menu.
   - Enjoy!
   ===================================================

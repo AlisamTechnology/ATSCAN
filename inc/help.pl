@@ -141,8 +141,8 @@ use FindBin '$Bin';
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --HOST\" \n"
-  ."   atscan --dork <dork | dorks.txt> --level <level> --command \"nmap sV -p 21,22,80 --HOSTIP\" \n"
-  ."   atscan -t <target> --port 80 --udp --command \"nmap sV -p --PORT --TARGET\" \n" 
+  ."   atscan --dork <dork | dorks.txt> --level <level> --command \"nmap -sV -p 21,22,80 --HOSTIP\" \n"
+  ."   atscan -t <target> --port 80 --udp --command \"nmap -sV -p --PORT --TARGET\" \n" 
   ."   atscan -d \"index of /lib/scripts/dl-skin.php\" -l 20 -m 2 --command \"php WP-dl-skin.php-exploit.php --TARGET\" \n\n";
   
   ltak(); print $c[12]."  MULTIPLE SCANS: \n".$c[10]

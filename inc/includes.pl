@@ -8,11 +8,15 @@ use FindBin '$Bin';
 require "$Bin/inc/funcs.pl";
 
 ## PRINT BANNER 
-our ($nobanner, $output);
+our ($nobanner, $output, $msource);
 if (!defined $nobanner && !$nobanner) { banner(); }
 else{ mtak(); ptak(); }
 ## CLEAN OUTPUT 
 if (defined $output) { unlink $output if -e $output; }
+if (defined $msource) {
+    $msource=~s/\.(.*)//g;
+    unlink $msource if -d $msource; mkdir $msource, 755;
+}
 
 ## PASS LOGIN ##
 our $password;

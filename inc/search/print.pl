@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, @data, @c, @DT, @DS, @TT, @aTsearch, @aTscans);
+our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, @data, @c, @DT, @DS, @TT, @aTsearch, @aTscans);
 
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
@@ -130,7 +130,20 @@ sub doPrint {
     print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText)) || ($result && (defined $exploit || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText)));
     if (defined $beep || $beep) { print chr(7); } saveme($URL1, "");
     if (defined $content) { dpoints(); print $c[10]."$html\n"; }
+    if (defined $msource) { printSource($URL1, $html); }   
   }
+}
+
+## PRINT SOURCE CODE
+sub printSource {
+  my ($URL1, $html)=@_;
+  $URL1=removeProtocol($URL1);
+  $URL1=~s/\//\-/g;
+  my $fl="$msource/$URL1.html";
+  open (FILE9, '>', "$fl");
+  binmode(FILE9, ":utf8");
+  print FILE9 "$html\n"; close(FILE9);
+  print $c[1]."    Source $c[4] (".length($html)." bytes) Saved to $fl\n";
 }
 
 ## END SCAN

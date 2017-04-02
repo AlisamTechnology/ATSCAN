@@ -56,6 +56,7 @@
     <td class="main">
       Perl Requiered. <br/>
       Works in all platforms.
+      Disponible in Blackarch linux and Dracos systems.
     </td>
   </tr>
 </table>

@@ -377,12 +377,12 @@
       </tr> 
       <tr>
         <td width="200px" class="main"> rang(x-y) </td>
-           <td class="main">EX: --exp "/index.php?id=rang(1-9)" --sql OR -t "site.com/index.php?id=rang(1-9)" --sql</br>
+           <td class="main">EX: --exp "/index.php?id=rang(1-9)" --sql OR -t "site.com/index.php?id=rang(1-9)" --sql<br>
            site.com/index.php?id=1 -> 9.</td>
       </tr> 
       <tr>
         <td width="200px" class="main"> repeat(txt-y) </td>
-           <td class="main">EX: --exp "/index.php?id=repeat(../-9)wp-config.php" --sql OR -t "site.com/index.php?id=../wp-config.php"</br>
+           <td class="main">EX: --exp "/index.php?id=repeat(../-9)wp-config.php" --sql OR -t "site.com/index.php?id=../wp-config.php"<br>
            In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times </td>
       </tr>       
       <tr>
@@ -421,8 +421,9 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>  
       <b>PROXY: </b> <br/>
         Tor: --proxy [proxy] [Ex: --proxy socks://localhost:9050].<br/>
-        Proxy: Proxy: --proxy [proxy] [Ex: http://12.32.1.5:8080] or --proxy [list.txt] [Ex: --proxy /root/Desktop/Documents/my_proxies.txt]
-      </td></tr></table>
+        Proxy: Proxy: --proxy [proxy] Ex: http://12.32.1.5:8080 or --proxy list.txt Ex: --proxy /root/Desktop/Documents/my_proxies.txt
+        </td></tr>
+      </table>
       
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
         <b>RANDOM: </b> <br/>
@@ -432,7 +433,7 @@
       </td></tr></table>
       
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
-       <b>SET HEADERS:</b> <br/>
+       <b>SET HEADERS:</b> <br>
        atscan --dork [dork / dorks.txt] --level [level] --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" <br/>
        atscan -t <target> --data "name:userfile[DATAFILE]value:file.txt --post --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1"
       </td></tr></table>

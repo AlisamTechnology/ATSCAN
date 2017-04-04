@@ -30,7 +30,7 @@
     <td width="100px" class="main2"><b>YOUTUBE:</b></td><td>youtube.com/c/AlisamTechnology</td>
   </tr>
   <tr>
-    <td width="100px" class="main2"><b>WITTER:</b></td><td>twitter.com/AlisamTechno</td>
+    <td width="100px" class="main2"><b>TWITTER:</b></td><td>twitter.com/AlisamTechno</td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>PLUS:</b></td><td>plus.google.com/+AlisamTechnology</td>

@@ -138,8 +138,8 @@
       <tr>
         <td width="200px" class="main">--proxy</td>
         <td class="main">
-          Set tor proxy for scans [EX: --proxy "socks://localhost:9050"]<br>
-          Set proxy [EX: --proxy "http://12.45.44.2:8080"] <br>
+          Set tor proxy for scans [EX: --proxy "socks://localhost:9050"]<br/>
+          Set proxy [EX: --proxy "http://12.45.44.2:8080"] <br/>
           Set proxy list [EX: --proxy list.txt] </td>
       </tr> 
       <tr>

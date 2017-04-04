@@ -416,11 +416,12 @@
     <td width="890px"><b>Examples:</b></td>
   </tr>
   <tr>
-    <td class="main" width="100%">
+    <td class="main">
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>  
       <b>PROXY: </b> <br/>
         Tor: --proxy [proxy] [Ex: --proxy socks://localhost:9050].<br/>
-        Proxy: Proxy: --proxy [proxy] Ex: http://12.32.1.5:8080 or --proxy list.txt Ex: --proxy /root/Desktop/Documents/my_proxies.txt
+        Proxy: Proxy: --proxy [proxy] Ex: http://12.32.1.5:8080 <br/>
+        or --proxy list.txt Ex: --proxy my_proxies.txt
         </td></tr>
       </table>
       

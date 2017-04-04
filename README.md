@@ -11,7 +11,8 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px"><b>ATSCAN version 12<b/></td>
+    <td width="780px"><b>ATSCAN version 12<b/> 
+    </td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">Anon4t</td>
@@ -44,7 +45,7 @@
         Mass Dork Search<br/>Multiple instant scans. <br/>Mass Exploitation <br/>Use proxy. <br/>
         Random user agent. <br/> Random engine.<br/> Extern commands execution.<br/>
         XSS / SQLI / LFI / AFD scanner.<br /> Filter wordpress and Joomla sites in the server. <br />
-        Find Admin page.<br />Decode & Encode Base64 / MD5<br/> Ports scan. <br/>Extract IPs<br/>Extract E-mails. <br/>
+        Find Admin page.<br />Decode / Encode Base64 / MD5<br/> Ports scan. <br/>Extract IPs<br/>Extract E-mails. <br/>
         Auto detect errors. <br/> Auto detect Cms.<br/>Post data.<br/>Auto sequence repeater.<br/>Validation.<br/>Post and Get method<br/>And more...
     </p></td>
   </tr>
@@ -138,8 +139,8 @@
       <tr>
         <td width="200px" class="main">--proxy</td>
         <td class="main">
-          Set tor proxy for scans [EX: --proxy "socks://localhost:9050"]<br/>
-          Set proxy [EX: --proxy "http://12.45.44.2:8080"] <br/>
+          Set tor proxy for scans [EX: --proxy "socks://localhost:9050"]<br>
+          Set proxy [EX: --proxy "http://12.45.44.2:8080"] <br>
           Set proxy list [EX: --proxy list.txt] </td>
       </tr> 
       <tr>

@@ -4,7 +4,8 @@
 <p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner </b></p>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>
-    <td align="center"><b>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!<b></td>
+    <td align="center"><b>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent!
+    </b></td>
   </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
@@ -137,8 +138,8 @@
       <tr>
         <td width="200px" class="main">--proxy</td>
         <td class="main">
-          Set tor proxy for scans [EX: --proxy "socks://localhost:9050"]</br>
-          Set proxy [EX: --proxy "http://12.45.44.2:8080"] </br>
+          Set tor proxy for scans [EX: --proxy "socks://localhost:9050"]<br>
+          Set proxy [EX: --proxy "http://12.45.44.2:8080"] <br>
           Set proxy list [EX: --proxy list.txt] </td>
       </tr> 
       <tr>

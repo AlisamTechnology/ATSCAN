@@ -41,11 +41,11 @@
   </tr>
   <tr>
     <td class="main" width="890px"><p>&#x25cf; Search engine Google / Bing / Ask / Yandex / Sogou <br />
-        Mass Dork Search<br/>Multiple instant scans. <br/>Mass Exploitation <br/>Use proxy. <br/>
-        Random user agent. <br/> Random engine.<br/> Extern commands execution.<br/>
-        XSS / SQLI / LFI / AFD scanner.<br /> Filter wordpress and Joomla sites in the server. <br />
-        Find Admin page.<br />Decode / Encode Base64 / MD5<br/> Ports scan. <br/>Extract IPs<br/>Extract E-mails. <br/>
-        Auto detect errors. <br/> Auto detect Cms.<br/>Post data.<br/>Auto sequence repeater.<br/>Validation.<br/>Post and Get method<br/>And more...
+        &#x25cf; Mass Dork Search<br/>&#x25cf; Multiple instant scans. <br/>Mass Exploitation <br/>&#x25cf; Use proxy. <br/>
+        &#x25cf; Random user agent. <br/>&#x25cf; Random engine.<br/> &#x25cf; Extern commands execution.<br/>
+        &#x25cf; XSS / SQLI / LFI / AFD scanner.<br /> &#x25cf; Filter wordpress and Joomla sites in the server. <br />
+        &#x25cf; Find Admin page.<br />&#x25cf; Decode / Encode Base64 / MD5<br/> &#x25cf; Ports scan. <br/>&#x25cf; Extract IPs<br/>&#x25cf; Extract E-mails. <br/>
+        &#x25cf; Auto detect errors. <br/> &#x25cf; Auto detect Cms.<br/>&#x25cf; Post data.<br/>&#x25cf; Auto sequence repeater.<br/>&#x25cf; Validation.<br/>&#x25cf; Post and Get method<br/>&#x25cf; And more...
     </p></td>
   </tr>
 </table>

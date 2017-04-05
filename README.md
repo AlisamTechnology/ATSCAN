@@ -40,7 +40,7 @@
     <td class="main3"><b>Description:</b></td>
   </tr>
   <tr>
-    <td class="main" width="890px"><p>Search engine Google / Bing / Ask / Yandex / Sogou <br />
+    <td class="main" width="890px"><p>&#x25cf; Search engine Google / Bing / Ask / Yandex / Sogou <br />
         Mass Dork Search<br/>Multiple instant scans. <br/>Mass Exploitation <br/>Use proxy. <br/>
         Random user agent. <br/> Random engine.<br/> Extern commands execution.<br/>
         XSS / SQLI / LFI / AFD scanner.<br /> Filter wordpress and Joomla sites in the server. <br />

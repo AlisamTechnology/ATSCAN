@@ -484,7 +484,7 @@
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --HOST"  <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "nmap -sV -p 21,22,80 --HOSTIP"  <br/>
-       atscan -d "index of /lib/scripts/dl-skin.php" -l 20 -m 2 --command "php WP-dl-skin.php-exploit.php --TARGET" <br/> <br/>
+       atscan -d "index of /lib/scripts/dl-skin.php" -l 20 -m 2 --command "php WP-dl-skin.php-exploit.php --TARGET" <br/>
         <br/>
        <b>MULTIPLE SCANS: </b><br/>
        atscan --dork [dork> --level [10] --sql --lfi --wp ..<br/>

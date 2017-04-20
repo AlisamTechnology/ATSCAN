@@ -419,9 +419,9 @@
     <td class="main">
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>  
         &#x25cf; <b>PROXY: </b> <br/>
-        &#847;Tor: --proxy [proxy] [Ex: --proxy socks://localhost:9050].<br/>
-        &#847;Proxy: Proxy: --proxy [proxy] Ex: http://12.32.1.5:8080 <br/>
-        &#847;or --proxy list.txt Ex: --proxy my_proxies.txt <br/>
+        &#160;Tor: --proxy [proxy] [Ex: --proxy socks://localhost:9050].<br/>
+        &#160;Proxy: Proxy: --proxy [proxy] Ex: http://12.32.1.5:8080 <br/>
+        &#160;or --proxy list.txt Ex: --proxy my_proxies.txt <br/>
         <br/>
         &#x25cf; <b>RANDOM: </b> <br/>
         Random proxy --proxy-random [proxy  list.txt] <br/>

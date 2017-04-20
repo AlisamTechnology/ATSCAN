@@ -37,7 +37,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3"><b>Description:</b></td>
+    <td class="main3">&#9733; <b>Description:</b></td>
   </tr>
   <tr>
     <td class="main" width="890px"><p>&#x25cf; Search engine Google / Bing / Ask / Yandex / Sogou <br />
@@ -51,7 +51,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px"> <b>Libreries to install:</b></td>
+    <td class="main3" width="890px"> <b>&#9733; Libreries to install:</b></td>
   </tr>
   <tr>
     <td class="main">
@@ -63,7 +63,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px"><b>Download:</b></td>
+    <td class="main3" width="890px">&#9733; <b>Download:</b></td>
   </tr>
   <tr>
     <td class="main">
@@ -74,7 +74,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px"><b>Permissions:</b></td>
+    <td class="main3" width="890px">&#9733; <b>Permissions:</b></td>
   </tr>
   <tr>
     <td class="main">
@@ -85,7 +85,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px"><b>Installation:</b></td>
+    <td class="main3" width="890px">&#9733; <b>Installation:</b></td>
   </tr>
   <tr>
     <td class="main">chmod +x ./install.sh <br/>./install.sh </td>
@@ -94,7 +94,7 @@
 
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px"><b>Execution:</b></td>
+    <td class="main3" width="890px">&#9733; <b>Execution:</b></td>
   </tr>
   <tr>
     <td class="main">
@@ -105,7 +105,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px"><b>Uninstall Tool:</b></td>
+    <td class="main3" width="890px">&#9733; <b>Uninstall Tool:</b></td>
   </tr>
   <tr>
     <td class="main">
@@ -115,7 +115,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3"><b>Screenshots:</b></td>
+    <td class="main3">&#9733; <b>Screenshots:</b></td>
   </tr>
   <tr>
     <td align="center" width="890px">
@@ -127,7 +127,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px"><b>Help:</b></td>
+    <td class="main3" width="890px">&#9733; <b>Help:</b></td>
   </tr>
   <tr>
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
@@ -413,7 +413,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td width="890px"><b>Examples:</b></td>
+    <td width="890px">&#9733; <b>Examples:</b></td>
   </tr>
   <tr>
     <td class="main">
@@ -511,10 +511,10 @@
        atscan --data "name:userfile[DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get]<br/>
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
         <br/>
-       <b>UPDATE TOOL:</b> <br/> 
+       &#9733; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>
         <br/>
-       <b>UNINSTALL TOOL: </b><br/>     
+       &#9733; <b>UNINSTALL TOOL: </b><br/>     
        atscan --uninstall
        </td></tr></table>     
     </td>

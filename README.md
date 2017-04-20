@@ -418,21 +418,21 @@
   <tr>
     <td class="main">
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>  
-        <b>PROXY: </b> <br/>
+        &#x25cf; <b>PROXY: </b> <br/>
         Tor: --proxy [proxy] [Ex: --proxy socks://localhost:9050].<br/>
         Proxy: Proxy: --proxy [proxy] Ex: http://12.32.1.5:8080 <br/>
         or --proxy list.txt Ex: --proxy my_proxies.txt <br/>
         <br/>
-        <b>RANDOM: </b> <br/>
+        &#x25cf; <b>RANDOM: </b> <br/>
         Random proxy --proxy-random [proxy  list.txt] <br/>
         Random browser --b-random <br/>
         Random engine --m-random <br/>
         <br/>
-       <b>SET HEADERS:</b> <br>
+       &#x25cf; <b>SET HEADERS:</b> <br>
        atscan --dork [dork / dorks.txt] --level [level] --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" <br/>
        atscan -t target --data "name:userfile[DATAFILE]value:file.txt --post --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" <br/>
         <br/>
-      <b>SEARCH ENGINE: </b> <br/>
+      &#x25cf; <b>SEARCH ENGINE: </b> <br/>
        Search: atscan --dork [dork> --level [level]  <br/>
        Search: atscan -d [dork> -l [level]  <br/>
        Set engine: atscan --dork [dork> --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
@@ -453,54 +453,54 @@
        Search + get site emails: atscan --dork site:site.com --level [level] --email  <br/>
        Search + get ips: atscan --dork [dork] --level [level] --ip  <br/>
         <br/>
-       <b>REGULAR EXPRESSIONS: </b> <br/>
+       &#x25cf; <b>REGULAR EXPRESSIONS: </b> <br/>
        Regex use: atscan [--dork [dork> / -t [target]] --level [level] --regex [regex] <br/>
        IP: ((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){ 3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)) <br/>
        E-mails: '((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})' <br/>
         <br/>
-       <b>REPEATER:</b> <br/>
+       &#x25cf; <b>REPEATER:</b> <br/>
        atscan -t site.com?index.php?id=rang(1-10) --sql <br/>
        atscan -t [target] --exp "/index.php?id=rang(1-10)" --sql <br/>
        atscan -t [target] --exp "/index.php?id=repeat(../-9)wp-config.php" <br/>
         <br/>
-       <b>PORTS</b> <br/>
+       &#x25cf; <b>PORTS</b> <br/>
        atscan -t [ip] --port [port] [--udp / --tcp] <br/>
        atscan -t (ip start)-(ip end) --port [port] [--udp / --tcp] <br/>
        atscan -t [ip] --port (port start)-(port end) [--udp / --tcp] --command "your extern command" <br/>
         <br/>
-       <b>ENCODE / DECODE:</b> <br/>
+       &#x25cf; <b>ENCODE / DECODE:</b> <br/>
        Generate MD5: --md5 [string] <br/>
        Encode base64: --encode64 [string] <br/>
        Decode base64: --decode64 [string] <br/>
         <br/>
-       <b>DATA:</b> <br/>
+       &#x25cf; <b>DATA:</b> <br/>
        Post data: atscan -t [target] --data "field1:value1 [DATA]field2:value2 [DATA]field3:value3" [--post / --get]<br/>
        Wordlist:  atscan -t [target] --data "name:userfile [DATAFILE]value:file.txt" [--post / --get]<br/>
                   atscan -t [target] --data "username:john [DATA]pass:1234" [--post / --get]<br/>
        Post + Validation: --data "name:userfile [DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get] <br/>
         <br/>
-       <b>EXTERNAL COMMANDES:</b> <br/>
+       &#x25cf; <b>EXTERNAL COMMANDES:</b> <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --HOST"  <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "nmap -sV -p 21,22,80 --HOSTIP"  <br/>
        atscan -d "index of /lib/scripts/dl-skin.php" -l 20 -m 2 --command "php WP-dl-skin.php-exploit.php --TARGET" <br/>
         <br/>
-       <b>MULTIPLE SCANS: </b><br/>
+       &#x25cf; <b>MULTIPLE SCANS: </b><br/>
        atscan --dork [dork> --level [10] --sql --lfi --wp ..<br/>
        atscan --dork [dork> --level [10] --replace [string] --with [string] --exp [payload] [--sql / --lfi / --wp /...]<br/>
        atscan -t [ip] --level [10] [--sql / --lfi / --wp /...]<br/>
        atscan -t [target] [--sql / --lfi / --wp /...] <br/>
         <br/>
-       <b>USER PAYLOADS: </b><br/>
+       &#x25cf; <b>USER PAYLOADS: </b><br/>
        atscan --dork [dork] --level [10] [--lfi | --sql ..] --payload [payload | payloads.txt] <br/>
         <br/>
-       <b>SEARCH VALIDATION: </b><br/>
+       &#x25cf; <b>SEARCH VALIDATION: </b><br/>
        atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --ifinurl [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --regex [regex] --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --unique  <br/>
         <br/>
-       <b>SCAN VALIDATION: </b><br/>
+       &#x25cf; <b>SCAN VALIDATION: </b><br/>
        atscan -t [target / targets.txt] [--status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --exp [payload] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
@@ -511,10 +511,10 @@
        atscan --data "name:userfile[DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get]<br/>
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
         <br/>
-       &#9733; <b>UPDATE TOOL:</b> <br/> 
+       &#x25cf; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>
         <br/>
-       &#9733; <b>UNINSTALL TOOL: </b><br/>     
+       &#x25cf; <b>UNINSTALL TOOL: </b><br/>     
        atscan --uninstall
        </td></tr></table>     
     </td>

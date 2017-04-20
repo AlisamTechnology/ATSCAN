@@ -67,8 +67,8 @@
   </tr>
   <tr>
     <td class="main">
-      git clone https://github.com/AlisamTechnology/ATSCAN <br/>
-      OR direct link: https://github.com/AlisamTechnology/ATSCAN
+      &#x25cf; git clone https://github.com/AlisamTechnology/ATSCAN <br/>
+      &#x25cf; direct link: https://github.com/AlisamTechnology/ATSCAN
     </td>
   </tr>
 </table>

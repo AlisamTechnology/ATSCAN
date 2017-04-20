@@ -55,7 +55,7 @@
   </tr>
   <tr>
     <td class="main">
-      Perl Requiered. <br/>
+      Perl Required. <br/>
       Works in all platforms.
       Disponible in Blackarch linux and Dracos systems.
     </td>
@@ -442,7 +442,6 @@
        Get Server sites: atscan -t [ip] --level [value] --sites <br/>
        Get Server sites: atscan -t "[ip from]-[ip to]" --level [value] --sites <br/>
        Get Server sites: atscan -t "ip1 [OTHER]ip2" --level [value] --sites <br/>
-        <br/>
        Get Server wordpress sites: atscan -t [ip] --level [value] --wp  <br/>
        Get Server joomla sites: atscan -t [ip] --level value] --joom  <br/>
        Get Server upload sites: atscan -t [ip] --level [value] --upload  <br/>

@@ -423,6 +423,7 @@
         Proxy: Proxy: --proxy [proxy] Ex: http://12.32.1.5:8080 <br/>
         or --proxy list.txt Ex: --proxy my_proxies.txt <br/>
         <br/>
+        <hr>
         &#x25cf; <b>RANDOM: </b> <br/>
         Random proxy --proxy-random [proxy  list.txt] <br/>
         Random browser --b-random <br/>

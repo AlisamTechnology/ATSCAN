@@ -127,7 +127,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px">&#9733; <b>Help:</b></td>
+    <td class="main3" width="890px">&#9733; <b>Commands:</b></td>
   </tr>
   <tr>
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">

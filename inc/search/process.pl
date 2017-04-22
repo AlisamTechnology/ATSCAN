@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $zone, $agent);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $zone, $agent, $noping);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $brandom, $noinfo, $timeout, $method, @OTHERS, @ErrT);
 ## SET ENGINES
@@ -166,8 +166,10 @@ sub goToEngine {
 sub printInfoUrl {
   my ($URL1, $data)=@_;
   my $o=OO();
-  if ($o<$limit) {    
-    if (!defined $noinfo && !$noinfo) {
+  our ($command, $port);
+
+  if ($o<$limit) {
+    if ((!defined $noinfo && !$noinfo) && (!defined $noping)) {
       if (defined $noQuery) { print $c[1]."    $DS[16] $c[10]  $DS[40]\n"; }
       printProxy();
       if (defined $brandom || $brandom) {
@@ -188,20 +190,23 @@ sub printInfoUrl {
 sub browseUrl {
   my ($URL1, $form)=@_;
   printInfoUrl($URL1, $data);
-  my ($response, $html, $status, $serverheader)=getHtml($URL1, $form);
-  my $o=OO();
-  if ($o<$limit) {
-    if (!defined $noinfo && !$noinfo) { 
-      if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }    
-      print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
-      if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
-      else { print $c[10]."$DT[35]\n"; }
-      my $ips=checkExtraInfo($URL1);
-      print $c[1]."    $DS[10]      ";
-      if ($ips) { my $ad=inet_ntoa($ips); print $c[10]."$ad\n"; }
-      else{ print $c[10]."$DT[35]\n"; }
-      checkCms($html); checkErrors($html);
-      if (defined $output) { print $c[1]."    OUTPUT  ". $c[10]."$output\n"; }
+  my ($response, $html, $status, $serverheader, $command, $port);
+  if (!defined $noping) {
+    ($response, $html, $status, $serverheader)=getHtml($URL1, $form);
+    my $o=OO();
+    if ($o<$limit) {
+      if ((!defined $noinfo && !$noinfo) || (!defined $noping)) {
+        if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }    
+        print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
+        if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
+        else { print $c[10]."$DT[35]\n"; }
+        my $ips=checkExtraInfo($URL1);
+        print $c[1]."    $DS[10]      ";
+        if ($ips) { my $ad=inet_ntoa($ips); print $c[10]."$ad\n"; }
+        else{ print $c[10]."$DT[35]\n"; }
+        checkCms($html); checkErrors($html);
+        if (defined $output) { print $c[1]."    OUTPUT  ". $c[10]."$output\n"; }
+      }
     }
   }
   return ($response, $status, $html);
@@ -268,16 +273,23 @@ sub getRegex {
 sub getComnd {
   my ($URL1, $comnd)=@_;
   $URL1=~s/(\%27|\<|\>|\%25|\')(.*)//ig;
-  if ($URL1=~/(($V_IP)\:(\d{2,6}))/) {
+    
+  if ($URL1=~/($V_IP)/) {
     $URL1=removeProtocol($URL1);
     if ($comnd=~/-PORT/) {
-      $URL1=~s/\:/\./g;
-      my @f=split /\./, $URL1;
-      my $Addr="$f[0].$f[1].$f[2].$f[3]";
-      my $Port=$f[4];
-      $comnd=~s/\-\-TARGET/$Addr/ig;
-      $comnd=~s/\-\-PORT/$Port/ig;
-    }else{ $comnd=~s/\-\-TARGET/$URL1/ig; }
+      if ($URL1=~/(($V_IP)\:(\d{2,6}))/) {
+        $URL1=~s/\:/\./g;
+        my @f=split /\./, $URL1;
+        my $Addr="$f[0].$f[1].$f[2].$f[3]";
+        my $Port=$f[4];
+        $comnd=~s/\-\-TARGET/$Addr/ig;
+        $comnd=~s/\-\-PORT/$Port/ig;
+      }else{
+        $comnd=~s/\-\-TARGET/$URL1/ig;
+      }
+    }else{
+      $comnd=~s/\-\-TARGET/$URL1/ig;
+    }    
   }else{
     if ($comnd=~/\-HOSTIP/) {
       my $ips=checkExtraInfo($URL1);
@@ -288,9 +300,14 @@ sub getComnd {
       $URL1=~s/\/.*//s;
       $URL1=checkUrlSchema($URL1);
       $comnd=~s/\-\-HOST/$URL1/ig;
-    }elsif ($comnd=~/\-TARGET/) { $comnd=~s/\-\-TARGET/$URL1/ig; }
+    }elsif ($comnd=~/\-TARGET/) {
+      $comnd=~s/\-\-TARGET/$URL1/ig;
+    }
   }
-  stakScan(); print $c[8]; system($comnd); print "\n";
+  
+  print "$c[1]    $DT[24]   $c[10]$comnd\n";
+  print $c[8]."            ";
+  system($comnd); print "\n";
 }
 
 our ($exploit, $p, $shell, @exploits);

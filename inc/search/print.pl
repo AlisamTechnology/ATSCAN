@@ -66,9 +66,7 @@ sub printResults {
       getRegex($URL1, $html, $reg); }
     elsif ($comnd) {
       my $cV=checkValidation($URL1, $status, $html, $response, "");
-      print "$c[1]    $DT[24]   $c[10]$comnd\n";
-      titleSCAN();
-      if ($cV) { getComnd($URL1, $comnd); }else{ noResult(); }
+      if ($cV) { getComnd($URL1, $comnd); }else{ titleSCAN(); noResult(); }
     }elsif ($data) {
       titleSCAN(); formData($URL1, $html, $status, $response); 
     }else{

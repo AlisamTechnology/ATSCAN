@@ -225,6 +225,10 @@
       <tr>
         <td width="200px" class="main">--noinfo </td>
         <td class="main"> Jump extra results info.</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--noping </td>
+        <td class="main"> No host ping.</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--limit </td>

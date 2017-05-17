@@ -42,6 +42,8 @@ echo "[ ] SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                
 echo "[ ]=======================================================================[ ]";
 
 echo "";
+
+### Check system compatibility
 if [ -d "/usr/bin/" ];
 then
 echo "[!] Install.sh install atscan tool in your system? [y/n]: ";
@@ -53,6 +55,8 @@ if [ "$baba" == "y" ] || [ "$baba" == "Y" ] || [ -z "$baba" ];
     echo "[!] Installation aborted!";
     exit
 fi
+
+### Setting instalation path
 current=`pwd`
 echo "[!] Where do you want to install ATSCAN?";
 echo "[!] Set path or press enter to use default dir [$current]: "
@@ -62,6 +66,7 @@ then
  refdir=`pwd`;
 fi
 
+### Checkin previous instalation
 echo "[!] Checking directories..."
 if [ -e "/usr/bin/atscan" ];
 then
@@ -71,15 +76,27 @@ if [ "$mama" == "y" ] || [ "$mama" == "Y" ] || [ -z "$mama" ];
 then
  rm "/usr/bin/atscan"
 else
- echo "[!] Installation aborted!";
+ echo "[!] Instalation aborted!";
  exit
 fi
 fi
 
- echo "[!] Connecting...";
+## Begin instalation
+echo "[!] Installing...";
+ 
+if [ ! -d "$current/inc" ] || [ ! -e "$current/atscan.pl" ];
+then
+ echo "[!] Downloading missing dependencies...";
  git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/atscan_install;
- echo "[!] Installing...";
  cp -r $refdir/atscan_install/* $refdir/;
+else
+  if [ $current != $refdir ];
+  then
+    echo "[!] Moving files to $refdir ...";
+    cp -r $current/* $refdir/;
+  fi
+fi 
+ 
  sleep 1 && echo "[!] Creating symbolic link...";
  echo "#!/bin/bash 
  perl $refdir/atscan.pl" '${1+"$@"}' > atscan;
@@ -105,7 +122,10 @@ fi
  echo "[!] Removing install files...";
  rm $refdir/inc/conf/atscan;
  rm $refdir/install.sh;
- rm -r $refdir/atscan_install;
+ if [ -d "$refdir/atscan_install" ];
+ then
+   rm -r $refdir/atscan_install;
+ fi
  rm $refdir/README.md;
 
 if [ -e "$refdir/atscan" ] || [ -e "$refdir/atscan.pl" ];
@@ -121,5 +141,5 @@ fi
 else
 echo "Tool cannot be installed on your system! Use it as portable!";
 fi
-#############################################################################################
-## END ######################################################################################
+
+### last update 17/05/2017

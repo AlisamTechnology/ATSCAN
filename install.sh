@@ -119,7 +119,7 @@ else
   exit
 fi
 else
-echo "Tool can be installed on your system! Use it as portable!";
+echo "Tool cannot be installed on your system! Use it as portable!";
 fi
 #############################################################################################
 ## END ######################################################################################

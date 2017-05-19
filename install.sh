@@ -215,6 +215,7 @@ fi
  fi
  rm $refdir/README.md;
  if [ -d "$refdir/inc/conf/desktop" ];
+ then
    rm -r $refdir/inc/conf/desktop;
  fi
  if [ -e "$refdir/atscan" ] || [ -e "$refdir/atscan.pl" ];

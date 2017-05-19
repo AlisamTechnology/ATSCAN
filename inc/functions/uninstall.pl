@@ -12,17 +12,24 @@ if (defined $uninstall) {
   my $resp=<STDIN>;
   chomp ($resp);
   if ($resp=~/(Y|y)/) {
-    my @uninstall=($scriptbash, "$scriptCompletion/atscan", $script);
+    my @uninstall=($scriptbash, "$scriptCompletion/atscan", $script, "/usr/share/applications/atscan.desktop", "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png");
     for my $mm(@uninstall) {
       print $c[10]."[!] $ZT[8] $mm... ";
       unlink $mm if -e $mm;
       if (!-e $mm) { cc(); }else{ bb(); }
     }
     
+	my @deleteIcons=("/usr/share/applications/atscan.desktop", "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png", "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png", "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png", "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png", "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png");
+    for my $ico(@deleteIcons) {
+      print $c[10]."[!] $ZT[8] $ico... ";
+      unlink $ico if -e $ico;
+      if (!-e $ico) { cc(); }else{ bb(); }
+    }
+	
     print $c[10]."[!] $ZT[8] $Bin/inc... ";
     system "rm -rf $Bin/inc" if -e "$Bin/inc";
     if (!-d "$Bin/inc") { cc(); }else{ bb(); }
-    
+ 
     print $c[10]."[!] $ZT[8] $readme... ";
     system "rm -rf $readme if -d $readme";
     if (!-d $readme) { cc(); }else{ bb(); }

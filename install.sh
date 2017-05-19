@@ -68,6 +68,15 @@ then
  refdir=`pwd`;
 fi
 
+if [ ! -d $refdir ];
+then
+  until [ -d $refdir ];
+  do
+   echo "[!] $refdir doesnot exist!!";
+   echo "[!] Set path or press enter to use default dir [$current]: "
+   read refdir
+  done
+fi
 ### Checkin previous instalation
 echo "[!] Checking directories..."
 if [ -e "/usr/bin/atscan" ];
@@ -214,7 +223,7 @@ fi
    rm -r $refdir/atscan_install;
  fi
  rm $refdir/README.md;
- if [ -d "$refdir/inc/conf/desktop" ];
+ if [ -d "$refdir/inc/conf/desktop" ]; 
  then
    rm -r $refdir/inc/conf/desktop;
  fi

@@ -287,6 +287,8 @@ sub getComnd {
       }else{
         $comnd=~s/\-\-TARGET/$URL1/ig;
       }
+    }elsif ($comnd=~/\-HOSTIP/) {
+      $URL1=~s/\:(\d{2,6})//s;
     }else{
       $comnd=~s/\-\-TARGET/$URL1/ig;
     }    

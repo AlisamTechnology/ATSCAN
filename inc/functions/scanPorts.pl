@@ -38,6 +38,7 @@ sub scanPorts {
               $c2++;
               points() if $c2>1;
               my $socket;
+              my $closed1=0;
               if (defined $proxy || $proxy || defined $prandom || $prandom) {
                 if (defined $prandom || $prandom) {
                   newIdentity();
@@ -67,7 +68,6 @@ sub scanPorts {
                 print $c[2]."$DS[43]\n";
               }
             }
-            my $closed1=0;
           }
         }
       }

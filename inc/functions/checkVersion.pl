@@ -32,8 +32,12 @@ if ($same eq "yes") {
   print $c[10];
   system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
   if (!-d "$Bin/atscan_update") { print "\n"; dd(); exit(); }
+  print $c[10]."[!] $ZT[2] ";
+  system "sudo cp -r $Bin/atscan_update/inc $Bin";
+  if (!-d "$Bin/inc") { bb(); exit(); }
+  else{ cc(); }
   
-  print $c[10]."[!] Creating desktop entries....\n";
+   print $c[10]."[!] Creating desktop entries....\n";
   if (-d "/usr/share/applications/") {
     if (!-e "/usr/share/applications/atscan.desktop") {
 	  system "sudo cp $Bin/atscan_update/inc/conf/desktop/atscan.desktop /usr/share/applications/";
@@ -67,11 +71,6 @@ if ($same eq "yes") {
 	}
   }
   
-  print $c[10]."[!] $ZT[2] ";
-  system "sudo cp -r $Bin/atscan_update/inc $Bin";
-  if (!-d "$Bin/inc") { bb(); exit(); }
-  else{ cc(); }
-    
   my @f=("README.md", "License.txt");
   for my $f(@f) {
     print $c[10]."[!] $ZT[5] $f to $readme/... ";

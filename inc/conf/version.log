@@ -1,8 +1,7 @@
 VERSION 12 RELEASE
 =====================================================
-  CHANGES: 20/05/2017
+  CHANGES: 24/05/2017
   ===================================================
-  - Add Desktop entries.
-  - Fix ip in extern commands.
+  - Fix update Desktop entries.
   - Enjoy!
   ===================================================

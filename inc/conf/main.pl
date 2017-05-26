@@ -14,7 +14,7 @@ sub printSearch {
   if (defined $searchRegex) { doRegex($searchRegex); }
   if (scalar(grep { defined $_} @aTsearch)>0) {
     my @aTsearch=checkDuplicate(@aTsearch);
-    print $c[3]."[!] ".scalar(grep { defined $_} @aTsearch)." $DT[4]\n";
+    print $c[3]."[i] ".scalar(grep { defined $_} @aTsearch)." $DT[4]\n";
     my $k=getK(0, 0);
     if (!$k) {
       makeSscan("", "", "", \@TODO, \@V_TODO, "", "", "1", "", "", "", "", "", "1");

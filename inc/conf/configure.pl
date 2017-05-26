@@ -169,7 +169,7 @@ our @mrands=($motor1, $motor2, $motor3, $motor4, $motor5);
 our $mrand=$mrands[rand @mrands];
 our @allMotors=($motor1, $motor2, $motor3, $motor4, $motor5);
 our $pat2='inurl:|intitle:|intext:|allinurl:|index of|site:(.*)\+|\+site:(.*)';
-our $paylNote="[!] $DT[28]\n";
+our $paylNote="[i] $DT[28]\n";
 
 ## BROWSER RANDOM
 our $browserLang=$browserlangs[rand @browserlangs];

@@ -118,7 +118,7 @@ sub msearch {
   print $c[11]."$SCAN_TITLE[0]"; scanTitleEnd();
   printMotor(@motors);
   printDork(@dorks);
-  print $c[4]."[!] $DT[31]\n";
+  print $c[4]."[i] $DT[31]\n";
   for my $motor(@motors) {
     for my $dork(@dorks) {
       if (defined $Target) { $dork="ip%3A".$dork; }

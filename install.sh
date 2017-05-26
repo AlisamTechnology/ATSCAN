@@ -78,7 +78,7 @@ then
   done
 fi
 ### Checkin previous instalation
-echo "[!] Checking directories..."
+echo "[i] Checking directories..."
 if [ -e "/usr/bin/atscan" ];
 then
 echo "[!] A previous instalation was found in /usr/bin/! Do you want to replace it? [y/n]: "
@@ -93,28 +93,28 @@ fi
 fi
 
 ## Begin instalation
-echo "[!] Installing...";
+echo "[i] Installing...";
  
 if [ ! -d "$current/inc" ] || [ ! -e "$current/atscan.pl" ];
 then
- echo "[!] Downloading missing dependencies...";
+ echo "[i] Downloading missing dependencies...";
  git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/atscan_install;
  cp -r $refdir/atscan_install/* $refdir/;
 else
   if [ $current != $refdir ];
   then
-    echo "[!] Moving files to $refdir ...";
+    echo "[i] Moving files to $refdir ...";
     cp -r $current/* $refdir/;
   fi
 fi 
  
- sleep 1 && echo "[!] Creating symbolic link...";
+ sleep 1 && echo "[i] Creating symbolic link...";
  echo "#!/bin/bash 
  perl $refdir/atscan.pl" '${1+"$@"}' > atscan;
  chmod +x atscan;
  sudo cp atscan /usr/bin/;
  rm atscan;
- sleep 1 && echo "[!] Creating Completion link...";
+ sleep 1 && echo "[i] Creating Completion link...";
  if [ -d "/etc/bash_completion.d" ] ;
  then
    chmod +x $refdir/inc/conf/atscan;
@@ -208,14 +208,14 @@ fi
  fi
  ######## 
  
- sleep 1 && echo "[!] Copying README.md to /usr/share/doc/atscan...";
+ sleep 1 && echo "[i] Copying README.md to /usr/share/doc/atscan...";
  chmod +x "/usr/share/doc/atscan/";
  chmod +x $refdir/README.md;
  sudo cp $refdir/README.md /usr/share/doc/atscan/;
- sleep 1 && echo "[!] Copying License.txt to /usr/share/doc/atscan...";
+ sleep 1 && echo "[i] Copying License.txt to /usr/share/doc/atscan...";
  chmod +x $refdir/License.txt;
  sudo cp $refdir/License.txt /usr/share/doc/atscan/;
- echo "[!] Removing install files...";
+ echo "[i] Removing install files...";
  rm $refdir/inc/conf/atscan;
  rm $refdir/install.sh;
  if [ -d "$refdir/atscan_install" ];
@@ -230,7 +230,7 @@ fi
  if [ -e "$refdir/atscan" ] || [ -e "$refdir/atscan.pl" ];
  then
  sleep 1 && echo "[!] Tool successfully installed";
- echo "[!] Updating tool.. ";
+ echo "[i] Updating tool.. ";
  sleep 2;
  atscan --update;
 else

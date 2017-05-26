@@ -11,7 +11,7 @@ my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCA
 
 ## OTHERS DIALOG TEXT
 my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan is required! EX: --sql or validation EX: --status 200", "[!] ATSCAN will be removed from your system! [Y/N]:", 
-"[!] ATSCAN was moved successfully", "You cannot use payloads here! Use --exp", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is",
+"[i] ATSCAN was moved successfully", "You cannot use payloads here! Use --exp", "Discleamer: Using ATSCAN to Attack targets without prior mutual consent is",
 "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC",
 "[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "You cannot validate two times!", "METHOD", "Checking for updates..");
 
@@ -27,7 +27,7 @@ my @ErrT=("LFI:", "MYSQL:", "AFD:", "Microsoft:", "Oracle:", "DB2:", "ODBC:", "P
           "Traying again my solve problem or set timeout --time <time in s>", "Possible errors detected!");
 
 ## GENERAL DIALOG TEXT
-my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!", "SCAN FINISHED\!", "Unique Result\(s\) Found\!", "No Target list found\!", "[!] The tool is up to date!",
+my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!", "SCAN FINISHED\!", "Unique Result\(s\) Found\!", "No Target list found\!", "[i] The tool is up to date!",
 "Tool updeted with success\!", "Couldn't auto check for updates!", "Exploit\(s\)", "Check Your Connection or Proxy Setting\!", "Your Internet connection seems not active\!",
 "Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://].", "Given target file path is not true.",
 "Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![sql\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!",

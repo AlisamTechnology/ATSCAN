@@ -149,7 +149,7 @@ sub endScan {
   my $o=OO();
   if ($o>0) {
     countResultLists();
-    if (defined $output) { print $c[4]."[!] $DT[13] $output!\n"; }
+    if (defined $output) { print $c[4]."[i] $DT[13] $output!\n"; }
   }else{ negative(); }
 }
 

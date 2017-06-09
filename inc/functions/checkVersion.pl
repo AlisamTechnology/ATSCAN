@@ -37,40 +37,38 @@ if ($same eq "yes") {
   if (!-d "$Bin/inc") { bb(); exit(); }
   else{ cc(); }
   
-   print $c[10]."[i] Creating desktop entries....\n";
+  print $c[10]."[i] Creating desktop entries....\n";
+   
   if (-d "/usr/share/applications/") {
-    if (!-e "/usr/share/applications/atscan.desktop") {
 	  system "sudo cp $Bin/atscan_update/inc/conf/desktop/atscan.desktop /usr/share/applications/";
-	} 
   }
   
   if (-d "/usr/share/icons/hicolor/16x16/apps/") {
-    if (!-e "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png") {
 	  system "sudo cp $Bin/atscan_update/inc/conf/desktop/16x16/atscan-menu.png /usr/share/icons/hicolor/16x16/apps/";
 	  if (!-e "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png") { print $c[3]."[!] Error cannot whrite in /usr/share/icons/hicolor/16x16/apps/!\n"; }
-	}
 	
-	if (!-e "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png") {
 	  system "sudo cp $Bin/atscan_update/inc/conf/desktop/22x22/atscan-menu.png /usr/share/icons/hicolor/22x22/apps/";
 	  if (!-e "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png") { print $c[3]."[!] Error cannot whrite in /usr/share/icons/hicolor/22x22/apps/!\n"; }
-	}
 	
-	if (!-e "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png") {
 	  system "sudo cp $Bin/atscan_update/inc/conf/desktop/24x24/atscan-menu.png /usr/share/icons/hicolor/24x24/apps/";
 	  if (!-e "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png") { print $c[3]."[!] Error cannot whrite in /usr/share/icons/hicolor/24x24/apps/!\n"; }
-	}
 	
-	if (!-e "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png") {
 	  system "sudo cp $Bin/atscan_update/inc/conf/desktop/48x48/atscan-menu.png /usr/share/icons/hicolor/48x48/apps/";
 	  if (!-e "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png") { print $c[3]."[!] Error cannot whrite in /usr/share/icons/hicolor/48x48/apps/!\n"; }
-	}
 	
-	if (!-e "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png") {
 	  system "sudo cp $Bin/atscan_update/inc/conf/desktop/256x256/atscan-menu.png /usr/share/icons/hicolor/256x256/apps/";
 	  if (!-e "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png") { print $c[3]."[!] Error cannot whrite in /usr/share/icons/hicolor/256x256/apps/!\n"; }
-	}
+     
+      my @deskFiles=("/usr/share/applications/atscan.desktop", "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png", "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png",
+                     "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png", "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png", "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png");
+      for my $deskFile(@deskFiles) {
+        print $c[10]."[i] $ZT[5] $deskFile ... ";
+        if (!-e "$deskFile") { print $c[3]."[!] Error cannot whrite to $deskFile!\n"; }
+        else{ cc();
+      }
+    }
   }
-  
+
   my @f=("README.md", "License.txt");
   for my $f(@f) {
     print $c[10]."[i] $ZT[5] $f to $readme/... ";

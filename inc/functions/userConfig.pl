@@ -15,17 +15,17 @@ if (-e $userSetting) {
     if (grep(/^config/, @configuration)) {
         print $c[1]."[::]$c[3] [X] $c[11]CONFIGURATION IS: $c[3]ON\n";
     }else{
-      print $c[1]."[::]$c[2] [X] $c[11]CONFIGURATION IS: $c[2]OFF $c[4](Must be active to use configuration!)\n";
+      print $c[1]."[::]$c[2] [X] $c[11]CONFIGURATION IS: $c[2]OFF $c[4](Set to ON to use configuration!)\n";
     }
     print $c[1]."   +"."-" x 71 ."\n";
     if (grep(/^password/, @configuration)) {
-      print "$c[1]    |$c[3] [X] $c[10]Password: $c[3]********\n";
+      print "$c[1]   |$c[3] [X] $c[10]Password: $c[3]****** $c[4] Required even configuration is off!\n";
     }
     for my $lines(@configuration) {
-      if (($lines=~/$res1/)&&($lines!~/(password|##|config)/ and !($lines=~/^$/))) {
+      if (($lines=~/$res1/)&&($lines!~/(##|config)/ and !($lines=~/^$/))) {
         $aa++;
         my @printConf=split(" ", $lines);
-        print "$c[1]   |$c[3] [X] $c[10]$printConf[0]\n";
+        print "$c[1]   |$c[3] [X] $c[10]$printConf[0]\n" if $printConf[0]!~/password/;
       }
     }
     print $c[1]."   |$c[2] [x]$c[4] $AUTH[11]\n" if $aa<1;   
@@ -57,8 +57,7 @@ if (-e $userSetting) {
     print "   |               | set unique on                   | reset unique       |\n";
     print "   |               |                                 | reset all          |\n";
     print "   +---------------+---------------------------------+--------------------+\n";
-    print "   |         $c[4]NOTE: Password is required even configuration is off! $c[10]       |\n";
-    print "   +----------------------------------------------------------------------+\n\n";
+    print "\n";
     my $ps;
     my $finish = 0;
     while(!$finish) {

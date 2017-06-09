@@ -78,7 +78,7 @@ use FindBin '$Bin';
   ."  [DATA/DATAFILE]| To separate data values ex: --data \"name:username [DATA]email:xxxxxx [DATA]pass:xxxxx\"\n"
   ."                 | Wordlist: --data \"name:username [DATA]email:xxxx\@xx.com [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
   ."  [OTHER]        | To separate all others values (dork exploit payload proxy target..) ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n"
-  ."  --pass         | Set or edit tool password. \n"
+  ."  --pass         | Set password for tool use. \n"  
   ."  --config       | Set configuration. \n"  
   ."  --update       | Update tool. \n"  
   ."  --uninstall    | Uninstall tool \n\n";

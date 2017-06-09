@@ -6,7 +6,7 @@ use Term::ReadKey;
 ## Copy@right Alisam Technology see License.txt
 
 ## LOGIN
-our ($updtd, $password, @AUTH, @c);
+our ($password, @AUTH, @c);
 
 my $passwd;
 sub questionlog {
@@ -17,11 +17,9 @@ sub questionlog {
   return $passwd;
 }
 
-if (!defined $updtd) {
-  $passwd=questionlog();
-  $passwd=Digest::MD5->md5_hex($passwd);
-  if ($password ne $passwd) { print $c[2]."\n[i] $AUTH[1]\n"; $passwd=questionlog(); }
-  print "$c[3] Logged in!\n"; mtak(); ptak();
-} 
+$passwd=questionlog();
+$passwd=Digest::MD5->md5_hex($passwd);
+if ($password ne $passwd) { print $c[2]."\n[i] $AUTH[1]\n"; $passwd=questionlog(); }
+print "$c[3] Logged in!\n"; mtak(); ptak();
 
 1;

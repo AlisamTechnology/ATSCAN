@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=atscan
 Encoding=UTF-8
-Exec=sh -c "atscan -h;${SHELL:-bash}"
+Exec=sh -c "atscan ;${SHELL:-bash}"
 Icon=atscan-menu.png
 StartupNotify=false
 Terminal=true

@@ -1,6 +1,6 @@
 <html>
 <body>
-<h1 align="center">ATSCAN</h1>
+<h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner <br>فاحص متقدم لبحث و استغلال الثغرات بالجملة </b></p>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>

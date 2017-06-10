@@ -193,7 +193,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--data</td>
-        <td class="main"> data. See examples </td>
+        <td class="main"> Post and Get forms. See examples </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--post</td>

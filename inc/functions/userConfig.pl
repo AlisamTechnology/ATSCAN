@@ -41,7 +41,6 @@ if (-e $userSetting) {
     print "   |               | set engine <option>             | reset engine       |\n";
     print "   |               | set timeout <in s> Default 10   | reset timeout      |\n";    
     print "   |               | set update <in days> Default 10 | reset update       |\n";
-    print "   |               | set timeout <in s> Default 10   | reset timeout      |\n";
     print "   |               | set password <password>         | reset password     |\n";
     print "   |               | set method <get/post>           | reset method       |\n";
     print "   | show config   | set freq <time in s>            | reset freq         |\n";

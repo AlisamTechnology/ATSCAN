@@ -446,7 +446,7 @@
        Search: atscan -d [dork] -l [level]  <br/>
        Set engine: atscan --dork [dork] --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
        Set selective engines: atscan -d [dork] -l [level] -m 1,2,3.. <br/>
-       Search with many dorks: atscan --dork dork1 [OTHER]dork2 [OTHER]dork3> --level [level]    <br/>
+       Search with many dorks: atscan --dork dork1 [OTHER]dork2 [OTHER]dork3] --level [level]    <br/>
        Search and rand: atscan -d [dork] -l [level] --exp "/index.php?id=rang(1-9)" --sql   <br/>
        Get Server sites: atscan -t [ip] --level [value] --sites <br/>
        Get Server sites: atscan -t "[ip from]-[ip to]" --level [value] --sites <br/>

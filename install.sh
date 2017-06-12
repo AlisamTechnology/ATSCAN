@@ -229,8 +229,8 @@ fi
  fi
  if [ -e "$refdir/atscan" ] || [ -e "$refdir/atscan.pl" ];
  then
- sleep 1 && echo "[!] Tool successfully installed";
- echo "[i] Updating tool.. ";
+ sleep 1 && echo "[i] Tool successfully installed!";
+ echo "[i] Please wait will updating tool.. ";
  sleep 2;
  atscan --update;
 else
@@ -238,7 +238,7 @@ else
  exit
 fi
 else
- echo "Tool cannot be installed on your system! Use it as portable!";
+ echo "[!] Tool cannot be installed on your system! Use it as portable!";
 fi
 
-### last update 17/05/2017
+### last update 12/06/2017

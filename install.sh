@@ -10,7 +10,7 @@
 # /inc/conf/atscan => /etc/bash_completion.d/atscan
 # Sym link in /usr/bin/atscan
 # Readme /usr/share/doc/atscan/README.md
-# Desktop entry /usr/share/applications/atscan
+# Desktop entry /usr/share/applications/atscan.desktop
 # Icons /usr/share/icons/hicolor/
 # License /usr/share/doc/atscan/License.txt
 #############################################################################################
@@ -48,7 +48,7 @@ echo "";
 ### Check system compatibility
 if [ -d "/usr/bin/" ];
 then
-echo "[!] Install.sh install atscan tool in your system? [y/n]: ";
+echo "[!] Install.sh install atscan tool (sise 500 KB) in your system? [Y/n]: ";
 read baba
 if [ "$baba" == "y" ] || [ "$baba" == "Y" ] || [ -z "$baba" ]; 
   then
@@ -81,7 +81,7 @@ fi
 echo "[i] Checking directories..."
 if [ -e "/usr/bin/atscan" ];
 then
-echo "[!] A previous instalation was found in /usr/bin/! Do you want to replace it? [y/n]: "
+echo "[!] A previous instalation was found in /usr/bin/! Do you want to replace it? [Y/n]: "
 read mama
 if [ "$mama" == "y" ] || [ "$mama" == "Y" ] || [ -z "$mama" ];  
 then

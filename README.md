@@ -293,7 +293,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--wpafd  </td>
-        <td class="main"> Scan wordpress sites for arbitery file download</td>
+        <td class="main"> Scan wordpress sites for arbitrary file download</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--admin </td>

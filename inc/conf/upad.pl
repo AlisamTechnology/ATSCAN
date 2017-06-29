@@ -35,7 +35,7 @@ if ($date1[1]<$date2[1]) {
 sub updateMessage  {
   my ($same, $rp)=compareme();
   if ($rp->is_success) {
-    if ($same eq "0") { print $c[4]."  [i] A new update is aviable! To update: --update\n"; }
+    if ($same ne 0) { print $c[4]."  [i] A new update is aviable! To update: --update\n"; }
     else{
       open (MN, '>', $uplog) or nochmod($uplog, "");
       print MN "$fulldate"; close(MN);

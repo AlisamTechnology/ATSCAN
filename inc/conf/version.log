@@ -3,6 +3,7 @@ VERSION 12.1 RELEASE
   CHANGES: 29/06/2017
   ===================================================
   - Fix engine pagination.
+  - Fix update when tool not installed.
   - Enjoy!
   ===================================================
 

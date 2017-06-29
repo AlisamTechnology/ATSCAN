@@ -130,7 +130,6 @@ sub msearch {
       $motor=~s/MYDORK/$dork/g;
       my $mlevel=$mlevel+=-10 if $mlevel > 9;
       $mlevel=verifyMlevel($mlevel);
-      print $mlevel; exit;
       for(my $npages=0;$npages<=$mlevel;$npages+=10) {
         $motor=~s/MYNPAGES/$npages/g;
         my $search=$ua->get("$motor");

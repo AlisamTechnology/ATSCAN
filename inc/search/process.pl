@@ -128,8 +128,9 @@ sub msearch {
       $dork=~s/:/%3A/g;
       $dork=~s/^(\+|\s+)//g;
       $motor=~s/MYDORK/$dork/g;
-      my $mlevel=$mlevel;
-      $mlevel=$mlevel+=-10 if $mlevel > 9;
+      my $mlevel=$mlevel+=-10 if $mlevel > 9;
+      $mlevel=verifyNumber($mlevel);
+      print $mlevel; exit;
       for(my $npages=0;$npages<=$mlevel;$npages+=10) {
         $motor=~s/MYNPAGES/$npages/g;
         my $search=$ua->get("$motor");
@@ -142,6 +143,15 @@ sub msearch {
   }
   printSearch();
 } 
+
+## GET SEARCH PAGES NUMBER
+sub verifyNumber {
+  my $mlevel = $_[0];
+  my $last = (substr $mlevel, -1);
+  my $numberToAdd = 10 - $last;
+  my $lastNumber = $mlevel + $numberToAdd;
+  return $lastNumber;
+}
 
 ## BUILD ENGINE URL
 sub printEngineInfo { 

@@ -6,7 +6,7 @@
 # Alisam Technology 2015
 #############################################################################################
 # PATHs:
-# Parent directory => User choice.
+# Parent directory => default: /usr/share/atscan/
 # /inc/conf/atscan => /etc/bash_completion.d/atscan
 # Sym link in /usr/bin/atscan
 # Readme /usr/share/doc/atscan/README.md
@@ -61,11 +61,13 @@ fi
 ### Setting instalation path
 current=`pwd`
 echo "[!] Where do you want to install ATSCAN?";
-echo "[!] Set path or press enter to use default dir [$current]: "
+echo "[!] Set path or press enter to use default [/usr/share/]: "
 read refdir
 if [ -z "$refdir" ];
 then
- refdir=`pwd`;
+  mkdir "/usr/share/atscan/";  
+  chmod +x "/usr/share/atscan/";
+  refdir="/usr/share/atscan/";
 fi
 
 if [ ! -d $refdir ];
@@ -73,7 +75,7 @@ then
   until [ -d $refdir ];
   do
    echo "[!] $refdir doesnot exist!!";
-   echo "[!] Set path or press enter to use default dir [$current]: "
+   echo "[!] Set path or press enter to use default [/usr/share/]: "
    read refdir
   done
 fi

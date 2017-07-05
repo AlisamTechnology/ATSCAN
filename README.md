@@ -433,9 +433,9 @@
         or --proxy list.txt Ex: --proxy my_proxies.txt <br/>
         <hr>
         &#x25cf; <b>RANDOM: </b> <br/>
-        Random proxy --proxy-random [proxy  list.txt] <br/>
-        Random browser --b-random <br/>
-        Random engine --m-random <br/>
+        Random proxy: --proxy-random [proxy  list.txt] <br/>
+        Random browser: --b-random <br/>
+        Random engine: --m-random <br/>
         <hr>
        &#x25cf; <b>SET HEADERS:</b> <br>
        atscan --dork [dork / dorks.txt] --level [level] --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" <br/>

@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $msites, $content);
-our ($regex, $V_IP, $mrandom , $tcp, $udp, $dork, $motor, $searchRegex, $replace, $with, $shell, $unique, $post, $limit, $validText, $get, , $payloads, $exploit, $method, @TT, @SCAN_TITLE, @DT, @OTHERS, @c);
+our ($regex, $V_IP, $mrandom , $tcp, $udp, $dork, $motor, $searchRegex, $replace, $with, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @TT, @SCAN_TITLE, @DT, @OTHERS, @c);
 
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
@@ -97,7 +97,7 @@ sub advise_no_file {
 
 ## CHECK PAYLOAD ARGUMENT
 if (defined $payloads) {
-  if (!defined $xss && !defined $lfi && !defined $JoomRfi && !defined $WpAfd && !defined $adminPage && !defined $subdomain && !defined $mupload && !defined $mzip) {
+  if (!defined $xss && !defined $lfi && !defined $JoomRfi && !defined $WpAfd && !defined $adminPage && !defined $subdomain && !defined $mupload && !defined $mzip && !defined $config) {
     print $c[4]."[!] $OTHERS[10] $payloads\n"; logoff();
   }
 }

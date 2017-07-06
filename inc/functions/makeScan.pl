@@ -14,8 +14,12 @@ sub makeSscan {
   if (!$no) { print $c[11]."$title"; scanTitleEnd(); title($title); }
   print $c[4]."$paylNote" if (defined $paylNote and !defined $payloads);
   my @arr;
-  if (defined $payloads) { @arr=@userArraysList; }
-  else{ @arr=@{ $ar }; }  
+  
+  our ($xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip);
+  if (defined $xss || defined $lfi || defined $JoomRfi || defined $WpAfd || defined $adminPage || defined $subdomain || defined $mupload || defined $mzip) {
+    if (defined $payloads) { @arr=@userArraysList; }
+    else{ @arr=@{ $ar }; }
+  }
   my @filter=@{ $v_ar };
   my $filter=join("|", @filter); 
   @aTsearch=checkDuplicate(@aTsearch);

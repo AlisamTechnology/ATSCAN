@@ -95,11 +95,4 @@ sub advise_no_file {
   print $c[2]."[!] Cannot whrite in $no_file !\n"; logoff();
 }
 
-## CHECK PAYLOAD ARGUMENT
-if (defined $payloads) {
-  if (!defined $xss && !defined $lfi && !defined $JoomRfi && !defined $WpAfd && !defined $adminPage && !defined $subdomain && !defined $mupload && !defined $mzip && !defined $config) {
-    print $c[4]."[!] $OTHERS[10] $payloads\n"; logoff();
-  }
-}
-
 1;

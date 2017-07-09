@@ -6,8 +6,8 @@ use FindBin '$Bin';
 
 ## BENNER
 our (@c, $Version);
-my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us all!", "! Love Mezguida H4ckers !", "No Pe4ce between systems!", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !",
-"You look better today !", "No h4y sistem4 4 s4lvo !!", "When be broken u will hear it!");
+my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us 4ll!", "! Love Mezguida H4ck3rs !", "No Pe4ce b3tween syst3ms!", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !",
+"You look b3tt3r tod4y !", "No h4y s1st3m4 4 s4lvo !!", "When b3 broken u will h3ar it!");
   my @LOGO=("
     $c[4]     /\\ ___ /\\ 
     $c[4]    (  o   o  )             $c[2]$ESLOGAN[rand @ESLOGAN]

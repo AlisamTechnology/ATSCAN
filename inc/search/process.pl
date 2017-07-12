@@ -140,7 +140,7 @@ sub msearch {
         doSearch($Res, $motor);
         $motor=~s/$npages/MYNPAGES/g;
       }
-      $motor=~s/$dork/MYDORK/g;
+      $motor=~s/\Q$dork/MYDORK/ig;        
     }
   }
   printSearch();

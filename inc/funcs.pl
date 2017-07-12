@@ -462,7 +462,8 @@ sub control {
     $URL=~s/\/.*//s;
   }
   if (defined $replace) {
-    $URL=~s/\Q$replace(.*)/$replace/g if defined $full; 
+    our $full;
+    if (defined $full) { $URL=~s/$replace.*/$replace/g; }
     $URL=~s/\Q$replace/$with/ig;
   }    
   $URL=checkUrlSchema($URL);

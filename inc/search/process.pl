@@ -96,9 +96,11 @@ sub printDork {
   my @dor=@_;
   print $c[1]."[::] $DS[0]     $c[10]";     
   for my $dor(@dor) {
-    $dor=~s/\s+$//;
-    $dor=~s/ip%3A//g;
-    print "[$dor]";
+    if (length $dor>0) {    
+      $dor=~s/\s+$//;
+      $dor=~s/ip%3A//g;
+      print "[$dor]";
+    }
   }
   print "\n";
   if ($zone) { print $c[1]."[::] ZONE    $c[10] [$zone]\n"; }

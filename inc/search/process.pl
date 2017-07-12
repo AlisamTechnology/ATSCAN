@@ -135,7 +135,6 @@ sub msearch {
         $motor=~s/MYDORK/$dork/g;
         for(my $npages=0;$npages<=$mlevel;$npages+=10) {
           $motor=~s/MYNPAGES/$npages/g;
-          print "======= $motor\n";
           my $search=$ua->get("$motor");
           $search->as_string;
           my $Res=$search->content;

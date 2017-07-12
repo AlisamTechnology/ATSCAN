@@ -131,16 +131,19 @@ sub msearch {
       $dork=~s/ /+/g;
       $dork=~s/:/%3A/g;
       $dork=~s/^(\+|\s+)//g;
-      $motor=~s/MYDORK/$dork/g;
-      for(my $npages=0;$npages<=$mlevel;$npages+=10) {
-        $motor=~s/MYNPAGES/$npages/g;
-        my $search=$ua->get("$motor");
-        $search->as_string;
-        my $Res=$search->content;
-        doSearch($Res, $motor);
-        $motor=~s/$npages/MYNPAGES/g;
+      if (length $dork > 0) {      
+        $motor=~s/MYDORK/$dork/g;
+        for(my $npages=0;$npages<=$mlevel;$npages+=10) {
+          $motor=~s/MYNPAGES/$npages/g;
+          print "======= $motor\n";
+          my $search=$ua->get("$motor");
+          $search->as_string;
+          my $Res=$search->content;
+          doSearch($Res, $motor);
+          $motor=~s/$npages/MYNPAGES/g;
+        }
+        $motor=~s/\Q$dork/MYDORK/ig;  
       }
-      $motor=~s/\Q$dork/MYDORK/ig;        
     }
   }
   printSearch();

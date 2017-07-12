@@ -33,8 +33,12 @@ sub makeSscan {
       $count++;
       points(); dpoints(); points();
       $URL=checkUrlSchema($URL);
-      $URL=control($URL);
       print $c[1]."    $DS[9]  "; print $c[10].$c[7]."[$count/$lc] $URL\n";
+      our $replace;
+      if (defined $replace) {
+	    if (index($URL, $replace) == -1) { print $c[1]."    SCAN    ".$c[2]."No [$replace] found!\n"; next; }
+      }
+      $URL=control($URL);
       if (!@arr) {     
         if (!$result) {
           if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, "");

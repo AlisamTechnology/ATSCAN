@@ -232,7 +232,7 @@ fi
  if [ -e "$refdir/atscan" ] || [ -e "$refdir/atscan.pl" ];
  then
  sleep 1 && echo "[i] Tool successfully installed!";
- echo "[i] Please wait will updating tool.. ";
+ echo "[i] Please wait while updating tool.. ";
  sleep 2;
  atscan --update;
 else

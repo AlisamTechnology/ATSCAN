@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, @data, @c, @DT, @DS, @TT, @aTsearch, @aTscans);
+our ($limit, $get, $post, $Hstatus, $validText, $noExist, $content, $beep, $output, $msource, @data, @c, @DT, @DS, @TT, @aTsearch, @aTscans);
 
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
@@ -42,6 +42,7 @@ sub titleSCAN {
   if ($o<$limit) { 
     if ((defined $Hstatus) || (defined $validText)) {
       print $c[1]."    $DS[12]   ";
+      if (defined $noExist) { print $c[10]."[None] "; }
       if (defined $validText) { print $c[10]."$validText"; }
       if (defined $Hstatus) { print $c[10]."$DS[13] $Hstatus"; }
       print "\n";
@@ -114,9 +115,15 @@ sub formData {
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV;
-  if (defined $Hstatus) { if ($status==$Hstatus) { $cV=$URL1; }else{ $cV=""; } }
-  elsif (defined $validText) { if ($html=~/$validText/) { $cV=$URL1; }else{ $cV=""; } }
-  else{ $cV=$URL1; }
+  if (defined $noExist) {
+    if (defined $Hstatus) { if ($status==$Hstatus) { $cV=""; }else{ $cV=$URL1; } }
+    elsif (defined $validText) { if ($html=~/$validText/) { $cV=""; }else{ $cV=$URL1; } }
+    else{ $cV=$URL1; }
+  }else{
+    if (defined $Hstatus) { if ($status==$Hstatus) { $cV=$URL1; }else{ $cV=""; } }
+    elsif (defined $validText) { if ($html=~/$validText/) { $cV=$URL1; }else{ $cV=""; } }
+    else{ $cV=$URL1; }
+  }
   return $cV;
 }
 

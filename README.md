@@ -261,7 +261,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--replace</td>
-        <td class="main"> String to replace </td>
+        <td class="main"> Exact String to replace </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--with  </td>

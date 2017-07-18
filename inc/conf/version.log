@@ -1,9 +1,8 @@
 VERSION 12.2 RELEASE
 =====================================================
-  CHANGES: 12/07/2017
+  CHANGES: 18/07/2017
   ===================================================
-  - Fix dorks list.
-  - Fix replace string command.
+  - Add --none command for negative validation and engine filters.
   - Enjoy!
   ===================================================
 

@@ -510,7 +510,7 @@
        &#x25cf; <b>SEARCH VALIDATION: </b><br/>
        atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --status [code] --none (Positive when status does\'nt match)<br/>
-       atscan -d [dork / dorks.txt] -l [level] --status [code] / -v [string] / --ifinurl [string] / --sregex [regex] --none<br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / -v [string] / --ifinurl [string] / --sregex/--regex [regex] --none<br/>
        atscan -d [dork / dorks.txt] -l [level] --ifinurl [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --sregex [regex] --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --regex [regex] --valid [string] <br/>

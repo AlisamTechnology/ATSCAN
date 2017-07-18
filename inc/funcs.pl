@@ -502,12 +502,22 @@ sub checkFilters {
 ## GET FILTRED URLS
 sub filterUr {
   my ($URL, $dorkToCheeck)=@_;
-  if (defined $unique || $unique) {
-    if (index($URL, $dorkToCheeck) != -1) { $URL=$URL; }else{ $URL=""; }
-  }
-  if (defined $ifinurl) {
-    if (index($URL, $ifinurl) != -1) { $URL=$URL; }else{ $URL=""; }
-  }
+  our $noExist;
+  if (defined $noExist) {
+    if (defined $unique || $unique) {
+      if (index($URL, $dorkToCheeck) != -1) { $URL=""; }else{ $URL=$URL; }
+    }
+    if (defined $ifinurl) {
+      if (index($URL, $ifinurl) != -1) { $URL=""; }else{ $URL=$URL; }
+    }
+  }else{
+    if (defined $unique || $unique) {
+      if (index($URL, $dorkToCheeck) != -1) { $URL=$URL; }else{ $URL=""; }
+    }
+    if (defined $ifinurl) {
+      if (index($URL, $ifinurl) != -1) { $URL=$URL; }else{ $URL=""; }
+    }
+  } 
   return $URL;
 }
 
@@ -547,8 +557,13 @@ sub countResultLists {
 ## SEARCH REGEX FILTER
 sub doRegex { 
   my $searchRegex=$_[0];
+  our $noExist;
   for my $URL(@aTsearch) {
-    if ($URL=~/$searchRegex/) { saveCopy($URL); }
+    if (defined $noExist) {
+      if ($URL!~/$searchRegex/) { saveCopy($URL); }
+    }else{
+      if ($URL=~/$searchRegex/) { saveCopy($URL); }
+    }
   }
 }
 

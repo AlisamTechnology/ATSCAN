@@ -42,7 +42,7 @@ sub titleSCAN {
   if ($o<$limit) { 
     if ((defined $Hstatus) || (defined $validText)) {
       print $c[1]."    $DS[12]   ";
-      if (defined $noExist) { print $c[10]."[None] "; }
+      if (defined $noExist) { print $c[10]."None: "; }
       if (defined $validText) { print $c[10]."$validText"; }
       if (defined $Hstatus) { print $c[10]."$DS[13] $Hstatus"; }
       print "\n";

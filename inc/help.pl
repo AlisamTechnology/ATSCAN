@@ -39,6 +39,7 @@ use FindBin '$Bin';
   ."  --status       | Validate by http header status \n"
   ."  --ifinurl      | Get targets with exact string matching\n"
   ."  --sregex       | Get targets with exact regex matching\n"
+  ."  --none         | Get negative validation or engine regex matching. use with -v --status --ifinurl --sregex commands\n"  
   ."  --unique       | Get targets with exact dork matching\n"
   ."  --replace      | String to replace \n"
   ."  --with         | String to replace with \n"
@@ -163,6 +164,7 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  SCAN VALIDATION: \n".$c[10]
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string>] \n"
+  ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> --none] \n"
   ."   atscan -d <dork | dorks.txt> -l <level> --exp <payload> --status <code> | --valid <string> \n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--admin | --sql ..] --status <code> | --valid <string> \n"  

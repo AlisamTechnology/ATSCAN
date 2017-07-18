@@ -250,7 +250,11 @@
       <tr>
         <td width="200px" class="main">--sregex </td>
         <td class="main"> Get targets with exact regex matching</td>
-      </tr> 
+      </tr>
+      <tr>
+        <td width="200px" class="main">--none </td>
+        <td class="main"> Get negative validation or engine regex matching</td>
+      </tr>
       <tr>
         <td width="200px" class="main">--unique  </td>
         <td class="main"> Get targets with exact dork matching</td>
@@ -505,7 +509,10 @@
         <hr>
        &#x25cf; <b>SEARCH VALIDATION: </b><br/>
        atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] --none (Positive when status does\'nt match)<br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / -v [string] / --ifinurl [string] / --sregex [regex] --none<br/>
        atscan -d [dork / dorks.txt] -l [level] --ifinurl [string] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --sregex [regex] --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --regex [regex] --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --unique  <br/>
         <hr>

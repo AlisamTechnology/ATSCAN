@@ -98,7 +98,7 @@ sub advise_no_file {
 ## Negative scans
 our $noExist;
 if (defined $noExist) {
-  if (!defined $Hstatus && !defined $validText && !defined $ifinurl && !defined $searchRegex) {) {
+  if (!defined $Hstatus && !defined $validText && !defined $ifinurl && !defined $searchRegex){
     print $c[4]."[!] You cannot use --none command here! Use -h for help\n"; logoff();
   }  
 }

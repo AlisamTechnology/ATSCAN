@@ -256,12 +256,16 @@
         <td class="main"> Get negative validation or engine regex matching</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--notin </td>
+        <td class="main"> Get targets where string doesnot exist in html</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--unique  </td>
         <td class="main"> Get targets with exact dork matching</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--replace</td>
-        <td class="main"> Exact String to replace </td>
+        <td class="main"> String to replace </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--with  </td>
@@ -510,7 +514,7 @@
        &#x25cf; <b>SEARCH VALIDATION: </b><br/>
        atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --status [code] --none (Positive when status does\'nt match)<br/>
-       atscan -d [dork / dorks.txt] -l [level] --status [code] / -v [string] / --ifinurl [string] / --sregex/--regex [regex] --none<br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / -v [string] / --ifinurl [string] / --sregex [regex] --none<br/>
        atscan -d [dork / dorks.txt] -l [level] --ifinurl [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --sregex [regex] --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --regex [regex] --valid [string] <br/>
@@ -526,7 +530,7 @@
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp [payload] --status [code] / --valid [string] <br/>
        atscan --data "name:userfile[DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get]<br/>
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
-        <hr>
+       atscan -t [target / targets.txt] --valid [string] --not in [string]<br/>        <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>
         <hr>

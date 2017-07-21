@@ -116,7 +116,7 @@ sub formData {
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV;
-
+  
   if (defined $noExist) {
     if (defined $Hstatus) { if ($status==$Hstatus) { $cV=""; }else{ $cV=$URL1; } }
     elsif (defined $validText) { if ($html=~/$validText/) { $cV=""; }else{ $cV=$URL1; } }
@@ -126,9 +126,7 @@ sub checkValidation {
     elsif (defined $validText) { if ($html=~/$validText/) { $cV=$URL1; }else{ $cV=""; } }
     else{ $cV=$URL1; }
   }
-  if (defined $notIn) {
-    if ($html!~/$notIn/) { $cV=$URL1; }else{ $cV=""; }
-  }
+  if (defined $notIn and $cV) { if ($html!~/$notIn/) { $cV=$URL1; }else{ $cV=""; } } 
   return $cV;
 }
 

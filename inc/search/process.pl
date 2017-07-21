@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $zone, $agent, $noping, $noExist);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $zone, $agent, $noping, $noExist, $notIn);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $brandom, $noinfo, $timeout, $method, @OTHERS, @ErrT);
 ## SET ENGINES
@@ -111,7 +111,7 @@ sub printDork {
     if (defined $ifinurl) { print "$TT[19]\] "; }
     if (defined $unique || $unique) { print "$DS[30]\] "; }
     if (defined $searchRegex) { print "$searchRegex] "; }
-    print "\n";
+    print "\n"; 
   }
   ptak();
 }
@@ -189,7 +189,7 @@ sub printInfoUrl {
       if (defined $get || ($method and $method eq "get")) { print "$DS[15]\n"; }
       elsif (defined $post || ($method and $method eq "post")) { print "$DT[32]\n"; }
       else{ print "$DS[15]\n"; }
-      if ($timeout !=10) { print $c[1]."    $TT[10] ".$c[10]."$timeout s\n"; }  
+      if ($timeout !=10) { print $c[1]."    $TT[10] ".$c[10]."$timeout s\n"; }
       if ((defined $replace)&&(defined $with)) { print $c[1]."    $OTHERS[14]   "; print $c[10]."[$replace] => [$with]\n"; }
     }
   }
@@ -261,7 +261,8 @@ sub getRegex {
   if ($o<$limit) {
     if (!defined $searchIps and !defined $eMails) { print $c[1]."    $SCAN_TITLE[25]  $c[10]";
       if (defined $noExist) { print "[None: "; }
-      print "$reg] \n"; }
+      print "$reg] \n";
+    }
     titleSCAN();
     my $hssab=0;
     while ($html=~/$reg/g) {

@@ -43,8 +43,8 @@ sub titleSCAN {
     if ((defined $Hstatus) || (defined $validText)) {
       print $c[1]."    $DS[12]   ";
       if (defined $noExist) { print $c[10]."None: "; }
-      if (defined $validText) { print $c[10]."$validText"; }
-      if (defined $Hstatus) { print $c[10]."$DS[13] $Hstatus"; }
+      if (defined $validText) { print $c[10]."$validText "; }
+      if (defined $Hstatus) { print $c[10]."$DS[13] $Hstatus "; }
       print "\n";
     }
     if (defined $notIn) { print $c[1]."    Filter  $c[10]\[None: $notIn]\n"; }
@@ -115,16 +115,16 @@ sub formData {
 ## CHECK VALIDATION SEARCH RESULTS / TARGETS LIST
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
-  my $cV="";
+  my $cV=$URL1;
   if (defined $noExist || defined $Hstatus || $validText) {
     if (defined $noExist) {
-      if (defined $Hstatus) { if ($status ne $Hstatus) { $cV=$URL1; } }
-      if (defined $validText) { if ($html!~/$validText/) { $cV=$URL1; } }
+      if (defined $Hstatus) { if ($status == $Hstatus) { $cV=""; } }
+      if (defined $validText) { if ($html=~/$validText/) { $cV=""; } }
     }else{
-      if (defined $Hstatus) { if ($status==$Hstatus) { $cV=$URL1; } }
-      if (defined $validText) { if ($html=~/$validText/) { $cV=$URL1; } }
+      if (defined $Hstatus) { if ($status ne $Hstatus) { $cV=""; } }
+      if (defined $validText) { if ($html!~/$validText/) { $cV=""; } }
     }
-  }else{ $cV=$URL1; }
+  }
   if (defined $notIn) { if ($html=~/$notIn/) { $cV=""; } } 
   return $cV;
 }

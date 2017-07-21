@@ -115,18 +115,17 @@ sub formData {
 ## CHECK VALIDATION SEARCH RESULTS / TARGETS LIST
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
-  my $cV;
-  
-  if (defined $noExist) {
-    if (defined $Hstatus) { if ($status==$Hstatus) { $cV=""; }else{ $cV=$URL1; } }
-    elsif (defined $validText) { if ($html=~/$validText/) { $cV=""; }else{ $cV=$URL1; } }
-    else{ $cV=$URL1; }     
-  }else{
-    if (defined $Hstatus) { if ($status==$Hstatus) { $cV=$URL1; }else{ $cV=""; } }
-    elsif (defined $validText) { if ($html=~/$validText/) { $cV=$URL1; }else{ $cV=""; } }
-    else{ $cV=$URL1; }
-  }
-  if (defined $notIn and $cV) { if ($html!~/$notIn/) { $cV=$URL1; }else{ $cV=""; } } 
+  my $cV="";
+  if (defined $noExist || defined $Hstatus || $validText) {
+    if (defined $noExist) {
+      if (defined $Hstatus) { if ($status ne $Hstatus) { $cV=$URL1; } }
+      if (defined $validText) { if ($html!~/$validText/) { $cV=$URL1; } }
+    }else{
+      if (defined $Hstatus) { if ($status==$Hstatus) { $cV=$URL1; } }
+      if (defined $validText) { if ($html=~/$validText/) { $cV=$URL1; } }
+    }
+  }else{ $cV=$URL1; }
+  if (defined $notIn) { if ($html=~/$notIn/) { $cV=""; } } 
   return $cV;
 }
 

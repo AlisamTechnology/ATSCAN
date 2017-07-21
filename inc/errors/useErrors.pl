@@ -58,9 +58,6 @@ sub abcd {
   }
 }
 
-## CHECK VALIDATION ARGUMENTS
-if (defined $validText && defined $Hstatus) { print $c[4]."[!] $OTHERS[18]\n"; logoff(); }
-
 ## CHECK LEVEL
 if (defined $mlevel || $mlevel) {
   if ($mlevel!~/^[0-9,.E]+$/) { print $c[4]."$TT[15]\n"; logoff(); }

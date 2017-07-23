@@ -125,7 +125,7 @@ sub checkValidation {
       if (defined $validText) { if ($html!~/$validText/) { $cV=""; } }
     }
   }
-  if (defined $notIn) { if ($html=~/$notIn/) { $cV=""; } } 
+  if (defined $notIn) { if (index($html, $notIn) != -1) { $cV=""; } } 
   return $cV;
 }
 

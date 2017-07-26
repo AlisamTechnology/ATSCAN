@@ -1,9 +1,10 @@
 VERSION 12.2 RELEASE
 =====================================================
-  CHANGES: 21/07/2017
+  CHANGES: 26/07/2017
   ===================================================
   - Add --notin command to filters.
   - Add multi validation
+  - Some optimization
   - Enjoy!!
   ===================================================
 

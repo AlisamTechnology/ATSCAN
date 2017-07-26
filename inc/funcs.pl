@@ -417,7 +417,7 @@ sub restaureSearch { my @aTsearch=(); push @aTsearch, @aTcopy; @aTcopy=(); }
 ## REMOVE DUPLICATE DOMAINES WPAFD/JOOMRFI/SUBDOMAINS/ADMIN
 sub removeDupDom { 
   makeCopy();
-  for my $URL(@aTsearch) { $URL=removeProtocol($URL); $URL=~s/\/.*//s; $URL=checkUrlSchema($URL); saveCopy($URL); }
+  for my $URL(@aTsearch) { $URL=getHost($URL); saveCopy($URL); }
   my @aTsearch=checkDuplicate(@aTsearch); IfDup();
 }
 
@@ -458,14 +458,22 @@ sub control {
     $URL=removeQuery($URL);
   }
   if (defined $mdom) {               
-	$URL=removeProtocol($URL);
-    $URL=~s/\/.*//s;
+	$URL=getHost($URL);
   }
   if (defined $replace) {
     our $full;
     if (defined $full) { $URL=~s/$replace.*/$replace/g; }
     $URL=~s/\Q$replace/$with/ig;
   }    
+  $URL=checkUrlSchema($URL);
+  return $URL;
+}
+
+## GET DOMAIN
+sub getHost {
+  my $URL=$_[0];
+  $URL=removeProtocol($URL);   
+  $URL=~s/\/.*//s;
   $URL=checkUrlSchema($URL);
   return $URL;
 }

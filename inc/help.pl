@@ -49,7 +49,7 @@ use FindBin '$Bin';
   ."  --with         | String to replace with \n"
   ."  --full         | --replace --full Will replace all url parametres from string to the end\n"
   ."  --payload      | Use your own payloads instead of tool ones\n"
-  ."  --exp          | Exploit/Payload \n"
+  ."  --exp | -e     | Exploit/Payload \n"
   ."  --sql          | Xss scan \n"
   ."  --lfi          | Local file inclusion \n"
   ."  --joomrfi      | Scan for joomla local file inclusion.\n"

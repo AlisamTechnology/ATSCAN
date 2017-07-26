@@ -50,9 +50,7 @@ sub doSearch {
         $URL=filterUr($URL, $dorkToCheeck);
       }
 	  if ((defined $msites) || (defined $Target) || (defined $mdom)) {               
-		$URL=removeProtocol($URL);
-        $URL=~s/\/.*//s;
-        $URL=checkUrlSchema($URL);
+		$URL=getHost($URL);
       }
       my $vURL=validateURL($URL);
       if ($vURL) {
@@ -311,9 +309,7 @@ sub getComnd {
       if ($ips) { my $ad=inet_ntoa($ips); $comnd=~s/\-\-HOSTIP/$ad/ig; }
       else{ print "$c[2] $TT[11]\n"; }
     }elsif ($comnd=~/\-HOST/) {
-      $URL1=removeProtocol($URL1);   
-      $URL1=~s/\/.*//s;
-      $URL1=checkUrlSchema($URL1);
+      $URL1=getHost($URL1);   
       $comnd=~s/\-\-HOST/$URL1/ig;
     }elsif ($comnd=~/\-TARGET/) {
       $comnd=~s/\-\-TARGET/$URL1/ig;

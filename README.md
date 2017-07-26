@@ -280,7 +280,7 @@
         <td class="main"> Use your own payloads instead of tool ones</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--exp </td>
+        <td width="200px" class="main">--exp|-e </td>
         <td class="main"> Exploit/Payload </td>
       </tr> 
       <tr>

@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $zone, $agent, $noping, $noExist, $notIn);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $zone, $agent, $noping, $noExist, $notIn, $expHost, $expIp);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $brandom, $noinfo, $timeout, $method, @OTHERS, @ErrT);
 ## SET ENGINES
@@ -49,7 +49,7 @@ sub doSearch {
         my $dorkToCheeck=checkFilters($dork);
         $URL=filterUr($URL, $dorkToCheeck);
       }
-	  if ((defined $msites) || (defined $Target) || (defined $mdom)) {               
+	  if ((defined $msites) || (defined $Target) || (defined $mdom) || (defined $expHost) || (defined $expIp)) {               
 		$URL=getHost($URL);
       }
       my $vURL=validateURL($URL);
@@ -325,7 +325,7 @@ our ($exploit, $p, $shell, @exploits);
 ## MAKE SCAN WITH EXPLOIT IN ARRAY
 sub getExploitArrScan{
   my ($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, $pmarr, $data)=@_;
-  if (defined $exploit) {
+  if (defined $exploit || defined $expHost || defined $expIp) {
     my $lc=scalar(grep { defined $_} @exploits);
     my $count3=0;
     for my $exp(@exploits) {

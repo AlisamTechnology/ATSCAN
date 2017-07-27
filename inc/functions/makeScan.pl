@@ -7,7 +7,7 @@ use FindBin '$Bin';
 ## MAKE SCAN
 sub makeSscan { 
   my ($ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter, $data, $no)=@_;
-  our (@c, @DS, @aTscans, @aTsearch, @userArraysList, $limit, $payloads, $exploit, $shell, $p);
+  our (@c, @DS, @TT, @aTscans, @aTsearch, @userArraysList, $limit, $payloads, $exploit, $shell, $p, $expHost, $expIp);
   @aTscans=();
   ptak();
   checkHeaders($ct, $dt, $et);  
@@ -41,7 +41,7 @@ sub makeSscan {
       $URL=control($URL);
       if (!@arr) {     
         if (!$result) {
-          if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, "");
+          if (defined $exploit || defined $expHost || defined $expIp) { getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, "");
           }else{
             my $URL1=$URL; $URL1=~s/ //g;
             if ($reg) { doScan($URL1, $filter, "", "", $reg, "", "", ""); }
@@ -50,7 +50,7 @@ sub makeSscan {
             else{ doScan($URL1, $filter, "", "", "", "", $isFilter, ""); }
           }
         }else{
-          if (defined $exploit) { getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, ""); }
+          if (defined $exploit || defined $expHost || defined $expIp) { getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, ""); }
           else{ my $URL1=$URL; $URL1=~s/ //g; doScan($URL1, $filter, $result, "", "", "", $isFilter, $data); }
         }
       }else{
@@ -61,7 +61,7 @@ sub makeSscan {
             $pm++;
             points() if $pm>1;
             print $c[1]."    $DS[5]  $c[10] [$pm/".scalar(grep { defined $_} @arr)."] $arr"; print $shell if defined $shell; print "\n";
-            if ((defined $exploit) || (defined $p)) {
+            if ((defined $exploit || defined $expHost || defined $expIp) || (defined $p)) {
               getExploitArrScan($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr), $data, "");
             }else{
               if ($reverse) { $URL=removeProtocol($URL); my $URL1=$arr.$URL; $URL1=~s/ //g;  $URL1=checkUrlSchema($URL1); doScan($URL1, "", "", $reverse, "", "", $isFilter, $data); }

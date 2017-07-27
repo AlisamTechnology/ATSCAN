@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($limit, $get, $post, $Hstatus, $validText, $noExist, $content, $beep, $output, $msource, $notIn, @data, @c, @DT, @DS, @TT, @aTsearch, @aTscans);
+our ($limit, $get, $post, $Hstatus, $validText, $noExist, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, @data, @c, @DT, @DS, @TT, @aTsearch, @aTscans);
 
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
@@ -95,7 +95,7 @@ our ($exploit, $replace, $noQuery);
 sub validateResult {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV=checkValidation($URL1, $status, $html, $response, "");        
-  if ($cV) { doPrint($URL1, $result, $html); }else{ noResult() unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn)) || ($result && (defined $exploit || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn))); }
+  if ($cV) { doPrint($URL1, $result, $html); }else{ noResult() unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn))); }
 }
 
 ## PRINT POST DATA RESULTS
@@ -134,7 +134,7 @@ sub doPrint {
   my ($URL1, $result, $html)=@_;
   my $o=OO();
   if ($o<$limit) {
-    print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn)) || ($result && (defined $exploit || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn)));
+    print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn)));
     if (defined $beep || $beep) { print chr(7); }
     saveme($URL1, "");
     if (defined $content) { dpoints(); print $c[10]."$html\n"; }

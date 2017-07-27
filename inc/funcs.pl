@@ -6,7 +6,7 @@ use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
 ## FUNCTS
-our ($payloads, $exploit, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo, $V_IP);
+our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo, $V_IP, $expIp);
 our (@aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT);
 
 ## PRINT FILES 
@@ -104,11 +104,16 @@ if ($activeUconf) {
 if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
 if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
 
+## DATA ARRAYS
+if (defined $data) { @data=buildArraysLists($data); }
+
 ## USER ARRAYS
 if (defined $payloads || $payloads) { @userArraysList=buildArraysLists($payloads); }
 
 ## EXPLOITS ARRAYS
 if (defined $exploit) { @exploits=buildArraysLists($exploit); }
+if (defined $expHost) { @exploits=buildArraysLists($expHost); }
+if (defined $expIp) { @exploits=buildArraysLists($expIp); }
 
 ## MAX POSITIVE SCAN RESULTS
 ## Chnage for more positive scans!!
@@ -457,15 +462,19 @@ sub control {
   if (defined $noQuery) {
     $URL=removeQuery($URL);
   }
-  if (defined $mdom) {               
+  if (defined $mdom || defined $expHost) {               
 	$URL=getHost($URL);
   }
   if (defined $replace) {
     our $full;
     if (defined $full) { $URL=~s/$replace.*/$replace/g; }
     $URL=~s/\Q$replace/$with/ig;
-  }    
+  }
   $URL=checkUrlSchema($URL);
+  if (defined $expIp) {
+    my $ips=checkExtraInfo($URL);
+    if ($ips) { $URL=inet_ntoa($ips); }else{ print "$c[2] $TT[11]\n"; next; }
+  }
   return $URL;
 }
 

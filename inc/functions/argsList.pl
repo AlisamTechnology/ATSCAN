@@ -4,13 +4,8 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($payloads, $exploit, $data, $mlevel, $dork, $Target, $V_RANG, @dorks, @aTsearch, @userArraysList, @exploits, @data);
-## USER ARRAYS
-if (defined $payloads) { @userArraysList=buildArraysLists($payloads); }
-## EXPLOITS ARRAYS
-if (defined $exploit) { @exploits=buildArraysLists($exploit); }
-## DATA ARRAYS
-if (defined $data) { @data=buildArraysLists($data); }
+our ($payloads, $exploit, $data, $mlevel, $dork, $Target, $V_RANG, @dorks, @aTsearch);
+
 ## DORKS & TARGETS ARRAYS
 if (defined $mlevel) {
   if (defined $dork) { @dorks=buildArraysLists($dork); }

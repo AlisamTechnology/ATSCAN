@@ -281,8 +281,16 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--exp|-e </td>
-        <td class="main"> Exploit/Payload </td>
-      </tr> 
+        <td class="main"> Exploit/Payload will be added to full target </td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--expHost </td>
+        <td class="main"> Exploit will be added to the host </td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--expIp</td>
+        <td class="main"> Exploit will be added to the host ip</td>
+      </tr>
       <tr>
         <td width="200px" class="main">--sql </td>
         <td class="main"> Xss scan </td>

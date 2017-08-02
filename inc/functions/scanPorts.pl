@@ -57,7 +57,6 @@ sub scanPorts {
                 $socket=IO::Socket::INET->new(PeerAddr=> $URL, PeerPort=> $port, Proto=> $type) or $closed1++;
               }                
               close $socket if defined $socket;     
-	          #print $c[1]."    $DS[7]    $c[10]$port [$portProtocol]\n $c[1]   $DS[8]    $c[10]$type\n"; titleSCAN();
 	          if ($closed1==0) {
                 print $c[3]."$DS[42]\n";
                 my $URL1;

@@ -32,11 +32,14 @@ sub scanPorts {
         if ($o<$limit) {
           $c1++;
           points() if $c1>1;
+          my $portProtocol=portProtocol($port);
           my $c2=0;
           foreach my $type(@TYPES) {
             if ($o<$limit) {
               $c2++;
               points() if $c2>1;
+              print $c[1]."    $DS[7]    $c[10]$port $portProtocol\n $c[1]   $DS[8]    $c[10]$type\n";
+              titleSCAN();
               my $socket;
               my $closed1=0;
               if (defined $proxy || $proxy || defined $prandom || $prandom) {
@@ -54,7 +57,7 @@ sub scanPorts {
                 $socket=IO::Socket::INET->new(PeerAddr=> $URL, PeerPort=> $port, Proto=> $type) or $closed1++;
               }                
               close $socket if defined $socket;     
-	          print $c[1]."    $DS[7]    $c[10]$port\n $c[1]   $DS[8]    $c[10]$type\n"; titleSCAN();;
+	          #print $c[1]."    $DS[7]    $c[10]$port [$portProtocol]\n $c[1]   $DS[8]    $c[10]$type\n"; titleSCAN();
 	          if ($closed1==0) {
                 print $c[3]."$DS[42]\n";
                 my $URL1;

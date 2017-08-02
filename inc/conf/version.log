@@ -1,11 +1,12 @@
 VERSION 12.2 RELEASE
 =====================================================
-  CHANGES: 27/07/2017
+  CHANGES: 02/08/2017
   ===================================================
-  - Add --notin command to filters.
+  - Add --notin and --none command to filters and validation.
   - Add multi validation
   - Add --expHost and --expIp to exploit scans.
   - Some optimization
+  - Add port protocol info.
   - Enjoy!!
   ===================================================
 

@@ -13,6 +13,7 @@ my ($same, $response)=compareme();
 if ($same eq "yes") {   
   print $c[3]."$DT[6]\n";
 }else{
+  print $c[3]."[i] An update is aviable!\n";
   if (-e $userSetting) {
     print $c[10]."[i] $ZT[0] ";
     open my $dle, '<', $userSetting or nochmod($userSetting, "");

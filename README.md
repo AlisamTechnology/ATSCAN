@@ -119,7 +119,7 @@
   </tr>
   <tr>
     <td align="center" width="890px">
-    <img src="http://i.imgur.com/YCaBP6a.png" /> <br/><br/>
+    <img src="http://i.imgur.com/VwXAwQU.jpg" /> <br/><br/>
     <img src="http://i.imgur.com/PtYAitD.jpg" /> <br/><br/>
     <img src="http://i.imgur.com/6Eg3bxo.jpg" /> <br/><br/>
     <img src="http://i.imgur.com/EK96MSQ.jpg" /> <br/><br/>

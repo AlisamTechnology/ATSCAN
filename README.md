@@ -99,8 +99,8 @@
   <tr>
     <td class="main">
       Portable Execution: perl ./atscan.pl<br/>
-      Installed Tool Execution: atscan
-    </td>
+      Installed Tool Execution: atscan<br/>
+      Menu: Applications >  Web Application analysis > atscan </td>
   </tr>
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">

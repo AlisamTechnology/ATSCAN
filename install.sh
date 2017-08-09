@@ -8,11 +8,11 @@
 # PATHs:
 # Parent directory => default: /usr/share/atscan/
 # /inc/conf/atscan => /etc/bash_completion.d/atscan
-# Sym link in /usr/bin/atscan
-# Readme /usr/share/doc/atscan/README.md
-# Desktop entry /usr/share/applications/atscan.desktop
-# Icons /usr/share/icons/hicolor/
-# License /usr/share/doc/atscan/License.txt
+# Sym link => /usr/bin/atscan
+# Readme => /usr/share/doc/atscan/README.md
+# Desktop entry => /usr/share/applications/atscan.desktop
+# Icons => /usr/share/icons/hicolor/
+# License => /usr/share/doc/atscan/License.txt
 #############################################################################################
 ##
 echo "[ ]=======================================================================[ ]";

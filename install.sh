@@ -7,7 +7,7 @@
 #############################################################################################
 # PATHs:
 # Install directory => default: /usr/share/atscan/
-# /inc/conf/atscan => /etc/bash_completion.d/atscan
+# Bash completion => /etc/bash_completion.d/atscan
 # Sym link => /usr/bin/atscan
 # Readme => /usr/share/doc/atscan/README.md
 # Desktop entry => /usr/share/applications/atscan.desktop

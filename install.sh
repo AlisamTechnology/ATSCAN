@@ -62,13 +62,13 @@ fi
 echo "[i] Checking directories..."
 if [ -e "/usr/bin/atscan" ];
 then
-echo "[!] A previous instalation was found in /usr/bin/ Do you want to replace it? [Y/n]: "
+echo "[!] A previous installation was found in /usr/bin/ Do you want to replace it? [Y/n]: "
 read mama
 if [ "$mama" == "y" ] || [ "$mama" == "Y" ] || [ -z "$mama" ];  
 then
  rm "/usr/bin/atscan"
 else
- echo "[!] Instalation aborted!";
+ echo "[!] Installation aborted!";
  exit
 fi
 fi
@@ -247,4 +247,4 @@ else
  echo "[!] Tool cannot be installed on your system! Use it as portable!";
 fi
 
-### last update 12/06/2017
+### last update 13/08/2017

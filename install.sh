@@ -47,14 +47,14 @@ echo "";
 ### Check system compatibility
 if [ -d "/usr/bin/" ];
 then
-echo "[!] Install.sh install atscan tool (sise 500 KB) in your system? [Y/n]: ";
+echo "[!] ATSCAN (size 500 KB) will be installed in your system? [Y/n]: ";
 read baba
 if [ "$baba" == "y" ] || [ "$baba" == "Y" ] || [ -z "$baba" ]; 
-  then
-    echo " "
-  else
-    echo "[!] Installation aborted!";
-    exit
+then
+  echo " "
+else
+  echo "[!] Installation aborted!";
+  exit
 fi
 
 ### Checkin previous instalation

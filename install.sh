@@ -58,14 +58,32 @@ if [ "$baba" == "y" ] || [ "$baba" == "Y" ] || [ -z "$baba" ];
     exit
 fi
 
+### Checkin previous instalation
+echo "[i] Checking directories..."
+if [ -e "/usr/bin/atscan" ];
+then
+echo "[!] A previous instalation was found in /usr/bin/ Do you want to replace it? [Y/n]: "
+read mama
+if [ "$mama" == "y" ] || [ "$mama" == "Y" ] || [ -z "$mama" ];  
+then
+ rm "/usr/bin/atscan"
+else
+ echo "[!] Instalation aborted!";
+ exit
+fi
+fi
+
 ### Setting instalation path
 current=`pwd`
 echo "[!] Where do you want to install ATSCAN?";
-echo "[!] Set path or press enter to use default [/usr/share/]: "
+echo "    Set path or press enter to use default [/usr/share/]: "
 read refdir
 if [ -z "$refdir" ];
 then
-  mkdir "/usr/share/atscan/";  
+  if [ ! -d "/usr/share/atscan/" ];
+  then
+    mkdir "/usr/share/atscan/";  
+  fi
   chmod +x "/usr/share/atscan/";
   refdir="/usr/share/atscan/";
 fi
@@ -78,20 +96,6 @@ then
    echo "[!] Set path or press enter to use default [/usr/share/]: "
    read refdir
   done
-fi
-### Checkin previous instalation
-echo "[i] Checking directories..."
-if [ -e "/usr/bin/atscan" ];
-then
-echo "[!] A previous instalation was found in /usr/bin/! Do you want to replace it? [Y/n]: "
-read mama
-if [ "$mama" == "y" ] || [ "$mama" == "Y" ] || [ -z "$mama" ];  
-then
- rm "/usr/bin/atscan"
-else
- echo "[!] Instalation aborted!";
- exit
-fi
 fi
 
 ## Begin instalation

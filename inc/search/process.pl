@@ -124,14 +124,17 @@ sub msearch {
   
   $mlevel+=-10 if $mlevel > 9;
   $mlevel =~ s/(substr $mlevel, -1)/0/g;
-
+  
   for my $motor(@motors) {
-    for my $dork(@dorks) {
-      if (defined $Target) { $dork="ip%3A".$dork; }
+    for my $dork(@dorks) {     
+      if (defined $Target) {
+        if ($dork!~ /(ip:|ip%3A)/) {
+          $dork="ip:".$dork;
+        }
+      }
       if ($zone) { $dork="site:$zone ".$dork; }    
       $dork=~s/\s+$//;
       $dork=~s/ /+/g;
-      $dork=~s/:/%3A/g;
       $dork=~s/^(\+|\s+)//g;
       if (length $dork > 0) {      
         $motor=~s/MYDORK/$dork/g;
@@ -140,10 +143,10 @@ sub msearch {
           my $search=$ua->get("$motor");
           $search->as_string;
           my $Res=$search->content;
-          doSearch($Res, $motor);
-          $motor=~s/$npages/MYNPAGES/g;
+          doSearch($Res, $motor);         
+          $motor=~s/=$npages/=MYNPAGES/ig;
         }
-        $motor=~s/\Q$dork/MYDORK/ig;  
+        $motor=~s/\Q$dork/MYDORK/ig;
       }
     }
   }

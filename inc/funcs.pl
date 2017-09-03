@@ -571,7 +571,6 @@ sub checkHeaders {
 ## COUNT RESULTS
 sub OO { my $o=scalar(grep { defined $_} @aTscans); return $o; }
 
-
 ## END SCAN PROCESS
 sub subfin {
   our $ifend;
@@ -628,14 +627,21 @@ sub title {
 
 ## CHECK IF THERE MORE SCANS TO DO
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $command);
-our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $data, $command);
+our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $data);
 sub getK {
   our @z;
   my ($x, $y)=@_; my $k=0; splice @z, $x, $y;
   for (@z) { if (defined $_) { $k++; } } return $k;  
 }
 
-## UPDATE
+## EXTERN COMMAND EXECUTION
+sub checkExternComnd {
+  my ($URL1, $command)=@_;
+  print $c[1]."    $DT[24]  $c[10]::\n";
+  getComnd($URL1, $command);
+}
+
+##UPDATE
 sub nochmod {
   my ($path, $action)=@_;
   sleep(1);

@@ -7,7 +7,7 @@ use FindBin '$Bin';
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $zone, $agent, $noping, $noExist, $notIn, $expHost, $expIp);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
-our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $brandom, $noinfo, $timeout, $method, @OTHERS, @ErrT);
+our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $brandom, $noinfo, $timeout, $method, $command, @OTHERS, @ErrT);
 ## SET ENGINES
 if (defined $mlevel) {
   if (defined $mrandom || $mrandom) { push @motor, $mrand; }
@@ -278,15 +278,19 @@ sub getRegex {
         }
       }
     }
-    if ($hssab<1) { noResult(); }else{ print "\n"; }
+    if ($hssab<1) {
+      noResult();
+    }else{
+      print "\n";
+      if (defined $command) { checkExternComnd($URL1, $command); }
+    }
   }
 }
 
 ## EXECUTE EXTERN PROCESS COMMANDS
 sub getComnd {
   my ($URL1, $comnd)=@_;
-  $URL1=~s/(\%27|\<|\>|\%25|\')(.*)//ig;
-    
+  $URL1=~s/(\%27|\<|\>|\"\<|\"\>|\'\<|\'\>|\"\;|\<\%25|\%|\').*//ig;
   if ($URL1=~/($V_IP)/) {
     $URL1=removeProtocol($URL1);
     if ($comnd=~/-PORT/) {
@@ -313,18 +317,19 @@ sub getComnd {
       else{ print "$c[2] $TT[11]\n"; }
     }elsif ($comnd=~/\-HOST/) {
       $URL1=getHost($URL1);   
-      $comnd=~s/\-\-HOST/$URL1/ig;
+      $comnd=~s/\-\-HOST/"$URL1"/ig;
     }elsif ($comnd=~/\-TARGET/) {
-      $comnd=~s/\-\-TARGET/$URL1/ig;
+      $comnd=~s/\-\-TARGET/"$URL1"/ig;
     }
   }
   
-  print "$c[1]    $DT[24]   $c[10]$comnd\n";
+  print "$c[10]            ||_ $c[10]$comnd\n";
   print $c[8]."            ";
   system($comnd); print "\n";
 }
 
 our ($exploit, $p, $shell, @exploits);
+
 ## MAKE SCAN WITH EXPLOIT IN ARRAY
 sub getExploitArrScan{
   my ($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, $pmarr, $data)=@_;

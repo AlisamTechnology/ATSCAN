@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our (@TODO, @V_WP, @V_JOOM, @XSS, @V_XSS, @LFI, @V_LFI, @E_SHELL, @ADFWP, @V_AFD, @ADMIN, @V_TODO, @SUBDOMAIN, @UPLOAD, @ZIP, @SCAN_TITLE, @RFI, @c, , @DT); 
-our ($paylNote, $V_EMAIL, $V_IP, $V_REGEX, $command, $mmd5, $mencode64, $mdecode64, $mlevel, $Target,$dork );
+our ($paylNote, $V_EMAIL, $V_IP, $V_REGEX, $command, $mmd5, $mencode64, $mdecode64, $mlevel, $Target, $dork, $noExist, $Hstatus, $validText);
 
 ## PRINT ENGINE RESULTS
 sub printSearch {
@@ -17,6 +17,9 @@ sub printSearch {
     print $c[3]."[i] ".scalar(grep { defined $_} @aTsearch)." $DT[4]\n";
     my $k=getK(0, 0);
     if (!$k) {
+      if (defined $noExist || defined $Hstatus || defined $validText) {
+        ptak(); print $c[11]."[!] ";timer(); print " ::: STARTING VALIDATION PROCESS SCAN.. :::\n";
+      }
       makeSscan("", "", "", \@TODO, \@V_TODO, "", "", "1", "", "", "", "", "", "1");
     }
   }else{ negative(); logoff(); }
@@ -64,9 +67,6 @@ sub Regex { makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[22], "", "", ""
 
 ## FORM BY POST
 sub mdata { makeSscan("3", "", "", \@TODO, \@V_TODO, "DATA", "", "", "", "", "", "", "10", ""); }
-
-## EXTERN COMMAND
-sub mcommand { doUnlink(); makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[16], "", "", "", "", $command, "", "", ""); }
 
 ## MD5 ENCODE
 sub mmd5 { scanCode($SCAN_TITLE[17], $mmd5, "1", "", ""); } 

@@ -66,6 +66,7 @@ sub scanPorts {
                   $URL1="$URL:$port $type";
                 }
                 saveme($URL1, "");
+                if (defined $command) { checkExternComnd($URL1, $command); }
               }else{
                 print $c[2]."$DS[43]\n";
               }

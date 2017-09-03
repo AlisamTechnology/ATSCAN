@@ -34,7 +34,6 @@ sub Menu {
   if (defined $eMails) { eMails(); }
   if (defined $regex) { Regex(); }
   if (defined $port) { ports(); } 
-  if (defined $command) { mcommand(); }
   if (defined $data) { mdata(); }
 }
 if (defined $mmd5 || defined $mencode64 || defined $mdecode64) {

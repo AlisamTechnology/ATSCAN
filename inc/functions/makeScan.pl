@@ -45,7 +45,6 @@ sub makeSscan {
           }else{
             my $URL1=$URL; $URL1=~s/ //g;
             if ($reg) { doScan($URL1, $filter, "", "", $reg, "", "", ""); }
-            elsif ($comnd) { doScan($URL1, $filter, "", "", "", $comnd, "", ""); }
             elsif ($data) { doScan($URL1, $filter, "", "", "", "", "", $data); }
             else{ doScan($URL1, $filter, "", "", "", "", $isFilter, ""); }
           }
@@ -72,7 +71,7 @@ sub makeSscan {
       }
     }
   }  
-  ltak(); if (!$comnd and !$data) { endScan(); }
+  ltak(); if (!$data) { endScan(); }
 }
 
 1;

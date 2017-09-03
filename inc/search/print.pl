@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($limit, $get, $post, $Hstatus, $validText, $noExist, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, @data, @c, @DT, @DS, @TT, @aTsearch, @aTscans);
+our ($limit, $get, $post, $Hstatus, $validText, $noExist, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, $command, @data, @c, @DT, @DS, @TT, @aTsearch, @aTscans);
 
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
@@ -66,10 +66,7 @@ sub printResults {
     }
     elsif ($reg) {
       getRegex($URL1, $html, $reg); }
-    elsif ($comnd) {
-      my $cV=checkValidation($URL1, $status, $html, $response, "");
-      if ($cV) { getComnd($URL1, $comnd); }else{ titleSCAN(); noResult(); }
-    }elsif ($data) {
+    elsif ($data) {
       titleSCAN(); formData($URL1, $html, $status, $response); 
     }else{
       titleSCAN();
@@ -91,6 +88,7 @@ sub printResults {
 }
 
 our ($exploit, $replace, $noQuery);
+
 ## VALIDATE RESULTS
 sub validateResult {
   my ($URL1, $status, $html, $response, $result)=@_;
@@ -138,7 +136,8 @@ sub doPrint {
     if (defined $beep || $beep) { print chr(7); }
     saveme($URL1, "");
     if (defined $content) { dpoints(); print $c[10]."$html\n"; }
-    if (defined $msource) { printSource($URL1, $html); }   
+    if (defined $msource) { printSource($URL1, $html); }
+    if (defined $command) { checkExternComnd($URL1, $command); }
   }
 }
 

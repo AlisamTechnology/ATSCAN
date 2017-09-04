@@ -162,10 +162,4 @@ sub endScan {
   }else{ negative(); }
 }
 
-## COPY SCAN TO TARGETS LIST
-sub doUnlink {
-  my $o=OO();
-  if ($o>0) { @aTsearch=(); push @aTsearch, @aTscans; @aTscans=(); }
-}
-
 1;

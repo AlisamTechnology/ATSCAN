@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our (@TODO, @V_WP, @V_JOOM, @XSS, @V_XSS, @LFI, @V_LFI, @E_SHELL, @ADFWP, @V_AFD, @ADMIN, @V_TODO, @SUBDOMAIN, @UPLOAD, @ZIP, @SCAN_TITLE, @RFI, @c, , @DT); 
+our (@TODO, @V_WP, @V_JOOM, @XSS, @V_XSS, @LFI, @V_LFI, @E_SHELL, @ADFWP, @V_AFD, @ADMIN, @V_TODO, @SUBDOMAIN, @UPLOAD, @ZIP, @SCAN_TITLE, @RFI, @c, @DT); 
 our ($paylNote, $V_EMAIL, $V_IP, $V_REGEX, $command, $mmd5, $mencode64, $mdecode64, $mlevel, $Target, $dork, $noExist, $Hstatus, $validText);
 
 ## PRINT ENGINE RESULTS

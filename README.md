@@ -122,8 +122,8 @@
     <img src="http://i.imgur.com/EK96MSQ.jpg" /> <br/><br/>
     <img src="http://i.imgur.com/UWFyl13.jpg" /> <br/><br/>
     <img src="http://i.imgur.com/PtYAitD.jpg" /> <br/><br/>
-    <img src="http://i.imgur.com/j8d9s2T.jpg" /> <br/><br/> 
     <img src="http://i.imgur.com/6Eg3bxo.jpg" /> <br/><br/>
+    <img src="http://i.imgur.com/j8d9s2T.jpg" /> <br/><br/> 
     </td>
   </tr>
 </table>

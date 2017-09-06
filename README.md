@@ -398,12 +398,12 @@
       </tr> 
       <tr>
         <td width="200px" class="main"> rang(x-y) </td>
-           <td class="main">EX: --exp "/index.php?id=rang(1-9)" --sql OR -t "site.com/index.php?id=rang(1-9)" --sql<br>
+           <td class="main">EX: --expHost "/index.php?id=rang(1-9)" --sql OR -t "site.com/index.php?id=rang(1-9)" --sql<br>
            site.com/index.php?id=1 -> 9.</td>
       </tr> 
       <tr>
         <td width="200px" class="main"> repeat(txt-y) </td>
-           <td class="main">EX: --exp "/index.php?id=repeat(../-9)wp-config.php" --sql OR -t "site.com/index.php?id=../wp-config.php"<br>
+           <td class="main">EX: --expHost "/index.php?id=repeat(../-9)wp-config.php" --sql OR -t "site.com/index.php?id=../wp-config.php"<br>
            In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times </td>
       </tr>       
       <tr>
@@ -464,7 +464,7 @@
        Set engine: atscan --dork [dork] --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
        Set selective engines: atscan -d [dork] -l [level] -m 1,2,3.. <br/>
        Search with many dorks: atscan --dork dork1 [OTHER]dork2 [OTHER]dork3] --level [level]    <br/>
-       Search and rand: atscan -d [dork] -l [level] --exp "/index.php?id=rang(1-9)" --sql   <br/>
+       Search and rand: atscan -d [dork] -l [level] --expHost "/index.php?id=rang(1-9)" --sql   <br/>
        Get Server sites: atscan -t [ip] --level [value] --sites <br/>
        Get Server sites: atscan -t "[ip from]-[ip to]" --level [value] --sites <br/>
        Get Server sites: atscan -t "ip1 [OTHER]ip2" --level [value] --sites <br/>
@@ -486,8 +486,8 @@
         <hr>
        &#x25cf; <b>REPEATER:</b> <br/>
        atscan -t site.com?index.php?id=rang(1-10) --sql <br/>
-       atscan -t [target] --exp "/index.php?id=rang(1-10)" --sql <br/>
-       atscan -t [target] --exp "/index.php?id=repeat(../-9)wp-config.php" <br/>
+       atscan -t [target] --expHost "/index.php?id=rang(1-10)" --sql <br/>
+       atscan -t [target] --expHost "/index.php?id=repeat(../-9)wp-config.php" <br/>
         <hr>
        &#x25cf; <b>PORTS</b> <br/>
        atscan -t [ip] --port [port] [--udp / --tcp] <br/>
@@ -513,7 +513,7 @@
         <hr>
        &#x25cf; <b>MULTIPLE SCANS: </b><br/>
        atscan --dork [dork> --level [10] --sql --lfi --wp ..<br/>
-       atscan --dork [dork> --level [10] --replace [string] --with [string] --exp [payload] [--sql / --lfi / --wp /...]<br/>
+       atscan --dork [dork> --level [10] --replace [string] --with [string] --exp/expHost [payload] [--sql / --lfi / --wp /...]<br/>
        atscan -t [ip] --level [10] [--sql / --lfi / --wp /...]<br/>
        atscan -t [target] [--sql / --lfi / --wp /...] <br/>
         <hr>
@@ -531,12 +531,12 @@
         <hr>
        &#x25cf; <b>SCAN VALIDATION: </b><br/>
        atscan -t [target / targets.txt] [--status [code] / --valid [string] <br/>
-       atscan -d [dork / dorks.txt] -l [level] --exp [payload] --status [code] / --valid [string] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --exp/expHost [payload] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] [--admin / --sql ..] --status [code] / --valid [string] <br/>  
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --full --status [code] / --valid [string] <br/>
-       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp [payload] --status [code] / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp/expHost [payload] --status [code] / --valid [string] <br/>
        atscan --data "name:userfile[DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get]<br/>
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
        atscan -t [target / targets.txt] --valid [string] --not in [string]<br/>        <hr>

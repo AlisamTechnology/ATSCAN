@@ -79,9 +79,9 @@ use FindBin '$Bin';
   ."$c[5]               $c[10] | Ex: site.com/index.php?id=string] \n"  
   ."$c[5] --command     $c[10] | Extern Command to execute\n"
   ."$c[5] --email       $c[10] | Get emails \n"
-  ."$c[5] rang(x-y)     $c[10] | EX: --exp \"/index.php?id=rang(1-9)\" --sql OR -t \"site.com/index.php?id=rang(1-9)\" --sql\n"
+  ."$c[5] rang(x-y)     $c[10] | EX: --exp/expHost \"/index.php?id=rang(1-9)\" --sql OR -t \"site.com/index.php?id=rang(1-9)\" --sql\n"
   ."$c[5]               $c[10] | site.com/index.php?id=1->9 \n"
-  ."$c[5] repeat(txt-y) $c[10] | EX: --exp \"/index.php?id=repeat(../-9)wp-config.php\" --sql OR -t \"site.com/index.php?id=../wp-config.php\"\n"
+  ."$c[5] repeat(txt-y) $c[10] | EX: --exp/expHost \"/index.php?id=repeat(../-9)wp-config.php\" --sql OR -t \"site.com/index.php?id=../wp-config.php\"\n"
   ."$c[5]               $c[10] | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n"
   ."$c[5] [DATA/DATAFILE]$c[10]| To separate data values ex: --data \"name:username [DATA]email:xxxxxx [DATA]pass:xxxxx\"\n"
   ."$c[5]               $c[10] | Wordlist: --data \"name:username [DATA]email:xxxx\@xx.com [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
@@ -109,7 +109,7 @@ use FindBin '$Bin';
   ."   Set engine: atscan --dork <dork> --level <level> -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n"
   ."   Set selective engines: atscan -d <dork> -l <level> -m 1,2,3..\n"
   ."   Search with many dorks: atscan --dork <dork1 [OTHER]dork2 [OTHER]dork3> --level <level> \n"  
-  ."   Search and rand: atscan -d <dork> -l <level> --exp \"/index.php?id=rang(1-9)\" --sql\n"  
+  ."   Search and rand: atscan -d <dork> -l <level> --expHost \"/index.php?id=rang(1-9)\" --sql\n"  
   ."   Get Server sites: atscan -t <ip> --level <value> --sites\n"
   ."   Get Server wordpress sites: atscan -t <ip> --level <value> --wp \n"
   ."   Get Server joomla sites: atscan -t <ipbgn-ipend> --level <value> --joom \n"
@@ -130,8 +130,8 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  REPEATER: \n".$c[10]
   ."   atscan -t \"site.com?index.php?id=rang(1-10)\" --sql\n"
-  ."   atscan -t <target> --exp \"/index.php?id=rang(1-10)\" --sql\n"
-  ."   atscan -t <target> --exp \"/index.php?id=repeat(../-9)wp-config.php\" \n\n";
+  ."   atscan -t <target> --expHost \"/index.php?id=rang(1-10)\" --sql\n"
+  ."   atscan -t <target> --expHost \"/index.php?id=repeat(../-9)wp-config.php\" \n\n";
   
   ltak(); print $c[12]."  PORTS: \n".$c[10]
   ."   atscan -t <ip> --port <port> [--udp | --tcp] \n"
@@ -157,7 +157,7 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  MULTIPLE SCANS: \n".$c[10]
   ."   atscan --dork <dork> --level <10> --sql --lfi --wp ..\n"
-  ."   atscan --dork <dork> --level <10> --replace <string> --with <string> --exp <exploit> [--sql | --lfi | --wp |...]\n"
+  ."   atscan --dork <dork> --level <10> --replace <string> --with <string> --exp/expHost <exploit> [--sql | --lfi | --wp |...]\n"
   ."   atscan -t <ip> --level <10> [--sql | --lfi | --wp |...]\n"
   ."   atscan -t <targets> [--sql | --lfi | --wp |...]\n\n";
   
@@ -173,12 +173,12 @@ use FindBin '$Bin';
   ltak(); print $c[12]."  SCAN VALIDATION: \n".$c[10]
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string>] \n"
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> --none] \n"
-  ."   atscan -d <dork | dorks.txt> -l <level> --exp <payload> --status <code> | --valid <string> \n"
+  ."   atscan -d <dork | dorks.txt> -l <level> --exp/expHost <payload> --status <code> | --valid <string> \n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--admin | --sql ..] --status <code> | --valid <string> \n"  
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --full --status <code> | --valid <string>\n"
-  ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --exp <payload> --status <code> | --valid <string>\n"
+  ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --exp/expHost <payload> --status <code> | --valid <string>\n"
   ."   atscan --data \"name:userfile[DATAFILE]value:file.txt\" --post -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--sql | --shost ..] --status <code> | --valid <string> \n\n";
   

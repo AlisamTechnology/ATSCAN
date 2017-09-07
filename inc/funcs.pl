@@ -360,9 +360,6 @@ if (defined $mlevel) {
   }
 }
 
-## TIMER
-sub timer { our $date; print "[$date]"; }
-
 ## CHECK VERSION LOG
 sub compareme {
   my ($same);

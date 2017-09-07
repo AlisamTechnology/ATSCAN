@@ -637,7 +637,7 @@ sub getK {
 ## EXTERN COMMAND EXECUTION
 sub checkExternComnd {
   my ($URL1, $command)=@_;
-  print $c[1]."    $DT[24]  $c[10]::\n";
+  print $c[1]."    $DT[24]  $c[10]....................................................................\n";
   getComnd($URL1, $command);
 }
 

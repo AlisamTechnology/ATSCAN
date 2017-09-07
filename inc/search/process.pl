@@ -323,7 +323,7 @@ sub getComnd {
     }
   }
   
-  print "$c[10]            ||_ $c[10]$comnd\n";
+  print "$c[10]            => $c[10]$comnd\n";
   print $c[8]."            ";
   system($comnd); print "\n";
 }

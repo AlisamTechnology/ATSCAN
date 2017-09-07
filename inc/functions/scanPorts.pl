@@ -25,8 +25,7 @@ sub scanPorts {
 	  $count++;
       points(); dpoints(); points();
       print $c[1]."    $DS[9]  ".$c[7]."[$count/$lc] $URL\n";
-      #if ($URL!~/$V_IP/) { titleSCAN(); print $c[2]."[$URL] $TT[20]\n"; next; }
-      
+
       my $ping=checkIsAlive($URL);
       if (!$ping) {
         titleSCAN();

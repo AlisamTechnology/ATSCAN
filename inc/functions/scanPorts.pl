@@ -76,6 +76,7 @@ sub scanPorts {
               }else{
                 print $c[2]."$DS[43]\n";
               }
+	      sleep(2);
             }
           }
         }

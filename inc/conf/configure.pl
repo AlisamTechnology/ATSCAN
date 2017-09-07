@@ -30,10 +30,13 @@ $scriptCompletion="/etc/bash_completion.d";
 $readme="/usr/share/doc/atscan";
 our $userSetting="$Bin/inc/conf/userSetting";
 
-## TIME
+## DATE
 use POSIX qw(strftime);
 our $date = strftime "%H:%M:%S", localtime;
 our $fulldate = strftime "%j:%Y:%m:%d", localtime;
+
+## TIMER
+sub timer { my $time=strftime "%H:%M:%S", localtime; print "[$time]"; }
 
 ## DELETE CLEAR LISTS
 sub deleteLists {

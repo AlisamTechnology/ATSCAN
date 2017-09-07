@@ -25,7 +25,14 @@ sub scanPorts {
 	  $count++;
       points(); dpoints(); points();
       print $c[1]."    $DS[9]  ".$c[7]."[$count/$lc] $URL\n";
-      if ($URL!~/$V_IP/) { titleSCAN(); print $c[2]."[$URL] $TT[18]\n"; last; }
+      #if ($URL!~/$V_IP/) { titleSCAN(); print $c[2]."[$URL] $TT[20]\n"; next; }
+      
+      my $ping=checkIsAlive($URL);
+      if (!$ping) {
+        titleSCAN();
+        print "$c[2]$TT[22] $TT[23]\n"; next; }
+      else{ print "$c[1]    $TT[21] $c[3] $TT[22] $TT[24]\n"; }       
+      
       my $c1=0;
       foreach my $port(@PORTS) {
         my $o=OO();
@@ -38,7 +45,7 @@ sub scanPorts {
             if ($o<$limit) {
               $c2++;
               points() if $c2>1;
-              print $c[1]."    $DS[7]    $c[10]$port $portProtocol\n $c[1]   $DS[8]    $c[10]$type\n";
+              print $c[1]."    $DS[7]    $c[10]$port [$portProtocol]\n $c[1]   $DS[8]    $c[10]$type\n";
               titleSCAN();
               my $socket;
               my $closed1=0;

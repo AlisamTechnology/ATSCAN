@@ -31,6 +31,7 @@ sub makeSscan {
     if ($o>=$limit) { last; }
     else{
       $count++;
+      print "\n";
       points(); dpoints(); points();
       $URL=checkUrlSchema($URL);
       print $c[1]."    $DS[9]  "; print $c[10].$c[7]."[$count/$lc] $URL\n";
@@ -71,7 +72,8 @@ sub makeSscan {
       }
     }
   }  
-  ltak(); if (!$data) { endScan(); }
+  ltak();
+  if (!$data) { endScan(); }
 }
 
 1;

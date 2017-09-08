@@ -5,24 +5,33 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $msites, $content, $ping);
-our ($regex, $V_IP, $mrandom , $tcp, $udp, $dork, $motor, $searchRegex, $replace, $with, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @TT, @SCAN_TITLE, @DT, @OTHERS, @c);
+our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $replace, $with, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @TT, @SCAN_TITLE, @DT, @OTHERS, @c);
 
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
-  my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $msites, $port, $mupload, $mzip, $JoomSites, $eMails, $mlevel, $searchIps,
-             $regex, $ping);
-  my $Targ=0;
-  for (@Targs) { $Targ++ if defined $_; }
+  my $Targ=Targs();
+  if ($Targ<1) { print $c[4]."[!] $OTHERS[7]\n"; logoff(); }
+}
+
+if (defined $exploit or $exploit) {
+  my $Targ=Targs();
   if ($Targ<1) { print $c[4]."[!] $OTHERS[7]\n"; logoff(); }
 }
 
 ## CHECK TARGET PROTOCOL
-if ((defined $Target)&&(!defined $mlevel && !$mlevel)) { 
-  if (defined $msites and $Target=~/$V_IP/) { print $c[4]."[!] $DT[20]\n"; logoff(); }
-  if ((!-e $Target)&&($Target!~/$V_IP/)) {
+if (defined $Target) {   
+  if ((!-e $Target) && ($Target!~/$V_IP/) && !defined $ping) {
     if ($Target!~/https?:\/\//) { print $c[4]."[!] $DT[16]\n"; logoff(); }
   }
 }
+
+if (defined $msites) {
+  if (!defined $mlevel && !$mlevel) {
+    print $c[4]."[!] $DT[20]\n"; logoff();
+  }
+  if ((defined $Target) and (!-e $Target) && ($Target!~/$V_IP/)) { print $c[4]."[!] $Target $TT[20]\n"; logoff(); }
+}
+
 
 ## CHECK RANDOM PARAMS
 if (defined $mrandom && (!defined $mlevel && !$mlevel)) { print $c[4]."[!] $DT[38]\n"; logoff(); }

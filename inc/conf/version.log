@@ -5,6 +5,7 @@ VERSION 12.2.3 RELEASE
   - Extern commands to intern process.
   - Optimize ports scan.
   - Add ping command.
+  - Add more help arguments.
   - Remove noping command.
   - Enjoy!!
   ===================================================

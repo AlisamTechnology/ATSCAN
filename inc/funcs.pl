@@ -450,9 +450,10 @@ sub removeProtocol {
 ## GET PORTS PROTOCOL
 sub portProtocol { 
   my $por=$_[0];
-  my %proto=('21'=>'FTP', '22'=>'SSH', '23'=>'TELNET', '25'=>'SMTP', '53'=>'DNS', '69'=>'TFTP', '80'=>'HTTP', '109'=>'POP2', '110'=>'POP3', '123'=>'NTP', '137'=>'NETBIOS-NS',
-  '138'=>'NETBIOS-DGM', '139'=>'NETBIOS-SSN', '143'=>'IMAP', '156'=>'SQL-SERVER', '389'=>'LDAP', '443'=>'HTTPS', '444'=>'SNPP', '445'=>'SHARING', '546'=>'DHCP-CLIENT', '547'=>'DHCP-SERVER', '995'=>'POP3-SSL',
-  '993'=>'IMAP-SSL', '2086'=>'WHM/CPANEL', '2087'=>'WHM/CPANEL', '2082'=>'CPANEL', '2083'=>'CPANEL', '3306'=>'MYSQL', '8443'=>'PLESK', '10000'=>'VIRTUALMIN/WEBMIN');
+  my %proto=('21'=>'FTP', '22'=>'SSH', '23'=>'TELNET', '25'=>'SMTP', '53'=>'DNS', '69'=>'TFTP', '80'=>'HTTP', '109'=>'POP2', '110'=>'POP3', '123'=>'NTP', '137'=>'NETBIOS-NS', '135'=>'MSRPC',
+  '138'=>'NETBIOS-DGM', '139'=>'NETBIOS-SSN', '143'=>'IMAP', '156'=>'SQL-SERVER', '389'=>'LDAP', '443'=>'HTTPS', '444'=>'SNPP', '445'=>'SHARING', '546'=>'DHCP-CLIENT', '547'=>'DHCP-SERVER',
+  '554'=>'RTSP', '902'=>'ISS-REALSECURE', '912'=>'APEX-MESH', '995'=>'POP3-SSL', '993'=>'IMAP-SSL', '2086'=>'WHM/CPANEL', '2087'=>'WHM/CPANEL', '2082'=>'CPANEL', '2083'=>'CPANEL',
+  '2869'=>'ICSLAP', '3306'=>'MYSQL', '5357'=>'WSDAPI', '8443'=>'PLESK', '10000'=>'VIRTUALMIN/WEBMIN');
   my $portProtocol="UNKNOWN";
   for my $key (keys %proto) {
     if ($key eq $por) {
@@ -655,6 +656,7 @@ sub dd { sleep(1); print $c[4]."[!] $DT[8]\n"; }
 ## PING IP
 sub checkIsAlive {
   my ($URL, $psx1)=@_;
+  $URL= removeProtocol($URL) if $URL !~/$V_IP/;
   my $doping=0;
   my $p = Net::Ping->new("icmp", $timeout);
   if ($p->ping($URL)) { $doping++; }
@@ -700,6 +702,16 @@ sub printProxy {
     }
     print $c[1]."    $DS[11]  $c[10] [$psx]\n";
   }
+}
+
+## CHECK SCAN ARGUMENTS
+sub Targs {
+  our ($msites, $Hstatus, $validText);
+  my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $msites, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
+             $regex, $command, $ping);
+  my $Targ=0;
+  for (@Targs) { $Targ++ if defined $_; }
+  return $Targ;
 }
 
 1;

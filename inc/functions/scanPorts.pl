@@ -27,7 +27,7 @@ sub scanPorts {
       points(); dpoints(); points();
       print $c[1]."    $DS[9]  ".$c[7]."[$count/$lc] $URL\n";
       my $doping=checkIsAlive($URL, $psx);
-      if (!$doping or defined $ping) { next; }
+      if (!$doping or (defined $ping and !defined $port)) { next; }
       my $c1=0;
       foreach my $port(@PORTS) {
         my $o=OO();

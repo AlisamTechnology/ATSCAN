@@ -22,8 +22,8 @@ sub scanPorts {
     my $o=OO();
     if ($o>=$limit) { last; }
     else{
-	  $count++;
-      print "\n";
+      $count++;
+      print "\n" if $count>1;
       points(); dpoints(); points();
       print $c[1]."    $DS[9]  ".$c[7]."[$count/$lc] $URL\n";
       my $doping=checkIsAlive($URL, $psx);

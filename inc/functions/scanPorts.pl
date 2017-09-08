@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our (@SCAN_TITLE, @DS, @TT, @c, @aTscans, @aTsearch, @userArraysList, $limit, @ErrT, $proxy, $V_IP, $prandom, $psx, $command, $port, $udp, $tcp);
+our (@SCAN_TITLE, @DS, @TT, @c, @aTscans, @aTsearch, @userArraysList, $limit, @ErrT, $proxy, $V_IP, $prandom, $psx, $command, $port, $udp, $tcp, $ping);
 ## SCAN PORTS
 sub scanPorts {
   my ($PORTS, $types)=@_;
@@ -25,13 +25,8 @@ sub scanPorts {
 	  $count++;
       points(); dpoints(); points();
       print $c[1]."    $DS[9]  ".$c[7]."[$count/$lc] $URL\n";
-
-      my $ping=checkIsAlive($URL);
-      if (!$ping) {
-        titleSCAN();
-        print "$c[2]$TT[22] $TT[23]\n"; next; }
-      else{ print "$c[1]    $TT[21] $c[3] $TT[22] $TT[24]\n"; }       
-      
+      my $doping=checkIsAlive($URL, $psx);
+      if (!$doping or defined $ping) { next; }
       my $c1=0;
       foreach my $port(@PORTS) {
         my $o=OO();
@@ -45,38 +40,22 @@ sub scanPorts {
               $c2++;
               points() if $c2>1;
               print $c[1]."    $DS[7]    $c[10]$port [$portProtocol]\n $c[1]   $DS[8]    $c[10]$type\n";
+              my ($ProxyAddr, $ProxyPort);
+              if (defined $proxy || $proxy || defined $prandom || $prandom) { ($ProxyAddr, $ProxyPort)=checkProxyUse1(); }
               titleSCAN();
-              my $socket;
-              my $closed1=0;
-              if (defined $proxy || $proxy || defined $prandom || $prandom) {
-                if (defined $prandom || $prandom) {
-                  newIdentity();
-                  print $c[1]."    $ErrT[21] $c[8]  New Identity !\n";
-                }
-                my $px=removeProtocol($psx);
-                if ($px=~/((.*)\:(\d{1,6}))/) {
-                  my $ProxyAddr=$1;
-                  my $ProxyPort=$2;
-                  $socket=IO::Socket::INET->new(ProxyAddr => $ProxyAddr, ProxyPort => $ProxyPort, PeerAddr=> $URL, PeerPort=> $port,Proto=> $type) or $closed1++;
-                }
-              }else{
-                $socket=IO::Socket::INET->new(PeerAddr=> $URL, PeerPort=> $port, Proto=> $type) or $closed1++;
-              }                
-              close $socket if defined $socket;     
+              my $socket=IO::Socket::INET->new(ProxyAddr => $ProxyAddr, ProxyPort => $ProxyPort, PeerAddr=> $URL, PeerPort=> $port, Proto=> $type) or $closed1++;
+              close($socket) if $socket;
 	          if ($closed1==0) {
                 print $c[3]."$DS[42]\n";
                 my $URL1;
-                if (defined $command) {
-                  $URL1="$URL:$port";
-                }else{
-                  $URL1="$URL:$port $type";
-                }
+                if (defined $command) { $URL1="$URL:$port"; }
+                else{ $URL1="$URL:$port $type"; }
                 saveme($URL1, "");
                 if (defined $command) { checkExternComnd($URL1, $command); }
               }else{
                 print $c[2]."$DS[43]\n";
               }
-	      sleep(2);
+              sleep(1);
             }
           }
         }
@@ -87,12 +66,14 @@ sub scanPorts {
 }
 
 ## GET OPEN PORTS
-sub ports {  
+sub ports {
   my (@PORTS, @TYPES, @aTscans)=();
-  if ($port=~/(\d+)\-(\d+)/) { @PORTS=($1..$2); }
-  else{ @PORTS=split(/ /, $port); } 
-  if (defined $udp) { push(@TYPES, "udp"); }
-  if (defined $tcp) { push(@TYPES, "tcp"); }
+  if (defined $port) {
+    if ($port=~/(\d+)\-(\d+)/) { @PORTS=($1..$2); }
+    else{ @PORTS=split(/ /, $port); } 
+    if (defined $udp) { push(@TYPES, "udp"); }
+    if (defined $tcp) { push(@TYPES, "tcp"); }
+  }
   scanPorts(\@PORTS, \@TYPES);
 }
 

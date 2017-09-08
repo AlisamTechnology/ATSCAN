@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $zone, $agent, $noping, $noExist, $notIn, $expHost, $expIp);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $zone, $agent, $noExist, $notIn, $expHost, $expIp);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $brandom, $noinfo, $timeout, $method, $command, @OTHERS, @ErrT);
 ## SET ENGINES
@@ -77,16 +77,6 @@ sub printMotor {
     if ($motor=~/sogou/) { print $l2; }
   }
   print "\n";
-}
-
-## PRINT INFO PROXY
-sub printProxy {
-  if (defined $proxy || defined $prandom || $prandom || $proxy) {
-    if (defined $prandom || $prandom) {
-      print $c[1]."    $ErrT[21] $c[8]  New Identity !\n";
-    }
-    print $c[1]."    $DS[11]  $c[10] [$psx]\n";
-  }
 }
 
 ## PRINT INFO DORK
@@ -179,7 +169,7 @@ sub printInfoUrl {
   our ($command, $port);
 
   if ($o<$limit) {
-    if ((!defined $noinfo && !$noinfo) && (!defined $noping)) {
+    if (!defined $noinfo && !$noinfo) {
       if (defined $noQuery) { print $c[1]."    $DS[16] $c[10]  $DS[40]\n"; }
       printProxy();
       if (defined $brandom || $brandom) {
@@ -201,22 +191,20 @@ sub browseUrl {
   my ($URL1, $form)=@_;
   printInfoUrl($URL1, $data);
   my ($response, $html, $status, $serverheader, $command, $port);
-  if (!defined $noping) {
-    ($response, $html, $status, $serverheader)=getHtml($URL1, $form);
-    my $o=OO();
-    if ($o<$limit) {
-      if ((!defined $noinfo && !$noinfo) || (!defined $noping)) {
-        if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }    
-        print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
-        if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
-        else { print $c[10]."$DT[35]\n"; }
-        my $ips=checkExtraInfo($URL1);
-        print $c[1]."    $DS[10]      ";
-        if ($ips) { my $ad=inet_ntoa($ips); print $c[10]."$ad\n"; }
-        else{ print $c[10]."$DT[35]\n"; }
-        checkCms($html); checkErrors($html);
-        if (defined $output) { print $c[1]."    OUTPUT  ". $c[10]."$output\n"; }
-      }
+  ($response, $html, $status, $serverheader)=getHtml($URL1, $form);
+  my $o=OO();
+  if ($o<$limit) {
+    if (!defined $noinfo && !$noinfo) {
+      if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }    
+      print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
+      if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
+      else { print $c[10]."$DT[35]\n"; }
+      my $ips=checkExtraInfo($URL1);
+      print $c[1]."    $DS[10]      ";
+      if ($ips) { my $ad=inet_ntoa($ips); print $c[10]."$ad\n"; }
+      else{ print $c[10]."$DT[35]\n"; }
+      checkCms($html); checkErrors($html);
+      if (defined $output) { print $c[1]."    OUTPUT  ". $c[10]."$output\n"; }
     }
   }
   return ($response, $status, $html);

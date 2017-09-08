@@ -31,6 +31,7 @@ use FindBin '$Bin';
   ."$c[5] --post        $c[10] | Use post method \n"
   ."$c[5] --get         $c[10] | Use get method \n"
   ."$c[5] --header      $c[10] | Set headers. \n"
+  ."$c[5] --ping        $c[10] | Ping host. \n"
   ."$c[5] --host        $c[10] | Domain name [Ex: site.com] \n"
   ."$c[5] --nobanner    $c[10] | Hide tool banner\n"
   ."$c[5] --beep        $c[10] | Produce beep sound if positive scan found.\n"

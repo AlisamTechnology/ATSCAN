@@ -202,9 +202,12 @@ sub make_freq {
 ## GET CURRENT IDENTITY
 sub get_ipAddress {
   my $ipadress;
-  my $r=$ua->get($ipUrl);
-  if ($r->is_success) {
-    if ($r->content=~m/$V_IP/g) { $ipadress="$1"; }
+  my $fd=0;
+  while (!$fd) {
+    my $r=$ua->get($ipUrl);
+    if ($r->is_success) {
+      if ($r->content=~m/$V_IP/g) { $ipadress="$1"; $fd++; }      
+    }
   }
   return $ipadress;
 }
@@ -439,7 +442,7 @@ sub checkDuplicate {
 ## REMOVE URLS PROTOCOL
 sub removeProtocol { 
   my $URL=$_[0];
-  my %replace=('http://' => '', 'https://'=>'', 'ftp://'=>'', 'ftps://'=>'', 'socks(4|5)?://'=>'');
+  my %replace=('http://' => '', 'https://'=>'', 'ftp://'=>'', 'ftps://'=>'', 'socks://'=>'', 'socks4://'=>'', 'socks5://'=>'');
   $URL=~s/$_/$replace{ $_}/g for keys %replace;
   return $URL;
 }
@@ -623,8 +626,8 @@ sub title {
 }
 
 ## CHECK IF THERE MORE SCANS TO DO
-our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $command);
-our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $data);
+our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $command, $ping);
+our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $data, $ping);
 sub getK {
   our @z;
   my ($x, $y)=@_; my $k=0; splice @z, $x, $y;
@@ -638,7 +641,7 @@ sub checkExternComnd {
   getComnd($URL1, $command);
 }
 
-##UPDATE
+## CHMOD 777
 sub nochmod {
   my ($path, $action)=@_;
   sleep(1);
@@ -651,12 +654,52 @@ sub dd { sleep(1); print $c[4]."[!] $DT[8]\n"; }
 
 ## PING IP
 sub checkIsAlive {
-  my $URL=$_[0];
-  my $ping="0";
+  my ($URL, $psx1)=@_;
+  my $doping=0;
   my $p = Net::Ping->new("icmp", $timeout);
-  if ($p->ping($URL)) { $ping="1"; }
+  if ($p->ping($URL)) { $doping++; }
   $p->close();
-  return $ping;
+  if ($doping==0) {
+    titleSCAN();
+    print "$c[2]$TT[22] $TT[23]\n";
+  }else{
+    print "$c[1]    $TT[21] $c[3] $TT[22] $TT[24]\n";
+    saveme($URL, "") if !defined $port;
+    if (defined $command) { checkExternComnd($URL, $command); }
+  }
+  sleep(1);
+  return $doping;
+}
+
+## SOCKET PROXY
+sub getHostAndPort {
+  my $px=$_[0];
+  $px=removeProtocol($px);
+  my @sk=split(":", $px);
+  return ($sk[0], $sk[1]);
+}
+
+## CHECK PROXY RANDOM USE
+sub checkProxyUse1 {
+  my ($ProxyAddr, $ProxyPort);
+  if (defined $proxy || $proxy || defined $prandom || $prandom) {
+    if (defined $prandom || $prandom) {
+      newIdentity();
+    }
+    printProxy();
+    ($ProxyAddr, $ProxyPort) = getHostAndPort($psx);
+  }
+  return ($ProxyAddr, $ProxyPort);
+}
+
+## PRINT INFO PROXY
+sub printProxy {
+  if (defined $proxy || defined $prandom || $prandom || $proxy) {
+    if (defined $prandom || $prandom) {
+      print $c[1]."    $ErrT[21] $c[8]  New Identity !\n";
+    }
+    print $c[1]."    $DS[11]  $c[10] [$psx]\n";
+  }
 }
 
 1;

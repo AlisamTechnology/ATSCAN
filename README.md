@@ -321,6 +321,10 @@
         <td class="main"> Get site subdomains </td>
       </tr> 
       <tr>
+        <td width="200px" class="main">--port </td>
+        <td class="main"> Port </td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--tcp </td>
         <td class="main"> TCP port </td>
       </tr> 

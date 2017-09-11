@@ -229,6 +229,10 @@
         <td class="main"> Jump extra results info.</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--notin </td>
+        <td class="main"> Get targets where string does not exist in html.</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--ping </td>
         <td class="main"> Host ping.</td>
       </tr> 

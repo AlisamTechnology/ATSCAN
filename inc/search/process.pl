@@ -99,10 +99,10 @@ sub printDork {
   print $c[1]."[::] $DS[18]   $c[10] [$mlevel]\n";
   if (defined $ifinurl || defined $unique || $unique || defined $searchRegex) {
     print $c[1]."[::] $SCAN_TITLE[24]   $c[10]";
-    if (defined $noExist) { print "[None: "; }
-    if (defined $ifinurl) { print "$TT[19]\] "; }
-    if (defined $unique || $unique) { print "$DS[30]\] "; }
-    if (defined $searchRegex) { print "$searchRegex] "; }
+    if (defined $noExist) { print "[None]"; }
+    if (defined $ifinurl) { print "[$TT[19]\]"; }
+    if (defined $unique || $unique) { print "[$DS[30]\]"; }
+    if (defined $searchRegex) { print " [$searchRegex]"; }
     print "\n"; 
   }
   ptak();

@@ -95,4 +95,7 @@ sub uninstall { require "$Bin/inc/functions/uninstall.pl"; }
 ## HELP MENU #####
 sub help { require "$Bin/inc/help.pl"; }
 
+## INTERACTIVE MENU
+sub interactive { require "$Bin/inc/interactive/main.pl"; }
+
 1;

@@ -1,12 +1,9 @@
-VERSION 12.2.3 RELEASE
+VERSION 12.3 RELEASE
 =====================================================
-  CHANGES: 08/09/2017
+  CHANGES: 19/09/2017
   ===================================================
-  - Extern commands to intern process.
-  - Optimize ports scan.
-  - Add ping command.
-  - Add more help arguments.
-  - Remove noping command.
+  - Add interactive interface.
+  - Add some missing arguments.
   - Enjoy!!
   ===================================================
 

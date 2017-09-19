@@ -17,7 +17,7 @@
 ##
 echo "[ ]=======================================================================[ ]";
 echo "[ ]                      ALISAM  TECHNOLOGY                               [ ]";
-echo "[ ]                   Atscan Tool Install Script                          [ ]";
+echo "[ ]                atscan v12.3.0 Tool Install Script                       [ ]";
 echo "[ ]=======================================================================[ ]";
 echo "[ ] MIT License                                                           [ ]";
 echo "[ ] Copyright (c) 2015 Alisam Technology                                  [ ]";

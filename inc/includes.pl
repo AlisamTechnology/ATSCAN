@@ -23,8 +23,8 @@ our $password;
 if ($password) { require "$Bin/inc/functions/log.pl"; }
 
 ## NO ARGUMENTS ##
-our ($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $toolInfo, $config);
-our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $toolInfo, $config);
+our ($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $toolInfo, $config, $interactive);
+our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $toolInfo, $config, $interactive);
 my $NoArg=0;
 for (@NoArg) { $NoArg++ if defined $_; }
 advise() if $NoArg<1;

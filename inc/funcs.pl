@@ -6,7 +6,8 @@ use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
 ## FUNCTS
-our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo, $V_IP, $expIp);
+our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
+     $V_IP, $expIp, $interactive);
 our (@aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT);
 
 ## PRINT FILES 
@@ -708,7 +709,7 @@ sub printProxy {
 sub Targs {
   our ($msites, $Hstatus, $validText);
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $msites, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
-             $regex, $command, $ping);
+             $regex, $command, $ping, $interactive);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;

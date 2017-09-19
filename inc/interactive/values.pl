@@ -56,8 +56,8 @@ our @INTERshell=('shell');
 our %INTERshell=("shell"=>"shell url");
 
 ## PORTS
-our @INTERPortScan=('tcp', 'udp');
-our %INTERPortScan=("udp"=>"udp port type", "tcp"=>"tcp port type");
+our @INTERPortScan=('port', 'tcp', 'udp');
+our %INTERPortScan=("port"=>"port", "udp"=>"udp port type", "tcp"=>"tcp port type");
 
 ## PAYLOADS
 our @INTERpayload=("payload");

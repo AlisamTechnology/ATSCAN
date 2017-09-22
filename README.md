@@ -120,8 +120,8 @@
   <tr>
     <td align="center" width="890px">
     <img src="http://i.imgur.com/4Y8VhwG.jpg" /> <br/><br/>
-    <img src="http://i.imgur.com/pyaqymd.jpg" /> <br/><br/>
-    <img src="http://i.imgur.com/yLFzV09.jpg" /> <br/><br/>
+    <img src="https://i.imgur.com/07sJtSr.jpg" /> <br/><br/>
+    <img src="https://i.imgur.com/IoReBpZ.jpg" /> <br/><br/>
     <img src="http://i.imgur.com/oRFCwRK.jpg" /> <br/><br/>
     <img src="http://i.imgur.com/aeBfATH.jpg" /> <br/><br/> 
     </td>

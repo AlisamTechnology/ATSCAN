@@ -24,7 +24,9 @@ sub is_folder_empty {
 }
 
 ## USER PRE-CONFIGURATION
-our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $activeUconf, $freq, $method, $checkVersion, $get, $post);
+our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $SetInteractive,
+    $scriptbash);
+##
 sub checkSetting {
   my $object=$_[0];
   my @ans;
@@ -67,40 +69,39 @@ sub getProx {
 
 ## DELETE USER SETTING
 sub deletSetting {
-  our (@configuration, @LI2, $userSetting);
+  my @config=get_configuration();
+  our (@LI2, $userSetting);
   my $val=$_[0];
-  for my $lines(@configuration) {
+  unlink $userSetting;
+  open FH, ">", $userSetting;
+  for my $lines(@config) {
     if ($lines!~/^$val\s(.*)/) {
-      push @LI2, $lines;
+      print FH "$lines";
     }
   }
-  unlink $userSetting; @configuration=();
-  for my $lines2(@LI2) { printFile($userSetting, $lines2); }
+  close FH;
 }
 
 ## CHECK USER CONFIGURATION
-$activeUconf=checkSetting("config");
 $password=checkSetting("password");
-
-if ($activeUconf) {
-  $proxy=checkSetting("proxy") if !defined $proxy;
-  $prandom=checkSetting("proxy-random") if !defined $prandom;
-  $payloads=checkSetting("payload") if !defined $payloads;
-  $brandom=checkSetting("b-random") if !defined $brandom;
-  $mrandom=checkSetting("m-random") if !defined $mrandom;  
-  $mlevel=checkSetting("level") if !defined $mlevel;
-  $method=checkSetting("method") if !defined $get and !defined $post;
-  $zone=checkSetting("zone");
-  $motor=checkSetting("engine") if !defined $motor;
-  $nobanner=checkSetting("nobanner") if !defined $nobanner;
-  $noinfo=checkSetting("noinfo") if !defined $noinfo;
-  $beep=checkSetting("beep") if !defined $beep;
-  $ifend=checkSetting("ifend") if !defined $ifend;
-  $unique=checkSetting("unique") if !defined $unique;
-  $timeout=checkSetting("timeout") if !defined $timeout;
-  $dateupdate=checkSetting("update");
-  $freq=checkSetting("freq") if !defined $freq;
-}
+$SetInteractive=checkSetting("interactive");
+$proxy=checkSetting("proxy") if !defined $proxy;
+$prandom=checkSetting("proxy-random") if !defined $prandom;
+$payloads=checkSetting("payload") if !defined $payloads;
+$brandom=checkSetting("b-random") if !defined $brandom;
+$mrandom=checkSetting("m-random") if !defined $mrandom;  
+$mlevel=checkSetting("level") if !defined $mlevel;
+$method=checkSetting("method") if !defined $get and !defined $post;
+$zone=checkSetting("zone") if !defined $zone;
+$motor=checkSetting("engine") if !defined $motor;
+$nobanner=checkSetting("nobanner") if !defined $nobanner;
+$noinfo=checkSetting("noinfo") if !defined $noinfo;
+$beep=checkSetting("beep") if !defined $beep;
+$ifend=checkSetting("ifend") if !defined $ifend;
+$unique=checkSetting("unique") if !defined $unique;
+$timeout=checkSetting("timeout") if !defined $timeout;
+$dateupdate=checkSetting("update");
+$freq=checkSetting("freq") if !defined $freq;
 ## SET PROXY
 if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
 if (defined $prandom || $prandom) { @proxies=getProx($prandom); }

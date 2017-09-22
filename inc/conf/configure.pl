@@ -10,7 +10,7 @@ if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
 ## VERSION
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv, $scriptCompletion, $scriptComplInstall, $readme, $uplog);
-$Version="12.3.0";
+$Version="12.3.1";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";
@@ -29,6 +29,7 @@ $scriptbash="/usr/bin/atscan";
 $scriptCompletion="/etc/bash_completion.d";
 $readme="/usr/share/doc/atscan";
 our $userSetting="$Bin/inc/conf/userSetting";
+our $deskIcon="$Bin/inc/conf/desktop/";
 
 ## DATE
 use POSIX qw(strftime);
@@ -48,6 +49,22 @@ deleteLists();
 ## COLORS 
 require "$Bin/inc/theme/colors.pl";
 our @c=get_colors();
+
+## USER CONFIGUATION
+our @configuration;
+sub get_configuration {
+  @configuration=();
+  if (-e $userSetting) {
+    open(F1, $userSetting);
+    while (my $set=<F1>) {             
+      if (!($set=~/^$/)) {
+        push @configuration, $set;
+      }
+    }
+    close( F1 );
+  }
+  return @configuration;
+}
 
 ## LOAD PAYLOADS  
 require "$Bin/inc/payloads.pl";
@@ -136,21 +153,6 @@ our $validText;
 our @V_VALID=($validText) if defined $validText;
 our @ERR=(@V_LFI, @V_XSS, @V_AFD, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE, @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_UNDEFINED, @E_MARIADB, @E_SHELL);
 our @CMS=(@V_WP, @V_JOOM, @V_TP, @V_SMF, @V_PhpBB, @V_VB, @V_MyBB, @V_CF, @V_DRP, @V_PN, @V_AT, @V_PHPN, @V_MD, @V_ACM, @V_SS, @V_MX, @V_XO, @V_OSC, @V_PSH, @V_BB2, @V_MG, @V_ZC, @V_CC5, @V_OCR);
-
-our @configuration=get_configuration();
-sub get_configuration {
-  @configuration=();
-  if (-e $userSetting) {
-    open(F1, $userSetting);
-    while (my $set=<F1>) {             
-      if (!($set=~/^$/)) {
-        push @configuration, $set;
-      }
-    }
-    close( F1 );
-  }
-  return @configuration;
-}
 
 ## MAIL VALIDATION
 our ($searchRegex, $regex);

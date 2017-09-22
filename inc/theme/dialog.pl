@@ -20,7 +20,7 @@ my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan 
 my @AUTH=("Login:", "Incorrect password!", "A password is already assigned! Do you want to remove it ? [y/n]:", "Password successfully removed!",
           "You will set an user password and will be required for each use!", "Enter password or press Cotrol+C to cancel", "Password successfully generated!", "No password have been set!",
           "Password must have at least 3 caracters!", "Tool will restart in", "THIS IS YOUR CONFIGURATION:", "No configuation found!", "Invalid option!", "is already configured use reset command first!",
-          "Couldn't interpret your command!", "No configuation file found!", "Type your setting or exit to cancel:");
+          "Couldn't interpret your command!", "No configuation file found!", "Type your setting or [exit = exit]", "Type: [back = setting menu][exit = exit][done = finish]");
 
 ## ERRORS DIALOG TEXT
 my @ErrT=("LFI:", "MYSQL:", "AFD:", "Microsoft:", "Oracle:", "DB2:", "ODBC:", "POSTGRESQL:", "SYBASE:", "BOSSWEB:", "JDBC:", "Java Infinitydb:", "PHP:", "ASP:", "LUA:", "UNDEFINED:", "Mariadb:",

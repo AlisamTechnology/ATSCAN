@@ -29,6 +29,9 @@ my $NoArg=0;
 for (@NoArg) { $NoArg++ if defined $_; }
 advise() if $NoArg<1;
 
+## TOOL CONFIGURATION
+require "$Bin/inc/functions/clientConf.pl";
+
 ## COMMANDE LINE ERRORS 
 require "$Bin/inc/errors/useErrors.pl";
 

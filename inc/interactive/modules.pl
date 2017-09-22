@@ -113,15 +113,15 @@ sub main2 {
 sub main3 {
   my ($mod, $scn)=@_;
   my $validCmnds=(join("|", @ARGUMENTS));
-  for my $ARGUMENT(@ARGUMENTS) {
-    if ($activeUconf) { checkIfConfig($ARGUMENT); }
-  }
   print "$c[10]\[!] Set arguments or type [options: list arguments][run: to execute]!\n";
   print "$c[4]\[!] How to use arguments? type [help: for help]!\n";
   while ((scalar @INTERCOMNDSFIN) < 1) {
     while (!$first1 or $first1 ne "run") {
       $first1=form("4");
       if ($first1 eq "options") {
+        for my $ARGUMENT(@ARGUMENTS) {
+          checkIfConfig($ARGUMENT);
+        }
         my $prefix=getPrefix();
         print "\n$c[11]  Module($c[13]$mod$c[11] > $c[13]$prefix$c[11]\)\n";
         InterHelpArgs("set", "ARGUMENT", "VALUE", "");
@@ -252,11 +252,10 @@ sub form {
   print "$c[10]";
   $ord=<STDIN>;
   chomp ($ord);
+  if ($ord eq "config") { ClientConfiguration(); ltak(); }
   if ($ord eq "help") { ltak(); print "\n"; interHelp(); ltak(); }
   if ($ord eq "back") { back($process); }
-  if ($ord eq "run" && scalar(@INTERCOMNDS) < 1) {
-    runArg($process);
-  }
+  if ($ord eq "run" && scalar(@INTERCOMNDS) < 1) { runArg($process); }
   if ($ord eq "exit") {
     print "$c[3]\[!] Bey! :)\n";
     logoff($mod);

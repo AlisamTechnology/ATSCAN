@@ -17,7 +17,7 @@
 ##
 echo "[ ]=======================================================================[ ]";
 echo "[ ]                      ALISAM  TECHNOLOGY                               [ ]";
-echo "[ ]                atscan v12.3.0 Tool Install Script                       [ ]";
+echo "[ ]                  atscan Tool Install Script                           [ ]";
 echo "[ ]=======================================================================[ ]";
 echo "[ ] MIT License                                                           [ ]";
 echo "[ ] Copyright (c) 2015 Alisam Technology                                  [ ]";
@@ -47,7 +47,7 @@ echo "";
 ### Check system compatibility
 if [ -d "/usr/bin/" ];
 then
-echo "[!] ATSCAN (size 500 KB) will be installed in your system? [Y/n]: ";
+echo "[!] ATSCAN will be installed in your system? [Y/n]: ";
 read baba
 if [ "$baba" == "y" ] || [ "$baba" == "Y" ] || [ -z "$baba" ]; 
 then

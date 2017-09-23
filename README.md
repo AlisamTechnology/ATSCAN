@@ -169,15 +169,15 @@
         <td class="main">set browser time out</td> 
       </tr> 
       <tr>
-        <td width="200px" class="main">--dork|d    </td>
+        <td width="200px" class="main">--dork/-d </td>
         <td class="main"> Dork to search [Ex: house [OTHER]cars [OTHER]hotel] 
       </tr> 
       <tr>
-        <td width="200px" class="main">--target|t</td>
+        <td width="200px" class="main">--target/-t</td>
         <td class="main">Target </td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--level|l</td>
+        <td width="200px" class="main">--level/-l</td>
         <td class="main"> Scan level (+- Number of page results to scan) </td>
       </tr>
       <tr>
@@ -189,7 +189,7 @@
         <td class="main"> Set test parameter EX:id,cat,product_ID </td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--save / -s </td>
+        <td width="200px" class="main">--save/-s </td>
         <td class="main"> Output.</td>
       </tr>
       <tr>
@@ -289,7 +289,7 @@
         <td class="main"> Use your own payloads instead of tool ones</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--exp|e </td>
+        <td width="200px" class="main">--exp/-e </td>
         <td class="main"> Exploit/Payload will be added to full target </td>
       </tr>
       <tr>
@@ -397,7 +397,7 @@
         <td class="main"> Remove string value from Query url [ex: site.com/index.php?id=string]  </td> 
       </tr> 
       <tr>
-        <td width="200px" class="main">--command /-c  </td>
+        <td width="200px" class="main">--command/-c  </td>
         <td class="main"> Extern Command to execute</td>
       </tr> 
       <tr>

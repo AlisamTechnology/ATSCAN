@@ -440,7 +440,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--interactive</td>
-        <td class="main">Tool interactive mode.</td>
+        <td class="main">Tool interactive interface.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--uninstall</td>

@@ -282,7 +282,7 @@ sub getRegex {
 ## EXECUTE EXTERN PROCESS COMMANDS
 sub getComnd {
   my ($URL1, $comnd)=@_;
-  $URL1=~s/(\%27|\<|\>|\"\<|\"\>|\'\<|\'\>|\"\;|\<\%25|\%|\').*//ig;
+  $URL1=~s/(\sAND|\%27|\<|\>|\"\<|\"\>|\'\<|\'\>|\"\;|\<\%25|\%|\').*//ig;
   if ($URL1=~/($V_IP)/) {
     $URL1=removeProtocol($URL1);
     if ($comnd=~/-PORT/) {

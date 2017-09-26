@@ -557,18 +557,13 @@
         <hr>
        &#x25cf; <b>UNINSTALL TOOL: </b><br/>     
        atscan --uninstall
+        
+        &#9733; <b>Thanks to:</b><br/>
+           o Dracos & Blackarch linux developers.
+        
        </td></tr></table>     
     </td>
   </tr>
 </table> 
-<table border="0" cellpadding="2" cellspacing="5" width="100%">
-  <tr>
-    <td width="890px">&#9733; <b>Thanks to:</b></td>
-  </tr>
-  <tr>
-    <td width="890px">&#9733; Blackarch linux & Dracos os Team.</b></td>
-  </tr>
-  <tr>
-</table>
 </body>
 </html>

@@ -7,7 +7,7 @@ use FindBin '$Bin';
 ##############################################################################################
 ##############################################################################################
 ##
-our(@c, $scriptbash, $activeUconf);
+our(@c, @AUTH, $scriptbash, $activeUconf);
 our(@INTERCOMNDS, @INTERSCANS, @INTERCOMNDSFIN, %INTEROPTION, %MODULES, @MODULES, @SCANS, %SCANS, @ENGINEARGUMENTS, @ARGUMENTSALL, %ARGUMENTSALL, %ENGINEARGUMENTS,
     @NoValRequierd, @INTERcomnd, %INTERcomnd);
 our (@INTERshell, @INTERparam, @INTERcommand, @INTERPortScan, @INTERDataScan, @INTERpayload, @INTERdecryp, @INTERadvanced);
@@ -20,7 +20,7 @@ my ($mod, $scn, $first, $first1, $interScan);
 
 # MAIN
 sub main {
-  print "$c[10]\[!] Choose a mode or type options to list aviable modules!\n";
+  print "$c[10]\[!] $AUTH[17]!\n";
   my @OPT;
   while (!$mod) {
     my $module=form("1");
@@ -57,7 +57,7 @@ sub main2 {
   %SCANS3=(%SCANS3, %SCANS2);
   my $validCmnds2=(join("|", @SCANS3));
   my @INTERSCANS2;
-  print "$c[10]\[!] Choose a module or type options to list aviable modules!\n";
+  print "$c[10]\[!] $AUTH[18]!\n";
   while (!$scn) {
     $first=form("2"); 
     if ($first =~ /use\s(.*)/) {
@@ -113,8 +113,8 @@ sub main2 {
 sub main3 {
   my ($mod, $scn)=@_;
   my $validCmnds=(join("|", @ARGUMENTS));
-  print "$c[10]\[!] Set arguments or type [options: list arguments][run: to execute]!\n";
-  print "$c[4]\[!] How to use arguments? type [help: for help]!\n";
+  print "$c[10]\[!] $AUTH[19]!\n";
+  print "$c[4]\[!] $AUTH[20]!\n";
   while ((scalar @INTERCOMNDSFIN) < 1) {
     while (!$first1 or $first1 ne "run") {
       $first1=form("4");
@@ -149,7 +149,7 @@ sub main3 {
       }
       if ($first1 eq "run") {          
         for my $eew(@INTERSCANS) {
-          if ($eew !~ /(advanced|multi|ports|commands|form)/) {
+          if ($eew !~ /(advanced|normal|multi|ports|commands|form)/) {
             push @INTERCOMNDSFIN, $eew;
           }
         }
@@ -266,7 +266,7 @@ sub form {
 ## RUN
 sub runArg {
   my $process=$_[0];
-  print $c[2]."[!] Opss.. Nothing to run!\n\n";
+  print $c[2]."[!] $AUTH[21]!\n\n";
   if ($process eq "2") {
     (@ARGUMENTS, %ARGUMENTS, %INTEROPTION, @INTERSCANS)=();
     main2($mod);
@@ -328,7 +328,7 @@ sub InterHelpArgs1 {
   my ($j1, $j2, $j3, $j4, $isArg)=@_;
   print "$c[10]  + Usage: > $j1 [$j2]";
   if ($j3) {
-    print "[$j3]\n$c[4]  + VAL* = This command Require a value!";
+    print "[$j3]\n$c[4]  $AUTH[22]!";
   }
   print "\n";
   my $keyLength2 = length($j2);

@@ -560,6 +560,15 @@
        </td></tr></table>     
     </td>
   </tr>
-</table>  
+</table> 
+<table border="0" cellpadding="2" cellspacing="5" width="100%">
+  <tr>
+    <td width="890px">&#9733; <b>Thanks to:</b></td>
+  </tr>
+  <tr>
+    <td width="890px">&#9733; Blackarch linux & Dracos os Team.</b></td>
+  </tr>
+  <tr>
+</table>
 </body>
 </html>

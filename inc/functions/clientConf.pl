@@ -57,122 +57,121 @@ sub ClientConfiguration {
         if ((!$ps) or (defined $sold && !grep /^$sold$/, @res) && $sold ne "config") {
           print $c[4]."   [!] $AUTH[14]\n";
         }else{
-        ####################################################################################################
-        if ($act eq "exit") {
-          $finish++;
-        ####################################################################################################
-        }elsif ($act eq "set") {
-          @confSet=get_configuration();
-          for my $configuration(@confSet) {
-            if ($configuration=~/$sold/) {
-              deletSetting($sold);
-            }
-          }
-          ##################  
-          if ($sold eq "interactive") {
-            if (-e $x1) {
-              copy $x1, $x2;
-              unlink $x1;
-              open(F23, $x2);
-              @l22=<F23>;
-              close(F23);
-              open(F24, '>>', $x1);
-              for my $l22(@l22) {
-                $l22=~s/\"atscan\;/\"atscan --interactive\;/ig;
-                print F24 "$l22\n";
-              }
-              close(F24);
-              printFile($userSetting, "interactive on");
-              print $c[3]."   [i] $sold is Active!\n";
-            }
-          }
-          ##################  
-          if ($sold eq "password") {
-            $ps=Digest::MD5->md5_hex($ps);
-            printFile($userSetting, "password $ps");
-            print $c[3]."   [i] Password was set!\n";
-          }else{
-            if (-e $sold) {
-              open(F, $sold);
-              while (my $st=<F>) {
-                unlink "$Bin/inc/conf/user/$sold.txt" if -e "$Bin/inc/conf/user/$sold.txt";
-                printFile("$Bin/inc/conf/user/$sold.txt", "$st");
-              }
-              close(F);
-              printFile($userSetting, "$sold $Bin/inc/conf/user/$sold.txt\n");
-              print $c[3]."   [i] $sold => $Bin/inc/conf/user/$sold.txt\n";
-            }else{
-              printFile($userSetting, "$sold $ps");
-              print $c[3]."   [i] $sold => $ps\n";
-            }
-          }
-        ####################################################################################################
-        }elsif ($act eq "reset") {
-          @confReset=get_configuration();
-          if ($ps eq "all") {        
-            for my $y(@res) {
-              system "rm $Bin/inc/conf/user/$y.txt" if -e "$Bin/inc/conf/user/$y.txt";
-            }
-            unlink $userSetting;
-            open FH, ">", $userSetting;
-            for my $ln(@confReset) {
-              if ($ln=~/^##/) {
-                print FH "$ln";
+          ####################################################################################################
+          if ($act eq "exit") {
+            $finish++;
+          ####################################################################################################
+          }elsif ($act eq "set") {
+            @confSet=get_configuration();
+            for my $configuration(@confSet) {
+              if ($configuration=~/$sold/) {
+                deletSetting($sold);
               }
             }
-            close FH;
-            print $c[3]."   [i] All configuration was reset! \n";
-          }else{
-            my $userfile="$Bin/inc/conf/user/$sold.txt";
-            unlink $userfile if -e $userfile;
-            deletSetting($sold);
+            ##################  
             if ($sold eq "interactive") {
-              if (-e $x2 && -e $x1) {
+              if (-e $x1) {
+                copy $x1, $x2;
                 unlink $x1;
-                copy $x2, $x1;
-                unlink $x2;
-              }        
-            }
-            print $c[3]."   [i] $sold was reset!\n";
-          }
-        ####################################################################################################
-        }elsif ($act eq "show") {
-          @confShown=get_configuration();
-          my $a1=0;
-          print $c[10]."   +"."-" x 75 ."\n";
-          print $c[10]."   | $c[11]OPTION                  $c[10] | $c[11]VALUE\n";
-          print $c[10]."   +"."-" x 75 ."\n";
-          for my $lines2(@confShown) {
-            if ($lines2!~/(##|config)/) {
-              $a1++;
-              my @printConf3=split(" ", $lines2) if (!($lines2=~/^$/));
-              $lines2=~s/$printConf3[0]\s//ig;
-              $lines2 =~ s/\s+$//;              
-              my $length=length($printConf3[0]);
-              my $addlength = 25 - $length;
-              my $fname="$Bin/inc/conf/user/$printConf3[0].txt";
-              print $c[10]."   | $c[5]$printConf3[0]";
-              print " " x $addlength;
-
-              if (-e $fname) {
-                open(F4, $fname);
-                while (my $st=<F4>) {
-                  print $c[10]."| $st\n" if (!($st=~/^$/)); 
+                open(F23, $x2);
+                @l22=<F23>;
+                close(F23);
+                open(F24, '>>', $x1);
+                for my $l22(@l22) {
+                  $l22=~s/\"atscan\;/\"atscan --interactive\;/ig;
+                  print F24 "$l22\n";
                 }
-                close(F4);
+                close(F24);
+                printFile($userSetting, "interactive on");
+                print $c[3]."   [i] $sold is Active!\n";
+              }
+            }
+            ##################  
+            if ($sold eq "password") {
+              $ps=Digest::MD5->md5_hex($ps);
+              printFile($userSetting, "password $ps");
+              print $c[3]."   [i] Password was set!\n";
+            }else{
+              if (-e $sold) {
+                open(F, $sold);
+                while (my $st=<F>) {
+                  unlink "$Bin/inc/conf/user/$sold.txt" if -e "$Bin/inc/conf/user/$sold.txt";
+                  printFile("$Bin/inc/conf/user/$sold.txt", "$st");
+                }
+                close(F);
+                printFile($userSetting, "$sold $Bin/inc/conf/user/$sold.txt\n");
+                print $c[3]."   [i] $sold => $Bin/inc/conf/user/$sold.txt\n";
               }else{
-                if ($printConf3[0] eq "password") {
-                  print $c[10]."| ********\n";
+                printFile($userSetting, "$sold $ps");
+                print $c[3]."   [i] $sold => $ps\n";
+              }
+            }
+          ####################################################################################################
+          }elsif ($act eq "reset") {
+            @confReset=get_configuration();
+            if ($ps eq "all") {        
+              for my $y(@res) {
+                system "rm $Bin/inc/conf/user/$y.txt" if -e "$Bin/inc/conf/user/$y.txt";
+              }
+              unlink $userSetting;
+              open FH, ">", $userSetting;
+              for my $ln(@confReset) {
+                if ($ln=~/^##/) {
+                  print FH "$ln";
+                }
+              }
+              close FH;
+              print $c[3]."   [i] All configuration was reset! \n";
+            }else{
+              my $userfile="$Bin/inc/conf/user/$sold.txt";
+              unlink $userfile if -e $userfile;
+              deletSetting($sold);
+              if ($sold eq "interactive") {
+                if (-e $x2 && -e $x1) {
+                  unlink $x1;
+                  copy $x2, $x1;
+                  unlink $x2;
+                }        
+              }
+              print $c[3]."   [i] $sold was reset!\n";
+            }
+          ####################################################################################################
+          }elsif ($act eq "show") {
+            @confShown=get_configuration();
+            my $a1=0;
+            print $c[10]."   +"."-" x 75 ."\n";
+            print $c[10]."   | $c[11]OPTION                  $c[10] | $c[11]VALUE\n";
+            print $c[10]."   +"."-" x 75 ."\n";
+            for my $lines2(@confShown) {
+              if ($lines2!~/(##|config)/) {
+                $a1++;
+                my @printConf3=split(" ", $lines2) if (!($lines2=~/^$/));
+                $lines2=~s/$printConf3[0]\s//ig;
+                $lines2 =~ s/\s+$//;              
+                my $length=length($printConf3[0]);
+                my $addlength = 25 - $length;
+                my $fname="$Bin/inc/conf/user/$printConf3[0].txt";
+                print $c[10]."   | $c[5]$printConf3[0]";
+                print " " x $addlength;
+                if (-e $fname) {
+                  open(F4, $fname);
+                  while (my $st=<F4>) {
+                    print $c[10]."| $st\n" if (!($st=~/^$/)); 
+                  }
+                  close(F4);
                 }else{
-                  print $c[10]."| $lines2\n";
+                  if ($printConf3[0] eq "password") {
+                    print $c[10]."| ********\n";
+                  }else{
+                    print $c[10]."| $lines2\n";
+                  }
                 }
               }
             }
+            print $c[10]."   | $c[4]$AUTH[11]\n" if $a1<1;
+            print $c[10]."   +"."-" x 75 ."\n\n";
+            (@confReset, @confSet, @confShown)=();
           }
-          print $c[10]."   | $c[4]$AUTH[11]\n" if $a1<1;
-          print $c[10]."   +"."-" x 75 ."\n\n";
-          (@confReset, @confSet, @confShown)=();
-        }
         }
       }
     }

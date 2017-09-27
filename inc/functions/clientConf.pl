@@ -13,6 +13,9 @@ my $res1=join("|", @res);
 my $x1="/usr/share/applications/atscan.desktop";
 my $x2="/usr/share/applications/atscan.desktop.back";
 our ($deskIcon, @l22, @l22bak);
+my @pars=("set", "reset", "show", "exit");
+my $pars1=join("|", @pars);
+
 sub ClientConfiguration {
   print $c[1]."[::] CONFIGURATION\n\n";
   if (-e $userSetting) {
@@ -50,12 +53,11 @@ sub ClientConfiguration {
       print $c[10]."   [!] $AUTH[16]: ";
       $ps=<STDIN>;
       chomp ($ps);
-      if ($ps) {
+      if ($ps && $ps=~/(^(set|reset|show))\s/ || $ps eq "exit") {
         ($ps, $sold, $act)=cleanImput($ps);
-      }
-      if ((!$ps) or (!grep /^$sold$/, @res)) {
-        print $c[4]."   [!] $AUTH[14]\n";
-      }else{
+        if ((!$ps) or (defined $sold && !grep /^$sold$/, @res) && $sold ne "config") {
+          print $c[4]."   [!] $AUTH[14]\n";
+        }else{
         ####################################################################################################
         if ($act eq "exit") {
           $finish++;
@@ -172,6 +174,7 @@ sub ClientConfiguration {
           print $c[10]."   +"."-" x 75 ."\n\n";
           (@confReset, @confSet, @confShown)=();
         }
+        }
       }
     }
   }else{
@@ -183,7 +186,6 @@ sub ClientConfiguration {
 sub cleanImput {
   my $ps=$_[0];
   my $act;
-  my @pars=("set", "reset", "show", "exit");
   my @pars2;
   for my $par(@pars) {
     if ($ps=~/\b$par\b/) {

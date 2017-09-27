@@ -14,7 +14,6 @@ my $x1="/usr/share/applications/atscan.desktop";
 my $x2="/usr/share/applications/atscan.desktop.back";
 our ($deskIcon, @l22, @l22bak);
 my @pars=("set", "reset", "show", "exit");
-my $pars1=join("|", @pars);
 
 sub ClientConfiguration {
   print $c[1]."[::] CONFIGURATION\n\n";

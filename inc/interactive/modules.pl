@@ -149,7 +149,7 @@ sub main3 {
       }
       if ($first1 eq "run") {          
         for my $eew(@INTERSCANS) {
-          if ($eew !~ /(advanced|normal|multi|ports|commands|form)/) {
+          if ($eew !~ /(advanced|normal|multi|ports|commands|form|validation)/) {
             push @INTERCOMNDSFIN, $eew;
           }
         }

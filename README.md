@@ -185,7 +185,7 @@
         <td class="main"> Search engine country.</td>
       </tr>
       <tr>
-        <td width="200px" class="main">-p </td>
+        <td width="200px" class="main">--param/-p </td>
         <td class="main"> Set test parameter EX:id,cat,product_ID </td>
       </tr> 
       <tr>
@@ -433,10 +433,6 @@
       <tr>
         <td width="200px" class="main">--config</td>
         <td class="main">User configuration.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--pass</td>
-        <td class="main">Set a password for tool use.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--interactive</td>

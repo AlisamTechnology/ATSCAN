@@ -24,8 +24,8 @@ sub is_folder_empty {
 }
 
 ## USER PRE-CONFIGURATION
-our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $SetInteractive,
-    $scriptbash);
+our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $scriptbash);
+
 ##
 sub checkSetting {
   my $object=$_[0];
@@ -86,7 +86,7 @@ sub deletSetting {
 
 ## CHECK USER CONFIGURATION
 $password=checkSetting("password");
-$SetInteractive=checkSetting("interactive");
+$interactive=checkSetting("interactive") if !defined $interactive;
 $proxy=checkSetting("proxy") if !defined $proxy;
 $prandom=checkSetting("proxy-random") if !defined $prandom;
 $payloads=checkSetting("payload") if !defined $payloads;

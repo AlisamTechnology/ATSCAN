@@ -6,8 +6,8 @@ use File::Copy qw(copy);
 ## Copy@right Alisam Technology see License.txt
 
 ## USER CONFIGURATION SETTING
-our($config, $userSetting, $script_bac, @AUTH, @c);
-my @res=("proxy", "proxy-random", "show", "payload", "m-random", "b-random", "zone", "timeout", "update", "engine", "nobanner", "noinfo", "beep", "ifend", "unique", "all", "exit", "password",
+our($config, $userSetting, $script_bac, $interactive, @AUTH, @c);
+my @res=("proxy", "proxy-random", "show", "payload", "m-random", "b-random", "zone", "timeout", "update", "engine", "nobanner", "noinfo", "beep", "ifend", "unique", "all", "password",
          "freq", "level", "method", "interactive");
 my $res1=join("|", @res);
 my $x1="/usr/share/applications/atscan.desktop";
@@ -19,9 +19,9 @@ sub ClientConfiguration {
   print $c[1]."[::] CONFIGURATION\n\n";
   if (-e $userSetting) {
     print $c[10];
-    print "   +---------------+-------------------------------------+--------------------+\n";
-    print "   |    SHOW       |           SET                       |          RESET     |\n";
-    print "   +---------------+-------------------------------------+--------------------+\n";
+    print "   +==========================================================================+\n";
+    print "   |  $c[11]   SHOW     $c[10] |               $c[11] SET                 $c[10] |     $c[11]  RESET    $c[10]    |\n";
+    print "   +==========================================================================+\n";
     print "   |               | set interactive on (installed tool) | reset interactive  |\n";
     print "   |               | set proxy <proxy>                   | reset proxy        |\n";
     print "   |               | set proxy-random <proxy>            | reset proxy-random |\n";
@@ -42,137 +42,136 @@ sub ClientConfiguration {
     print "   |               | set ifend on                        | reset ifend        |\n";
     print "   |               | set unique on                       | reset unique       |\n";
     print "   |               |                                     | reset all          |\n";
-    print "   +---------------+-------------------------------------+--------------------+\n";
+    print "   +==========================================================================+\n";
     print "\n";
   
-    my ($ps, $sold, $act);
+    my ($act, $op, $vl);
     my $finish = 0;
     while(!$finish) {
       my (@confReset, @confSet, @confShown)=();
       print $c[10]."   [!] $AUTH[16]: ";
-      $ps=<STDIN>;
+      my $ps=<STDIN>;
       chomp ($ps);
-      if ($ps && $ps=~/(^(set|reset|show))\s/ || $ps eq "exit") {
-        ($ps, $sold, $act)=cleanImput($ps);
-        if ((!$ps) or (defined $sold && !grep /^$sold$/, @res) && $sold ne "config") {
-          print $c[4]."   [!] $AUTH[14]\n";
+      if ($ps) {
+        if ($ps eq "exit") {
+          $finish++;
         }else{
-          ####################################################################################################
-          if ($act eq "exit") {
-            $finish++;
-          ####################################################################################################
-          }elsif ($act eq "set") {
-            @confSet=get_configuration();
-            for my $configuration(@confSet) {
-              if ($configuration=~/$sold/) {
-                deletSetting($sold);
-              }
-            }
-            ##################  
-            if ($sold eq "interactive") {
-              if (-e $x1) {
-                copy $x1, $x2;
-                unlink $x1;
-                open(F23, $x2);
-                @l22=<F23>;
-                close(F23);
-                open(F24, '>>', $x1);
-                for my $l22(@l22) {
-                  $l22=~s/\"atscan\;/\"atscan --interactive\;/ig;
-                  print F24 "$l22\n";
-                }
-                close(F24);
-                printFile($userSetting, "interactive on");
-                print $c[3]."   [i] $sold is Active!\n";
-              }
-            }
-            ##################  
-            if ($sold eq "password") {
-              $ps=Digest::MD5->md5_hex($ps);
-              printFile($userSetting, "password $ps");
-              print $c[3]."   [i] Password was set!\n";
+          ($act, $op, $vl)=cleanImput($ps);
+          if (($act && $act ne "exit" && !$op) || ($act eq "set" && !$vl)) {
+            print $c[4]."   [!] $AUTH[14]\n"; 
             }else{
-              if (-e $sold) {
-                open(F, $sold);
-                while (my $st=<F>) {
-                  unlink "$Bin/inc/conf/user/$sold.txt" if -e "$Bin/inc/conf/user/$sold.txt";
-                  printFile("$Bin/inc/conf/user/$sold.txt", "$st");
-                }
-                close(F);
-                printFile($userSetting, "$sold $Bin/inc/conf/user/$sold.txt\n");
-                print $c[3]."   [i] $sold => $Bin/inc/conf/user/$sold.txt\n";
-              }else{
-                printFile($userSetting, "$sold $ps");
-                print $c[3]."   [i] $sold => $ps\n";
-              }
-            }
-          ####################################################################################################
-          }elsif ($act eq "reset") {
-            @confReset=get_configuration();
-            if ($ps eq "all") {        
-              for my $y(@res) {
-                system "rm $Bin/inc/conf/user/$y.txt" if -e "$Bin/inc/conf/user/$y.txt";
-              }
-              unlink $userSetting;
-              open FH, ">", $userSetting;
-              for my $ln(@confReset) {
-                if ($ln=~/^##/) {
-                  print FH "$ln";
-                }
-              }
-              close FH;
-              print $c[3]."   [i] All configuration was reset! \n";
-            }else{
-              my $userfile="$Bin/inc/conf/user/$sold.txt";
-              unlink $userfile if -e $userfile;
-              deletSetting($sold);
-              if ($sold eq "interactive") {
-                if (-e $x2 && -e $x1) {
-                  unlink $x1;
-                  copy $x2, $x1;
-                  unlink $x2;
-                }        
-              }
-              print $c[3]."   [i] $sold was reset!\n";
-            }
-          ####################################################################################################
-          }elsif ($act eq "show") {
-            @confShown=get_configuration();
-            my $a1=0;
-            print $c[10]."   +"."-" x 75 ."\n";
-            print $c[10]."   | $c[11]OPTION                  $c[10] | $c[11]VALUE\n";
-            print $c[10]."   +"."-" x 75 ."\n";
-            for my $lines2(@confShown) {
-              if ($lines2!~/(##|config)/) {
-                $a1++;
-                my @printConf3=split(" ", $lines2) if (!($lines2=~/^$/));
-                $lines2=~s/$printConf3[0]\s//ig;
-                $lines2 =~ s/\s+$//;              
-                my $length=length($printConf3[0]);
-                my $addlength = 25 - $length;
-                my $fname="$Bin/inc/conf/user/$printConf3[0].txt";
-                print $c[10]."   | $c[5]$printConf3[0]";
-                print " " x $addlength;
-                if (-e $fname) {
-                  open(F4, $fname);
-                  while (my $st=<F4>) {
-                    print $c[10]."| $st\n" if (!($st=~/^$/)); 
+              if ($act eq "exit") {
+                $finish++;
+              }elsif ($act eq "set") {
+                @confSet=get_configuration();
+                for my $configuration(@confSet) {
+                  if ($configuration=~/$op/) {
+                    deletSetting($op);
                   }
-                  close(F4);
+                }
+                ##################  
+                if ($op eq "interactive") {
+                  if (-e $x1) {
+                    copy $x1, $x2;
+                    unlink $x1;
+                    open(F23, $x2);
+                    @l22=<F23>;
+                    close(F23);
+                    open(F24, '>>', $x1);
+                    for my $l22(@l22) {
+                      $l22=~s/\"atscan\;/\"atscan --interactive\;/ig;
+                      print F24 "$l22\n";
+                    }
+                    close(F24);
+                  }
+                }
+                ##################  
+                if ($op eq "password") {
+                  $vl=Digest::MD5->md5_hex($vl);
+                  printFile($userSetting, "password $vl");
+                  print $c[3]."   [i] Password was set!\n";
                 }else{
-                  if ($printConf3[0] eq "password") {
-                    print $c[10]."| ********\n";
+                  if (-e $op) {
+                    open(F, $op);
+                    while (my $st=<F>) {
+                      unlink "$Bin/inc/conf/user/$op.txt" if -e "$Bin/inc/conf/user/$op.txt";
+                      printFile("$Bin/inc/conf/user/$op.txt", "$st");
+                    }
+                    close(F);
+                    printFile($userSetting, "$op $Bin/inc/conf/user/$op.txt\n");
+                    print $c[3]."   [i] $op => $Bin/inc/conf/user/$op.txt\n";
                   }else{
-                    print $c[10]."| $lines2\n";
+                    printFile($userSetting, "$op $vl");
+                    print $c[3]."   [i] $op => $vl\n";
                   }
                 }
+              ####################################################################################################
+              }elsif ($act eq "reset") {
+                @confReset=get_configuration();
+                if ($op eq "all") {        
+                  for my $y(@res) {
+                    system "rm $Bin/inc/conf/user/$y.txt" if -e "$Bin/inc/conf/user/$y.txt";
+                  }
+                  unlink $userSetting;
+                  open FH, ">", $userSetting;
+                  for my $ln(@confReset) {
+                    if ($ln=~/^##/) {
+                      print FH "$ln";
+                    }
+                  }
+                  close FH;
+                  if (-e $x2) {
+                    resetInteractive();
+                  }
+                  print $c[3]."   [i] All configuration was reset! \n";
+                }else{
+                  my $userfile="$Bin/inc/conf/user/$op.txt";
+                  unlink $userfile if -e $userfile;
+                  deletSetting($op);
+                  if ($op eq "interactive") {
+                    resetInteractive();
+                  }
+                  print $c[3]."   [i] $op was reset!\n";
+                }
+              ####################################################################################################
+              }elsif ($act eq "show") {
+                @confShown=get_configuration();
+                my $a1=0;
+                print $c[10]."   +"."=" x 75 ."\n";
+                print $c[10]."   | $c[11]OPTION                  $c[10] | $c[11]VALUE\n";
+                print $c[10]."   +"."=" x 75 ."\n";
+                for my $lines2(@confShown) {
+                  if ($lines2!~/(##|config)/) {
+                    $a1++;
+                    my @printConf3=split(" ", $lines2) if (!($lines2=~/^$/));
+                    $lines2=~s/$printConf3[0]\s//ig;
+                    $lines2 =~ s/\s+$//;              
+                    my $length=length($printConf3[0]);
+                    my $addlength = 25 - $length;
+                    my $fname="$Bin/inc/conf/user/$printConf3[0].txt";
+                    print $c[10]."   | $c[5]$printConf3[0]";
+                    print " " x $addlength;
+                    if (-e $fname) {
+                      open(F4, $fname);
+                      while (my $st=<F4>) {
+                        print $c[10]."| $st\n" if (!($st=~/^$/)); 
+                      }
+                      close(F4);
+                    }else{
+                      if ($printConf3[0] eq "password") {
+                        print $c[10]."| ********\n";
+                      }else{
+                        print $c[10]."| $lines2\n";
+                      }
+                    }
+                  }
+                }
+                print $c[10]."   | $c[4]$AUTH[11]\n" if $a1<1;
+                print $c[10]."   +"."=" x 75 ."\n\n";
+                (@confReset, @confSet, @confShown)=();
               }
             }
-            print $c[10]."   | $c[4]$AUTH[11]\n" if $a1<1;
-            print $c[10]."   +"."-" x 75 ."\n\n";
-            (@confReset, @confSet, @confShown)=();
-          }
-        }
+         }
       }
     }
   }else{
@@ -180,20 +179,35 @@ sub ClientConfiguration {
   }
 }
 ####################################################################################################
-##
+## CHECK IMPUT PARTS
 sub cleanImput {
   my $ps=$_[0];
-  my $act;
+  my ($act, $op, $vl);
   my @pars2;
   for my $par(@pars) {
     if ($ps=~/\b$par\b/) {
       $act=$par;
-      $ps=~s/$par\s//ig;
       @pars2=split(" ", $ps);
-      $ps=~s/$pars2[0]\s//ig;
+      if (($pars2[1] && (grep /$pars2[1]/, @res)) || ($pars2[1] eq "config") || ($pars2[1] eq "exit")) {
+        $op=$pars2[1];
+        if ($pars2[2]) {
+          $ps=~s/$act\s//ig;
+          $ps=~s/$op\s//ig;
+          $vl=$ps;
+        }
+      }
     }
   }
-  return ($ps, $pars2[0], $act);
+  return ($act, $op, $vl);
+}
+####################################################################################################
+## RESET INTERACTIVE INTERFACE
+sub resetInteractive {
+  if (-e $x2 && -e $x1) {
+    unlink $x1;
+    copy $x2, $x1;
+    unlink $x2;
+  }        
 }
 ####################################################################################################
 

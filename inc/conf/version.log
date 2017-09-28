@@ -1,9 +1,10 @@
-VERSION 12.3.2 RELEASE
+VERSION 12.3.3 RELEASE
 =====================================================
-  CHANGES: 27/09/2017
+  CHANGES: 28/09/2017
   ===================================================
   - Fix user configuration.
   - Fix interactive interface.
+  - Add validation module.
   - Enjoy!!
   ===================================================
 

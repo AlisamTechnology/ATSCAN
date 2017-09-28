@@ -11,6 +11,7 @@ require "$Bin/inc/funcs.pl";
 our ($nobanner, $output, $msource);
 if (!defined $nobanner && !$nobanner) { banner(); }
 else{ mtak(); ptak(); }
+
 ## CLEAN OUTPUT 
 if (defined $output) { unlink $output if -e $output; }
 if (defined $msource) {

@@ -5,8 +5,8 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 ## INFO PANEL TEXT
-my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCANNER", "atscan <option> / Help: atscan [--help | -h | -?]", "<option> \/ Help: perl",
-"[--help|-h|-?]", "TIMEOUT", "Cannot get IP!", "Random", "No changes have been made!", "[!] Random not allowed when engines are defined!", "[!] Level not defined or not numeric!",
+my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCANNER", "atscan [options] or [Help: --help|-h|-?][Interactive: --interactive]", "<option> \/ Help: perl",
+"[--help|-h|-?|--interactive(simple mode)]", "TIMEOUT", "Cannot get IP!", "Random", "No changes have been made!", "[!] Random not allowed when engines are defined!", "[!] Level not defined or not numeric!",
 "[!] You have to set a method: --get or --post!", "[!] You have to validate data post! ex: -v text or --status 200", "No response recieved!", "ifinurl", "is not an IP address!",
 "STATUS", "Host is", "Not Alive!", "Alive");
 
@@ -20,8 +20,8 @@ my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan 
 my @AUTH=("Login:", "Incorrect password!", "A password is already assigned! Do you want to remove it ? [y/n]:", "Password successfully removed!",
           "You will set an user password and will be required for each use!", "Enter password or press Cotrol+C to cancel", "Password successfully generated!", "No password have been set!",
           "Password must have at least 3 caracters!", "Tool will restart in", "THIS IS YOUR CONFIGURATION:", "No configuation found!", "Invalid option!", "is already configured use reset command first!",
-          "Couldn't interpret your command!", "No configuation file found!", "Type your setting or [exit = exit]", "Choose a mode or type options to list aviable modules",
-          "Choose a module or type options to list aviable modules", "Set arguments or type [options: list arguments][run: to execute]", "How to use arguments? type [help: for help]",
+          "Couldn't interpret your command!", "No configuation file found!", "Type your setting or [exit = exit]", "Choose a mode or type \"options\" to list aviable modes",
+          "Choose a module or type \"options\" to list aviable modules", "Set arguments or type \"options\" to list arguments or \"run\" to execute", "How to use arguments? type \"help\" for help!",
           "Opss.. Nothing to run", "+ VAL* = This command Require a value");
 
 ## ERRORS DIALOG TEXT
@@ -74,14 +74,16 @@ sub get_text_scan_title { return @SCAN_TITLE; }
 
 ## HELP
 sub interHelp {
+  my $prf=$_[0];
   our (@c);
+  
   print $c[11]."[::] COMMANDS\n";
   ltak();
   print ""
   ."$c[5] --proxy       $c[10] | Set tor proxy for scans [EX: --proxy \"socks://localhost:9050\"]\n"
   ."$c[5]               $c[10] | Set proxy [EX: --proxy \"http://12.45.44.2:8080\"] \n"
   ."$c[5]               $c[10] | Set proxy list [EX: --proxy list.txt] \n"
-  ."$c[5] -m            $c[10] | Set engine motors default bing \n"
+  ."$c[5] --motor| -m   $c[10] | Set engine motors default bing \n"
   ."$c[5]               $c[10] | EX: -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n"
   ."$c[5] --proxy-random$c[10] | Random proxy \n"
   ."$c[5]               $c[10] | [EX: --proxy-random list.txt] or --proxy-random \"socks://localhost:9050\"]\n"
@@ -90,14 +92,13 @@ sub interHelp {
   ."$c[5] --timeout     $c[10] | set browser timeout (in seconds)\n"
   ."$c[5] --freq        $c[10] | Random time frequency (in seconds) \n" 
   ."$c[5] --dork | -d   $c[10] | Dork to search [Ex: house [OTHER]cars [OTHER]hotel] \n"
-  ."$c[5] -t            $c[10] | Target \n"
+  ."$c[5] --target | -t $c[10] | Target \n"
   ."$c[5] --level | -l  $c[10] | Scan level (+- Number of page results to scan) \n"
-  ."$c[5] -p            $c[10] | Set test parameter EX:id,cat,product_ID \n"
+  ."$c[5] --param | -p  $c[10] | Set test parameter EX:id,cat,product_ID \n"
   ."$c[5] --zone        $c[10] | Set search engine country \n"
   ."$c[5] --save | -s   $c[10] | Output file.\n"
   ."$c[5] --source      $c[10] | Html output folder.\n" 
-  ."$c[5] --content     $c[10] | Print response content.\n"  
-  ."$c[5] --data        $c[10] | data. See examples \n"
+  ."$c[5] --content     $c[10] | Print response content.\n"
   ."$c[5] --post        $c[10] | Use post method \n"
   ."$c[5] --get         $c[10] | Use get method \n"
   ."$c[5] --header      $c[10] | Set headers. \n"
@@ -123,20 +124,9 @@ sub interHelp {
   ."$c[5] --exp | -e    $c[10] | Exploit/Payload will be added to full target\n"
   ."$c[5] --expHost     $c[10] | Exploit will be added to the host\n"
   ."$c[5] --expIp       $c[10] | Exploit will be added to the host ip\n"
-  ."$c[5] --sql         $c[10] | Xss scan \n"
-  ."$c[5] --lfi         $c[10] | Local file inclusion \n"
-  ."$c[5] --joomrfi     $c[10] | Scan for joomla local file inclusion.\n"
   ."$c[5] --shell       $c[10] | Shell link [Ex: http://www.site.com/shell.txt] \n"
-  ."$c[5] --wpafd       $c[10] | Scan wordpress sites for arbitery file download\n"
-  ."$c[5] --admin       $c[10] | Get site admin page \n"
-  ."$c[5] --shost       $c[10] | Get site subdomains \n"
   ."$c[5] --tcp         $c[10] | TCP port \n"
   ."$c[5] --udp         $c[10] | UDP port \n"
-  ."$c[5] --sites       $c[10] | Sites in the server \n"
-  ."$c[5] --wp          $c[10] | Wordpress sites in the server\n"
-  ."$c[5] --joom        $c[10] | Joomla sites in the server\n"
-  ."$c[5] --upload      $c[10] | Get sites with upload files in the server  \n"
-  ."$c[5] --zip         $c[10] | Get sites with zip files in the server \n"
   ."$c[5] --md5         $c[10] | Convert to md5 \n"
   ."$c[5] --encode64    $c[10] | Encode base64 string \n"
   ."$c[5] --decode64    $c[10] | decode base64 string \n"
@@ -144,12 +134,10 @@ sub interHelp {
   ."$c[5] --HOST        $c[10] | Will be replaced by host in extern command \n"
   ."$c[5] --HOSTIP      $c[10] | Will be replaced by host IP in extern command \n"
   ."$c[5] --PORT        $c[10] | Will be replaced by open port in extern command \n"
-  ."$c[5] --ip          $c[10] | Crawl to get Ips\n"
   ."$c[5] --regex       $c[10] | Crawl to get strings matching regex\n"
   ."$c[5] --noquery     $c[10] | Remove string value from Query url \n"
   ."$c[5]               $c[10] | Ex: site.com/index.php?id=string] \n"  
   ."$c[5] --command     $c[10] | Extern Command to execute\n"
-  ."$c[5] --email       $c[10] | Get emails \n"
   ."$c[5] rang(x-y)     $c[10] | EX: --exp/expHost \"/index.php?id=rang(1-9)\" --sql OR -t \"site.com/index.php?id=rang(1-9)\" --sql\n"
   ."$c[5]               $c[10] | site.com/index.php?id=1->9 \n"
   ."$c[5] repeat(txt-y) $c[10] | EX: --exp/expHost \"/index.php?id=repeat(../-9)wp-config.php\" --sql OR -t \"site.com/index.php?id=../wp-config.php\"\n"
@@ -158,6 +146,7 @@ sub interHelp {
   ."$c[5]               $c[10] | Wordlist: --data \"name:username [DATA]email:xxxx\@xx.com [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
   ."$c[5] [OTHER]       $c[10] | To separate all others values (dork exploit payload proxy target..) \n"
   ."$c[5]               $c[10] | Ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n"
+  ."$c[5] --config      $c[10] | Configuration panel\n"
 }
 
 1;

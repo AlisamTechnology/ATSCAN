@@ -17,9 +17,7 @@ print "\n"
 
 ."$c[10]"." " x 10 ."ooooo:::=============[$c[14] 18 $c[11]Modules" ." " x 17 ."]\n";
 
-
 ltak();
-print "\n";
 
 # SEPARATOR LINE
 sub helpSeparator {

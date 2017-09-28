@@ -18,7 +18,7 @@ our @MODULES=('normal', 'advanced');
 our @SCANS=("sql", "lfi", "joomrfi", "wpafd", "admin", "shost", "sites", "wp", "joom", "upload", "zip", "decrypt", "email", "ip", "ports", "commands", "form", "validation");
 our %SCANS=("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"=>"joomla rfi", "wpafd"=>"wp file download", "admin"=>"find admin page", "shost"=>"get subdomains",
            "sites"=>"get sites in server", "wp"=>"get wordpress sites", "joom"=>"get joomla sites", "upload"=>"get upload files", "zip"=>"get zip files", "decrypt"=>"md5/(en/de)code64",
-           "email"=>"colect emails", "ip"=>"colect ips", "ports"=>"scan ports", "commands"=>"extern command", "form"=>"post/get data", "validation"=>"validate results");
+           "email"=>"collect emails", "ip"=>"collect ips", "ports"=>"scan ports", "commands"=>"extern command", "form"=>"post/get data", "validation"=>"validate results");
 
 ## SEARCH ENGINE
 @INTERSearchScans=('unique', 'motor', 'm-random', 'zone');

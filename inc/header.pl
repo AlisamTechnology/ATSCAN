@@ -8,8 +8,11 @@ our (@OTHERS, @c, @TT);
 
 ## ADVISE
 sub advise {
-  if (-e "/usr/bin/atscan") { print $c[4]."[!] $OTHERS[5]: $TT[7]\n"; }
-  else{ print $c[4]."[!] $OTHERS[5]: perl ./",basename($0)," $TT[8] ./",basename($0)," $TT[9]\n"; }
+  if (-e "/usr/bin/atscan") {
+    print $c[5]."[!] $OTHERS[5]: $TT[7]\n";
+  }else{
+    print $c[5]."[!] $OTHERS[5]: perl ./",basename($0)," $TT[8] ./",basename($0)," $TT[9]\n";
+  }
   logoff();
 }
 

@@ -75,7 +75,7 @@ sub main2 {
             }
           }
         }        
-      }else{ ## NORMAL MODE
+      }else{
         if (scalar(@OPT) < 2) {
           push @INTERSCANS, "--$OPT[0]";
           push @INTERSCANS2, $OPT[0];
@@ -128,6 +128,7 @@ sub main3 {
       }
       if ($first1 =~ /set\s/) {
         $first1 =~ s/set\s//ig;
+        $first1 =~s/^(--|-)//g;
         my @OPT1=split(" ", $first1);
         if ($OPT1[0] =~ /$validCmnds/ && grep(/^$OPT1[0]$/, @ARGUMENTS)) {
           if (!$OPT1[1]) {

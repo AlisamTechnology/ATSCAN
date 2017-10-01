@@ -98,19 +98,12 @@ then
 fi
 
 ## Begin instalation
-echo "[i] Installing...";
- 
-if [ ! -d "$current/inc" ] || [ ! -e "$current/atscan.pl" ];
+echo "[i] Installing.. Plaise wait...";
+
+if [ $current != $refdir ];
 then
- echo "[i] Downloading missing dependencies...";
- git clone https://github.com/AlisamTechnology/ATSCAN.git $refdir/atscan_install;
- cp -r $refdir/atscan_install/* $refdir/;
-else
-  if [ $current != $refdir ];
-  then
-    echo "[i] Moving files to $refdir ...";
-    cp -r $current/* $refdir/;
-  fi
+  echo "[i] Moving files to $refdir ...";
+  cp -r $current/* $refdir/;
 fi 
  
  sleep 1 && echo "[i] Creating symbolic link...";
@@ -146,6 +139,7 @@ fi
  then
   sudo cp $refdir/inc/conf/desktop/atscan.desktop.inter /usr/share/applications/atscan.desktop;
   sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/atscan.desktop.inter;
+  echo "interactive on" >> $refdir/inc/conf/userSetting;
  else
   sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/;
  fi

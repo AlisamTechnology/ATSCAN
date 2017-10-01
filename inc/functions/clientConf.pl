@@ -46,7 +46,7 @@ sub ClientConfiguration {
     print "  | noinfo       | on           | Hide extrat target info                    |\n";
     print "  | beep         | on           | Beep sound when positive result            |\n";
     print "  | ifend        | on           | Beep when process finish                   |\n";
-    print "  | interactive  | on           | Interactive interface (intalled tool only) |\n";
+    print "  | interactive  | on           | Boots in Interactive (intalled tool only)  |\n";
     print "  +==========================================================================+\n";
     print "  | $c[11]USAGE: $c[5]set$c[11] [$c[5]OPTION$c[11]][$c[5]VALUE$c[11]] | $c[5]reset$c[11] [$c[5]OPTION$c[11]|$c[5]all$c[11]] | $c[5]options$c[11] | $c[5]help$c[11] | $c[5]exit$c[10]  |\n";
     print "  +==========================================================================+\n";

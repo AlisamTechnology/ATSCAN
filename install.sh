@@ -61,7 +61,7 @@ fi
 echo "[i] Checking directories..."
 if [ -e "/usr/bin/atscan" ];
 then
-echo "[!] A previous installation was found in /usr/bin/ Do you want to replace it? [Y/n]: "
+echo "[!] A previous installation was found Do you want to replace it? [Y/n]: "
 read mama
 if [ "$mama" == "y" ] || [ "$mama" == "Y" ] || [ -z "$mama" ];  
 then
@@ -131,7 +131,24 @@ fi
    mkdir "/usr/share/applications";  
  fi
  chmod +x "/usr/share/applications";
- sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/atscan.desktop;
+ echo "";
+ echo "+======================================================================+";
+ echo "| 1 INTERACTIVE: You will use atscan by simple interactive options.    |";
+ echo "| 2 ADVANCED:    You will use advanced atscan by command line.         |";
+ echo "+======================================================================+";
+ echo "|   NOTE: This setting can be changed in user configation!             |";
+ echo "+======================================================================+";
+ echo "";
+ echo "[!] How do you like to boot the tool? [Default 2]: ";
+
+ read modeChoice
+ if [ "$modeChoice" == "1" ]; 
+ then
+  sudo cp $refdir/inc/conf/desktop/atscan.desktop.inter /usr/share/applications/atscan.desktop;
+  sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/atscan.desktop.inter;
+ else
+  sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/;
+ fi
 
  if [ ! -d "/usr/share/icons" ]; 
  then
@@ -222,7 +239,7 @@ fi
  sudo cp $refdir/License.txt /usr/share/doc/atscan/;
  echo "[i] Removing install files...";
  rm $refdir/inc/conf/atscan;
- rm $refdir/install.sh;
+ rm $refdir/install.sh; 
  if [ -d "$refdir/atscan_install" ];
  then
    rm -r $refdir/atscan_install;

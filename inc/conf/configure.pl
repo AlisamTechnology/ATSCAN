@@ -10,7 +10,7 @@ if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
 ## VERSION
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv, $scriptCompletion, $scriptComplInstall, $readme, $uplog);
-$Version="12.3.3";
+$Version="12.4.0";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";
@@ -30,6 +30,7 @@ $scriptCompletion="/etc/bash_completion.d";
 $readme="/usr/share/doc/atscan";
 our $userSetting="$Bin/inc/conf/userSetting";
 our $deskIcon="$Bin/inc/conf/desktop/";
+our $deskIcoConf="/usr/share/applications";
 
 ## DATE
 use POSIX qw(strftime);

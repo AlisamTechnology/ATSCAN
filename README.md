@@ -11,7 +11,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px" class="main2"><b>ATSCAN V 12.3.3 </b></td>
+    <td width="780px" class="main2"><b>ATSCAN V 12.4.0 </b></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">4n0n4t</td>
@@ -350,11 +350,11 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--upload </td>
-        <td class="main"> Get sites with upload files in the server  </td>
+        <td class="main"> Get upload files </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--zip  </td>
-        <td class="main"> Get sites with zip files in the server </td>
+        <td class="main"> Get zip files </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--md5</td>
@@ -433,10 +433,6 @@
       <tr>
         <td width="200px" class="main">--config</td>
         <td class="main">User configuration.</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--interactive</td>
-        <td class="main">Tool interactive interface.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--uninstall</td>

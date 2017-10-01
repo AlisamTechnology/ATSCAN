@@ -8,16 +8,14 @@ use FindBin '$Bin';
 ##############################################################################################
 ##
 our(@c);
-
 print "\n"
 ."$c[10]"." " x 30 ."=[$c[13] INTER$c[5]AVTIVE$c[13] ($c[11]oo$c[13]) $c[11]Interface"." " x 1 ."]\n"
-
 ."$c[10]"." " x 10 ."ooooo:::=============[$c[14] 2 $c[11] Modes"." " x 19 ."]\n"
-
-
 ."$c[10]"." " x 10 ."ooooo:::=============[$c[14] 18 $c[11]Modules" ." " x 17 ."]\n";
-
 ltak();
+print $c[11]."USAGE: $c[5]use$c[11] [$c[5]MODE$c[11]|$c[5]MODULE$c[11]] | $c[5]set$c[11] [$c[5]ARGUMENT$c[11]][$c[5]VALUE$c[11]] | $c[5]config$c[11] | $c[5]options$c[11] | $c[5]run$c[11] | $c[5]help\n";
+ltak();
+print "\n";
 
 # SEPARATOR LINE
 sub helpSeparator {

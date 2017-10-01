@@ -7,7 +7,7 @@ use POSIX qw(strftime);
 
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
-     $V_IP, $expIp, $interactive);
+     $V_IP, $expIp, $interactive, $command);
 our (@aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT);
 
 ## PRINT FILES 
@@ -95,7 +95,7 @@ $mrandom=checkSetting("m-random") if !defined $mrandom;
 $mlevel=checkSetting("level") if !defined $mlevel;
 $method=checkSetting("method") if !defined $get and !defined $post;
 $zone=checkSetting("zone") if !defined $zone;
-$motor=checkSetting("engine") if !defined $motor;
+$motor=checkSetting("motor") if !defined $motor;
 $nobanner=checkSetting("nobanner") if !defined $nobanner;
 $noinfo=checkSetting("noinfo") if !defined $noinfo;
 $beep=checkSetting("beep") if !defined $beep;
@@ -104,6 +104,9 @@ $unique=checkSetting("unique") if !defined $unique;
 $timeout=checkSetting("timeout") if !defined $timeout;
 $dateupdate=checkSetting("update");
 $freq=checkSetting("freq") if !defined $freq;
+$limit=checkSetting("limit") if !defined $limit;
+$command=checkSetting("command") if !defined $command;
+
 ## SET PROXY
 if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
 if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
@@ -120,7 +123,7 @@ if (defined $expHost) { @exploits=buildArraysLists($expHost); }
 if (defined $expIp) { @exploits=buildArraysLists($expIp); }
 
 ## MAX POSITIVE SCAN RESULTS
-## Chnage for more positive scans!!
+## Change for more positive scans!!
 $limit="500" if !defined $limit;
 
 ## SET RANDOM FREQUENCY START TIME
@@ -631,7 +634,7 @@ sub title {
 }
 
 ## CHECK IF THERE MORE SCANS TO DO
-our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $command, $ping);
+our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $ping);
 our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $data, $ping);
 sub getK {
   our @z;
@@ -716,6 +719,15 @@ sub Targs {
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;
+}
+
+## CHECK IF QUOTED
+sub chekQuotes {
+  my $str=$_[0];
+  if ($str!~/\"(.*)\"/) {
+    $str=~s/$str/\"$str\"/ig;
+  }
+  return $str;
 }
 
 1;

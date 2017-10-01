@@ -70,11 +70,11 @@ our (@c, @XSS, @LFI, @RFI, @ADFWP, @ADMIN, @SUBDOMAIN, @UPLOAD, @ZIP, @TT, @OTHE
 require "$Bin/inc/top.pl";
 
 ## VARIABLES 
-our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $script_bac, $scriptbash, $paylNote, $psx, $V_EMAIL, $V_IP, $V_RANG, $V_SEARCH, $V_REGEX,
-     $S_REGEX, $motor1, $motor2, $motor3, $motor4, $motor5, $motorparam, $mrand, $pat2, $nolisting, $Hstatus, $validText, $noExist, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain,
-     $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork,
-     $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom,
-     $data, $payloads, $mrandom, $content, $scriptComplInstall, $scriptCompletion, $scriptInstall, $toolInfo, $config, $freq, $headers, $msource, $ping, $notIn, $expHost, $expIp, $interactive, $zone);
+our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $script_bac, $scriptbash, $paylNote, $psx, $V_EMAIL, $V_IP, $V_RANG, $V_SEARCH, $V_REGEX, $S_REGEX, $motor1, $motor2,
+     $motor3, $motor4, $motor5, $motorparam, $mrand, $pat2, $nolisting, $Hstatus, $validText, $noExist, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip,
+     $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $msites, $mdom, $Target, $exploit, $p, $tcp, $udp, $full, $proxy, $prandom, $help, $output, $replace, $with, $dork, $mlevel, $unique,
+     $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $payloads,
+     $mrandom, $content, $scriptComplInstall, $scriptCompletion, $scriptInstall, $toolInfo, $config, $freq, $headers, $msource, $ping, $notIn, $expHost, $expIp, $zone, $interactive);
 
 ## ARGUMENTS
 use Getopt::Long qw(GetOptions);
@@ -87,7 +87,7 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'ifend'=>\$ifend,
                          'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'payload=s'=>\$payloads, 'm-random'=>\$mrandom, 'content'=>\$content,
                          'tool'=>\$toolInfo, 'pass|config'=>\$config, 'freq=s'=>\$freq, 'header=s'=>\$headers, 'source=s'=>\$msource, 'ping'=>\$ping, 'notin=s'=>\$notIn, 'expHost=s'=>\$expHost,
-                         'expIp=s'=>\$expIp, 'interactive'=>\$interactive, 'zone=s'=>\$zone) or badArgs();
+                         'expIp=s'=>\$expIp, 'zone=s'=>\$zone, 'interactive'=>\$interactive) or badArgs();
 
 ## INCLUDES
 require "$Bin/inc/includes.pl";

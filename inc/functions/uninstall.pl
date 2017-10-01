@@ -12,7 +12,7 @@ if (defined $uninstall) {
   my $resp=<STDIN>;
   chomp ($resp);
   if ($resp=~/(Y|y)/) {
-    my @uninstall=($scriptbash, "$scriptCompletion/atscan", $script, "/usr/share/applications/atscan.desktop", "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png");
+    my @uninstall=($scriptbash, $script, "$scriptCompletion/atscan", "/usr/share/applications/atscan.desktop", "/usr/share/applications/atscan.desktop.inter");
     for my $mm(@uninstall) {
       print $c[10]."[i] $ZT[8] $mm... ";
       unlink $mm if -e $mm;

@@ -6,8 +6,9 @@ use File::Path;
 ## Copy@right Alisam Technology see License.txt
 
 ## CHECK VERSION AND UPDATE
-our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $userSetting, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme,
-     $uplog, $fulldate, @userSetting, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
+our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $userSetting, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme, $uplog, $fulldate, $interactive,
+     @userSetting, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
+
 print $c[4]."[i] $OTHERS[20]\n";
 my ($same, $response)=compareme();
 if ($same eq "yes") {   
@@ -61,9 +62,11 @@ if ($same eq "yes") {
       if (!-e "$scriptCompletion/atscan") { bb(); }
       else{ cc(); }
       print $c[10]."[i] Creating desktop entries....\n";
-   
+      
       if (-d "/usr/share/applications/") {
-	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/atscan.desktop /usr/share/applications/";
+        if (!-e "/usr/share/applications/atscan.desktop") {
+          system "sudo cp $Bin/atscan_update/inc/conf/desktop/atscan.desktop /usr/share/applications/";
+        }
       }
   
       if (-d "/usr/share/icons/hicolor/16x16/apps/") {
@@ -82,8 +85,8 @@ if ($same eq "yes") {
 	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/256x256/atscan-menu.png /usr/share/icons/hicolor/256x256/apps/";
 	    if (!-e "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png") { print $c[3]."[!] Error cannot whrite in /usr/share/icons/hicolor/256x256/apps/!\n"; }
      
-        my @deskFiles=("/usr/share/applications/atscan.desktop", "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png", "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png",
-                     "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png", "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png", "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png");
+        my @deskFiles=("/usr/share/icons/hicolor/16x16/apps/atscan-menu.png", "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png", "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png",
+                       "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png", "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png");
         for my $deskFile(@deskFiles) {
           print $c[10]."[i] $ZT[5] $deskFile ... ";
           if (!-e "$deskFile") { print $c[3]."[!] Error cannot whrite to $deskFile!\n"; }
@@ -103,12 +106,17 @@ if ($same eq "yes") {
   unlink $userSetting if -e $userSetting;   
   if (@userSetting) {
     print $c[10]."[i] $ZT[6] ";
+    open (FE, '>>', $userSetting) or nochmod($userSetting, "");
     for my $spss(@userSetting) {
-      open (FE, '>>', $userSetting) or nochmod($userSetting, "");
-      print FE "$spss\n"; close(FE);
+      print FE "$spss\n";
+    }
+    close(FE);
+    if (-e "/usr/share/applications/atscan.desktop.inter") {
+      deletSetting("interactive");
+      printFile($userSetting, "interactive on");
     }
     cc();
-  }
+  }  
   
   print $c[10]."[i] Removing Desktop entries ";
   system "rm -rf $Bin/inc/conf/desktop";

@@ -3,28 +3,14 @@ use strict;
 use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
+
 ## HELP
   our (@c);
+  print $c[11]."[::] HELP\n";
+  ltak();
   interHelp();
-  print ""
-  ."$c[5] --wp          $c[10] | Wordpress sites in the server\n"
-  ."$c[5] --joom        $c[10] | Joomla sites in the server\n"
-  ."$c[5] --sql         $c[10] | Xss scan \n"
-  ."$c[5] --lfi         $c[10] | Local file inclusion \n"
-  ."$c[5] --joomrfi     $c[10] | Scan for joomla local file inclusion.\n"
-  ."$c[5] --data        $c[10] | data. See examples \n"
-  ."$c[5] --email       $c[10] | Collect emails \n"
-  ."$c[5] --ip          $c[10] | Collect Ips\n"
-  ."$c[5] --wpafd       $c[10] | Scan wordpress sites for arbitery file download\n"
-  ."$c[5] --admin       $c[10] | Get site admin page \n"
-  ."$c[5] --shost       $c[10] | Get site subdomains \n"
-  ."$c[5] --sites       $c[10] | Sites in the server \n"
-  ."$c[5] --upload      $c[10] | Get sites with upload files in the server  \n"
-  ."$c[5] --zip         $c[10] | Get sites with zip files in the server \n"
-  ."$c[5] --config      $c[10] | Set configuration. \n"  
-  ."$c[5] --update      $c[10] | Update tool. \n"
-  ."$c[5] --interactive $c[10] | Tool interactive interface. \n" 
-  ."$c[5] --uninstall   $c[10] | Uninstall tool \n\n";
+  scansArgs();
+  hardArgs();
     
   ltak(); print $c[11]." [::] EXAMPLES: \n";
   

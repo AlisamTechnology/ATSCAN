@@ -172,9 +172,6 @@ sub main3 {
         push @INTERCOMNDS, @PREFONF;
         push @INTERCOMNDSFIN, @INTERCOMNDS;
         my $fullComnd = join(" ", @INTERCOMNDSFIN);
-        
-        print "$fullComnd\n";exit;
-        
         (@INTERCOMNDSFIN, %INTEROPTION, @INTERCOMNDS, @PREFONF, %PREFONF,  %PREFONF2, $first, $first1)=();
         if (-e $scriptbash) {
           system ("atscan $fullComnd");

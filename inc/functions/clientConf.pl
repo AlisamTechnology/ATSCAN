@@ -42,7 +42,7 @@ sub ClientConfiguration {
     print "  | b-random     | on           | Random browser                             |\n";
     print "  | m-random     | on           | Random engine                              |\n";
     print "  | unique       | on           | Unique results                             |\n";
-    print "  | nobanner     | on           | Hode tool banner                           |\n";
+    print "  | nobanner     | on           | Hide tool banner                           |\n";
     print "  | noinfo       | on           | Hide extrat target info                    |\n";
     print "  | beep         | on           | Beep sound when positive result            |\n";
     print "  | ifend        | on           | Beep when process finish                   |\n";

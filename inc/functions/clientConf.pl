@@ -96,6 +96,8 @@ sub ClientConfiguration {
                       print F24 "$l22\n";
                     }
                     close(F24);
+                    printFile($userSetting, "interactive on");
+                    print $c[3]."[i] interactive was activated!\n";
                   }else{
                     print $c[4]."[!] $AUTH[24]!\n"
                   }

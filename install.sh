@@ -73,7 +73,7 @@ fi
 fi
 
 ### Setting instalation path
-current=`pwd`
+current=$(dirname "$0")
 echo "[!] Where do you want to install ATSCAN?";
 echo "    Set path or press enter to use default [/usr/share/]: "
 read refdir
@@ -103,9 +103,9 @@ echo "[i] Installing.. Plaise wait...";
 if [ $current != $refdir ];
 then
   echo "[i] Moving files to $refdir ...";
-  cp -r $current/* $refdir/;
+  cp -r $current/* $refdir;
 fi 
- 
+
  sleep 1 && echo "[i] Creating symbolic link...";
  echo "#!/bin/bash 
  perl $refdir/atscan.pl" '${1+"$@"}' > atscan;

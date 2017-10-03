@@ -35,7 +35,7 @@ our $deskIcoConf="/usr/share/applications";
 ## DATE
 use POSIX qw(strftime);
 our $date = strftime "%H:%M:%S", localtime;
-our $fulldate = strftime "%j:%Y:%m:%d", localtime;
+our $fulldate = strftime "%Y%j", localtime;
 
 ## TIMER
 sub timer { my $time=strftime "%H:%M:%S", localtime; print "[$time]"; }

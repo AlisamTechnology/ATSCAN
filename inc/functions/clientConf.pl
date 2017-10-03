@@ -154,7 +154,7 @@ sub ClientConfiguration {
                   my $length=length($printConf3[0]);
                   my $addlength = 25 - $length;
                   my $fname="$Bin/inc/conf/user/$printConf3[0].txt";
-                  print $c[10]."  | $c[5]$printConf3[0]";
+                  print $c[10]."| $c[5]$printConf3[0]";
                   print " " x $addlength;
                   if (-e $fname) {
                     open(F4, $fname);

@@ -25,7 +25,7 @@ sub updateMessage  {
 ## CHECK FOR UPDATE
 my $lastupdate=get_lastUpdate();
 if ($dateupdate) {
-  if (($dateupdate + $dateupdate) < $fulldate) { updateMessage(); }
+  if (($dateupdate + $lastupdate) < $fulldate) { updateMessage(); }
 }else{
   if (($lastupdate + 10) < $fulldate) { updateMessage(); }
 }

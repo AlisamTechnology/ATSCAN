@@ -227,9 +227,7 @@ fi
    rm -r $refdir/inc/conf/desktop;
  fi
  if [ -e "$refdir/atscan" ] || [ -e "$refdir/atscan.pl" ];
- then
-     
-     
+ then     
      
  echo "";
  echo "+======================================================================+";
@@ -251,7 +249,7 @@ fi
  sleep 1 && echo "[i] Tool successfully installed!";
  echo "[i] Please wait while updating tool.. ";
  sleep 2;
- atscan --update;
+ atscan;
 else
  echo "[!] Installation faid!! ";
  exit
@@ -260,4 +258,3 @@ else
  echo "[!] Tool cannot be installed on your system! Use it as portable!";
 fi
 
-### last update 13/08/2017

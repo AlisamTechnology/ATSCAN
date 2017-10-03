@@ -4,6 +4,6 @@ VERSION 12.4.1 RELEASE
   ===================================================
   - Fix interactive interface install.
   - Perl 5.30 compatibility.
-  - Fix update alert error.
+  - Fix update alert.
   - Enjoy!
   ===================================================

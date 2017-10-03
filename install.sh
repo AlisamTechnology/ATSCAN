@@ -247,7 +247,9 @@ fi
   echo "interactive on" >> $refdir/inc/conf/userSetting;
  fi
  echo `date +%Y%j` >> $refdir/inc/conf/uplog.log;
+ echo -en "\n" >> $refdir/inc/conf/version.log;
  sleep 1;
+  
  atscan --update;
  echo "[i] Tool successfully installed!";
 else

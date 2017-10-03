@@ -245,15 +245,9 @@ fi
  if [ "$modeChoice" == "1" ]; 
  then
   sudo sed -i 's/atscan;/atscan --interactive;/g' /usr/share/applications/atscan.desktop;
+  echo "interactive on" >> $refdir/inc/conf/userSetting;
  fi
-     
-     
-     
-     
-     
-     
-     
-     
+  
  sleep 1 && echo "[i] Tool successfully installed!";
  echo "[i] Please wait while updating tool.. ";
  sleep 2;

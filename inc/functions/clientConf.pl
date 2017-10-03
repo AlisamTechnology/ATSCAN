@@ -144,7 +144,7 @@ sub ClientConfiguration {
               my $a1=0;
               print $c[10]."+"."=" x 70 ."\n";
               print $c[10]."| $c[11]OPTION                  $c[10] | $c[11]VALUE\n";
-              print $c[10]."  +"."=" x 70 ."\n";
+              print $c[10]."+"."=" x 70 ."\n";
               for my $lines2(@confShown) {
                 if ($lines2!~/(##|config)/) {
                   $a1++;

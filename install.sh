@@ -222,6 +222,7 @@ fi
    rm -r $refdir/atscan_install;
  fi
  rm $refdir/README.md;
+ rm $refdir/License.txt;
  if [ -d "$refdir/inc/conf/desktop" ]; 
  then
    rm -r $refdir/inc/conf/desktop;

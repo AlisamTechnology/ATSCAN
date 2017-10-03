@@ -118,8 +118,11 @@ fi
    chmod +x $refdir/inc/conf/atscan;
    sudo cp $refdir/inc/conf/atscan /etc/bash_completion.d/;
  fi
- 
+  
  sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/;
+ 
+ echo `date +%Y%j` >> $refdir/inc/conf/uplog.log;
+ echo -en "\n" >> $refdir/inc/conf/version.log;
  
  if [ ! -d "/usr/share/applications" ]; 
  then
@@ -246,12 +249,9 @@ fi
   sudo sed -i 's/atscan;/atscan --interactive;/g' /usr/share/applications/atscan.desktop;
   echo "interactive on" >> $refdir/inc/conf/userSetting;
  fi
- echo `date +%Y%j` >> $refdir/inc/conf/uplog.log;
- echo -en "\n" >> $refdir/inc/conf/version.log;
- sleep 1;
-  
+  echo "[i] Tool successfully installed and will start in 3s!";
+ sleep 3;
  atscan --update;
- echo "[i] Tool successfully installed!";
 else
  echo "[!] Installation faid!! ";
  exit

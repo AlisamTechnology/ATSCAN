@@ -40,7 +40,7 @@ sub main {
             }
           }
         }
-        helpSeparator();  
+        helpSeparator();
         print "\n";
       #########################################################################################
       }elsif ($OPT[0] eq "help") {
@@ -161,7 +161,6 @@ sub main3 {
       #########################################################################################
       }elsif ($first1 eq "help") {
         interHelpChek("3");
-        processHeader("3");
       #########################################################################################
       }elsif ($first1 eq "run") {
         for my $eew(@INTERSCANS) {
@@ -317,6 +316,7 @@ sub form {
 sub interHelpChek {
   my $process=$_[0];
   print $c[11]."[::] HELP\n";
+  ltak();
   if ($process eq "1") {
     interHelp();
     scansArgs();
@@ -326,6 +326,7 @@ sub interHelpChek {
     interHelp();
   }
   ltak();
+  processHeader($process);
 }
 ##############################################################################################
 ## RUN

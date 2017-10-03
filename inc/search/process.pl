@@ -40,8 +40,8 @@ sub doSearch {
   while($Res=~/$V_SEARCH/g) {
     my $URL=$1;
     if ($motor =~/$googleDomain/) { $URL=~s/\&.*//s; }
-    $URL=~s/%([0-9A-Fa-f]{ 2})/chr(hex($1))/eg;
-	$URL=uri_unescape($URL);
+    utf8::encode($URL);
+    $URL = uri_unescape($URL);
 	$URL=decode_entities($URL);
     $URL=~s/<.*//s;
     if ($URL!~/$nolisting/) {

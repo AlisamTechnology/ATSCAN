@@ -1,13 +1,9 @@
-VERSION 12.4.0 RELEASE
+VERSION 12.4.1 RELEASE
 =====================================================
-  CHANGES: 01/10/2017
+  CHANGES: 03/10/2017
   ===================================================
-  - Add user config access to interactive interface.
-  - Add interactive interface to user config arguments.
-  - Now you can choose tool boot interface.
-  - Add validation to all modules.
-  - Add posibility to skape modules.
-  - Add help to interactive interface.
+  - Fix interactive interface install.
+  - Perl 5.30 compatibility.
   - Enjoy!
   ===================================================
 

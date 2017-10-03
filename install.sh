@@ -119,30 +119,13 @@ fi
    sudo cp $refdir/inc/conf/atscan /etc/bash_completion.d/;
  fi
  
+ sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/;
+ 
  if [ ! -d "/usr/share/applications" ]; 
  then
    mkdir "/usr/share/applications";  
  fi
  chmod +x "/usr/share/applications";
- echo "";
- echo "+======================================================================+";
- echo "| 1 INTERACTIVE: You will use atscan by simple interactive options.    |";
- echo "| 2 ADVANCED:    You will use advanced atscan by command line.         |";
- echo "+======================================================================+";
- echo "|   NOTE: This setting can be changed in user configation!             |";
- echo "+======================================================================+";
- echo "";
- echo "[!] How do you like to boot the tool? [Default 2]: ";
-
- read modeChoice
- if [ "$modeChoice" == "1" ]; 
- then
-  sudo cp $refdir/inc/conf/desktop/atscan.desktop.inter /usr/share/applications/atscan.desktop;
-  sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/atscan.desktop.inter;
-  echo "interactive on" >> $refdir/inc/conf/userSetting;
- else
-  sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/;
- fi
 
  if [ ! -d "/usr/share/icons" ]; 
  then
@@ -245,6 +228,32 @@ fi
  fi
  if [ -e "$refdir/atscan" ] || [ -e "$refdir/atscan.pl" ];
  then
+     
+     
+     
+ echo "";
+ echo "+======================================================================+";
+ echo "| 1 INTERACTIVE: You will use atscan by simple interactive options.    |";
+ echo "| 2 ADVANCED:    You will use advanced atscan by command line.         |";
+ echo "+======================================================================+";
+ echo "|   NOTE: This setting can be changed in user configation!             |";
+ echo "+======================================================================+";
+ echo "";
+ echo "[!] How do you like to boot the tool? [Default 2]: ";
+
+ read modeChoice
+ if [ "$modeChoice" == "1" ]; 
+ then
+  sudo sed -i 's/atscan;/atscan --interactive;/g' /usr/share/applications/atscan.desktop;
+ fi
+     
+     
+     
+     
+     
+     
+     
+     
  sleep 1 && echo "[i] Tool successfully installed!";
  echo "[i] Please wait while updating tool.. ";
  sleep 2;

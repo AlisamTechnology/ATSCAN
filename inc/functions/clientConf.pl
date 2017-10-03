@@ -13,7 +13,6 @@ my @res=(@ser, @ValueOn);
 
 my $res1=join("|", @res);
 my $x1="$deskIcoConf/atscan.desktop";
-my $x2="$deskIcoConf/atscan.desktop.inter";
 our (@l22, @l22bak);
 my @pars=("set", "reset", "options", "exit");
 
@@ -85,17 +84,7 @@ sub ClientConfiguration {
                 ##################  
                 if ($op eq "interactive") {
                   if (-e $x1) {
-                    copy $x1, $x2;
-                    unlink $x1;
-                    open(F23, $x2);
-                    @l22=<F23>;
-                    close(F23);
-                    open(F24, '>>', $x1);
-                    for my $l22(@l22) {
-                      $l22=~s/\"atscan\;/\"atscan --interactive\;/ig;
-                      print F24 "$l22\n";
-                    }
-                    close(F24);
+                    system("sed -i 's/atscan;/atscan --interactive;/g' $x1");
                     printFile($userSetting, "interactive on");
                     print $c[3]."[i] interactive was activated!\n";
                   }else{
@@ -138,16 +127,14 @@ sub ClientConfiguration {
                   }
                 }
                 close FH;
-                if (-e $x2) {
-                  resetInteractive();
-                }
+                system("sed -i 's/atscan --interactive;/atscan;/g' $x1");
                 print $c[3]."[i] All configuration was reset! \n";
               }else{
                 my $userfile="$Bin/inc/conf/user/$op.txt";
                 unlink $userfile if -e $userfile;
                 deletSetting($op);
                 if ($op eq "interactive") {
-                  resetInteractive();
+                  system("sed -i 's/atscan --interactive;/atscan;/g' $x1");
                 }
                 print $c[3]."[i] $op was reset!\n";
               }
@@ -155,8 +142,8 @@ sub ClientConfiguration {
             }elsif ($act eq "options") {
               @confShown=get_configuration();
               my $a1=0;
-              print $c[10]."  +"."=" x 70 ."\n";
-              print $c[10]."  | $c[11]OPTION                  $c[10] | $c[11]VALUE\n";
+              print $c[10]."+"."=" x 70 ."\n";
+              print $c[10]."| $c[11]OPTION                  $c[10] | $c[11]VALUE\n";
               print $c[10]."  +"."=" x 70 ."\n";
               for my $lines2(@confShown) {
                 if ($lines2!~/(##|config)/) {
@@ -184,8 +171,8 @@ sub ClientConfiguration {
                   }
                 }
               }
-              print $c[10]."  | $c[4]$AUTH[11]\n" if $a1<1;
-              print $c[10]."  +"."=" x 70 ."\n\n";
+              print $c[10]."| $c[4]$AUTH[11]\n" if $a1<1;
+              print $c[10]."+"."=" x 70 ."\n\n";
               (@confReset, @confSet, @confShown)=();
             }
           }
@@ -221,14 +208,6 @@ sub cleanImput {
   return ($act, $op, $vl);
 }
 ####################################################################################################
-## RESET INTERACTIVE INTERFACE
-sub resetInteractive {
-  if (-e $x2 && -e $x1) {
-    unlink $x1;
-    copy $x2, $x1;
-    unlink $x2;
-  }        
-}
 ####################################################################################################
 
 1;

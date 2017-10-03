@@ -62,13 +62,7 @@ if ($same eq "yes") {
       if (!-e "$scriptCompletion/atscan") { bb(); }
       else{ cc(); }
       print $c[10]."[i] Creating desktop entries....\n";
-      
-      if (-d "/usr/share/applications/") {
-        if (!-e "/usr/share/applications/atscan.desktop") {
-          system "sudo cp $Bin/atscan_update/inc/conf/desktop/atscan.desktop /usr/share/applications/";
-        }
-      }
-  
+        
       if (-d "/usr/share/icons/hicolor/16x16/apps/") {
 	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/16x16/atscan-menu.png /usr/share/icons/hicolor/16x16/apps/";
 	    if (!-e "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png") { print $c[3]."[!] Error cannot whrite in /usr/share/icons/hicolor/16x16/apps/!\n"; }
@@ -111,10 +105,6 @@ if ($same eq "yes") {
       print FE "$spss\n";
     }
     close(FE);
-    if (-e "/usr/share/applications/atscan.desktop.inter") {
-      deletSetting("interactive");
-      printFile($userSetting, "interactive on");
-    }
     cc();
   }  
   

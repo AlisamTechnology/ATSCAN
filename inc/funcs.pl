@@ -7,7 +7,7 @@ use POSIX qw(strftime);
 
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
-     $V_IP, $expIp, $interactive, $command);
+     $V_IP, $expIp, $interactive, $command, $uplog);
 our (@aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT);
 
 ## PRINT FILES 
@@ -41,6 +41,20 @@ sub checkSetting {
   }
   close(F2);
   return $l1;
+}
+
+## CHECK FOR UPDATE
+sub get_lastUpdate {
+  my @lastUpdate;
+  open (UPLOG, $uplog);
+  while (my $lastUpdate=<UPLOG>) {
+    chomp $lastUpdate;
+    if (length($lastUpdate) > 1) {
+      push @lastUpdate, $lastUpdate if length($lastUpdate) > 1;
+    }
+  }
+  close(UPLOG);
+  return $lastUpdate[0];
 }
 
 ## BUILT ARRAYS
@@ -102,10 +116,10 @@ $beep=checkSetting("beep") if !defined $beep;
 $ifend=checkSetting("ifend") if !defined $ifend;
 $unique=checkSetting("unique") if !defined $unique;
 $timeout=checkSetting("timeout") if !defined $timeout;
-$dateupdate=checkSetting("update");
 $freq=checkSetting("freq") if !defined $freq;
 $limit=checkSetting("limit") if !defined $limit;
 $command=checkSetting("command") if !defined $command;
+$dateupdate=checkSetting("update");
 
 ## SET PROXY
 if (defined $proxy || $proxy) { @proxies=getProx($proxy); }

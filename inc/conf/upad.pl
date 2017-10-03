@@ -9,15 +9,7 @@ use File::Path;
 our ($uplog, $script_bac, $fulldate, $dateupdate, @c);
 my (@date1, @date2);
 
-## LAST UPDATE
-open (UPLOG, $uplog);
-while (my $lg=<UPLOG>) {
-  chomp $lg;
-  if (!$dateupdate) { $dateupdate=1; }
-  if (($dateupdate + $lg) < $fulldate) { updateMessage(); }
-}
-
-## CHECK FOR UPDATE
+## PRINT UPATE ALERT
 sub updateMessage  {
   my ($same, $rp)=compareme();
   if ($rp->is_success) {
@@ -29,6 +21,13 @@ sub updateMessage  {
   }else{
     print "  "; dd();
   }
-}      
+}
+## CHECK FOR UPDATE
+my $lastupdate=get_lastUpdate();
+if ($dateupdate) {
+  if (($dateupdate + $dateupdate) < $fulldate) { updateMessage(); }
+}else{
+  if (($lastupdate + 10) < $fulldate) { updateMessage(); }
+}
 
 1;

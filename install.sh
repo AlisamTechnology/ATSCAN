@@ -247,10 +247,9 @@ fi
   echo "interactive on" >> $refdir/inc/conf/userSetting;
  fi
  echo `date +%Y%j` >> $refdir/inc/conf/uplog.log;
- sleep 1 && echo "[i] Tool successfully installed!";
- echo "[i] Please wait while updating tool.. ";
- sleep 2;
+ sleep 1;
  atscan --update;
+ echo "[i] Tool successfully installed!";
 else
  echo "[!] Installation faid!! ";
  exit

@@ -451,13 +451,14 @@ sub removeDupDom {
 sub saveCopy { my $URL=$_[0]; push @aTtargets, $URL; }
 
 ## REMOVE DUPLICATE RESULTS
-sub checkDuplicate { 
-  my @AS=@_;
-  my @AS2;
-  for my $as(@AS) { $as=~s/(\%27|\<|\>|\%25|\')(.*)//ig; push @AS2, $as; }
-  my %seen;
-  @AS2=grep{ not $seen{$_}++ } @_;
-  return @AS2;
+sub checkDuplicate {
+  my @array=@_;
+  sub uniq {
+    my %seen;
+    grep !$seen{$_}++, @_;
+  }
+  my @filtered = uniq(@array);
+  return (@filtered);
 }
 
 ## REMOVE URLS PROTOCOL

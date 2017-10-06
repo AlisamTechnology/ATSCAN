@@ -470,7 +470,7 @@
        Search with many dorks: atscan --dork dork1 [OTHER]dork2 [OTHER]dork3] --level [level]    <br/>
        Search and rand: atscan -d [dork] -l [level] --expHost "/index.php?id=rang(1-9)" --sql   <br/>
        Get target engine index: atscan -t [target] --level [value] --index <br/>
-       Get Server wordpress sites: atscan -t [target] --wp  <br/>
+       Get Server wordpress sites: atscan -t [target] -l [level] <br/>
        Search + output: atscan --dork [dorks.txt] --level [level] --save <br/>
        Search + get emails: atscan -d [dorks.txt] -l [level] --email  <br/>
        Search + get site emails: atscan --dork site:site.com --level [level] --email  <br/>

@@ -47,7 +47,7 @@ sub doSearch {
 	$URL=decode_entities($URL);
     $URL=~s/<.*//s;
     if ($URL!~/$nolisting/) {
-      if (defined $unique or defined $ifinurl || $unique) {
+      if (!defined $mindex && (defined $unique or defined $ifinurl || $unique)) {
         my $dorkToCheeck=checkFilters($dork);
         $URL=filterUr($URL, $dorkToCheeck);
       }

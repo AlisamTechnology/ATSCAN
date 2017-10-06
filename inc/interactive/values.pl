@@ -15,9 +15,9 @@ our %MODULES=('normal'=>'normal scan mode', 'advanced'=>'advanced scan mode');
 our @MODULES=('normal', 'advanced');
 
 ## SCANS
-our @SCANS=("sql", "lfi", "joomrfi", "wpafd", "admin", "shost", "sites", "wp", "joom", "upload", "zip", "decrypt", "email", "ip", "ports", "commands", "form", "nomodule");
+our @SCANS=("sql", "lfi", "joomrfi", "wpafd", "admin", "shost", "wp", "joom", "upload", "zip", "decrypt", "email", "ip", "ports", "commands", "form", "nomodule");
 our %SCANS=("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"=>"joomla rfi", "wpafd"=>"wp file download", "admin"=>"find admin page", "shost"=>"get subdomains",
-           "sites"=>"get sites in server", "wp"=>"get wordpress sites", "joom"=>"get joomla sites", "upload"=>"get upload files", "zip"=>"get zip files", "decrypt"=>"md5/(en/de)code64",
+           "wp"=>"get wordpress sites", "joom"=>"get joomla sites", "upload"=>"get upload files", "zip"=>"get zip files", "decrypt"=>"md5/(en/de)code64",
            "email"=>"collect emails", "ip"=>"collect ips", "ports"=>"scan ports", "commands"=>"extern command", "form"=>"post/get data", "nomodule"=>"no module will be used");
 
 ## SEARCH ENGINE
@@ -25,8 +25,8 @@ our %SCANS=("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"
 %INTERSearchScans=("unique"=>"unique tesults", "motor"=>"engine motor", "m-random"=>"random engine", "zone"=>"search zone");
 
 ## TARGET
-@INTERtarget=('target', 'ping');
-%INTERtarget=("target"=>"target", "ping"=>"check is alive");
+@INTERtarget=('target', 'ping', 'index');
+%INTERtarget=("target"=>"target", "ping"=>"check is alive", "index"=>"get engine index");
 
 ## SEARCH LEVEL
 @INTERlevel=('level');
@@ -44,7 +44,7 @@ our @ARGUMENTSALL=('status', 'valid', 'exp', 'full', 'proxy', 'proxy-random', 's
 
 ## NOT REQUIRE A VALUE
 our @NoValRequierd=('none', 'host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noinfo', 'update', 'ip', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
-                   'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'sites', 'wp', 'joom', 'upload', 'zip', 'email  ip', 'ports', 'commands', 'form', 'search', 'normal',
+                   'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'upload', 'zip', 'email  ip', 'ports', 'commands', 'form', 'search', 'normal',
                    'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule');
 
 ## DATA ARGUMENTS

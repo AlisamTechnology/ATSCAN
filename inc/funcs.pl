@@ -528,7 +528,7 @@ sub getHost {
 ## CLEAN URL
 sub cleanURL {
   my $URL=$_[0];
-  my %replace=( 'http://' => '', 'https://' => '', 'www.' => '', 'ftp://' => '', 'ftps://' => '');
+  my %replace=( 'http://' => '', 'https://' => '', 'www\.' => '', 'ftp://' => '', 'ftps://' => '');
   $URL=~s/$_/$replace{ $_}/g for keys %replace;
   $URL=~s/\/.*//s;
   return $URL;
@@ -728,21 +728,13 @@ sub printProxy {
 
 ## CHECK SCAN ARGUMENTS
 sub Targs {
-  our ($msites, $Hstatus, $validText);
-  my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $msites, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
+  our ($mindex, $Hstatus, $validText);
+  my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
              $regex, $command, $ping, $interactive);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;
 }
 
-## CHECK IF QUOTED
-sub chekQuotes {
-  my $str=$_[0];
-  if ($str!~/\"(.*)\"/) {
-    $str=~s/$str/\"$str\"/ig;
-  }
-  return $str;
-}
 
 1;

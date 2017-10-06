@@ -1,9 +1,8 @@
-VERSION 12.4.1 RELEASE
+VERSION 12.4.2 RELEASE
 =====================================================
-  CHANGES: 03/10/2017
+  CHANGES: 06/10/2017
   ===================================================
-  - Fix interactive interface install.
-  - Perl 5.30 compatibility.
-  - Fix update alert.
+  - Remove ip lookup module.
+  - Add --index arg to get target engine index.
   - Enjoy!
   ===================================================

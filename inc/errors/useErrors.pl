@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $msites, $content, $ping);
+our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $mindex, $content, $ping);
 our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $replace, $with, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @TT, @SCAN_TITLE, @DT, @OTHERS, @c);
 
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
@@ -25,13 +25,11 @@ if (defined $Target) {
   }
 }
 
-if (defined $msites) {
+if (defined $mindex) {
   if (!defined $mlevel && !$mlevel) {
     print $c[4]."[!] $DT[20]\n"; logoff();
   }
-  if ((defined $Target) and (!-e $Target) && ($Target!~/$V_IP/)) { print $c[4]."[!] $Target $TT[20]\n"; logoff(); }
 }
-
 
 ## CHECK RANDOM PARAMS
 if (defined $mrandom && (!defined $mlevel && !$mlevel)) { print $c[4]."[!] $DT[38]\n"; logoff(); }

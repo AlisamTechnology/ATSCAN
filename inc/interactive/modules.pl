@@ -10,8 +10,8 @@ use FindBin '$Bin';
 our(@c, @AUTH, $scriptbash, $activeUconf);
 our(@INTERCOMNDS, @INTERSCANS, @INTERCOMNDSFIN, %INTEROPTION, %MODULES, @MODULES, @SCANS, %SCANS, @ENGINEARGUMENTS, @ARGUMENTSALL, %ARGUMENTSALL, %ENGINEARGUMENTS,
     @NoValRequierd, @INTERcomnd, %INTERcomnd);
-our (@INTERshell, @INTERparam, @INTERcommand, @INTERPortScan, @INTERDataScan, @INTERpayload, @INTERdecryp, @INTERadvanced);
-our (%INTERshell, %INTERparam, %INTERcommand, %INTERPortScan, %INTERDataScan, %INTERpayload, %INTERdecryp, %INTERadvanced);
+our (@INTERshell, @INTERparam, @INTERcommand, @INTERPortScan, @INTERDataScan, @INTERpayload, @INTERdecryp, @INTERadvanced, @INTERtarget);
+our (%INTERshell, %INTERparam, %INTERcommand, %INTERPortScan, %INTERDataScan, %INTERpayload, %INTERdecryp, %INTERadvanced, %INTERtarget);
 our (@PREFONF, %PREFONF, %PREFONF2);
 my (@ARGUMENTS, %ARGUMENTS);
 my ($mod, $scn, $first, $first1);
@@ -191,7 +191,6 @@ sub main3 {
           my $first3 = $first1;
           $first3 =~ s/$OPT1[0]\s//ig;          
           print "$c[3]$OPT1[0] => [$first3]\n";
-          $first3=chekQuotes($first3);
           push @INTERCOMNDS, "--$OPT1[0] $first3";
           $INTEROPTION{"$OPT1[0]"}=$first3;
         }
@@ -247,8 +246,10 @@ sub getExtratArgs {
 sub dorkOtarget {
   my $checkDorkOtarget=$_[0];
   if ($checkDorkOtarget eq "dork") {
-    if (grep( /^target$/, @ARGUMENTS)) {
-      updateARGUMENTS("target");
+    for my $INTERtarget(@INTERtarget) {
+      if (grep( /^$INTERtarget$/, @ARGUMENTS)) {
+        updateARGUMENTS($INTERtarget);
+      }
     }
   }
   if ($checkDorkOtarget eq "target") {
@@ -382,7 +383,13 @@ sub tableOpts {
       if (grep( /^$rr$/, @NoValRequierd)) { print "|  No  "; }
        else{ print "|  Yes ";
       }
-      print "| $aa";
+      print "| ";
+      if ($aa=~/\*\*/) {
+        $aa=~s/\*\*//g;
+        print "$aa$c[4]\**";
+      }else{
+        print "$aa";
+      }
     }
   }
   print "\n";
@@ -394,7 +401,7 @@ sub InterHelpArgs1 {
   print "$c[10]  + Usage: > $j1 [$j2]";
   if ($j3) {
     print "[$j3]\n$c[4]  $AUTH[22]!";
-    print "\n$c[4]  $AUTH[23]!";
+    print "\n$c[4]  [!] [VALUE**] = $AUTH[23]!";
   }
   print "\n";
   my $keyLength2 = length($j2);
@@ -426,7 +433,6 @@ sub checkIfConfig {
     if (($row =~ /$chekArgumnt/) and ($row !~ /(config|password|##)/)) {
       $row =~ s/$chekArgumnt//g;
       $row =~ s/ //g;
-      
       $PREFONF{"$chekArgumnt"}="$row**";
       push @PREFONF, "--$chekArgumnt $row";
     }

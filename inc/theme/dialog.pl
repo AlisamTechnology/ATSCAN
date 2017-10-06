@@ -22,7 +22,7 @@ my @AUTH=("Login:", "Incorrect password!", "A password is already assigned! Do y
           "Password must have at least 3 caracters!", "Tool will restart in", "THIS IS YOUR CONFIGURATION:", "No configuation found!", "Invalid option!", "is already configured use reset command first!",
           "Couldn't interpret your command!", "No configuation file found!", "Set your setting or type \"help\" for help", "Choose a mode or type \"options\" to list aviable modes",
           "Choose a module or type \"options\" to list aviable modules", "Set arguments or type \"options\" to list arguments or \"run\" to execute", "How to use arguments? type \"help\" for help!",
-          "Opss.. Nothing to run", "[!] [VAL* yes] = This argument Require a value", "[!] [VALUE**] = Value preconfigured in user configuration", "This option is for intalled tool only",
+          "Opss.. Nothing to run", "[!] [VAL* yes] = This argument Require a value", "Value preconfigured in user configuration", "This option is for intalled tool only",
           "must have \"on\" like value!");
 
 ## ERRORS DIALOG TEXT

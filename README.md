@@ -11,7 +11,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px" class="main2"><b>ATSCAN V 12.4.1 </b></td>
+    <td width="780px" class="main2"><b>ATSCAN V 12.4.2 </b></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">4n0n4t</td>
@@ -337,8 +337,8 @@
         <td class="main"> UDP port</td> 
       </tr> 
       <tr>
-        <td width="200px" class="main">--sites  </td>
-        <td class="main"> Sites in the server </td>
+        <td width="200px" class="main">--index  </td>
+        <td class="main"> Get target engine index </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--wp</td>
@@ -469,15 +469,8 @@
        Set selective engines: atscan -d [dork] -l [level] -m 1,2,3.. <br/>
        Search with many dorks: atscan --dork dork1 [OTHER]dork2 [OTHER]dork3] --level [level]    <br/>
        Search and rand: atscan -d [dork] -l [level] --expHost "/index.php?id=rang(1-9)" --sql   <br/>
-       Get Server sites: atscan -t [ip] --level [value] --sites <br/>
-       Get Server sites: atscan -t "[ip from]-[ip to]" --level [value] --sites <br/>
-       Get Server sites: atscan -t "ip1 [OTHER]ip2" --level [value] --sites <br/>
-       Get Server wordpress sites: atscan -t [ip] --level [value] --wp  <br/>
-       Get Server joomla sites: atscan -t [ip] --level value] --joom  <br/>
-       Get Server upload sites: atscan -t [ip] --level [value] --upload  <br/>
-       Get Server zip sites files: atscan -t [ip] --level value] --zip  <br/>
-       WP Arbitry File Download: atscan -t [ip] --level [[[value] --wpafd  <br/>
-       Joomla RFI: atscan -t [ip] --level [10] --joomfri --shell [shell link] <br/>
+       Get target engine index: atscan -t [target] --level [value] --index <br/>
+       Get Server wordpress sites: atscan -t [target] --wp  <br/>
        Search + output: atscan --dork [dorks.txt] --level [level] --save <br/>
        Search + get emails: atscan -d [dorks.txt] -l [level] --email  <br/>
        Search + get site emails: atscan --dork site:site.com --level [level] --email  <br/>

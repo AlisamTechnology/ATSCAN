@@ -5,9 +5,10 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $msites, $zone, $agent, $noExist, $notIn, $expHost, $expIp);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $zone, $agent, $noExist, $notIn, $expHost, $expIp);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $with, $eMails, $searchIps, $brandom, $noinfo, $timeout, $method, $command, @OTHERS, @ErrT);
+
 ## SET ENGINES
 if (defined $mlevel) {
   if (defined $mrandom || $mrandom) { push @motor, $mrand; }
@@ -24,6 +25,7 @@ if (defined $mlevel) {
   }
 }
 
+## BUILD ENGINE ARRAY
 sub buildenginearray {
   my $mtr=$_[0];
   if ($mtr=~/all/) { push @motor, @mrands; }
@@ -49,7 +51,7 @@ sub doSearch {
         my $dorkToCheeck=checkFilters($dork);
         $URL=filterUr($URL, $dorkToCheeck);
       }
-	  if ((defined $msites) || (defined $Target) || (defined $mdom) || (defined $expHost) || (defined $expIp)) {               
+	  if ((defined $mdom) || (defined $expHost) || (defined $expIp)) {               
 		$URL=getHost($URL);
       }
       my $vURL=validateURL($URL);
@@ -82,8 +84,8 @@ sub printMotor {
 ## PRINT INFO DORK
 sub printDork {
   my @dor=@_;
-  if (defined $msites) {
-    print $c[1]."[::] SCAN    $c[10] [Server Sites]";
+  if (defined $mindex) {
+    print $c[1]."[::] SCAN    $c[10] [Engine Index]";
   }else{
     print $c[1]."[::] $DS[0]     $c[10]";     
     for my $dor(@dor) {
@@ -115,15 +117,16 @@ sub msearch {
   printMotor(@motors);
   printDork(@dorks);
   print $c[4]."[i] $DT[31]\n";
-  
   $mlevel+=-10 if $mlevel > 9;
   $mlevel =~ s/(substr $mlevel, -1)/0/g;
-  
   for my $motor(@motors) {
     for my $dork(@dorks) {     
       if (defined $Target) {
-        if ($dork!~ /(ip:|ip%3A)/) {
-          $dork="ip:".$dork;
+        if (defined $mindex) {
+          $dork=getHost($dork);
+          $dork=removeProtocol($dork);
+          $dork=cleanURL($dork);
+          $dork="site:".$dork;
         }
       }
       if ($zone) { $dork="site:$zone ".$dork; }    

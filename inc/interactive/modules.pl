@@ -191,6 +191,7 @@ sub main3 {
           my $first3 = $first1;
           $first3 =~ s/$OPT1[0]\s//ig;          
           print "$c[3]$OPT1[0] => [$first3]\n";
+		  if ($OPT1[0] eq "command") { $first3="\"$first3\""; }
           push @INTERCOMNDS, "--$OPT1[0] $first3";
           $INTEROPTION{"$OPT1[0]"}=$first3;
         }

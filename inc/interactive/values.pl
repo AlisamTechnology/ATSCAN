@@ -10,6 +10,9 @@ use FindBin '$Bin';
 our(@c);
 our (@INTERCOMNDS, @INTERSCANS, @INTERCOMNDSFIN, %INTEROPTION, @INTERSearchScans, %INTERSearchScans, @INTERdork, %INTERdork, @INTERtarget, %INTERtarget, @INTERlevel, %INTERlevel);
 
+## EXTRAT INTERACTIVE OPTIONS
+our @interExtraOpts=("config", "cat", "usage");
+
 ## MODULES
 our %MODULES=('normal'=>'normal scan mode', 'advanced'=>'advanced scan mode');
 our @MODULES=('normal', 'advanced');

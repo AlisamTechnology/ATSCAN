@@ -9,7 +9,7 @@ use FindBin '$Bin';
 ##
 our(@c, @AUTH, $scriptbash, $activeUconf);
 our(@INTERCOMNDS, @INTERSCANS, @INTERCOMNDSFIN, %INTEROPTION, %MODULES, @MODULES, @SCANS, %SCANS, @ENGINEARGUMENTS, @ARGUMENTSALL, %ARGUMENTSALL, %ENGINEARGUMENTS,
-    @NoValRequierd, @INTERcomnd, %INTERcomnd);
+    @NoValRequierd, @INTERcomnd, %INTERcomnd, @interExtraOpts);
 our (@INTERshell, @INTERparam, @INTERcommand, @INTERPortScan, @INTERDataScan, @INTERpayload, @INTERdecryp, @INTERadvanced, @INTERtarget);
 our (%INTERshell, %INTERparam, %INTERcommand, %INTERPortScan, %INTERDataScan, %INTERpayload, %INTERdecryp, %INTERadvanced, %INTERtarget);
 our (@PREFONF, %PREFONF, %PREFONF2);
@@ -47,7 +47,7 @@ sub main {
         interHelpChek("1");
       #########################################################################################
       }else{
-        if ($module ne "config") {
+        if (!grep/^$module$/, @interExtraOpts) {
           print $c[4]."[!] $AUTH[14]\n";
         }
       }
@@ -69,7 +69,7 @@ sub main2 {
     if ($first) {
       ########################################################################################
       if ($first eq "options") {
-        print "\n$c[11]  Mode($c[13]$mod$c[11]\) \n";
+        print "\n$c[11]Mode($c[13]$mod$c[11]\) \n";
         InterHelpArgs1("use", "MODULE", "", "", "");
         for my $SCAN(@SCANS3) {
           for my $key (keys %SCANS3) {
@@ -116,7 +116,7 @@ sub main2 {
         }
       ########################################################################################
       }else{
-        if ($first ne "config") {
+        if (!grep/^$first$/, @interExtraOpts) { 
           print $c[4]."[!] $AUTH[14]\n";
         }
       }
@@ -124,25 +124,6 @@ sub main2 {
   }
   return ($mod, $scn);
 }
-##############################################################################################
-## CHECK FIRST PARTS
-sub checkFirstParts {
-  my ($first, $scansArray)=@_;
-  my @scansArray =@{$scansArray};
-  my $cntrl="0";
-  my ($validCntrl, @FirstParts)=();
-  @FirstParts=split(" ", $first);
-  for my $FirstParts(@FirstParts) {
-    if (grep/^$FirstParts$/, @scansArray) {
-      $cntrl++;
-    }
-  }
-  if ($cntrl eq scalar(@FirstParts)) {
-    $validCntrl="1";
-  }
-  return $validCntrl;
-}
-##############################################################################################
 ## MAIN 3
 sub main3 {
   my ($mod, $scn)=@_;
@@ -156,7 +137,7 @@ sub main3 {
       #########################################################################################
       if ($first1 eq "options") {
         my $prefix=getPrefix();
-        print "\n$c[11]  Module($c[13]$mod$c[11] > $c[13]$prefix$c[11]\)\n";
+        print "\n$c[11]Module($c[13]$mod$c[11] > $c[13]$prefix$c[11]\)\n";
         InterHelpArgs("set", "ARGUMENT", "VALUE", "");
       #########################################################################################
       }elsif ($first1 eq "help") {
@@ -201,13 +182,31 @@ sub main3 {
         if ($first1 eq "back") {
           processHeader("3");
         }else{
-          if (($first1 ne "config")) {
+          if (!grep/^$first1$/, @interExtraOpts) {  
             print "$c[4]\[!] $AUTH[14]\n";
           }
         }
       }
     }
   }
+}
+##############################################################################################
+## CHECK FIRST PARTS
+sub checkFirstParts {
+  my ($first, $scansArray)=@_;
+  my @scansArray =@{$scansArray};
+  my $cntrl="0";
+  my ($validCntrl, @FirstParts)=();
+  @FirstParts=split(" ", $first);
+  for my $FirstParts(@FirstParts) {
+    if (grep/^$FirstParts$/, @scansArray) {
+      $cntrl++;
+    }
+  }
+  if ($cntrl eq scalar(@FirstParts)) {
+    $validCntrl="1";
+  }
+  return $validCntrl;
 }
 ##############################################################################################
 ## BUILD ARGUMENTS ARRAY
@@ -304,14 +303,22 @@ sub form {
       ltak();
       processHeader($process);      
     }
+    elsif ($ord eq "usage") { interUsage(); processHeader($process); }
     elsif ($ord eq "back") { back($process); }
     elsif ($ord eq "run" && scalar(@INTERCOMNDS) < 1) { runArg($process); }
+    elsif ($ord=~/^cat\s(.*?)/) {
+      system ($ord);
+      processHeader($process); }
     elsif ($ord eq "exit") {
       print "$c[3]\[!] Bey! :)\n";
       logoff();
     }
   }
   return $ord;
+}
+##############################################################################################
+## USAGE HELP
+sub usage {
 }
 ##############################################################################################
 ## HELP
@@ -373,7 +380,7 @@ sub tableOpts {
   my $pz="$rr ";
   my $keyLength = length($rr) ;
   my $addLenght= 12 - $keyLength;
-  print "$c[10]  | $c[5]$rr$c[10]";
+  print "$c[10]| $c[5]$rr$c[10]";
   print " " x $addLenght;
   my $keyLength11 = length($zz);
   my $addLenght11= 22 - $keyLength11;
@@ -399,17 +406,17 @@ sub tableOpts {
 ## HELP ARGUMENTS
 sub InterHelpArgs1 {
   my ($j1, $j2, $j3, $j4, $isArg)=@_;
-  print "$c[10]  + Usage: > $j1 [$j2]";
+  print "$c[10]+ Usage: > $j1 [$j2]";
   if ($j3) {
-    print "[$j3]\n$c[4]  $AUTH[22]!";
-    print "\n$c[4]  [!] [VALUE**] = $AUTH[23]!";
+    print "[$j3]\n$c[4]$AUTH[22]!";
+    print "\n$c[4]\[!] [VALUE**] = $AUTH[23]!";
   }
   print "\n";
   my $keyLength2 = length($j2);
   my $addLenght2= 19 - $keyLength2;
   my $addLenght3= 14 - $keyLength2;
   helpSeparator();
-  print "$c[11]  | $j2";
+  print "$c[11]| $j2";
   print " " x $addLenght3;
   print "$c[10]\| $c[11]DESCRIPTION";
   if ($j3) {
@@ -482,11 +489,11 @@ sub getH {
 sub processHeader {
   my $process=$_[0];
   if ($process eq "1") {
-    print "$c[10]\[!] $AUTH[17]!\n";
+    print "$c[10]\[!] $AUTH[17] \n";
   }elsif ($process eq "2") {
-    print "$c[10]\[!] $AUTH[18]!\n";
+    print "$c[10]\[!] $AUTH[18] \n";
   }elsif ($process eq "3" or $process eq "4") {
-    print "$c[10]\[!] $AUTH[19]!\n";
+    print "$c[10]\[!] $AUTH[19] \n";
   }
 }
 ##############################################################################################

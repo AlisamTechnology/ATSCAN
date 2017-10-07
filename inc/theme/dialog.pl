@@ -20,8 +20,8 @@ my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan 
 my @AUTH=("Login:", "Incorrect password!", "A password is already assigned! Do you want to remove it ? [y/n]:", "Password successfully removed!",
           "You will set an user password and will be required for each use!", "Enter password or press Cotrol+C to cancel", "Password successfully generated!", "No password have been set!",
           "Password must have at least 3 caracters!", "Tool will restart in", "THIS IS YOUR CONFIGURATION:", "No configuation found!", "Invalid option!", "is already configured use reset command first!",
-          "Couldn't interpret your command!", "No configuation file found!", "Set your setting or type \"help\" for help", "Choose a mode or type \"options\" to list aviable modes",
-          "Choose a module or type \"options\" to list aviable modules", "Set arguments or type \"options\" to list arguments or \"run\" to execute", "How to use arguments? type \"help\" for help!",
+          "Couldn't interpret your command!", "No configuation file found!", "Set your setting or type \"help\" for help", "Choose a mode or type \"usage\" for usage",
+          "Choose a module or type \"usage\" for usage", "Set arguments or type \"usage\" for usage", "How to use arguments? type \"help\" for help!",
           "Opss.. Nothing to run", "[!] [VAL* yes] = This argument Require a value", "Value preconfigured in user configuration", "This option is for intalled tool only",
           "must have \"on\" like value!");
 
@@ -177,6 +177,21 @@ sub scansArgs {
   ."$c[5] --sites       $c[10] | Get ites in the server \n"
   ."$c[5] --upload      $c[10] | Get upload files \n"
   ."$c[5] --zip         $c[10] | Get zip files \n";
+}
+
+sub interUsage {
+  print ""
+  ."+===========================================================================+\n"
+  ."| EXPRESSION | USAGE                  | DESCRIPTION                         |\n"
+  ."+============+========================+=====================================+\n"
+  ."| use        | use [mode | module]    | Normal and Advanced usage           |\n"
+  ."| set        | set [ARGUMENT] [VALUE] | Set arguments and values            |\n"
+  ."| options    | options                | Show aviable & configured arguments |\n"
+  ."| help       | help                   | Show help                           |\n"
+  ."| run        | run                    | Execute                             |\n"
+  ."| config     | config                 | User configuration                  |\n"
+  ."| exit       | exit                   | Exit                                |\n"
+  ."+===========================================================================+\n\n";
 }
 
 1;

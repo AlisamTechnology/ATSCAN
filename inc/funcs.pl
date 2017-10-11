@@ -6,7 +6,7 @@ use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
 ## FUNCTS
-our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $with, $full, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
+our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
      $V_IP, $expIp, $interactive, $command, $uplog);
 our (@aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT);
 
@@ -494,9 +494,22 @@ sub removeQuery {
   return $URL;
 }
 
+## BUILD REPLACE 
+our @replace=($replace, $replaceFROM);
+our @replaceParts;
+sub checkVreplace {
+  @replace=($replace, $replaceFROM);
+  for (@replace) {
+    if (defined $_) {
+      @replaceParts=split("=>", $_);
+    }
+  }
+}
+
 ## CHECK TARGETS FOR REPLACE OPTION
 sub control {
   my $URL=$_[0];
+  our @replaceParts;
   if (defined $noQuery) {
     $URL=removeQuery($URL);
   }
@@ -504,10 +517,13 @@ sub control {
 	$URL=getHost($URL);
   }
   if (defined $replace) {
-    our $full;
-    if (defined $full) { $URL=~s/$replace.*/$replace/g; }
-    $URL=~s/\Q$replace/$with/ig;
+    $URL=~s/\Q$replaceParts[0]/$replaceParts[1]/ig;
   }
+  if (defined $replaceFROM) {
+    $URL=~s/$replaceParts[0](.*)//s;
+    $URL=~s/$replaceParts[0]//ig;
+    $URL=$URL.$replaceParts[1];
+  }  
   $URL=checkUrlSchema($URL);
   if (defined $expIp) {
     my $ips=checkExtraInfo($URL);
@@ -558,22 +574,23 @@ sub checkFilters {
 sub filterUr {
   my ($URL, $dorkToCheeck)=@_;
   our $noExist;
+  my $U="";
   if (defined $noExist) {
     if (defined $unique || $unique) {
-      if (index($URL, $dorkToCheeck) != -1) { $URL=""; }else{ $URL=$URL; }
+      if (index($URL, $dorkToCheeck) == -1) { $U=$URL; }
     }
     if (defined $ifinurl) {
-      if (index($URL, $ifinurl) != -1) { $URL=""; }else{ $URL=$URL; }
+      if (index($URL, $ifinurl) == -1) { $U=$URL; }
     }
   }else{
     if (defined $unique || $unique) {
-      if (index($URL, $dorkToCheeck) != -1) { $URL=$URL; }else{ $URL=""; }
+      if (index($URL, $dorkToCheeck) != -1) { $U=$URL; }
     }
     if (defined $ifinurl) {
-      if (index($URL, $ifinurl) != -1) { $URL=$URL; }else{ $URL=""; }
+      if (index($URL, $ifinurl) != -1) { $U=$URL; }
     }
   } 
-  return $URL;
+  return $U;
 }
 
 ## VALIDATE URL PARTS

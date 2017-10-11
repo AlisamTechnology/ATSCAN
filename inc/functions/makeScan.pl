@@ -7,7 +7,7 @@ use FindBin '$Bin';
 ## MAKE SCAN
 sub makeSscan { 
   my ($ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter, $data, $no)=@_;
-  our (@c, @DS, @TT, @aTscans, @aTsearch, @userArraysList, $limit, $payloads, $exploit, $shell, $p, $expHost, $expIp);
+  our (@c, @DS, @TT, @aTscans, @aTsearch, @userArraysList, @replaceParts, $limit, $payloads, $exploit, $shell, $p, $expHost, $expIp, $replaceFROM, $replace);
   @aTscans=();
   ptak();
   checkHeaders($ct, $dt, $et);  
@@ -35,9 +35,12 @@ sub makeSscan {
       points(); dpoints(); points();
       $URL=checkUrlSchema($URL);
       print $c[1]."    $DS[9]  "; print $c[10].$c[7]."[$count/$lc] $URL\n";
-      our $replace;
-      if (defined $replace) {
-	    if (index($URL, $replace) == -1) { print $c[1]."    SCAN    ".$c[2]."No [$replace] found!\n"; next; }
+      if (defined $replace || defined $replaceFROM) {
+        checkVreplace();
+        if ($URL!~/$replaceParts[0]/) {
+          print $c[1]."    SCAN    ".$c[2]."No [$replaceParts[0]] found!\n";
+          next;
+        }
       }
       $URL=control($URL);
       if (!@arr) {     

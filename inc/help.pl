@@ -70,7 +70,7 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  MULTIPLE SCANS: \n".$c[10]
   ."   atscan --dork <dork> --level <10> --sql --lfi --wp ..\n"
-  ."   atscan --dork <dork> --level <10> --replace <string> --with <string> --exp/expHost <exploit> [--sql | --lfi | --wp |...]\n"
+  ."   atscan --dork <dork> --level <10> --replace \"string => new_string\" --exp/expHost <exploit> [--sql | --lfi | --wp |...]\n"
   ."   atscan -t <ip> --level <10> [--sql | --lfi | --wp |...]\n"
   ."   atscan -t <targets> [--sql | --lfi | --wp |...]\n\n";
   
@@ -87,11 +87,11 @@ use FindBin '$Bin';
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string>] \n"
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> --none] \n"
   ."   atscan -d <dork | dorks.txt> -l <level> --exp/expHost <payload> --status <code> | --valid <string> \n"
-  ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string> \n"
+  ."   atscan -d <dorks.txt> -l <level> --replace \"string => new_string\" --status <code> | --valid <string> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--admin | --sql ..] --status <code> | --valid <string> \n"  
-  ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --status <code> | --valid <string>\n"
-  ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --full --status <code> | --valid <string>\n"
-  ."   atscan -d <dorks.txt> -l <level> --replace <string> --with <string> --exp/expHost <payload> --status <code> | --valid <string>\n"
+  ."   atscan -d <dorks.txt> -l <level> --replace \"string => new_string\" --status <code> | --valid <string>\n"
+  ."   atscan -d <dorks.txt> -l <level> --replaceFROM \"string => new_string\" --status <code> | --valid <string>\n"
+  ."   atscan -d <dorks.txt> -l <level> --replace \"string => new_string\" --exp/expHost <payload> --status <code> | --valid <string>\n"
   ."   atscan --data \"name:userfile[DATAFILE]value:file.txt\" --post -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--sql | --shost ..] --status <code> | --valid <string> \n\n";
   

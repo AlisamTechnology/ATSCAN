@@ -274,11 +274,11 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--replace</td>
-        <td class="main"> String to replace </td>
+        <td class="main"> Replace exact string </td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--with  </td>
-        <td class="main"> String to replace with </td>
+        <td width="200px" class="main">--replaceFROM  </td>
+        <td class="main"> Replace from string to the end of target </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--full </td>
@@ -510,7 +510,7 @@
         <hr>
        &#x25cf; <b>MULTIPLE SCANS: </b><br/>
        atscan --dork [dork> --level [10] --sql --lfi --wp ..<br/>
-       atscan --dork [dork> --level [10] --replace [string] --with [string] --exp/expHost [payload] [--sql / --lfi / --wp /...]<br/>
+       atscan --dork [dork> --level [10] --replace [string => new_string] --exp/expHost [payload] [--sql / --lfi / --wp /...]<br/>
        atscan -t [ip] --level [10] [--sql / --lfi / --wp /...]<br/>
        atscan -t [target] [--sql / --lfi / --wp /...] <br/>
         <hr>
@@ -529,11 +529,11 @@
        &#x25cf; <b>SCAN VALIDATION: </b><br/>
        atscan -t [target / targets.txt] [--status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --exp/expHost [payload] --status [code] / --valid [string] <br/>
-       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replace [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] [--admin / --sql ..] --status [code] / --valid [string] <br/>  
-       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --status [code] / --valid [string] <br/>
-       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --full --status [code] / --valid [string] <br/>
-       atscan -d [dorks.txt] -l [level] --replace [string] --with [string] --exp/expHost [payload] --status [code] / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replace [string => new_string] --status [code] / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replaceFROM [string => new_string] --status [code] / --valid [string] <br/>
+       atscan -d [dorks.txt] -l [level] --replace [string => new_string] --exp/expHost [payload] --status [code] / --valid [string] <br/>
        atscan --data "name:userfile[DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get]<br/>
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
        atscan -t [target / targets.txt] --valid [string] --not in [string]<br/>        <hr>

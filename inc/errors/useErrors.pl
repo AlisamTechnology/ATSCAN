@@ -4,8 +4,10 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $mindex, $content, $ping);
-our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $replace, $with, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @TT, @SCAN_TITLE, @DT, @OTHERS, @c);
+our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $mindex,
+     $content, $ping, $replace, $replaceFROM);
+our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @replace, @TT, @SCAN_TITLE,
+     @DT, @OTHERS, @c);
 
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
@@ -25,9 +27,19 @@ if (defined $Target) {
   }
 }
 
+## CRAWLER
 if (defined $mindex) {
   if (!defined $mlevel && !$mlevel) {
     print $c[4]."[!] $DT[20]\n"; logoff();
+  }
+}
+
+## REPLACE
+if (defined $replace || defined $replaceFROM) {
+  for (@replace) {
+    if (defined $_ and $_ !~ /=>/) {
+      print $c[4]."[!] Usage --replace or --replaceFROM \"STRING => NEW_STRING\"\n"; logoff();
+    }
   }
 }
 
@@ -41,7 +53,6 @@ if ((defined $port) && (!defined $tcp and !defined $udp)) { print $c[4]."$DT[23]
 ## MORE ARGUMENTS PROCESS VERIFICATION
 if ((defined $dork) || (defined $Target)) { 
   if ((defined $JoomRfi) and (!defined $shell)) { print $c[4]."[!] $DT[41]\n"; logoff(); }
-  if ((defined $replace)&&(!defined $with)) { print $c[4]."[!] $DT[22]\n"; logoff(); }
 }
 if ((!defined $dork) && (defined $unique)) { print $c[4]."[!] $DT[21]\n"; logoff(); }
 if (defined $regex or defined $eMails or defined $searchRegex or defined $searchIps) { if (defined $Hstatus) { print $c[4]."[!] $SCAN_TITLE[2]"; logoff(); } }

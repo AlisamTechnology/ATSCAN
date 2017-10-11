@@ -1,8 +1,7 @@
 VERSION 12.4.2 RELEASE
 =====================================================
-  CHANGES: 06/10/2017
+  CHANGES: 11/10/2017
   ===================================================
-  - Remove ip lookup module.
-  - Add --index arg to get target engine index.
+  - Optimize replace argument.
   - Enjoy!
   ===================================================

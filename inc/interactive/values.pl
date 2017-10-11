@@ -40,10 +40,10 @@ our %SCANS=("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"
 %INTERdork=("dork"=>"search dork");
 
 ## ALL ARGUMENTS
-our %ARGUMENTSALL=("status"=>"status code", "valid"=>"content by string", "exp"=>"exploit", "full"=>"full replace", "proxy"=>"use proxy", "proxy-random"=>"random proxy", "save"=>"output file",
-                   "replace"=>"String to replace", "with"=>"String for replace", "ifinurl"=>"valid url by string", "noquery"=>"remove query string", "b-random"=>"random browser",
+our %ARGUMENTSALL=("status"=>"status code", "valid"=>"content by string", "exp"=>"exploit", "proxy"=>"use proxy", "proxy-random"=>"random proxy", "save"=>"output file",
+                   "replace"=>"Exact string replace", "replaceFROM"=>"full string replace", "ifinurl"=>"valid url by string", "noquery"=>"remove query string", "b-random"=>"random browser",
                    "content"=>"response content", "expHost"=>"exploit host", "expIp"=>"exploit target ip", "timeout"=>"browser time out", "host"=>"host name");
-our @ARGUMENTSALL=('status', 'valid', 'exp', 'full', 'proxy', 'proxy-random', 'save', 'replace', 'with', 'ifinurl', 'noquery', 'b-random', 'content', 'expHost', 'expIp', 'timeout', 'host');
+our @ARGUMENTSALL=('status', 'valid', 'exp', 'proxy', 'proxy-random', 'save', 'replace', 'replaceFROM', 'ifinurl', 'noquery', 'b-random', 'content', 'expHost', 'expIp', 'timeout', 'host');
 
 ## NOT REQUIRE A VALUE
 our @NoValRequierd=('none', 'host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noinfo', 'update', 'ip', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',

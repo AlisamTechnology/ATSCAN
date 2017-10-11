@@ -9,7 +9,9 @@ use POSIX qw(strftime);
 if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
 ## VERSION
-our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv, $scriptCompletion, $scriptComplInstall, $readme, $uplog);
+our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv, $scriptCompletion, $scriptComplInstall, $readme, $uplog,
+     $replace, $replaceFROM);
+
 $Version="12.4.2";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";

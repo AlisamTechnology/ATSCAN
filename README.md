@@ -279,11 +279,7 @@
       <tr>
         <td width="200px" class="main">--replaceFROM  </td>
         <td class="main"> Replace from string to the end of target </td>
-      </tr> 
-      <tr>
-        <td width="200px" class="main">--full </td>
-        <td class="main"> --replace --full Will replace all url parametres from string to the end</td>
-      </tr> 
+      </tr>
       <tr>
         <td width="200px" class="main">--payload  </td>
         <td class="main"> Use your own payloads instead of tool ones</td>

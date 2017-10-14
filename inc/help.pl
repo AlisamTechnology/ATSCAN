@@ -31,10 +31,10 @@ use FindBin '$Bin';
   ."   Search with many dorks: atscan --dork <dork1 [OTHER]dork2 [OTHER]dork3> --level <level> \n"  
   ."   Search and rand: atscan -d <dork> -l <level> --expHost \"/index.php?id=rang(1-9)\" --sql\n"  
   ."   Search + output: atscan --dork <dorks.txt> --level <level> --save\n\n"
-  ."   Search + get emails: atscan -d <dorks.txt> -l <level> --email \n"
-  ."   Search + get site emails: atscan --dork <site:site.com> --level <level> --email \n"
+  ."   Search + collect emails: atscan -d <dorks.txt> -l <level> --email \n"
+  ."   Search + collect site emails: atscan --dork <site:site.com> --level <level> --email \n"
   ."   Specify emails: atscan -d <dorks.txt> -l <level> --email -v \"\@gmail | \@yahoo ..\"\n"
-  ."   Search + get ips: atscan --dork <dork> --level <level> --ip \n\n";
+  ."   Search + collect ips: atscan --dork <dork> --level <level> --ip \n\n";
   
   ltak(); print $c[12]."  REGULAR EXPRESSIONS: \n".$c[10]
   ."   Regex use: atscan [--dork <dork> | -t <target>] --level <level> --regex <regex>\n"

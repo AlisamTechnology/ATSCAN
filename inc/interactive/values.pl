@@ -47,7 +47,7 @@ our @ARGUMENTSALL=('status', 'valid', 'exp', 'proxy', 'proxy-random', 'save', 'r
 
 ## NOT REQUIRE A VALUE
 our @NoValRequierd=('none', 'host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noinfo', 'update', 'ip', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
-                   'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'upload', 'zip', 'email',  'ip', 'ports', 'commands', 'form', 'search', 'normal',
+                   'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'upload', 'zip', 'email', 'ip', 'ports', 'commands', 'form', 'search', 'normal',
                    'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule');
 
 ## DATA ARGUMENTS

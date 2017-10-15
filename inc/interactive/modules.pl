@@ -9,7 +9,7 @@ use FindBin '$Bin';
 ##
 our(@c, @AUTH, $scriptbash, $activeUconf);
 our(@INTERCOMNDS, @INTERSCANS, @INTERCOMNDSFIN, %INTEROPTION, %MODULES, @MODULES, @SCANS, %SCANS, @ENGINEARGUMENTS, @ARGUMENTSALL, %ARGUMENTSALL, %ENGINEARGUMENTS,
-    @NoValRequierd, @INTERcomnd, %INTERcomnd, @interExtraOpts);
+    @NoValRequierd, @INTERcomnd, %INTERcomnd, @interExtraOpts, @interLinuxOpts);
 our (@INTERshell, @INTERparam, @INTERcommand, @INTERPortScan, @INTERDataScan, @INTERpayload, @INTERdecryp, @INTERadvanced, @INTERtarget);
 our (%INTERshell, %INTERparam, %INTERcommand, %INTERPortScan, %INTERDataScan, %INTERpayload, %INTERdecryp, %INTERadvanced, %INTERtarget);
 our (@PREFONF, %PREFONF, %PREFONF2);
@@ -45,7 +45,7 @@ sub main {
         interHelpChek("1");
       #########################################################################################
       }else{
-        if (!grep/^$module$/, @interExtraOpts) { print $c[4]."[!] $AUTH[14]\n"; }
+        interAdvise($module);
       }
     }
   }
@@ -105,9 +105,7 @@ sub main2 {
         }
       ########################################################################################
       }else{
-        if (!grep/^$first$/, @interExtraOpts) { 
-          print $c[4]."[!] $AUTH[14]\n";
-        }
+        interAdvise($first);
       }
     }
   }
@@ -163,12 +161,16 @@ sub main3 {
         dorkOtarget($OPT1[0]);
       #########################################################################################
       }else{
-        if ($first1 eq "back") { processHeader("3"); }
-        else{
-          if (!grep/^$first1$/, @interExtraOpts) { print "$c[4]\[!] $AUTH[14]\n"; }
-        }
+        interAdvise($first1);
       }
     }
+  }
+}
+sub interAdvise {
+  my $porque=$_[0];
+  push @interExtraOpts, @interLinuxOpts;
+  if (!grep/^$porque$/, @interExtraOpts) { 
+    print $c[4]."[!] $AUTH[14]\n";
   }
 }
 ##############################################################################################
@@ -252,7 +254,7 @@ sub getPreInter {
 ## FORM
 sub form {
   my $process=$_[0];
-  my $ord="";
+  my ($ord, $ord1);
   print $c[11]."atscan";
   my ($prefix, $interScn)=getPreInter();
   if ($mod) {
@@ -264,15 +266,29 @@ sub form {
   $ord=<STDIN>;
   chomp ($ord);
   if ($ord) {
-    if ($ord eq "config") { ClientConfiguration(); processHeader($process); }
-    elsif ($ord eq "update") { checkVersion(); processHeader($process); }
-    elsif ($ord eq "usage") { interUsage(); processHeader($process); }
-    elsif ($ord eq "back") { back($process); }
-    elsif ($ord eq "run" && scalar(@INTERCOMNDS) < 1) { runArg($process); }
-    elsif ($ord=~/^cat\s(.*?)/) { system ($ord); processHeader($process); }
-    elsif ($ord eq "exit") { print "$c[3]\[!] Bey! :)\n"; logoff(); }
+    my $nnb=ifInterLinuxOpt($ord);
+    if ($nnb) {
+      system ($ord); processHeader($process); }
+    else{
+      if ($ord eq "config") { ClientConfiguration(); processHeader($process); }
+      elsif ($ord eq "update") { checkVersion(); processHeader($process); }
+      elsif ($ord eq "usage") { interUsage(); processHeader($process); }
+      elsif ($ord eq "back") { back($process); }
+      elsif ($ord eq "run" && scalar(@INTERCOMNDS) < 1) { runArg($process); }    
+      elsif ($ord eq "exit") { print "$c[3]\[!] Bey! :)\n"; logoff(); }
+      else{ $ord1=1; }
+    }
   }
-  return $ord;
+  return $ord if $ord1;
+}
+sub ifInterLinuxOpt {
+  my $ifInterLinuxOpt=$_[0];
+  my $nnb=0;
+  my @ifInterLinuxOpt=split(" ", $ifInterLinuxOpt);
+  for my $interLinuxOpt(@interLinuxOpts) {
+    if ($interLinuxOpt eq $ifInterLinuxOpt[0]) { $nnb++; }
+  }
+  return $nnb;
 }
 ##############################################################################################
 ## HELP

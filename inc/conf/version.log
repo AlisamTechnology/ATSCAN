@@ -1,8 +1,9 @@
-VERSION 12.4.3 RELEASE
+VERSION 12.4.4 RELEASE
 =====================================================
   CHANGES: 15/10/2017
   ===================================================
   - Add update option to interactive interface.
   - Fix email and ip collect.
+  - Add common linux commands.
   - Enjoy!
   ===================================================

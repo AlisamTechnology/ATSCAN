@@ -35,9 +35,7 @@ sub main {
         for my $MODULE (@MODULES) {
           for my $key (keys %MODULES) {
             my $value = $MODULES{$key};
-            if ($MODULE eq $key) {
-              tableOpts($MODULE, "", $value, "ARGUMENT");
-            }
+            if ($MODULE eq $key) { tableOpts($MODULE, "", $value, "ARGUMENT"); }
           }
         }
         helpSeparator();
@@ -47,9 +45,7 @@ sub main {
         interHelpChek("1");
       #########################################################################################
       }else{
-        if (!grep/^$module$/, @interExtraOpts) {
-          print $c[4]."[!] $AUTH[14]\n";
-        }
+        if (!grep/^$module$/, @interExtraOpts) { print $c[4]."[!] $AUTH[14]\n"; }
       }
     }
   }
@@ -74,9 +70,7 @@ sub main2 {
         for my $SCAN(@SCANS3) {
           for my $key (keys %SCANS3) {
             my $value = $SCANS3{$key};
-            if ($SCAN eq $key) {
-              tableOpts($SCAN, "", $value, "ARGUMENT");
-            }
+            if ($SCAN eq $key) { tableOpts($SCAN, "", $value, "ARGUMENT"); }
           }
         }
         helpSeparator();
@@ -94,11 +88,8 @@ sub main2 {
             print $c[3]."Module => " ;
             for my $opt2(@OPT2) {
               push @INTERSCANS, "--$opt2";
-              if (scalar(@OPT2) > 1) {
-                $scn="multi";
-              }else{
-                $scn=$OPT2[0];
-              }
+              if (scalar(@OPT2) > 1) { $scn="multi"; }
+              else{ $scn=$OPT2[0]; }
               print "[$opt2]";
             }
             print "\n";
@@ -110,9 +101,7 @@ sub main2 {
               print "[$OPT2[0]\]\n";
             }
           }
-          for my $INT(@INTERSCANS) {
-            getExtratArgs($INT);
-          }
+          for my $INT(@INTERSCANS) { getExtratArgs($INT); }
         }
       ########################################################################################
       }else{
@@ -145,19 +134,14 @@ sub main3 {
       #########################################################################################
       }elsif ($first1 eq "run") {
         for my $eew(@INTERSCANS) {
-          if ($eew !~ /(advanced|normal|multi|ports|commands|form|nomodule)/) {
-            push @INTERCOMNDSFIN, $eew;
-          }
+          if ($eew !~ /(advanced|normal|multi|ports|commands|form|nomodule)/) { push @INTERCOMNDSFIN, $eew; }
         }
         push @INTERCOMNDS, @PREFONF;
         push @INTERCOMNDSFIN, @INTERCOMNDS;
         my $fullComnd = join(" ", @INTERCOMNDSFIN);
         (@INTERCOMNDSFIN, %INTEROPTION, @INTERCOMNDS, @PREFONF, %PREFONF,  %PREFONF2, $first, $first1)=();
-        if (-e $scriptbash) {
-          system ("atscan $fullComnd");
-        }else{
-          system ("perl $Bin/atscan.pl $fullComnd");
-        }
+        if (-e $scriptbash) { system ("atscan $fullComnd"); }
+        else{ system ("perl $Bin/atscan.pl $fullComnd"); }
         print "\n";
         processHeader("4");
       #########################################################################################
@@ -179,12 +163,9 @@ sub main3 {
         dorkOtarget($OPT1[0]);
       #########################################################################################
       }else{
-        if ($first1 eq "back") {
-          processHeader("3");
-        }else{
-          if (!grep/^$first1$/, @interExtraOpts) {  
-            print "$c[4]\[!] $AUTH[14]\n";
-          }
+        if ($first1 eq "back") { processHeader("3"); }
+        else{
+          if (!grep/^$first1$/, @interExtraOpts) { print "$c[4]\[!] $AUTH[14]\n"; }
         }
       }
     }
@@ -199,13 +180,9 @@ sub checkFirstParts {
   my ($validCntrl, @FirstParts)=();
   @FirstParts=split(" ", $first);
   for my $FirstParts(@FirstParts) {
-    if (grep/^$FirstParts$/, @scansArray) {
-      $cntrl++;
-    }
+    if (grep/^$FirstParts$/, @scansArray) { $cntrl++; }
   }
-  if ($cntrl eq scalar(@FirstParts)) {
-    $validCntrl="1";
-  }
+  if ($cntrl eq scalar(@FirstParts)) { $validCntrl="1"; }
   return $validCntrl;
 }
 ##############################################################################################
@@ -247,15 +224,11 @@ sub dorkOtarget {
   my $checkDorkOtarget=$_[0];
   if ($checkDorkOtarget eq "dork") {
     for my $INTERtarget(@INTERtarget) {
-      if (grep( /^$INTERtarget$/, @ARGUMENTS)) {
-        updateARGUMENTS($INTERtarget);
-      }
+      if (grep( /^$INTERtarget$/, @ARGUMENTS)) { updateARGUMENTS($INTERtarget); }
     }
   }
   if ($checkDorkOtarget eq "target") {
-    if (grep( /^dork$/, @ARGUMENTS)) {
-      updateARGUMENTS("dork");
-    }
+    if (grep( /^dork$/, @ARGUMENTS)) { updateARGUMENTS("dork"); }
   }
 }
 ##############################################################################################
@@ -271,11 +244,8 @@ sub updateARGUMENTS {
 sub getPreInter {
   my ($prefix, $interScn);
   $prefix=getPrefix();
-  if (scalar (@INTERSCANS) < 1) {
-    $interScn="mode";
-  }else{
-    $interScn="module";
-  }
+  if (scalar (@INTERSCANS) < 1) { $interScn="mode"; }
+  else{ $interScn="module"; }
   return ($prefix, $interScn);
 }
 ##############################################################################################
@@ -294,7 +264,7 @@ sub form {
   $ord=<STDIN>;
   chomp ($ord);
   if ($ord) {
-    if ($ord eq "config") { ClientConfiguration(); ltak(); processHeader($process); }
+    if ($ord eq "config") { ClientConfiguration(); processHeader($process); }
     elsif ($ord eq "update") { checkVersion(); processHeader($process); }
     elsif ($ord eq "usage") { interUsage(); processHeader($process); }
     elsif ($ord eq "back") { back($process); }
@@ -310,14 +280,9 @@ sub interHelpChek {
   my $process=$_[0];
   print $c[11]."[::] HELP\n";
   ltak();
-  if ($process eq "1") {
-    interHelp();
-    scansArgs();
-  }elsif ($process eq "2") {
-    scansArgs();
-  }elsif ($process eq "3") {
-    interHelp();
-  }
+  if ($process eq "1") { interHelp(); scansArgs(); }
+  elsif ($process eq "2") { scansArgs(); }
+  elsif ($process eq "3") { interHelp(); }
   ltak();
   processHeader($process);
 }
@@ -326,13 +291,9 @@ sub interHelpChek {
 sub runArg {
   my $process=$_[0];
   print $c[2]."[!] $AUTH[21]!\n\n";
-  if ($process eq "2") {
-    (@ARGUMENTS, %ARGUMENTS, %INTEROPTION, @INTERSCANS)=(); main2($mod);
-  }elsif ($process eq "4") {
-    (%INTEROPTION)=(); main3($mod, $scn);
-  }else{
-    mainAll();
-  }
+  if ($process eq "2") { (@ARGUMENTS, %ARGUMENTS, %INTEROPTION, @INTERSCANS)=(); main2($mod); }
+  elsif ($process eq "4") { (%INTEROPTION)=(); main3($mod, $scn); }
+  else{ mainAll(); }
 }
 ##############################################################################################
 ## PREFIX
@@ -340,10 +301,8 @@ sub getPrefix {
   my $prefix;
   if (scalar(@INTERSCANS) == 1) {          
     $prefix=$INTERSCANS[0];
-    $prefix=~s/--//ig;
-  }elsif (scalar(@INTERSCANS) > 1) { 
-    $prefix="multi";
-  }
+    $prefix=~s/--//ig; }
+  elsif (scalar(@INTERSCANS) > 1) { $prefix="multi"; }
   return $prefix;
 }
 ##############################################################################################
@@ -374,12 +333,8 @@ sub tableOpts {
        else{ print "|  Yes ";
       }
       print "| ";
-      if ($aa=~/\*\*/) {
-        $aa=~s/\*\*//g;
-        print "$aa$c[4]\**";
-      }else{
-        print "$aa";
-      }
+      if ($aa=~/\*\*/) { $aa=~s/\*\*//g; print "$aa$c[4]\**"; }
+      else{ print "$aa"; }
     }
   }
   print "\n";
@@ -442,13 +397,10 @@ sub InterHelpArgs {
     if (exists $PREFONF2{$ARGUMENT}) {
       for my $key (keys %PREFONF2) {
         my $value = $PREFONF2{$key};
-        if ($ARGUMENT eq $key) {
-          tableOpts($key, $value, $value3, $isArg);
-        }
+        if ($ARGUMENT eq $key) { tableOpts($key, $value, $value3, $isArg); }
       }
-    }else{
-      tableOpts($ARGUMENT, "", $value3, $isArg);
     }
+    else{ tableOpts($ARGUMENT, "", $value3, $isArg); }
   }
   helpSeparator();
   print "\n";
@@ -470,13 +422,10 @@ sub getH {
 ## PROCESS QUESTION
 sub processHeader {
   my $process=$_[0];
-  if ($process eq "1") {
-    print "$c[10]\[!] $AUTH[17] \n";
-  }elsif ($process eq "2") {
-    print "$c[10]\[!] $AUTH[18] \n";
-  }elsif ($process eq "3" or $process eq "4") {
-    print "$c[10]\[!] $AUTH[19] \n";
-  }
+  print "$c[10]\[!] ";
+  if ($process eq "1") { print "$AUTH[17] \n"; }
+  elsif ($process eq "2") { print "$AUTH[18] \n"; }
+  elsif ($process eq "3" or $process eq "4") { print "$AUTH[19] \n"; }
 }
 ##############################################################################################
 ## ALL MAIN

@@ -181,16 +181,16 @@ sub scansArgs {
 sub interUsage {
   print ""
   ."+===========================================================================+\n"
-  ."| EXPRESSION | USAGE                  | DESCRIPTION                         |\n"
+  ."| $c[11]EXPRESSION$c[10] | $c[11]USAGE $c[10]                 | $c[11]DESCRIPTION$c[10]                         |\n"
   ."+============+========================+=====================================+\n"
-  ."| use        | use [mode | module]    | Normal and Advanced usage           |\n"
-  ."| set        | set [ARGUMENT] [VALUE] | Set arguments and values            |\n"
-  ."| options    | options                | Show aviable & configured arguments |\n"
-  ."| help       | help                   | Show help                           |\n"
-  ."| run        | run                    | Execute                             |\n"
-  ."| config     | config                 | User configuration                  |\n"
-  ."| update     | update                 | Update tool                         |\n"
-  ."| exit       | exit                   | Exit                                |\n"
+  ."| $c[5]use$c[10]        | use [mode | module]    | Normal and Advanced usage           |\n"
+  ."| $c[5]set$c[10]        | set [ARGUMENT] [VALUE] | Set arguments and values            |\n"
+  ."| $c[5]options$c[10]    | options                | Show aviable & configured arguments |\n"
+  ."| $c[5]help$c[10]       | help                   | Show help                           |\n"
+  ."| $c[5]run$c[10]        | run                    | Execute                             |\n"
+  ."| $c[5]config$c[10]     | config                 | User configuration                  |\n"
+  ."| $c[5]update$c[10]     | update                 | Update tool                         |\n"
+  ."| $c[5]exit$c[10]       | exit                   | Exit                                |\n"
   ."+===========================================================================+\n\n";
 }
 

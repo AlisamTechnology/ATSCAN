@@ -189,6 +189,7 @@ sub interUsage {
   ."| help       | help                   | Show help                           |\n"
   ."| run        | run                    | Execute                             |\n"
   ."| config     | config                 | User configuration                  |\n"
+  ."| update     | update                 | Update tool                         |\n"
   ."| exit       | exit                   | Exit                                |\n"
   ."+===========================================================================+\n\n";
 }

@@ -286,33 +286,21 @@ sub form {
   print $c[11]."atscan";
   my ($prefix, $interScn)=getPreInter();
   if ($mod) {
-    print "$c[11] $interScn(";
-    print "$c[13]$mod";
-    if ($prefix) {
-      print "$c[11] > $c[13]$prefix";
-    }
+    print "$c[11] $interScn($c[13]$mod";
+    print "$c[11] > $c[13]$prefix" if $prefix;
     print "$c[11]\)";  
   }
-  print " > ";
-  print "$c[10]";
+  print " > $c[10]";
   $ord=<STDIN>;
   chomp ($ord);
   if ($ord) {
-    if ($ord eq "config") {
-      ClientConfiguration();
-      ltak();
-      processHeader($process);      
-    }
+    if ($ord eq "config") { ClientConfiguration(); ltak(); processHeader($process); }
+    elsif ($ord eq "update") { checkVersion(); processHeader($process); }
     elsif ($ord eq "usage") { interUsage(); processHeader($process); }
     elsif ($ord eq "back") { back($process); }
     elsif ($ord eq "run" && scalar(@INTERCOMNDS) < 1) { runArg($process); }
-    elsif ($ord=~/^cat\s(.*?)/) {
-      system ($ord);
-      processHeader($process); }
-    elsif ($ord eq "exit") {
-      print "$c[3]\[!] Bey! :)\n";
-      logoff();
-    }
+    elsif ($ord=~/^cat\s(.*?)/) { system ($ord); processHeader($process); }
+    elsif ($ord eq "exit") { print "$c[3]\[!] Bey! :)\n"; logoff(); }
   }
   return $ord;
 }
@@ -339,11 +327,9 @@ sub runArg {
   my $process=$_[0];
   print $c[2]."[!] $AUTH[21]!\n\n";
   if ($process eq "2") {
-    (@ARGUMENTS, %ARGUMENTS, %INTEROPTION, @INTERSCANS)=();
-    main2($mod);
+    (@ARGUMENTS, %ARGUMENTS, %INTEROPTION, @INTERSCANS)=(); main2($mod);
   }elsif ($process eq "4") {
-    (%INTEROPTION)=();
-    main3($mod, $scn);
+    (%INTEROPTION)=(); main3($mod, $scn);
   }else{
     mainAll();
   }

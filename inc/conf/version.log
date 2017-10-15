@@ -1,8 +1,8 @@
-VERSION 12.4.2 RELEASE
+VERSION 12.4.3 RELEASE
 =====================================================
-  CHANGES: 14/10/2017
+  CHANGES: 15/10/2017
   ===================================================
-  - Optimize replace argument.
+  - Add update option to interactive interface.
   - Fix email and ip collect.
   - Enjoy!
   ===================================================

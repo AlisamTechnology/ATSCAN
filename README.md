@@ -134,7 +134,7 @@
   <tr>
     <td class="main"><table border="0" cellpadding="2" cellspacing="5" width="100%">
       <tr>
-        <td width="200px" class="main">--help / -h / -?</td>
+        <td width="200px" class="main">--help / -h </td>
         <td class="main">Help.</td>
       </tr> 
       <tr>
@@ -423,7 +423,7 @@
         <td class="main"> Update tool</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--tool</td>
+        <td width="200px" class="main">--tool / -?</td>
         <td class="main">Tool info.</td>
       </tr>
       <tr>

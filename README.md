@@ -431,6 +431,10 @@
         <td class="main">User configuration.</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--interactive</td>
+        <td class="main">Interactive mode interface.</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--uninstall</td>
         <td class="main">Uninstall Tool.</td>
       </tr> 

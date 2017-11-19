@@ -14,7 +14,8 @@ my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCA
 my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan is required! EX: --sql or validation EX: --status 200", "[!] ATSCAN will be removed from your system! [Y/N]:", 
 "[i] ATSCAN was moved successfully", "You cannot use payloads here! Use --exp", "Disclaimer: Using ATSCAN to Attack targets without prior mutual consent is",
 "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC",
-"[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "You cannot validate two times!", "METHOD", "Checking for updates..");
+"[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "You cannot validate two times!", "METHOD", "Checking for updates..", "https://www.facebook.com/Alisam.Technology/",
+"https://github.com/AlisamTechnology/ATSCAN");
 
 ## USER AUTH
 my @AUTH=("Login:", "Incorrect password!", "A password is already assigned! Do you want to remove it ? [y/n]:", "Password successfully removed!",

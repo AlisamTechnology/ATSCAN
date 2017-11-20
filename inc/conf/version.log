@@ -1,9 +1,7 @@
-VERSION 12.4.4 RELEASE
+VERSION 12.4.5 RELEASE
 =====================================================
-  CHANGES: 15/10/2017
+  CHANGES: 20/11/2017
   ===================================================
-  - Add update option to interactive interface.
-  - Fix email and ip collect.
-  - Add common linux commands.
+  - Fix applications menu icon for kali 2.
   - Enjoy!
   ===================================================

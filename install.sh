@@ -91,7 +91,7 @@ if [ ! -d $refdir ];
 then
   until [ -d $refdir ];
   do
-   echo "[!] $refdir doesnot exist!!";
+   echo "[!] $refdir does not exist!";
    echo "[!] Set path or press enter to use default [/usr/share/]: "
    read refdir
   done
@@ -120,6 +120,10 @@ fi
  fi
   
  sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/;
+ if [ ! -e "/usr/share/applications/atscan.desktop" ]; 
+ then
+   echo "Warning! Failed to add direct access to the applications menu!";  
+ fi
  
  echo `date +%Y%j` >> $refdir/inc/conf/uplog.log;
  echo -en "\n" >> $refdir/inc/conf/version.log;

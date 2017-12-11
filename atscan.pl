@@ -39,7 +39,8 @@ use Net::Ping;
 #   Detect Cms.
 #   Multiple instant scans. 
 #   Extern commands execution.
-#   Disponible on BlackArch Linux Platform.
+#   Usage by commands and by an easy interactive mode. 
+#   Disponible on BlackArch Linux and DracOs systems.
 #   Works in all platforms.
 #   Perl required!
 ##########################################################################################################

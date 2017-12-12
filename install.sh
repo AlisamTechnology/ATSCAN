@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+# Copy@right Alisam Technology see License.txt
 #############################################################################################
 # Atscan Install script.
 # Install tool in linux os.

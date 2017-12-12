@@ -57,7 +57,7 @@ else
   exit
 fi
 
-### Checkin previous instalation
+### Checking previous instalation
 echo "[i] Checking directories..."
 if [ -e "/usr/bin/atscan" ];
 then
@@ -118,12 +118,6 @@ fi
    chmod +x $refdir/inc/conf/atscan;
    sudo cp $refdir/inc/conf/atscan /etc/bash_completion.d/;
  fi
-  
- sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/;
- if [ ! -e "/usr/share/applications/atscan.desktop" ]; 
- then
-   echo "Warning! Failed to add direct access to the applications menu!";  
- fi
  
  echo `date +%Y%j` >> $refdir/inc/conf/uplog.log;
  echo -en "\n" >> $refdir/inc/conf/version.log;
@@ -133,6 +127,12 @@ fi
    mkdir "/usr/share/applications";  
  fi
  chmod +x "/usr/share/applications";
+
+ sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/;
+ if [ ! -e "/usr/share/applications/atscan.desktop" ]; 
+ then
+   echo "Warning! Failed to add direct access to the applications menu!";  
+ fi
 
  if [ ! -d "/usr/share/icons" ]; 
  then
@@ -207,12 +207,12 @@ fi
  chmod +x "/usr/share/icons/hicolor/256x256//apps";
  sudo cp $refdir/inc/conf/desktop/256x256//atscan-menu.png /usr/share/icons/hicolor/256x256//apps/;
  
- ########
- 
+ ########################################################################################################################
+
  if [ ! -d "/usr/share/doc/atscan" ]; then
    mkdir "/usr/share/doc/atscan";
  fi
- ######## 
+ ########################################################################################################################
  
  sleep 1 && echo "[i] Copying README.md to /usr/share/doc/atscan...";
  chmod +x "/usr/share/doc/atscan/";
@@ -263,4 +263,3 @@ fi
 else
  echo "[!] Tool cannot be installed on your system! Use it as portable!";
 fi
-

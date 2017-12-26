@@ -11,16 +11,18 @@ my (@date1, @date2);
 
 ## PRINT UPATE ALERT
 sub updateMessage  {
-  my ($same, $rp)=compareme();
-  if ($rp->is_success) {
-    if ($same ne "yes") { print $c[4]."  [i] A new update is aviable! To update: --update\n"; }
-    else{
-      open (MN, '>', $uplog) or nochmod($uplog, "");
-      print MN "$fulldate"; close(MN);
+  if (-e "/usr/bin/atscan") {
+    my ($same, $rp)=compareme();
+    if ($rp->is_success) {
+      if ($same ne "yes") { print $c[4]."  [i] A new update is aviable! To update: --update\n"; }
+      else{
+        open (MN, '>', $uplog) or nochmod($uplog, "");
+        print MN "$fulldate"; close(MN);
+      }
+    }else{
+      print "  "; dd();
     }
-  }else{
-    print "  "; dd();
-  }
+  }   
 }
 ## CHECK FOR UPDATE
 my $lastupdate=get_lastUpdate();

@@ -47,7 +47,7 @@ echo "";
 ### Check system compatibility
 if [ -d "/usr/bin/" ];
 then
-echo "[!] ATSCAN will be installed in your system? [Y/n]: ";
+echo "[!] By installing ATSCAN you agree to our conditions! [Y/n]: ";
 read baba
 if [ "$baba" == "y" ] || [ "$baba" == "Y" ] || [ -z "$baba" ]; 
 then

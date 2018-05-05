@@ -2,6 +2,7 @@ VERSION 13.0.0 RELEASE
 =====================================================
   CHANGES: 05/05/2018
   - Fix target protocol.
+  - Added --vShell arg to validate uploaded shell.
   - Optimize data form POST and GET.
   - Optimize browser headers.
   - Enjoy!

@@ -7,7 +7,8 @@ use FindBin '$Bin';
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $zone, $agent, $noExist, $notIn, $expHost, $expIp);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
-our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $noinfo, $timeout, $method, $command, @OTHERS, @ErrT);
+our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom,
+     $noinfo, $timeout, $method, $command, $headers, @OTHERS, @ErrT);
 
 ## SET ENGINES
 if (defined $mlevel) {
@@ -198,10 +199,10 @@ sub printInfoUrl {
 
 ## BROWES URL
 sub browseUrl {
-  my ($URL1, $form)=@_;
+  my ($URL1, $data)=@_;
   printInfoUrl($URL1, $data);
   my ($response, $html, $status, $serverheader, $command, $port);
-  ($response, $html, $status, $serverheader)=getHtml($URL1, $form);
+  ($response, $html, $status, $serverheader)=getHtml($URL1, $data);
   my $o=OO();
   if ($o<$limit) {
     if (!defined $noinfo && !$noinfo) {
@@ -222,9 +223,8 @@ sub browseUrl {
 
 ## GET HTML
 sub getHtml {
-  my ($URL, $form)=@_;
+  my ($URL, $data)=@_;
   my $response;
-  our ($method, $headers);  
   our ($ipUrl, @ErrT, $freq, $start, $date);  
   if (defined $brandom || $brandom) {
     if ($freq || defined $freq) { make_freq(); }
@@ -234,11 +234,15 @@ sub getHtml {
     if ($freq || defined $freq) { make_freq(); }
     else{ newIdentity(); }
   }    
-  if ($form) {
+  if ($data) {
     if (defined $post || ($method && $method eq "post")) {
-      $response=$ua->post($URL, $headers, Content_Type => 'form-data', Content => [$form]); }
-    elsif (defined $get || ($method && $method eq "get")) { 
-      $URL.="?".$form;
+      if ($headers) {
+        $response=$ua->post($URL, $headers, Content_Type => 'multipart/form-data', Content => [$data]);
+      }else{
+        $response=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
+      }
+    }elsif (defined $get || ($method && $method eq "get")) { 
+      $URL.="?".$data;
       my $request=HTTP::Request->new($DS[15], $URL); $response=$ua->request($request);
     }
   }else{

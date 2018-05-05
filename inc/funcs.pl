@@ -8,7 +8,7 @@ use POSIX qw(strftime);
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
      $V_IP, $expIp, $interactive, $command, $uplog);
-our (@aTscans, @data, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT);
+our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT);
 
 ## PRINT FILES 
 sub printFile {
@@ -125,9 +125,6 @@ $dateupdate=checkSetting("update");
 if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
 if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
 
-## DATA ARRAYS
-if (defined $data) { @data=buildArraysLists($data); }
-
 ## USER ARRAYS
 if (defined $payloads || $payloads) { @userArraysList=buildArraysLists($payloads); }
 
@@ -189,11 +186,6 @@ sub get_timeout {
 
 ## HEADERS
 our $headers;
-if (defined $headers) {
-  $headers=~s/\:/\=\>/g;
-  $headers=~s/^\[OTHER\]//g;
-  $headers=~s/\[OTHER\]/\,/g;
-}else{ $headers=""; }
 
 ## SET PROXY
 $agent="Mozilla/5.0 (".$systems[rand @systems];
@@ -295,42 +287,7 @@ sub UA {
   $psx=$proxies[rand @proxies];
   $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
 }
-
-## DATA ARRAYS
-if (defined $data) {
-  my @data_full=buildArraysLists($data);
-  my @data44;
-  my $f_data;
-  for my $d_d(@data_full) {
-    if ($d_d=~/\[DATAFILE\]/) {
-      $d_d=~s/\[DATAFILE\]/\[DATA\]/g;      
-      $f_data=$d_d;  
-      $d_d=~s/\s+$//g;       
-      $d_d=~s/^\[DATA\]//g; 
-      $d_d=~s/\[DATA\]/ ATSCAN /g; 
-      my @data7=split("ATSCAN", $d_d); 
-      for my $data7(@data7) {    
-        my @data3=split(":", $data7);
-        $data3[1]=~s/ //g;
-        if (-e $data3[1]) {
-          $f_data=~s/ATSCAN/\[DATA\]/g;
-          open(F5, $data3[1]) or advise_no_file($data3[1]);
-          while (my $f=<F5>) {
-            chomp $f;
-            $f_data=~s/$data3[1]/$f/g;
-            $f_data=~s/ //g;
-            push @data44, $f_data;
-            $f_data=~s/$f/$data3[1]/g;
-          }
-          push @data, @data44;
-        }
-      }
-    }else{
-      push @data, $data;
-    }
-  }
-}
-
+ 
 ## DORKS & TARGETS ARRAYS
 if (defined $mlevel) {
   if (defined $dork) { @dorks=buildArraysLists($dork); }
@@ -469,6 +426,17 @@ sub removeProtocol {
   return $URL;
 }
 
+## GET TARGET PROTOCOL
+sub getTargetProtocol {
+  my $URL=$_[0];
+  my $protocol="";
+  my @protocols=('http:', 'https:', 'ftp:', 'ftps:', 'socks:', 'socks4:', 'socks5:');
+  for my $targetProtocol(@protocols) {
+    if (index($URL, $targetProtocol) != -1) { $protocol=$targetProtocol; }
+  }
+  return $protocol;
+}
+
 ## GET PORTS PROTOCOL
 sub portProtocol { 
   my $por=$_[0];
@@ -488,9 +456,10 @@ sub portProtocol {
 ## REMOVE QUERY STRING
 sub removeQuery { 
   my $URL=$_[0];
+  my $protocol=getTargetProtocol($URL);
   $URL=removeProtocol($URL);
   $URL=~s/=.*/=/g;
-  $URL=checkUrlSchema($URL);	
+  $URL="$protocol//$URL";	
   return $URL;
 }
 
@@ -524,7 +493,6 @@ sub control {
     $URL=~s/$replaceParts[0]//ig;
     $URL=$URL.$replaceParts[1];
   }  
-  $URL=checkUrlSchema($URL);
   if (defined $expIp) {
     my $ips=checkExtraInfo($URL);
     if ($ips) { $URL=inet_ntoa($ips); }else{ print "$c[2] $TT[11]\n"; next; }
@@ -535,9 +503,10 @@ sub control {
 ## GET DOMAIN
 sub getHost {
   my $URL=$_[0];
+  my $protocol=getTargetProtocol($URL);
   $URL=removeProtocol($URL);   
   $URL=~s/\/.*//s;
-  $URL=checkUrlSchema($URL);
+  $URL="$protocol//$URL";
   return $URL;
 }
 
@@ -548,12 +517,6 @@ sub cleanURL {
   $URL=~s/$_/$replace{ $_}/g for keys %replace;
   $URL=~s/\/.*//s;
   return $URL;
-}
-
-## CHECK URL PARTS
-sub checkUrlSchema { 
-  my $URL=$_[0];
-  if ($URL!~/(https?|ftp):\/\//) { $URL="http://$URL"; }; return $URL;
 }
 
 ## GET FILTERS

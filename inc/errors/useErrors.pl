@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $mindex,
-     $content, $ping, $replace, $replaceFROM);
+     $content, $ping, $replace, $replaceFROM, $validShell);
 our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @replace, @TT, @SCAN_TITLE,
      @DT, @OTHERS, @c);
 
@@ -91,12 +91,14 @@ if (defined $data) {
   }
 }
 
-## CHECK DATA PARAMS
-if (defined $data) {
-  if ($data=~/\[DATAFILE\]/) {
-    my $number=()=$data=~/\[DATAFILE\]/gi;
-    if ($number>1) { adviseDataFile(); }
-  }
+## WORDLIST IN DATA
+sub data_alert {
+  print $c[4]."[!] You cannot use more than 1 wordlist in data command!\n"; logoff();
+}
+
+## UPLOADES SHELL VALIDATION
+if (defined $validShell and !defined $data) {
+  print $c[4]."[!] --vShell is to validate uploaded shell via data forms!\n"; logoff();
 }
 
 ## IF DATA FILES > 1

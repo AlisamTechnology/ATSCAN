@@ -33,7 +33,6 @@ sub makeSscan {
       $count++;
       print "\n" if $count>1;
       points(); dpoints(); points();
-      $URL=checkUrlSchema($URL);
       print $c[1]."    $DS[9]  "; print $c[10].$c[7]."[$count/$lc] $URL\n";
       if (defined $replace || defined $replaceFROM) {
         checkVreplace();
@@ -67,7 +66,12 @@ sub makeSscan {
             if ((defined $exploit || defined $expHost || defined $expIp) || (defined $p)) {
               getExploitArrScan($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr), $data, "");
             }else{
-              if ($reverse) { $URL=removeProtocol($URL); my $URL1=$arr.$URL; $URL1=~s/ //g;  $URL1=checkUrlSchema($URL1); doScan($URL1, "", "", $reverse, "", "", $isFilter, $data); }
+              if ($reverse) {
+                my $protocol=getTargetProtocol($URL);
+                $URL=removeProtocol($URL);
+                my $URL1=$arr.$URL; $URL1=~s/ //g;
+                $URL1="$protocol//$URL1";
+                doScan($URL1, "", "", $reverse, "", "", $isFilter, $data); }
               else{ my $URL1=$URL.$arr; $URL1=~s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter, $data); }
             }
           }

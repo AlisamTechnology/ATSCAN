@@ -11,7 +11,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px" class="main2"><b>ATSCAN V 12.4.5 </b></td>
+    <td width="780px" class="main2"><b>ATSCAN V 13.0.0 </b></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">4n0n4t</td>
@@ -203,7 +203,11 @@
       <tr>
         <td width="200px" class="main">--data</td>
         <td class="main"> Post and Get forms. See examples </td>
-      </tr> 
+      </tr>
+      <tr>
+        <td width="200px" class="main">--vShell</td>
+        <td class="main"> Uploades shell path to validate </td>
+      </tr>
       <tr>
         <td width="200px" class="main">--post</td>
         <td class="main"> Use post method </td>
@@ -415,10 +419,6 @@
         <td class="main">To separate values ex: dork1 [OTHER]DORK2 [OTHER]DORK3</td>
       </tr>
       <tr>
-        <td width="200px" class="main">[DATA/DATAFILE]</td>
-        <td class="main">To separate data values ex: --data "name:username [DATA]email:xxxxxx [DATA]pass:xxxxx/[DATAFILE]pass:file.txt"</td>
-      </tr>      
-      <tr>
         <td width="200px" class="main">--update</td>
         <td class="main"> Update tool</td>
       </tr>
@@ -459,8 +459,8 @@
         Random engine: --m-random <br/>
         <hr>
        &#x25cf; <b>SET HEADERS:</b> <br>
-       atscan --dork [dork / dorks.txt] --level [level] --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" <br/>
-       atscan -t target --data "name:userfile[DATAFILE]value:file.txt --post --header "Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1" <br/>
+       atscan --dork [dork / dorks.txt] --level [level] --header "Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'" <br/>
+       atscan -t target --data "name=> 'username', email=> 'xxxxxx', pass=> 'xxxxx'" --post --header "Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'" <br/>
         <hr>
       &#x25cf; <b>SEARCH ENGINE: </b> <br/>
        Search: atscan --dork [dork] --level [level]  <br/>
@@ -497,10 +497,9 @@
        Decode base64: --decode64 [string] <br/>
         <hr>
        &#x25cf; <b>DATA:</b> <br/>
-       Post data: atscan -t [target] --data "field1:value1 [DATA]field2:value2 [DATA]field3:value3" [--post / --get]<br/>
-       Wordlist:  atscan -t [target] --data "name:userfile [DATAFILE]value:file.txt" [--post / --get]<br/>
-                  atscan -t [target] --data "username:john [DATA]pass:1234" [--post / --get]<br/>
-       Post + Validation: --data "name:userfile [DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get] <br/>
+       Data: atscan -t [target] --data "field1 => 'value1', field2 => 'value2', field3 => 'value3'" [--post / --get]<br/>
+       Exploit: --exp/expHost <exploit> --data "field1 => 'value1', field2 => 'value2', field3 => 'value3'" --vShell [shell path] -v [string] / --status [code] [--post / --get] <br/>
+       Wordlist: --data "field1 => 'value1', field2 =>'WORDLIST:<wordlist path>'" --vShell [shell path] -v [string] / --status [code] [--post / --get] <br/>
         <hr>
        &#x25cf; <b>EXTERNAL COMMANDES:</b> <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
@@ -534,7 +533,7 @@
        atscan -d [dorks.txt] -l [level] --replace [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replaceFROM [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string => new_string] --exp/expHost [payload] --status [code] / --valid [string] <br/>
-       atscan --data "name:userfile[DATAFILE]value:file.txt" -v [string] / --status [code] [--post / --get]<br/>
+       atscan --data "name => 'john', "pass => 'value:file.txt'" -v [string] / --status [code] / --vShell <uploaded shell path> [--post / --get]<br/>
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
        atscan -t [target / targets.txt] --valid [string] --not in [string]<br/>        <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 

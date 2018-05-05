@@ -1,7 +1,8 @@
-VERSION 12.4.5 RELEASE
+VERSION 13.0.0 RELEASE
 =====================================================
-  CHANGES: 02/05/2018
-  ===================================================
-  - Add more linux commands to interactive mode.
+  CHANGES: 05/05/2018
+  - Fix target protocol.
+  - Optimize data form POST and GET.
+  - Optimize browser headers.
   - Enjoy!
-  ===================================================
+  =================

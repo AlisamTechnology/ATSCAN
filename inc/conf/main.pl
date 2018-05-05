@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our (@TODO, @V_WP, @V_JOOM, @XSS, @V_XSS, @LFI, @V_LFI, @E_SHELL, @ADFWP, @V_AFD, @ADMIN, @V_TODO, @SUBDOMAIN, @UPLOAD, @ZIP, @SCAN_TITLE, @RFI, @c, @DT); 
-our ($paylNote, $V_EMAIL, $V_IP, $V_REGEX, $command, $mmd5, $mencode64, $mdecode64, $mlevel, $Target, $dork, $noExist, $Hstatus, $validText);
+our ($paylNote, $V_EMAIL, $V_IP, $V_REGEX, $command, $mmd5, $mencode64, $mdecode64, $mlevel, $Target, $dork, $noExist, $Hstatus, $validText, $data);
 
 ## PRINT ENGINE RESULTS
 sub printSearch {
@@ -66,7 +66,7 @@ sub eMails { makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[13], "", "", "
 sub Regex { makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[22], "", "", "", $V_REGEX, "", "", "", ""); }
 
 ## FORM BY POST
-sub mdata { makeSscan("3", "", "", \@TODO, \@V_TODO, "DATA", "", "", "", "", "", "", "10", ""); }
+sub mdata { makeSscan("3", "", "", \@TODO, \@V_TODO, "DATA", "", "", "", "", "", "", "$data", ""); }
 
 ## MD5 ENCODE
 sub mmd5 { scanCode($SCAN_TITLE[17], $mmd5, "1", "", ""); } 

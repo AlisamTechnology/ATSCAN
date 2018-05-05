@@ -18,7 +18,7 @@ use FindBin '$Bin';
   ."   Tor: --proxy socks://localhost:9050 \n"
   ."   Proxy: --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <list.txt>.\n".$c[10]."\n\n";  
   ltak(); print $c[12]."  SET HEADERS: \n".$c[10]
-  ."   --header \"Authorization:Basic YWRtaW46YWRtaW4 [OTHER]keep_alive:1\"\n\n" ;  
+  ."   --header \"Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'\"\n\n" ;  
   ltak(); print $c[12]."  RANDOM: \n".$c[10]
   ."   Random proxy: --proxy-random [proxy | list.txt] \n"
   ."   Random agent: --b-random \n"
@@ -56,10 +56,11 @@ use FindBin '$Bin';
   ."   Encode base64: --encode64 <string>  \n"
   ."   Decode base64: --decode64 <string> \n\n";
   ltak(); print $c[12]."  POST/GET DATA: \n".$c[10]
-  ."  Post data: atscan -t <target> --data \"field1:value1[DATA]field2:value2[DATA]field3:value3\" --post | --get\n"
-  ."             atscan -t <target> --data \"username:john[DATA]pass:1234 --post | --get\n"
-  ."  Wordlist: atscan -t <target> --data \"name:username [DATA]email:xxxx\@xx [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
-  ."  Post + Validation: --data \"name:userfile[DATAFILE]value:file.txt\" -v <string> | --status <code> --post | --get\n\n";
+  ."  Post data: atscan -t <target> --data \"field1\=\>\'value1\'\, field2\=\>\'value2\'\, field3\'\=\>value3\'\" --post | --get\n"
+  ."             atscan -t <target> --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" --post | --get\n"
+  ."             atscan -t <target> --data \"username\=\>\'john\'\, pass\=\>\'WORDLIST:<list path>\'\" --post | --get\n"
+  ."  Post + Exploit: --exp\/expHost <exploit> --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" -v <string> | --status <code> --post | --get\n"
+  ."  Post + Validation: --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" -v <string> | --status <code> --post | --get \n\n";
   
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
@@ -70,7 +71,7 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  MULTIPLE SCANS: \n".$c[10]
   ."   atscan --dork <dork> --level <10> --sql --lfi --wp ..\n"
-  ."   atscan --dork <dork> --level <10> --replace \"string => new_string\" --exp/expHost <exploit> [--sql | --lfi | --wp |...]\n"
+  ."   atscan --dork <dork> --level <10> --replace \"string \=\> new_string\" --exp/expHost <exploit> [--sql | --lfi | --wp |...]\n"
   ."   atscan -t <ip> --level <10> [--sql | --lfi | --wp |...]\n"
   ."   atscan -t <targets> [--sql | --lfi | --wp |...]\n\n";
   
@@ -87,12 +88,12 @@ use FindBin '$Bin';
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string>] \n"
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> --none] \n"
   ."   atscan -d <dork | dorks.txt> -l <level> --exp/expHost <payload> --status <code> | --valid <string> \n"
-  ."   atscan -d <dorks.txt> -l <level> --replace \"string => new_string\" --status <code> | --valid <string> \n"
+  ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --status <code> | --valid <string> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--admin | --sql ..] --status <code> | --valid <string> \n"  
-  ."   atscan -d <dorks.txt> -l <level> --replace \"string => new_string\" --status <code> | --valid <string>\n"
-  ."   atscan -d <dorks.txt> -l <level> --replaceFROM \"string => new_string\" --status <code> | --valid <string>\n"
-  ."   atscan -d <dorks.txt> -l <level> --replace \"string => new_string\" --exp/expHost <payload> --status <code> | --valid <string>\n"
-  ."   atscan --data \"name:userfile[DATAFILE]value:file.txt\" --post -v <string> | --status <code> \n"
+  ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --status <code> | --valid <string>\n"
+  ."   atscan -d <dorks.txt> -l <level> --replaceFROM \"string \=\> new_string\" --status <code> | --valid <string>\n"
+  ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --exp/expHost <payload> --status <code> | --valid <string>\n"
+  ."   atscan  -d <dorks.txt> --exp <exploit> --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" --post --vShell <path> | -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--sql | --shost ..] --status <code> | --valid <string> \n\n";
   
   ltak(); print $c[12]."  UPDATE TOOL: \n".$c[10]."   --update\n";

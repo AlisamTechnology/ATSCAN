@@ -52,8 +52,8 @@ our @NoValRequierd=('none', 'host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 
                    'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule');
 
 ## DATA ARGUMENTS
-our @INTERDataScan=('post', 'get', 'data', 'header');
-our %INTERDataScan=("post"=>"post methode", "get"=>"get methode", "data"=>"data to post/get", "header"=>"data headers");
+our @INTERDataScan=('post', 'get', 'data', 'header', 'vShell');
+our %INTERDataScan=("post"=>"post methode", "get"=>"get methode", "data"=>"data to post/get", "header"=>"data headers", "vShell"=>"Uploaded shell path");
 
 ## SHELL LFI
 our @INTERshell=('shell');

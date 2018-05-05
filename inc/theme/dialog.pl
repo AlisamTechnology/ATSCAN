@@ -88,7 +88,7 @@ sub interHelp {
   ."$c[5] --save | -s   $c[10] | Output file.\n"
   ."$c[5] --source      $c[10] | Html output folder.\n" 
   ."$c[5] --content     $c[10] | Print response content.\n"
-  ."$c[5] --header      $c[10] | Set headers. \n"
+  ."$c[5] --header      $c[10] | Set headers Ex: --header \"Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'\" \n"
   ."$c[5] --ping        $c[10] | Ping host. \n"
   ."$c[5] --host        $c[10] | Domain name [Ex: site.com] \n"
   ."$c[5] --valid | -v  $c[10] | Validate by string \n"
@@ -120,8 +120,6 @@ sub interHelp {
   ."$c[5]               $c[10] | site.com/index.php?id=1->9 \n"
   ."$c[5] repeat(txt-y) $c[10] | EX: --exp/expHost \"/index.php?id=repeat(../-9)wp-config.php\" --sql OR -t \"site.com/index.php?id=../wp-config.php\"\n"
   ."$c[5]               $c[10] | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n"
-  ."$c[5] [DATA/DATAFILE]$c[10]| To separate data values ex: --data \"name:username [DATA]email:xxxxxx [DATA]pass:xxxxx\"\n"
-  ."$c[5]               $c[10] | Wordlist: --data \"name:username [DATA]email:xxxx\@xx.com [DATAFILE]pass:\/root/Desktop\/list.txt\"\n"
   ."$c[5] [OTHER]       $c[10] | To separate all others values (dork exploit payload proxy target..) \n"
   ."$c[5]               $c[10] | Ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n";
 }
@@ -168,7 +166,8 @@ sub scansArgs {
   ."$c[5] --sql         $c[10] | Xss scan \n"
   ."$c[5] --lfi         $c[10] | Local file inclusion \n"
   ."$c[5] --joomrfi     $c[10] | Scan for joomla local file inclusion.\n"
-  ."$c[5] --data        $c[10] | data. See examples \n"
+  ."$c[5] --data        $c[10] | Post\/Post data. See examples \n"
+  ."$c[5] --vShell      $c[10] | Uploaded shell path to validate\n"
   ."$c[5] --email       $c[10] | Collect emails \n"
   ."$c[5] --ip          $c[10] | Collect Ips\n"
   ."$c[5] --wpafd       $c[10] | Scan wordpress sites for arbitery file download\n"

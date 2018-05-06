@@ -96,11 +96,6 @@ sub data_alert {
   print $c[4]."[!] You cannot use more than 1 wordlist in data command!\n"; logoff();
 }
 
-## UPLOADES SHELL VALIDATION
-if (defined $validShell and !defined $data) {
-  print $c[4]."[!] --vShell is to validate uploaded shell via data forms!\n"; logoff();
-}
-
 ## IF DATA FILES > 1
 sub adviseDataFile {
   print $c[2]."[!] You cannot use more than 1 wordlist!\n"; logoff();

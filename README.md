@@ -206,7 +206,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--vShell</td>
-        <td class="main"> Uploades shell path to validate </td>
+        <td class="main"> Validate by url</td>
       </tr>
       <tr>
         <td width="200px" class="main">--post</td>
@@ -527,6 +527,7 @@
         <hr>
        &#x25cf; <b>SCAN VALIDATION: </b><br/>
        atscan -t [target / targets.txt] [--status [code] / --valid [string] <br/>
+       atscan -t [target / targets.txt] --vShell [file path] <br/>
        atscan -d [dork / dorks.txt] -l [level] --exp/expHost [payload] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] [--admin / --sql ..] --status [code] / --valid [string] <br/>  

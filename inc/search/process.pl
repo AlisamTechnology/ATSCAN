@@ -7,8 +7,7 @@ use FindBin '$Bin';
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $zone, $agent, $noExist, $notIn, $expHost, $expIp);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
-our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom,
-     $noinfo, $timeout, $method, $command, $headers, @OTHERS, @ErrT);
+our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, $headers, @OTHERS, @ErrT);
 
 ## SET ENGINES
 if (defined $mlevel) {
@@ -177,6 +176,7 @@ sub printInfoUrl {
   our ($command, $port);
   if ($o<$limit) {
     if (!defined $noinfo && !$noinfo) {
+      if (defined $validShell) { print $c[1]."    VALID  $c[10] [$validShell]\n"; }
       if (defined $noQuery) { print $c[1]."    $DS[16] $c[10]  $DS[40]\n"; }
       printProxy();
       if (defined $brandom || $brandom) {

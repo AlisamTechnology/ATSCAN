@@ -121,7 +121,7 @@ sub validateResult {
   if ($cV) {
     doPrint($URL1, $result, $html);
   }else{
-    noResult() unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn))); }
+    noResult() unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell))); }
 }
 
 ## PRINT POST DATA RESULTS
@@ -129,28 +129,14 @@ sub formData {
   my ($URL1, $html, $status, $response)=@_;
   my $o=OO();
   if ($o<$limit) {
-    our $validShell;
-    if ($validShell) {
-      $URL1=getHost($URL1);
-      $URL1="$URL1/$validShell";
-      my $ua = LWP::UserAgent->new;
-      my $reShell = $ua->get("$URL1");
-      if ($reShell->is_success and ($reShell->code eq "200")) {
-        if (defined $Hstatus or defined $validText or defined $notIn) {
-          validateResult($URL1, $status, $html, $response, "");
-        }else{
-          saveme($URL1, "");
-          print $c[3]."$URL1\n";
-        }
+    if (defined $Hstatus or defined $validText or defined $notIn or defined $validShell) {
+      validateResult($URL1, $status, $html, $response, "");
+    }else{
+      if ($status eq "200") {
+        saveme($URL1, "");
+        print $c[3]."$URL1\n";
       }else{
         noResult();
-      }
-    }else{      
-      if (defined $Hstatus or defined $validText or defined $notIn) {
-        validateResult($URL1, $status, $html, $response, "");
-      }else{
-        if (length($html)>5) { stakScan(); print $c[8]."$html\n"; }
-        else{ print "$c[2]$TT[18]\n"; }
       }
     }
   }
@@ -183,7 +169,11 @@ sub checkValidation {
       if (defined $validText) { if ($html!~/$validText/) { $cV=""; } }
     }
   }
-  if (defined $notIn) { if (index($html, $notIn) != -1) { $cV=""; } }  
+  if (defined $notIn) { if (index($html, $notIn) != -1) { $cV=""; } }
+  if (defined $validShell) {
+    my $isUploaded=checkUloadedShell($URL1);
+    if (!$isUploaded) { $cV=""; }
+  }
   return $cV;
 }
 
@@ -192,7 +182,7 @@ sub doPrint {
   my ($URL1, $result, $html)=@_;
   my $o=OO();
   if ($o<$limit) {
-    print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn)));
+    print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)));
     if (defined $beep || $beep) { print chr(7); }
     saveme($URL1, "");
     if (defined $content) { dpoints(); print $c[10]."$html\n"; }

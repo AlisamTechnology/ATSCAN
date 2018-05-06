@@ -167,7 +167,7 @@ sub scansArgs {
   ."$c[5] --lfi         $c[10] | Local file inclusion \n"
   ."$c[5] --joomrfi     $c[10] | Scan for joomla local file inclusion.\n"
   ."$c[5] --data        $c[10] | Post\/Post data. See examples \n"
-  ."$c[5] --vShell      $c[10] | Uploaded shell path to validate\n"
+  ."$c[5] --vShell      $c[10] | Validate by url Ex: --vShell \"/shell.php\" \n"
   ."$c[5] --email       $c[10] | Collect emails \n"
   ."$c[5] --ip          $c[10] | Collect Ips\n"
   ."$c[5] --wpafd       $c[10] | Scan wordpress sites for arbitery file download\n"

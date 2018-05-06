@@ -7,7 +7,7 @@ use POSIX qw(strftime);
 
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
-     $V_IP, $expIp, $interactive, $command, $uplog);
+     $V_IP, $expIp, $interactive, $command, $uplog, $validShell);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT);
 
 ## PRINT FILES 
@@ -599,6 +599,20 @@ sub doRegex {
       if ($URL=~/$searchRegex/) { saveCopy($URL); }
     }
   }
+}
+
+## CHECK UPLOADED SHELL
+sub checkUloadedShell {
+  my $URL1=$_[0];
+  my $isUploaded="";
+  $URL1=getHost($URL1);
+  $URL1="$URL1/$validShell";
+  $ua = LWP::UserAgent->new;
+  my $reShell = $ua->get("$URL1");
+  if ($reShell->is_success and ($reShell->code eq "200")) {
+    $URL1=$isUploaded;
+  }
+  return $isUploaded;
 }
 
 ## EXTRAT INFO PROCESS SCAN

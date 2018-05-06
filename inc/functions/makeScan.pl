@@ -80,7 +80,7 @@ sub makeSscan {
     }
   }  
   ltak();
-  if (!$data) { endScan(); }
+  endScan();
 }
 
 1;

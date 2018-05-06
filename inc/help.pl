@@ -56,11 +56,11 @@ use FindBin '$Bin';
   ."   Encode base64: --encode64 <string>  \n"
   ."   Decode base64: --decode64 <string> \n\n";
   ltak(); print $c[12]."  POST/GET DATA: \n".$c[10]
-  ."  Post data: atscan -t <target> --data \"field1\=\>\'value1\'\, field2\=\>\'value2\'\, field3\'\=\>value3\'\" --post | --get\n"
-  ."             atscan -t <target> --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" --post | --get\n"
-  ."             atscan -t <target> --data \"username\=\>\'john\'\, pass\=\>\'WORDLIST:<list path>\'\" --post | --get\n"
-  ."  Post + Exploit: --exp\/expHost <exploit> --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" -v <string> | --status <code> --post | --get\n"
-  ."  Post + Validation: --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" -v <string> | --status <code> --post | --get \n\n";
+  ."  Post data: atscan -t <target> --data \"field1\=\>\'value1\'\, field2\=\>\'value2\'\, field3\'\=\>value3\'\" --post / get / upload\n"
+  ."             atscan -t <target> --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" --post / get / upload\n"
+  ."             atscan -t <target> --data \"username\=\>\'john\'\, pass\=\>\'WORDLIST:<list path>\'\" --post / get / upload\n"
+  ."  Post + Exploit: --exp\/expHost <exploit> --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" -v <string> | --status <code> --post / get / upload\n"
+  ."  Post + Validation: --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" -v <string> | --status <code> --post / get / upload \n\n";
   
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"

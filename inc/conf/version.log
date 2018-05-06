@@ -3,7 +3,9 @@ VERSION 13.0.0 RELEASE
   CHANGES: 06/05/2018
   - Fix target protocol.
   - Added --vShell arg to validate by url.
+  -- Add validation by url.
   - Optimize data form POST and GET.
   - Optimize browser headers.
   - Enjoy!
   =================
+

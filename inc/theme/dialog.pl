@@ -7,7 +7,7 @@ use FindBin '$Bin';
 ## INFO PANEL TEXT
 my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCANNER", "atscan [options] or [--help|-h|-?]", "<option> \/ Help: perl",
 "[--help|-h|-?]", "TIMEOUT", "Cannot get IP!", "Random", "No changes have been made!", "[!] Random not allowed when engines are defined!", "[!] Level not defined or not numeric!",
-"[!] You have to set a method: --get or --post!", "[!] You have to validate data post! ex: -v text or --status 200", "No response recieved!", "ifinurl", "is not an IP address!",
+"[!] You have to set a method: --get --upload or --post!", "[!] You have to validate data post! ex: -v text or --status 200", "No response recieved!", "ifinurl", "is not an IP address!",
 "STATUS", "Host is", "Not Alive!", "Alive");
 
 ## OTHERS DIALOG TEXT

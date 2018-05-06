@@ -50,9 +50,6 @@ sub adminPage { makeSscan("3", "4", "", \@ADMIN, \@V_TODO, $SCAN_TITLE[9], $payl
 ## GET SUBDOMAINS
 sub subdomain { makeSscan("3", "4", "5", \@SUBDOMAIN, \@V_TODO, $SCAN_TITLE[10], $paylNote, "", "1", "", "", "", "", ""); restaureSearch(); }
 
-## GET UPLOAD FILES
-sub uploadSites { makeSscan("3", "4", "", \@UPLOAD, \@V_TODO, $SCAN_TITLE[11], $paylNote, "", "", "", "", "", "", ""); restaureSearch(); }
-
 ## GET ZIP FILES
 sub zipSites { makeSscan("3", "4", "", \@ZIP, \@V_TODO, $SCAN_TITLE[12], $paylNote, "", "", "", "", "", "", ""); restaureSearch(); }
 

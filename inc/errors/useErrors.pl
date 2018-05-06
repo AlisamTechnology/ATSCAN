@@ -82,7 +82,7 @@ if (defined $mlevel || $mlevel) {
 }
 
 ## ADVISE DATA WITHOUT METHOD
-if (defined $data and (!defined $post && !defined $get && !$method)) { print $c[4]."[!] $TT[16]\n"; logoff(); }
+if (defined $data and (!defined $post && !defined $get && !defined $mupload && !$method)) { print $c[4]."[!] $TT[16]\n"; logoff(); }
 
 ## CHECK PAUSE ARGUMENT
 if (defined $data) {

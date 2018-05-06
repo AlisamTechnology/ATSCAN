@@ -211,6 +211,10 @@
       <tr>
         <td width="200px" class="main">--post</td>
         <td class="main"> Use post method </td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--upload </td>
+        <td class="main"> Upload method </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--get</td>
@@ -347,10 +351,6 @@
       <tr>
         <td width="200px" class="main">--joom  </td>
         <td class="main"> Joomla sites in the server</td>
-      </tr> 
-      <tr>
-        <td width="200px" class="main">--upload </td>
-        <td class="main"> Get upload files </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--zip  </td>
@@ -497,9 +497,9 @@
        Decode base64: --decode64 [string] <br/>
         <hr>
        &#x25cf; <b>DATA:</b> <br/>
-       Data: atscan -t [target] --data "field1 => 'value1', field2 => 'value2', field3 => 'value3'" [--post / --get]<br/>
-       Exploit: --exp/expHost <exploit> --data "field1 => 'value1', field2 => 'value2', field3 => 'value3'" --vShell [shell path] -v [string] / --status [code] [--post / --get] <br/>
-       Wordlist: --data "field1 => 'value1', field2 =>'WORDLIST:<wordlist path>'" --vShell [shell path] -v [string] / --status [code] [--post / --get] <br/>
+       Data: atscan -t [target] --data "field1 => 'value1', field2 => 'value2', field3 => 'value3'" [--post / --get / --upload]<br/>
+       Exploit: --exp/expHost <exploit> --data "field1 => 'value1', field2 => 'value2', field3 => 'value3'" --vShell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
+       Wordlist: --data "field1 => 'value1', field2 =>'WORDLIST:<wordlist path>'" --vShell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
         <hr>
        &#x25cf; <b>EXTERNAL COMMANDES:</b> <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
@@ -534,7 +534,7 @@
        atscan -d [dorks.txt] -l [level] --replace [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replaceFROM [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string => new_string] --exp/expHost [payload] --status [code] / --valid [string] <br/>
-       atscan --data "name => 'john', "pass => 'value:file.txt'" -v [string] / --status [code] / --vShell <uploaded shell path> [--post / --get]<br/>
+       atscan --data "name => 'john', "pass => 'value:file.txt'" -v [string] / --status [code] / --vShell <uploaded shell path> [--post / --get / --upload]<br/>
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
        atscan -t [target / targets.txt] --valid [string] --not in [string]<br/>        <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 

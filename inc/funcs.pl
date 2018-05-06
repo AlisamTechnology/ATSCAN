@@ -601,6 +601,23 @@ sub doRegex {
   }
 }
 
+## URI ESCAPE
+sub uriEscap {
+  my $uri=$_[0];
+  my $escaped = uri_escape( $uri );
+  return $escaped;
+}
+
+## URI UNESCAPE
+sub uriUnescap {
+  my $uri=$_[0];
+  my $unescaped = uri_unescape( $uri );
+  return $unescaped;
+}
+
+
+
+
 ## CHECK UPLOADED SHELL
 sub checkUloadedShell {
   my $URL1=$_[0];

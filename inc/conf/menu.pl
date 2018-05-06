@@ -47,7 +47,6 @@ sub Menu {
   if (defined $WpAfd) { WpAfd(); }
   if (defined $adminPage) { adminPage(); }
   if (defined $subdomain) { subdomain(); }
-  if (defined $mupload) { uploadSites(); }
   if (defined $mzip) { zipSites(); }
   if (defined $searchIps) { Ips(); }
   if (defined $eMails) { eMails(); }

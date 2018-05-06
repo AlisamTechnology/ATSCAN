@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $zone, $agent, $noExist, $notIn, $expHost, $expIp);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $zone, $agent, $noExist, $notIn, $expHost, $mupload, $expIp);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, $headers, @OTHERS, @ErrT);
 
@@ -186,6 +186,7 @@ sub printInfoUrl {
       print $c[1]."    $OTHERS[19]  $c[10]";
       if (defined $get || ($method and $method eq "get")) { print "$DS[15]\n"; }
       elsif (defined $post || ($method and $method eq "post")) { print "$DT[32]\n"; }
+      elsif (defined $mupload || ($method and $method eq "upload")) { print "UPLOAD\n"; }
       else{ print "$DS[15]\n"; }
       if ($timeout !=10) { print $c[1]."    $TT[10] ".$c[10]."$timeout s\n"; }
       for (our @replace) {
@@ -233,20 +234,24 @@ sub getHtml {
   if (defined $prandom || $prandom) {    
     if ($freq || defined $freq) { make_freq(); }
     else{ newIdentity(); }
-  }    
+  }
+  
+  
+  if ($headers) { $URL="$URL, $headers"; }
   if ($data) {
     if (defined $post || ($method && $method eq "post")) {
-      if ($headers) {
-        $response=$ua->post($URL, $headers, Content_Type => 'multipart/form-data', Content => [$data]);
-      }else{
+        $response=$ua->post($URL, Content => [$data]);
+    }elsif (defined $mupload || ($mupload && $mupload eq "upload")) {
         $response=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
-      }
     }elsif (defined $get || ($method && $method eq "get")) { 
       $URL.="?".$data;
-      my $request=HTTP::Request->new($DS[15], $URL); $response=$ua->request($request);
+      my $request=HTTP::Request->new($DS[15], $URL);
+      $response=$ua->request($request);
     }
+    
+    
   }else{
-    if (defined $post || ($method && $method eq "post")) { $response=$ua->post($URL, $headers); }
+    if (defined $post || ($method && $method eq "post")) { $response=$ua->post($URL); }
     elsif (defined $get || ($method && $method eq "get")) { my $request=HTTP::Request->new($DS[15], $URL); $response=$ua->request($request);
     }else{ my $request=HTTP::Request->new($DS[15], $URL); $response=$ua->request($request); }
   }

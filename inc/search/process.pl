@@ -235,8 +235,6 @@ sub getHtml {
     if ($freq || defined $freq) { make_freq(); }
     else{ newIdentity(); }
   }
-  
-  
   if ($headers) { $URL="$URL, $headers"; }
   if ($data) {
     if (defined $post || ($method && $method eq "post")) {
@@ -244,12 +242,15 @@ sub getHtml {
     }elsif (defined $mupload || ($mupload && $mupload eq "upload")) {
         $response=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
     }elsif (defined $get || ($method && $method eq "get")) { 
+
+      $data=~s/\=>/\=/g; $data=~s/\,/&/g; $data=~s/\s+$//g;
+      $data=~s/(\'|\")//g;
+      $data=uriUnescap($data);
       $URL.="?".$data;
+      $URL=~s/\s//g;
       my $request=HTTP::Request->new($DS[15], $URL);
       $response=$ua->request($request);
     }
-    
-    
   }else{
     if (defined $post || ($method && $method eq "post")) { $response=$ua->post($URL); }
     elsif (defined $get || ($method && $method eq "get")) { my $request=HTTP::Request->new($DS[15], $URL); $response=$ua->request($request);

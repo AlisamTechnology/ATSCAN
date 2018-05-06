@@ -186,11 +186,12 @@ sub get_timeout {
 
 ## HEADERS
 our $headers;
-
+use HTTP::Cookies;
 ## SET PROXY
 $agent="Mozilla/5.0 (".$systems[rand @systems];
 $ua=LWP::UserAgent->new( agent => $agent, $headers, cookie_jar => HTTP::Cookies->new());
 $ua->default_header('Accept' => ('text/html'));
+$ua->cookie_jar({});
 $ua->env_proxy;
 $timeout=get_timeout();
 $ua->timeout($timeout);

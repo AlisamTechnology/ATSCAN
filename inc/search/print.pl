@@ -49,10 +49,6 @@ sub buildPrint {
         $i++;
         if ($i > 1) { print "            "; stakScan(); };
         print $c[1]."    DATA    ".$c[10]."[$i/$iScalar] $datas\n";
-        #$datas="\"".$datas."\"";
-        
-
-        #$datas=uriUnescap($datas);
         my ($response, $status, $html)=browseUrl($URL1, $datas);   
         printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $datas);
       }

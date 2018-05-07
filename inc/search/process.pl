@@ -238,16 +238,14 @@ sub getHtml {
   if ($headers) { $URL="$URL, $headers"; }
   if ($data) {
     if (defined $post || ($method && $method eq "post")) {
-        $response=$ua->post($URL, Content => [$data]);
+      $response=$ua->post($URL, Content => [$data]);
     }elsif (defined $mupload || ($mupload && $mupload eq "upload")) {
-        $response=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
+      $response=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
     }elsif (defined $get || ($method && $method eq "get")) { 
-
       $data=~s/\=>/\=/g; $data=~s/\,/&/g; $data=~s/\s+$//g;
       $data=~s/(\'|\")//g;
-      $data=uriUnescap($data);
       $URL.="?".$data;
-      $URL=~s/\s//g;
+      $URL=~s/\s//g;      
       my $request=HTTP::Request->new($DS[15], $URL);
       $response=$ua->request($request);
     }

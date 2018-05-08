@@ -245,7 +245,7 @@ sub getHtml {
       $data=~s/\=>/\=/g; $data=~s/\,/&/g; $data=~s/\s+$//g;
       $data=~s/(\'|\")//g;
       $URL.="?".$data;
-      $URL=~s/\s//g;      
+      $URL=~s/\s//g;
       my $request=HTTP::Request->new($DS[15], $URL);
       $response=$ua->request($request);
     }

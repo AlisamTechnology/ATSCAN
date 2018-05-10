@@ -196,6 +196,7 @@ sub checkExtratScan {
   if (defined $msource) { printSource($URL1, $html); }
   if (defined $command) { checkExternComnd($URL1, $command); }
 }
+  
 
 ## PRINT SOURCE CODE
 sub printSource {

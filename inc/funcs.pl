@@ -8,7 +8,7 @@ use POSIX qw(strftime);
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell);
-our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT);
+our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT, @defaultHeaders, @userHeaders);
 
 ## PRINT FILES 
 sub printFile {
@@ -185,9 +185,7 @@ sub get_timeout {
 }
 
 ## HEADERS
-our (@defaultHeaders, @userHeaders)=();
-
-our @defaultHeaders = (
+@defaultHeaders = (
   'Accept' => 'image/gif, image/x-xbitmap, image/jpeg, image/pjpeg,image/png, */*',
   'Accept-Charset' => 'iso-8859-1,*,utf-8', 
   'Accept-Language' => 'en-US',

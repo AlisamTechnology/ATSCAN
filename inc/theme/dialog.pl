@@ -174,7 +174,7 @@ sub scansArgs {
   ."$c[5] --admin       $c[10] | Get site admin page \n"
   ."$c[5] --shost       $c[10] | Get site subdomains \n"
   ."$c[5] --sites       $c[10] | Get ites in the server \n"
-  ."$c[5] --upload      $c[10] | Get upload files \n"
+  ."$c[5] --upload      $c[10] | Validate scan bu url \n"
   ."$c[5] --zip         $c[10] | Get zip files \n";
 }
 

@@ -7,7 +7,7 @@ use FindBin '$Bin';
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $zone, $agent, $noExist, $notIn, $expHost, $mupload, $expIp);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
-our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, $headers, @OTHERS, @ErrT);
+our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
 
 ## SET ENGINES
 if (defined $mlevel) {
@@ -235,27 +235,29 @@ sub getHtml {
     if ($freq || defined $freq) { make_freq(); }
     else{ newIdentity(); }
   }
-  if ($headers) { $URL="$URL, $headers"; }
   if ($data) {
     if (defined $post || ($method && $method eq "post")) {
-      $response=$ua->post($URL, Content => [$data]);
+      $response=$ua->post($URL, @defaultHeaders, Content => [$data]);
     }elsif (defined $mupload || ($mupload && $mupload eq "upload")) {
-      $response=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
+      $response=$ua->post($URL, @defaultHeaders, Content_Type => 'multipart/form-data', Content => [$data]);
     }elsif (defined $get || ($method && $method eq "get")) { 
-      $data=~s/\=>/\=/g; $data=~s/\,/&/g; $data=~s/\s+$//g;
+      $data=~s/\=>/\=/g; $data=~s/\,/&/g; $data=~s/\s//g;
       $data=~s/(\'|\")//g;
       $URL.="?".$data;
       $URL=~s/\s//g;
-      my $request=HTTP::Request->new($DS[15], $URL);
-      $response=$ua->request($request);
+      $response=$ua->get($URL, @defaultHeaders);
     }
+     # print "$data";exit;
   }else{
-    if (defined $post || ($method && $method eq "post")) { $response=$ua->post($URL); }
-    elsif (defined $get || ($method && $method eq "get")) { my $request=HTTP::Request->new($DS[15], $URL); $response=$ua->request($request);
-    }else{ my $request=HTTP::Request->new($DS[15], $URL); $response=$ua->request($request); }
+    if (defined $post || ($method && $method eq "post")) {
+      $response=$ua->post($URL, @defaultHeaders); }
+    elsif (defined $get || ($method && $method eq "get")) {
+      $response=$ua->get($URL, @defaultHeaders);
+    }else{
+      $response=$ua->get($URL, @defaultHeaders);
+    }
   }
-  my $html=$response->content;
-  $html=~ s/\&#(\d+);/chr($1)/eg;
+  my $html=$response->decoded_content;
   my $status=$response->code;
   my $serverheader=$response->server;
   return ($response, $html, $status, $serverheader);

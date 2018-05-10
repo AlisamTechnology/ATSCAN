@@ -185,12 +185,29 @@ sub get_timeout {
 }
 
 ## HEADERS
+our (@defaultHeaders, @userHeaders)=();
+
+our @defaultHeaders = (
+  'Accept' => 'image/gif, image/x-xbitmap, image/jpeg, image/pjpeg,image/png, */*',
+  'Accept-Charset' => 'iso-8859-1,*,utf-8', 
+  'Accept-Language' => 'en-US',
+  'Accept' => 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, image/png, image/jpeg, image/gif;q=0.2, text/plain;q=0.8,
+   text/css, */*;q=0.1',
+  'Accept-Charset' => 'ISO-8859-1, utf-8;q=0.66, *;q=0.66',
+  'Accept-Encoding' => 'gzip, deflate, compress;q=0.9',
+  'Connection' => 'keep-alive'
+  );
 our $headers;
+
+if (defined $headers) {
+  @userHeaders=split (",", $headers);
+  push @defaultHeaders, @userHeaders;
+}
+
 use HTTP::Cookies;
 ## SET PROXY
 $agent="Mozilla/5.0 (".$systems[rand @systems];
-$ua=LWP::UserAgent->new( agent => $agent, $headers, cookie_jar => HTTP::Cookies->new());
-$ua->default_header('Accept' => ('text/html'));
+$ua=LWP::UserAgent->new( agent => $agent, @defaultHeaders, cookie_jar => HTTP::Cookies->new());
 $ua->cookie_jar({});
 $ua->env_proxy;
 $timeout=get_timeout();

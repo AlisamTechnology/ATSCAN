@@ -131,8 +131,10 @@ sub formData {
       validateResult($URL1, $status, $html, $response, "");
     }else{
       if ($status eq "200") {
-        saveme($URL1, "");
+        if (defined $beep || $beep) { print chr(7); }
+        saveme($URL1);
         print $c[3]."$URL1\n";
+        checkExtratScan($URL1, $html);
       }else{
         noResult();
       }
@@ -183,10 +185,16 @@ sub doPrint {
     print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)));
     if (defined $beep || $beep) { print chr(7); }
     saveme($URL1, "");
-    if (defined $content) { dpoints(); print $c[10]."$html\n"; }
-    if (defined $msource) { printSource($URL1, $html); }
-    if (defined $command) { checkExternComnd($URL1, $command); }
+    checkExtratScan($URL1, $html);
   }
+}
+
+## EXTRAT USER SCAN
+sub checkExtratScan {
+  my ($URL1, $html)=@_;
+  if (defined $content) { points(); print $c[10]."$html\n"; }
+  if (defined $msource) { printSource($URL1, $html); }
+  if (defined $command) { checkExternComnd($URL1, $command); }
 }
 
 ## PRINT SOURCE CODE

@@ -1,9 +1,7 @@
-VERSION 13.0.0 RELEASE
+VERSION 13.0.1 RELEASE
 =====================================================
-  CHANGES: 08/05/2018
-  - Fix target protocol.
-  - Added --vShell arg to validate by url.
-  - Optimize data form POST and GET.
+  CHANGES: 10/05/2018
   - Optimize browser headers.
   - Enjoy!
   =================
+

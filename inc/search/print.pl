@@ -163,7 +163,7 @@ sub checkValidation {
   if (defined $noExist || defined $Hstatus || $validText) {
     if (defined $noExist) {
       if (defined $Hstatus) { if ($status == $Hstatus) { $cV=""; } }
-      if (defined $validText) { if ($html=~/$validText/) { $cV=""; } }
+      if (defined $validText) { if ($html=~m/^$validText$/i) { $cV=""; } }
     }else{
       if (defined $Hstatus) { if ($status ne $Hstatus) { $cV=""; } }
       if (defined $validText) { if ($html!~/$validText/) { $cV=""; } }

@@ -166,7 +166,7 @@ sub checkValidation {
       if (defined $validText) { if ($html=~m/^$validText$/i) { $cV=""; } }
     }else{
       if (defined $Hstatus) { if ($status ne $Hstatus) { $cV=""; } }
-      if (defined $validText) { if ($html!~/$validText/) { $cV=""; } }
+      if (defined $validText) { if ($html!~m/^$validText$/i) { $cV=""; } }
     }
   }
   if (defined $notIn) { if (index($html, $notIn) != -1) { $cV=""; } }

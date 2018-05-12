@@ -191,7 +191,6 @@ sub get_timeout {
   'Accept-Language' => 'en-US',
   'Accept' => 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, image/png, image/jpeg, image/gif;q=0.2, text/plain;q=0.8,
    text/css, */*;q=0.1',
-  'Accept-Charset' => 'ISO-8859-1, utf-8;q=0.66, *;q=0.66',
   'Accept-Encoding' => 'gzip, deflate, compress;q=0.9',
   'Connection' => 'keep-alive'
   );

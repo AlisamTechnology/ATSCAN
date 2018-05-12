@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $zone, $agent, $noExist, $notIn, $expHost, $mupload, $expIp);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $noExist, $notIn, $expHost, $mupload, $expIp);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
 
@@ -188,7 +188,8 @@ sub printInfoUrl {
       elsif (defined $post || ($method and $method eq "post")) { print "$DT[32]\n"; }
       elsif (defined $mupload || ($method and $method eq "upload")) { print "UPLOAD\n"; }
       else{ print "$DS[15]\n"; }
-      if ($timeout !=10) { print $c[1]."    $TT[10] ".$c[10]."$timeout s\n"; }
+      if ($timeout or defined $timeout) { print $c[1]."    $TT[10] ".$c[10]."$timeout s\n"; }
+      if (defined $headers) { print $c[1]."    HEADERS ".$c[10]."$headers\n"; }
       for (our @replace) {
         if (defined $_) {
           print $c[1]."    $OTHERS[14]   "; print $c[10]."[$_]\n";
@@ -237,23 +238,23 @@ sub getHtml {
   }
   if ($data) {
     if (defined $post || ($method && $method eq "post")) {
-      $response=$ua->post($URL, @defaultHeaders, Content => [$data]);
+      $response=$ua->post($URL, Content => [$data]);
     }elsif (defined $mupload || ($mupload && $mupload eq "upload")) {
-      $response=$ua->post($URL, @defaultHeaders, Content_Type => 'multipart/form-data', Content => [$data]);
+      $response=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
     }elsif (defined $get || ($method && $method eq "get")) { 
       $data=~s/\=>/\=/g; $data=~s/\,/&/g; $data=~s/\s//g;
       $data=~s/(\'|\")//g;
       $URL.="?".$data;
       $URL=~s/\s//g;
-      $response=$ua->get($URL, @defaultHeaders);
+      $response=$ua->get($URL);
     }
   }else{
     if (defined $post || ($method && $method eq "post")) {
-      $response=$ua->post($URL, @defaultHeaders); }
+      $response=$ua->post($URL); }
     elsif (defined $get || ($method && $method eq "get")) {
-      $response=$ua->get($URL, @defaultHeaders);
+      $response=$ua->get($URL);
     }else{
-      $response=$ua->get($URL, @defaultHeaders);
+      $response=$ua->get($URL);
     }
   }
   my $html=$response->decoded_content;

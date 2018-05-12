@@ -10,6 +10,8 @@ use HTTP::Request::Common;
 use Digest::MD5;
 use MIME::Base64;
 use Net::Ping;
+use HTTP::Cookies;
+
 ## Copy@right Alisam Technology see License.txt
 
 ## INTRODUCTION ###########################################################################################

@@ -2,6 +2,7 @@ ATSCAN SCANNER VERSION 13.1.0 RELEASE
 =====================================================
   CHANGES: 12/05/2018
   - Fix update.
+  - Fix validation by url.
   - Enjoy!
   =================
 

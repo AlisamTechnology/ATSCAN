@@ -84,7 +84,7 @@ sub printResults {
   my $o=OO();
   if ($o<$limit) {
     if ($result) {
-      titleSCAN() if $result && (defined $Hstatus || defined $validText || defined $notIn);
+      titleSCAN() if $result && (defined $Hstatus || defined $validText || defined $notIn || defined $validShell);
       validateResult($URL1, $status, $html, $response, $result);
     }
     elsif ($reg) {
@@ -163,10 +163,10 @@ sub checkValidation {
   if (defined $noExist || defined $Hstatus || $validText) {
     if (defined $noExist) {
       if (defined $Hstatus) { if ($status == $Hstatus) { $cV=""; } }
-      if (defined $validText) { if ($html=~m/^$validText$/i) { $cV=""; } }
+      if (defined $validText) { if ($html=~m/\b$validText\b/) { $cV=""; } }
     }else{
       if (defined $Hstatus) { if ($status ne $Hstatus) { $cV=""; } }
-      if (defined $validText) { if ($html!~m/^$validText$/i) { $cV=""; } }
+      if (defined $validText) { if ($html!~m/\b$validText\b/) { $cV=""; } }
     }
   }
   if (defined $notIn) { if (index($html, $notIn) != -1) { $cV=""; } }

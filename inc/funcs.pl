@@ -176,39 +176,31 @@ for my $sys(@sys) {
 
 our ($system, $agent, $ua);
 
-## TIMEOUT
-sub get_timeout {
-  my $time;
-  if (defined $timeout || $timeout) { $time=$timeout; }
-  else{ $time=5; }
-  return $time;
-}
-
 ## HEADERS
 @defaultHeaders = (
-  'Accept' => 'image/gif, image/x-xbitmap, image/jpeg, image/pjpeg,image/png, */*',
-  'Accept-Charset' => 'iso-8859-1,*,utf-8', 
-  'Accept-Language' => 'en-US',
-  'Accept' => 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, image/png, image/jpeg, image/gif;q=0.2, text/plain;q=0.8,
-   text/css, */*;q=0.1',
-  'Accept-Encoding' => 'gzip, deflate, compress;q=0.9',
-  'Connection' => 'keep-alive'
+  "Accept => image/gif, image/x-xbitmap, image/jpeg, image/pjpeg,image/png, */*",
+  "Accept-Charset => iso-8859-1,*,utf-8", 
+  "Accept-Language => en-US",
+  "Accept => text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, image/png, image/jpeg, image/gif;q=0.2, text/plain;q=0.8,
+   text/css, */*;q=0.1",
+  "Accept-Encoding => gzip, deflate, compress;q=0.9",
+  "Connection => keep-alive"
   );
 our $headers;
 
 if (defined $headers) {
-  @userHeaders=split (",", $headers);
-  push @defaultHeaders, @userHeaders;
+  push @defaultHeaders, $headers;
 }
 
-use HTTP::Cookies;
 ## SET PROXY
 $agent="Mozilla/5.0 (".$systems[rand @systems];
 $ua=LWP::UserAgent->new( agent => $agent, @defaultHeaders, cookie_jar => HTTP::Cookies->new());
 $ua->cookie_jar({});
 $ua->env_proxy;
-$timeout=get_timeout();
-$ua->timeout($timeout);
+if (defined $timeout || $timeout) {
+  $ua->timeout($timeout);
+}
+
 if ($proxy || $prandom || defined $proxy || defined $prandom) {  
   $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
 }
@@ -621,11 +613,10 @@ sub checkUloadedShell {
   my $URL1=$_[0];
   my $isUploaded="";
   $URL1=getHost($URL1);
-  $URL1="$URL1/$validShell";
-  $ua = LWP::UserAgent->new;
+  $URL1.=$validShell;
   my $reShell = $ua->get("$URL1");
   if ($reShell->is_success and ($reShell->code eq "200")) {
-    $URL1=$isUploaded;
+    $isUploaded=$URL1;
   }
   return $isUploaded;
 }
@@ -739,7 +730,7 @@ sub printProxy {
 sub Targs {
   our ($mindex, $Hstatus, $validText);
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
-             $regex, $command, $ping, $interactive);
+             $regex, $command, $ping, $interactive, $validShell);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;

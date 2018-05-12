@@ -28,7 +28,7 @@ if ($same eq "yes") {
     
   print $c[10]."[i] $ZT[1] ";
   open (LE, '>', $script) or nochmod($script, "exit");
-  print LE $r->content; close(LE);
+  print LE $r->decoded_content; close(LE);
   cc();
     
   print $c[10];
@@ -117,7 +117,7 @@ if ($same eq "yes") {
   system "rm -rf $Bin/atscan_update";
   if (!-d "$Bin/atscan_update") { cc(); }
   else{ bb(); }
-    
+
   my @unlinks=($scriptComplInstall, $scriptInstall, $Bin."/README.md", $Bin."/License.txt", $script_bac);
   for my $unlink(@unlinks) {
     print $c[10]."[i] $ZT[8] $unlink... ";
@@ -127,7 +127,7 @@ if ($same eq "yes") {
   
   sleep(1);
   print $c[3]."[i] $DT[7]\n";
-  print "$c[10]\n".$response->content.""; 
+  print "$c[10]\n".$response->decoded_content.""; 
   if (substr($0, -3) ne '.pl') {
     my $zs=$script.".pl";
     unlink $zs if -e $zs or nochmod($zs, "");

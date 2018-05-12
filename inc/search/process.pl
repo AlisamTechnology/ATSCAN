@@ -247,7 +247,6 @@ sub getHtml {
       $URL=~s/\s//g;
       $response=$ua->get($URL, @defaultHeaders);
     }
-     # print "$data";exit;
   }else{
     if (defined $post || ($method && $method eq "post")) {
       $response=$ua->post($URL, @defaultHeaders); }

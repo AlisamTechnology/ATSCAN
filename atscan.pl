@@ -92,6 +92,12 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'tool|?'=>\$toolInfo, 'pass|config'=>\$config, 'freq=s'=>\$freq, 'header=s'=>\$headers, 'source=s'=>\$msource, 'ping'=>\$ping, 'notin=s'=>\$notIn, 'expHost=s'=>\$expHost,
                          'expIp=s'=>\$expIp, 'zone=s'=>\$zone, 'interactive'=>\$interactive, 'vShell=s'=>\$validShell) or badArgs();
 
+## CHOMP ARGS STRINGS
+our @toChomp=($Hstatus, $validText, $command, $mmd5, $mencode64, $mdecode64, $port, $Target, $exploit, $p, $proxy, $prandom, $output,
+              $replace, $replaceFROM, $dork, $mlevel, $shell, $ifinurl, $motor, $timeout, $limit, $regex, $searchRegex, $data,
+              $payloads, $freq, $headers, $msource, $notIn, $expHost, $expIp, $zone, $validShell);
+for (@toChomp) { chomp ($_) if defined $_; }
+
 ## INCLUDES
 require "$Bin/inc/includes.pl";
 

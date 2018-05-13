@@ -11,7 +11,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px" class="main2"><b>ATSCAN V 13.1.0 </b></td>
+    <td width="780px" class="main2"><b>ATSCAN V 13.2.0 </b></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">4n0n4t</td>
@@ -460,7 +460,7 @@
         <hr>
        &#x25cf; <b>SET HEADERS:</b> <br>
        atscan --dork [dork / dorks.txt] --level [level] --header "Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'" <br/>
-       atscan -t target --data "name=> 'username', email=> 'xxxxxx', pass=> 'xxxxx'" --post --header "Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'" <br/>
+       atscan -t target --data "name=>username, email=>xxxxxx, pass=>xxxxx" --post --header "Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'" <br/>
         <hr>
       &#x25cf; <b>SEARCH ENGINE: </b> <br/>
        Search: atscan --dork [dork] --level [level]  <br/>
@@ -497,9 +497,9 @@
        Decode base64: --decode64 [string] <br/>
         <hr>
        &#x25cf; <b>DATA:</b> <br/>
-       Data: atscan -t [target] --data "field1 => 'value1', field2 => 'value2', field3 => 'value3'" [--post / --get / --upload]<br/>
-       Exploit: --exp/expHost <exploit> --data "field1 => 'value1', field2 => 'value2', field3 => 'value3'" --vShell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
-       Wordlist: --data "field1 => 'value1', field2 =>'WORDLIST:<wordlist path>'" --vShell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
+       Data: atscan -t [target] --data "field1=>value1, field2=>value2, field3=>value3" [--post / --get / --upload]<br/>
+       Exploit: --exp/expHost <exploit> --data "field1=>value1, field2=>value2, field3=>value3" --vShell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
+       Wordlist: --data "field1=>value1, field2=>WORDLIST:<wordlist path>" --vShell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
         <hr>
        &#x25cf; <b>EXTERNAL COMMANDES:</b> <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
@@ -534,7 +534,6 @@
        atscan -d [dorks.txt] -l [level] --replace [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replaceFROM [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string => new_string] --exp/expHost [payload] --status [code] / --valid [string] <br/>
-       atscan --data "name => 'john', "pass => 'value:file.txt'" -v [string] / --status [code] / --vShell <uploaded shell path> [--post / --get / --upload]<br/>
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
        atscan -t [target / targets.txt] --valid [string] --not in [string]<br/>        <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 

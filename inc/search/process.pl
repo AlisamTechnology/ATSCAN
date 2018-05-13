@@ -237,13 +237,12 @@ sub getHtml {
     else{ newIdentity(); }
   }
   if ($data) {
+    $data=dataFields($data);
     if (defined $post || ($method && $method eq "post")) {
       $response=$ua->post($URL, Content => [$data]);
     }elsif (defined $mupload || ($mupload && $mupload eq "upload")) {
       $response=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
-    }elsif (defined $get || ($method && $method eq "get")) { 
-      $data=~s/\=>/\=/g; $data=~s/\,/&/g; $data=~s/\s//g;
-      $data=~s/(\'|\")//g;
+    }elsif (defined $get || ($method && $method eq "get")) {
       $URL.="?".$data;
       $URL=~s/\s//g;
       $response=$ua->get($URL);
@@ -261,6 +260,24 @@ sub getHtml {
   my $status=$response->code;
   my $serverheader=$response->server;
   return ($response, $html, $status, $serverheader);
+}
+## GET DATA FORM FIELDS
+sub dataFields {
+  my $data=$_[0];
+  $data=~s/\s/\+/g;
+  $data=~s/\+=>/\=>/g;
+  $data=~s/\=>\+/\=>/g;
+  if (defined $get) {
+    $data=~s/\=>/\=/g;
+    $data=~s/\,\+/\,/g;
+    $data=~s/\,/\&/g;
+  }else{
+    $data=~s/\=>/\=>'/g;
+    $data=~s/\,/\',/g;
+    $data=~s/\+/ /g;
+    $data.="'";
+  }
+  return $data;
 }
 
 ## REGEX SCANS / EMAIL / IP / REGEX

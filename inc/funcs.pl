@@ -10,6 +10,9 @@ our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $no
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT, @defaultHeaders, @userHeaders);
 
+## USER PRE-CONFIGURATION
+our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $scriptbash);
+
 ## PRINT FILES 
 sub printFile {
   my ($File, $context)=@_;
@@ -22,9 +25,6 @@ sub is_folder_empty {
   opendir(my $dh, $dirname);
   return scalar(grep { $_ ne "." && $_ ne ".." } readdir($dh)) == 0;
 }
-
-## USER PRE-CONFIGURATION
-our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $scriptbash);
 
 ##
 sub checkSetting {
@@ -174,33 +174,35 @@ for my $sys(@sys) {
   }
 }
 
+## BROWSER
 our ($system, $agent, $ua);
 
-## HEADERS
-@defaultHeaders = (
-  "Accept => image/gif, image/x-xbitmap, image/jpeg, image/pjpeg,image/png, */*",
-  "Accept-Charset => iso-8859-1,*,utf-8", 
-  "Accept-Language => en-US",
-  "Accept => text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, image/png, image/jpeg, image/gif;q=0.2, text/plain;q=0.8,
-   text/css, */*;q=0.1",
-  "Accept-Encoding => gzip, deflate, compress;q=0.9",
-  "Connection => keep-alive"
-  );
-our $headers;
+## CREATE COOKIES IN DISK
+my $cookies = HTTP::Cookies->new(
+    file     => 'cookies.txt',
+    autosave => 1,
+);
 
+## HEADERS
+@defaultHeaders = ();
+our $headers;
 if (defined $headers) {
-  push @defaultHeaders, $headers;
+  @defaultHeaders=split (",", $headers);
+  foreach my $hdr(@defaultHeaders) {
+    $ua->push_header($hdr);
+  }
 }
 
-## SET PROXY
+## SET AGENT
 $agent="Mozilla/5.0 (".$systems[rand @systems];
-$ua=LWP::UserAgent->new( agent => $agent, @defaultHeaders, cookie_jar => HTTP::Cookies->new());
-$ua->cookie_jar({});
+$ua=LWP::UserAgent->new( agent => $agent);
+$ua->cookie_jar($cookies);
 $ua->env_proxy;
 if (defined $timeout || $timeout) {
   $ua->timeout($timeout);
 }
 
+## SET PROXY
 if ($proxy || $prandom || defined $proxy || defined $prandom) {  
   $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
 }

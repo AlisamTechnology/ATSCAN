@@ -1,8 +1,10 @@
-ATSCAN SCANNER VERSION 13.1.0 RELEASE
+ATSCAN SCANNER VERSION 13.2.0 RELEASE
 =====================================================
-  CHANGES: 12/05/2018
-  - Fix update.
-  - Fix validation by url.
+  CHANGES: 13/05/2018
+  - Fix:
+    * Validation.
+    * chomp all defined strings.
+    * Switch browser by defaut headers.
   - Enjoy!
   =================
 

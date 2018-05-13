@@ -56,11 +56,11 @@ use FindBin '$Bin';
   ."   Encode base64: --encode64 <string>  \n"
   ."   Decode base64: --decode64 <string> \n\n";
   ltak(); print $c[12]."  POST/GET DATA: \n".$c[10]
-  ."  Post data: atscan -t <target> --data \"field1\=\>\'value1\'\, field2\=\>\'value2\'\, field3\'\=\>value3\'\" --post / get / upload\n"
-  ."             atscan -t <target> --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" --post / get / upload\n"
-  ."             atscan -t <target> --data \"username\=\>\'john\'\, pass\=\>\'WORDLIST:<list path>\'\" --post / get / upload\n"
-  ."  Post + Exploit: --exp\/expHost <exploit> --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" -v <string> | --status <code> --post / get / upload\n"
-  ."  Post + Validation: --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" -v <string> | --status <code> --post / get / upload \n\n";
+  ."  Post data: atscan -t <target> --data \"field1\=\>value1\, field2\=\>value2\, field3\=\>value3\" --post / get / upload\n"
+  ."             atscan -t <target> --data \"username\=\>john\, pass\=\>1234\" --post / get / upload\n"
+  ."             atscan -t <target> --data \"username\=\>john\, pass\=\>WORDLIST:<list path>\" --post / get / upload\n"
+  ."  Post + Exploit: --exp\/expHost <exploit> --data \"username\=\>john\, pass\=\>1234\" -v <string> | --status <code> --post / get / upload\n"
+  ."  Post + Validation: --data \"username\=\>john\, pass\=\>1234\" -v <string> | --status <code> --post / get / upload \n\n";
   
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
@@ -94,7 +94,7 @@ use FindBin '$Bin';
   ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replaceFROM \"string \=\> new_string\" --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --exp/expHost <payload> --status <code> | --valid <string>\n"
-  ."   atscan  -d <dorks.txt> --exp <exploit> --data \"username\=\>\'john\'\, pass\=\>\'1234\'\" --post --vShell <path> | -v <string> | --status <code> \n"
+  ."   atscan  -d <dorks.txt> --exp <exploit> --data \"username\=\>john\, pass\=\>1234\" --post --vShell <path> | -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--sql | --shost ..] --status <code> | --valid <string> \n\n";
   
   ltak(); print $c[12]."  UPDATE TOOL: \n".$c[10]."   --update\n";

@@ -239,7 +239,7 @@ sub getHtml {
   if ($data) {
     $data=dataFields($data);
     if (defined $post || ($method && $method eq "post")) {
-      $response=$ua->post($URL, Content => [$data]);
+      $response=$ua->post($URL, content_type => 'application/x-www-form-urlencoded', Content => [$data]);
     }elsif (defined $mupload || ($mupload && $mupload eq "upload")) {
       $response=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
     }elsif (defined $get || ($method && $method eq "get")) {

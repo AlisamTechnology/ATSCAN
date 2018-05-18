@@ -47,7 +47,7 @@ echo "";
 ### Check system compatibility
 if [ -d "/usr/bin/" ];
 then
-echo "[!] By installing ATSCAN you agree to our conditions! [Y/n]: ";
+echo "[!] By installing this software you agree to our terms! [Y/n]: ";
 read baba
 if [ "$baba" == "y" ] || [ "$baba" == "Y" ] || [ -z "$baba" ]; 
 then
@@ -96,32 +96,34 @@ then
    read refdir
   done
 fi
-
+      
 ## Begin instalation
-echo "[i] Installing.. Plaise wait...";
+echo "[!] Installing.. Plaise wait...";
 
 if [ $current != $refdir ];
 then
-  echo "[i] Moving files to $refdir ...";
-  cp -r $current/* $refdir;
+ sleep 1 && echo "[i] Moving files to $refdir ...                          [5%]";
+ cp -r $current/* $refdir;
 fi 
 
- sleep 1 && echo "[i] Creating symbolic link...";
+ sleep 1 && echo "[i] Creating symbolic link...                                      [12%]";
  echo "#!/bin/bash 
  perl $refdir/atscan.pl" '${1+"$@"}' > atscan;
  chmod +x atscan;
  sudo cp atscan /usr/bin/;
  rm atscan;
- sleep 1 && echo "[i] Creating Completion link...";
+ sleep 1 && echo "[i] Creating Completion link...                                    [18%]";
  if [ -d "/etc/bash_completion.d" ] ;
  then
    chmod +x $refdir/inc/conf/atscan;
    sudo cp $refdir/inc/conf/atscan /etc/bash_completion.d/;
  fi
  
+ sleep 1 && echo "[i] Setting update files...                                        [30%]";
  echo `date +%Y%j` >> $refdir/inc/conf/uplog.log;
  echo -en "\n" >> $refdir/inc/conf/version.log;
- 
+
+ sleep 1 && echo "[i] Creating shirt links...                                        [38%]";
  if [ ! -d "/usr/share/applications" ]; 
  then
    mkdir "/usr/share/applications";  
@@ -134,6 +136,7 @@ fi
    echo "Warning! Failed to add direct access to the applications menu!";  
  fi
 
+ sleep 1 && echo "[i] Copying icons...                                               [47%]";
  if [ ! -d "/usr/share/icons" ]; 
  then
    mkdir "/usr/share/icons";  
@@ -214,14 +217,14 @@ fi
  fi
  ########################################################################################################################
  
- sleep 1 && echo "[i] Copying README.md to /usr/share/doc/atscan...";
+ sleep 1 && echo "[i] Copying README.md to /usr/share/doc/atscan...                  [75%]";
  chmod +x "/usr/share/doc/atscan/";
  chmod +x $refdir/README.md;
  sudo cp $refdir/README.md /usr/share/doc/atscan/;
- sleep 1 && echo "[i] Copying License.txt to /usr/share/doc/atscan...";
+ sleep 1 && echo "[i] Copying License.txt to /usr/share/doc/atscan...                [83%]";
  chmod +x $refdir/License.txt;
  sudo cp $refdir/License.txt /usr/share/doc/atscan/;
- echo "[i] Removing install files...";
+ sleep 1 && echo "[i] Removing install files...                                      [92%]";
  rm $refdir/inc/conf/atscan;
  rm $refdir/install.sh; 
  if [ -d "$refdir/atscan_install" ];
@@ -253,7 +256,7 @@ fi
   sudo sed -i 's/atscan;/atscan --interactive;/g' /usr/share/applications/atscan.desktop;
   echo "interactive on" >> $refdir/inc/conf/userSetting;
  fi
-  echo "[i] Tool successfully installed and will start in 3s!";
+ sleep 1 && echo "[i] Tool successfully installed and will start in 3s!..           [100%]";
  sleep 3;
  atscan --update;
 else

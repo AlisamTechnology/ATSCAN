@@ -1,10 +1,8 @@
 ATSCAN SCANNER VERSION 13.2.0 RELEASE
 =====================================================
-  CHANGES: 13/05/2018
-  - Fix:
-    * Validation.
-    * chomp all defined strings.
-    * Switch browser by defaut headers.
+  CHANGES: 22/05/2018
+  - Fix replace bug.
+  - Move cookies file to user configuration.
   - Enjoy!
   =================
 

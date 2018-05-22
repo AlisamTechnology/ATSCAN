@@ -179,7 +179,7 @@ our ($system, $agent, $ua);
 
 ## CREATE COOKIES IN DISK
 my $cookies = HTTP::Cookies->new(
-    file     => 'cookies.txt',
+    file     => 'inc/conf/user/cookies.txt',
     autosave => 1,
 );
 
@@ -479,6 +479,8 @@ sub checkVreplace {
   @replace=($replace, $replaceFROM);
   for (@replace) {
     if (defined $_) {
+      $_=~s/\s\=\>/=>/g;
+      $_=~s/\=\>\s/=>/g;
       @replaceParts=split("=>", $_);
     }
   }

@@ -176,7 +176,7 @@ our $motorparam="1|2|3|4|5|all";
 our @mrands=($motor1, $motor2, $motor3, $motor4, $motor5);
 our $mrand=$mrands[rand @mrands];
 our @allMotors=($motor1, $motor2, $motor3, $motor4, $motor5);
-our $pat2='inurl:|intitle:|intext:|allinurl:|index of|site:(.*)\+|\+site:(.*)';
+our $pat2='inurl:|intitle:|intext:|allinurl:|index of:|site:(.*)\+|\+site:(.*)';
 our $paylNote="[i] $DT[28]\n";
 
 ## BROWSER RANDOM

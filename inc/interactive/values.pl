@@ -76,8 +76,8 @@ our @INTERdecryp=("md5", "encode64", "decode64");
 our %INTERdecryp=("md5"=>"generate md5", "encode64"=>"encode base64", "decode64"=>"decode base64");
 
 ## EXTERN PROCESS
-our @INTERcomnd=("command");
-our %INTERcomnd=("command"=>"extern process");
+our @INTERcomnd=("command", "popup");
+our %INTERcomnd=("command"=>"extern process", "popup"=>"New window");
 
 ## ALL ENGINE COMMANDES
 our @ENGINEARGUMENTS=(@INTERdork, @INTERtarget, @INTERSearchScans, @INTERlevel);

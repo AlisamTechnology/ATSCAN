@@ -350,7 +350,7 @@ sub getComnd {
   
   print "$c[10]            => $c[10]$comnd\n";
   if (defined $popup) {
-    $comnd="sudo xterm -title '$URL1' -e '$comnd'";
+    $comnd="sudo xterm -title '$URL1' -hold -e '$comnd'";
     print "$c[4]            [!] $c[10]Opening process in extern window..\n";
     sleep 1;
   }

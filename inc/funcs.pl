@@ -30,13 +30,15 @@ sub is_folder_empty {
 sub checkSetting {
   my $object=$_[0];
   my ($l1, @ans);
-  open(F2, $userSetting);
-  while (my $l=<F2>) {
-    chomp $l;
-    if ($l=~/$object\s(.*)/) {
-      $l1=$l;
-      @ans=split(" ", $l);
-      $l1=~s/$ans[0]\s//ig;
+  if (-e $userSetting) {  
+    open(F2, $userSetting);
+    while (my $l=<F2>) {
+      chomp $l;
+      if ($l=~/$object\s(.*)/) {
+        $l1=$l;
+        @ans=split(" ", $l);
+        $l1=~s/$ans[0]\s//ig;
+      }
     }
   }
   close(F2);

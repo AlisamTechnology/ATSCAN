@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $mindex,
-     $content, $ping, $replace, $replaceFROM, $validShell);
+     $content, $ping, $replace, $replaceFROM, $validShell, $popup);
 our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @replace, @TT, @SCAN_TITLE,
      @DT, @OTHERS, @c);
 
@@ -13,6 +13,11 @@ our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $shell, $
 if (defined $Target) {
   my $Targ=Targs();
   if ($Targ<1) { print $c[4]."[!] $OTHERS[7]\n"; logoff(); }
+}
+
+## CHECK POPUP ARGUMENT IS USED WITH EXTERN COMMANDS
+if (defined $popup and !defined $command) {
+  print $c[4]."[!] --popup argument can only be used with --command argument!\n"; logoff();
 }
 
 if (defined $exploit or $exploit) {

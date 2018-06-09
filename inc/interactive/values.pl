@@ -49,7 +49,7 @@ our @ARGUMENTSALL=('status', 'valid','vShell', 'exp', 'proxy', 'proxy-random', '
 ## NOT REQUIRE A VALUE
 our @NoValRequierd=('none', 'host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noinfo', 'update', 'ip', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
                    'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'zip', 'email', 'ip', 'ports', 'commands', 'form', 'search', 'normal',
-                   'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule');
+                   'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup');
 
 ## DATA ARGUMENTS
 our @INTERDataScan=('post', 'get', 'data', 'header', 'upload');

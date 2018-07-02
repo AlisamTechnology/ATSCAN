@@ -31,6 +31,7 @@ sub makeSscan {
     else{
       $count++;
       print "\n" if $count>1;
+      sleep (1);
       points(); dpoints(); points();
       print $c[1]."    $DS[9]  "; print $c[10].$c[7]."[$count/$lc] $URL\n";
       if (defined $replace || defined $replaceFROM) {

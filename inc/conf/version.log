@@ -1,7 +1,6 @@
 ATSCAN SCANNER VERSION 13.2.3 RELEASE
 =====================================================
-  CHANGES: 12/06/2018
-  - Fix popup process.
+  CHANGES: 02/07/2018
+  - Fix timer after each scan process.
   - Enjoy!
   =================
-

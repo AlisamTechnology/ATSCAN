@@ -1,6 +1,6 @@
-ATSCAN SCANNER VERSION 13.2.3 RELEASE
+ATSCAN SCANNER VERSION 13.3.0 RELEASE
 =====================================================
-  CHANGES: 02/07/2018
-  - Fix timer after each scan process.
+  CHANGES: 09/08/2018
+  - Fix server domains scan process.
   - Enjoy!
   =================

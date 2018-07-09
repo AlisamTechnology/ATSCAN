@@ -322,7 +322,7 @@ if (defined $mlevel) {
 	    }
       }
     }else{
-      @dorks=buildArraysLists($Target);
+      push @dorks, "ip%3A".$Target;
     }
   }
 }else{
@@ -495,7 +495,7 @@ sub control {
   }
   if (defined $mdom || defined $expHost) {               
 	$URL=getHost($URL);
-  }
+  }  
   if (defined $replace) {
     $URL=~s/\Q$replaceParts[0]/$replaceParts[1]/ig;
   }

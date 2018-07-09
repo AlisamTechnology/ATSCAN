@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $noExist, $notIn, $expHost, $mupload, $expIp, $popup);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $noExist, $notIn, $expHost, $mupload, $expIp, $popup, $JoomSites, $WpSites);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
 
@@ -51,7 +51,7 @@ sub doSearch {
         my $dorkToCheeck=checkFilters($dork);
         $URL=filterUr($URL, $dorkToCheeck);
       }
-	  if ((defined $mdom) || (defined $expHost) || (defined $expIp)) {               
+	  if ((defined $mdom) || (defined $expHost) || (defined $expIp) || (defined $WpSites) || (defined $JoomSites)) {               
 		$URL=getHost($URL);
       }
       my $vURL=validateURL($URL);

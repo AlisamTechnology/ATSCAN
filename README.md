@@ -547,7 +547,7 @@
        atscan --uninstall
         <hr>
        &#x25cf; <b>THANKS TO: </b><br/>     
-       Blackarch linux & dragos os developers.
+       Blackarch linux & dragos os developers to incorporate my project in their systems.
        </td></tr></table>     
     </td>
   </tr>

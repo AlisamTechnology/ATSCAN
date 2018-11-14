@@ -205,7 +205,7 @@
         <td class="main"> Post and Get forms. See examples </td>
       </tr>
       <tr>
-        <td width="200px" class="main">--vShell</td>
+        <td width="200px" class="main">--vshell</td>
         <td class="main"> Validate by url</td>
       </tr>
       <tr>
@@ -502,8 +502,8 @@
         <hr>
        &#x25cf; <b>DATA:</b> <br/>
        Data: atscan -t [target] --data "field1=>value1, field2=>value2, field3=>value3" [--post / --get / --upload]<br/>
-       Exploit: --exp/expHost <exploit> --data "field1=>value1, field2=>value2, field3=>value3" --vShell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
-       Wordlist: --data "field1=>value1, field2=>WORDLIST:<wordlist path>" --vShell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
+       Exploit: --exp/expHost <exploit> --data "field1=>value1, field2=>value2, field3=>value3" --vshell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
+       Wordlist: --data "field1=>value1, field2=>WORDLIST:<wordlist path>" --vshell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
         <hr>
        &#x25cf; <b>EXTERNAL COMMANDES:</b> <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
@@ -531,7 +531,7 @@
         <hr>
        &#x25cf; <b>SCAN VALIDATION: </b><br/>
        atscan -t [target / targets.txt] [--status [code] / --valid [string] <br/>
-       atscan -t [target / targets.txt] --vShell [file path] <br/>
+       atscan -t [target / targets.txt] --vshell [file path] <br/>
        atscan -d [dork / dorks.txt] -l [level] --exp/expHost [payload] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] [--admin / --sql ..] --status [code] / --valid [string] <br/>  

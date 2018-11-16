@@ -44,12 +44,12 @@ our %SCANS=("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"
 our %ARGUMENTSALL=("status"=>"status code", "valid"=>"content by string", "vshell"=>"validate by url", "exp"=>"exploit", "proxy"=>"use proxy", "proxy-random"=>"random proxy", "save"=>"output file",
                    "replace"=>"Exact string replace", "replaceFROM"=>"full string replace", "ifinurl"=>"valid url by string", "noquery"=>"remove query string", "b-random"=>"random browser",
                    "content"=>"response content", "expHost"=>"exploit host", "expIp"=>"exploit target ip", "timeout"=>"browser time out", "host"=>"host name");
-our @ARGUMENTSALL=('status', 'valid', '', 'exp', 'proxy', 'proxy-random', 'save', 'replace', 'replaceFROM', 'ifinurl', 'noquery', 'b-random', 'content', 'expHost', 'expIp', 'timeout', 'host');
+our @ARGUMENTSALL=('status', 'valid', 'vshell', 'exp', 'proxy', 'proxy-random', 'save', 'replace', 'replaceFROM', 'ifinurl', 'noquery', 'b-random', 'content', 'expHost', 'expIp', 'timeout', 'host');
 
 ## NOT REQUIRE A VALUE
-our @NoValRequierd=('none', 'host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noinfo', 'update', 'ip', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
+our @NoValRequierd=('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noinfo', 'update', 'ip', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
                    'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'zip', 'email', 'ip', 'ports', 'commands', 'form', 'search', 'normal',
-                   'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup');
+                   'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup', 'all');
 
 ## DATA ARGUMENTS
 our @INTERDataScan=('post', 'get', 'data', 'header', 'upload');
@@ -84,9 +84,9 @@ our @ENGINEARGUMENTS=(@INTERdork, @INTERtarget, @INTERSearchScans, @INTERlevel);
 our %ENGINEARGUMENTS=(%ENGINEARGUMENTS, %INTERdork, %INTERtarget, %INTERSearchScans, %INTERlevel);
 
 ## ADVANCED MODE
-our @INTERadvanced=("nobanner", "beep", "noinfo", "ifend", "freq", "regex", "sregex", "none", "notin", "source", "limit");
+our @INTERadvanced=("nobanner", "beep", "noinfo", "ifend", "freq", "regex", "sregex", "exclude", "all", "source", "limit");
 our %INTERadvanced=("nobanner"=>"hide banner", "beep"=>"beep sound", "noinfo"=>"hide target info", "ifend"=>"beep at end", "freq"=>"random frequency", "regex"=>"get matching regex",
-                    "sregex"=>"valid url by regex", "none"=>"negative validation", "notin"=>"no string in html", "source"=>"html output folder", "limit"=>"max positive scans");
+                    "sregex"=>"valid url by regex", "exclude"=>"negative validation", "all"=>"validate all", "source"=>"html output folder", "limit"=>"max positive scans");
 ##############################################################################################
 
 1;

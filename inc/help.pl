@@ -85,9 +85,10 @@ use FindBin '$Bin';
   ."   atscan -d <dork | dorks.txt> -l <level> --unique \n\n";
   
   ltak(); print $c[12]."  SCAN VALIDATION: \n".$c[10]
-  ."   atscan -t <target | targets.txt> [--status <code> | --valid <string>] \n"
+  ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> | --valid <list.txt>] \n"
+  ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> --all] \n"
+  ."   atscan -t <target | targets.txt> [--status <code> | --exclude <string> | --exclude <list.txt>] \n"
   ."   atscan -t <target | targets.txt> --vshell <path> \n"
-  ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> --none] \n"
   ."   atscan -d <dork | dorks.txt> -l <level> --exp/expHost <payload> --status <code> | --valid <string> \n"
   ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --status <code> | --valid <string> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--admin | --sql ..] --status <code> | --valid <string> \n"  

@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $noExist, $notIn, $expHost, $mupload, $expIp, $popup, $JoomSites, $WpSites);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $notIn, $expHost, $mupload, $expIp, $popup, $JoomSites, $WpSites);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
 
@@ -101,7 +101,6 @@ sub printDork {
   print $c[1]."[::] $DS[18]   $c[10] [$mlevel]\n";
   if (defined $ifinurl || defined $unique || $unique || defined $searchRegex) {
     print $c[1]."[::] $SCAN_TITLE[24]   $c[10]";
-    if (defined $noExist) { print "[None]"; }
     if (defined $ifinurl) { print "[$TT[19]\]"; }
     if (defined $unique || $unique) { print "[$DS[30]\]"; }
     if (defined $searchRegex) { print " [$searchRegex]"; }
@@ -285,8 +284,8 @@ sub getRegex {
   my ($URL1, $html, $reg)=@_;
   my $o=OO();
   if ($o<$limit) {
-    if (!defined $searchIps and !defined $eMails) { print $c[1]."    $SCAN_TITLE[25]  $c[10]";
-      if (defined $noExist) { print "[None: "; }
+    if (!defined $searchIps and !defined $eMails) {
+      print $c[1]."    $SCAN_TITLE[25]  $c[10]";
       print "$reg] \n";
     }
     titleSCAN();

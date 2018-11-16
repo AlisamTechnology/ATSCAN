@@ -4,8 +4,8 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($limit, $get, $post, $Hstatus, $validText, $noExist, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, $command, $data, $validShell,
-     @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data);
+our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, $command, $all,
+     $data, $validShell, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists, @notExists);
 
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
@@ -62,15 +62,28 @@ sub buildPrint {
 ## BUILD SCAN RESULTS LISTS
 sub titleSCAN {
   my $o=OO();
+  my $html=$_[0];
   if ($o<$limit) { 
     if ((defined $Hstatus) || (defined $validText)) {
       print $c[1]."    $DS[12]   ";
-      if (defined $noExist) { print $c[10]."None: "; }
-      if (defined $validText) { print $c[10]."$validText "; }
+      if (defined $validText) {
+        if (defined $all) { print $c[10]."[All] "; }
+        print $c[10]."$validText ";
+        if (!defined $all) {
+          for my $ffff(@validTexts) {
+            if ($html=~m/\b$ffff\b/) {
+              print $c[4]."[$ffff]";
+            }
+          }
+        }
+        
+      }
       if (defined $Hstatus) { print $c[10]."$DS[13] $Hstatus "; }
       print "\n";
     }
-    if (defined $notIn) { print $c[1]."    Filter  $c[10]\[None: $notIn]\n"; }
+    if (defined $notIn) {
+      print $c[1]."    EXCLUDE $c[10]\[$notIn]\n";
+    }
     print $c[1]."    $DS[4]    ";
   }
 }
@@ -84,15 +97,15 @@ sub printResults {
   my $o=OO();
   if ($o<$limit) {
     if ($result) {
-      titleSCAN() if $result && (defined $Hstatus || defined $validText || defined $notIn || defined $validShell);
+      titleSCAN($html) if $result && (defined $Hstatus || defined $validText || defined $notIn || defined $validShell);
       validateResult($URL1, $status, $html, $response, $result);
     }
     elsif ($reg) {
       getRegex($URL1, $html, $reg); }
     elsif ($data) {
-      titleSCAN(); formData($URL1, $html, $status, $response); 
+      titleSCAN($html); formData($URL1, $html, $status, $response); 
     }else{
-      titleSCAN();
+      titleSCAN($html);
       if ($isFilter) {
         if ($html=~/$filter/) {
           validateResult($URL1, $status, $html, $response, "");
@@ -155,21 +168,44 @@ sub ifShellSuccess {
   return $ccv;
 }
 
+## GET VALIDATION PARTS
+sub getValidationParts {
+  my ($html, $validType, $validRef)=@_;
+  my @validationArray=@{ $validType };
+  my $validation_number=0;
+  (@exists, @notExists)=();
+  for my $validPart(@validationArray) {
+    if ($html=~m/\b$validPart\b/) {
+      $validation_number++;
+      if ($validRef eq 1) {
+        push @exists, $validPart;
+      }else{
+        push @notExists, $validPart;
+      }
+    }
+  }
+  return $validation_number;
+}
 
 ## CHECK VALIDATION SEARCH RESULTS / TARGETS LIST
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV=$URL1;
-  if (defined $noExist || defined $Hstatus || $validText) {
-    if (defined $noExist) {
-      if (defined $Hstatus) { if ($status == $Hstatus) { $cV=""; } }
-      if (defined $validText) { if ($html=~m/\b$validText\b/) { $cV=""; } }
+  if (defined $Hstatus) { if ($status ne $Hstatus) { $cV=""; } }
+  if (defined $validText) {
+    my $validation_number = getValidationParts($html, \@validTexts, "1");
+    if (defined $all) {
+      if (scalar(grep { defined $_} @validTexts) ne scalar(grep { defined $_} @exists)) { $cV=""; }
     }else{
-      if (defined $Hstatus) { if ($status ne $Hstatus) { $cV=""; } }
-      if (defined $validText) { if ($html!~m/\b$validText\b/) { $cV=""; } }
+      if ($validation_number <= 0) { $cV=""; }
     }
   }
-  if (defined $notIn) { if (index($html, $notIn) != -1) { $cV=""; } }
+  
+  if (defined $notIn) {
+    my $notin_number = getValidationParts($html, \@notIns, "2");
+    if ($notin_number > 0) { $cV=""; }
+  }
+
   if (defined $validShell) {
     my $isUploaded=checkUloadedShell($URL1);
     if (!$isUploaded) { $cV=""; }

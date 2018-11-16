@@ -112,12 +112,4 @@ sub advise_no_file {
   print $c[2]."[!] Cannot whrite in $no_file !\n"; logoff();
 }
 
-## Negative scans
-our $noExist;
-if (defined $noExist) {
-  if (!defined $Hstatus && !defined $validText && !defined $ifinurl && !defined $searchRegex){
-    print $c[4]."[!] You cannot use --none command here! Use -h for help\n"; logoff();
-  }  
-}
-
 1;

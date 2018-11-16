@@ -7,8 +7,8 @@ use POSIX qw(strftime);
 
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
-     $V_IP, $expIp, $interactive, $command, $uplog, $validShell);
-our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT, @defaultHeaders, @userHeaders);
+     $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all);
+our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT, @defaultHeaders, @userHeaders, @validTexts, @notIns);
 
 ## USER PRE-CONFIGURATION
 our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $scriptbash);
@@ -132,6 +132,10 @@ if (defined $payloads || $payloads) { @userArraysList=buildArraysLists($payloads
 if (defined $exploit) { @exploits=buildArraysLists($exploit); }
 if (defined $expHost) { @exploits=buildArraysLists($expHost); }
 if (defined $expIp) { @exploits=buildArraysLists($expIp); }
+
+## VALIDATION ARRAYS
+if (defined $validText) { @validTexts=buildArraysLists($validText); }
+if (defined $notIn) { @notIns=buildArraysLists($notIn); }
 
 ## MAX POSITIVE SCAN RESULTS
 ## Change for more positive scans!!
@@ -547,23 +551,13 @@ sub checkFilters {
 ## GET FILTRED URLS
 sub filterUr {
   my ($URL, $dorkToCheeck)=@_;
-  our $noExist;
   my $U="";
-  if (defined $noExist) {
-    if (defined $unique || $unique) {
-      if (index($URL, $dorkToCheeck) == -1) { $U=$URL; }
-    }
-    if (defined $ifinurl) {
-      if (index($URL, $ifinurl) == -1) { $U=$URL; }
-    }
-  }else{
-    if (defined $unique || $unique) {
-      if (index($URL, $dorkToCheeck) != -1) { $U=$URL; }
-    }
-    if (defined $ifinurl) {
-      if (index($URL, $ifinurl) != -1) { $U=$URL; }
-    }
-  } 
+  if (defined $unique || $unique) {
+    if (index($URL, $dorkToCheeck) != -1) { $U=$URL; }
+  }
+  if (defined $ifinurl) {
+    if (index($URL, $ifinurl) != -1) { $U=$URL; }
+  }
   return $U;
 }
 
@@ -588,7 +582,7 @@ sub OO { my $o=scalar(grep { defined $_} @aTscans); return $o; }
 ## END SCAN PROCESS
 sub subfin {
   our $ifend;
-  print $c[2]."[!] "; timer(); print " $DT[3]!\n";
+  print $c[4]."[!] "; timer(); print " $DT[3]!\n";
   if (defined $ifend || $ifend) { print chr(7); }
 }
 
@@ -602,13 +596,8 @@ sub countResultLists {
 ## SEARCH REGEX FILTER
 sub doRegex { 
   my $searchRegex=$_[0];
-  our $noExist;
   for my $URL(@aTsearch) {
-    if (defined $noExist) {
-      if ($URL!~/$searchRegex/) { saveCopy($URL); }
-    }else{
-      if ($URL=~/$searchRegex/) { saveCopy($URL); }
-    }
+    if ($URL=~/$searchRegex/) { saveCopy($URL); }
   }
 }
 
@@ -734,7 +723,7 @@ sub printProxy {
 sub Targs {
   our ($mindex, $Hstatus, $validText);
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
-             $regex, $command, $ping, $interactive, $validShell);
+             $regex, $command, $ping, $interactive, $validShell, $notIn);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;

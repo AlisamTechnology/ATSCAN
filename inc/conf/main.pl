@@ -5,7 +5,8 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our (@TODO, @V_WP, @V_JOOM, @XSS, @V_XSS, @LFI, @V_LFI, @E_SHELL, @ADFWP, @V_AFD, @ADMIN, @V_TODO, @SUBDOMAIN, @UPLOAD, @ZIP, @SCAN_TITLE, @RFI, @c, @DT); 
-our ($paylNote, $V_EMAIL, $V_IP, $V_REGEX, $command, $mmd5, $mencode64, $mdecode64, $mlevel, $Target, $dork, $noExist, $Hstatus, $validText, $data);
+our ($paylNote, $V_EMAIL, $V_IP, $V_REGEX, $command, $mmd5, $mencode64, $mdecode64, $mlevel, $Target, $dork, $Hstatus, $validText,
+     $data);
 
 ## PRINT ENGINE RESULTS
 sub printSearch {
@@ -17,7 +18,7 @@ sub printSearch {
     print $c[3]."[i] ".scalar(grep { defined $_} @aTsearch)." $DT[4]\n";
     my $k=getK(0, 0);
     if (!$k) {
-      if (defined $noExist || defined $Hstatus || defined $validText) {
+      if (defined $Hstatus || defined $validText) {
         ptak(); print $c[11]."[!] ";timer(); print " ::: STARTING VALIDATION PROCESS SCAN.. :::\n";
       }
       makeSscan("", "", "", \@TODO, \@V_TODO, "", "", "1", "", "", "", "", "", "1");

@@ -11,7 +11,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px" class="main2"><b>ATSCAN V 13.3.0 </b></td>
+    <td width="780px" class="main2"><b>ATSCAN V 14.0.0 </b></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">4n0n4t</td>
@@ -254,8 +254,12 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--valid / -v   </td>
-        <td class="main"> Validate by string </td>
-      </tr> 
+        <td class="main"> Validate by string at least 1 is matching</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--all </td>
+        <td class="main"> Validate all given strings </td>
+      </tr>
       <tr>
         <td width="200px" class="main">--status  </td>
         <td class="main"> Validate by http header status </td>
@@ -269,12 +273,8 @@
         <td class="main"> Get targets with exact regex matching</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--none </td>
-        <td class="main"> Get negative validation or engine regex matching</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--notin </td>
-        <td class="main"> Get targets where string doesnot exist in html</td>
+        <td width="200px" class="main">--exclude </td>
+        <td class="main"> Get targets where strings do not exist in html</td>
       </tr>
       <tr>
         <td width="200px" class="main">--unique  </td>
@@ -521,9 +521,9 @@
        atscan --dork [dork] --level [10] [--lfi | --sql ..] --payload [payload | payloads.txt] <br/>
         <hr>
        &#x25cf; <b>SEARCH VALIDATION: </b><br/>
-       atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string] <br/>
-       atscan -d [dork / dorks.txt] -l [level] --status [code] --none (Positive when status does\'nt match)<br/>
-       atscan -d [dork / dorks.txt] -l [level] --status [code] / -v [string] / --ifinurl [string] / --sregex [regex] --none<br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string/list.txt] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string/list.txt] --all <br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / --exclude [string/list.txt] <br/>
        atscan -d [dork / dorks.txt] -l [level] --ifinurl [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --sregex [regex] --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --regex [regex] --valid [string] <br/>

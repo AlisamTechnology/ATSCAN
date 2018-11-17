@@ -38,7 +38,7 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  REGULAR EXPRESSIONS: \n".$c[10]
   ."   Regex use: atscan [--dork <dork> | -t <target>] --level <level> --regex <regex>\n"
-  ."   IP: ((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){ 3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\n"
+  ."   IP: ((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.)\\{ 3\\}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\n"
   ."   E-mails: ".'((([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})'."\n\n";
   
   ltak(); print $c[12]."  REPEATER: \n".$c[10]
@@ -82,9 +82,7 @@ use FindBin '$Bin';
   ."   atscan -d <dork | dorks.txt> -l <level> --status <code> | --valid <string> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> --ifinurl <string> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> --regex <regex> --valid <string>\n"
-  ."   atscan -d <dork | dorks.txt> -l <level> --unique \n\n";
-  
-  ltak(); print $c[12]."  SCAN VALIDATION: \n".$c[10]
+  ."   atscan -d <dork | dorks.txt> -l <level> --unique \n"
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> | --valid <list.txt>] \n"
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> --all] \n"
   ."   atscan -t <target | targets.txt> [--status <code> | --exclude <string> | --exclude <list.txt>] \n"

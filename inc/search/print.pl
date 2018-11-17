@@ -59,30 +59,52 @@ sub buildPrint {
   }
 }
 
+## PRINT VALIDATED STRINGS
+sub printValidated {
+  my $ins=$_[0];
+  my @ins=@{$ins};
+  print $c[1]."    $DS[12]   ";
+  for my $in(@ins) {
+    print $c[4]."[$in]";
+  }
+  print "\n";
+}
+
 ## BUILD SCAN RESULTS LISTS
 sub titleSCAN {
   my $o=OO();
-  my $html=$_[0];
-  if ($o<$limit) { 
-    if ((defined $Hstatus) || (defined $validText)) {
-      print $c[1]."    $DS[12]   ";
-      if (defined $validText) {
-        if (defined $all) { print $c[10]."[All] "; }
-        print $c[10]."$validText ";
-        if (!defined $all) {
-          for my $ffff(@validTexts) {
-            if ($html=~m/\b$ffff\b/) {
-              print $c[4]."[$ffff]";
-            }
-          }
+  my ($html, $status)=@_;
+  if ($o<$limit) {
+    my (@in, @noins)=();
+    if (defined $validText) {
+      for my $ffff(@validTexts) {
+        if ($html=~m/\b$ffff\b/) {
+          push @in, $ffff;
         }
-        
       }
-      if (defined $Hstatus) { print $c[10]."$DS[13] $Hstatus "; }
-      print "\n";
+      if (defined $all) {
+        if (scalar(grep { defined $_} @in) eq scalar(grep { defined $_} @validTexts)) {
+          printValidated(\@in);
+        }             
+      }else{
+        if (scalar(grep { defined $_} @in) > 0) {
+          printValidated(\@in);
+        }
+      }
     }
+    if (defined $Hstatus and ($status=~m/$Hstatus/)) {
+      print $c[1]."    STATUS  ".$c[4]."[$DS[13] $Hstatus] \n";
+    }
+
     if (defined $notIn) {
-      print $c[1]."    EXCLUDE $c[10]\[$notIn]\n";
+      for my $noin(@notIns) {
+        if ($html=~m/\b$noin\b/) {
+          push @noins, $noin;
+        }
+      }
+      if (scalar(grep { defined $_} @noins) eq 0) {
+        print $c[1]."    EXCLUDE $c[4]\[$notIn]\n";
+      }
     }
     print $c[1]."    $DS[4]    ";
   }
@@ -97,15 +119,15 @@ sub printResults {
   my $o=OO();
   if ($o<$limit) {
     if ($result) {
-      titleSCAN($html) if $result && (defined $Hstatus || defined $validText || defined $notIn || defined $validShell);
+      titleSCAN($html, $status) if $result && (defined $Hstatus || defined $validText || defined $notIn || defined $validShell);
       validateResult($URL1, $status, $html, $response, $result);
     }
     elsif ($reg) {
       getRegex($URL1, $html, $reg); }
     elsif ($data) {
-      titleSCAN($html); formData($URL1, $html, $status, $response); 
+      titleSCAN($html, $status); formData($URL1, $html, $status, $response); 
     }else{
-      titleSCAN($html);
+      titleSCAN($html, $status);
       if ($isFilter) {
         if ($html=~/$filter/) {
           validateResult($URL1, $status, $html, $response, "");

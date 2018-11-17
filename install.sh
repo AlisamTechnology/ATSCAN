@@ -102,7 +102,7 @@ echo "[!] Installing.. Plaise wait...";
 
 if [ $current != $refdir ];
 then
- sleep 1 && echo "[i] Moving files to $refdir ...                          [5%]";
+ sleep 1 && echo "[i] Moving files to $refdir ...                         [ 5%]";
  cp -r $current/* $refdir;
 fi 
 

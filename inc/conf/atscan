@@ -7,7 +7,7 @@ _atscan()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="-v -s -e -h -l -d -p -t -m -c --interactive --target --source --motor --config --ping --freq --status --zone --exclude --expHost --expIp --valid --tool --wp --joom --sql --lfi --joomrfi
+    opts="-v -s -e -h -l -d -p -t -m -c -i --interactive --target --source --motor --config --ping --freq --status --zone --exclude --expHost --expIp --valid --tool --wp --joom --sql --lfi --joomrfi
     --wpafd --admin --shost --upload --zip --email --command --md5 --encode64 --decode64 --port --index --host --exp --tcp --udp --full --proxy --proxy-random --help --save --replace --with --dork
     --level --unique --shell --nobanner --all --beep --ifinurl --noinfo --time --limit --update --ip --regex --sregex --noquery --ifend --uninstall --post --get --b-random --data --payload --m-random
     --content --source --popup"

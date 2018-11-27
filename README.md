@@ -435,7 +435,7 @@
         <td class="main">User configuration.</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--interactive</td>
+        <td width="200px" class="main">--interactive / -i</td>
         <td class="main">Interactive mode interface.</td>
       </tr>
       <tr>

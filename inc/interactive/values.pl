@@ -12,7 +12,7 @@ our (@INTERCOMNDS, @INTERSCANS, @INTERCOMNDSFIN, %INTEROPTION, @INTERSearchScans
 
 ## EXTRAT INTERACTIVE OPTIONS
 our @interExtraOpts=("config", "usage", "update");
-our @interLinuxOpts=("cat", "cd", "chmod", "clear", "kill", "ls", "ps", "tar", "mkdir", "locate", "cp", "mv", "rm", "git", "wget");
+our @interLinuxOpts=("cat", "cd", "chmod", "clear", "kill", "ls", "ps", "tar", "mkdir", "locate", "cp", "mv", "rm", "git", "wget", ¨echo¨);
 
 ## MODULES
 our %MODULES=('normal'=>'normal scan mode', 'advanced'=>'advanced scan mode');

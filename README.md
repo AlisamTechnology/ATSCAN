@@ -427,6 +427,10 @@
         <td class="main"> Update tool</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--repair</td>
+        <td class="main">Repair or force tool update.</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--tool / -?</td>
         <td class="main">Tool info.</td>
       </tr>

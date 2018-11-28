@@ -98,6 +98,8 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  UPDATE TOOL: \n".$c[10]."   --update\n";
   
+  ltak(); print $c[12]."  REPAIR TOOL: \n".$c[10]."   --repair\n";
+  
   ltak(); print $c[12]."  UNINSTALL TOOL: \n".$c[10]."   atscan --uninstall\n";
   ltak();
 

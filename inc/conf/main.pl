@@ -84,6 +84,9 @@ sub userconfig { require "$Bin/inc/functions/userConfig.pl"; }
 ## TOOL UPDATE ###
 sub checkVersion { require "$Bin/inc/functions/checkVersion.pl"; }
 
+## TOOL REPAIR
+sub repair { require "$Bin/inc/conf/repair.pl"; }
+
 ## INFO TOOL #####
 sub tool { require "$Bin/inc/functions/tool.pl"; }
 

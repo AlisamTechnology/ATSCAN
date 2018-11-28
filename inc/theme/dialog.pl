@@ -154,6 +154,7 @@ sub hardArgs {
   print ""
   ."$c[5] --interactive $c[10] | Tool interactive interface \n"
   ."$c[5] --update      $c[10] | Update tool. \n"
+  ."$c[5] --repair      $c[10] | Repair tool. \n"
   ."$c[5] --config      $c[10] | User configuration panel \n"
   ."$c[5] --uninstall   $c[10] | Uninstall tool \n\n";
 }

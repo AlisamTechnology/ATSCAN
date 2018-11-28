@@ -1,8 +1,6 @@
 ATSCAN SCANNER VERSION 14.0.0 RELEASE
 =====================================================
-  CHANGES: 25/11/2018
-  - Added multiple instant validations.
-  - Added multiple validation exlusions.
-  - Added regex use in validation.
+  CHANGES: 28/11/2018
+  - Added tool repair function.
   - Enjoy!
   =================

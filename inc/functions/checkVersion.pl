@@ -6,7 +6,7 @@ use File::Path;
 ## Copy@right Alisam Technology see License.txt
 
 ## CHECK VERSION AND UPDATE
-our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $userSetting, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme, $uplog, $fulldate, $interactive,
+our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $userSetting, $repair, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme, $uplog, $fulldate, $interactive,
      @userSetting, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
 
 my $er="[!] Error! Cannot";
@@ -15,6 +15,7 @@ print $c[4]."[i] $OTHERS[20]\n";
 my ($same, $response)=compareme();
 if ($same eq "yes") {   
   print $c[3]."$DT[6]\n";
+  print $c[10]."[!] To force update use: atscan --repair!\n" if !defined $repair;
 }else{
   print $c[3]."[i] An update is aviable!\n";
   if (-e $userSetting) {

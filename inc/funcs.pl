@@ -7,7 +7,7 @@ use POSIX qw(strftime);
 
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
-     $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all);
+     $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT, @defaultHeaders, @userHeaders, @validTexts, @notIns);
 
 ## USER PRE-CONFIGURATION
@@ -723,7 +723,7 @@ sub printProxy {
 sub Targs {
   our ($mindex, $Hstatus, $validText);
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
-             $regex, $command, $ping, $interactive, $validShell, $notIn);
+             $regex, $command, $ping, $interactive, $validShell, $notIn, $repair);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;

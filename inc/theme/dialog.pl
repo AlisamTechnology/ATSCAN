@@ -205,6 +205,7 @@ sub interUsage {
   ."| $c[5]rm$c[10]         | rm [opts] directory    | Remove/delete files and/directories |\n"
   ."| $c[5]git$c[10]        | git [opts]             | Clone from github                   |\n"
   ."| $c[5]wget$c[10]       | wget [opts]            | Retrieve files using wget           |\n"
+  ."| $c[5]echo$c[10]       | echo [opts]            | echo display                        |\n"
   ."| $c[5]exit$c[10]       | exit                   | Exit                                |\n"
   ."+===========================================================================+\n\n";
 }

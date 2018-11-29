@@ -105,21 +105,21 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3" width="890px">&#9733; <b>Uninstall Tool:</b></td>
-  </tr>
-  <tr>
-    <td class="main">
-      atscan --uninstall<br/>
-    </td>
-  </tr>
-</table>
-<table border="0" cellpadding="2" cellspacing="5" width="100%">
-  <tr>
     <td class="main3" width="890px">&#9733; <b>Repair Tool:</b></td>
   </tr>
   <tr>
     <td class="main">
       atscan --repair<br/>
+    </td>
+  </tr>
+</table>
+<table border="0" cellpadding="2" cellspacing="5" width="100%">
+  <tr>
+    <td class="main3" width="890px">&#9733; <b>Uninstall Tool:</b></td>
+  </tr>
+  <tr>
+    <td class="main">
+      atscan --uninstall<br/>
     </td>
   </tr>
 </table>

@@ -396,7 +396,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--ip  </td>
-        <td class="main"> Crawl to get Ips</td>
+        <td class="main"> Collect Ips</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--regex</td>
@@ -416,7 +416,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--email  </td>
-        <td class="main"> Get emails </td>
+        <td class="main"> Collect emails </td>
       </tr> 
       <tr>
         <td width="200px" class="main"> rang(x-y) </td>

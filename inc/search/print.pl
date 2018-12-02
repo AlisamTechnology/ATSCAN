@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, $command, $all,
-     $data, $validShell, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists, @notExists);
+     $data, $validShell, $zoneH, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists, @notExists);
 
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
@@ -253,8 +253,8 @@ sub checkExtratScan {
   if (defined $content) { points(); print $c[10]."$html\n"; }
   if (defined $msource) { printSource($URL1, $html); }
   if (defined $command) { checkExternComnd($URL1, $command); }
+  if (defined $zoneH) { zoneH($URL1, $zoneH); }
 }
-  
 
 ## PRINT SOURCE CODE
 sub printSource {

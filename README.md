@@ -557,7 +557,7 @@
        atscan -d [dorks.txt] -l [level] --replaceFROM [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string => new_string] --exp/expHost [payload] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
-       atscan -t [target / targets.txt] --valid [string] --not in [string]<br/>        <hr>
+       atscan -t [target / targets.txt] --valid [string] --notin [string]<br/>        <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>
         <hr>

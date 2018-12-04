@@ -416,7 +416,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--zoneH  </td>
-        <td class="main"> Your zone-h name</td>
+        <td class="main"> Zone-H Notifier</td>
       </tr>
       <tr>
         <td width="200px" class="main">--email  </td>

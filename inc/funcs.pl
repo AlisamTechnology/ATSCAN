@@ -627,7 +627,12 @@ sub zoneH {
 				            'Gönder' => 'Send',
 				            ]);
   if ($res->content =~ /color\=\"red\"\>(.*)<\/font\><\/li\>/) {
-	print $c[1]."    ZONE-H  ".$c[3] . "$1 \n";
+    my $znh=$1;
+    if ($znh=~m/OK/) {
+      print $c[1]."    ZONE-H  ".$c[3] . "$znh \n";
+    }elsif ($znh=~m/ERROR/) {
+      print $c[1]."    ZONE-H  ".$c[4] . "$znh \n";
+    }
   }else{
 	print $c[1]."    ZONE-H  ".$c[4] ."Fail to upload target!\n";
   }

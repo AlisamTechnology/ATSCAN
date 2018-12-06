@@ -6,11 +6,11 @@ use FindBin '$Bin';
 
 ## BENNER
 our (@c, $Version);
-my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us 4ll!", "! Love Mezguida H4ck3rs !", "No Pe4ce b3tween syst3ms!", "Do not be 4 bl4ck h4cker!", "! Keep c4lm 4nd love me !",
-"You look b3tt3r tod4y !", "No h4y s1st3m4 4 s4lvo !!", "When b3 broken u will h3ar it!");
+my @ESLOGAN=("-oO Alisam Technology Oo-", "https:\/\/github.com\/AlisamTechnology", "https:\/\/www.fb.com/Alisam.Technology",
+             "https:\/\/www.youtube.com\/c\/AlisamTechnology", "-oO Coded by Ali Mehdioui Oo-");
   my @LOGO=("
     $c[4]     /\\ ___ /\\ 
-    $c[4]    (  o   o  )             $c[2]$ESLOGAN[rand @ESLOGAN]
+    $c[4]    (  o   o  )             $c[10]$ESLOGAN[rand @ESLOGAN]
     $c[4]    \\  >#<  / 
     $c[4]     /       \\       $c[9]     _  _____ ____   ____    _    _   _ 
     $c[4]    /         \\   ^  $c[9]    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -21,7 +21,7 @@ my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us 4ll!", "!
     $c[4]      . \\\\\\|||/// 
     $c[4]     / \\ ========
     $c[4]     \\ /| O   O | 
-    $c[4]      #  \\` _ '/            $c[2]$ESLOGAN[rand @ESLOGAN]
+    $c[4]      #  \\` _ '/            $c[10]$ESLOGAN[rand @ESLOGAN]
     $c[4]     (#)   | |   
     $c[4]      #\\/( * * )\\     $c[9]     _  _____ ____   ____    _    _   _  
     $c[4]      #\\/(==*==)/     $c[9]    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -32,7 +32,7 @@ my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us 4ll!", "!
     $c[4]      __________
     $c[4]     / ___  ___ \\
     $c[4]    / / @ \\/ @ \\ \\
-    $c[4]    \\ \\___/\\___/ /\\         $c[2]$ESLOGAN[rand @ESLOGAN]
+    $c[4]    \\ \\___/\\___/ /\\         $c[10]$ESLOGAN[rand @ESLOGAN]
     $c[4]     \\____\\/____/||
     $c[4]     /     /\\\\\\\\\\//  $c[9]     _  _____ ____   ____    _    _   _ 
     $c[4]    |     |\\\\\\\\\\\\    $c[9]    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -44,7 +44,7 @@ my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us 4ll!", "!
     $c[4]  ( (  \\.---./  ) )
     $c[4]   '.__/o   o\\__.'
     $c[4]      {= ^  =}
-    $c[4]       >  -  <             $c[2]$ESLOGAN[rand @ESLOGAN]
+    $c[4]       >  -  <             $c[10]$ESLOGAN[rand @ESLOGAN]
     $c[4]      /       \\
     $c[4]     //       \\\\       $c[9]     _  _____ ____   ____    _    _   _ 
     $c[4]    //|   .   |\\\\      $c[9]    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -57,7 +57,7 @@ my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us 4ll!", "!
     $c[4]       /  q   p  \\
     $c[4]      (  >(_Y_)<  )
     $c[4]      >-' `-' `-<-.
-    $c[4]      /  _.== ==.,- \\       $c[2]$ESLOGAN[rand @ESLOGAN]
+    $c[4]      /  _.== ==.,- \\       $c[10]$ESLOGAN[rand @ESLOGAN]
     $c[4]     /,    )`  '(    )
     $c[4]    ; `._.'      `--<  $c[9]     _  _____ ____   ____    _    _   _ 
     $c[4]   :     \\        |  ) $c[9]    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -66,7 +66,7 @@ my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us 4ll!", "!
     $c[4]       `--\\\\\\          $c[9] /_/   \\_\\_| |____/ \\____/_/   \\_\\_| \\_| $c[3]V $Version",
     "
     $c[4]   o       o  
-    $c[4]    \\_____/                  $c[2]$ESLOGAN[rand @ESLOGAN]
+    $c[4]    \\_____/                  $c[10]$ESLOGAN[rand @ESLOGAN]
     $c[4]    /=O=O=\\   ______ 
     $c[4]   /   ^   \\  \\\\\\\\\\\\\\   $c[9]     _  _____ ____   ____    _    _   _ 
     $c[4]   \\ \\___/ / /\\ ___  \\  $c[9]    / \\|_   _/ ___| / ___|  / \\  | \\ | |
@@ -75,7 +75,7 @@ my @ESLOGAN=("No monopoly for knowledge!", "Virgin!! life will fuck us 4ll!", "!
     $c[4]       \\____\\__\\_____/  $c[9] /_/   \\_\\_| |____/ \\____/_/   \\_\\_| \\_| $c[3]V $Version",
     "
     $c[4]      \\\\\\|||/// 
-    $c[4]      /=======\\           $c[2]$ESLOGAN[rand @ESLOGAN]
+    $c[4]      /=======\\           $c[10]$ESLOGAN[rand @ESLOGAN]
     $c[4]      =__   __=
     $c[4]     =( o) (o )=   $c[9]     _  _____ ____   ____    _    _   _ 
     $c[4]      =   U   =    $c[9]    / \\|_   _/ ___| / ___|  / \\  | \\ | |

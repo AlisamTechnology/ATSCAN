@@ -8,7 +8,7 @@ use POSIX qw(strftime);
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH);
-our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT, @defaultHeaders, @userHeaders, @validTexts, @notIns);
+our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT, @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT);
 
 ## USER PRE-CONFIGURATION
 our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $scriptbash);
@@ -629,12 +629,12 @@ sub zoneH {
   if ($res->content =~ /color\=\"red\"\>(.*)<\/font\><\/li\>/) {
     my $znh=$1;
     if ($znh=~m/OK/) {
-      print $c[1]."    ZONE-H  ".$c[3] . "$znh \n";
+      print $c[1]."    $ZT[25]  ".$c[3] . "$znh \n";
     }elsif ($znh=~m/ERROR/) {
-      print $c[1]."    ZONE-H  ".$c[4] . "$znh \n";
+      print $c[1]."    $ZT[25]  ".$c[4] . "$znh \n";
     }
   }else{
-	print $c[1]."    ZONE-H  ".$c[4] ."Fail to upload target!\n";
+	print $c[1]."    $ZT[25]  ".$c[4] ."$ZT[23]\n";
   }
 }
 
@@ -737,7 +737,7 @@ sub checkProxyUse1 {
 sub printProxy {
   if (defined $proxy || defined $prandom || $prandom || $proxy) {
     if (defined $prandom || $prandom) {
-      print $c[1]."    $ErrT[21] $c[8]  New Identity !\n";
+      print $c[1]."    $ErrT[21] $c[8]  $ZT[24]\n";
     }
     print $c[1]."    $DS[11]  $c[10] [$psx]\n";
   }
@@ -752,6 +752,5 @@ sub Targs {
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;
 }
-
 
 1;

@@ -7,7 +7,7 @@ use FindBin '$Bin';
 our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $mindex,
      $content, $ping, $replace, $replaceFROM, $validShell, $popup);
 our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @replace, @TT, @SCAN_TITLE,
-     @DT, @OTHERS, @c);
+     @DT, @OTHERS, @c, @ZT);
 
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
@@ -17,7 +17,7 @@ if (defined $Target) {
 
 ## CHECK POPUP ARGUMENT IS USED WITH EXTERN COMMANDS
 if (defined $popup and !defined $command) {
-  print $c[4]."[!] --popup argument can only be used with --command argument!\n"; logoff();
+  print $c[4]."[!] --$ZT[26]\n"; logoff();
 }
 
 if (defined $exploit or $exploit) {
@@ -43,7 +43,7 @@ if (defined $mindex) {
 if (defined $replace || defined $replaceFROM) {
   for (@replace) {
     if (defined $_ and $_ !~ /=>/) {
-      print $c[4]."[!] Usage --replace or --replaceFROM \"STRING => NEW_STRING\"\n"; logoff();
+      print $c[4]."[!] $ZT[27] \"STRING => NEW_STRING\"\n"; logoff();
     }
   }
 }
@@ -98,18 +98,18 @@ if (defined $data) {
 
 ## WORDLIST IN DATA
 sub data_alert {
-  print $c[4]."[!] You cannot use more than 1 wordlist in data command!\n"; logoff();
+  print $c[4]."[!] $ZT[28]\n"; logoff();
 }
 
 ## IF DATA FILES > 1
 sub adviseDataFile {
-  print $c[2]."[!] You cannot use more than 1 wordlist!\n"; logoff();
+  print $c[2]."[!] $ZT[29]\n"; logoff();
 }
 
 ## IF DATA FILE NOT EXISTS
 sub advise_no_file {
   my $no_file=$_[0];
-  print $c[2]."[!] Cannot whrite in $no_file !\n"; logoff();
+  print $c[2]."[!] $ZT[30] $no_file !\n"; logoff();
 }
 
 1;

@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, $command, $all,
-     $data, $validShell, $zoneH, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists, @notExists);
+     $data, $validShell, $zoneH, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists, @notExists, @ZT);
 
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
@@ -48,7 +48,7 @@ sub buildPrint {
       for my $datas(@data) {
         $i++;
         if ($i > 1) { print "            "; stakScan(); };
-        print $c[1]."    DATA    ".$c[10]."[$i/$iScalar] $datas\n";
+        print $c[1]."    $ZT[10]    ".$c[10]."[$i/$iScalar] $datas\n";
         my ($response, $status, $html)=browseUrl($URL1, $datas);   
         printResults($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $datas);
       }
@@ -93,7 +93,7 @@ sub titleSCAN {
       }
     }
     if (defined $Hstatus and ($status=~m/$Hstatus/)) {
-      print $c[1]."    STATUS  ".$c[4]."[$DS[13] $Hstatus] \n";
+      print $c[1]."    $ZT[11]  ".$c[4]."[$DS[13] $Hstatus] \n";
     }
 
     if (defined $notIn) {
@@ -103,7 +103,7 @@ sub titleSCAN {
         }
       }
       if (scalar(grep { defined $_} @noins) eq 0) {
-        print $c[1]."    EXCLUDE $c[4]\[$notIn]\n";
+        print $c[1]."    $ZT[12] $c[4]\[$notIn]\n";
       }
     }
     print $c[1]."    $DS[4]    ";

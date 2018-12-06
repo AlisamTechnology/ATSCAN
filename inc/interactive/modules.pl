@@ -7,7 +7,7 @@ use FindBin '$Bin';
 ##############################################################################################
 ##############################################################################################
 ##
-our(@c, @AUTH, $scriptbash, $activeUconf);
+our(@c, @AUTH, @ZT, $scriptbash, $activeUconf);
 our(@INTERCOMNDS, @INTERSCANS, @INTERCOMNDSFIN, %INTEROPTION, %MODULES, @MODULES, @SCANS, %SCANS, @ENGINEARGUMENTS, @ARGUMENTSALL, %ARGUMENTSALL, %ENGINEARGUMENTS,
     @NoValRequierd, @INTERcomnd, %INTERcomnd, @interExtraOpts, @interLinuxOpts);
 our (@INTERshell, @INTERparam, @INTERcommand, @INTERPortScan, @INTERDataScan, @INTERpayload, @INTERdecryp, @INTERadvanced, @INTERtarget);
@@ -26,10 +26,10 @@ sub main {
     if ($module) {
       $module=~s/use\s//ig;
       @OPT=split(" ", $module);
-      if ($OPT[0] eq "normal" or $OPT[0] eq "advanced") {
+      if ($OPT[0] eq $ZT[13] or $OPT[0] eq $ZT[14]) {
         $mod = $OPT[0];
         print $c[3]."Mode => [$mod]\n";
-      }elsif ($OPT[0] eq "options") {
+      }elsif ($OPT[0] eq $ZT[16]) {
         print "\n";
         InterHelpArgs1("use", "MODE", "", "", "");
         for my $MODULE (@MODULES) {
@@ -41,7 +41,7 @@ sub main {
         helpSeparator();
         print "\n";
       #########################################################################################
-      }elsif ($OPT[0] eq "help") {
+      }elsif ($OPT[0] eq $ZT[20]) {
         interHelpChek("1");
       #########################################################################################
       }else{
@@ -64,7 +64,7 @@ sub main2 {
     $first=form("2");
     if ($first) {
       ########################################################################################
-      if ($first eq "options") {
+      if ($first eq $ZT[16]) {
         print "\n$c[11]Mode($c[13]$mod$c[11]\) \n";
         InterHelpArgs1("use", "MODULE", "", "", "");
         for my $SCAN(@SCANS3) {
@@ -76,7 +76,7 @@ sub main2 {
         helpSeparator();
         print "\n";
       #########################################################################################
-      }elsif ($first eq "help") {
+      }elsif ($first eq $ZT[20]) {
         interHelpChek("2");
       ########################################################################################
       }elsif ($first=~/^use\s(.*)/) {
@@ -84,8 +84,8 @@ sub main2 {
         my $validCntrl=checkFirstParts($first, \@SCANS3);
         if ($validCntrl) {
           my @OPT2=split(" ", $first);
-          if ($mod eq "advanced") {
-            print $c[3]."Module => " ;
+          if ($mod eq $ZT[14]) {
+            print $c[3]."$ZT[18] => " ;
             for my $opt2(@OPT2) {
               push @INTERSCANS, "--$opt2";
               if (scalar(@OPT2) > 1) { $scn="multi"; }
@@ -95,7 +95,7 @@ sub main2 {
             print "\n";
           }else{
             if (scalar(@OPT2) < 2) {
-              print $c[3]."Module => " ;
+              print $c[3]."$ZT[18] => " ;
               push @INTERSCANS, "--$OPT2[0]";
               $scn=$OPT2[0];
               print "[$OPT2[0]\]\n";
@@ -122,12 +122,12 @@ sub main3 {
       $first1 =~ s/set\s//ig;
       my @OPT1=split(" ", $first1);
       #########################################################################################
-      if ($first1 eq "options") {
+      if ($first1 eq $ZT[16]) {
         my $prefix=getPrefix();
-        print "\n$c[11]Module($c[13]$mod$c[11] > $c[13]$prefix$c[11]\)\n";
+        print "\n$c[11]$ZT[18]($c[13]$mod$c[11] > $c[13]$prefix$c[11]\)\n";
         InterHelpArgs("set", "ARGUMENT", "VALUE", "");
       #########################################################################################
-      }elsif ($first1 eq "help") {
+      }elsif ($first1 eq $ZT[20]) {
         interHelpChek("3");
       #########################################################################################
       }elsif ($first1 eq "run") {
@@ -200,7 +200,7 @@ sub getExtratArgs {
     else{
       push @ARGUMENTS, @ENGINEARGUMENTS;
       %ARGUMENTS = (%ARGUMENTS, %ENGINEARGUMENTS);
-      if ($mod eq "advanced") {
+      if ($mod eq $ZT[14]) {
         push @ARGUMENTS, @INTERadvanced;
         %ARGUMENTS=(%ARGUMENTS, %INTERadvanced);
         if ($scn eq "sql") { push @ARGUMENTS, @INTERparam; %ARGUMENTS=(%ARGUMENTS, %INTERparam); }
@@ -246,8 +246,8 @@ sub updateARGUMENTS {
 sub getPreInter {
   my ($prefix, $interScn);
   $prefix=getPrefix();
-  if (scalar (@INTERSCANS) < 1) { $interScn="mode"; }
-  else{ $interScn="module"; }
+  if (scalar (@INTERSCANS) < 1) { $interScn=$ZT[15]; }
+  else{ $interScn=$ZT[17]; }
   return ($prefix, $interScn);
 }
 ##############################################################################################
@@ -294,7 +294,7 @@ sub ifInterLinuxOpt {
 ## HELP
 sub interHelpChek {
   my $process=$_[0];
-  print $c[11]."[::] HELP\n";
+  print $c[11]."[::] $ZT[19]\n";
   ltak();
   if ($process eq "1") { interHelp(); scansArgs(); }
   elsif ($process eq "2") { scansArgs(); }
@@ -343,7 +343,7 @@ sub tableOpts {
   my $addLenght11= 22 - $keyLength11;
   print "$c[10]  | $c[10]$zz";
   print " " x $addLenght11;
-  if ($rr ne "advanced" && $rr ne "normal") {
+  if ($rr ne $ZT[14] && $rr ne $ZT[13]) {
     if (!grep( /^$rr$/, @SCANS)) {
       if (grep( /^$rr$/, @NoValRequierd)) { print "|  No  "; }
        else{ print "|  Yes ";
@@ -359,7 +359,7 @@ sub tableOpts {
 ## HELP ARGUMENTS
 sub InterHelpArgs1 {
   my ($j1, $j2, $j3, $j4, $isArg)=@_;
-  print "$c[10]+ Usage: > $j1 [$j2]";
+  print "$c[10]+ $ZT[22]: > $j1 [$j2]";
   if ($j3) {
     print "[$j3]\n$c[4]$AUTH[22]!";
     print "\n$c[4]\[!] [VALUE**] = $AUTH[23]!";
@@ -371,7 +371,7 @@ sub InterHelpArgs1 {
   helpSeparator();
   print "$c[11]| $j2";
   print " " x $addLenght3;
-  print "$c[10]\| $c[11]DESCRIPTION";
+  print "$c[10]\| $c[11]$ZT[21]";
   if ($j3) {
     print " " x $addLenght2;
     print "$c[10]\| $c[11]VAL* ";

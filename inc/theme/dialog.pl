@@ -61,7 +61,9 @@ my @SCAN_TITLE=("SEARCH ENGINE", "VALIDATION", "Validate by HTTP header is not a
 
 ## INSTALL / UNINSTALL / UPDATE
 my @ZT=("Copying user components...", "Placing main script...", "Placing components...", "Placing README.md", "Checking others components...", "Moving", "Restauring user files...",
-        "Deleting install files...", "Deleting", "Printing update log...");
+        "Deleting install files...", "Deleting", "Printing update log...", "DATA", "STATUS", "EXCLUDE", "normal", "advanced", "mode", "options", "module", "Module", 
+        "HELP", "help", "DESCRIPTION", "Usage", "Fail to upload target!", "New Identity!", "ZONE-H", "popup argument can only be used with --command argument!", 
+        "Usage --replace or --replaceFROM", "You cannot use more than 1 wordlist in data command!", "You cannot use more than 1 wordlist!", "Cannot whrite in");
 
 ## MENU
 sub get_text_tt { return @TT; }

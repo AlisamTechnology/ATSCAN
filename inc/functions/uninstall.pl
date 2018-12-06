@@ -7,8 +7,9 @@ use FindBin '$Bin';
 ## DELETE / UNINSTALL TOOL
 our ($uninstall, $scriptbash, $script, $scriptCompletion, $readme, @TT, @c, @OTHERS, @DT, @ZT);
 if (defined $uninstall) {
-  print $c[2]."$OTHERS[8]";
-  print $c[10];
+  print $c[2]."$OTHERS[8]\n";
+  print $c[4]."[i] $ZT[31]\n";
+  print $c[10]."[!] $ZT[32] ";
   my $resp=<STDIN>;
   chomp ($resp);
   if ($resp=~/(Y|y)/) {

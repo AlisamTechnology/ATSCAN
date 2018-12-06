@@ -6,7 +6,7 @@ use File::Path;
 ## Copy@right Alisam Technology see License.txt
 
 ## CHECK VERSION AND UPDATE
-our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $userSetting, $repair, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme, $uplog, $fulldate, $interactive,
+our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $userSetting, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme, $uplog, $fulldate, $interactive,
      @userSetting, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
 
 my $er="[!] Error! Cannot";

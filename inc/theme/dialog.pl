@@ -11,7 +11,7 @@ my @TT=("TEAM", "TOOL", "PATH", "PERL", "SYST", "ALISAM TECHNOLOGY", "ATSCAN SCA
 "STATUS", "Host is", "Not Alive!", "Alive");
 
 ## OTHERS DIALOG TEXT
-my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan is required! EX: --sql or validation EX: --status 200", "[!] ATSCAN will be removed from your system! [Y/N]:", 
+my @OTHERS=("Target", "Exp", "CMD", "MD5", "STRING", "Usage", "found!", "A scan is required! EX: --sql or validation EX: --status 200", "[!] Atscan Scanner will be removed from your system!", 
 "[i] ATSCAN was moved successfully", "You cannot use payloads here! Use --exp", "Disclaimer: Using ATSCAN to Attack targets without prior mutual consent is",
 "illegal! It is your own responsibility to obey laws! Alisam Technology is", "not linked to any kind of loss or misuse or damage caused by this program!", "REPLC",
 "[!] Type C to Continue or O to Exit!: ", "PARAM", "No parameter found!", "You cannot validate two times!", "METHOD", "Checking for updates..", "https://www.facebook.com/Alisam.Technology/",
@@ -63,7 +63,8 @@ my @SCAN_TITLE=("SEARCH ENGINE", "VALIDATION", "Validate by HTTP header is not a
 my @ZT=("Copying user components...", "Placing main script...", "Placing components...", "Placing README.md", "Checking others components...", "Moving", "Restauring user files...",
         "Deleting install files...", "Deleting", "Printing update log...", "DATA", "STATUS", "EXCLUDE", "normal", "advanced", "mode", "options", "module", "Module", 
         "HELP", "help", "DESCRIPTION", "Usage", "Fail to upload target!", "New Identity!", "ZONE-H", "popup argument can only be used with --command argument!", 
-        "Usage --replace or --replaceFROM", "You cannot use more than 1 wordlist in data command!", "You cannot use more than 1 wordlist!", "Cannot whrite in");
+        "Usage --replace or --replaceFROM", "You cannot use more than 1 wordlist in data command!", "You cannot use more than 1 wordlist!", "Cannot whrite in",
+        "Use --repair command to repair tool if you are getting problems!", "Are you sure to continue with uninsall process? [y/N]:");
 
 ## MENU
 sub get_text_tt { return @TT; }

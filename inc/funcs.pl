@@ -747,7 +747,7 @@ sub printProxy {
 sub Targs {
   our ($mindex, $Hstatus, $validText, $zoneH);
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
-             $regex, $command, $ping, $interactive, $validShell, $notIn, $repair, $zoneH);
+             $regex, $command, $ping, $interactive, $validShell, $notIn, $repair);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;

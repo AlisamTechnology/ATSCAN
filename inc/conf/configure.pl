@@ -33,6 +33,7 @@ $readme="/usr/share/doc/atscan";
 our $userSetting="$Bin/inc/conf/userSetting";
 our $deskIcon="$Bin/inc/conf/desktop/";
 our $deskIcoConf="/usr/share/applications";
+unlink "$Bin/inc/conf/user/cookies.txt" if -e "$Bin/inc/conf/user/cookies.txt";
 
 ## DATE
 use POSIX qw(strftime);

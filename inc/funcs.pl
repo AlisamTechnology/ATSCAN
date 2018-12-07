@@ -610,9 +610,8 @@ sub checkUloadedShell {
   $URL1.=$validShell;
   my $reShell = $ua->get("$URL1");
   if ($reShell->is_success and ($reShell->code eq "200")) {
-    $isUploaded=$URL1;
+    print $c[1]."    SHELL   ".$c[3] . "$URL1 \n";
   }
-  return $isUploaded;
 }
 
 ## ZONE-H

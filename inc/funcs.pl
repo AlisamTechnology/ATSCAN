@@ -2,6 +2,10 @@
 use strict;
 use warnings;
 use FindBin '$Bin';
+use IO::Socket::INET;
+use LWP::UserAgent;
+use HTTP::Cookies;
+use HTTP::Request;
 use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
@@ -166,10 +170,6 @@ our $psx=get_psx();
 
 ## BROWSER
 our (@sys, @vary, @systems);
-use IO::Socket::INET;
-use LWP::UserAgent;
-use HTTP::Cookies;
-use HTTP::Request;
 binmode STDOUT, ":utf8";
 for my $sys(@sys) {
   for my $vary(@vary) {
@@ -183,8 +183,9 @@ our ($system, $agent, $ua);
 
 ## CREATE COOKIES IN DISK
 my $cookies = HTTP::Cookies->new(
-    file     => 'inc/conf/user/cookies.txt',
+    file     => "$Bin/inc/conf/user/cookies.txt",
     autosave => 1,
+    ignore_discard => 1,
 );
 
 ## HEADERS

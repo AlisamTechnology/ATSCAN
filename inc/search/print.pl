@@ -176,19 +176,6 @@ sub formData {
     }
   }
 }
-##
-sub ifShellSuccess {
-  my ($URL1, $validShell)=@_;
-  my $ccv="";
-  $URL1=cleanURL($URL1);
-  $URL1="$URL1/$validShell";
-  my $ua = LWP::UserAgent->new;
-  my $reShell = $ua->get("http://$URL1");
-  if ($reShell->is_success and ($reShell->code eq "200")) {
-    $ccv="1";
-  }
-  return $ccv;
-}
 
 ## GET VALIDATION PARTS
 sub getValidationParts {

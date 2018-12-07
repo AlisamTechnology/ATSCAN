@@ -341,9 +341,9 @@ sub getComnd {
       else{ print "$c[2] $TT[11]\n"; }
     }elsif ($comnd=~/\-HOST/) {
       $URL1=getHost($URL1);   
-      $comnd=~s/\-\-HOST/"$URL1"/ig;
+      $comnd=~s/\-\-HOST/$URL1/ig;
     }elsif ($comnd=~/\-TARGET/) {
-      $comnd=~s/\-\-TARGET/"$URL1"/ig;
+      $comnd=~s/\-\-TARGET/$URL1/ig;
     }
   }
   print "$c[10]            => $c[10]$comnd\n";

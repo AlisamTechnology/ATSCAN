@@ -214,11 +214,6 @@ sub checkValidation {
     my $notin_number = getValidationParts($html, \@notIns, "2");
     if ($notin_number > 0) { $cV=""; }
   }
-
-  if (defined $validShell) {
-    my $isUploaded=checkUloadedShell($URL1);
-    if (!$isUploaded) { $cV=""; }
-  }
   return $cV;
 }
 
@@ -240,6 +235,7 @@ sub checkExtratScan {
   if (defined $content) { points(); print $c[10]."$html\n"; }
   if (defined $msource) { printSource($URL1, $html); }
   if (defined $command) { checkExternComnd($URL1, $command); }
+  if (defined $validShell) { checkUloadedShell($URL1); }
   if (defined $zoneH) { zoneH($URL1, $zoneH); }
 }
 

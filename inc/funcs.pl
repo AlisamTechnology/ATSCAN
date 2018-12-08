@@ -604,13 +604,12 @@ sub doRegex {
 
 ## CHECK UPLOADED SHELL
 sub checkUloadedShell {
-  my $URL1=$_[0];
-  my $isUploaded="";
-  $URL1=getHost($URL1);
-  $URL1.=$validShell;
-  my $reShell = $ua->get("$URL1");
+  my $URL=$_[0];
+  my $URL=getHost($URL);
+  $URL.=$validShell;
+  my $reShell = $ua->get("$URL");
   if ($reShell->is_success and ($reShell->code eq "200")) {
-    print $c[1]."    SHELL   ".$c[3] . "$URL1 \n";
+    print $c[1]."    SHELL   ".$c[3] . "$URL \n";
   }
 }
 

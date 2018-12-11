@@ -626,7 +626,6 @@ sub zoneH {
   $url=getHost($url);
   $url.=$zoneD[1] if $zoneD[1];
   $url=~s/\s//ig;
-  $url="http://$url";
   my $zoneHurl="http://www.zone-h.org/notify/single";
   my $ua = LWP::UserAgent->new;
   my $res = $ua->post($zoneHurl,

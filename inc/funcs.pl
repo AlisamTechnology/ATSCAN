@@ -11,7 +11,7 @@ use POSIX qw(strftime);
 
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
-     $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH);
+     $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT, @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT);
 
 ## USER PRE-CONFIGURATION
@@ -182,8 +182,14 @@ for my $sys(@sys) {
 our ($system, $agent, $ua);
 
 ## CREATE COOKIES IN DISK
+my $cksFile;
+if ($cokie) {
+  $cksFile=$cokie;
+}else{
+  $cksFile="$Bin/inc/conf/user/cookies.txt";
+}
 my $cookies = HTTP::Cookies->new(
-    file     => "$Bin/inc/conf/user/cookies.txt",
+    file     => $cksFile,
     autosave => 1,
     ignore_discard => 1,
 );

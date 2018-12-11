@@ -79,7 +79,7 @@ our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $
      $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $mindex, $mdom, $Target, $exploit, $p, $tcp, $udp, $proxy, $prandom, $help, $output, $replace, $replaceFROM, $dork, $mlevel, $unique,
      $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $payloads,
      $mrandom, $content, $scriptComplInstall, $scriptCompletion, $scriptInstall, $toolInfo, $config, $freq, $headers, $msource, $ping, $notIn, $expHost, $expIp, $zone, $validShell, $interactive,
-     $popup, $all, $repair, $zoneH);
+     $popup, $all, $repair, $zoneH, $cokie);
 
 ## ARGUMENTS
 use Getopt::Long qw(GetOptions);
@@ -92,7 +92,8 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'ifend'=>\$ifend,
                          'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'payload=s'=>\$payloads, 'm-random'=>\$mrandom, 'content'=>\$content,
                          'tool|?'=>\$toolInfo, 'pass|config'=>\$config, 'freq=s'=>\$freq, 'header=s'=>\$headers, 'source=s'=>\$msource, 'ping'=>\$ping, 'exclude=s'=>\$notIn, 'expHost=s'=>\$expHost,
-                         'expIp=s'=>\$expIp, 'zone=s'=>\$zone, 'interactive|i'=>\$interactive, 'vshell=s'=>\$validShell, 'popup'=>\$popup, 'all'=>\$all, 'repair'=>\$repair, 'zoneH=s'=>\$zoneH) or badArgs();
+                         'expIp=s'=>\$expIp, 'zone=s'=>\$zone, 'interactive|i'=>\$interactive, 'vshell=s'=>\$validShell, 'popup'=>\$popup, 'all'=>\$all, 'repair'=>\$repair, 'zoneH=s'=>\$zoneH,
+                         'cookies=s'=>\$cokie) or badArgs();
 
 ## CHOMP ARGS STRINGS
 our @toChomp=($Hstatus, $validText, $command, $mmd5, $mencode64, $mdecode64, $port, $Target, $exploit, $p, $proxy, $prandom, $output,

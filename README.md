@@ -416,7 +416,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--zoneH  </td>
-        <td class="main"> Zone-H Notifier</td>
+        <td class="main"> Upload to Zone-H</td>
       </tr>
       <tr>
         <td width="200px" class="main">--email  </td>
@@ -557,7 +557,11 @@
        atscan -d [dorks.txt] -l [level] --replaceFROM [string => new_string] --status [code] / --valid [string] <br/>
        atscan -d [dorks.txt] -l [level] --replace [string => new_string] --exp/expHost [payload] --status [code] / --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] [--sql / --shost ..] --status [code] / --valid [string] <br/>
-       atscan -t [target / targets.txt] --valid [string] --exclude [string]<br/>        <hr>
+       atscan -t [target / targets.txt] --valid [string] --exclude [string]<br/>
+        <hr>
+       &#x25cf; <b>ZONE-H: </b><br/>
+       atscan -t [target / targets.txt] -v [string] --zoneH "notifier => /attachement/file.php" <br/>
+        <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>
         <hr>

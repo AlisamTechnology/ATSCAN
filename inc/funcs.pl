@@ -624,7 +624,6 @@ sub zoneH {
   my ($url, $uploader)=@_;
   my @zoneD=split("=>", $uploader);
   $url=getHost($url);
-  $zoneD[0]=~s/\s//ig;
   $url.=$zoneD[1] if $zoneD[1];
   $url=~s/\s//ig;
   $url="http://$url";

@@ -69,7 +69,9 @@ sub buildArraysLists {
     open (UAL, $buildArrays);
     while (my $buildArray=<UAL>) {
       chomp $buildArray;
-      push @buildArrays, $buildArray;
+      if ($buildArray!~ /^\#/) {
+        push @buildArrays, $buildArray;
+      }
     }
   }else{
     $buildArrays=~s/\s+$//g;
@@ -611,7 +613,7 @@ sub doRegex {
 ## CHECK UPLOADED SHELL
 sub checkUloadedShell {
   my $URL=$_[0];
-  my $URL=getHost($URL);
+  $URL=getHost($URL);
   $URL.=$validShell;
   my $reShell = $ua->get("$URL");
   if ($reShell->is_success and ($reShell->code eq "200")) {

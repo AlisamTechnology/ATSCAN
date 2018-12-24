@@ -147,6 +147,7 @@ sub confHlp {
   ."$c[5] --ifend       $c[10] | Produce beep sound when scan process is finished.\n"
   ."$c[5] --noinfo      $c[10] | Jump extra results info.\n"
   ."$c[5] --nobanner    $c[10] | Hide tool banner\n"
+  ."$c[5] --bugtraq     $c[10] | Search exploits\n"
   ."$c[5] --unique      $c[10] | Get targets with exact dork matching\n"
   ."$c[5] --limit       $c[10] | Stop when scan reaches the defined amount of positive results.\n"
   ."$c[5] --payload     $c[10] | Use your own payloads instead of tool ones\n"

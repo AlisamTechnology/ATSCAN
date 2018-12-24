@@ -8,7 +8,7 @@ use FindBin '$Bin';
 require "$Bin/inc/funcs.pl";
 
 ## PRINT BANNER 
-our ($nobanner, $output, $msource);
+our ($nobanner, $output, $msource, $bugtraq);
 if (!defined $nobanner && !$nobanner) { banner(); }
 else{ mtak(); ptak(); }
 
@@ -25,7 +25,7 @@ if ($password) { require "$Bin/inc/functions/log.pl"; }
 
 ## NO ARGUMENTS ##
 our ($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $toolInfo, $config, $interactive, $repair);
-our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $toolInfo, $repair, $config, $interactive);
+our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $bugtraq, $uninstall, $toolInfo, $repair, $config, $interactive);
 my $NoArg=0;
 for (@NoArg) { $NoArg++ if defined $_; }
 advise() if $NoArg<1;

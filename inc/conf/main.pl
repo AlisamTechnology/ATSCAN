@@ -99,4 +99,7 @@ sub help { require "$Bin/inc/help.pl"; }
 ## INTERACTIVE MENU
 sub interactive { require "$Bin/inc/interactive/main.pl"; }
 
+## BUGTRAQ
+sub bugtraq { require "$Bin/inc/functions/bugtraq.pl"; }
+
 1;

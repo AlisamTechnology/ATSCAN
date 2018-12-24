@@ -756,9 +756,9 @@ sub printProxy {
 
 ## CHECK SCAN ARGUMENTS
 sub Targs {
-  our ($mindex, $Hstatus, $validText, $zoneH);
+  our ($mindex, $Hstatus, $validText, $zoneH, $bugtraq);
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
-             $regex, $command, $ping, $interactive, $validShell, $notIn, $repair);
+             $regex, $command, $ping, $interactive, $validShell, $notIn, $repair, $bugtraq);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;

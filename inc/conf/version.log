@@ -1,6 +1,6 @@
-ATSCAN SCANNER VERSION 14.0.1 RELEASE
+ATSCAN SCANNER VERSION 14.0.2 RELEASE
 =====================================================
-  CHANGES: 11/12/2018
-  - Add cookies output file.
+  CHANGES: 24/12/2018
+  - Add --bugtraq command to search exploits.
   - Enjoy!
   =================

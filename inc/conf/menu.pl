@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $data, $mmd5,
-     $mdecode64, $mencode64, $checkVersion, $help, $toolInfo, $uninstall, $config, $ping, $interactive, $repair);
+     $mdecode64, $mencode64, $checkVersion, $help, $toolInfo, $uninstall, $config, $ping, $interactive, $repair, $bugtraq);
 
 ## VERIFY TARGETS AND PRESCAN
 our ($mlevel, $Target, $dork, @c, @DS, @DT, @TODO, @V_TODO, @SCAN_TITLE, @aTsearch);
@@ -60,12 +60,13 @@ if (defined $mmd5 || defined $mencode64 || defined $mdecode64) {
   if (defined $mencode64) { mencode64(); }
   if (defined $mdecode64) { mdecode64(); }
 }
-if (defined $checkVersion || defined $help || defined $repair|| defined $toolInfo || defined $uninstall || defined $config || defined $interactive) {
+if (defined $checkVersion || defined $help || defined $bugtraq || defined $repair|| defined $toolInfo || defined $uninstall || defined $config || defined $interactive) {
   desclaimer();
   if (defined $checkVersion) { checkVersion(); }
   if (defined $repair) { repair(); }
   if (defined $help) { help(); }
   if (defined $toolInfo) { tool(); }
+  if (defined $bugtraq) { bugtraq(); }
   if (defined $uninstall) { uninstall(); }
   if (defined $config) { userconfig(); }
   if (defined $interactive) { interactive(); }

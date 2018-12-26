@@ -7,8 +7,9 @@ use FindBin '$Bin';
 ###############################################################################
 ###############################################################################
 ## BUGTRAQ
-our($bugtraq, $ua, @c);
+our($bugtraq, $ua, $limit, @c);
 my (@bugs, @bugId, @bugTitle, @bugDate, @bugLink, @bugWarning);
+my $server="https://cxsecurity.com";
 ###############################################################################
 ###############################################################################
 ## BUGTRAQ ARRAYS
@@ -20,8 +21,8 @@ if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
 sub bugs {
   my $e = strftime "%Y.%m.%d.", localtime;
   for my $btq(@bugs) {
-    for(my $npages=1;$npages<=2;$npages+=1) {
-      my $u="https://cxsecurity.com/search/wlb/DESC/AND/$e.1999.1.1/$npages/10/$btq/";   
+    for(my $npages=1;$npages<=1;$npages+=1) {
+      my $u="$server/search/wlb/DESC/AND/$e.1999.1.1/$npages/10/$btq/";   
       my $bugSearch=$ua->get($u);
       $bugSearch->as_string;
       if ($bugSearch->is_success) {
@@ -68,43 +69,44 @@ sub bugWarning {
 testConnection();
 bugs();
 my $m=scalar(grep { defined $_} @bugTitle);
+print $c[10];
+timer();
+print " EXPLORING VULNERABILITIES ISSUES...\n";
+sleep 2;
+print $c[3]."[i] $m Results found!\n";
+sleep 2;
 if ($m>0) {
-  print $c[10];
-  timer();
-  print " EXPLORING BUGS...\n";
-  sleep 2;
-  print $c[3]."[i] $m Results found!\n";
-  sleep 1;
-}
-for(my $nbugs=0;$nbugs<$m;$nbugs+=1) {
-  if ($nbugs<=$m) {
+  for(my $nbugs=0;$nbugs<$m;$nbugs+=1) {
+    my $x=$nbugs+1;
     print $c[1]." ============================================================================\n ";
     timer() ;
-    my $x=$nbugs+1;
     print "[$x/$m]\n";
+    print $c[1]." ISSUE  $c[6]$bugTitle[$nbugs]\n";
+    print $c[1]." DATE   $c[10]$bugDate[$nbugs]\n";
+    print $c[1]." RISK   $c[10]$bugWarning[$nbugs]\n";
+    print $c[1]." REFER  $c[10]$bugId[$nbugs]\n";
+    sleep 1;
+    if ((defined $limit or $limit) && ($x eq $limit)) { last; }
   }
-  print $c[1]." TITLE  $c[6]$bugTitle[$nbugs]\n";
-  print $c[1]." DATE   $c[10]$bugDate[$nbugs]\n";
-  print $c[1]." RISK   $c[10]$bugWarning[$nbugs]\n";
-  print $c[1]." REFER  $c[10]$bugId[$nbugs]\n";
-  sleep 1;
-}
-print $c[1]."=============================================================================\n";
-###############################################################################
-###############################################################################
+  print $c[1]."=============================================================================\n";
+  ###############################################################################
+  ###############################################################################
 my $w;
 while (!$w) {
-  print $c[4]."[!] To view full bug info use: get <REFER> OR exit to exit: $c[10]";
+  print $c[4]."[!] To view full issue info type: <ISSUE REFER> OR exit to exit: $c[10]";
   my $r=<STDIN>;
   chomp ($r);
   if ($r=~/exit/) { $w=1; }
-  if ($r=~/get\s[0-9]/) {
+  elsif ($r=~/[0-9]/ && grep( /^$r$/, @bugId)) {
+    print $c[1]."=============================================================================\n";
     print $c[1]." REFER  $c[10]$r\n";
-    print $c[1]." LINK   $c[10]https://cxsecurity.com/issue/WLB-$r\n";
-    print $c[1]." ============================================================================\n ";
+    print $c[1]." LINK   $c[10]$server/issue/WLB-$r\n";
+    print $c[1]."=============================================================================\n";
+  }elsif ($r) {
+    print $c[4]."[!] Cannot interpret your command!\n";
   }
 }
-
+}
 ###############################################################################
 ###############################################################################
 

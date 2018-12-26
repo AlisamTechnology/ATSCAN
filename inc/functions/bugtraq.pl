@@ -9,30 +9,32 @@ use FindBin '$Bin';
 ## BUGTRAQ
 our($bugtraq, $ua, @c);
 my (@bugs, @bugTitle, @bugDate, @bugLink, @bugWarning);
+
+###############################################################################
+###############################################################################
+## BUGTRAQ ARRAYS
+if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
+
 ###############################################################################
 ###############################################################################
 ## GET BUGS
 sub bugs {
   my $e = strftime "%Y.%m.%d.", localtime;
-  ## change $npages value to get more results
-  for(my $npages=1;$npages<=5;$npages+=1) {
-    my $u="https://cxsecurity.com/search/wlb/DESC/AND/$e.1999.1.1/$npages/30/$bugtraq/";   
-    my $bugSearch=$ua->get($u);
-    $bugSearch->as_string;
-    if ($bugSearch->is_success) {
-      my $Res=$bugSearch->content;
-      
-      if ($Res=~/Sorry. No results/) {
-        print $c[4]."[!] No results found!\n"; logoff();
-      }      
-      
-      bugTitle($Res);
-      bugDate($Res);
-      bugWarning($Res);
-
-    }else{
-        print $c[4]."[!] Cannot conect with server!\n"; logoff();
+  for my $btq(@bugs) {
+    for(my $npages=1;$npages<=2;$npages+=1) {
+      my $u="https://cxsecurity.com/search/wlb/DESC/AND/$e.1999.1.1/$npages/10/$btq/";   
+      my $bugSearch=$ua->get($u);
+      $bugSearch->as_string;
+      if ($bugSearch->is_success) {
+        my $Res=$bugSearch->content;
+        bugTitle($Res);
+        bugDate($Res);
+        bugWarning($Res);
+      }
     }
+  }
+  if (scalar(grep { defined $_} @bugTitle)<1) {
+    print $c[4]."[!] No results found!\n";
   }
 }
 ###############################################################################
@@ -62,7 +64,7 @@ sub bugWarning {
 ## TODO
 testConnection();
 bugs();
-my $m=(grep { defined $_} @bugTitle);
+my $m=scalar(grep { defined $_} @bugTitle);
 if ($m>0) {
   print $c[10];
   timer();

@@ -6,8 +6,8 @@ use File::Path;
 ## Copy@right Alisam Technology see License.txt
 
 ## CHECK VERSION AND UPDATE
-our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $userSetting, $scriptInstall, $scriptComplInstall, $scriptCompletion, $scriptbash, $readme, $uplog, $fulldate, $interactive,
-     @userSetting, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
+our ($scriptUrl, $script_bac, $script, $logUrl, $scriptv, $userSetting, $scriptInstall, $scriptComplInstall, $scriptCompletion,
+     $scriptbash, $readme, $uplog, $fulldate, $interactive, $repair, @userSetting, @ErrT, @DT, @c, @OTHERS, @AUTH, @ZT);
 
 my $er="[!] Error! Cannot";
 #############################################
@@ -16,7 +16,11 @@ my ($same, $response)=compareme();
 if ($same eq "yes") {   
   print $c[3]."$DT[6]\n";
 }else{
-  print $c[3]."[i] An update is aviable!\n";
+  if (defined $repair) {
+    print $c[3]."[i] Repairing tool..!\n";
+  }else{
+    print $c[3]."[i] An update is aviable!\n";
+  }
   if (-e $userSetting) {
     print $c[10]."[i] $ZT[0]...\n";
     open my $dle, '<', $userSetting or nochmod($userSetting, "");

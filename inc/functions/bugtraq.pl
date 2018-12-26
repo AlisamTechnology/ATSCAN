@@ -8,8 +8,7 @@ use FindBin '$Bin';
 ###############################################################################
 ## BUGTRAQ
 our($bugtraq, $ua, @c);
-my (@bugs, @bugTitle, @bugDate, @bugLink, @bugWarning);
-
+my (@bugs, @bugId, @bugTitle, @bugDate, @bugLink, @bugWarning);
 ###############################################################################
 ###############################################################################
 ## BUGTRAQ ARRAYS
@@ -44,6 +43,10 @@ sub bugTitle {
   while ($Res=~m/<A href=\"(.*)\" title=\"(.*)\"\s/g) {
     push @bugTitle, "$2";
     push @bugLink, "$1";
+    my $bugref=$1;
+    if ($bugref=~m/WLB\-(.*)/g) {
+      push @bugId, $1;
+    }
   }
 }
 sub bugDate {
@@ -83,10 +86,26 @@ for(my $nbugs=0;$nbugs<$m;$nbugs+=1) {
   print $c[1]." TITLE  $c[6]$bugTitle[$nbugs]\n";
   print $c[1]." DATE   $c[10]$bugDate[$nbugs]\n";
   print $c[1]." RISK   $c[10]$bugWarning[$nbugs]\n";
-  print $c[1]." VIEW   $c[10]$bugLink[$nbugs]\n";
+  print $c[1]." REFER  $c[10]$bugId[$nbugs]\n";
   sleep 1;
 }
-print $c[1]."=============================================================================\n ";
+print $c[1]."=============================================================================\n";
 ###############################################################################
 ###############################################################################
+my $w;
+while (!$w) {
+  print $c[4]."[!] To view full bug info use: get <REFER> OR exit to exit: $c[10]";
+  my $r=<STDIN>;
+  chomp ($r);
+  if ($r=~/exit/) { $w=1; }
+  if ($r=~/get\s[0-9]/) {
+    print $c[1]." REFER  $c[10]$r\n";
+    print $c[1]." LINK   $c[10]https://cxsecurity.com/issue/WLB-$r\n";
+    print $c[1]." ============================================================================\n ";
+  }
+}
+
+###############################################################################
+###############################################################################
+
 1;

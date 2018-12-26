@@ -36,7 +36,8 @@ use FindBin '$Bin';
   ."   Specify emails: atscan -d <dorks.txt> -l <level> --email -v \"\@gmail | \@yahoo ..\"\n"
   ."   Search + collect ips: atscan --dork <dork> --level <level> --ip \n\n";
   ltak(); print $c[12]."  SEARCH EXPLOIT: \n".$c[10]
-  ."   atscan --bugtraq <string> Exp: atscan --bugtraq joomla\n\n";
+  ."   atscan --bugtraq <string> Exp: atscan --bugtraq joomla\n";
+  ."   atscan --bugtraq <string> --limit 10 \n\n";
   ltak(); print $c[12]."  REGULAR EXPRESSIONS: \n".$c[10]
   ."   Regex use: atscan [--dork <dork> | -t <target>] --level <level> --regex <regex>\n"
   ."   IP: ((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.)\\{ 3\\}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\n"

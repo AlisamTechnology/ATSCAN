@@ -208,7 +208,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--bugtraq</td>
-        <td class="main"> Serach exploit</td>
+        <td class="main"> Serach exploits and issues</td>
       </tr>
       <tr>
         <td width="200px" class="main">--content</td>
@@ -569,6 +569,10 @@
         <hr>
        &#x25cf; <b>ZONE-H: </b><br/>
        atscan -t [target / targets.txt] -v [string] --zoneH "notifier => /attachement/file.php" <br/>
+        <hr>
+       &#x25cf; <b>SEARCH EXPLOITS: </b><br/>
+       atscan --bugtraq [string] EX: atscan --bugtraq wordpress <br/> 
+       atscan --bugtraq [string] --limit 10 <br/> 
         <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>

@@ -114,7 +114,9 @@ sub viewBug {
     }                      
   }
   close(SA);
-  if (defined $output) { print $c[4]."[i] Issue saved in $copy\n"; }
+  if (defined $output) { 
+    print "$ser\n";
+    print $c[4]."[i] Issue saved in $copy\n"; }
 }
 ###############################################################################
 ###############################################################################
@@ -176,9 +178,8 @@ if ($m>0) {
             $refer=~s/\=>.*//;
             print $c[1]." ISSUE  $c[10]$refer\n";
             if (defined $output) {
-              my $PT=$refer;
-              $PT=~s/\s/\_/;
-              $copy="$output/$PT.txt";
+              $copy="$output/$refer.txt";
+              $copy=~s/\s/-/g;
               printFile($copy, "$ser\n### $refer\n");
             }
           }

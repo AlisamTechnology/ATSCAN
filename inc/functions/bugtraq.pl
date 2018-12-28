@@ -114,7 +114,7 @@ sub viewBug {
     }                      
   }
   close(SA);
-  if (defined $output) { print $c[4]."[i] Issue saved in $copy\n"); }
+  if (defined $output) { print $c[4]."[i] Issue saved in $copy\n"; }
 }
 ###############################################################################
 ###############################################################################

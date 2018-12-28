@@ -45,7 +45,8 @@
         &#x25cf; Random user agent. <br/>&#x25cf; Random engine.<br/> &#x25cf; Extern commands execution.<br/>
         &#x25cf; XSS / SQLI / LFI / AFD scanner.<br /> &#x25cf; Filter wordpress and Joomla sites. <br />
         &#x25cf; Find Admin page.<br />&#x25cf; Decode / Encode Base64 / MD5<br/> &#x25cf; Ports scan. <br/>&#x25cf; Collect IPs<br/>&#x25cf; Collect E-mails. <br/>
-        &#x25cf; Auto detect errors. <br/> &#x25cf; Auto detect Cms.<br/>&#x25cf; Post data.<br/>&#x25cf; Auto sequence repeater.<br/>&#x25cf; Validation.<br/>&#x25cf; Post and Get method<br/>&#x25cf; Interactive and Normal interface.<br/>&#x25cf; And more...
+        &#x25cf; Auto detect errors. <br/> &#x25cf; Auto detect Cms.<br/>&#x25cf; Post data.<br/>&#x25cf; Auto sequence repeater.<br/>
+        &#x25cf; Validation.<br/>&#x25cf; Post and Get method<br/>&#x25cf; Issues and Exploit search<br/>&#x25cf; Interactive and Normal interface.<br/>&#x25cf; And more...
     </p></td>
   </tr>
 </table>

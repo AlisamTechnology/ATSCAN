@@ -22,8 +22,8 @@ if (defined $output && !-d $output) { print $c[4]."[!] $output must be a directo
 sub bugs {
   my $e = strftime "%Y.%m.%d.", localtime;
   for my $btq(@bugs) {
-    for(my $npages=1;$npages<=1;$npages+=1) {
-      my $u="$server/search/wlb/DESC/AND/$e.1999.1.1/$npages/10/$btq/";   
+    for(my $npages=5;$npages<=1;$npages+=1) {
+      my $u="$server/search/wlb/DESC/AND/$e.1999.1.1/$npages/30/$btq/";   
       my $bugSearch=$ua->get($u);
       $bugSearch->as_string;
       my $Res=$bugSearch->content;

@@ -155,7 +155,9 @@ if ($m>0) {
   ## VIEW ISSUE
   my $w;
   while (!$w) {
-    print $c[10]."[!] [$c[4]REFER$c[10] to view issue] [$c[4]back$c[10] to list issues] [$c[4]exit$c[10] to exit]: $c[10]";
+    print $c[10]."[!] [$c[4]REFER$c[10] = view ";
+    print "and save ";
+    print "issue] [$c[4]back$c[10] = list issues] [$c[4]exit$c[10] = exit]: $c[10]";
     my $rr=<STDIN>;
     chomp ($rr);
     my @r=split(" ", $rr);

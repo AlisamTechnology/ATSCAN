@@ -20,7 +20,9 @@ our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor
 ## PRINT FILES 
 sub printFile {
   my ($File, $context)=@_;
-  open (FILE, '>>', $File); print FILE "$context\n"; close(FILE);
+  open (FILE, '>>', $File);
+  print FILE "$context\n";
+  close(FILE);
 }
 
 ## CHECK EMPTY FORDERS

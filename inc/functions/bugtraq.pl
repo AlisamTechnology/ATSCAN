@@ -9,21 +9,27 @@ use FindBin '$Bin';
 ## BUGTRAQ
 our($bugtraq, $ua, $limit, $server, $output, @c);
 my (@bugs, @bugId, @bugTitle, @bugDate, @bugLink, @bugWarning, @refer);
+my $e = strftime "%Y.%m.%d.", localtime;
+my $copyPath="$Bin/inc/conf/user/temp.txt";
 my $ser="=" x 39;
-my $copy;
 ###############################################################################
 ###############################################################################
 ## BUGTRAQ ARRAYS
 if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
-if (defined $output && !-d $output) { print $c[4]."[!] $output must be a directory!\n"; logoff(); }
+if (defined $output && !-d $output) { print $c[4]."[!] \"$output\" must be a directory!\n"; logoff(); }
+unlink $copyPath if -e $copyPath;
+###############################################################################
+###############################################################################
+## SEPARATORS
+sub sep { print $c[1]." ===========================================================================\n"; }
+
 ###############################################################################
 ###############################################################################
 ## GET BUGS
 sub bugs {
-  my $e = strftime "%Y.%m.%d.", localtime;
   for my $btq(@bugs) {
-    for(my $npages=5;$npages<=1;$npages+=1) {
-      my $u="$server/search/wlb/DESC/AND/$e.1999.1.1/$npages/30/$btq/";   
+    for(my $npages=1;$npages<=1;$npages+=1) {
+      my $u="$server/search/wlb/DESC/AND/$e.1999.1.1/$npages/10/$btq/";   
       my $bugSearch=$ua->get($u);
       $bugSearch->as_string;
       my $Res=$bugSearch->content;
@@ -39,6 +45,19 @@ sub bugs {
     print $c[4]."[!] No results found!\n";
   }
 }
+
+###############################################################################
+###############################################################################
+## HELP
+sub helpme {
+  sep();
+  print $c[11]." [+] OPTIONS:\n";
+  print $c[11]."   ID   $c[10] View and save issues. Ex: ID1 or ID2 ID3..\n";
+  print $c[11]."   list $c[10] List issues\n";
+  print $c[11]."   exit $c[10] Exit\n";
+  sep();
+}
+
 ###############################################################################
 ###############################################################################
 ## ISSUE TITLE
@@ -48,11 +67,10 @@ sub bugTitle {
     push @bugTitle, "$2";
     push @bugLink, "$1";
     my $bugref=$1;
-    if ($bugref=~m/WLB\-(.*)/g) {
-      push @bugId, $1;
-    }
+    if ($bugref=~m/WLB\-(.*)/g) { push @bugId, $1; }
   }
 }
+
 ###############################################################################
 ###############################################################################
 ## ISSUE DATE
@@ -62,6 +80,7 @@ sub bugDate {
     push @bugDate, $1;
   }
 }
+
 ###############################################################################
 ###############################################################################
 ## ISSUE RISK
@@ -71,6 +90,7 @@ sub bugWarning {
     push @bugWarning, $2;
   }
 }
+
 ###############################################################################
 ###############################################################################
 ## STRING ESCAPE
@@ -80,26 +100,62 @@ sub escape {
   $escap=decode_entities($escap);
   return $escap;
 }
+
+###############################################################################
+###############################################################################
+sub printBugs {
+  my $m=scalar(grep { defined $_} @refer);
+  my $x=0;
+  for my $refer(@refer) {
+    $x++;
+    print "$c[1] ";
+    timer();
+    print "[$x/$m]\n";
+    my @rer=split("=>", $refer);
+    print $c[1]." ISSUE  $c[6]$rer[0]\n";
+    print $c[1]." ID     $c[10]$rer[1]\n";
+    print $c[1]." RISK   $c[10]$rer[2]\n";
+    print $c[1]." DATE   $c[10]$rer[3]\n";
+    sep();
+    sleep 1;
+  }
+}
+
 ###############################################################################
 ###############################################################################
 ## SHOW BUG 
 sub viewBug {
-  my $r=$_[0];
+  my $refer=$_[0];
+  my @rer2=split("=>", $refer);
+  my $copy;
+  if (defined $output) {
+    my $bp=$rer2[0];
+    $bp=~s/(\s|\/)/-/g;
+    $bp=~s/(\(|\)|\[|\])//g;
+    $copy="$output/$bp.txt";
+    printFile($copy, "### $rer2[0]\n");
+  }
+  sep();
+  print $c[1]." ISSUE  $c[6]$rer2[0]\n";
+  print $c[1]." ID     $c[10]$rer2[1]\n";
+  
+  print $c[1]." ---------------------------------------------------------------------------\n";  
   my @se;
-  unlink "$Bin/temp.txt" if -e "$Bin/temp.txt";
-  my $uw="$server/issue/WLB-$r";   
+  my $uw="$server/issue/WLB-$rer2[1]";  
   my $bugView=$ua->get($uw);
   $bugView->as_string;
   my $rBug=$bugView->decoded_content;
   $rBug=escape($rBug);
   $rBug=~ s/<([^>]|\n)*>//g;
-  open (SA, '>>', "$Bin/temp.txt");
+  
+  open (SA, '>>', $copyPath);
   binmode(SA, ":utf8");
   print SA "$rBug";
   close(SA);
-  open (SA, "$Bin/temp.txt");
+  
+  open (SA, $copyPath);
   my $ea=0;
-  print "\n";                          
+  print "$c[6]\n";                          
   while (my $se=<SA>) {
     chomp $se;
     if ($se=~/window.adsbygoogle/) { $ea++; }
@@ -109,38 +165,21 @@ sub viewBug {
     $se=~s/\&gt;/>/g;
     $se=~s/\&lt;/</g;
     if ($se!~/window.adsbygoogle|^\s*$/ && $ea>0) {
-      print " $se\n";      
+      print " $se\n";
       if (defined $output) { printFile($copy, "$se\n"); }
-    }                      
+    }   
   }
   close(SA);
   if (defined $output) { 
-    print "$ser\n";
-    print $c[4]."[i] Issue saved in $copy\n"; }
-}
-###############################################################################
-###############################################################################
-sub printBugs {
-  my $m=scalar(grep { defined $_} @bugTitle);
-  for(my $nbugs=0;$nbugs<$m;$nbugs+=1) {
-    my $x=$nbugs+1;
-    print $c[1]." ============================================================================\n ";
-    timer() ;
-    print "[$x/$m]\n";
-    print $c[1]." ISSUE  $c[6]$bugTitle[$nbugs]\n";
-    print $c[1]." DATE   $c[10]$bugDate[$nbugs]\n";
-    print $c[1]." RISK   $c[10]$bugWarning[$nbugs]\n";
-    print $c[1]." REFER  $c[10]$bugId[$nbugs]\n";
-    push @refer, "$bugTitle[$nbugs]=>$bugId[$nbugs]";
-    sleep 1;
-    if ((defined $limit or $limit) && ($x eq $limit)) { last; }
+    print $c[1]." ---------------------------------------------------------------------------\n";
+    print $c[4]." [i]$c[10] Issue saved in \"$copy\"\n";
   }
+  sep();
 }
-
-
 ###############################################################################
 ###############################################################################
-## TODO
+###############################################################################
+## MAIN
 testConnection();
 bugs();
 my $m=scalar(grep { defined $_} @bugTitle);
@@ -149,51 +188,48 @@ timer();
 print " EXPLORING [$bugtraq] ISSUES...\n";
 sleep 2;
 print $c[3]."[i] $m Results found!\n";
+print $c[1]."============================================================================\n" if $m>0;
 sleep 2;
+
 if ($m>0) {
+  my $x=0;
+  for(my $nbugs=0;$nbugs<$m;$nbugs+=1) {
+    my $fcc="$bugTitle[$nbugs]=>$bugId[$nbugs]=>$bugWarning[$nbugs]=>$bugDate[$nbugs]";
+    $x++;
+    if (defined $limit or $limit) {
+      if ($x<=$limit) { push @refer, $fcc; }
+    }
+    else{ push @refer, $fcc; }
+  }
   printBugs();
-  print $c[1]."$ser\n";
-  ###############################################################################
-  ###############################################################################
-  ## VIEW ISSUE
-  my $w;
-  while (!$w) {
-    print $c[10]."[!] [$c[4]REFER$c[10] = view ";
-    print "and save ";
-    print "issue] [$c[4]back$c[10] = list issues] [$c[4]exit$c[10] = exit]: $c[10]";
-    my $rr=<STDIN>;
+  my $rr;
+  while (!$rr or $rr!~/exit/) {
+    print $c[4]." [!]$c[10] Type <your option> or \"options\" for help: ";
+    $rr=<STDIN>;
     chomp ($rr);
+    print "\n";
     my @r=split(" ", $rr);
     for my $r(@r) {
-      if ($r=~/exit/) { $w=1; }
-      elsif ($r=~/back/) {
-        printBugs();
-        print $c[1]."$ser\n";
+      if ($r!~/([0-9]|options|list|exit)/) {
+        print $c[4]." [!] Cannot interpret your command!\n";
       }
-      elsif ($r=~/[0-9]/ && grep( /^$r$/, @bugId)) {
-        print $c[1]."$ser\n";
-        print $c[1]." REFER  $c[10]$r\n";
+      if ($r=~/options/) { helpme(); }
+      if ($r=~/[0-9]/ && grep( /^$r$/, @bugId)) {
         for my $refer(@refer) {
-          if ($refer=~/$r/) {
-            $refer=~s/\=>.*//;
-            print $c[1]." ISSUE  $c[10]$refer\n";
-            if (defined $output) {
-              $copy="$output/$refer.txt";
-              $copy=~s/\s/-/g;
-              printFile($copy, "$ser\n### $refer\n");
-            }
-          }
+          if ($refer=~/$r/) { viewBug($refer); }
         }
-        print $c[1]." ----------------------------------------------------------------------------\n";
-        print $c[6];
-        viewBug($r);
-        print $c[1]."$ser=\n";
-      }elsif ($r) {
-        print $c[4]."[!] Cannot interpret your command!\n";
+      }
+      if ($r=~/list/) {
+        print $c[4]." [i] Listing issues..\n\n";
+        sleep 1;
+        printBugs();
       }
     }
   }
+  @refer=();
 }
+  
+###############################################################################
 ###############################################################################
 ###############################################################################
 

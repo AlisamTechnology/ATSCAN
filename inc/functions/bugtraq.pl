@@ -28,8 +28,8 @@ sub sep { print $c[1]." ========================================================
 ## GET BUGS
 sub bugs {
   for my $btq(@bugs) {
-    for(my $npages=1;$npages<=1;$npages+=1) {
-      my $u="$server/search/wlb/DESC/AND/$e.1999.1.1/$npages/10/$btq/";   
+    for(my $npages=5;$npages<=1;$npages+=1) {
+      my $u="$server/search/wlb/DESC/AND/$e.1999.1.1/$npages/30/$btq/";   
       my $bugSearch=$ua->get($u);
       $bugSearch->as_string;
       my $Res=$bugSearch->content;

@@ -573,6 +573,7 @@
         <hr>
        &#x25cf; <b>SEARCH EXPLOITS: </b><br/>
        atscan --bugtraq [string] EX: atscan --bugtraq wordpress <br/> 
+       atscan --bugtraq file.txt <br/>
        atscan --bugtraq [string] --limit 10 <br/> 
         <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 

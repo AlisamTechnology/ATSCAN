@@ -38,6 +38,8 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  SEARCH EXPLOIT: \n".$c[10]
   ."   atscan --bugtraq <string> Exp: atscan --bugtraq joomla\n"
+  ."   atscan --bugtraq <string [OTHER]string2> \n"
+  ."   atscan --bugtraq file.txt \n"
   ."   atscan --bugtraq <string> --limit 10 \n\n";
   
   ltak(); print $c[12]."  REGULAR EXPRESSIONS: \n".$c[10]

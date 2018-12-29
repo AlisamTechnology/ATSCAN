@@ -37,7 +37,7 @@ my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!
 "Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://] OR file does not exist!", "Given target file path is not true.",
 "Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![sql\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!",
 "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace \"string => new_string\" or --replaceFROM \"string => new_string\"]", "Invalid option\! Ex: t- <ip> --port 80 [--udp | --tcp]",
-"COMMND", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines: [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]",
+"COMMND", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines:[Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][All:all]",
 "Tool uses default payloads & validation\! You can use your owns using args!\n    Ex: --exp [payload] -v [string] or --payload [your payloads]", "Some thing wrong!",
 "Failed to renew identity with", "Please wait...", "POST", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Max Positive results defined by user reached",
 "Undefined", "Redirect To: ", "Proxy(s)", "Random engine just when using engine!", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]",

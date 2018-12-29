@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
+our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $notIn, $expHost, $mupload, $expIp, $popup, $JoomSites, $WpSites);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
@@ -34,6 +34,7 @@ sub buildenginearray {
   if ($mtr=~/3/) { push @motor, $motor3; }
   if ($mtr=~/4/) { push @motor, $motor4; }
   if ($mtr=~/5/) { push @motor, $motor5; }
+  if ($mtr=~/6/) { push @motor, $motor6; }
 }
 
 ## GET URLS FROM SEARCH ENGINE PAGES
@@ -71,12 +72,13 @@ sub printMotor {
     $motor=~s/MYBROWSERLANG/$browserLang/g;
     $motor=~s/MYGOOGLEDOMAINE/$googleDomain/g;
     my $l2;
-    if ($motor=~/((bing.|google.|ask.|yandex.|sogou.)(.*)\/)/) { $l2=$1; $l2=~s/\/.*//s; $l2="[$l2]"; }
+    if ($motor=~/((bing.|google.|ask.|yandex.|sogou.|exalead.)(.*)\/)/) { $l2=$1; $l2=~s/\/.*//s; $l2="[$l2]"; }
     if ($motor=~/bing/) { print $l2; }
     if ($motor=~/google/) { print $l2; }
     if ($motor=~/ask/) { print $l2; }
     if ($motor=~/yandex/) { print $l2; }
     if ($motor=~/sogou/) { print $l2; }
+    if ($motor=~/exalead/) { print $l2; }
   }
   print "\n";
 }

@@ -174,10 +174,11 @@ our $motor2="http://www.google.MYGOOGLEDOMAINE/search?q=MYDORK&start=MYNPAGES";
 our $motor3="http://www.ask.com/web?q=MYDORK&page=MYNPAGES&qid=MYID";
 our $motor4="http://www.yandex.com/search/?msid=MYMSID&text=MYDORK&lr=25402&p=MYNPAGES";
 our $motor5="http://www.sogou.com/web?query=MYDORK&page=MYNPAGES&ie=utf8";
-our $motorparam="1|2|3|4|5|all";
-our @mrands=($motor1, $motor2, $motor3, $motor4, $motor5);
+our $motor6="https://www.exalead.com/search/web/results/?q=MYDORK&elements_per_page=10&start_index=MYNPAGES";
+our $motorparam="1|2|3|4|5|6|all";
+our @mrands=($motor1, $motor2, $motor3, $motor4, $motor5, $motor6);
 our $mrand=$mrands[rand @mrands];
-our @allMotors=($motor1, $motor2, $motor3, $motor4, $motor5);
+our @allMotors=($motor1, $motor2, $motor3, $motor4, $motor5, $motor6);
 our $pat2='inurl:|intitle:|intext:|allinurl:|index of:|site:(.*)\+|\+site:(.*)';
 our $paylNote="[i] $DT[28]\n";
 

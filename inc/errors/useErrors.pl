@@ -77,7 +77,7 @@ sub abcd {
   if ($abcd=~/,/) { @abcd=split(", ", $abcd); }
   else{ push @abcd, $abcd; }
   for my $ad(@abcd) {
-    if ($ad!~/(1|2|3|4|5|all)/) { print $c[2]."[!] $DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m 1,2,...\n"; logoff(); }
+    if ($ad!~/(1|2|3|4|5|6|all)/) { print $c[2]."[!] $DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m 1,2,...\n"; logoff(); }
   }
 }
 

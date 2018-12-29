@@ -26,7 +26,7 @@ use FindBin '$Bin';
   ltak(); print $c[12]."  SEARCH ENGINE: \n".$c[10]
   ."   Search: atscan --dork <dork> --level <level> \n"
   ."   Search: atscan -d <dork> -l <level> \n"
-  ."   Set engine: atscan --dork <dork> --level <level> -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n"
+  ."   Set engine: atscan --dork <dork> --level <level> -m [Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][All:all]\n"
   ."   Set selective engines: atscan -d <dork> -l <level> -m 1,2,3..\n"
   ."   Search with many dorks: atscan --dork <dork1 [OTHER]dork2 [OTHER]dork3> --level <level> \n"  
   ."   Search and rand: atscan -d <dork> -l <level> --expHost \"/index.php?id=rang(1-9)\" --sql\n"  

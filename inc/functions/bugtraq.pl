@@ -28,21 +28,22 @@ sub sep { print $c[1]." ========================================================
 ## GET BUGS
 sub bugs {
   for my $btq(@bugs) {
-    for(my $npages=5;$npages<=1;$npages+=1) {
-      my $u="$server/search/wlb/DESC/AND/$e.1999.1.1/$npages/30/$btq/";   
+    for(my $npages=1;$npages<=3;$npages+=1) {
+      my $u="$server/search/wlb/DESC/AND/$e 1999.1.1/$npages/30/$btq/";
+      $u=~s/\s//g;
       my $bugSearch=$ua->get($u);
       $bugSearch->as_string;
       my $Res=$bugSearch->content;
-      $Res = escape($Res);
+      $Res=escape($Res);
       if ($bugSearch->is_success) {
         bugTitle($Res);
         bugDate($Res);
         bugWarning($Res);
+      }else{
+        print "[!]$c[4] Cannot coonect to server. try again in a few minutes!\n";
+        logoff();
       }
     }
-  }
-  if (scalar(grep { defined $_} @bugTitle)<1) {
-    print $c[4]."[!] No results found!\n";
   }
 }
 
@@ -187,7 +188,15 @@ print $c[11];
 timer();
 print " EXPLORING [$bugtraq] ISSUES...\n";
 sleep 2;
+if (scalar(grep { defined $_} @bugTitle)<1) {
+  print $c[4]."[!] No results found!\n";
+  logoff();
+}
 print $c[3]."[i] $m Results found!\n";
+if (defined $limit) {
+  print $c[4]."[!] Results limited to [$limit Result\/s] !\n";
+}
+
 print $c[1]."============================================================================\n" if $m>0;
 sleep 2;
 

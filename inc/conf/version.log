@@ -1,9 +1,9 @@
 ATSCAN SCANNER VERSION 14.0.3 RELEASE
 =====================================================
-  CHANGES: 28/12/2018
+  CHANGES: 29/12/2018
   - Add --bugtraq command to search exploits.
   - Add posibility to use multi list.
   - Add issue view and save.
-  - Fix some bugtraq bugs.
+  - Fix some bugtraq bugs scan.
   - Enjoy!
-  =================
+  ===================================================

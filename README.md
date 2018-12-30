@@ -135,7 +135,7 @@
     <img src="https://i.imgur.com/IoReBpZ.jpg" /> <br/><br/>
     <img src="http://i.imgur.com/oRFCwRK.jpg" /> <br/><br/>
     <img src="http://i.imgur.com/aeBfATH.jpg" /> <br/><br/> 
-    <img src="https://imgur.com/rQHKU21" /> <br/><br/> 
+    <img src="https://imgur.com/rQHKU21.jpg" /> <br/><br/> 
     </td>
   </tr>
 </table>

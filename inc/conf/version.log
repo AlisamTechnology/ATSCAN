@@ -1,7 +1,7 @@
 ATSCAN SCANNER VERSION 14.0.4 RELEASE
 =====================================================
   CHANGES: 31/12/2018
-  - Add Exalead search engine.
+  - Fix password md5 generate.
   - Fix bugtraq bug.
   - Enjoy!
   =================

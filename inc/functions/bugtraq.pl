@@ -17,7 +17,6 @@ my $ser="=" x 39;
 ## BUGTRAQ ARRAYS
 if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
 if (defined $output && !-d $output) { print $c[4]."[!] \"$output\" must be a directory!\n"; logoff(); }
-unlink $copyPath if -e $copyPath;
 ###############################################################################
 ###############################################################################
 ## SEPARATORS
@@ -142,13 +141,14 @@ sub viewBug {
   
   print $c[1]." ---------------------------------------------------------------------------\n";  
   my @se;
-  my $uw="$server/issue/WLB-$rer2[1]";  
+  
+  my $uw="$server/issue/WLB-$rer2[1]";
   my $bugView=$ua->get($uw);
   $bugView->as_string;
   my $rBug=$bugView->decoded_content;
   $rBug=escape($rBug);
   $rBug=~ s/<([^>]|\n)*>//g;
-  
+unlink $copyPath if -e $copyPath;
   open (SA, '>>', $copyPath);
   binmode(SA, ":utf8");
   print SA "$rBug";
@@ -171,6 +171,7 @@ sub viewBug {
     }   
   }
   close(SA);
+unlink $copyPath if -e $copyPath;
   if (defined $output) { 
     print $c[1]." ---------------------------------------------------------------------------\n";
     print $c[4]." [i]$c[10] Issue saved in \"$copy\"\n";

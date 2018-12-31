@@ -18,7 +18,6 @@ sub questionlog {
 }
 
 $passwd=questionlog();
-use Digest::MD5;
 $passwd=Digest::MD5::md5_hex($passwd);
 if ($password ne $passwd) { print $c[2]."\n[i] $AUTH[1]\n"; $passwd=questionlog(); }
 print "$c[3] Logged in!\n"; mtak(); ptak();

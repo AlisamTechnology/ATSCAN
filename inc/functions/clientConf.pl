@@ -92,7 +92,6 @@ sub ClientConfiguration {
                 }
                 ##################  
                 elsif ($op eq "password") {
-                  use Digest::MD5;
                   $vl=Digest::MD5::md5_hex($vl);
                   printFile($userSetting, "password $vl");
                   print $c[3]."[i] Password was set!\n";

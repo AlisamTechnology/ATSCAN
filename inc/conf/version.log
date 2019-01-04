@@ -1,7 +1,6 @@
 ATSCAN SCANNER VERSION 14.0.4 RELEASE
 =====================================================
-  CHANGES: 31/12/2018
-  - Fix password md5 generate.
-  - Fix bugtraq bug.
+  CHANGES: 04/01/2019
+  - Add print full request headers.
   - Enjoy!
   =================

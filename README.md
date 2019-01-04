@@ -239,6 +239,10 @@
       <tr>
         <td width="200px" class="main">--header</td>
         <td class="main"> Set headers </td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--fullHeaders</td>
+        <td class="main"> Print full request headers </td>
       </tr>      
       <tr>
         <td width="200px" class="main">--host </td>

@@ -5,7 +5,8 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, $command, $all,
-     $data, $validShell, $zoneH, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists, @notExists, @ZT);
+     $data, $validShell, $zoneH, $fullHeaders, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists,
+     @notExists, @ZT);
 
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
@@ -229,11 +230,28 @@ sub doPrint {
   }
 }
 
+## FULL REQUEST HEADERS
+sub fullRequestHeaders {
+  my $Hcopy="$Bin/inc/conf/user/HeadersTemp.txt";
+  print $c[1]."    HEADERS ";
+  print "-" x 65 ."\n";
+  open (HC, $Hcopy);
+  while (my $seH=<HC>) {
+    chomp $seH;
+    $seH=decode_entities($seH);
+    $seH=uri_unescape($seH);
+    print "$c[10]            $seH\n";
+  }
+  close(HC);
+  unlink $Hcopy if -e $Hcopy;
+}
+
 ## EXTRAT USER SCAN
 sub checkExtratScan {
   my ($URL1, $html)=@_;
   if (defined $content) { points(); print $c[10]."$html\n"; }
   if (defined $msource) { printSource($URL1, $html); }
+  if (defined $fullHeaders) { fullRequestHeaders(); }
   if (defined $command) { checkExternComnd($URL1, $command); }
   if (defined $validShell) { checkUloadedShell($URL1); }
   if (defined $zoneH) { zoneH($URL1, $zoneH); }

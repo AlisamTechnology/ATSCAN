@@ -5,7 +5,8 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $notIn, $expHost, $mupload, $expIp, $popup, $JoomSites, $WpSites);
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $notIn, $expHost, $mupload,
+     $expIp, $popup, $JoomSites, $WpSites, $fullHeaders);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
 
@@ -204,20 +205,22 @@ sub printInfoUrl {
 sub browseUrl {
   my ($URL1, $data)=@_;
   printInfoUrl($URL1, $data);
-  my ($response, $html, $status, $serverheader, $command, $port);
+  my ($response, $html, $status, $serverheader, $command, $port, $fullHeader);
   ($response, $html, $status, $serverheader)=getHtml($URL1, $data);
   my $o=OO();
   if ($o<$limit) {
     if (!defined $noinfo && !$noinfo) {
-      if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }    
-      print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
-      if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
-      else { print $c[10]."$DT[35]\n"; }
+      if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }
       my $ips=checkExtraInfo($URL1);
       print $c[1]."    $DS[10]      ";
       if ($ips) { my $ad=inet_ntoa($ips); print $c[10]."$ad\n"; }
       else{ print $c[10]."$DT[35]\n"; }
       checkCms($html); checkErrors($html);
+      if (!defined $fullHeaders) {        
+        print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
+        if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
+        else { print $c[10]."$DT[35]\n"; }
+      }
       if (defined $output) { print $c[1]."    OUTPUT  ". $c[10]."$output\n"; }
     }
   }
@@ -260,8 +263,15 @@ sub getHtml {
   my $html=$response->decoded_content;
   my $status=$response->code;
   my $serverheader=$response->server;
+  my $fullHeader=$response->headers_as_string;
+  if (defined $fullHeaders) {
+    my $Hcopy="$Bin/inc/conf/user/HeadersTemp.txt";
+    unlink $Hcopy if -e $Hcopy;
+    printFile($Hcopy, $fullHeader);
+  }
   return ($response, $html, $status, $serverheader);
 }
+
 ## GET DATA FORM FIELDS
 sub dataFields {
   my $data=$_[0];

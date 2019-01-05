@@ -4,8 +4,8 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload, $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $mindex,
-     $content, $ping, $replace, $replaceFROM, $validShell, $popup);
+our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload,
+     $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $mindex, $content, $ping, $replace, $replaceFROM, $validShell, $popup, $zoneH);
 our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @replace, @TT, @SCAN_TITLE,
      @DT, @OTHERS, @c, @ZT);
 
@@ -23,6 +23,13 @@ if (defined $popup and !defined $command) {
 if (defined $exploit or $exploit) {
   my $Targ=Targs();
   if ($Targ<1) { print $c[4]."[!] $OTHERS[7]\n"; logoff(); }
+}
+
+## ZONE-H
+if (defined $zoneH) {
+  if ($zoneH!~/(.*)=>(.*)/) {
+    print $c[4]."[!] zoneH must be \"Notifier => Url\" \n"; logoff();
+  }
 }
 
 ## CHECK TARGET PROTOCOL

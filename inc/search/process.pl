@@ -347,16 +347,7 @@ sub getComnd {
       $comnd=~s/\-\-TARGET/$URL1/ig;
     }    
   }else{
-    if ($comnd=~/\-HOSTIP/) {
-      my $ips=checkExtraInfo($URL1);
-      if ($ips) { my $ad=inet_ntoa($ips); $comnd=~s/\-\-HOSTIP/$ad/ig; }
-      else{ print "$c[2] $TT[11]\n"; }
-    }elsif ($comnd=~/\-HOST/) {
-      $URL1=getHost($URL1);   
-      $comnd=~s/\-\-HOST/$URL1/ig;
-    }elsif ($comnd=~/\-TARGET/) {
-      $comnd=~s/\-\-TARGET/$URL1/ig;
-    }
+    $comnd=replaceReferencies($URL1, $comnd);
   }
   print "$c[10]            => $c[10]$comnd\n";
   if (defined $popup) {

@@ -1,8 +1,7 @@
-ATSCAN SCANNER VERSION 14.0.5 RELEASE
+ATSCAN SCANNER VERSION 14.0.6 RELEASE
 =====================================================
-  CHANGES: 04/01/2019
-  - Add print full request headers.
   CHANGES: 05/01/2019
   - Fix bugtraq.
+  - New fixes for zone-H and extern process.
   - Enjoy!
   =================

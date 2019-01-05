@@ -11,7 +11,7 @@
 <table border="0" cellpadding="0" cellspacing="2" width="100%">
   <tr>
     <td width="100px" class="main2"><b>Tool:</b></td>
-    <td width="780px" class="main2"><b>ATSCAN V 14.0.5 </b></td>
+    <td width="780px" class="main2"><b>ATSCAN V 14.0.6 </b></td>
   </tr>
   <tr>
     <td width="100px" class="main2"><b>Codename:</b></td><td width="780px">4n0n4t</td>
@@ -222,7 +222,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--vshell</td>
-        <td class="main"> Validate by url</td>
+        <td class="main"> Validate by url ex: --HOST/shell.php</td>
       </tr>
       <tr>
         <td width="200px" class="main">--post</td>
@@ -574,7 +574,7 @@
        atscan -t [target / targets.txt] --valid [string] --exclude [string]<br/>
         <hr>
        &#x25cf; <b>ZONE-H: </b><br/>
-       atscan -t [target / targets.txt] -v [string] --zoneH "notifier => /attachement/file.php" <br/>
+       atscan -t [target / targets.txt] -v [string] --zoneH "notifier => --HOST/index.php" <br/>
         <hr>
        &#x25cf; <b>SEARCH EXPLOITS: </b><br/>
        atscan --bugtraq [string] EX: atscan --bugtraq wordpress <br/> 

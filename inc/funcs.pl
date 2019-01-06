@@ -14,7 +14,7 @@ our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $no
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex,
      $Hstatus);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT,
-     @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @bugs, @validShells);
+     @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells);
 
 ## USER PRE-CONFIGURATION
 our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $scriptbash);
@@ -142,9 +142,6 @@ if (defined $payloads || $payloads) { @userArraysList=buildArraysLists($payloads
 if (defined $exploit) { @exploits=buildArraysLists($exploit); }
 if (defined $expHost) { @exploits=buildArraysLists($expHost); }
 if (defined $expIp) { @exploits=buildArraysLists($expIp); }
-
-## BUGTRAQ ARRAYS
-if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
 
 ## VALIDATION ARRAYS
 if (defined $validText) { @validTexts=buildArraysLists($validText); }

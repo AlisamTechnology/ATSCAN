@@ -612,18 +612,6 @@ sub doRegex {
   }
 }
 
-## CHECK UPLOADED SHELL
-sub checkUloadedShell {
-  my $URL=$_[0];
-  $validShell=replaceReferencies($URL, $validShell);
-  $URL=getHost($URL);
-  $URL.=$validShell;
-  my $reShell = $ua->get("$URL");
-  if ($reShell->is_success and ($reShell->code eq "200")) {
-    print $c[1]."    SHELL   ".$c[3].  "$URL \n";
-  }
-}
-
 ## REPLACE REFERENCIES TARGET HOST HOSTIP
 sub replaceReferencies {
   my ($URL, $ref)=@_;

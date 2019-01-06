@@ -178,8 +178,6 @@ sub printInfoUrl {
   our ($command, $port);
   if ($o<$limit) {
     if (!defined $noinfo && !$noinfo) {
-      if (defined $validShell) { print $c[1]."    VALID  $c[10] [$validShell]\n"; }
-      if (defined $noQuery) { print $c[1]."    $DS[16] $c[10]  $DS[40]\n"; }
       printProxy();
       if (defined $brandom || $brandom) {
         print $c[1]."    $ErrT[21] $c[8]  New agent !\n";
@@ -197,6 +195,7 @@ sub printInfoUrl {
           print $c[1]."    $OTHERS[14]   "; print $c[10]."[$_]\n";
         }
       }
+      if (defined $noQuery) { print $c[1]."    $DS[16] $c[10]  $DS[40]\n"; }
     }
   }
 }
@@ -222,6 +221,10 @@ sub browseUrl {
         else { print $c[10]."$DT[35]\n"; }
       }
       if (defined $output) { print $c[1]."    OUTPUT  ". $c[10]."$output\n"; }
+    }
+    if (defined $validShell) {
+      my $vsl=replaceReferencies($URL1, $validShell);
+      print $c[1]."    VALID  $c[10] [$vsl]\n";
     }
   }
   return ($response, $status, $html);

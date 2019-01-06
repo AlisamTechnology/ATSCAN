@@ -153,6 +153,10 @@ sub validateResult {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV=checkValidation($URL1, $status, $html, $response, "");        
   if ($cV) {
+    if (defined $validShell) {
+      $URL1=replaceReferencies($URL1, $validShell);
+    }
+    
     doPrint($URL1, $result, $html);
   }else{
     noResult() unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell))); }
@@ -200,20 +204,29 @@ sub getValidationParts {
 ## CHECK VALIDATION SEARCH RESULTS / TARGETS LIST
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
-  my $cV=$URL1;
-  if (defined $Hstatus) { if ($status ne $Hstatus) { $cV=""; } }
+  my $cV="";
+  if (defined $Hstatus) { if ($status eq $Hstatus) { $cV="1"; } }
   if (defined $validText) {
     my $validation_number = getValidationParts($html, \@validTexts, "1");
     if (defined $all) {
-      if (scalar(grep { defined $_} @validTexts) ne scalar(grep { defined $_} @exists)) { $cV=""; }
+      if (scalar(grep { defined $_} @validTexts) eq scalar(grep { defined $_} @exists)) { $cV="1"; }
     }else{
-      if ($validation_number <= 0) { $cV=""; }
+      if ($validation_number > 0) { $cV="1"; }
     }
   }
   
   if (defined $notIn) {
     my $notin_number = getValidationParts($html, \@notIns, "2");
-    if ($notin_number > 0) { $cV=""; }
+    if ($notin_number <= 0) { $cV="1"; }
+  }
+  
+  if (defined $validShell) {
+    our $ua;
+    my $vref=replaceReferencies($URL1, $validShell);
+    my $reShell = $ua->get("$vref");
+    if ($reShell->is_success and ($reShell->code eq "200")) {
+      $cV="1";
+    }
   }
   return $cV;
 }
@@ -223,6 +236,7 @@ sub doPrint {
   my ($URL1, $result, $html)=@_;
   my $o=OO();
   if ($o<$limit) {
+    
     print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)));
     if (defined $beep || $beep) { print chr(7); }
     saveme($URL1, "");
@@ -253,7 +267,7 @@ sub checkExtratScan {
   if (defined $msource) { printSource($URL1, $html); }
   if (defined $fullHeaders) { fullRequestHeaders(); }
   if (defined $command) { checkExternComnd($URL1, $command); }
-  if (defined $validShell) { checkUloadedShell($URL1); }
+  #if (defined $validShell) { checkUloadedShell($URL1); }
   if (defined $zoneH) { zoneH($URL1, $zoneH); }
 }
 

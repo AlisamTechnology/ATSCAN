@@ -5,8 +5,8 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, $command, $all,
-     $data, $validShell, $zoneH, $fullHeaders, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists,
-     @notExists, @ZT);
+     $data, $validShell, $zoneH, $fullHeaders, $ua, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists,
+     @notExists, @ZT, @validShells);
 
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
@@ -156,7 +156,6 @@ sub validateResult {
     if (defined $validShell) {
       $URL1=replaceReferencies($URL1, $validShell);
     }
-    
     doPrint($URL1, $result, $html);
   }else{
     noResult() unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell))); }
@@ -214,18 +213,28 @@ sub checkValidation {
       if ($validation_number > 0) { $cV="1"; }
     }
   }
-  
   if (defined $notIn) {
     my $notin_number = getValidationParts($html, \@notIns, "2");
     if ($notin_number <= 0) { $cV="1"; }
   }
-  
   if (defined $validShell) {
-    our $ua;
-    my $vref=replaceReferencies($URL1, $validShell);
-    my $reShell = $ua->get("$vref");
-    if ($reShell->is_success and ($reShell->code eq "200")) {
-      $cV="1";
+    my @eew;
+    for my $vref(@validShells) {
+      my $vref=replaceReferencies($URL1, $vref);
+      my $reShell = $ua->get("$vref");
+      if ($reShell->is_success and ($reShell->code eq "200")) {
+        $cV="1";
+        push @eew, $vref;
+      }
+    }
+    my $I=0;
+    for my $eew(@eew){
+      $I++;
+      print $c[3]."$eew\n";
+      if ($I>0 and $I<scalar(@eew)) {
+        print "            ";
+        saveme($eew, "");
+      }
     }
   }
   return $cV;
@@ -236,8 +245,7 @@ sub doPrint {
   my ($URL1, $result, $html)=@_;
   my $o=OO();
   if ($o<$limit) {
-    
-    print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)));
+    print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn)));
     if (defined $beep || $beep) { print chr(7); }
     saveme($URL1, "");
     checkExtratScan($URL1, $html);
@@ -267,7 +275,6 @@ sub checkExtratScan {
   if (defined $msource) { printSource($URL1, $html); }
   if (defined $fullHeaders) { fullRequestHeaders(); }
   if (defined $command) { checkExternComnd($URL1, $command); }
-  #if (defined $validShell) { checkUloadedShell($URL1); }
   if (defined $zoneH) { zoneH($URL1, $zoneH); }
 }
 

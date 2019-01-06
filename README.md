@@ -222,7 +222,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--vshell</td>
-        <td class="main"> Validate by url ex: --HOST/shell.php</td>
+        <td class="main"> Validate by url ex: --HOST/shell.php or list.txt</td>
       </tr>
       <tr>
         <td width="200px" class="main">--post</td>

@@ -1,8 +1,9 @@
-ATSCAN SCANNER VERSION 14.0.6 RELEASE
+ATSCAN SCANNER VERSION 14.0.7 RELEASE
 =====================================================
-  CHANGES: 05/01/2019
+  CHANGES: 06/01/2019
   - Fix bugtraq.
   - New fixes for zone-H and extern process.
   - Fix shell path validation.
+  - Add mass shell validation
   - Enjoy!
   =================

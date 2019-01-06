@@ -11,8 +11,10 @@ use POSIX qw(strftime);
 
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
-     $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie);
-our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT, @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT);
+     $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex,
+     $Hstatus);
+our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT,
+     @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @bugs, @validShells);
 
 ## USER PRE-CONFIGURATION
 our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $scriptbash);
@@ -141,9 +143,13 @@ if (defined $exploit) { @exploits=buildArraysLists($exploit); }
 if (defined $expHost) { @exploits=buildArraysLists($expHost); }
 if (defined $expIp) { @exploits=buildArraysLists($expIp); }
 
+## BUGTRAQ ARRAYS
+if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
+
 ## VALIDATION ARRAYS
 if (defined $validText) { @validTexts=buildArraysLists($validText); }
 if (defined $notIn) { @notIns=buildArraysLists($notIn); }
+if (defined $validShell) { @validShells=buildArraysLists($validShell); }
 
 ## MAX POSITIVE SCAN RESULTS
 ## Change for more positive scans!!
@@ -767,7 +773,6 @@ sub printProxy {
 
 ## CHECK SCAN ARGUMENTS
 sub Targs {
-  our ($mindex, $Hstatus, $validText, $zoneH, $bugtraq);
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
              $regex, $command, $ping, $interactive, $validShell, $notIn, $repair, $bugtraq);
   my $Targ=0;

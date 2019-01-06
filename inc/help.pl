@@ -92,14 +92,14 @@ use FindBin '$Bin';
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> | --valid <list.txt>] \n"
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> --all] \n"
   ."   atscan -t <target | targets.txt> [--status <code> | --exclude <string> | --exclude <list.txt>] \n"
-  ."   atscan -t <target | targets.txt> --vshell <url> \n"
+  ."   atscan -t <target | targets.txt> --vshell <url/list.txt>  \n"
   ."   atscan -d <dork | dorks.txt> -l <level> --exp/expHost <payload> --status <code> | --valid <string> \n"
   ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --status <code> | --valid <string> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--admin | --sql ..] --status <code> | --valid <string> \n"  
   ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replaceFROM \"string \=\> new_string\" --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --exp/expHost <payload> --status <code> | --valid <string>\n"
-  ."   atscan  -d <dorks.txt> --exp <exploit> --data \"username\=\>john\, pass\=\>1234\" --post --vshell <url> | -v <string> | --status <code> \n"
+  ."   atscan  -d <dorks.txt> --exp <exploit> --data \"username\=\>john\, pass\=\>1234\" --post --vshell <url/list.txt> | -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--sql | --shost ..] --status <code> | --valid <string> \n\n";
   
   ltak(); print $c[12]."  UPDATE TOOL: \n".$c[10]."   --update\n";

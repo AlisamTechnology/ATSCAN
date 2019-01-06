@@ -224,7 +224,7 @@ sub browseUrl {
     }
     if (defined $validShell) {
       my $vsl=replaceReferencies($URL1, $validShell);
-      print $c[1]."    VALID  $c[10] [$vsl]\n";
+      print $c[1]."    VSHELL $c[10] [$vsl]\n";
     }
   }
   return ($response, $status, $html);

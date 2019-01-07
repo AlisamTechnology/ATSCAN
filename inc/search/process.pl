@@ -7,7 +7,7 @@ use FindBin '$Bin';
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $notIn, $expHost, $mupload,
      $expIp, $popup, $JoomSites, $WpSites, $fullHeaders);
-our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies);
+our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies, @commands);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
 
 ## SET ENGINES
@@ -222,10 +222,6 @@ sub browseUrl {
       }
       if (defined $output) { print $c[1]."    OUTPUT  ". $c[10]."$output\n"; }
     }
-    if (defined $validShell) {
-      my $vsl=replaceReferencies($URL1, $validShell);
-      print $c[1]."    VSHELL $c[10] [$vsl]\n";
-    }
   }
   return ($response, $status, $html);
 }
@@ -328,33 +324,33 @@ sub getRegex {
 
 ## EXECUTE EXTERN PROCESS COMMANDS
 sub getComnd {
-  my ($URL1, $comnd)=@_;
-  $URL1=~s/(\sAND|\%27|\<|\>|\"\<|\"\>|\'\<|\'\>|\"\;|\<\%25|\%|\').*//ig;
-  if ($URL1=~/($V_IP)/) {
-    $URL1=removeProtocol($URL1);
+  my ($u, $comnd)=@_;
+  $u=~s/(\sAND|\%27|\<|\>|\"\<|\"\>|\'\<|\'\>|\"\;|\<\%25|\%|\').*//ig;
+  if ($u=~/($V_IP)/) {
+    $u=removeProtocol($u);
     if ($comnd=~/-PORT/) {
-      if ($URL1=~/(($V_IP)\:(\d{2,6}))/) {
-        $URL1=~s/\:/\./g;
-        my @f=split /\./, $URL1;
+      if ($u=~/(($V_IP)\:(\d{2,6}))/) {
+        $u=~s/\:/\./g;
+        my @f=split /\./, $u;
         my $Addr="$f[0].$f[1].$f[2].$f[3]";
         my $Port=$f[4];
         $comnd=~s/\-\-TARGET/$Addr/ig;
         $comnd=~s/\-\-PORT/$Port/ig;
       }else{
-        $comnd=~s/\-\-TARGET/$URL1/ig;
+        $comnd=~s/\-\-TARGET/$u/ig;
       }
     }elsif ($comnd=~/\-HOSTIP/) {
-      $URL1=~s/\:(\d{2,6})//s;
-      $comnd=~s/\-\-HOSTIP/$URL1/ig;
+      $u=~s/\:(\d{2,6})//s;
+      $comnd=~s/\-\-HOSTIP/$u/ig;
     }else{
-      $comnd=~s/\-\-TARGET/$URL1/ig;
+      $comnd=~s/\-\-TARGET/$u/ig;
     }    
   }else{
-    $comnd=replaceReferencies($URL1, $comnd);
+    $comnd=replaceReferencies($u, $comnd);
   }
-  print "$c[10]            => $c[10]$comnd\n";
+  #print "$c[10]            => $c[10]$comnd\n";
   if (defined $popup) {
-    $comnd="sudo xterm -title '$URL1' -hold -e '$comnd'";
+    $comnd="sudo xterm -title '$u' -hold -e '$comnd'";
     print "$c[4]            [!] $c[10]Opening process in extern window..\n";
     sleep 2;
     print $c[8]."            ";
@@ -363,7 +359,7 @@ sub getComnd {
     print $c[8]."            ";
     system("$comnd");
   }
-  print "\n";
+  print "\n    ";
 }
 
 our ($exploit, $p, $shell, @exploits);

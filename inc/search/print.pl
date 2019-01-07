@@ -96,7 +96,6 @@ sub titleSCAN {
     if (defined $Hstatus and ($status=~m/$Hstatus/)) {
       print $c[1]."    $ZT[11]  ".$c[4]."[$DS[13] $Hstatus] \n";
     }
-
     if (defined $notIn) {
       for my $noin(@notIns) {
         if ($html=~m/\b$noin\b/) {
@@ -120,7 +119,7 @@ sub printResults {
   my $o=OO();
   if ($o<$limit) {
     if ($result) {
-      titleSCAN($html, $status) if $result && (defined $Hstatus || defined $validText || defined $notIn || defined $validShell);
+      titleSCAN($html, $status) if $result && (defined $Hstatus || defined $validText || defined $notIn);
       validateResult($URL1, $status, $html, $response, $result);
     }
     elsif ($reg) {
@@ -153,12 +152,9 @@ sub validateResult {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV=checkValidation($URL1, $status, $html, $response, $result);
   if ($cV) {
-    if (defined $validShell) {
-      $URL1=replaceReferencies($URL1, $validShell);
-    }
     doPrint($URL1, $result, $html);
   }else{
-    my @noresult1=($Hstatus, $validText, $notIn, $validShell);
+    my @noresult1=($Hstatus, $validText, $notIn);
     my @noresult2=($exploit, $expIp, $expHost, $replace, $noQuery);
     my ($i, $i1);
     for (@noresult1) { $i="1" if defined $_; }
@@ -172,7 +168,7 @@ sub formData {
   my ($URL1, $html, $status, $response)=@_;
   my $o=OO();
   if ($o<$limit) {
-    my @noresult3=($Hstatus, $validText, $notIn, $validShell);
+    my @noresult3=($Hstatus, $validText, $notIn);
     my $i3;
     for (@noresult3) { $i3="1" if defined $_; }
     if ($i3) {
@@ -226,16 +222,26 @@ sub checkValidation {
     my $notin_number = getValidationParts($html, \@notIns, "2");
     if ($notin_number <= 0) { $cV="1"; }
   }
-  if (defined $validShell) {
-    my @eew;
-    for my $vref(@validShells) {
-      my $vref=replaceReferencies($URL1, $vref);
-      my $reShell = $ua->get("$vref");
-      if ($reShell->is_success and ($reShell->code eq "200")) {
-        $cV="1";
-        push @eew, $vref;
-      }
+  if ($result) { $cV="1"; }
+  return $cV;
+}
+
+## SHELL URL VALIDATION
+sub validShell {
+  my ($URL1, $validShell)=@_;
+  my @eew;
+  print $c[1]."    VSHELL $c[10] [$validShell]\n";
+  print $c[1]."    SHELL   ";
+  for my $vref(@validShells) {
+    my $vref=replaceReferencies($URL1, $vref);
+    my $reShell = $ua->get("$vref");
+    if ($reShell->is_success and ($reShell->code eq "200")) {
+      push @eew, $vref;
     }
+  }
+  if (scalar(@eew) < 1) {
+    print $c[2]."No shell found!\n";
+  }else{
     my $I=0;
     for my $eew(@eew){
       $I++;
@@ -246,8 +252,6 @@ sub checkValidation {
       }
     }
   }
-  if ($result) { $cV="1"; }
-  return $cV;
 }
 
 ## PRINT RESULTS
@@ -289,7 +293,8 @@ sub checkExtratScan {
   if (defined $content) { points(); print $c[10]."$html\n"; }
   if (defined $msource) { printSource($URL1, $html); }
   if (defined $fullHeaders) { fullRequestHeaders(); }
-  if (defined $command) { checkExternComnd($URL1, $command); }
+  if (defined $command) { checkExternComnd($URL1, $command); }              
+  if (defined $validShell) { validShell($URL1, $validShell); }
   if (defined $zoneH) { zoneH($URL1, $zoneH); }
 }
 

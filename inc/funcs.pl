@@ -12,9 +12,9 @@ use POSIX qw(strftime);
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex,
-     $Hstatus, $content, $msource, $fullHeaders, $command);
+     $Hstatus, $content, $msource, $fullHeaders);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT,
-     @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells);
+     @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells, @commands);
 
 ## USER PRE-CONFIGURATION
 our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $scriptbash);
@@ -137,6 +137,9 @@ if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
 
 ## USER ARRAYS
 if (defined $payloads || $payloads) { @userArraysList=buildArraysLists($payloads); }
+
+## EXTERN COMMANDS ARRAYS
+if (defined $command) { @commands=buildArraysLists($command); }
 
 ## EXPLOITS ARRAYS
 if (defined $exploit) { @exploits=buildArraysLists($exploit); }
@@ -703,8 +706,15 @@ sub getK {
 ## EXTERN COMMAND EXECUTION
 sub checkExternComnd {
   my ($URL1, $command)=@_;
-  print $c[1]."    $DT[24]  $c[10]....................................................................\n";
-  getComnd($URL1, $command);
+  my $ic=0;
+  for my $comnd(@commands) {
+    $ic++;
+    $comnd=replaceReferencies($URL1, $comnd);
+    print $c[1]."    $DT[24] $c[10] [".$ic."/".scalar(@commands)."] [$comnd]\n";
+    #print $c[1]."    $DT[24]  $c[11]"."." x 68 ."\n";
+    getComnd($URL1, $comnd);
+    print $c[1]. "." x 75 ."\n";
+  }
 }
 
 ## CHMOD 777

@@ -42,7 +42,7 @@
   <tr>
     <td class="main" width="890px"><p>&#x25cf; Search engine: Google/Bing/Ask/Yandex/Sogou/Exalead <br />
         &#x25cf; Mass Dork Search<br/>&#x25cf; Multiple instant scans. <br/>&#x25cf; Mass Exploitation <br/>&#x25cf; Use proxy. <br/>
-        &#x25cf; Random user agent. <br/>&#x25cf; Random engine.<br/> &#x25cf; Extern commands execution.<br/>&#x25cf; Exploits and issues search.<br/>
+        &#x25cf; Random user agent. <br/>&#x25cf; Random engine.<br/> &#x25cf; Mass Extern commands execution.<br/>&#x25cf; Exploits and issues search.<br/>
         &#x25cf; XSS / SQLI / LFI / AFD scanner.<br /> &#x25cf; Filter wordpress and Joomla sites. <br />
         &#x25cf; Find Admin page.<br />&#x25cf; Decode / Encode Base64 / MD5<br/> &#x25cf; Ports scan. <br/>&#x25cf; Collect IPs<br/>&#x25cf; Collect E-mails. <br/>
         &#x25cf; Auto detect errors. <br/> &#x25cf; Auto detect Cms.<br/>&#x25cf; Post data.<br/>&#x25cf; Auto sequence repeater.<br/>

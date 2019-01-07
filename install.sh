@@ -10,7 +10,7 @@
 # Bash completion => /etc/bash_completion.d/atscan
 # Sym link => /usr/bin/atscan
 # Readme => /usr/share/doc/atscan/README.md
-# Desktop entry => /usr/share/applications/atscan.desktop
+# Desktop entry => /usr/share/applications/kali-atscan.desktop
 # Icons => /usr/share/icons/hicolor/
 # License => /usr/share/doc/atscan/License.txt
 #############################################################################################
@@ -130,8 +130,20 @@ fi
  fi
  chmod +x "/usr/share/applications";
 
- sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/;
- if [ ! -e "/usr/share/applications/atscan.desktop" ]; 
+ sudo cp $refdir/inc/conf/desktop/kali-atscan.desktop /usr/share/applications/;
+ if [ ! -e "/usr/share/applications/kali-atscan.desktop" ]; 
+ then
+   echo "Warning! Failed to add direct access to the applications menu!";  
+ fi
+
+ if [ ! -d "/usr/share/kali-menu/applications" ]; 
+ then
+   mkdir "/usr/share/kali-menu/applications";  
+ fi
+ chmod +x "/usr/share/kali-menu/applications";
+
+ sudo cp $refdir/inc/conf/desktop/kali-atscan.desktop /usr/share/kali-menu/applications/;
+ if [ ! -e "/usr/share/kali-menu/applications/kali-atscan.desktop" ]; 
  then
    echo "Warning! Failed to add direct access to the applications menu!";  
  fi
@@ -160,7 +172,7 @@ fi
    mkdir "/usr/share/icons/hicolor/16x16/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/16x16/apps";
- sudo cp $refdir/inc/conf/desktop/16x16/atscan-menu.png /usr/share/icons/hicolor/16x16/apps/;
+ sudo cp $refdir/inc/conf/desktop/16x16/kali-atscan-menu.png /usr/share/icons/hicolor/16x16/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/22x22" ]; 
  then
@@ -172,7 +184,7 @@ fi
    mkdir "/usr/share/icons/hicolor/22x22/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/22x22/apps";
- sudo cp $refdir/inc/conf/desktop/22x22/atscan-menu.png /usr/share/icons/hicolor/22x22/apps/;
+ sudo cp $refdir/inc/conf/desktop/22x22/kali-atscan-menu.png /usr/share/icons/hicolor/22x22/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/24x24" ]; 
  then
@@ -184,7 +196,7 @@ fi
    mkdir "/usr/share/icons/hicolor/24x24/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/24x24/apps";
- sudo cp $refdir/inc/conf/desktop/24x24/atscan-menu.png /usr/share/icons/hicolor/24x24/apps/;
+ sudo cp $refdir/inc/conf/desktop/24x24/kali-atscan-menu.png /usr/share/icons/hicolor/24x24/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/48x48" ]; 
  then
@@ -196,7 +208,7 @@ fi
    mkdir "/usr/share/icons/hicolor/48x48/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/48x48/apps";
- sudo cp $refdir/inc/conf/desktop/48x48/atscan-menu.png /usr/share/icons/hicolor/48x48/apps/;
+ sudo cp $refdir/inc/conf/desktop/48x48/kali-atscan-menu.png /usr/share/icons/hicolor/48x48/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/256x256/" ]; 
  then
@@ -208,7 +220,7 @@ fi
    mkdir "/usr/share/icons/hicolor/256x256//apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/256x256//apps";
- sudo cp $refdir/inc/conf/desktop/256x256//atscan-menu.png /usr/share/icons/hicolor/256x256//apps/;
+ sudo cp $refdir/inc/conf/desktop/256x256//kali-atscan-menu.png /usr/share/icons/hicolor/256x256//apps/;
  
  ########################################################################################################################
 
@@ -253,7 +265,7 @@ fi
  read modeChoice
  if [ "$modeChoice" == "1" ]; 
  then
-  sudo sed -i 's/atscan;/atscan --interactive;/g' /usr/share/applications/atscan.desktop;
+  sudo sed -i 's/atscan;/atscan --interactive;/g' /usr/share/applications/kali-atscan.desktop;
   echo "interactive on" >> $refdir/inc/conf/userSetting;
  fi
  sleep 1 && echo "[i] Tool successfully installed and will start in 3s!..           [100%]";

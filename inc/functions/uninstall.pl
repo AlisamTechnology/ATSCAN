@@ -13,14 +13,14 @@ if (defined $uninstall) {
   my $resp=<STDIN>;
   chomp ($resp);
   if ($resp=~/(Y|y)/) {
-    my @uninstall=($scriptbash, $script, "$scriptCompletion/atscan", "/usr/share/applications/atscan.desktop");
+    my @uninstall=($scriptbash, $script, "$scriptCompletion/atscan", "/usr/share/kali-menu/applications/kali-atscan.desktop", "/usr/share/kali-menu/applications/kali-atscan.desktop");
     for my $mm(@uninstall) {
       print $c[10]."[i] $ZT[8] $mm... ";
       unlink $mm if -e $mm;
       if (!-e $mm) { cc(); }else{ bb(); }
     }
     
-	my @deleteIcons=("/usr/share/icons/hicolor/16x16/apps/atscan-menu.png", "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png", "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png", "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png", "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png");
+	my @deleteIcons=("/usr/share/icons/hicolor/16x16/apps/kali-atscan-menu.png", "/usr/share/icons/hicolor/22x22/apps/kali-atscan-menu.png", "/usr/share/icons/hicolor/24x24/apps/kali-atscan-menu.png", "/usr/share/icons/hicolor/48x48/apps/kali-atscan-menu.png", "/usr/share/icons/hicolor/256x256/apps/kali-atscan-menu.png");
     for my $ico(@deleteIcons) {
       print $c[10]."[i] $ZT[8] $ico... ";
       unlink $ico if -e $ico;

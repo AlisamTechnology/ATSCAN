@@ -78,24 +78,34 @@ if ($same eq "yes") {
 
       #############################################
       print $c[10]."[i] Creating desktop entries....\n";
-      if (-d "/usr/share/icons/hicolor/16x16/apps/") {
-	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/16x16/atscan-menu.png /usr/share/icons/hicolor/16x16/apps/";
-	    if (!-e "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png") { print $c[3]."$er write in /usr/share/icons/hicolor/16x16/apps/!\n"; }
-	
-	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/22x22/atscan-menu.png /usr/share/icons/hicolor/22x22/apps/";
-	    if (!-e "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png") { print $c[3]."$er write in /usr/share/icons/hicolor/22x22/apps/!\n"; }
-	
-	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/24x24/atscan-menu.png /usr/share/icons/hicolor/24x24/apps/";
-	    if (!-e "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png") { print $c[3]."$er write in /usr/share/icons/hicolor/24x24/apps/!\n"; }
-	
-	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/48x48/atscan-menu.png /usr/share/icons/hicolor/48x48/apps/";
-	    if (!-e "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png") { print $c[3]."$er write in /usr/share/icons/hicolor/48x48/apps/!\n"; }
-	
-	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/256x256/atscan-menu.png /usr/share/icons/hicolor/256x256/apps/";
-	    if (!-e "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png") { print $c[3]."$er write in /usr/share/icons/hicolor/256x256/apps/!\n"; }
-     
-        my @deskFiles=("/usr/share/icons/hicolor/16x16/apps/atscan-menu.png", "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png", "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png",
-                       "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png", "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png");
+      
+	  system "sudo cp $Bin/atscan_update/inc/conf/desktop/kali-atscan.desktop /usr/share/applications/";
+	  system "sudo cp $Bin/atscan_update/inc/conf/desktop/kali-atscan.desktop /usr/share/kali-menu/applications/";
+	  unlink "/usr/share/applications/atscan.desktop" if -e "/usr/share/applications/atscan.desktop";
+      
+      if (-d "/usr/share/icons/hicolor/16x16/apps/") {        
+	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/16x16/kali-atscan-menu.png /usr/share/icons/hicolor/16x16/apps/";
+	    if (!-e "/usr/share/icons/hicolor/16x16/apps/kali-atscan-menu.png") { print $c[3]."$er write in /usr/share/icons/hicolor/16x16/apps/!\n"; }
+	    unlink "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png" if -e "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png";
+
+	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/22x22/kali-atscan-menu.png /usr/share/icons/hicolor/22x22/apps/";
+	    if (!-e "/usr/share/icons/hicolor/22x22/apps/kali-atscan-menu.png") { print $c[3]."$er write in /usr/share/icons/hicolor/22x22/apps/!\n"; }
+	    unlink "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png" if -e "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png";
+
+	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/24x24/kali-atscan-menu.png /usr/share/icons/hicolor/24x24/apps/";
+	    if (!-e "/usr/share/icons/hicolor/24x24/apps/kali-atscan-menu.png") { print $c[3]."$er write in /usr/share/icons/hicolor/24x24/apps/!\n"; }
+	    unlink "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png" if -e "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png";
+
+	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/48x48/kali-atscan-menu.png /usr/share/icons/hicolor/48x48/apps/";
+	    if (!-e "/usr/share/icons/hicolor/48x48/apps/kali-atscan-menu.png") { print $c[3]."$er write in /usr/share/icons/hicolor/48x48/apps/!\n"; }
+	    unlink "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png" if -e "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png";
+
+	    system "sudo cp $Bin/atscan_update/inc/conf/desktop/256x256/kali-atscan-menu.png /usr/share/icons/hicolor/256x256/apps/";
+	    if (!-e "/usr/share/icons/hicolor/256x256/apps/kali-atscan-menu.png") { print $c[3]."$er write in /usr/share/icons/hicolor/256x256/apps/!\n"; }
+	    unlink "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png" if -e "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png";
+
+        my @deskFiles=("/usr/share/icons/hicolor/16x16/apps/kali-atscan-menu.png", "/usr/share/icons/hicolor/22x22/apps/kali-atscan-menu.png", "/usr/share/icons/hicolor/24x24/apps/kali-atscan-menu.png",
+                       "/usr/share/icons/hicolor/48x48/apps/kali-atscan-menu.png", "/usr/share/icons/hicolor/256x256/apps/kali-atscan-menu.png");
       }
     }
   }

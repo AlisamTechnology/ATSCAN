@@ -135,12 +135,6 @@ fi
  then
    echo "Warning! Failed to add direct access to the applications menu!";  
  fi
- 
- sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/kali-menu/applications/;
- if [ ! -e "/usr/share/kali-menu/applications/atscan.desktop" ]; 
- then
-   echo "Warning! Failed to add direct access to the applications menu!";  
- fi
 
  sleep 1 && echo "[i] Copying icons...                                               [47%]";
  if [ ! -d "/usr/share/icons" ]; 

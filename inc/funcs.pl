@@ -12,7 +12,7 @@ use POSIX qw(strftime);
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex,
-     $Hstatus);
+     $Hstatus, $content, $msource, $fullHeaders, $command);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT,
      @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells);
 
@@ -692,7 +692,8 @@ sub title {
 
 ## CHECK IF THERE MORE SCANS TO DO
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $ping);
-our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $data, $ping);
+our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex,
+        $port, $data, $ping);
 sub getK {
   our @z;
   my ($x, $y)=@_; my $k=0; splice @z, $x, $y;
@@ -770,8 +771,9 @@ sub printProxy {
 
 ## CHECK SCAN ARGUMENTS
 sub Targs {
-  my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port, $mupload, $mzip, $JoomSites, $eMails, $searchIps,
-             $regex, $command, $ping, $interactive, $validShell, $notIn, $repair, $bugtraq);
+  my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port,
+             $mupload, $mzip, $JoomSites, $eMails, $searchIps, $regex, $command, $ping, $interactive, $validShell, $notIn, $repair,
+             $bugtraq, $zoneH, $content, $msource, $fullHeaders, $command);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;

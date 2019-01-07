@@ -151,14 +151,20 @@ our ($exploit, $replace, $noQuery);
 ## VALIDATE RESULTS
 sub validateResult {
   my ($URL1, $status, $html, $response, $result)=@_;
-  my $cV=checkValidation($URL1, $status, $html, $response, "");        
+  my $cV=checkValidation($URL1, $status, $html, $response, $result);
   if ($cV) {
     if (defined $validShell) {
       $URL1=replaceReferencies($URL1, $validShell);
     }
     doPrint($URL1, $result, $html);
   }else{
-    noResult() unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn && !defined $validShell))); }
+    my @noresult1=($Hstatus, $validText, $notIn, $validShell);
+    my @noresult2=($exploit, $expIp, $expHost, $replace, $noQuery);
+    my ($i, $i1);
+    for (@noresult1) { $i="1" if defined $_; }
+    for (@noresult2) { $i1="1" if defined $_; }
+    noResult() unless (($result && !$i) || ($result && $i1 && !$i));
+  }
 }
 
 ## PRINT POST DATA RESULTS
@@ -166,7 +172,10 @@ sub formData {
   my ($URL1, $html, $status, $response)=@_;
   my $o=OO();
   if ($o<$limit) {
-    if (defined $Hstatus or defined $validText or defined $notIn or defined $validShell) {
+    my @noresult3=($Hstatus, $validText, $notIn, $validShell);
+    my $i3;
+    for (@noresult3) { $i3="1" if defined $_; }
+    if ($i3) {
       validateResult($URL1, $status, $html, $response, "");
     }else{
       if ($status eq "200") {
@@ -237,6 +246,7 @@ sub checkValidation {
       }
     }
   }
+  if ($result) { $cV="1"; }
   return $cV;
 }
 
@@ -245,7 +255,12 @@ sub doPrint {
   my ($URL1, $result, $html)=@_;
   my $o=OO();
   if ($o<$limit) {
-    print $c[3]."$URL1\n" unless (($result && (!defined $Hstatus && !defined $validText && !defined $notIn)) || ($result && (defined $exploit || defined $expIp || defined $expHost || defined $replace || defined $noQuery)&&(!defined $Hstatus && !defined $validText && !defined $notIn)));
+    my @noresult1=($Hstatus, $validText, $notIn);
+    my @noresult2=($exploit, $expIp, $expHost, $replace, $noQuery);
+    my ($i, $i1);
+    for (@noresult1) { $i="1" if defined $_; }
+    for (@noresult2) { $i1="1" if defined $_; }    
+    print $c[3]."$URL1\n" unless (($result && !$i) || ($result && $i1 && !$i));
     if (defined $beep || $beep) { print chr(7); }
     saveme($URL1, "");
     checkExtratScan($URL1, $html);

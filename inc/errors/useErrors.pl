@@ -66,8 +66,11 @@ if ((defined $port) && (!defined $tcp and !defined $udp)) { print $c[4]."$DT[23]
 if ((defined $dork) || (defined $Target)) { 
   if ((defined $JoomRfi) and (!defined $shell)) { print $c[4]."[!] $DT[41]\n"; logoff(); }
 }
+
 if ((!defined $dork) && (defined $unique)) { print $c[4]."[!] $DT[21]\n"; logoff(); }
-if (defined $regex or defined $eMails or defined $searchRegex or defined $searchIps) { if (defined $Hstatus) { print $c[4]."[!] $SCAN_TITLE[2]"; logoff(); } }
+if (defined $regex or defined $eMails or defined $searchRegex or defined $searchIps) {
+  if (defined $Hstatus) { print $c[4]."[!] $SCAN_TITLE[2]"; logoff(); }
+}
 
 ## CHECK MOTORS ARGUMENTS
 our ($motorparam);

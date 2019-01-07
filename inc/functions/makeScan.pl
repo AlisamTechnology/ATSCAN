@@ -7,7 +7,8 @@ use FindBin '$Bin';
 ## MAKE SCAN
 sub makeSscan { 
   my ($ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter, $data, $no)=@_;
-  our (@c, @DS, @TT, @aTscans, @aTsearch, @userArraysList, @replaceParts, $limit, $payloads, $exploit, $shell, $p, $expHost, $expIp, $replaceFROM, $replace);
+  our (@c, @DS, @TT, @aTscans, @aTsearch, @userArraysList, @replaceParts, $limit, $payloads, $exploit, $shell, $p, $expHost, $expIp,
+       $replaceFROM, $replace);
   @aTscans=();
   ptak();
   checkHeaders($ct, $dt, $et);  
@@ -15,7 +16,10 @@ sub makeSscan {
   print $c[4]."$paylNote" if (defined $paylNote and !defined $payloads);
   my @arr;
   our ($xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip);
-  if (defined $xss || defined $lfi || defined $JoomRfi || defined $WpAfd || defined $adminPage || defined $subdomain || defined $mupload || defined $mzip) {
+  my @noresults4=($xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip);
+  my $i4;
+  for (@noresults4) { $i4="1" if defined $_; }
+  if ($i4) {
     if (defined $payloads) { @arr=@userArraysList; }
     else{ @arr=@{ $ar }; }
   }
@@ -42,9 +46,10 @@ sub makeSscan {
         }
       }
       $URL=control($URL);
-      if (!@arr) {     
+      if (!@arr) {
         if (!$result) {
-          if (defined $exploit || defined $expHost || defined $expIp) { getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, "");
+          if (defined $exploit || defined $expHost || defined $expIp) {
+            getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, "");
           }else{
             my $URL1=$URL; $URL1=~s/ //g;
             if ($reg) { doScan($URL1, $filter, "", "", $reg, "", "", ""); }
@@ -52,8 +57,12 @@ sub makeSscan {
             else{ doScan($URL1, $filter, "", "", "", "", $isFilter, ""); }
           }
         }else{
-          if (defined $exploit || defined $expHost || defined $expIp) { getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, ""); }
-          else{ my $URL1=$URL; $URL1=~s/ //g; doScan($URL1, $filter, $result, "", "", "", $isFilter, $data); }
+          if (defined $exploit || defined $expHost || defined $expIp) {
+            getExploitArrScan($URL, "", $filter, $result, $reg, $comnd, $isFilter, "", "", $data, "");
+          }
+          else{ my $URL1=$URL; $URL1=~s/ //g;
+            doScan($URL1, $filter, $result, "", "", "", $isFilter, $data);
+          }
         }
       }else{
         my $pm=0;
@@ -72,7 +81,10 @@ sub makeSscan {
                 my $URL1=$arr.$URL; $URL1=~s/ //g;
                 $URL1="$protocol//$URL1";
                 doScan($URL1, "", "", $reverse, "", "", $isFilter, $data); }
-              else{ my $URL1=$URL.$arr; $URL1=~s/ //g; doScan($URL1, $filter, "", "", "", "", $isFilter, $data); }
+              else{
+                my $URL1=$URL.$arr; $URL1=~s/ //g;
+                doScan($URL1, $filter, "", "", "", "", $isFilter, $data);
+              }
             }
           }
         }

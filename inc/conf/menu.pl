@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $data, $mmd5,
-     $mdecode64, $mencode64, $checkVersion, $help, $toolInfo, $uninstall, $config, $ping, $interactive, $repair, $bugtraq);
+     $mdecode64, $mencode64, $checkVersion, $help, $toolInfo, $uninstall, $config, $ping, $interactive, $repair, $bugtraq, $zoneH, $fullHeaders, $content, $msource);
 
 ## VERIFY TARGETS AND PRESCAN
 our ($mlevel, $Target, $dork, @c, @DS, @DT, @TODO, @V_TODO, @SCAN_TITLE, @aTsearch);
@@ -16,19 +16,11 @@ if (defined $mlevel) {
   if (defined $Target) {
     desclaimer(); my $k=getK(0, 0);    
     if (!$k) {
-      if (defined $command) {
-        scanTitleBgn(); print $c[11]."$SCAN_TITLE[16]"; scanTitleEnd();
-        my $count=0;
-        my $lc=scalar(grep { defined $_} @aTsearch);
-        for my $URL(@aTsearch) {
-          $count++;
-          print "\n" if $count>1;
-          points(); dpoints(); points();
-          print $c[1]."    $DS[9]  ".$c[7]."[$count/$lc] $URL\n";
-          print $c[1]."    $DT[24]  $c[10]....................................................................\n";
-          getComnd($URL, $command);
-        }
-        ltak();
+      my @noresults=($zoneH, $fullHeaders, $content, $msource, $zoneH, $command);
+      my $i;
+      for (@noresults) { $i="1" if defined $_; }
+      if ($i) {
+        makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "1", "", "", "", "", "", "");
       }else{
         makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "", "", "", "", "", "", "");
       }
@@ -54,13 +46,18 @@ sub Menu {
   if (defined $port || defined $ping) { ports(); } 
   if (defined $data) { mdata(); }
 }
+
 if (defined $mmd5 || defined $mencode64 || defined $mdecode64) {
   desclaimer();
   if (defined $mmd5) { mmd5(); }
   if (defined $mencode64) { mencode64(); }
   if (defined $mdecode64) { mdecode64(); }
 }
-if (defined $checkVersion || defined $help || defined $bugtraq || defined $repair|| defined $toolInfo || defined $uninstall || defined $config || defined $interactive) {
+
+my @noresults2=($checkVersion, $help, $bugtraq, $repair, $toolInfo, $uninstall, $config, $interactive);
+my $i2;
+for (@noresults2) { $i2="1" if defined $_; }
+if ($i2) {
   desclaimer();
   if (defined $checkVersion) { checkVersion(); }
   if (defined $repair) { repair(); }

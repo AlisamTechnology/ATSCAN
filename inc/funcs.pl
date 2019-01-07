@@ -709,17 +709,11 @@ sub checkExternComnd {
   my $ic=0;
   for my $comnd(@commands) {
     $ic++;
-    #$ic="$ic/".scalar(@commands);
     buildExtCommands($URL1, $comnd, $ic, scalar(@commands));
-    
-    #$comnd=replaceReferencies($u, $comnd);
-    #print $c[1]."    $DT[24] $c[10] [".$ic."/".scalar(@commands)."] [$comnd]\n";
-    #getComnd($URL1, $comnd);
-    #print $c[1]. "." x 75 ."\n";
   }
 }
 
-## 
+## BUILD EXTERN COMMAND
 sub buildExtCommands {
   my ($URL1, $comnd, $ic, $ic2)=@_;
   $comnd=replaceReferencies($URL1, $comnd);

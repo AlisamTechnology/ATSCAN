@@ -6,7 +6,7 @@ use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
 ## CLEAR
-#if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
+if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
 ## VERSION
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv,

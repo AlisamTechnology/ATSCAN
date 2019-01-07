@@ -709,12 +709,23 @@ sub checkExternComnd {
   my $ic=0;
   for my $comnd(@commands) {
     $ic++;
-    $comnd=replaceReferencies($URL1, $comnd);
-    print $c[1]."    $DT[24] $c[10] [".$ic."/".scalar(@commands)."] [$comnd]\n";
-    #print $c[1]."    $DT[24]  $c[11]"."." x 68 ."\n";
-    getComnd($URL1, $comnd);
-    print $c[1]. "." x 75 ."\n";
+    #$ic="$ic/".scalar(@commands);
+    buildExtCommands($URL1, $comnd, $ic, scalar(@commands));
+    
+    #$comnd=replaceReferencies($u, $comnd);
+    #print $c[1]."    $DT[24] $c[10] [".$ic."/".scalar(@commands)."] [$comnd]\n";
+    #getComnd($URL1, $comnd);
+    #print $c[1]. "." x 75 ."\n";
   }
+}
+
+## 
+sub buildExtCommands {
+  my ($URL1, $comnd, $ic, $ic2)=@_;
+  $comnd=replaceReferencies($URL1, $comnd);
+  print $c[1]."    $DT[24] $c[10] [".$ic."/".$ic2."] [$comnd]\n";
+  getComnd($URL1, $comnd);
+  print $c[1]. "." x 75 ."\n";
 }
 
 ## CHMOD 777

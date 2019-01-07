@@ -348,7 +348,6 @@ sub getComnd {
   }else{
     $comnd=replaceReferencies($u, $comnd);
   }
-  #print "$c[10]            => $c[10]$comnd\n";
   if (defined $popup) {
     $comnd="sudo xterm -title '$u' -hold -e '$comnd'";
     print "$c[4]            [!] $c[10]Opening process in extern window..\n";

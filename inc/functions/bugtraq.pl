@@ -7,15 +7,12 @@ use FindBin '$Bin';
 ###############################################################################
 ###############################################################################
 ## BUGTRAQ
-our($bugtraq, $ua, $limit, $server, $output, @c);
+our($bugtraq, $ua, $limit, $server, @c);
 my (@bugs, @bugId, @bugTitle, @bugDate, @bugLink, @bugWarning, @refer);
 my $e = strftime "%Y.%m.%d.", localtime;
 my $copyPath="$Bin/inc/conf/user/temp.txt";
 my $ser="=" x 39;
-###############################################################################
-###############################################################################
-## BUGTRAQ OUTPUT
-if (defined $output && !-d $output) { print $c[4]."[!] \"$output\" must be a directory!\n"; logoff(); }
+my %replace=("premex\">" => "", "\&#039;" => "'", "\&quot;" => "'", "\&amp;" => "&", "\&gt;" => ">", "\&lt;" => "<");
 ###############################################################################
 ###############################################################################
 ## SEPARATORS
@@ -27,8 +24,8 @@ if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
 sub bugs {
   for my $btq(@bugs) {
     $btq=~s/\s/%20/g;
-    for(my $npages=1;$npages<=3;$npages+=1) {
-      my $u="$server/search/wlb/DESC/AND/$e 1999.1.1/$npages/30/$btq/";
+    for(my $npages=1;$npages<=1;$npages+=1) {
+      my $u="$server/search/wlb/DESC/AND/$e 1999.1.1/$npages/10/$btq/";
       $u=~s/\s//g;
       my $bugSearch=$ua->get($u);
       $bugSearch->as_string;
@@ -127,57 +124,46 @@ sub printBugs {
 sub viewBug {
   my $refer=$_[0];
   my @rer2=split("=>", $refer);
-  my $copy;
-  if (defined $output) {
-    my $bp=$rer2[0];
-    $bp=~s/(\s|\/)/-/g;
-    $bp=~s/(\(|\)|\[|\])//g;
-    $copy="$output/$bp.txt";
-    printFile($copy, "### $rer2[0]\n");
-  }
-  sep();
-  print $c[1]." ISSUE  $c[6]$rer2[0]\n";
+  #sep();
   print $c[1]." ID     $c[10]$rer2[1]\n";
-  
+  print $c[1]." ISSUE  $c[6]$rer2[0]\n";
   print $c[1]." ---------------------------------------------------------------------------\n";  
   my @se;
-  
   my $uw="$server/issue/WLB-$rer2[1]";
   my $bugView=$ua->get($uw);
   $bugView->as_string;
   my $rBug=$bugView->decoded_content;
   $rBug=escape($rBug);
-  $rBug=~ s/<([^>]|\n)*>//g;
-unlink $copyPath if -e $copyPath;
-  open (SA, '>>', $copyPath);
-  binmode(SA, ":utf8");
-  print SA "$rBug";
-  close(SA);
-  
-  open (SA, $copyPath);
-  my $ea=0;
-  print "$c[6]\n";                          
-  while (my $se=<SA>) {
-    chomp $se;
-    if ($se=~/window.adsbygoogle/) { $ea++; }
-    if ($se=~/adsbygoogle/ && $ea>1) { last; }
-    $se=~s/\&#039;|&quot;/'/g;
-    $se=~s/\&amp;/&/g;
-    $se=~s/\&gt;/>/g;
-    $se=~s/\&lt;/</g;
-    if ($se!~/window.adsbygoogle|^\s*$/ && $ea>0) {
-      print " $se\n";
-      if (defined $output) { printFile($copy, "$se\n"); }
-    }   
-  }
-  close(SA);
-unlink $copyPath if -e $copyPath;
-  if (defined $output) { 
+  if ($rBug=~/(\spremex\">.*?)<\/DIV><\/P><P\sclass=\"txt\"/s) {
+    my $se=$1;
+    $se=~s/$_/$replace{ $_}/g for keys %replace;
+    print "$c[10]$se\n";
     print $c[1]." ---------------------------------------------------------------------------\n";
-    print $c[4]." [i]$c[10] Issue saved in \"$copy\"\n";
+    unlink $copyPath if -e $copyPath;
+    print $c[4]." [!]$c[10] Output directory or Press Enter to continue: ";
+    my $ro=<STDIN>;
+    chomp ($ro);
+    if ($ro) {
+      my $bp=$rer2[0];
+      $bp=~s/(\s|\/)/-/g;
+      $bp=~s/(\(|\)|\[|\])//g;
+      if (-d $ro) {
+        my $copy="$ro/$bp.txt";
+        $copy =~ s/[\$#@~!*()\[\];,:?'^ `\\]+//g;
+        $copy=~s/\/\//\//;
+        printFile($copy, "### $rer2[0]\n#########################################################");
+        printFile($copy, "$se\n\n");
+        print $c[3]." [i] Issue saved in \"$copy\"\n";
+        print $c[1]." ---------------------------------------------------------------------------\n";
+      }else{
+        print $c[4]." [!] No issue saved! Output must be a directory!\n";
+      }
+    }else{
+      print $c[4]." [!] No output was defined\n";
+    }
   }
-  sep();
 }
+
 ###############################################################################
 ###############################################################################
 ###############################################################################
@@ -213,6 +199,8 @@ if ($m>0) {
   }
   printBugs();
   my $rr;
+      print "\n";
+
   while (!$rr or $rr!~/exit/) {
     print $c[4]." [!]$c[10] Type <your option> or \"options\" for help: ";
     $rr=<STDIN>;

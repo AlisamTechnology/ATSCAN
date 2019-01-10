@@ -23,6 +23,7 @@ our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor
 sub printFile {
   my ($File, $context)=@_;
   open (FILE, '>>', $File);
+  binmode(FILE, ":utf8");
   print FILE "$context\n";
   close(FILE);
 }

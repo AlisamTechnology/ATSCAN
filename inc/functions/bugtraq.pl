@@ -24,8 +24,8 @@ if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
 sub bugs {
   for my $btq(@bugs) {
     $btq=~s/\s/%20/g;
-    for(my $npages=1;$npages<=1;$npages+=1) {
-      my $u="$server/search/wlb/DESC/AND/$e 1999.1.1/$npages/10/$btq/";
+    for(my $npages=1;$npages<=3;$npages+=1) {
+      my $u="$server/search/wlb/DESC/AND/$e 1999.1.1/$npages/30/$btq/";
       $u=~s/\s//g;
       my $bugSearch=$ua->get($u);
       $bugSearch->as_string;

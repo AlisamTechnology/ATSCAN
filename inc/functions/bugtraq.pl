@@ -178,12 +178,13 @@ sleep 2;
 if (scalar(grep { defined $_} @bugTitle)<1) {
   print $c[4]."[!] No results found!\n";
   logoff();
+}else{
+  if (defined $limit) {
+    print $c[3]."[!] Results limited to [$limit Result\/s]!\n";
+  }else{
+    print $c[3]."[i] $m Results found!\n";
+  }
 }
-print $c[3]."[i] $m Results found!\n";
-if (defined $limit) {
-  print $c[4]."[!] Results limited to [$limit Result\/s] !\n";
-}
-
 print $c[1]."============================================================================\n" if $m>0;
 sleep 2;
 

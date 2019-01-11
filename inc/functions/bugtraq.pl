@@ -133,7 +133,7 @@ sub viewBug {
   my $bugView=$ua->get($uw);
   $bugView->as_string;
   my $rBug=$bugView->decoded_content;
-  $rBug=escape($rBug);
+ 
   if ($rBug=~/(\spremex\">.*?)<\/DIV><\/P><P\sclass=\"txt\"/s) {
     my $se=$1;
     $se=~s/$_/$replace{ $_}/g for keys %replace;

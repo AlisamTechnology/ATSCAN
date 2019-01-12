@@ -89,7 +89,7 @@ sub buildArraysLists {
 ## BUILD PROXIES ARRAY
 sub getProx {
   my $getProx=$_[0];
-  if ($getProx=~/:/) { @proxies=split / /, $getProx; }
+  if ($getProx=~/:[0-9]/) { @proxies=split / /, $getProx; }
   else{ @proxies=buildArraysLists($getProx); }
   return @proxies;
 }
@@ -226,7 +226,7 @@ if (defined $timeout || $timeout) {
 
 ## SET PROXY
 if ($proxy || $prandom || defined $proxy || defined $prandom) {  
-  $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
+  $ua->proxy([qw/ http https ftp ftps socks4 socks5 /] => $psx); $ua->cookie_jar({ });
 }
 
 ## MEKE FREQUENCY RANDOM 

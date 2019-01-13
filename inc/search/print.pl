@@ -137,7 +137,7 @@ sub printResults {
           validateResult($URL1, $status, $html, $response, "");
         }else{ noResult(); }
       }else{
-        if ($response->is_success and !$response->previous) {
+        if ($response->is_success) {
           validateResult($URL1, $status, $html, $response, "");
         }else{ noResult(); }
       }

@@ -1,6 +1,7 @@
-ATSCAN SCANNER VERSION 15.0.0 RELEASE
+ATSCAN SCANNER VERSION 15.0.1 RELEASE
 =====================================================
-  CHANGES: 11/01/2019
-  - Fix bugtraq scan.
+  CHANGES: 13/01/2019
+  - Add all params to -p or --param injection.
+  - Now you can use -p all to test all query parametres.
   - Enjoy!
   =================

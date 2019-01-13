@@ -395,7 +395,17 @@ sub getExploitArrScan{
 sub getPArrScan{
   my ($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $data)=@_;
   if (defined $p) {
-    my @P=split(",", $p);
+    my @P;
+    if ($p=~/all/) {
+	  while ($URL=~/((\?|\&).*?)=/g) { 
+	    my $ppz=$1;
+        $ppz=~s/\?//g;
+	    $ppz=~s/\&//g; 
+	    push @P, $ppz; 
+	  }
+    }else{
+	  @P=split(",", $p);
+    }  
     my $pc=0;
     foreach my $P(@P) {
       my $o=OO();
@@ -404,12 +414,19 @@ sub getPArrScan{
         points() if $pc>1;
         if ($exp) { print $c[1]."    $DS[6]$c[10] [$OTHERS[1] $count3/$lc] $exp\n"; }
         if ($arr) { print $c[1]."    $DS[5]  $c[10] [$pm/$pmarr] $arr\n" if $pc>1; }
-        print $c[1]."    $OTHERS[16]  $c[10] [$pc/".scalar(grep { defined $_} @P)."] $P\n";
-        if (index($URL, $P) != -1) {
+		print $c[1]."    $OTHERS[16]  $c[10] [$pc/".scalar(grep { defined $_} @P)."] $P\n";		
+		if ($URL!~/(\?|\&)$P/) { 
+		  print $c[1]."    $DS[4]:   $c[2]$OTHERS[17] [$P]\n";
+		}else{
           my $URL1=$URL;
-          if (index($URL, "?$P=") != -1) { $URL1=~s/\?$P=([^&]*)/\?$P=$1$exp$arr/g; doScan($URL1, $filter, $result, "", $reg, $comnd, $isFilter, $data); }
-          elsif (index($URL, "&$P=") != -1) { $URL1=~s/\&$P=([^&]*)/\&$P=$1$exp$arr/g; doScan($URL1, $filter, $result, "", $reg, $comnd, $isFilter, $data); }
-        }else{ print $c[1]."    $DS[4]:   $c[2]$OTHERS[17] [$P]\n"; }
+          if (index($URL, "\?$P=") != -1) { 
+		    $URL1=~s/\?$P=([^&]*)/\?$P=$1$exp$arr/g; 
+		    doScan($URL1, $filter, $result, "", $reg, $comnd, $isFilter, $data);
+		  }elsif (index($URL, "\&$P=") != -1) { 
+		    $URL1=~s/\&$P=([^&]*)/\&$P=$1$exp$arr/g; 
+		    doScan($URL1, $filter, $result, "", $reg, $comnd, $isFilter, $data);
+	      }
+		}
       }
     }
   }

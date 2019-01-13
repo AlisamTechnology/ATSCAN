@@ -173,7 +173,7 @@ bugs();
 my $m=scalar(grep { defined $_} @bugTitle);
 print $c[11];
 timer();
-print " EXPLORING [$bugtraq] ISSUES...\n";
+print " ::: EXPLORING [$bugtraq] ISSUES :::\n";
 sleep 2;
 if (scalar(grep { defined $_} @bugTitle)<1) {
   print $c[4]."[!] No results found!\n";

@@ -221,10 +221,7 @@ sub checkValidation {
   if (defined $notIn) {
     my $notin_number = getValidationParts($html, \@notIns, "2");
     if ($notin_number <= 0) { $cV="1"; }
-  }else{
-    $cV="1";
   }
-  #if ($result) { $cV="1"; }
   return $cV;
 }
 

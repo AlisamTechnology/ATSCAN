@@ -607,8 +607,11 @@ sub subfin {
 ## COUNT SCAN RESULTS
 sub countResultLists {
   my $o=OO();
-  if ($o==$limit) { print $c[4]."[!] $DT[34] ($limit)!\n"; }
-  print $c[3]."[!] ".$o." $DT[4]\n";
+  if ($o==$limit) { 
+    print $c[4]."[!] $DT[34] ($limit)!\n";
+  }else{
+    print $c[3]."[!] ".$o." $DT[4]\n";
+  }
 }
 
 ## SEARCH REGEX FILTER

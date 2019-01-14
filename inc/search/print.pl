@@ -209,6 +209,7 @@ sub getValidationParts {
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
   my $cV="";
+  if ($result) { $cV="1"; }
   if (defined $Hstatus) { if ($status eq $Hstatus) { $cV="1"; } }
   if (defined $validText) {
     my $validation_number = getValidationParts($html, \@validTexts, "1");

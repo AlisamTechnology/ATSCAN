@@ -4,8 +4,22 @@
 <p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner <br>فاحص متقدم لبحث و استغلال الثغرات بالجملة </b></p>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>
-    <td align="center"><b>[!] LEGAL DISCLAIMER: </br> Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent! It is your responsibility to obey laws!
-    </b></td>
+    <td align="center">
+      <b>[!] LEGAL DISCLAIMER: </br> Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent! It is your responsibility to obey laws!</b>
+  <br>
+  <p align="center">  
+  <a href="https://github.com/AlisamTechnology/ATSCAN/releases/tag/V15.0.1">
+    <img src="https://img.shields.io/badge/V15.0.1-Stable-brightgreen.svg">
+  </a>
+  <a href="https://github.com/AlisamTechnology/ATSCAN/blob/master/License.txt">
+    <img src="https://img.shields.io/badge/license-MIT-green.svg">
+  </a>  
+  <a href="https://www.perl.org/">
+    <img src="https://img.shields.io/badge/Perl-5%2B-orange.svg">
+  </a> 
+</p>
+
+    </td>
   </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">

@@ -11,7 +11,7 @@
   <a href="https://www.perl.org/get.html">
     <img src="https://img.shields.io/badge/Perl-5%2B-orange.svg">
   </a>
-    <img src="https://img.shields.io/badge/Platform-All-lightgrey.svg">
+    <img src="https://img.shields.io/badge/Platform-All-green.svg">
   <a href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
   </a>

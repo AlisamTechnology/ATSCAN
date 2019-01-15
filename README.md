@@ -26,7 +26,7 @@
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>
     <td align="center"><img src="https://imgur.com/7OzJEBI.png"></td>
-     <td align="center"> <b><a href="https://github.com/AlisamTechnology/ATSCAN">Alisam Technology</a> is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent! It is your responsibility to obey laws!</b>
+     <td align="center"> <b><a href="https://github.com/AlisamTechnology/">Alisam Technology</a> is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent! It is your responsibility to obey laws!</b>
     </td>
   </tr>
 </table>

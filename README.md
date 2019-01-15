@@ -15,6 +15,12 @@
   <a href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
   </a>
+  <a href="https://www.facebook.com/Alisam.Technology/">
+    <img src="https://img.shields.io/badge/Facebook-Follow-blue.svg">
+  </a>
+  <a href="https://www.youtube.com/c/AlisamTechnology">
+    <img src="https://img.shields.io/badge/Youtube-Follow-red.svg">
+  </a> 
 </p> 
 <p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner  فاحص متقدم لبحث و استغلال الثغرات بالجملة </b></p>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">

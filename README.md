@@ -25,9 +25,9 @@
 <p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner  فاحص متقدم لبحث و استغلال الثغرات بالجملة </b></p>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>
-    <td align="center">
-      <b>[!] LEGAL DISCLAIMER: Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent! It is your responsibility to obey laws!</b>
-  </td>
+    <td align="center"><img src="https://imgur.com/7OzJEBI.png"></td>
+     <td align="center"> <b>Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent! It is your responsibility to obey laws!</b>
+    </td>
   </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100%">

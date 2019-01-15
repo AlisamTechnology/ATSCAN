@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/badge/Platform-All-lightgrey.svg">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
 </p> 
-<p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner فاحص متقدم لبحث و استغلال الثغرات بالجملة </b></p>
+<p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner  فاحص متقدم لبحث و استغلال الثغرات بالجملة </b></p>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>
     <td align="center">

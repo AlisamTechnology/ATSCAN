@@ -26,7 +26,7 @@
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>
     <td align="center">
-      <b>[!] LEGAL DISCLAIMER: </br> Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent! It is your responsibility to obey laws!</b>
+      <b>[!] LEGAL DISCLAIMER: Alisam Technology is not responsible for any misuse, damage caused by this script or attacking targets without prior mutual consent! It is your responsibility to obey laws!</b>
   </td>
   </tr>
 </table>

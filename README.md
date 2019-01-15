@@ -12,7 +12,6 @@
     <img src="https://img.shields.io/badge/Perl-5%2B-orange.svg">
   </a>
     <img src="https://img.shields.io/badge/Platform-All-lightgrey.svg">
-  </a>
 </p>
  
 <p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner <br>فاحص متقدم لبحث و استغلال الثغرات بالجملة </b></p>

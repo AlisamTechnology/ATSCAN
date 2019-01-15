@@ -2,23 +2,23 @@
 <body>
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
-  <a href="https://github.com/AlisamTechnology/ATSCAN/releases/tag/V15.0.1">
+  <a title="Version 15.0.1" href="https://github.com/AlisamTechnology/ATSCAN/releases/tag/V15.0.1">
      <img src="https://img.shields.io/badge/V15.0.1-Stable-brightgreen.svg">
   </a>
-  <a href="https://github.com/AlisamTechnology/ATSCAN/blob/master/License.txt">
+  <a title="MIT License" href="https://github.com/AlisamTechnology/ATSCAN/blob/master/License.txt">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg">
   </a>  
-  <a href="https://www.perl.org/get.html">
+  <a title="Perl Download" href="https://www.perl.org/get.html">
     <img src="https://img.shields.io/badge/Perl-5%2B-orange.svg">
   </a>
-    <img src="https://img.shields.io/badge/Platform-All-green.svg">
-  <a href="https://github.com/AlisamTechnology/ATSCAN/issues">
+    <img title="Works in all platforms" src="https://img.shields.io/badge/Platform-All-green.svg">
+  <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
   </a>
-  <a href="https://www.facebook.com/Alisam.Technology/">
+  <a title="Follow us in Facebook" href="https://www.facebook.com/Alisam.Technology/">
     <img src="https://img.shields.io/badge/Facebook-Follow-blue.svg">
   </a>
-  <a href="https://www.youtube.com/c/AlisamTechnology">
+  <a title="Follow us in Youtube" href="https://www.youtube.com/c/AlisamTechnology">
     <img src="https://img.shields.io/badge/Youtube-Follow-red.svg">
   </a> 
 </p> 

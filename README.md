@@ -12,7 +12,9 @@
     <img src="https://img.shields.io/badge/Perl-5%2B-orange.svg">
   </a>
     <img src="https://img.shields.io/badge/Platform-All-lightgrey.svg">
+  <a href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
+  </a>
 </p> 
 <p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner  فاحص متقدم لبحث و استغلال الثغرات بالجملة </b></p>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">

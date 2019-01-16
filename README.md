@@ -40,18 +40,6 @@
   <tr>
     <td width="100px" class="main2"><b>GROUP:</b></td><td width="780px">Alisam Technology</td>
   </tr>
-  <tr>
-    <td width="100px" class="main2"><b>FACE:</b></td><td>facebook.com/Alisam.Technology </td>
-  </tr>
-  <tr>
-    <td width="100px" class="main2"><b>YOUTUBE:</b></td><td>youtube.com/c/AlisamTechnology</td>
-  </tr>
-  <tr>
-    <td width="100px" class="main2"><b>TWITTER:</b></td><td>twitter.com/AlisamTechno</td>
-  </tr>
-  <tr>
-    <td width="100px" class="main2"><b>PLUS:</b></td><td>plus.google.com/+AlisamTechnology</td>
-  </tr>
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>

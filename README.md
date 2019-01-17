@@ -46,7 +46,7 @@
     <td class="main3">&#9733; <b>Description:</b></td>
   </tr>
   <tr>
-    <td class="main" width="890px"><p>&#x25cf; Search engine: Google/Bing/Ask/Yandex/Sogou/Exalead <br />
+    <td class="main" width="890px"><p>&#x25cf; Search engine: Google, Bing, Ask, Yandex, Sogou, Exalead <br />
         &#x25cf; Mass Dork Search<br/>&#x25cf; Multiple instant scans. <br/>&#x25cf; Mass Exploitation <br/>&#x25cf; Use proxy. <br/>
         &#x25cf; Random user agent. <br/>&#x25cf; Random engine.<br/> &#x25cf; Mass Extern commands execution.<br/>&#x25cf; Exploits and issues search.<br/>
         &#x25cf; XSS / SQLI / LFI / AFD scanner.<br /> &#x25cf; Filter wordpress and Joomla sites. <br />

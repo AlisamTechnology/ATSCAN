@@ -64,7 +64,7 @@
     <td class="main">
       Perl Required. <br/>
       Works in all platforms.
-      Disponible in Blackarch linux and Dracos systems.
+      Disponible in <a href="https://blackarch.org/">Blackarch</a> and <a href="https://dracos-linux.org/">Dracos</a> Linux.
     </td>
   </tr>
 </table>

@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/License-MIT-blue.svg">
   </a>  
   <a title="Perl Download" href="https://www.perl.org/get.html">
-    <img src="https://img.shields.io/badge/Perl-5%2B-orange.svg">
+    <img src="https://img.shields.io/badge/Perl-Required-yellow.svg">
   </a>
     <img title="Works in all platforms" src="https://img.shields.io/badge/Platform-All-green.svg">
   <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">

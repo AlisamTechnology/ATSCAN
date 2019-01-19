@@ -164,7 +164,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--motor / -m</td>
-        <td class="main">Set engine motors default bing EX: -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]</td>
+        <td class="main">Engines default bing EX: -m [Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][All: all]</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--proxy-random</td>

@@ -543,7 +543,7 @@
        Exploit: --exp/expHost <exploit> --data "field1=>value1, field2=>value2, field3=>value3" --vshell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
        Wordlist: --data "field1=>value1, field2=>WORDLIST:<wordlist path>" --vshell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
         <hr>
-       &#x25cf; <b>EXTERNAL COMMANDES:</b> <br/>
+       &#x25cf; <b>EXTERNAL COMMANDS:</b> <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "list.txt" <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --HOST"  <br/>

@@ -12,7 +12,7 @@ use POSIX qw(strftime);
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex,
-     $Hstatus, $content, $msource, $fullHeaders);
+     $Hstatus, $content, $msource, $fullHeaders, $geoloc);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT,
      @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells, @commands);
 
@@ -606,12 +606,12 @@ sub subfin {
 
 ## COUNT SCAN RESULTS
 sub countResultLists {
-  my $o=OO();
-  if ($o==$limit) { 
-    print $c[3]."[!] $DT[34] ($limit result\/s)!\n";
-  }else{
-    print $c[3]."[!] ".$o." $DT[4]\n";
-  }
+    my $o=OO();
+    if ($o==$limit) { 
+      print $c[3]."[!] $DT[34] ($limit result\/s)!\n";
+    }else{
+      print $c[3]."[!] ".$o." $DT[4]\n";
+    }
 }
 
 ## SEARCH REGEX FILTER
@@ -792,7 +792,7 @@ sub printProxy {
 sub Targs {
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port,
              $mupload, $mzip, $JoomSites, $eMails, $searchIps, $regex, $command, $ping, $interactive, $validShell, $notIn, $repair,
-             $bugtraq, $zoneH, $content, $msource, $fullHeaders, $command);
+             $bugtraq, $zoneH, $content, $msource, $fullHeaders, $command, $geoloc);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;

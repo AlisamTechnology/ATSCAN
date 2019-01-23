@@ -5,7 +5,7 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, $command, $all,
-     $data, $validShell, $zoneH, $fullHeaders, $ua, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists,
+     $data, $validShell, $zoneH, $fullHeaders, $ua, $geoloc, $geoServer, $V_IP, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists,
      @notExists, @ZT, @validShells);
 
 ## BUILD SCAN RESULTS LISTS
@@ -295,7 +295,46 @@ sub checkExtratScan {
   if (defined $fullHeaders) { fullRequestHeaders(); }
   if (defined $command) { checkExternComnd($URL1, $command); }              
   if (defined $validShell) { validShell($URL1, $validShell); }
+  if (defined $geoloc) { geoloc($URL1); }  
   if (defined $zoneH) { zoneH($URL1, $zoneH); }
+}
+ 
+sub geoloc {
+  my $URL1=$_[0];
+  print $c[1]."    GEOLOC  ";
+  
+  if ($URL1!~/$V_IP/) {
+    my $ips=checkExtraInfo($URL1);
+    if ($ips) { 
+	  $URL1=inet_ntoa($ips);
+	}
+  }
+  my $u="$geoServer/$URL1";
+  my $geoSearch=$ua->get($u);
+  $geoSearch->as_string;
+  my $geoRes=$geoSearch->content; 
+  
+  if ($geoRes=~/AS(\d)/) {
+    print $c[1]."....................................................................\n";
+	sleep 2;
+    my @geodata=split(",\"", $geoRes);
+    my @re=('\"', '\{', '\}', '\]');
+    for my $geodata(@geodata) { 
+      for (@re)	{ $geodata=~s/$_//g if defined $_; }
+	  if ($geodata && $geodata!~/(\@|count:|error:|status:|myip:)/) {		
+		my @zgh=split(":", $geodata);
+		print "$c[10]            - $zgh[0]: ";
+		if ($zgh[1]) {
+		  print "$c[3]$zgh[1]\n";
+		}else{
+		  print "\n";
+		}
+		if (defined $output) { printFile("$output", " - $geodata"); }
+	  }
+	}
+  }else{
+    noResult();
+  }
 }
 
 ## PRINT SOURCE CODE
@@ -314,9 +353,11 @@ sub printSource {
 sub endScan {
   my $o=OO();
   if ($o>0) {
-    countResultLists();
+    countResultLists() if !defined $geoloc;
     if (defined $output) { print $c[4]."[i] $DT[13] $output!\n"; }
-  }else{ negative(); }
+  }else{ 
+    negative();
+  }
 }
 
 1;

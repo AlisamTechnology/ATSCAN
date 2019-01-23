@@ -3,7 +3,7 @@
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
   <a title="Version 15.0.1" href="https://github.com/AlisamTechnology/ATSCAN/releases/tag/V15.0.1">
-     <img src="https://img.shields.io/badge/V15.0.1-Stable-brightgreen.svg">
+     <img src="https://img.shields.io/badge/V15.0.2-Release-green.svg">
   </a>
   <a title="MIT License" href="https://github.com/AlisamTechnology/ATSCAN/blob/master/License.txt">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg">
@@ -52,7 +52,7 @@
         &#x25cf; XSS / SQLI / LFI / AFD scanner.<br /> &#x25cf; Filter wordpress and Joomla sites. <br />
         &#x25cf; Find Admin page.<br />&#x25cf; Decode / Encode Base64 / MD5<br/> &#x25cf; Ports scan. <br/>&#x25cf; Collect IPs<br/>&#x25cf; Collect E-mails. <br/>
         &#x25cf; Auto detect errors. <br/> &#x25cf; Auto detect Cms.<br/>&#x25cf; Post data.<br/>&#x25cf; Auto sequence repeater.<br/>
-        &#x25cf; Validation.<br/>&#x25cf; Post and Get method<br/>&#x25cf; Issues and Exploit search<br/>&#x25cf; Interactive and Normal interface.<br/>&#x25cf; And more...
+        &#x25cf; Validation.<br/>&#x25cf; Post and Get method<br/>&#x25cf; IP Localisation<br/>&#x25cf; Issues and Exploit search<br/>&#x25cf; Interactive and Normal interface.<br/>&#x25cf; And more...
     </p></td>
   </tr>
 </table>
@@ -415,6 +415,10 @@
         <td class="main"> Collect Ips</td>
       </tr> 
       <tr>
+        <td width="200px" class="main">--geoloc  </td>
+        <td class="main"> Ip geolocalisation</td>
+      </tr> 
+      <tr>
         <td width="200px" class="main">--regex</td>
         <td class="main"> Crawl to get strings matching regex</td>
       </tr> 
@@ -558,6 +562,9 @@
         <hr>
        &#x25cf; <b>USER PAYLOADS: </b><br/>
        atscan --dork [dork] --level [10] [--lfi | --sql ..] --payload [payload | payloads.txt] <br/>
+        <hr>
+       &#x25cf; <b>IP LOCALISATION: </b><br/>
+       atscan -t [ip/target] --geoloc <br/>
         <hr>
        &#x25cf; <b>SEARCH VALIDATION: </b><br/>
        atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string/list.txt] <br/>

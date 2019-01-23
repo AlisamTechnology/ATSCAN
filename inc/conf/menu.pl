@@ -5,7 +5,8 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $data, $mmd5,
-     $mdecode64, $mencode64, $checkVersion, $help, $toolInfo, $uninstall, $config, $ping, $interactive, $repair, $bugtraq, $zoneH, $fullHeaders, $content, $msource);
+     $mdecode64, $mencode64, $checkVersion, $help, $toolInfo, $uninstall, $config, $ping, $interactive, $repair, $bugtraq, $zoneH, $fullHeaders, $content, 
+	 $msource, $geoloc);
 
 ## VERIFY TARGETS AND PRESCAN
 our ($mlevel, $Target, $dork, @c, @DS, @DT, @TODO, @V_TODO, @SCAN_TITLE, @aTsearch);
@@ -16,11 +17,11 @@ if (defined $mlevel) {
   if (defined $Target) {
     desclaimer(); my $k=getK(0, 0);    
     if (!$k) {
-      my @noresults=($zoneH, $fullHeaders, $content, $msource, $zoneH, $command);
+      my @noresults=($zoneH, $fullHeaders, $content, $msource, $command, $geoloc);
       my $i;
       for (@noresults) { $i="1" if defined $_; }
       if ($i) {
-        makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "1", "", "", "", "", "", "");
+        makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "1", "", "", "", "", "", "SUB");
       }else{
         makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "", "", "", "", "", "", "");
       }

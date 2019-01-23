@@ -103,6 +103,9 @@ use FindBin '$Bin';
   ."   atscan  -d <dorks.txt> --exp <exploit> --data \"username\=\>john\, pass\=\>1234\" --post --vshell <url/list.txt> | -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--sql | --shost ..] --status <code> | --valid <string> \n\n";
   
+  ltak(); print $c[12]."  IP GEOLOCALISATION: \n".$c[10]
+  ."   atscan -t <target\/ip> --geoloc \n\n";
+  
   ltak(); print $c[12]."  UPDATE TOOL: \n".$c[10]."   --update\n";
   
   ltak(); print $c[12]."  REPAIR TOOL: \n".$c[10]."   --repair\n";

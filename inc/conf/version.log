@@ -1,8 +1,6 @@
-ATSCAN SCANNER VERSION 15.0.1 RELEASE
+ATSCAN SCANNER VERSION 15.0.2 RELEASE
 =====================================================
-  CHANGES: 14/01/2019
-  - Some theme changes.
-  - Add all params to -p or --param injection.
-  - Now you can use -p all to test all query parametres.
+  CHANGES: 23/01/2019
+  - Add IP geolocalisation scan.
   - Enjoy!
   =================

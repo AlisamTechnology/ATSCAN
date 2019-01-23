@@ -6,7 +6,7 @@ use FindBin '$Bin';
 
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $notIn, $expHost, $mupload,
-     $expIp, $popup, $JoomSites, $WpSites, $fullHeaders);
+     $expIp, $popup, $JoomSites, $WpSites, $fullHeaders, $geoloc);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies, @commands);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
 
@@ -177,7 +177,7 @@ sub printInfoUrl {
   my $o=OO();
   our ($command, $port);
   if ($o<$limit) {
-    if (!defined $noinfo && !$noinfo) {
+    if (!defined $noinfo && !$noinfo && !defined $geoloc) {
       printProxy();
       if (defined $brandom || $brandom) {
         print $c[1]."    $ErrT[21] $c[8]  New agent !\n";
@@ -208,7 +208,7 @@ sub browseUrl {
   ($response, $html, $status, $serverheader)=getHtml($URL1, $data);
   my $o=OO();
   if ($o<$limit) {
-    if (!defined $noinfo && !$noinfo) {
+    if (!defined $noinfo && !$noinfo && !defined $geoloc) { 
       if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }
       my $ips=checkExtraInfo($URL1);
       print $c[1]."    $DS[10]      ";
@@ -219,7 +219,7 @@ sub browseUrl {
         print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
         if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
         else { print $c[10]."$DT[35]\n"; }
-      }
+      } 
       if (defined $output) { print $c[1]."    OUTPUT  ". $c[10]."$output\n"; }
     }
   }

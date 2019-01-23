@@ -12,7 +12,11 @@ sub makeSscan {
   @aTscans=();
   ptak();
   checkHeaders($ct, $dt, $et);  
-  if (!$no) { print $c[11]."$title"; scanTitleEnd(); title($title); }
+  if (!$no) { 
+    print $c[11]."$title"; scanTitleEnd(); title($title); 
+  }else{
+    print $c[11]."$no"; scanTitleEnd();
+  }
   print $c[4]."$paylNote" if (defined $paylNote and !defined $payloads);
   my @arr;
   our ($xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip);

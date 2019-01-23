@@ -10,16 +10,16 @@ if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
 ## VERSION
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv,
-     $scriptCompletion, $scriptComplInstall, $readme, $uplog, $replace, $replaceFROM, $server);
+     $scriptCompletion, $scriptComplInstall, $readme, $uplog, $replace, $replaceFROM, $server, $geoServer);
 
-$Version="15.0.1";
+$Version="15.0.2";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";
 $ipUrl="http://dynupdate.no-ip.com/ip.php";
 $conectUrl="http://www.bing.com";
 $server="https://cxsecurity.com";
-
+$geoServer="https://www.onyphe.io/api/geoloc";
 ## DEFINE SCAN LISTS 
 $scriptv=$Bin."/inc/conf/version.log";
 $script=$Bin."/atscan";

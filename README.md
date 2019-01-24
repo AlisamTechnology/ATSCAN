@@ -5,6 +5,9 @@
   <a title="Version 15.0.3" href="https://github.com/AlisamTechnology/ATSCAN/releases">
      <img src="https://img.shields.io/badge/V15.0.3-Release-green.svg">
   </a>
+  <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
+    <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
+  </a>
   <a title="MIT License" href="https://github.com/AlisamTechnology/ATSCAN/blob/master/License.txt">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg">
   </a>  
@@ -12,9 +15,6 @@
     <img src="https://img.shields.io/badge/Perl-Required-yellow.svg">
   </a>
     <img title="Works in all platforms" src="https://img.shields.io/badge/Platform-All-green.svg">
-  <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
-    <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
-  </a>
   <a title="Follow us in Facebook" href="https://www.facebook.com/Alisam.Technology/">
     <img src="https://img.shields.io/badge/Facebook-Follow-blue.svg">
   </a>

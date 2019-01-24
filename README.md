@@ -2,7 +2,7 @@
 <body>
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
-  <a title="Version 15.0.2" https://github.com/AlisamTechnology/ATSCAN/releases">
+  <a title="Version 15.0.2" href="https://github.com/AlisamTechnology/ATSCAN/releases">
      <img src="https://img.shields.io/badge/V15.0.2-Release-green.svg">
   </a>
   <a title="MIT License" href="https://github.com/AlisamTechnology/ATSCAN/blob/master/License.txt">

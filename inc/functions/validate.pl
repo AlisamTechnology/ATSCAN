@@ -35,7 +35,7 @@ my @V_XSS=("You have an error in your SQL", "Warning: mysql_", "Query failed: ER
 my @V_LFI=("root:x", "root:x:0:0:", "mysql:x:");
 my @V_TODO=(".", "a", "e", "i", "o", "u", ",");
 my @V_AFD=("DB_NAME", "DB_USER", "DB_PASSWORD");
-
+my @V_INPUT=("email", "file", "password", "search", "text", "textarea", "url", "tel", "time");
 
 ## MENU
 sub get_validate_wp { return @V_WP; }
@@ -66,5 +66,5 @@ sub get_validate_xss { return @V_XSS; }
 sub get_validate_lfi { return @V_LFI; }
 sub get_validate_todo { return @V_TODO; }
 sub get_validate_afd { return @V_AFD; }
-
+sub get_validate_input { return @V_INPUT; }
 1;

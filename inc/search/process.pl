@@ -7,7 +7,7 @@ use FindBin '$Bin';
 our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $notIn, $expHost, $mupload,
      $expIp, $popup, $JoomSites, $WpSites, $fullHeaders, $geoloc);
-our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies, @commands);
+our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies, @commands, @V_INPUT);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
 
 ## SET ENGINES
@@ -88,15 +88,14 @@ sub printMotor {
 sub printDork {
   my @dor=@_;
   if (defined $mindex) {
-    print $c[1]."[::] SCAN    $c[10] [Engine Index]";
-  }else{
-    print $c[1]."[::] $DS[0]     $c[10]";     
-    for my $dor(@dor) {
-      if (length $dor>0) {    
-        $dor=~s/\s+$//;
-        $dor=~s/ip%3A//g;
-        print "[$dor] ";
-      }
+    print $c[1]."[::] SCAN    $c[10] [Engine Index]\n";
+  }  
+  print $c[1]."[::] $DS[0]     $c[10]";     
+  for my $dor(@dor) {
+    if (length $dor>0) {    
+      $dor=~s/\s+$//;
+      $dor=~s/ip%3A//g;
+      print "[$dor] ";
     }
   }
   print "\n";
@@ -124,12 +123,16 @@ sub msearch {
   for my $motor(@motors) {
     for my $dork(@dorks) {     
       if (defined $Target) {
-        if (defined $mindex) {
-          $dork=getHost($dork);
-          $dork=removeProtocol($dork);
-          $dork=cleanURL($dork);
-          $dork="site:".$dork;
-        }
+	    if ($dork=~/$V_IP/) {
+		  $dork="ip%3A$dork";
+		}else{
+	      if (defined $mindex) {
+            $dork=getHost($dork);
+            $dork=removeProtocol($dork);
+            $dork=cleanURL($dork);
+            $dork="site:".$dork;
+		  }
+		}
       }
       if ($zone) { $dork="site:$zone ".$dork; }    
       $dork=~s/\s+$//;
@@ -214,7 +217,9 @@ sub browseUrl {
       print $c[1]."    $DS[10]      ";
       if ($ips) { my $ad=inet_ntoa($ips); print $c[10]."$ad\n"; }
       else{ print $c[10]."$DT[35]\n"; }
-      checkCms($html); checkErrors($html);
+      checkCms($html); 
+	  checkErrors($html);
+	  checkInputs($html);
       if (!defined $fullHeaders) {        
         print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
         if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
@@ -224,6 +229,21 @@ sub browseUrl {
     }
   }
   return ($response, $status, $html);
+}
+
+## FORM DETECTION
+sub checkInputs {
+  my $html=$_[0];
+  my $ni=0;
+  for my $input(@V_INPUT) {
+    my $type="type=";
+    $type.=qq{$input};
+	if ($html=~/(<input\s.*?)$type/) {
+	  $ni++; 
+	  print $c[1]."    FORMS  $c[4] Form inputs detected!\n";
+	  last;
+	}
+  }
 }
 
 ## GET HTML

@@ -12,7 +12,7 @@ if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv,
      $scriptCompletion, $scriptComplInstall, $readme, $uplog, $replace, $replaceFROM, $server, $geoServer);
 
-$Version="15.0.2";
+$Version="15.0.3";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";
@@ -153,6 +153,7 @@ our @V_XSS=get_validate_xss();
 our @V_LFI=get_validate_lfi();
 our @V_TODO=get_validate_todo();
 our @V_AFD=get_validate_afd();
+our @V_INPUT=get_validate_input();
 our @TODO=();
 our $validText;
 our @V_VALID=($validText) if defined $validText;

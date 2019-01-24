@@ -21,7 +21,7 @@ if (defined $mlevel) {
       my $i;
       for (@noresults) { $i="1" if defined $_; }
       if ($i) {
-        makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "1", "", "", "", "", "", "SUB");
+        makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "1", "", "", "", "", "", "");
       }else{
         makeSscan("3", "", "", \@TODO, \@V_TODO, $SCAN_TITLE[1], "", "", "", "", "", "", "", "");
       }

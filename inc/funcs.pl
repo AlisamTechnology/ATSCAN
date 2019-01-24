@@ -344,7 +344,7 @@ if (defined $mlevel) {
 	    }
       }
     }else{
-      push @dorks, "ip%3A".$Target;
+      push @dorks, $Target;
     }
   }
 }else{

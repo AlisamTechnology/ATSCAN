@@ -66,7 +66,7 @@ sub printValidated {
   my @ins=@{$ins};
   print $c[1]."    $DS[12]   ";
   for my $in(@ins) {
-    print $c[4]."[$in]";
+    print $c[3]."[$in]";
   }
   print "\n";
 }
@@ -94,7 +94,7 @@ sub titleSCAN {
       }
     }
     if (defined $Hstatus and ($status=~m/$Hstatus/)) {
-      print $c[1]."    $ZT[11]  ".$c[4]."[$DS[13] $Hstatus] \n";
+      print $c[1]."    $ZT[11]  ".$c[3]."[$DS[13] $Hstatus] \n";
     }
     if (defined $notIn) {
       for my $noin(@notIns) {
@@ -103,7 +103,7 @@ sub titleSCAN {
         }
       }
       if (scalar(grep { defined $_} @noins) eq 0) {
-        print $c[1]."    $ZT[12] $c[4]\[$notIn]\n";
+        print $c[1]."    $ZT[12] $c[3]\[$notIn]\n";
       }
     }
     print $c[1]."    $DS[4]    ";

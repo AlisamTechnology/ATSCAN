@@ -43,7 +43,7 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3">&#9733; <b>Description:</b></td>
+	&#9733; <b>Description:</b>
   </tr>
   <tr>
     <td class="main" width="50%"><p>

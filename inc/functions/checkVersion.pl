@@ -15,7 +15,7 @@ print $c[4]."[i] $OTHERS[20]\n";
 my ($same, $response)=compareme();
 if ($same eq "yes") {   
   print $c[3]."$DT[6]\n";
-  print $c[10]."To force update use --repair argument!\n";
+  print $c[4]."[!]$c[10] To force update use --repair argument!\n";
 }else{
   if (defined $repair) {
     print $c[3]."[i] Repairing tool..!\n";

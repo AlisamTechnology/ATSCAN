@@ -6,7 +6,7 @@ use FindBin '$Bin';
 
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $data, $mmd5,
      $mdecode64, $mencode64, $checkVersion, $help, $toolInfo, $uninstall, $config, $ping, $interactive, $repair, $bugtraq, $zoneH, $fullHeaders, $content, 
-	 $msource, $geoloc);
+	 $msource, $geoloc, $deep);
 
 ## VERIFY TARGETS AND PRESCAN
 our ($mlevel, $Target, $dork, @c, @DS, @DT, @TODO, @V_TODO, @SCAN_TITLE, @aTsearch);
@@ -17,7 +17,7 @@ if (defined $mlevel) {
   if (defined $Target) {
     desclaimer(); my $k=getK(0, 0);    
     if (!$k) {
-      my @noresults=($zoneH, $fullHeaders, $content, $msource, $command, $geoloc);
+      my @noresults=($zoneH, $fullHeaders, $content, $msource, $command, $geoloc, $deep);
       my $i;
       for (@noresults) { $i="1" if defined $_; }
       if ($i) {

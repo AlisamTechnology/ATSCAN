@@ -104,7 +104,7 @@ sub makeSscan {
 sub doDeepSearch {
   our ($ua, $nolisting, @aTsearch, @c, @DT);
   my @links=@_;
-  my $nodeeplisting="q=|.png|.jepg|.css|.js|jpg|.xml|utm_|doubleclick.|ie=UTF|FORM=PERE";
+  my $nodeeplisting="q=|.png|.jepg|.css|.js|jpg|.xml|utm_|doubleclick.|ie=UTF";
   @links=checkDuplicate(@links);
   my @deep=();
   print $c[4]."[!]$c[10] Scraping engine targets...\n";

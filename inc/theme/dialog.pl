@@ -89,6 +89,8 @@ sub interHelp {
   ."$c[5] --target | -t $c[10] | Target \n"
   ."$c[5] --param | -p  $c[10] | Set test parameter EX:id,cat,product_ID or -p all to test all params\n"
   ."$c[5] --save | -s   $c[10] | Output file.\n"
+  ."$c[5] --index       $c[10] | Get indexed engine taret pages .\n"
+  ."$c[5] --getlinks    $c[10] | Get all target html links.\n"
   ."$c[5] --source      $c[10] | Html output folder.\n" 
   ."$c[5] --content     $c[10] | Print response content.\n"
   ."$c[5] --header      $c[10] | Set headers Ex: --header \"Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'\" \n"

@@ -29,8 +29,8 @@ our %SCANS=("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"
 %INTERSearchScans=("unique"=>"unique tesults", "motor"=>"engine motor", "m-random"=>"random engine", "zone"=>"search zone");
 
 ## TARGET
-@INTERtarget=('target', 'ping', 'index');
-%INTERtarget=("target"=>"target", "ping"=>"check is alive", "index"=>"get engine index");
+@INTERtarget=('target', 'ping', 'index', 'getlinks');
+%INTERtarget=("target"=>"target", "ping"=>"check is alive", "index"=>"get engine index", "getlinks"=>"Get html links");
 
 ## SEARCH LEVEL
 @INTERlevel=('level');
@@ -51,7 +51,7 @@ our @ARGUMENTSALL=('status', 'valid', 'vshell', 'zoneH', 'exp', 'proxy', 'proxy-
 ## NOT REQUIRE A VALUE
 our @NoValRequierd=('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noinfo', 'update', 'ip', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
                    'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'zip', 'email', 'ip', 'ports', 'commands', 'form', 'search', 'normal',
-                   'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup', 'all', 'geoloc');
+                   'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup', 'all', 'geoloc', 'getlinks');
 
 ## DATA ARGUMENTS
 our @INTERDataScan=('post', 'get', 'data', 'header', 'upload');

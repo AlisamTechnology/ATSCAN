@@ -2,8 +2,8 @@
 <body>
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
-  <a title="Version 15.0.3" href="https://github.com/AlisamTechnology/ATSCAN/releases">
-     <img src="https://img.shields.io/badge/V15.0.3-Release-green.svg">
+  <a title="Version 15.0.4" href="https://github.com/AlisamTechnology/ATSCAN/releases">
+     <img src="https://img.shields.io/badge/V15.0.4-Release-green.svg">
   </a>
   <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
@@ -371,6 +371,10 @@
         <td class="main"> Get target engine index </td>
       </tr> 
       <tr>
+        <td width="200px" class="main">--getlinks  </td>
+        <td class="main"> Get target html links </td>
+      </tr> 	  
+      <tr>
         <td width="200px" class="main">--wp</td>
         <td class="main"> Wordpress sites in the server</td>
       </tr> 
@@ -510,7 +514,8 @@
         <hr>
       &#x25cf; <b>SEARCH ENGINE: </b> <br/>
        Search: atscan --dork [dork] --level [level]  <br/>
-       Search: atscan -d [dork] -l [level]  <br/>
+       Search: atscan -d [dork] -l [level] --index <br/>
+	   Search: atscan -d [dork] -l [level] --getlinks <br/>
        Set engine: atscan --dork [dork] --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
        Set selective engines: atscan -d [dork] -l [level] -m 1,2,3.. <br/>
        Search with many dorks: atscan --dork dork1 [OTHER]dork2 [OTHER]dork3] --level [level]    <br/>

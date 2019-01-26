@@ -1,8 +1,10 @@
-ATSCAN SCANNER VERSION 15.0.3 RELEASE
+ATSCAN SCANNER VERSION 15.0.4 RELEASE
 =====================================================
   CHANGES: 25/01/2019
   - Fix IP geolocalisation scan.
   - Fix get target engine index.
   - Add form inputs detection.
+  CHANGES: 26/01/2019
+  - Add --getlinks arg. to get target links.
   - Enjoy!
   =================

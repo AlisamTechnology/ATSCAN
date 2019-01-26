@@ -8,7 +8,7 @@ use FindBin '$Bin';
 sub makeSscan { 
   my ($ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter, $data, $no)=@_;
   our (@c, @DS, @TT, @aTscans, @aTsearch, @userArraysList, @replaceParts, $limit, $payloads, $exploit, $shell, $p, $expHost, $expIp,
-       $replaceFROM, $replace);
+       $replaceFROM, $replace, $deep);
   @aTscans=();
   ptak();
   checkHeaders($ct, $dt, $et);  
@@ -28,6 +28,9 @@ sub makeSscan {
   my @filter=@{ $v_ar };
   my $filter=join("|", @filter); 
   @aTsearch=checkDuplicate(@aTsearch);
+  if (defined $deep) {
+    @aTsearch=doDeepSearch(@aTsearch);
+  }
   my $lc=scalar(grep { defined $_} @aTsearch);
   my $count=0;
   for my $URL(@aTsearch) {
@@ -95,6 +98,38 @@ sub makeSscan {
   }  
   ltak();
   endScan();
+}
+
+## DEEP SEARCH
+sub doDeepSearch {
+  our ($ua, $nolisting, @aTsearch, @c, @DT);
+  my @links=@_;
+  my $nodeeplisting="q=|.png|.jepg|.css|.js|jpg|.xml|utm_|doubleclick.|ie=UTF";
+  @links=checkDuplicate(@links);
+  my @deep=();
+  print $c[4]."[!]$c[10] Scraping engine targets...\n";
+  for my $link(@links) {
+    if (substr($link, -1) eq "\/") { $link=chop($link); }
+    my $linkSearch=$ua->get($link) or die "cannot get $link\n";
+    $linkSearch->as_string;
+    my $linkRes=$linkSearch->content;
+	while ($linkRes=~m/href=\"([^>\"\<\'\(\)\#\,\s]*)/g) {
+	  my $llk=$1;
+	  if ($llk!~/$nolisting/ and $llk!~/$nodeeplisting/) {
+	    if ($llk=~/^\//) { 
+		  $llk=substr $llk, 1, 0;
+		  $llk="$link/$llk";
+		  push @deep, $llk;
+		}
+		my $vllk=validateURL($llk);
+		if ($vllk) { push @deep, $llk; }
+	  }
+	}
+  }
+  @deep=checkDuplicate(@deep);
+  push @aTsearch, @deep;
+  print $c[3]."[i] ".scalar(grep { defined $_} @aTsearch)." $DT[4]\n";
+  return @aTsearch;
 }
 
 1;

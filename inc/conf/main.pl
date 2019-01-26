@@ -6,7 +6,7 @@ use FindBin '$Bin';
 
 our (@TODO, @V_WP, @V_JOOM, @XSS, @V_XSS, @LFI, @V_LFI, @E_SHELL, @ADFWP, @V_AFD, @ADMIN, @V_TODO, @SUBDOMAIN, @UPLOAD, @ZIP, @SCAN_TITLE, @RFI, @c, @DT); 
 our ($paylNote, $V_EMAIL, $V_IP, $V_REGEX, $command, $mmd5, $mencode64, $mdecode64, $mlevel, $Target, $dork, $Hstatus, $validText,
-     $data);
+     $data, $deep);
 
 ## PRINT ENGINE RESULTS
 sub printSearch {
@@ -15,7 +15,7 @@ sub printSearch {
   if (defined $searchRegex) { doRegex($searchRegex); }
   if (scalar(grep { defined $_} @aTsearch)>0) {
     my @aTsearch=checkDuplicate(@aTsearch);
-    print $c[3]."[i] ".scalar(grep { defined $_} @aTsearch)." $DT[4]\n";
+    print $c[3]."[i] ".scalar(grep { defined $_} @aTsearch)." $DT[4]\n" if !$deep;
     my $k=getK(0, 0);
     if (!$k) {
       if (defined $Hstatus || defined $validText) {

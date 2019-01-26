@@ -35,7 +35,7 @@ my @ErrT=("LFI:", "MYSQL:", "AFD:", "Microsoft:", "Oracle:", "DB2:", "ODBC:", "P
 my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!", "SCAN FINISHED\!", "Unique Result\(s\) Found\!", "No Target list found\!", "[i] The tool is up to date!",
 "Tool updeted with success\!", "Couldn't auto check for updates!", "Exploit\(s\)", "Check Your Connection or Proxy Setting\!", "Your Internet connection seems not active\!",
 "Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://] OR file does not exist!", "Given target file path is not true.",
-"Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![sql\|lfi\|...]", "To scan server sites You have to set level [Ex: --level 10]\!",
+"Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![sql\|lfi\|...]", "To have to set level [Ex: --level 10]\!",
 "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace \"string => new_string\" or --replaceFROM \"string => new_string\"]", "Invalid option\! Ex: t- <ip> --port 80 [--udp | --tcp]",
 "COMMND", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines:[Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][All:all]",
 "Tool uses default payloads & validation\! You can use your owns using args!\n    Ex: --exp [payload] -v [string] or --payload [your payloads]", "Some thing wrong!",

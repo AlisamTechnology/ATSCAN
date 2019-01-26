@@ -46,8 +46,8 @@
 	&#9733; <b>Description:</b>
   </tr>
   <tr>
-    <td class="main" width="50%"><p>
-	    &#x25cf; EngineS: Google, Bing, Ask, Yandex, Sogou, Exalead <br />
+    <td class="main" width="460px"><p>
+	    &#x25cf; Engines: Google, Bing, Ask, Yandex, Sogou, Exalead  <br />
         &#x25cf; Mass Dork Search<br/>
 		&#x25cf; Multiple instant scans. <br/>
 		&#x25cf; Mass Exploitation <br/>
@@ -61,7 +61,7 @@
         &#x25cf; Find Admin page.<br />
 		&#x25cf; Decode / Encode Base64 / MD5<br/> 
     </p></td>
-    <td class="main" width="50%"><p>
+    <td class="main" width="412px"><p>
 		&#x25cf; Ports scan. <br/>
 		&#x25cf; Collect IPs<br/>
 		&#x25cf; Collect E-mails. <br/>

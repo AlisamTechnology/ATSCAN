@@ -116,11 +116,19 @@ sub doDeepSearch {
 	while ($linkRes=~m/href=\"([^>\"\<\'\(\)\#\,\s]*)/g) {
 	  my $llk=$1;
 	  if ($llk!~/$nolisting/ and $llk!~/$nodeeplisting/) {
-	    if ($llk=~/^\//) { 
-		  $llk=substr $llk, 1, 0;
+	  
+	    if ($llk!~/^https?:\/\//) { 
 		  $llk="$link/$llk";
-		  push @deep, $llk;
 		}
+		my $cllk=$llk;
+		$llk=removeProtocol($llk);
+	    $llk=~s/\/\//\//;
+		if ($cllk=~/^https/) {
+		  $llk="https://$llk";
+		}else{
+		  $llk="http://$llk";
+		}
+	  
 		my $vllk=validateURL($llk);
 		if ($vllk) { push @deep, $llk; }
 	  }

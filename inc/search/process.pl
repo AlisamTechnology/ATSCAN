@@ -237,12 +237,12 @@ sub checkInputs {
   my $ni=0;
   for my $input(@V_INPUT) {
     my $type="type=";
-    $type.=qq{$input};
-	if ($html=~/(<input\s.*?)$type/) {
+    $type.= "\"$input\"";
+	if ($html=~/<input(.*)$type/) {
 	  $ni++; 
 	  print $c[1]."    FORMS  $c[4] Form inputs detected!\n";
 	  last;
-	}
+	} 
   }
 }
 

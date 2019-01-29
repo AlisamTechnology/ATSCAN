@@ -17,7 +17,7 @@ my @V_DRP=("name=\"Generator\" content=\"Drupal");
 my @V_PN=("<meta name=\"generator\" content=\"PostNuke");
 my @V_AT=("<a href=\"/about.php\">About ATutor");
 my @V_PHPN=("<META NAME=\"GENERATOR\" CONTENT=\"PHP-Nuke");
-my @V_MD=("Powered by <a href=\"http:\/\/moodle.org\" title=\"Moodle\">Moodle", "<meta name=\"key words\" content=\"moodle");
+my @V_MD=("Powered by <a href=\"http:\/\/moodle.org\" title=\"Moodle\">Moodle", "<meta name=\"keywords\" content=\"moodle");
 my @V_ACM=("Powered by <a href=\"http:\/\/www.adaptcms.com\">AdaptCMS");
 my @V_SS=("<meta name=\"generator\" content=\"SilverStripe - http:\/\/silverstripe.org\" \/>");
 my @V_MX=("<a href=\"http:\/\/www.modx.com\" target=\"_blank\"> Powered by MODx");
@@ -67,4 +67,5 @@ sub get_validate_lfi { return @V_LFI; }
 sub get_validate_todo { return @V_TODO; }
 sub get_validate_afd { return @V_AFD; }
 sub get_validate_input { return @V_INPUT; }
+
 1;

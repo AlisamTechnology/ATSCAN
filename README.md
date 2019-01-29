@@ -2,8 +2,8 @@
 <body>
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
-  <a title="Version 15.0.4" href="https://github.com/AlisamTechnology/ATSCAN/releases">
-     <img src="https://img.shields.io/badge/V15.0.4-Release-green.svg">
+  <a title="Version 15.0.5" href="https://github.com/AlisamTechnology/ATSCAN/releases">
+     <img src="https://img.shields.io/badge/V15.0.5-Release-green.svg">
   </a>
   <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
@@ -58,6 +58,7 @@
 		&#x25cf; Exploits and issues search.<br/>
         &#x25cf; XSS / SQLI / LFI / AFD scanner.<br /> 
 		&#x25cf; Filter wordpress & Joomla sites. <br />
+		&#x25cf; Wordpress theme and plugin detection. <br />
         &#x25cf; Find Admin page.<br />
 		&#x25cf; Decode / Encode Base64 / MD5<br/> 
     </p></td>

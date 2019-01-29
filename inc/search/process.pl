@@ -218,8 +218,9 @@ sub browseUrl {
       if ($ips) { my $ad=inet_ntoa($ips); print $c[10]."$ad\n"; }
       else{ print $c[10]."$DT[35]\n"; }
       checkCms($html); 
-	  checkErrors($html);
+      checkWPlugins($html);
 	  checkInputs($html);
+	  checkErrors($html);
       if (!defined $fullHeaders) {        
         print $c[1]."    $DS[3]    ". $c[10]."$DS[13] $status\n"; print $c[1]."    $DS[2]  ";
         if (defined $serverheader) { print $c[10]."$serverheader\n"; } 
@@ -231,6 +232,7 @@ sub browseUrl {
   return ($response, $status, $html);
 }
 
+
 ## FORM DETECTION
 sub checkInputs {
   my $html=$_[0];
@@ -240,11 +242,36 @@ sub checkInputs {
     $type.= "\"$input\"";
 	if ($html=~/<input(.*)$type/) {
 	  $ni++; 
-	  print $c[1]."    FORMS  $c[4] Form inputs detected!\n";
+	  print $c[1]."    FORMS  $c[4] [!]$c[10] Form inputs detected!\n";
 	  last;
 	} 
   }
 }
+
+## WP PLUGINS DETECTION
+sub checkWPlugins {
+  my $html=$_[0];
+  my @plugins;
+  my $ipl=0;
+  my @base=("plugins", "themes");
+  for my $base(@base) {
+    while ($html=~/\/wp-content\/$base\/(.*?)(\/)/g) {
+	  $ipl++;
+	  $1=~s/\/wp-content\/$base\//$base/g;
+	  my $chop=$base;
+	  chop($chop);
+	  my $fullPlug="$chop => $1";
+	  push @plugins, $fullPlug;
+	}
+  }
+  if (scalar @plugins > 1) {
+    @plugins=checkDuplicate(@plugins);
+	print $c[1]."    PLUGINS$c[4] [!]$c[10] [IMPORTANT INFO]\n";
+	for my $fullP(@plugins) {
+	  print $c[10]."            - $fullP\n";
+	}
+  }  
+}  
 
 ## GET HTML
 sub getHtml {

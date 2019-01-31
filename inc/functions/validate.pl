@@ -31,7 +31,7 @@ my @V_CC5=("Powered by concrete5", "<meta name=\"generator\" content=\"concrete"
 my @V_OCR=("Powered By OpenCart");
 my @V_XSS=("You have an error in your SQL", "Warning: mysql_", "Query failed: ERROR", "function.mysql", "MySQL result index", "MySQL Error", "MySQL ODBC", "MySQL Driver", "mysqli.query", "num_rows", "mysql error:",
            "supplied argument is not a valid MySQL result resource", "on MySQL result index", "Error Executing Database Query", "mysql_", 
-           "Error SQL");
+           "Error SQL", "Fatal error: Uncaught exception");
 my @V_LFI=("root:x", "root:x:0:0:", "mysql:x:");
 my @V_TODO=(".", "a", "e", "i", "o", "u", ",");
 my @V_AFD=("DB_NAME", "DB_USER", "DB_PASSWORD");

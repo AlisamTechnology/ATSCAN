@@ -1,6 +1,16 @@
 ATSCAN SCANNER VERSION 15.0.6 RELEASE
 =====================================================
   CHANGES: v15.0.6 04/02/2019
-  - Add shodan search.
+  - Shodan host ip.
+  - Shodan host count.
+  - Shodan host search.
+  - Shodan query.
+  - Shodan query search.
+  - Shodan query tags.
+  - Shodan dns reverse.
+  - Shodan dns resolve.
+  - Shodan tools my ip.
+  - Shodan tools my api.
+  - More when i have time..
   - Enjoy!
   =================

@@ -156,21 +156,6 @@
 </table>
 <table border="0" cellpadding="2" cellspacing="5" width="100%">
   <tr>
-    <td class="main3">&#9733; <b>Screenshots:</b></td>
-  </tr>
-  <tr>
-    <td align="center" width="890px">
-    <img src="http://i.imgur.com/4Y8VhwG.jpg" /> <br/><br/>
-    <img src="https://i.imgur.com/07sJtSr.jpg" /> <br/><br/>
-    <img src="https://i.imgur.com/IoReBpZ.jpg" /> <br/><br/>
-    <img src="http://i.imgur.com/oRFCwRK.jpg" /> <br/><br/>
-    <img src="http://i.imgur.com/aeBfATH.jpg" /> <br/><br/> 
-    <img src="https://imgur.com/0VPxp3D.jpg" /> <br/><br/> 
-    </td>
-  </tr>
-</table>
-<table border="0" cellpadding="2" cellspacing="5" width="100%">
-  <tr>
     <td class="main3" width="890px">&#9733; <b>Commands:</b></td>
   </tr>
   <tr>

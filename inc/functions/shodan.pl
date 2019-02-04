@@ -10,8 +10,7 @@ use FindBin '$Bin';
 
 our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
     $shoreverse, $shomyip, $shoapiInfo, $facets, $V_IP, $V_RANG, @c);
-
-my $ser="=" x 39;		
+		
 my $nn=0;
 $facets="" if !$facets;
 

@@ -655,8 +655,6 @@
        atscan -d [dork / dorks.txt] -l [level] --sregex [regex] --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --regex [regex] --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --unique  <br/>
-        <hr>
-       &#x25cf; <b>SCAN VALIDATION: </b><br/>
        atscan -t [target / targets.txt] [--status [code] / --valid [string] <br/>
        atscan -t [target / targets.txt] --vshell [file path] <br/>
        atscan -d [dork / dorks.txt] -l [level] --exp/expHost [payload] --status [code] / --valid [string] <br/>

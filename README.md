@@ -675,19 +675,18 @@
        atscan --bugtraq [string] --limit 10 <br/> 
         <hr>
        &#x25cf; <b>SHODAN SEARCH</b> <br/> 
-       atscan --shodan --ip [ip or host or list.txt] --apikey [API KEY]<br/>
-       atscan --shodan --search [string or list.txt] --apikey [API KEY]<br/>
-       atscan --shodan --dnsresolve [ip or host or list.txt] --apikey [API KEY]<br/>
-       atscan --shodan --dnsrevese [ip or host or list.txt] --apikey [API KEY]<br/>
-       atscan --shodan --count [query or list.txt] --apikey [API KEY]<br/>
-       atscan --shodan --query [query or list.txt] --apikey [API KEY]<br/>
-       atscan --shodan --querysearch [query or list.txt] --apikey [API KEY]<br/>
-       atscan --shodan --querytags --apikey [API KEY]<br/>
-       atscan --shodan --myip --apikey [API KEY]<br/>
-       atscan --shodan --apinfo --apikey [API KEY]<br/>
-       atscan --shodan --services --apikey [API KEY]<br/>
+       atscan --shodan --ip [ip or host or list.txt] --apikey [API KEY] <br/>
+       atscan --shodan --search [string or list.txt] --apikey [API KEY] <br/>
+       atscan --shodan --dnsresolve [ip or host or list.txt] --apikey [API KEY] <br/>
+       atscan --shodan --dnsrevese [ip or host or list.txt] --apikey [API KEY] <br/>
+       atscan --shodan --count [query or list.txt] --apikey [API KEY] <br/>
+       atscan --shodan --query [query or list.txt] --apikey [API KEY] <br/>
+       atscan --shodan --querysearch [query or list.txt] --apikey [API KEY] <br/>
+       atscan --shodan --querytags --apikey [API KEY] <br/>
+       atscan --shodan --myip --apikey [API KEY] <br/>
+       atscan --shodan --apinfo --apikey [API KEY] <br/>
+       atscan --shodan --services --apikey [API KEY] <br/>
         <hr>
-
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>
         <hr>

@@ -17,7 +17,8 @@ our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtarget
      @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells, @commands);
 
 ## USER PRE-CONFIGURATION
-our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, $method, $checkVersion, $get, $post, $scriptbash);
+our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
+    $method, $checkVersion, $get, $post, $scriptbash, $shodan);
 
 ## PRINT FILES 
 sub printFile {
@@ -792,10 +793,25 @@ sub printProxy {
 sub Targs {
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port,
              $mupload, $mzip, $JoomSites, $eMails, $searchIps, $regex, $command, $ping, $interactive, $validShell, $notIn, $repair,
-             $bugtraq, $zoneH, $content, $msource, $fullHeaders, $command, $geoloc, $deep);
+             $bugtraq, $zoneH, $content, $msource, $fullHeaders, $command, $geoloc, $deep, $shodan);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;
+}
+
+## CHECK CPAN MODULES
+sub checkCpanModules {
+  #my $cpanModule=$_[0];
+  eval { require JSON; };
+  if($@) { 
+    print $c[4]."[!] ERROR! This scan require JSON module! do you want to install? [Y/n]: $c[10]";
+    my $re=<STDIN>;
+    chomp ($re);
+    if ($re!~/(N|n)/) {
+      system("cpan App::cpanminus && cpanm JSON");
+    }
+  }
+  if($@) { print $c[4]."[!] Failed to install JSON\n"; logoff(); }
 }
 
 1;

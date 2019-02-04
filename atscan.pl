@@ -79,7 +79,8 @@ our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $
      $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, $mindex, $mdom, $Target, $exploit, $p, $tcp, $udp, $proxy, $prandom, $help, $output, $replace, $replaceFROM, $dork, $mlevel, $unique,
      $shell, $nobanner, $beep, $ifinurl, $noinfo, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $payloads,
      $mrandom, $content, $scriptComplInstall, $scriptCompletion, $scriptInstall, $toolInfo, $config, $freq, $headers, $msource, $ping, $notIn, $expHost, $expIp, $zone, $validShell, $interactive,
-     $popup, $all, $repair, $zoneH, $cokie, $bugtraq, $fullHeaders, $geoloc, $deep);
+     $popup, $all, $repair, $zoneH, $cokie, $bugtraq, $fullHeaders, $geoloc, $deep, $shodan, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, 
+	 $shoresolve, $shoreverse, $shomyip, $shoapiInfo, $facets);
 
 ## ARGUMENTS
 use Getopt::Long qw(GetOptions);
@@ -89,16 +90,19 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'index'=>\$mindex, 'host'=>\$mdom, 't|target=s'=>\$Target, 'exp|e=s'=>\$exploit, 'p|param=s'=>\$p, 'tcp'=>\$tcp, 'udp'=>\$udp, 
                          'proxy=s'=>\$proxy, 'proxy-random=s'=>\$prandom, 'help|h'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'replaceFROM=s'=>\$replaceFROM, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel,
                          'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noinfo'=>\$noinfo, 'm|motor=s'=>\$motor, 'timeout=s'=>\$timeout,
-                         'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ip'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'ifend'=>\$ifend,
+                         'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ips'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'ifend'=>\$ifend,
                          'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'b-random'=>\$brandom, 'data=s'=>\$data, 'payload=s'=>\$payloads, 'm-random'=>\$mrandom, 'content'=>\$content,
                          'tool|?'=>\$toolInfo, 'pass|config'=>\$config, 'freq=s'=>\$freq, 'header=s'=>\$headers, 'source=s'=>\$msource, 'ping'=>\$ping, 'exclude=s'=>\$notIn, 'expHost=s'=>\$expHost,
                          'expIp=s'=>\$expIp, 'zone=s'=>\$zone, 'interactive|i'=>\$interactive, 'vshell=s'=>\$validShell, 'popup'=>\$popup, 'all'=>\$all, 'repair'=>\$repair, 'zoneH=s'=>\$zoneH,
-                         'cookies=s'=>\$cokie, 'bugtraq=s'=>\$bugtraq, 'geoloc'=>\$geoloc, 'fullHeaders'=>\$fullHeaders, 'getlinks'=>\$deep) or badArgs();
+                         'cookies=s'=>\$cokie, 'bugtraq=s'=>\$bugtraq, 'geoloc'=>\$geoloc, 'fullHeaders'=>\$fullHeaders, 'getlinks'=>\$deep, 'shodan'=>\$shodan, 'apikey=s'=>\$shoapikey, 'ip=s'=>\$shoip, 
+						 'count=s'=>\$shocount, 'search=s'=>\$shosearch, 'query'=>\$shoquery, 'querysearch=s'=>\$shoquerySearch, 'querytags'=>\$shoqueryTags, 'services'=>\$shoservices, 
+						 'dnsresolve=s'=>\$shoresolve, 'dnsreverse=s'=>\$shoreverse, 'myip'=>\$shomyip, 'apinfo'=>\$shoapiInfo, 'facets=s'=>\$facets) or badArgs();
 
 ## CHOMP ARGS STRINGS
 our @toChomp=($Hstatus, $validText, $command, $mmd5, $mencode64, $mdecode64, $port, $Target, $exploit, $p, $proxy, $prandom, $output,
               $replace, $replaceFROM, $dork, $mlevel, $shell, $ifinurl, $motor, $timeout, $limit, $regex, $searchRegex, $data,
-              $payloads, $freq, $headers, $msource, $notIn, $expHost, $expIp, $zone, $validShell, $zoneH, $bugtraq);
+              $payloads, $freq, $headers, $msource, $notIn, $expHost, $expIp, $zone, $validShell, $zoneH, $bugtraq, $shoapikey, $shoip, 
+			  $shocount, $shosearch, $shoquerySearch, $shoresolve, $shoreverse, $facets);
 for (@toChomp) { chomp ($_) if defined $_; }
 
 ## INCLUDES

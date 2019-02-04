@@ -6,7 +6,7 @@ use FindBin '$Bin';
 
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $port, $command, $data, $mmd5,
      $mdecode64, $mencode64, $checkVersion, $help, $toolInfo, $uninstall, $config, $ping, $interactive, $repair, $bugtraq, $zoneH, $fullHeaders, $content, 
-	 $msource, $geoloc, $deep);
+	 $msource, $geoloc, $deep, $shodan);
 
 ## VERIFY TARGETS AND PRESCAN
 our ($mlevel, $Target, $dork, @c, @DS, @DT, @TODO, @V_TODO, @SCAN_TITLE, @aTsearch);
@@ -55,7 +55,7 @@ if (defined $mmd5 || defined $mencode64 || defined $mdecode64) {
   if (defined $mdecode64) { mdecode64(); }
 }
 
-my @noresults2=($checkVersion, $help, $bugtraq, $repair, $toolInfo, $uninstall, $config, $interactive);
+my @noresults2=($checkVersion, $help, $bugtraq, $repair, $toolInfo, $uninstall, $config, $interactive, $shodan);
 my $i2;
 for (@noresults2) { $i2="1" if defined $_; }
 if ($i2) {
@@ -65,6 +65,7 @@ if ($i2) {
   if (defined $help) { help(); }
   if (defined $toolInfo) { tool(); }
   if (defined $bugtraq) { bugtraq(); }
+  if (defined $shodan) { shodan(); }
   if (defined $uninstall) { uninstall(); }
   if (defined $config) { userconfig(); }
   if (defined $interactive) { interactive(); }

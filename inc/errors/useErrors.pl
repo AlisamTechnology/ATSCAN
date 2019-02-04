@@ -9,6 +9,17 @@ our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subd
 our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @replace, @TT, @SCAN_TITLE,
      @DT, @OTHERS, @c, @ZT);
 
+## SHODAN
+our ($shodan, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
+$shoreverse, $shomyip, $shoapiInfo);
+if (defined $shodan) {
+  if (!defined $shoapikey) {
+    print $c[4]."[!] An shodan Apikey is required! Ex: --apikey \"h2dS5sjdB78hXFdYuuKy\" \n"; 
+	print $c[4]."[!] You can get an apikey here https://www.shodan.io/\n";
+	logoff();
+  }
+}
+
 ## ARGUMENTS VERIFICATION (TARGET AND RANGIP)
 if (defined $Target) {
   my $Targ=Targs();

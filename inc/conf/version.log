@@ -1,17 +1,6 @@
-ATSCAN SCANNER VERSION 15.0.5 RELEASE
+ATSCAN SCANNER VERSION 15.0.6 RELEASE
 =====================================================
-  CHANGES: v15.0.2 25/01/2019
-  - Fix IP geolocalisation scan.
-  - Fix get target engine index.
-  - Add form inputs detection.
-  
-  CHANGES: v15.0.3 26/01/2019
-  - Add --getlinks arg. to get target links.
-  
-  CHANGES: v15.0.4 27/01/2019
-  - Fix form inputs detection.
-  
-  CHANGES: v15.0.5 29/01/2019
-  - Add WP Plugins & Themes detection.
+  CHANGES: v15.0.6 04/02/2019
+  - Add shodan search.
   - Enjoy!
   =================

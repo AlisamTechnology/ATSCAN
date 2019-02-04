@@ -6,6 +6,7 @@ use FindBin '$Bin';
 
 ## GET FUNCTIONS 
 require "$Bin/inc/funcs.pl";
+our ($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $toolInfo, $config, $interactive, $repair, $shodan);
 
 ## PRINT BANNER 
 our ($nobanner, $output, $msource, $bugtraq);
@@ -24,11 +25,15 @@ our $password;
 if ($password) { require "$Bin/inc/functions/log.pl"; }
 
 ## NO ARGUMENTS ##
-our ($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $uninstall, $toolInfo, $config, $interactive, $repair);
-our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $bugtraq, $uninstall, $toolInfo, $repair, $config, $interactive);
+our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $bugtraq, $uninstall, $toolInfo, $repair, $config, 
+$interactive, $shodan);
 my $NoArg=0;
 for (@NoArg) { $NoArg++ if defined $_; }
-advise() if $NoArg<1;
+if ($NoArg < 1) {
+  if (!defined $shodan) {
+    advise();
+  }
+}
 
 ## TOOL CONFIGURATION
 require "$Bin/inc/functions/clientConf.pl";

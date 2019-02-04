@@ -37,6 +37,19 @@ use FindBin '$Bin';
   ."   Specify emails: atscan -d <dorks.txt> -l <level> --email -v \"\@gmail | \@yahoo ..\"\n"
   ."   Search + collect ips: atscan --dork <dork> --level <level> --ip \n\n";
   
+  ltak(); print $c[12]."  SHODAN SEARCH: \n".$c[10]
+  ."--ip <ip or host or list.txt> : Host Information\n"
+  ."--count <query or list.txt> : Search Shodan without Results\n"
+  ."--search <query or list.txt> : Search Shodan\n"
+  ."--dnsreverse <ip or host or list.txt> : Reverse DNS Lookup\n"
+  ."--dnsresolve <host or ip or list.txt> : DNS Lookup\n"
+  ."--querysearch <query or list.txt> : Search the directory of saved search queries\n"
+  ."--query : List the saved search queries\n";
+  ."--querytags : List the most popular tags\n";
+  ."--services : List all services that Shodan crawls\n"
+  ."--myip : My IP Address\n"
+  ."--apinfo : API Plan Information\n\n";
+
   ltak(); print $c[12]."  SEARCH EXPLOIT: \n".$c[10]
   ."   atscan --bugtraq <string> Exp: atscan --bugtraq joomla -s save.txt\n"
   ."   atscan --bugtraq <string [OTHER]string2> \n"

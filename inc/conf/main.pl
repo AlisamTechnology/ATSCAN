@@ -102,4 +102,7 @@ sub interactive { require "$Bin/inc/interactive/main.pl"; }
 ## BUGTRAQ
 sub bugtraq { require "$Bin/inc/functions/bugtraq.pl"; }
 
+## SHODAN
+sub shodan { require "$Bin/inc/functions/shodan.pl"; }
+
 1;

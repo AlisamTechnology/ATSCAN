@@ -2,8 +2,8 @@
 <body>
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
-  <a title="Version 15.0.5" href="https://github.com/AlisamTechnology/ATSCAN/releases">
-     <img src="https://img.shields.io/badge/V15.0.5-Release-green.svg">
+  <a title="Version 15.0.6" href="https://github.com/AlisamTechnology/ATSCAN/releases">
+     <img src="https://img.shields.io/badge/V15.0.6-Release-green.svg">
   </a>
   <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
@@ -63,6 +63,7 @@
 		&#x25cf; Decode / Encode Base64 / MD5<br/> 
     </p></td>
     <td class="main" width="426px"><p>
+        &#x25cf; Shodan serach engine. <br/>
 		&#x25cf; Ports scan. <br/>
 		&#x25cf; Collect IPs<br/>
 		&#x25cf; Collect E-mails. <br/>
@@ -488,6 +489,58 @@
         <td class="main">To separate values ex: dork1 [OTHER]DORK2 [OTHER]DORK3</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--shodan</td>
+        <td class="main">Shodan search</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--ip</td>
+        <td class="main">Shodan Host Information</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--count</td>
+        <td class="main">Search Shodan without Results</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--count</td>
+        <td class="main">Search Shodan</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--dnsreverset</td>
+        <td class="main">Shodan Reverse DNS Lookup</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--dnsresolve</td>
+        <td class="main">Shodan Resolve DNS Lookup</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--querysearch</td>
+        <td class="main">Search the directory of saved Shodan search queries</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--query</td>
+        <td class="main">List the saved Shodan search queries</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--querytags</td>
+        <td class="main">List the most popular Shodan tags</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--myip</td>
+        <td class="main">List all services that Shodan crawls</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--services</td>
+        <td class="main">List all services that Shodan crawls</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--apinfo</td>
+        <td class="main">My Shodan API Plan Information</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--facets</td>
+        <td class="main">Shodan search facets</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--update</td>
         <td class="main"> Update tool</td>
       </tr>
@@ -623,6 +676,20 @@
        atscan --bugtraq file.txt <br/>
        atscan --bugtraq [string] --limit 10 <br/> 
         <hr>
+       &#x25cf; <b>SHODAN SEARCH</b> <br/> 
+       atscan --shodan --ip [ip or host or list.txt] --apikey [API KEY]<br/>
+       atscan --shodan --search [string or list.txt] --apikey [API KEY]<br/>
+       atscan --shodan --dnsresolve [ip or host or list.txt] --apikey [API KEY]<br/>
+       atscan --shodan --dnsrevese [ip or host or list.txt] --apikey [API KEY]<br/>
+       atscan --shodan --count [query or list.txt] --apikey [API KEY]<br/>
+       atscan --shodan --query [query or list.txt] --apikey [API KEY]<br/>
+       atscan --shodan --querysearch [query or list.txt] --apikey [API KEY]<br/>
+       atscan --shodan --querytags --apikey [API KEY]<br/>
+       atscan --shodan --myip --apikey [API KEY]<br/>
+       atscan --shodan --apinfo --apikey [API KEY]<br/>
+       atscan --shodan --services --apikey [API KEY]<br/>
+        <hr>
+
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>
         <hr>

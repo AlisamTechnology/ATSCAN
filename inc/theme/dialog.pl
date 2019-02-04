@@ -153,6 +153,19 @@ sub confHlp {
   ."$c[5] --unique      $c[10] | Get targets with exact dork matching\n"
   ."$c[5] --limit       $c[10] | Stop when scan reaches the defined amount of positive results.\n"
   ."$c[5] --payload     $c[10] | Use your own payloads instead of tool ones\n"
+  ."$c[5] --shodan      $c[10] | Shodan search\n"
+  ."$c[5] --ip          $c[10] | Host Information\n"
+  ."$c[5] --count       $c[10] | Search Shodan without Results\n"
+  ."$c[5] --search      $c[10] | Search Shodan\n"
+  ."$c[5] --dnsreverse  $c[10] | Reverse DNS Lookup\n"
+  ."$c[5] --dnsresolve  $c[10] | DNS Lookup\n"
+  ."$c[5] --querysearch $c[10] | Search the directory of saved search queries\n"
+  ."$c[5] --query       $c[10] | List the saved search queries\n"
+  ."$c[5] --querytags   $c[10] | List the most popular tags\n"
+  ."$c[5] --services    $c[10] | List all services that Shodan crawls\n"
+  ."$c[5] --myip        $c[10] | My IP Address\n"
+  ."$c[5] --apinfo      $c[10] | My API Plan Information\n"
+  ."$c[5] --facets      $c[10] | Shodan search facets\n"
   ."$c[5] --command     $c[10] | Extern Command to execute\n"; 
 }
 ##
@@ -177,7 +190,7 @@ sub scansArgs {
   ."$c[5] --zoneH       $c[10] | Upload to Zone-H EX: --zoneH \"notifier => --TARGET\"\n"
   ."$c[5] --cookies     $c[10] | Cookies output file\n"
   ."$c[5] --email       $c[10] | Collect emails \n"
-  ."$c[5] --ip          $c[10] | Collect Ips\n"
+  ."$c[5] --ips         $c[10] | Collect Ips\n"
   ."$c[5] --wpafd       $c[10] | Scan wordpress sites for arbitrary file download\n"
   ."$c[5] --admin       $c[10] | Get site admin page \n"
   ."$c[5] --shost       $c[10] | Get site subdomains \n"

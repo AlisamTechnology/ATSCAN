@@ -19,10 +19,10 @@ our %MODULES=('normal'=>'normal scan mode', 'advanced'=>'advanced scan mode');
 our @MODULES=('normal', 'advanced');
 
 ## SCANS
-our @SCANS=("sql", "lfi", "joomrfi", "wpafd", "admin", "shost", "wp", "joom", "zip", "decrypt", "email", "ip", "ports", "commands", "form", "nomodule");
+our @SCANS=("sql", "lfi", "joomrfi", "wpafd", "admin", "shost", "wp", "joom", "zip", "decrypt", "email", "ips", "ports", "commands", "form", "shodan", "nomodule");
 our %SCANS=("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"=>"joomla rfi", "wpafd"=>"wp file download", "admin"=>"find admin page", "shost"=>"get subdomains",
            "wp"=>"get wordpress sites", "joom"=>"get joomla sites", "zip"=>"get zip files", "decrypt"=>"md5/(en/de)code64",
-           "email"=>"collect emails", "ip"=>"collect ips", "ports"=>"scan ports", "commands"=>"extern command", "form"=>"post/get data", "nomodule"=>"no module will be used");
+           "email"=>"collect emails", "ips"=>"collect ips", "ports"=>"scan ports", "commands"=>"extern command", "form"=>"post/get data", "shodan"=>"Shodan search", "nomodule"=>"no module will be used");
 
 ## SEARCH ENGINE
 @INTERSearchScans=('unique', 'motor', 'm-random', 'zone');
@@ -49,14 +49,22 @@ our @ARGUMENTSALL=('status', 'valid', 'vshell', 'zoneH', 'exp', 'proxy', 'proxy-
                    'noquery', 'b-random', 'content', 'expHost', 'expIp', 'timeout', 'host', 'cookies', 'bugtraq');
 
 ## NOT REQUIRE A VALUE
-our @NoValRequierd=('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noinfo', 'update', 'ip', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
-                   'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'zip', 'email', 'ip', 'ports', 'commands', 'form', 'search', 'normal',
-                   'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup', 'all', 'geoloc', 'getlinks');
+our @NoValRequierd=('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noinfo', 'update', 'ips', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
+                   'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'zip', 'email', 'ports', 'commands', 'form', 'search', 'normal',
+                   'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup', 'all', 'geoloc', 'getlinks', 
+				   'query', 'querytags', 'services', 'myip', 'apinfo', 'shodan');
 
 ## DATA ARGUMENTS
 our @INTERDataScan=('post', 'get', 'data', 'header', 'upload');
 our %INTERDataScan=("post"=>"post methode", "get"=>"get methode", "data"=>"data to post/get", "header"=>"data headers", "upload"=>"data upload");
 
+## SHODAN
+our @shodan=('apikey', 'ip', 'count', 'search', 'query', 'querysearch', 'querytags', 'services', 'dnsresolve', 'dnsreverse', 'myip', 'apinfo', 'facets', 'limit');
+our %shodan=("apikey"=>"Shodan Apikey", "ip"=>"ip or host", "count"=>"shodan count", "search"=>"shiodan search", "query"=>"Shodan saved queries", 
+             "querysearch"=>"Shodan dirs queries", "querytags"=>"Shodan popular tags", "services"=>"Shosan services", 
+	         "dnsresolve"=>"Shodan dns resolve", "dnsreverse"=>"Shodan dns reverse", "myip"=>"My ip address", "apinfo"=>"My api info", "facets"=>"Shodan search facets", 
+			 "limit"=>"Max results limit");
+	 
 ## SHELL LFI
 our @INTERshell=('shell');
 our %INTERshell=("shell"=>"shell url");

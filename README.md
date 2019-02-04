@@ -665,7 +665,7 @@
        atscan --shodan --dnsresolve [ip or host or list.txt] --apikey [API KEY] <br/>
        atscan --shodan --dnsrevese [ip or host or list.txt] --apikey [API KEY] <br/>
        atscan --shodan --count [query or list.txt] --apikey [API KEY] <br/>
-       atscan --shodan --query [query or list.txt] --apikey [API KEY] <br/>
+       atscan --shodan --query --apikey [API KEY] <br/>
        atscan --shodan --querysearch [query or list.txt] --apikey [API KEY] <br/>
        atscan --shodan --querytags --apikey [API KEY] <br/>
        atscan --shodan --myip --apikey [API KEY] <br/>

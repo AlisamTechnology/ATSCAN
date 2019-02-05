@@ -14,7 +14,7 @@ our ($shodan, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySea
 $shoreverse, $shomyip, $shoapiInfo);
 if (defined $shodan) {
   if (!defined $shoapikey) {
-    print $c[4]."[!] An shodan Apikey is required! Ex: --apikey \"h2dS5sjdB78hXFdYuuKy\" \n"; 
+    print $c[4]."[!] A shodan Apikey is required! Ex: --apikey \"h2dS5sjdB78hXFdYuuKy\" \n"; 
 	print $c[4]."[!] You can get an apikey here https://www.shodan.io/\n";
 	logoff();
   }

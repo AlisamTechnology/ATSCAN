@@ -48,8 +48,8 @@ use FindBin '$Bin';
   ."--querytags : List the most popular tags\n";
   ."--services : List all services that Shodan crawls\n"
   ."--myip : My IP Address\n"
+  ."--ports : Get  list of port numbers that the crawlers are looking for.\n"
   ."--apinfo : API Plan Information\n\n";
-
   ltak(); print $c[12]."  SEARCH EXPLOIT: \n".$c[10]
   ."   atscan --bugtraq <string> Exp: atscan --bugtraq joomla -s save.txt\n"
   ."   atscan --bugtraq <string [OTHER]string2> \n"

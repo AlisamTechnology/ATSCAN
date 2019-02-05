@@ -2,8 +2,8 @@
 <body>
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
-  <a title="Version 15.0.6" href="https://github.com/AlisamTechnology/ATSCAN/releases">
-     <img src="https://img.shields.io/badge/V15.0.6-Release-green.svg">
+  <a title="Version 15.0.7" href="https://github.com/AlisamTechnology/ATSCAN/releases">
+     <img src="https://img.shields.io/badge/V15.0.7-Release-green.svg">
   </a>
   <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
@@ -522,6 +522,14 @@
         <td class="main">My Shodan API Plan Information</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--ports</td>
+        <td class="main"> List of port numbers that the crawlers are looking for</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--protocols</td>
+        <td class="main"> List all protocols that can be used when performing on-demand Internet scans via Shodan.</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--facets</td>
         <td class="main">Shodan search facets</td>
       </tr>
@@ -671,6 +679,8 @@
        atscan --shodan --myip --apikey [API KEY] <br/>
        atscan --shodan --apinfo --apikey [API KEY] <br/>
        atscan --shodan --services --apikey [API KEY] <br/>
+       atscan --shodan --ports --apikey [API KEY] <br/>
+       atscan --shodan --protocols --apikey [API KEY] <br/>
         <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>

@@ -1,4 +1,4 @@
-ATSCAN SCANNER VERSION 15.0.6 RELEASE
+ATSCAN SCANNER VERSION 15.0.7 RELEASE
 =====================================================
   CHANGES: v15.0.6 04/02/2019
   - Shodan host ip.
@@ -11,6 +11,11 @@ ATSCAN SCANNER VERSION 15.0.6 RELEASE
   - Shodan dns resolve.
   - Shodan tools my ip.
   - Shodan tools my api.
-  - More when i have time..
+  - More when i have time..ç
+  
+  CHANGES: v15.0.7 05/02/2019
+  - Fix some bugs.
+  - Add shodan api ports.
+  - Add shodan api protocols.
   - Enjoy!
   =================

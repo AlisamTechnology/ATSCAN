@@ -9,20 +9,23 @@ use FindBin '$Bin';
 ## SHODAN
 
 our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
-    $shoreverse, $shomyip, $shoapiInfo, $facets, $V_IP, $V_RANG, @c);
+    $shoreverse, $shomyip, $shoapiInfo, $shoports, $shoprotos, $shofilters, $facets, $V_IP, $V_RANG, @c);
 		
 my $nn=0;
 $facets="" if !$facets;
 
-testConnection();
+##
+if ( $shofilters ) { shofilters(); }
+else{
+  testConnection();
+  print $c[11];
+  timer();
+  print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
+}
 checkCpanModules();	
 use JSON;	
 my $base="https://api.shodan.io";
-
-print $c[11];
-timer();
-print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
-sleep 2;
+sleep 1;
 
 ###########################################################################################
 sub getshodanip {
@@ -91,7 +94,49 @@ if ( $shoip ) {
   if ( $shoquery ) { sho_query(); }
   if ( $shoservices ) { sho_services(); }
   if ( $shomyip ) { shomyip(); }
-  if ( $shoapiInfo ) { shoapinfo(); }
+  if ( $shoapiInfo ) { shoapinfo(); } 
+  if ( $shoports ) { shoports(); }
+  if ( $shoprotos ) { shoprotos(); }
+}
+#############################################################################
+sub shoports {
+  print $c[4]."[!] Getting port numbers that the crawlers are looking for...\n\n";
+  sleep 1;
+  my $shoRes=getShoResults("$base/shodan/ports?key=$shoapikey");
+  if ($shoRes) {
+	print $c[10]."[+] Ports:$c[3] $shoRes\n";
+  }else{
+    noResult();
+  }
+  ltak();
+}
+
+#############################################################################
+sub shoprotos {
+  print $c[4]."[!] Getting port numbers that the crawlers are looking for...\n\n";
+  sleep 1;
+  my $shoRes=getShoResults("$base/shodan/protocols?key=$shoapikey");
+  if ($shoRes) {
+    while ( $shoRes =~ /"(.*?)": "(.*?)"/migs ) {
+	  print $c[10]."[+] $1: $c[3]$2\n";
+	}
+  }else{
+    noResult();
+  }
+  ltak();
+}
+
+#############################################################################
+sub shofilters {
+  print $c[11]."[!] SHODAN API SEARCH OPTIONS:\n\n";
+  shosearchqueryhelp();
+  printshohelp();
+  shosearchfacetshelp();
+  printshohelp();
+  shoserachpagehelp();
+  shosearchminifyhelp();
+  ltak();
+  exit();
 }
 
 ###########################################################################################
@@ -321,8 +366,10 @@ sub shoapinfo {
 ###########################################################################################
 sub sho_count {
   my ($query, $nn) =@_;
+  print $c[4]."[!] Shodan Search Count for [$query] ...\n";
+  shosearchadvise();
+  print "\n";
   my $shoRes=getShoResults("$base/shodan/host/count?key=$shoapikey&query=$query&facets=$facets");  
-  print $c[4]."[!] Shodan Search Count for [$query] ...\n\n";
   if ($shoRes) {
     $shoRes=JSON->new->decode($shoRes);
     my $i=$shoRes->{'total'};
@@ -336,9 +383,10 @@ sub sho_count {
 ###########################################################################################
 sub sho_search {
   my ($target, $nn)=@_;
-  my $shoRes=getShoResults("$base/shodan/host/search?key=$shoapikey&query=$target&facets=$facets");
   print $c[4]."[!] Searching [$target] in Shodan...\n";
+  shosearchadvise();
   adviseLimit();
+  my $shoRes=getShoResults("$base/shodan/host/search?key=$shoapikey&query=$target&facets=$facets");
   sleep 1;
   if ($shoRes) {
     $shoRes=JSON->new->decode($shoRes);
@@ -369,7 +417,7 @@ sub sho_search {
     my @founds=@{ $shoRes->{'matches'} };
     foreach my $found (@founds) {
       $n++;
-      ltak();ltak();
+      ltak();
 	  print $c[1];
 	  timer();
 	  print " RESULT [$n/$i]\n\n";
@@ -415,7 +463,6 @@ sub sho_search {
       if ( $n == $limit ) { last; }
 	}
     ltak();
-	sleep 1;
   }else{
     noResult();
   }
@@ -503,8 +550,9 @@ sub sho_ip {
 
 #############################################################################
 sub adviseLimit {
-  print $c[4]."[!] Max results is set to $limit use --limit to set other value!\n";
-  sleep 1;
+  if ($limit == 500) {
+    print $c[4]."[!] Max results is set to $limit use --limit to set other value!\n";
+  }
 }
 
 #############################################################################

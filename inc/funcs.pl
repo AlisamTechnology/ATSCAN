@@ -18,7 +18,7 @@ our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtarget
 
 ## USER PRE-CONFIGURATION
 our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
-    $method, $checkVersion, $get, $post, $scriptbash, $shodan);
+    $method, $checkVersion, $get, $post, $scriptbash, $shodan, $shoapikey);
 
 ## PRINT FILES 
 sub printFile {
@@ -114,6 +114,7 @@ sub deletSetting {
 $password=checkSetting("password");
 $interactive=checkSetting("interactive") if !defined $interactive;
 $proxy=checkSetting("proxy") if !defined $proxy;
+$shoapikey=checkSetting("apikey") if !defined $shoapikey;
 $prandom=checkSetting("proxy-random") if !defined $prandom;
 $payloads=checkSetting("payload") if !defined $payloads;
 $brandom=checkSetting("b-random") if !defined $brandom;

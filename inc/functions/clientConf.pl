@@ -7,7 +7,7 @@ use File::Copy qw(copy);
 
 ## USER CONFIGURATION SETTING
 our($config, $userSetting, $script_bac, $interactive, $deskIcoConf, @AUTH, @c);
-my @ser=("proxy", "proxy-random", "command", "payload", "zone", "timeout", "update", "engine", "all", "password", "freq", "level", "method", "interactive", "limit");
+my @ser=("proxy", "proxy-random", "command", "payload", "zone", "timeout", "update", "engine", "all", "password", "freq", "level", "method", "interactive", "limit", "apikey");
 my @ValueOn=("interactive", "b-random", "m-random", "unique", "nobanner", "noinfo", "beep", "ifend");
 my @res=(@ser, @ValueOn);
 
@@ -25,6 +25,7 @@ sub ClientConfiguration {
     print "| $c[11]OPTION      $c[10] | $c[11]VALUE       $c[10] | $c[11]DESCRIPTION  $c[10]                              |\n";
     print "+==========================================================================+\n";
     print "| $c[5]proxy       $c[10] | <proxy>      | Proxy                                      |\n";
+    print "| $c[5]apikey      $c[10] | <apikey>     | Shodan apikey                              |\n";
     print "| $c[5]proxy-random$c[10] | <proxy_file> | Random proxy                               |\n";
     print "| $c[5]motor       $c[10] | <motor>      | Search engine                              |\n";
     print "| $c[5]timeout     $c[10] | <timeout>    | Browser time out                           |\n";

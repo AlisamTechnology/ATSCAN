@@ -9,23 +9,20 @@ use FindBin '$Bin';
 ## SHODAN
 
 our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
-    $shoreverse, $shomyip, $shoapiInfo, $shoports, $shoprotos, $shofilters, $facets, $V_IP, $V_RANG, @c);
+    $shoreverse, $shomyip, $shoapiInfo, $facets, $V_IP, $V_RANG, @c);
 		
 my $nn=0;
 $facets="" if !$facets;
 
-##
-if ( $shofilters ) { shofilters(); }
-else{
-  testConnection();
-  print $c[11];
-  timer();
-  print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
-}
+testConnection();
 checkCpanModules();	
 use JSON;	
 my $base="https://api.shodan.io";
-sleep 1;
+
+print $c[11];
+timer();
+print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
+sleep 2;
 
 ###########################################################################################
 sub getshodanip {
@@ -94,49 +91,7 @@ if ( $shoip ) {
   if ( $shoquery ) { sho_query(); }
   if ( $shoservices ) { sho_services(); }
   if ( $shomyip ) { shomyip(); }
-  if ( $shoapiInfo ) { shoapinfo(); } 
-  if ( $shoports ) { shoports(); }
-  if ( $shoprotos ) { shoprotos(); }
-}
-#############################################################################
-sub shoports {
-  print $c[4]."[!] Getting port numbers that the crawlers are looking for...\n\n";
-  sleep 1;
-  my $shoRes=getShoResults("$base/shodan/ports?key=$shoapikey");
-  if ($shoRes) {
-	print $c[10]."[+] Ports:$c[3] $shoRes\n";
-  }else{
-    noResult();
-  }
-  ltak();
-}
-
-#############################################################################
-sub shoprotos {
-  print $c[4]."[!] Getting port numbers that the crawlers are looking for...\n\n";
-  sleep 1;
-  my $shoRes=getShoResults("$base/shodan/protocols?key=$shoapikey");
-  if ($shoRes) {
-    while ( $shoRes =~ /"(.*?)": "(.*?)"/migs ) {
-	  print $c[10]."[+] $1: $c[3]$2\n";
-	}
-  }else{
-    noResult();
-  }
-  ltak();
-}
-
-#############################################################################
-sub shofilters {
-  print $c[11]."[!] SHODAN API SEARCH OPTIONS:\n\n";
-  shosearchqueryhelp();
-  printshohelp();
-  shosearchfacetshelp();
-  printshohelp();
-  shoserachpagehelp();
-  shosearchminifyhelp();
-  ltak();
-  exit();
+  if ( $shoapiInfo ) { shoapinfo(); }
 }
 
 ###########################################################################################
@@ -366,9 +321,8 @@ sub shoapinfo {
 ###########################################################################################
 sub sho_count {
   my ($query, $nn) =@_;
-  print $c[4]."[!] Shodan Search Count for [$query] ...\n";
-  shosearchadvise();
-  print "\n";
+  print $c[4]."[!] Shodan Search Count for [$query] ...\n\n";
+  sleep 1;
   my $shoRes=getShoResults("$base/shodan/host/count?key=$shoapikey&query=$query&facets=$facets");  
   if ($shoRes) {
     $shoRes=JSON->new->decode($shoRes);
@@ -383,8 +337,7 @@ sub sho_count {
 ###########################################################################################
 sub sho_search {
   my ($target, $nn)=@_;
-  print $c[4]."[!] Searching [$target] in Shodan...\n";
-  shosearchadvise();
+  print $c[4]."[!] Searching [$target] in Shodan api...\n";
   adviseLimit();
   my $shoRes=getShoResults("$base/shodan/host/search?key=$shoapikey&query=$target&facets=$facets");
   sleep 1;
@@ -398,25 +351,30 @@ sub sho_search {
     my $country_code=$shoRes->{'country_code'};
     my $region_name =$shoRes->{'region_name'};
     my $postal_code =$shoRes->{'postal_code'};
-
+    my $hostnam =$shoRes->{'hostnames'};
     if ( $ip ) { print $c[10]."[+] IP : $c[3] $ip \n"; }
     if ( $country_name ) { print $c[10]."[+] Country Name : $c[3] $country_name \n"; }
     if ( $country_code ) { print $c[10]."[+] Country Code : $c[3] $country_code \n"; }
     if ( $region_name ) { print $c[10]."[+] Area Code : $c[3] $region_name \n"; }
     if ( $postal_code ) { print $c[10]."[+] Postal Code : $c[3] $postal_code \n"; }
-    if ( $shoRes->{'hostnames'}[0] ) {
-      print $c[10]."[+] Hostnames : ";
+	if ($hostnam) {
       my @hostnames=@{ $shoRes->{'hostnames'} };
-      foreach my $host (@hostnames) { print "$c[3] $host\t"; }
-      print "\n";
-    }
-	
-    print $c[4]."[!] Getting Data ...\n\n";
+	  if (scalar @hostnames > 0) {
+        print $c[10]."[+] Hostnames :";
+        foreach my $host(@hostnames) { 
+	      print $c[10]."$c[3] $host ";
+	    }
+	    print "\n";
+	  }
+	}
+
+    print $c[4]."[!] Getting Data ...\n";
 	sleep 1;
     my $n=0;
     my @founds=@{ $shoRes->{'matches'} };
     foreach my $found (@founds) {
       $n++;
+	  print "\n";
       ltak();
 	  print $c[1];
 	  timer();
@@ -435,34 +393,39 @@ sub sho_search {
       my $isp=$found->{"isp"};
       my $asn=$found->{"asn"};
       my $banner=$found->{"banner"};
-
+      my $hostnam2=$found->{"hostnames"};
       if ( $ip ) { print $c[10]."[+] IP : $c[3] $ip \n"; }
       if ( $port ) { print $c[10]."[+] Port : $c[3] $port \n"; }
-	  
-      print $c[10]."[+] Hostnames : ";
-      my @hostnames2=@{ $found->{'hostnames'} };
-      foreach my $host2 (@hostnames2) { print "$c[3] $host2\t"; }
-      print "\n";
+	  if ($hostnam2) {
+        my @hostnames2=@{ $found->{'hostnames'} };
+        print $c[10]."[+] Hostnames :";
+        foreach my $host2(@hostnames2) { 
+	      print $c[10]."$c[3] $host2 ";
+		}
+	    print "\n";
+	  }
       if ( $country ) { print $c[10]."[+] Country : $c[3] $country \n"; }
       if ( $product ) { print $c[10]."[+] Product : $c[3] $product \n"; }
       if ( $version ) { print $c[10]."[+] Version : $c[3] $version \n"; }
-      if ( $data ) { print $c[10]."[+] Data : \n\n$c[3]$data\n"; }
       if ( $time ) { print $c[10]."[+] Time : $c[3] $time \n"; }
       if ( $last_updated ) { print $c[10]."[+] Last Updated : $c[3] $last_updated \n"; }
 	  if ( $cpe ) {
         my @founds4=@{ $found->{'cpe'} };
-		print $c[10]."[+] CPE : \n"; 
+		print $c[10]."[+] CPE : "; 
         for my $f(@founds4) { 
-		  print $c[10]."  $f \n";
+		  print $c[10]."$f ";
 		}
+		print "\n";
 	  }
       if ( $os ) { print $c[10]."[+] OS : $os \n"; }
       if ( $isp ) { print $c[10]."[+] ISP : $c[3] $isp \n"; }
       if ( $asn ) { print $c[10]."[+] ASN : $c[3] $asn \n"; }
+      if ( $data ) { print $c[10]."[+] Data : \n\n$c[3]$data\n"; }
       if ( $banner ) { print $c[10]."[+] Banner : $c[3] $banner \n"; }
       if ( $n == $limit ) { last; }
 	}
     ltak();
+	sleep 1;
   }else{
     noResult();
   }
@@ -471,19 +434,19 @@ sub sho_search {
 ###########################################################################################
 sub sho_ip {
   my ($target, $nn)=@_;  
+  ltak();
   my $shoRes=getShoResults("$base/shodan/host/$target?key=$shoapikey"); 
   if ($shoRes) {
     $shoRes=JSON->new->decode($shoRes);
     my $i=$shoRes->{'total'};
-	timer();
 	print $c[4]."[!] Getting [$target] Information ...\n";
 	sleep 1;
-	ltak();
     my $ip=$shoRes->{'ip'};
     my $country_name=$shoRes->{'country_name'};
     my $country_code=$shoRes->{'country_code'};
     my $region_name =$shoRes->{'region_name'};
     my $postal_code =$shoRes->{'postal_code'};
+    my $hostnam =$shoRes->{'hostnames'};
 
     if ( $ip ) { print $c[10]."[+] IP : $c[3] $ip \n"; }
     if ( $country_name ) { print $c[10]."[+] Country Name : $c[3] $country_name \n"; }
@@ -491,17 +454,22 @@ sub sho_ip {
     if ( $region_name ) { print $c[10]."[+] Area Code : $c[3] $region_name \n"; }
     if ( $postal_code ) { print $c[10]."[+] Postal Code : $c[3] $postal_code \n"; }
 	
-    print $c[10]."[+] Hostnames : \n";
-	
-    my @hostnames=@{ $shoRes->{'hostnames'} };
-    foreach my $host(@hostnames) { print $c[10]."[+] Hostnames : $c[3] $host \t"; }
-    print "\n";
-    print $c[4]."[!] Getting Data ...\n\n";
+	if ($hostnam) {
+      my @hostnames=@{ $shoRes->{'hostnames'} };
+      print $c[10]."[+] Hostnames :";
+      foreach my $host(@hostnames) { 
+	    print $c[10]."$c[3] $host ";
+      }
+	  print "\n";
+	}
+    print $c[4]."[!] Getting Data ...\n";
 	sleep 1;
     my $n=0;
     my @founds=@{ $shoRes->{'data'} };
     foreach my $found (@founds) {
       $n++;
+	  sleep 1;
+	  print "$c[1]......................................\n";
       my $ip=$found->{"ip_str"};
       my $country=$found->{"location"}{"country_name"};
       my $product=$found->{"product"};
@@ -515,33 +483,35 @@ sub sho_ip {
       my $isp=$found->{"isp"};
       my $asn=$found->{"asn"};
 	  my $banner=$found->{"banner"};
+	  
       if ( $ip ) { print $c[10]."[+] IP : $c[3] $ip \n"; }
       if ( $port ) { print $c[10]."[+] Port : $c[3] $port \n"; }
-	  
-      print $c[10]."[+] Hostnames : ";
-      my @hostnames2=@{ $found->{'hostnames'} };
-      foreach my $host2 (@hostnames2) { print "$c[3] $host2\t"; }
-      print "\n";
+      if ( $os ) { print $c[10]."[+] OS : $os \n"; }
+      if ( $isp ) { print $c[10]."[+] ISP : $c[3] $isp \n"; }
+      if ( $asn ) { print $c[10]."[+] ASN : $c[3] $asn \n"; }
+	  my $hostnam2=$found->{"hostnames"};
+	  if ($hostnam2) {
+        my @hostnames2=@{ $found->{'hostnames'} };
+        print $c[10]."[+] Hostnames : ";
+        foreach my $host2 (@hostnames2) { 
+	      print "$c[3] $host2 "; 
+	    }
+		print "\n";
+	  }
       if ( $country ) { print $c[10]."[+] Country : $c[3] $country \n"; }
       if ( $product ) { print $c[10]."[+] Product : $c[3] $product \n"; }
       if ( $version ) { print $c[10]."[+] Version : $c[3] $version \n"; }
-	  
-      if ( $data ) { print $c[10]."[+] Data : \n$c[3]$data\n"; }
-
       if ( $time ) { print $c[10]."[+] Time : $c[3] $time \n"; }
       if ( $last_updated ) { print $c[10]."[+] Last Updated : $c[3] $last_updated \n"; }
 	  if ( $cpe ) {
         my @founds5=@{ $found->{'cpe'} };
-        foreach my $f(@founds5) { print $c[10]."[+] CPE : $c[3] $f \t"; }
+        foreach my $f(@founds5) { print $c[10]."[+] CPE : $c[3] $f \n"; }
 	  }
-	  print "\n";
-      if ( $os ) { print $c[10]."[+] OS : os \n"; }
-      if ( $isp ) { print $c[10]."[+] ISP : $c[3] $isp \n"; }
-      if ( $asn ) { print $c[10]."[+] ASN : $c[3] $asn \n"; }
+      if ( $data ) { print $c[10]."[+] Data : \n$c[3]$data\n"; }
       if ( $banner ) { print $c[10]."[+] Banner : $c[3] $banner \n"; }
-	  ltak();
       if ( $n == $limit ) { last; }
     }
+    ltak();
 	sleep 1;
   }else{
     noResult();
@@ -550,9 +520,8 @@ sub sho_ip {
 
 #############################################################################
 sub adviseLimit {
-  if ($limit == 500) {
-    print $c[4]."[!] Max results is set to $limit use --limit to set other value!\n";
-  }
+  print $c[4]."[!] Max results is set to $limit use --limit to set other value!\n";
+  sleep 1;
 }
 
 #############################################################################

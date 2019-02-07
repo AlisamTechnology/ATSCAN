@@ -46,8 +46,8 @@ use FindBin '$Bin';
   ."--dnsreverse <ip or host or list.txt> : Reverse DNS Lookup\n"
   ."--dnsresolve <host or ip or list.txt> : DNS Lookup\n"
   ."--querysearch <query or list.txt> : Search the directory of saved search queries\n"
-  ."--query : List the saved search queries\n";
-  ."--querytags : List the most popular tags\n";
+  ."--query : List the saved search queries\n"
+  ."--querytags : List the most popular tags\n"
   ."--services : List all services that Shodan crawls\n"
   ."--myip : My IP Address\n"
   ."--ports : Get  list of port numbers that the crawlers are looking for.\n"

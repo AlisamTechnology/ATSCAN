@@ -41,6 +41,8 @@ use FindBin '$Bin';
   ."--ip <ip or host or list.txt> : Host Information\n"
   ."--count <query or list.txt> : Search Shodan without Results\n"
   ."--search <query or list.txt> : Search Shodan\n"
+  ."--pages <number of page results> \n"
+  
   ."--dnsreverse <ip or host or list.txt> : Reverse DNS Lookup\n"
   ."--dnsresolve <host or ip or list.txt> : DNS Lookup\n"
   ."--querysearch <query or list.txt> : Search the directory of saved search queries\n"

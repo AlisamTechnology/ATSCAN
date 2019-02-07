@@ -164,6 +164,7 @@ sub confHlp {
   ."$c[5] --querytags   $c[10] | List the most popular tags\n"
   ."$c[5] --services    $c[10] | List all services that Shodan crawls\n"
   ."$c[5] --myip        $c[10] | My IP Address\n"
+  ."$c[5] --pages       $c[10] | Number of shodan search result pages\n"
   ."$c[5] --apinfo      $c[10] | My API Plan Information\n"
   ."$c[5] --protocols   $c[10] | List all protocols that can be used when performing on-demand Internet scans via Shodan\n"
   ."$c[5] --ports       $c[10] | List of port numbers that the crawlers are looking for\n"

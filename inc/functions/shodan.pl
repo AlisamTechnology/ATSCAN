@@ -12,7 +12,6 @@ our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquery
     $shoreverse, $shomyip, $shoapiInfo, $facets, $pages, $V_IP, $V_RANG, @c);
 		
 my $nn=0;
-my $noshodanres="No results found|Invalid IP";
 my $base="https://api.shodan.io";
 
 $facets="" if !$facets;

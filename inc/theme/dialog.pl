@@ -299,11 +299,11 @@ sub printshohelp {
 }
 
 sub shosearchqueryhelp {
-  print $c[5]."query:$c[10] [String] Shodan search query. The provided string is used to search the database of banners in Shodan, with the additional option to provide filters inside the search query using a \"filter:value\" format. For example, the following search query would find Apache webservers located in Germany: \"apache country:DE\". The following filters are currently supported:\n";
+  print $c[5]."query:$c[10] [String] Shodan search query. The provided string is used to search the database of banners in Shodan, with the additional option to provide filters inside the search query using a \"filter:value\" format. For example, the following search query would find Apache webservers located in Germany: \"apache country:DE\". The following filters are currently supported:\n\n";
 }
 
 sub shosearchfacetshelp {
-  print $c[5]."facets (optional):$c[10] [String] A comma-separated list of properties to get summary information on. Property names can also be in the format of \"property:count\", where \"count\" is the number of facets that will be returned for a property (i.e. \"country:100\" to get the top 100 countries for a search query). The following facets are currently supported:\n";
+  print $c[5]."facets (optional):$c[10] [String] A comma-separated list of properties to get summary information on. Property names can also be in the format of \"property:count\", where \"count\" is the number of facets that will be returned for a property (i.e. \"country:100\" to get the top 100 countries for a search query). The following facets are currently supported:\n\n";
 }
 
 sub shoserachpagehelp {	
@@ -317,5 +317,18 @@ sub shosearchminifyhelp {
 sub shosearchadvise {
   print $c[4]."[!]$c[10] To learn how to use search filters tape \'atscan --shodan --filters\'\n";
 }
+
+sub shodan_help {
+  print $c[11]."[+] SHODAN SEARCH PARAMETERS:\n\n";
+  shosearchqueryhelp();
+  printshohelp();
+  ltak();
+  shosearchfacetshelp();
+  printshohelp();  
+  shoserachpagehelp();
+  shosearchminifyhelp();
+  ltak();
+}
+
 
 1;

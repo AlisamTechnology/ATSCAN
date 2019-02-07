@@ -9,9 +9,10 @@ use FindBin '$Bin';
 ## SHODAN
 
 our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
-    $shoreverse, $shomyip, $shoapiInfo, $facets, $pages, $V_IP, $V_RANG, @c);
+    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $facets, $pages, $V_IP, $V_RANG, @c);
 		
 my $nn=0;
+my $noshodanres="No results found|Invalid IP";
 my $base="https://api.shodan.io";
 
 $facets="" if !$facets;
@@ -23,10 +24,11 @@ use JSON;
 
 ###########################################################################################
 ## INTRO     ##############################################################################
-print $c[11];
-timer();
-print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
-sleep 2;
+if (!defined $shofilters) {
+  print $c[11];
+  timer();
+  print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
+}
 
 ###########################################################################################
 ## GET HOST IP  ###########################################################################
@@ -160,6 +162,7 @@ if ( $shoip ) {
   if ( $shoservices ) { sho_services(); }
   if ( $shomyip ) { shomyip(); }
   if ( $shoapiInfo ) { shoapinfo(); }
+  if ( $shofilters ) { shodan_help(); }
 }
 
 ###########################################################################################

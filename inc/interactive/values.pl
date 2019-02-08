@@ -59,11 +59,11 @@ our @INTERDataScan=('post', 'get', 'data', 'header', 'upload');
 our %INTERDataScan=("post"=>"post methode", "get"=>"get methode", "data"=>"data to post/get", "header"=>"data headers", "upload"=>"data upload");
 
 ## SHODAN
-our @shodan=('apikey', 'ip', 'count', 'search', 'query', 'querysearch', 'querytags', 'services', 'dnsresolve', 'dnsreverse', 'myip', 'apinfo', 'facets', 'limit', 'pages', 'filters');
+our @shodan=('apikey', 'ip', 'count', 'search', 'query', 'querysearch', 'querytags', 'services', 'dnsresolve', 'dnsreverse', 'myip', 'apinfo', 'facets', 'limit', 'pages', 'filters', 'save');
 our %shodan=("apikey"=>"Shodan Apikey", "ip"=>"ip or host", "count"=>"shodan count", "search"=>"shiodan search", "query"=>"Shodan saved queries", 
              "querysearch"=>"Shodan dirs queries", "querytags"=>"Shodan popular tags", "services"=>"Shosan services", 
 	         "dnsresolve"=>"Shodan dns resolve", "dnsreverse"=>"Shodan dns reverse", "myip"=>"My ip address", "apinfo"=>"My api info", "facets"=>"Shodan search facets", 
-			 "limit"=>"Max results limit", "pages"=>"number result pages", "filters"=>"shodan search parameters");
+			 "limit"=>"Max results limit", "pages"=>"number result pages", "filters"=>"shodan search parameters", "save"=>"Output file");
 	 
 ## SHELL LFI
 our @INTERshell=('shell');

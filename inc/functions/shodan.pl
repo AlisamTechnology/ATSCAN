@@ -9,7 +9,7 @@ use FindBin '$Bin';
 ## SHODAN
 
 our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
-    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $facets, $pages, $V_IP, $V_RANG, @c);
+    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $facets, $pages, $output, $V_IP, $V_RANG, @c);
 		
 my $nn=0;
 my $noshodanres="No results found|Invalid IP";
@@ -17,11 +17,6 @@ my $base="https://api.shodan.io";
 
 $facets="" if !$facets;
 $pages=1 if !$pages;
-
-testConnection();
-checkCpanModules();	
-use JSON;	
-
 ###########################################################################################
 ## INTRO     ##############################################################################
 if (!defined $shofilters) {
@@ -29,6 +24,10 @@ if (!defined $shofilters) {
   timer();
   print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
 }
+
+testConnection();
+checkCpanModules();	
+use JSON;	
 
 ###########################################################################################
 ## GET HOST IP  ###########################################################################
@@ -76,7 +75,7 @@ sub no_Result {
 ###########################################################################################
 ## RESULTS LIMIT ##########################################################################
 sub adviseLimit {
-  print $c[4]."[!] Max results is set to $c[10]($limit)$c[4]! Use --limit to set other value!\n";
+  print $c[4]."[!] Use --limit to set number of results! ex: --limit 10\n";
 }
 
 ###########################################################################################
@@ -89,7 +88,7 @@ sub advisePages {
 ## GET RESULTS  ###########################################################################
 sub getShoResults {
   my $u=$_[0];
-  return $ua->get($u)->content ;
+  return $ua->get($u)->content;
 }
 
 ###########################################################################################
@@ -120,6 +119,24 @@ sub build_sho_ip {
     @shoipall=buildArraysLists($shoipall);
   }
   return @shoipall;
+}
+###########################################################################################
+## PRINT  ##################################################################################
+sub sho_print {
+  my ($head, $key, $value, $sub)=@_;
+  if ($sub) { 
+    print $c[4]."\n[!]$c[10] $sub ...\n"; 
+	if (defined $output) { printFile($output, "[+][+] $sub"); }
+  }elsif ($head) { 
+    print $c[10]."[+] $head: ";
+	if (defined $output) { printFile($output, "   [+] $head:"); }
+  }elsif (!$key) {
+    print $c[3]."$value ";
+	if (defined $output) { printFile($output, "     -$value"); }
+  }else{
+    print $c[10]."[+] $key:$c[3] $value \n";
+    if (defined $output) { printFile($output, "   [+] $key: $value"); }
+  }
 }
 
 ###########################################################################################
@@ -168,7 +185,7 @@ if ( $shoip ) {
 ###########################################################################################
 ## QUERY TAGS     #########################################################################
 sub sho_query_tags {
-  print $c[4]."[!] Searching in shodan query tags...\n";
+  sho_print("", "", "", "Searching in shodan query tags");
   if ($pages eq 1) {advisePages();}
   sleep 1;
   
@@ -196,8 +213,8 @@ sub sho_query_tags {
 	sleep 1;
     my $value=$found->{"value"};
     my $count=$found->{"count"};
-    if ( $value ) { print $c[10]."[+] Value:$c[3] $value \n"; }
-    if ( $count ) { print $c[10]."[+] Count:$c[3] $count \n";}
+    if ( $value ) { sho_print("", "Value", $value, ""); }
+    if ( $count ) { sho_print("", "Count", $count, ""); }
     if ( $n == $limit ) { last; }
   }
   ltak(); 
@@ -206,7 +223,7 @@ sub sho_query_tags {
 ###########################################################################################
 ## LIST QUERIES   #########################################################################
 sub sho_query {
-  print $c[4]."[!] Listening the saved search queries ...\n";
+  sho_print("", "", "", "Listening the saved search queries");
   if ($pages eq 1) { advisePages(); }
   
   my @founds;
@@ -220,7 +237,7 @@ sub sho_query {
   }
   my $total=scalar @founds;
   if ($total > 0) {
-    print $c[3]."[!] Total results found: $total\n";
+    print $c[3]."[!] Total results found: $total\n\n";
   }else{
     no_Result("saved search queries");
   }
@@ -238,17 +255,20 @@ sub sho_query {
     my $query=$found->{"query"};
     my $tag=$found->{"tags"};
 
-    if ( $votes ) { print $c[10]."[+] Votes:$c[3] $votes\n"; }
-    if ( $description ) { print $c[10]."[+] Description:$c[3] $description\n"; }
-    if ( $title ) { print $c[10]."[+] Title:$c[3] $title \n"; }
-    if ( $timestamp ) { print $c[10]."[+] Time:$c[3] $timestamp \n"; }
-    if ( $query ) { print $c[10]."[+] Query:$c[3] $query \n"; }
+    if ( $title ) { sho_print("", "Title", $title, ""); }
+    if ( $votes ) { sho_print("", "Votes", $votes, ""); }
+    if ( $description ) { sho_print("", "Description", $description, ""); }
+    if ( $timestamp ) { sho_print("", "Time", $timestamp, ""); }
+    if ( $query ) { sho_print("", "Query", $query, ""); }
 	if ($tag) {
       my @tags=@{ $found->{'tags'} };
-      print $c[10]."[+] Tags: " if $tags[0];
-      foreach my $tags (@tags) { print "$c[3] $tags"; }
-      print "\n";
+	  if ($tags[0]) {
+	    sho_print("Tags", "", "", "");
+        foreach my $tags (@tags) { sho_print("", "", $tags, ""); }
+        print "\n";
+	  }
 	}
+	print "\n";
     if ( $n == $limit ) { last; }
   }
   ltak(); 
@@ -257,15 +277,15 @@ sub sho_query {
 ###########################################################################################
 ## LIST SERVICES  #########################################################################
 sub sho_services {
-  print $c[4]."[!] Listening all services that Shodan crawls ...\n\n";
+  sho_print("", "", "", "Listening all services that Shodan crawls");
   my $shoRes=getShoResults("$base/shodan/services?key=$shoapikey");
   sleep 1;
   if ( $shoRes ) {
     my $n=0;
     while ( $shoRes =~ /"(.*?)": "(.*?)"/migs ) {
       $n++;
-      print $c[10]."[+] Port: $c[3]$1 \n";
-      print $c[10]."[+] Name: $c[3] $2 \n";
+	  sho_print("", "Port", $1, "");
+	  sho_print("", "Name", $2, "");
 	  print $c[10]."..........................................\n";
       if ( $n == $limit ) { last; }
     }
@@ -279,11 +299,11 @@ sub sho_services {
 ###########################################################################################
 ## MY IP ADDRESS  #########################################################################
 sub shomyip {
-  print $c[4]."[!] Getting your IP ...\n\n";
+  sho_print("", "", "", "Getting your IP address");
   sleep 1;
   my ($shoRes, $i)=getShoResults("$base/tools/myip?key=$shoapikey");
   if ( $shoRes =~ /"(.*)"/ ) {
-    print $c[10]."[+] IP:$c[3] $1\n";
+	sho_print("", "IP", $1, "");
   }else{
     no_Result("your IP");
   }
@@ -293,18 +313,19 @@ sub shomyip {
 ###########################################################################################
 ## API INFO       #########################################################################
 sub shoapinfo {
-  print $c[4]."[!] Getting your API Info ...\n\n";
+  sho_print("", "", "", "Getting your API info");
   sleep 1;
   my $shoRes=getShoResults("$base/api-info?key=$shoapikey");
   if ($shoRes) {
     $shoRes=JSON->new->decode($shoRes);
-    print $c[10]."[+] HTTPS: $c[3]".$shoRes->{"https"}."\n"; 
-    print $c[10]."[+] Unlocked: $c[3]".$shoRes->{"unlocked"}."\n"; 
-    print $c[10]."[+] Unlocked left: $c[3]".$shoRes->{"unlocked_left"}."\n"; 
-    print $c[10]."[+] Telnet: $c[3]".$shoRes->{"telnet"}."\n"; 
-    print $c[10]."[+] Scan credits: $c[3]".$shoRes->{"scan_credits"}."\n";
-    print $c[10]."[+] Plan: $c[3]".$shoRes->{"plan"}."\n"; 
-    print $c[10]."[+] Query credits: $c[3]".$shoRes->{"query_credits"}."\n"; 
+	sho_print("", "HTTPS", $shoRes->{"https"}, "");
+	sho_print("", "Unlocked", $$shoRes->{"unlocked"}, "");
+	sho_print("", "Unlocked left", $$shoRes->{"unlocked_left"}, "");
+	sho_print("", "Telnet", $$shoRes->{"telnet"}, "");
+	sho_print("", "Scan credits", $$shoRes->{"https"}, "");
+	sho_print("", "Plan", $$shoRes->{"plan"}, "");
+	sho_print("", "Scan credits", $$shoRes->{"scan_credits"}, "");
+	sho_print("", "Query credits", $$shoRes->{"query_credits"}, "");
 	ltak();
   }else{
     no_Result("your API Info");
@@ -315,14 +336,14 @@ sub shoapinfo {
 ## DNS RESOLVE    #########################################################################
 sub sho_dns_resolve {
   my ($hostnames, $nn)=@_;
-  print $c[4]."[!] DNS resolve Lookup for [$c[10]$hostnames$c[4]\] ...\n\n";
+  sho_print("", "", "", "DNS resolve Lookup for [$hostnames]");
   sleep 1;
   my $shoRes=getShoResults("$base/dns/resolve?hostnames=$hostnames&key=$shoapikey");
   if ( $shoRes ) {
     while ( $shoRes =~ /"(.*?)": "(.*?)"/migs ) {
 	  sleep 1;
-      print $c[10]."[+] Hostname:$c[3] $1 \n";
-      print $c[10]."[+] IP:$c[3] $2 \n";
+	  sho_print("", "Hostname", $1, "");
+	  sho_print("", "IP", $2, "");
     }
   }else{
     no_Result($hostnames);
@@ -334,14 +355,14 @@ sub sho_dns_resolve {
 ## DNS REVERSE    #########################################################################
 sub sho_dns_reverse {
   my ($ip, $nn)=@_;
-  print $c[4]."[!] DNS reverse Lookup for [$c[10]$ip$c[4]\] ...\n\n";
+  sho_print("", "", "", "DNS reverse Lookup for [$ip]");
   sleep 1;
   my $shoRes=getShoResults("$base/dns/reverse?ips=$ip&key=$shoapikey");
   if ( $shoRes ) {
     while ( $shoRes =~ /"(.*?)": \["(.*?)"\]/migs ) {
 	  sleep 1;
-      print $c[10]."[+] IP:$c[3] $1\n";
-      print $c[10]."[+] Hostname:$c[3] $2\n";
+	  sho_print("", "IP", $1, "");
+	  sho_print("", "Hostname", $2, "");
     }
   }else{
     no_Result($ip);
@@ -354,16 +375,17 @@ sub sho_dns_reverse {
 sub sho_count {
   my ($query, $nn) =@_;
   if ($nn eq 1) { shosearchadvise(); }
-  print $c[4]."[!] Shodan api Search Count for [$c[10]$query$c[4]\] ...\n";
+  sho_print("", "", "", "Shodan api Search Count for [$query]");
   sleep 1;
   my $shoRes=getShoResults("$base/shodan/host/count?key=$shoapikey&query=$query&facets=$facets");  
   if ($shoRes) {
     $shoRes=JSON->new->decode($shoRes);
     my $i=$shoRes->{'total'};
-    print $c[10]."[+] Total:$c[3] $i\n";
-	ltak();
-  }else{
-    no_Result($query);
+	if ($i) {
+	  sho_print("", "Total", $i, "");
+    }else{
+      no_Result($query);
+	}
   }
 }
 
@@ -371,7 +393,7 @@ sub sho_count {
 ##  QUERY SEARCH  #########################################################################
 sub sho_query_search {
   my ($query, $nn)=@_;
-  print $c[4]."[!] Searching [$c[10]$query$c[4]\] in saved search queries ...\n";
+  sho_print("", "", "", "Searching [$query] in saved search queries");
   shosearchadvise();
   if ($pages eq 1) { advisePages(); }
   if ($nn eq 1) { shosearchadvise(); }
@@ -395,6 +417,7 @@ sub sho_query_search {
   my $n=0;
   foreach my $found (@founds) {
     $n++;
+	print "\n";
 	ltak();
 	timer();
     print $c[1]." QUERY SEARCH [$n/$total]\n";
@@ -406,16 +429,18 @@ sub sho_query_search {
     my $query=$found->{"query"};
     my $tag=$found->{"tags"};
 
-    if ( $votes ) { print $c[10]."[+] Votes:$c[3] $votes\n"; }
-    if ( $description ) { print $c[10]."[+] Description:$c[3] $description\n"; }
-    if ( $title ) { print $c[10]."[+] Title:$c[3] $title \n"; }
-    if ( $timestamp ) { print $c[10]."[+] Time:$c[3] $timestamp \n"; }
-    if ( $query ) { print $c[10]."[+] Query:$c[3] $query \n"; }
+    if ( $votes ) { sho_print("", "Votes", $votes, ""); }
+    if ( $description ) { sho_print("", "Description", $description, ""); }
+    if ( $title ) { sho_print("", "Title", $title, ""); }
+    if ( $timestamp ) { sho_print("", "Time", $timestamp, ""); }
+    if ( $query ) { sho_print("", "Query", $query, ""); }
 	if ($tag) {
       my @tags=@{ $found->{'tags'} };
-      print $c[10]."[+] Tags: " if $tags[0];
-      foreach my $tags (@tags) { print "$c[3] $tags"; }
-      print "\n";
+	  if ($tags[0]) {
+	    sho_print("Tags", "", "", "");
+        foreach my $tags (@tags) { sho_print("", "", $tags, ""); }
+        print "\n";
+	  }
 	}
     if ( $n == $limit ) { last; }
   }
@@ -429,14 +454,14 @@ sub sho_search {
   if ($nn eq 1) {
     shosearchadvise();
     adviseLimit();
-  }  
-  print $c[4]."[!] Searching [$c[10]$target$c[4]\] in Shodan api...\n";
+  }
+  sho_print("", "", "", "Searching [$target] in Shodan api");
   my $shoRes=getShoResults("$base/shodan/host/search?key=$shoapikey&query=$target&facets=$facets");
   sleep 1;
   if ($shoRes) {
     $shoRes=JSON->new->decode($shoRes);
     my $i=$shoRes->{'total'};
-    print $c[3]."[+] Total:$i Results found\n";
+    print $c[3]."[+] Total: $i Results found\n" if $i;
 	sleep 1;
 	
 	my $in3=-1;
@@ -453,18 +478,20 @@ sub sho_search {
 	if ($hostnam) {
       my @hostnames=@{ $shoRes->{'hostnames'} };
 	  if (scalar @hostnames > 0) {
-        print $c[10]."[+] Hostnames:";
-        foreach my $host(@hostnames) { 
-	      print $c[10]."$c[3] $host ";
-		}
-      }
-	  print "\n";
+	    sho_print("Hostnames", "", "", "");
+        foreach my $host(@hostnames) { sho_print("", "", $host, ""); }
+        print "\n";
+	  }
 	}
 
-    print $c[4]."[!] Getting Data ...\n";
-	sleep 1;
     my $n=0;
     my @founds=@{ $shoRes->{'matches'} };
+    my $t=scalar @founds;
+    if ($t > 0) {
+      print $c[3]."[!] Getting Data...\n";
+    }else{
+      no_Result($target);
+    }
     foreach my $found (@founds) {
       $n++;
 	  print "\n";
@@ -481,7 +508,7 @@ sub sho_search {
 	    $in++;
 	    my $key=$found->{$element2};
 		if ($key) {
-		  print $c[10]."[+] $elements[$in]:$c[3] $key \n";
+		  sho_print("", $elements[$in], $key, "");
 		}
 	  }
 	  my $cpe=$found->{"cpe"};
@@ -492,11 +519,11 @@ sub sho_search {
       if ( $country ) { print $c[10]."[+] Country:$c[3] $country\n"; }
 	  if ($hostnam2) {
         my @hostnames2=@{ $found->{'hostnames'} };
-        print $c[10]."[+] Hostnames:";
-        foreach my $host2 (@hostnames2) { 
-	      print "$c[3] $host2 "; 
-	    }
-		print "\n";
+	    if (scalar @hostnames2 > 0) {
+	      sho_print("Hostnames", "", "", "");
+          foreach my $host2(@hostnames2) { sho_print("", "", $host2, ""); }
+          print "\n";
+		}
 	  }
 	  my $location=$found->{"location"};
 	  if ($location) {
@@ -505,21 +532,23 @@ sub sho_search {
 		    my $if=$location->{$f};
 		    $f=~s/_/ /g;
 			$f=ucfirst($f);
-			print $c[10]."[+] $f: $c[3]$if \n";
+		    sho_print("", $f, $if, "");
 		  }
 	    }
 	  }
 	  if ( $cpe ) {
         my @founds5=@{ $found->{'cpe'} };
-        foreach my $f(@founds5) { print $c[10]."[+] Cpe:$c[3] $f \n"; }
+		if ($founds5[0]) { 
+		  sho_print("CPE", "", "", ""); 
+          foreach my $f(@founds5) { sho_print("", "", $f, ""); }
+		  print "\n"; 
+		}
 	  }
-      if ( $data ) { print $c[10]."[+] Data:\n$c[3]$data\n"; }
-      if ( $banner ) { print $c[10]."[+] Banner:$c[3] $banner \n"; }	  
+      if ( $data ) { sho_print("", "Data", $data, ""); }
+      if ( $banner ) { sho_print("", "Banner", $banner, ""); }	  
       if ( $n == $limit ) { last; }
 	}
     ltak();
-  }else{
-    noResult($target);
   }
 }
 
@@ -527,7 +556,7 @@ sub sho_search {
 ## SEARCH BY IP OR HOST  ##################################################################
 sub sho_ip {
   my ($target, $nn)=@_; 
-  print $c[4]."[!] Getting [$c[10]$target$c[4]\] Information ...\n";
+  sho_print("", "", "", "Getting [$target] Information");
   my $shoRes=getShoResults("$base/shodan/host/$target?key=$shoapikey");
   if ($shoRes) {
     $shoRes=JSON->new->decode($shoRes);	
@@ -538,24 +567,30 @@ sub sho_ip {
 	  $in3++;
 	  my $key=$shoRes->{$element23};
       if ($key) {
-		print $c[10]."[+] $elements3[$in3]:$c[3] $key \n";
+		sho_print("", $elements3[$in3], $key, "");
 	  }
 	}
     my $hostnam =$shoRes->{'hostnames'};
 	if ($hostnam) {
       my @hostnames=@{ $shoRes->{'hostnames'} };
 	  if (scalar @hostnames > 0) {
-        print $c[10]."[+] Hostnames:";
-        foreach my $host(@hostnames) { 
-	      print $c[10]."$c[3] $host ";
-		}
+	    sho_print("Hostnames", "", "", "");
+        foreach my $host(@hostnames) { sho_print("", "", $host, ""); }
+        print "\n";
       }
-	  print "\n";
 	}
-    print $c[4]."[!] Getting Data ...\n";
+    print $c[4]."\n[!] Getting Data ...\n";
 	sleep 1;
     my $n=0;
     my @founds=@{ $shoRes->{'data'} };
+	
+    my $t=scalar @founds;
+    if ($t > 0) {
+      print $c[3]."[!] Getting Data...\n";
+    }else{
+      no_Result($target);
+    }
+	
     foreach my $found (@founds) {
       $n++;
 	  sleep 1;
@@ -568,7 +603,7 @@ sub sho_ip {
 	    $in++;
 	    my $key=$found->{$element2};
 		if ($key) {
-		  print $c[10]."[+] $elements[$in]:$c[3] $key \n";
+		  sho_print("", $elements[$in], $key, "");
 		}
 	  }
 	  my $cpe=$found->{"cpe"};
@@ -579,11 +614,11 @@ sub sho_ip {
       if ( $country ) { print $c[10]."[+] Country:$c[3] $country\n"; }
 	  if ($hostnam2) {
         my @hostnames2=@{ $found->{'hostnames'} };
-        print $c[10]."[+] Hostnames:";
-        foreach my $host2 (@hostnames2) { 
-	      print "$c[3] $host2 "; 
+		if (scalar @hostnames2) {
+		  sho_print("Hostnames", "", "", "");
+          foreach my $host2 (@hostnames2) { sho_print("", "", $host2, ""); }
+		  print "\n";
 	    }
-		print "\n";
 	  }
 	  my $location=$found->{"location"};
 	  if ($location) {
@@ -592,21 +627,23 @@ sub sho_ip {
 		    my $if=$location->{$f};
 		    $f=~s/_/ /g;
 			$f=ucfirst($f);
-			print $c[10]."[+] $f:$c[3] $if \n";
+			sho_print("", $f, $if, "");
 		  }
 	    }
 	  }
 	  if ( $cpe ) {
         my @founds5=@{ $found->{'cpe'} };
-        foreach my $f(@founds5) { print $c[10]."[+] Cpe:$c[3] $f \n"; }
+		if ($founds5[0]) { 
+		  sho_print("CPE", "", "", ""); 
+          foreach my $f(@founds5) { sho_print("", "", $f, ""); }
+		  print "\n"; 
+		}
 	  }
-      if ( $data ) { print $c[10]."[+] Data:\n$c[3]$data\n"; }
-      if ( $banner ) { print $c[10]."[+] Banner:$c[3] $banner \n"; }	  
+      if ( $data ) { sho_print("", "Data", $data, ""); }
+      if ( $banner ) { sho_print("", "Banner", $banner, ""); }	  
       if ( $n == $limit ) { last; }
     }
     ltak();
- }else{
-    no_Result($target);
   }
 }
 ###########################################################################################

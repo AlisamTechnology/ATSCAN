@@ -315,7 +315,7 @@ sub shosearchminifyhelp {
 }
 
 sub shosearchadvise {
-  print $c[4]."[!]$c[10] To learn how to use search filters tape \'atscan --shodan --filters\'\n";
+  print $c[4]."[!]$c[10] To learn how to use search filters type \'atscan --shodan --filters\'\n";
 }
 
 sub shodan_help {

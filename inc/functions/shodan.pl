@@ -12,13 +12,13 @@ use JSON;
 ## SHODAN
 
 our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
-    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $facets, $pages, $output, $V_IP, $V_RANG, @c);
+    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $shoports, $facets, $pages, $output, $V_IP, $V_RANG, @c);
 		
 my $nn=0;
 my $noshodanres="No results found|Invalid IP";
 my $base="https://api.shodan.io";
 my @sho_scans=($shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, 
-               $shomyip, $shoapiInfo);
+               $shomyip, $shoapiInfo, $shoports);
 $facets="" if !$facets;
 $pages=1 if !$pages;
 
@@ -50,6 +50,7 @@ sub check_host_validation {
 	sho_ip($f, $nn) if $sub eq 1;
 	sho_dns_resolve($f, $nn) if $sub eq 2;
 	sho_dns_reverse($f, $nn) if $sub eq 3;
+	sho_ports($f, $nn) if $sub eq 4;
   }else{ 
 	invalid();
   }
@@ -149,7 +150,7 @@ sub build_sho_ip {
 ###########################################################################################
 ## JSON DECODE       ######################################################################
 sub _json {
-  my $shoRes =shift;
+  my $shoRes =$_[0];
   my $json = JSON->new->allow_nonref;
   return $json->decode( $shoRes );
 }
@@ -285,6 +286,7 @@ sub sho_services {
     my $n=0;
     while ( $shoRes =~ /"(.*?)": "(.*?)"/migs ) {
       $n++;
+	  sleep 1;
 	  sho_print("", "Port", $1, "");
 	  sho_print("", "Name", $2, "");
 	  print $c[10]."..........................................\n";
@@ -320,10 +322,10 @@ sub shoapinfo {
   if ($shoRes) {
     $shoRes=_json($shoRes);
     end_hash_print($shoRes);
-	ltak();
   }else{
     no_Result("your API Info");
   }
+  ltak();
 }
 
 ###########################################################################################
@@ -365,6 +367,21 @@ sub sho_dns_reverse {
 }
 
 ###########################################################################################
+## SHODAN PORTS   #########################################################################
+sub sho_ports {
+  my ($port, $nn)=@_;
+  sho_print("", "", "", "Getting all used shodan api Ports");
+  sleep 1;
+  my $shoRes=getShoResults("$base/shodan/ports?key=$shoapikey");
+  if ( $shoRes ) {
+    sho_print("", "Ports", $shoRes, "");	
+  }else{
+    no_Result("ports");
+  }
+  ltak();
+}
+
+###########################################################################################
 ## SEARCH COUNT   #########################################################################
 sub sho_count {
   my ($query, $nn) =@_;
@@ -381,6 +398,7 @@ sub sho_count {
       no_Result($query);
 	}
   }
+  ltak();
 }
 
 ###########################################################################################
@@ -629,6 +647,10 @@ if ($s) {
       if ( $shoreverse ) { 
         my @shoreverse=build_sho_ip($shoreverse);
         for my $f(@shoreverse) { $nn++; check_host_validation($f, $nn, "3"); }
+      }
+      if ( $shoports ) { 
+        my @shoports=build_sho_ip($shoports);
+        for my $f(@shoports) { $nn++; check_host_validation($f, $nn, "4"); }
       }
       if ( $shoqueryTags ) { sho_query_tags(); }
       if ( $shoquery ) { sho_query(); }

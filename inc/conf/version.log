@@ -1,6 +1,7 @@
-ATSCAN SCANNER VERSION 15.0.9 RELEASE
+ATSCAN SCANNER VERSION 16.0.0 RELEASE
 =====================================================  
-  CHANGES: v15.0.9 10/02/2019
+  CHANGES: v16.0.0 10/02/2019
   - Optimize shoran process.
+  - Add shodan ports.
   - Enjoy!
   =================

@@ -2,8 +2,8 @@
 <body>
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
-  <a title="Version 15.0.7" href="https://github.com/AlisamTechnology/ATSCAN/releases">
-     <img src="https://img.shields.io/badge/V15.0.9-Release-green.svg">
+  <a title="Version 16.0.0" href="https://github.com/AlisamTechnology/ATSCAN/releases">
+     <img src="https://img.shields.io/badge/V16.0.0-Release-green.svg">
   </a>
   <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">

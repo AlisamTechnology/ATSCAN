@@ -1,9 +1,6 @@
 ATSCAN SCANNER VERSION 15.0.8 RELEASE
 =====================================================  
-  CHANGES: v15.0.8 05/02/2019
-  - Add shodan api ports.
-  - Add shodan api protocols.
-  - Add shodan search results pages.
-  - Add output file to shodan.
+  CHANGES: v15.0.9 10/02/2019
+  - Optimize shoran process.
   - Enjoy!
   =================

@@ -6,9 +6,8 @@ use FindBin '$Bin';
 
   our ($scriptv, @c);
   print $c[4]."[i] Trying to repair tool...\n";
-  sleep(2);
+  checkVersion();
   open (LME, '>', $scriptv) or nochmod($scriptv, "exit");
   print LME "REPAIR"; close(LME);
-  checkVersion();
   
   1;

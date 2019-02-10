@@ -149,6 +149,9 @@ if (defined $exploit) { @exploits=buildArraysLists($exploit); }
 if (defined $expHost) { @exploits=buildArraysLists($expHost); }
 if (defined $expIp) { @exploits=buildArraysLists($expIp); }
 
+## SEARCH EXPLOITS ARRAY
+if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
+
 ## VALIDATION ARRAYS
 if (defined $validText) { @validTexts=buildArraysLists($validText); }
 if (defined $notIn) { @notIns=buildArraysLists($notIn); }
@@ -802,7 +805,6 @@ sub Targs {
 
 ## CHECK CPAN MODULES
 sub checkCpanModules {
-  #my $cpanModule=$_[0];
   eval { require JSON; };
   if($@) { 
     print $c[4]."[!] ERROR! This scan require JSON module! do you want to install? [Y/n]: $c[10]";

@@ -318,6 +318,32 @@ sub shosearchadvise {
   print $c[4]."[!]$c[10] To learn how to use search filters type \'atscan --shodan --filters\'\n";
 }
 
+sub sho_menu {
+  print $c[11]."SHODAN API MENU:\n";
+  ltak();
+  print $c[10]
+  ."  --ip          : <ip or host or file> Host Information\n"
+  ."  --count       : <query or file> Search Shodan without Results\n"
+  ."  --search      : <string or file> Search Shodan\n"
+  ."  --pages       : <number of search pages> \n" 
+  ."  --limit       : Max results to list\n"
+  ."  --dnsreverse  : <ip or host or file> Reverse DNS Lookup\n"
+  ."  --dnsresolve  : <host or ip or file> DNS Lookup\n"
+  ."  --querysearch : <query or file> List the directory of saved search queries\n"
+  ."  --query       : List the saved search queries\n"
+  ."  --querytags   : List the most popular tags\n"
+  ."  --services    : List all services that Shodan crawls\n"
+  ."  --myip        : My IP Address\n"
+  ."  --ports       : Get  list of port numbers that the crawlers are looking for.\n"
+  ."  --apinfo      : API Plan Information\n\n";
+  print $c[4]."  [!] $c[10]For more search filters use: atscan --shodan --filters\n";
+  print $c[4]."  [!] $c[10]To search exploits use: atscan --bugtraq <string or file>\n";
+  print $c[4]."  [!] $c[10]To avoid typing your apikey in each process configure it in the\n      configuration panel: \'atscan --config\' then \'set apikey <your_apikey>\'\n";
+  
+  ltak();
+}
+
+
 sub shodan_help {
   print $c[11]."[+] SHODAN SEARCH PARAMETERS:\n\n";
   shosearchqueryhelp();

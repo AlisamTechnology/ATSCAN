@@ -29,7 +29,7 @@ my $lastupdate=get_lastUpdate();
 if ($dateupdate) {
   if (($dateupdate + $lastupdate) < $fulldate) { updateMessage(); }
 }else{
-  if ($lastupdate ne $fulldate) { updateMessage(); }
+  if ($lastupdate < $fulldate) { updateMessage(); }
 }
 
 1;

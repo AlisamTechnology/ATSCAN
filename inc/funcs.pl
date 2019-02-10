@@ -14,7 +14,7 @@ our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $no
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex,
      $Hstatus, $content, $msource, $fullHeaders, $geoloc, $deep);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT,
-     @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells, @commands);
+     @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells, @commands, @bugs);
 
 ## USER PRE-CONFIGURATION
 our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
@@ -402,7 +402,7 @@ sub desclaimer {
   our ($nobanner, $checkVersion);
   if (defined $nobanner) { mtak(); ptak(); }
   print $c[10]."  $OTHERS[11] \n  $OTHERS[12]  \n  $OTHERS[13] \n"; 
-  if (defined $dork || defined $Target) {
+  if (defined $dork || defined $Target || defined $shodan || defined $bugtraq) {
     our $uplog;
     if (-e $uplog) { require "$Bin/inc/conf/upad.pl"; }
   }

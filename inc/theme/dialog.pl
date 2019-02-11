@@ -326,7 +326,7 @@ sub sho_menu {
   ."  --count       : <query or file> Search Shodan without Results\n"
   ."  --search      : <string or file> Search Shodan\n"
   ."  --dnsreverse  : <ip or host or file> Reverse DNS Lookup\n"
-  ."  --dnsresolve  : <host or ip or file> DNS Lookup\n"
+  ."  --dnsresolve  : <host or ip or file> Resolve DNS Lookup\n"
   ."  --querysearch : <query or file> List the directory of saved search queries\n"
   ."  --query       : List the saved search queries\n"
   ."  --querytags   : List the most popular tags\n"

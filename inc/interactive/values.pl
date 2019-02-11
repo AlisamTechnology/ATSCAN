@@ -49,7 +49,7 @@ our @ARGUMENTSALL=('status', 'valid', 'vshell', 'zoneH', 'exp', 'proxy', 'proxy-
                    'noquery', 'b-random', 'content', 'expHost', 'expIp', 'timeout', 'host', 'cookies', 'bugtraq');
 
 ## NOT REQUIRE A VALUE
-our @NoValRequierd=('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noinfo', 'update', 'ips', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
+our @NoValRequierd=('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noverbose', 'update', 'ips', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
                    'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'zip', 'email', 'ports', 'commands', 'form', 'search', 'normal',
                    'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup', 'all', 'geoloc', 'getlinks', 
 				   'query', 'querytags', 'services', 'myip', 'apinfo', 'shodan');
@@ -94,8 +94,8 @@ our @ENGINEARGUMENTS=(@INTERdork, @INTERtarget, @INTERSearchScans, @INTERlevel);
 our %ENGINEARGUMENTS=(%ENGINEARGUMENTS, %INTERdork, %INTERtarget, %INTERSearchScans, %INTERlevel);
 
 ## ADVANCED MODE
-our @INTERadvanced=("nobanner", "beep", "noinfo", "ifend", "freq", "regex", "sregex", "exclude", "all", "source", "limit", "geoloc");
-our %INTERadvanced=("nobanner"=>"hide banner", "beep"=>"beep sound", "noinfo"=>"hide target info", "ifend"=>"beep at end", "freq"=>"random frequency", "regex"=>"get matching regex",
+our @INTERadvanced=("nobanner", "beep", "noverbose", "ifend", "freq", "regex", "sregex", "exclude", "all", "source", "limit", "geoloc");
+our %INTERadvanced=("nobanner"=>"hide banner", "beep"=>"beep sound", "noverbose"=>"no verbose", "ifend"=>"beep at end", "freq"=>"random frequency", "regex"=>"get matching regex",
                     "sregex"=>"valid url by regex", "exclude"=>"negative validation", "all"=>"validate all", "source"=>"html output folder", "limit"=>"max positive scans", 
 					"geoloc"=>"Ip geolocalisation");
 ##############################################################################################

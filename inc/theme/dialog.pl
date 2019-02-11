@@ -147,7 +147,7 @@ sub confHlp {
   ."$c[5] --get         $c[10] | Get method \n"
   ."$c[5] --beep        $c[10] | Produce beep sound if positive scan found.\n"
   ."$c[5] --ifend       $c[10] | Produce beep sound when scan process is finished.\n"
-  ."$c[5] --noinfo      $c[10] | Jump extra results info.\n"
+  ."$c[5] --noverbose   $c[10] | No scan verbose.\n"
   ."$c[5] --nobanner    $c[10] | Hide tool banner\n"
   ."$c[5] --bugtraq     $c[10] | Search exploits\n"
   ."$c[5] --unique      $c[10] | Get targets with exact dork matching\n"
@@ -325,8 +325,6 @@ sub sho_menu {
   ."  --ip          : <ip or host or file> Host Information\n"
   ."  --count       : <query or file> Search Shodan without Results\n"
   ."  --search      : <string or file> Search Shodan\n"
-  ."  --pages       : <number of search pages> \n" 
-  ."  --limit       : Max results to list\n"
   ."  --dnsreverse  : <ip or host or file> Reverse DNS Lookup\n"
   ."  --dnsresolve  : <host or ip or file> DNS Lookup\n"
   ."  --querysearch : <query or file> List the directory of saved search queries\n"
@@ -335,7 +333,11 @@ sub sho_menu {
   ."  --services    : List all services that Shodan crawls\n"
   ."  --myip        : My IP Address\n"
   ."  --ports       : Get  list of port numbers that the crawlers are looking for.\n"
-  ."  --apinfo      : API Plan Information\n\n";
+  ."  --apinfo      : API Plan Information\n"
+  ."  --pages       : <number of search pages> \n" 
+  ."  --limit       : Max results to list\n"
+  ."  --save        : Output file\n\n";
+  
   print $c[4]."  [!] $c[10]For more search filters use: atscan --shodan --filters\n";
   print $c[4]."  [!] $c[10]To search exploits use: atscan --bugtraq <string or file>\n";
   print $c[4]."  [!] $c[10]To avoid typing your apikey in each process configure it in the\n      configuration panel: \'atscan --config\' then \'set apikey <your_apikey>\'\n";

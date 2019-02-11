@@ -8,7 +8,7 @@ use File::Copy qw(copy);
 ## USER CONFIGURATION SETTING
 our($config, $userSetting, $script_bac, $interactive, $deskIcoConf, @AUTH, @c);
 my @ser=("proxy", "proxy-random", "command", "payload", "zone", "timeout", "update", "engine", "all", "password", "freq", "level", "method", "interactive", "limit", "apikey");
-my @ValueOn=("interactive", "b-random", "m-random", "unique", "nobanner", "noinfo", "beep", "ifend");
+my @ValueOn=("interactive", "b-random", "m-random", "unique", "nobanner", "noverbose", "beep", "ifend");
 my @res=(@ser, @ValueOn);
 
 my $res1=join("|", @res);
@@ -42,7 +42,7 @@ sub ClientConfiguration {
     print "| $c[5]m-random    $c[10] | on           | Random engine                              |\n";
     print "| $c[5]unique      $c[10] | on           | Unique results                             |\n";
     print "| $c[5]nobanner    $c[10] | on           | Hide tool banner                           |\n";
-    print "| $c[5]noinfo      $c[10] | on           | Hide extrat target info                    |\n";
+    print "| $c[5]noverbose   $c[10] | on           | No scan verbose                            |\n";
     print "| $c[5]beep        $c[10] | on           | Beep sound when positive result            |\n";
     print "| $c[5]ifend       $c[10] | on           | Beep when process finish                   |\n";
     print "| $c[5]interactive $c[10] | on           | Boots in Interactive (intalled tool only)  |\n";

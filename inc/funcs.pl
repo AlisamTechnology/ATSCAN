@@ -10,7 +10,7 @@ use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
 ## FUNCTS
-our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noinfo,
+our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noverbose,
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex,
      $Hstatus, $content, $msource, $fullHeaders, $geoloc, $deep);
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT,
@@ -124,7 +124,7 @@ $method=checkSetting("method") if !defined $get and !defined $post;
 $zone=checkSetting("zone") if !defined $zone;
 $motor=checkSetting("motor") if !defined $motor;
 $nobanner=checkSetting("nobanner") if !defined $nobanner;
-$noinfo=checkSetting("noinfo") if !defined $noinfo;
+$noverbose=checkSetting("noverbose") if !defined $noverbose;
 $beep=checkSetting("beep") if !defined $beep;
 $ifend=checkSetting("ifend") if !defined $ifend;
 $unique=checkSetting("unique") if !defined $unique;

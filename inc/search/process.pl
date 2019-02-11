@@ -8,7 +8,7 @@ our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $moto
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $notIn, $expHost, $mupload,
      $expIp, $popup, $JoomSites, $WpSites, $fullHeaders, $geoloc);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies, @commands, @V_INPUT);
-our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noinfo, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
+our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noverbose, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
 
 ## SET ENGINES
 if (defined $mlevel) {
@@ -180,7 +180,7 @@ sub printInfoUrl {
   my $o=OO();
   our ($command, $port);
   if ($o<$limit) {
-    if (!defined $noinfo && !$noinfo && !defined $geoloc) {
+    if (!defined $noverbose && !$noverbose && !defined $geoloc) {
       printProxy();
       if (defined $brandom || $brandom) {
         print $c[1]."    $ErrT[21] $c[8]  New agent !\n";
@@ -211,7 +211,7 @@ sub browseUrl {
   ($response, $html, $status, $serverheader)=getHtml($URL1, $data);
   my $o=OO();
   if ($o<$limit) {
-    if (!defined $noinfo && !$noinfo && !defined $geoloc) { 
+    if (!defined $noverbose && !$noverbose && !defined $geoloc) { 
       if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }
       my $ips=checkExtraInfo($URL1);
       print $c[1]."    $DS[10]      ";

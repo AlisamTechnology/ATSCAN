@@ -276,8 +276,8 @@
         <td class="main"> Produce beep sound when scan process is finished.</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--noinfo </td>
-        <td class="main"> Jump extra results info.</td>
+        <td width="200px" class="main">--noverbose </td>
+        <td class="main"> No scan verbose.</td>
       </tr>
       <tr>
         <td width="200px" class="main">--ping </td>

@@ -12,16 +12,15 @@ use JSON;
 ## SHODAN
 
 our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
-    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $shoports, $facets, $pages, $output, $V_IP, $V_RANG, @c);
+    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $shoports, $shoprotos, $facets, $pages, $output, $V_IP, $V_RANG, $command, @c);
 		
 my $nn=0;
 my $noshodanres="No results found|Invalid IP";
 my $base="https://api.shodan.io";
 my @sho_scans=($shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, 
-               $shomyip, $shoapiInfo, $shoports);
+               $shomyip, $shoapiInfo, $shoports, $shoprotos);
 $facets="" if !$facets;
 $pages=1 if !$pages;
-
 
 ###########################################################################################
 ## GET HOST IP  ###########################################################################
@@ -158,7 +157,7 @@ sub _json {
 sub sho_print {
   my ($head, $key, $value, $sub)=@_;
   if ($sub) { 
-    print $c[4]."\n[!]$c[10] $sub ...\n"; 
+    print $c[4]."\n[!]$c[10] $sub ...\n\n"; 
 	if (defined $output) { printFile($output, "[+][+] $sub"); }
   }elsif ($head) { 
     print $c[10]."[+] $head: \n";
@@ -205,6 +204,15 @@ sub get_n {
   print "\n"; ltak();
   print $c[1]; timer();
   return $n;
+}
+
+###########################################################################################
+## EXTERN COMMANDS   ######################################################################
+sub sho_command {
+  my ($ats, $command)=@_;
+  stak();
+  $ats=~s/://; 
+  checkExternComnd($ats, $command);
 }
 
 ###########################################################################################
@@ -385,6 +393,22 @@ sub sho_ports {
 }
 
 ###########################################################################################
+## SHODAN PROTOCOLS   #####################################################################
+sub sho_protos {
+  my ($porotols, $nn)=@_;
+  sho_print("", "", "", "Listing protocols that can be used when performing on-demand Internet");
+  sleep 1;
+  my $shoRes=getShoResults("$base/shodan/protocols?key=$shoapikey");
+  if ( $shoRes ) {
+    $shoRes=_json($shoRes);
+    end_hash_print($shoRes);
+  }else{
+    no_Result("protocols");
+  }
+  ltak();
+}
+
+###########################################################################################
 ## SEARCH COUNT   #########################################################################
 sub sho_count {
   my ($query, $nn) =@_;
@@ -483,6 +507,7 @@ sub sho_search {
       my $total=scalar @founds;
 	  sho_ckeck_total($total, "", $target, "1");
       foreach my $found (@founds) {
+	    my $ats="";
 	   $n=get_n($n);
 	    print " RESULT [$n/$i]\n\n";
 	    sleep 1;
@@ -490,11 +515,14 @@ sub sho_search {
 	    my $in=-1;
 	    my @elements=("IP", "Port", "Product", "Version", "Cps", "Time", "Last update", "Os", "Isp", "Asn", "Hash", "Sitemap hash", "Transport");
 	    my @elements2=("ip_str", "port", "product", "version", "cps", "timestamp", "last_update", "os", "isp", "asn", "hash", "sitemap_hash", "transport");
-	    for my $element2(@elements2) {
+		for my $element2(@elements2) {
 	      $in++;
 	      my $key=$found->{$element2};
-		  if ($key) { sho_print("", $elements[$in], $key, ""); }
-	    }
+		  if ($key) { 
+		    sho_print("", $elements[$in], $key, "");
+			if ($in < 2) { $ats.=":$key"; }
+		  }
+	    }		
 	    my $cpe=$found->{"cpe"};
 	    my $data=$found->{"data"};
 	    my $banner=$found->{"banner"};
@@ -520,7 +548,8 @@ sub sho_search {
 	      end_array_print("CPE", @founds5);
 	    }
         if ( $data ) { sho_print("", "Data", $data, ""); }	  
-        if ( $banner ) { sho_print("", "Banner", $banner, ""); }	  
+        if ( $banner ) { sho_print("", "Banner", $banner, ""); }
+        if ( defined $command ) {  sho_command($ats); }	  
         if ( $n == $limit ) { last; }
 	  }
       ltak();
@@ -557,6 +586,7 @@ sub sho_ip {
     my $total=scalar @founds;
 	sho_ckeck_total($total, "", $target, "");
     foreach my $found (@founds) {
+      my $ats="";
       $n++;
 	  sleep 1;
 	  print "$c[1]......................................\n";
@@ -567,7 +597,10 @@ sub sho_ip {
 	  for my $element2(@elements2) {
 	    $in++;
 	    my $key=$found->{$element2};
-		if ($key) { sho_print("", $elements[$in], $key, ""); }
+		if ($key) { 
+		  sho_print("", $elements[$in], $key, "");
+		  if ($in < 2) { $ats.=":$key"; }
+		}
 	  }
 	  my $cpe=$found->{"cpe"};
 	  my $data=$found->{"data"};
@@ -594,7 +627,8 @@ sub sho_ip {
 	    end_array_print("CPE", @founds5);
 	  }
       if ( $data ) { sho_print("", "Data", $data, ""); }
-      if ( $banner ) { sho_print("", "Banner", $banner, ""); }	  
+      if ( $banner ) { sho_print("", "Banner", $banner, ""); }	
+      if ( defined $command ) {  sho_command($ats); }	  
       if ( $n == $limit ) { last; }
     }
     ltak();
@@ -636,10 +670,12 @@ if ($s) {
         my @shoreverse=build_sho_ip($shoreverse);
         for my $f(@shoreverse) { $nn++; check_host_validation($f, $nn, "3"); }
       }
-      if ( $shoports ) { 
-        my @shoports=build_sho_ip($shoports);
-        for my $f(@shoports) { $nn++; check_host_validation($f, $nn, "4"); }
-      }
+      # if ( $shoports ) { 
+        # my @shoports=build_sho_ip($shoports);
+        # for my $f(@shoports) { $nn++; check_host_validation($f, $nn, "4"); }
+      # }
+      if ( $shoports ) { sho_ports(); }
+      if ( $shoprotos ) { sho_protos(); }
       if ( $shoqueryTags ) { sho_query_tags(); }
       if ( $shoquery ) { sho_query(); }
       if ( $shoservices ) { sho_services(); }

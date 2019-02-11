@@ -627,6 +627,7 @@
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --HOST"  <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "nmap -sV -p 21,22,80 --HOSTIP"  <br/>
        atscan -d "index of /lib/scripts/dl-skin.php" -l 20 -m 2 --command "php WP-dl-skin.php-exploit.php --TARGET" <br/>
+       atscan --shodan --search [string] --apikey [API KEY] -command [extern_command]<br/>
         <hr>
        &#x25cf; <b>MULTIPLE SCANS: </b><br/>
        atscan --dork [dork> --level [10] --sql --lfi --wp ..<br/>
@@ -679,8 +680,7 @@
        atscan --shodan --myip --apikey [API KEY] <br/>
        atscan --shodan --apinfo --apikey [API KEY] <br/>
        atscan --shodan --services --apikey [API KEY] <br/>
-       atscan --shodan --ports --apikey [API KEY] <br/>
-       atscan --shodan --protocols --apikey [API KEY] <br/>
+       atscan --shodan --ports --apikey [API KEY] <br/>	   
         <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>

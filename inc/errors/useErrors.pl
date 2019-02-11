@@ -10,8 +10,7 @@ our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $shell, $
      @DT, @OTHERS, @c, @ZT);
 
 ## SHODAN
-our ($shodan, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
-$shoreverse, $shomyip, $shoapiInfo);
+our ($shodan, $shoapikey);
 if (defined $shodan) {
   if (!defined $shoapikey) {
     print $c[4]."[!] A shodan Apikey is required! Ex: --apikey \"h2dS5sjdB78hXFdYuuKy\" \n"; 

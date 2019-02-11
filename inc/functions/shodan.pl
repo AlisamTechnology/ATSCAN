@@ -385,6 +385,10 @@ sub sho_ports {
   sleep 1;
   my $shoRes=getShoResults("$base/shodan/ports?key=$shoapikey");
   if ( $shoRes ) {
+	my $i=()=$shoRes=~/\Q,/g;
+	sho_print("", "Total ports", $i+1, "");
+	sleep 1;
+    $shoRes=~s/(\]|\[)//g;
     sho_print("", "Ports", $shoRes, "");	
   }else{
     no_Result("ports");

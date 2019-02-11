@@ -29,9 +29,7 @@ sub getshodanip {
   my $f=$_[0];
   my $ff;
   my $getf=checkExtraInfo($f);
-  if ($getf) { 
-    $ff=inet_ntoa($getf); 
-  }
+  if ($getf) { $ff=inet_ntoa($getf); }
   return $ff;
 }
 
@@ -200,6 +198,16 @@ sub end_array_print {
 }
 
 ###########################################################################################
+## COUNT RESULTS     ######################################################################
+sub get_n {
+  my $n=$_[0];
+  $n++;
+  print "\n"; ltak();
+  print $c[1]; timer();
+  return $n;
+}
+
+###########################################################################################
 ## QUERY TAGS     #########################################################################
 sub sho_query_tags {
   sho_print("", "", "", "Searching in shodan query tags");
@@ -219,10 +227,8 @@ sub sho_query_tags {
   sho_ckeck_total($total, "1", "query tags", "");
   my $n=0;
   foreach my $found (@founds) {
-    $n++;
-	ltak();
-	timer();
-    print $c[1]." QUERY TAG [$n/$total]\n";
+    $n=get_n($n);
+    print " [$n/$total] QUERY TAG\n";
 	sleep 1;
     my $value=$found->{"value"};
     my $count=$found->{"count"};
@@ -238,7 +244,6 @@ sub sho_query_tags {
 sub sho_query {
   sho_print("", "", "", "Listening the saved search queries");
   if ($pages eq 1) { advisePages(); }
-  
   my @founds;
   for(my $npages=1;$npages<=$pages;$npages+=1) {
     my $shoRes=getShoResults("$base/shodan/query?key=$shoapikey&pages=$npages");
@@ -252,10 +257,8 @@ sub sho_query {
   sho_ckeck_total($total, "", "saved search queries", "");
   my $n=0;
   foreach my $found (@founds) {
-    $n++;
-	ltak();
-	timer();
-    print $c[1]." SEARCH QUERY [$n/$total]\n";
+    $n=get_n($n);
+    print " SEARCH QUERY [$n/$total]\n";
 	sleep 1;
 	
 	my $in1=-1;
@@ -424,10 +427,7 @@ sub sho_query_search {
   sho_ckeck_total($total, "1", $query, "");
   my $n=0;
   foreach my $found (@founds) {
-    $n++;
-	print "\n";
-	ltak();
-	timer();
+   $n=get_n($n);
     print $c[1]." QUERY SEARCH [$n/$total]\n";
 	sleep 1;
 
@@ -483,11 +483,7 @@ sub sho_search {
       my $total=scalar @founds;
 	  sho_ckeck_total($total, "", $target, "1");
       foreach my $found (@founds) {
-        $n++;
-	    print "\n";
-        ltak();
-	    print $c[1];
-	    timer();
+	   $n=get_n($n);
 	    print " RESULT [$n/$i]\n\n";
 	    sleep 1;
 	  
@@ -497,9 +493,7 @@ sub sho_search {
 	    for my $element2(@elements2) {
 	      $in++;
 	      my $key=$found->{$element2};
-		  if ($key) {
-		    sho_print("", $elements[$in], $key, "");
-		  }
+		  if ($key) { sho_print("", $elements[$in], $key, ""); }
 	    }
 	    my $cpe=$found->{"cpe"};
 	    my $data=$found->{"data"};
@@ -548,9 +542,7 @@ sub sho_ip {
 	for my $element23(@elements23) {
 	  $in3++;
 	  my $key=$shoRes->{$element23};
-      if ($key) {
-		sho_print("", $elements3[$in3], $key, "");
-	  }
+      if ($key) { sho_print("", $elements3[$in3], $key, ""); }
 	}
     my $hostnam =$shoRes->{'hostnames'};
 	if ($hostnam) {
@@ -575,9 +567,7 @@ sub sho_ip {
 	  for my $element2(@elements2) {
 	    $in++;
 	    my $key=$found->{$element2};
-		if ($key) {
-		  sho_print("", $elements[$in], $key, "");
-		}
+		if ($key) { sho_print("", $elements[$in], $key, ""); }
 	  }
 	  my $cpe=$found->{"cpe"};
 	  my $data=$found->{"data"};
@@ -615,16 +605,14 @@ sub sho_ip {
 ###########################################################################################
 ## MAIN      ##############################################################################
 my $s=0;
-for (@sho_scans) {
-  $s++ if defined $_;
-}
+for (@sho_scans) { $s++ if defined $_; }
 if ($s) {
   if (!defined $shofilters) {
     print $c[11];
     timer();
     print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
     testConnection();
-
+	######################################
     if ( $shoip ) {
       my @shoip=build_sho_ip($shoip);
       for my $f(@shoip) { $nn++; check_host_validation($f, $nn, "1"); }
@@ -658,6 +646,7 @@ if ($s) {
       if ( $shomyip ) { shomyip(); }
       if ( $shoapiInfo ) { shoapinfo(); }
       if ( $shofilters ) { shodan_help(); }
+	  ######################################
       print $c[3]."[!] Results saved in [$output]\n" if defined $output;
     }
   }

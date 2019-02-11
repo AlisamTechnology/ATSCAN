@@ -319,7 +319,7 @@ sub shosearchadvise {
 }
 
 sub sho_menu {
-  print $c[11]."SHODAN API MENU:\n";
+  print $c[11]."[+] SHODAN API MENU:\n";
   ltak();
   print $c[10]
   ."  --ip          : <ip or host or file> Host Information\n"

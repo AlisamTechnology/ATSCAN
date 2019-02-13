@@ -16,11 +16,11 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  PROXY: \n".$c[10]
   ."   Tor: --proxy socks://localhost:9050 \n"
-  ."   Proxy: --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <list.txt>.\n".$c[10]."\n\n";  
+  ."   Proxy: --proxy <proxy> [Ex: http://12.32.1.5:8080] | --proxy <file>.\n".$c[10]."\n\n";  
   ltak(); print $c[12]."  SET HEADERS: \n".$c[10]
   ."   --header \"Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'\"\n\n" ;  
   ltak(); print $c[12]."  RANDOM: \n".$c[10]
-  ."   Random proxy: --proxy-random [proxy | list.txt] \n"
+  ."   Random proxy: --proxy-random [proxy | file] \n"
   ."   Random agent: --b-random \n"
   ."   Random engine: --m-random \n\n" ;
   ltak(); print $c[12]."  SEARCH ENGINE: \n".$c[10]
@@ -38,13 +38,13 @@ use FindBin '$Bin';
   ."   Search + collect ips: atscan --dork <dork> --level <level> --ip \n\n";
   
   ltak(); print $c[12]."  SHODAN SEARCH: \n".$c[10]
-  ."--ip <ip or host or list.txt> : Host Information\n"
-  ."--count <query or list.txt> : Search Shodan without Results\n"
-  ."--search <string or list.txt> : Search Shodan\n"
+  ."--ip <ip or host or file> : Host Information\n"
+  ."--count <query or file> : Search Shodan without Results\n"
+  ."--search <string or file> : Search Shodan\n"
   ."--pages <number of page results> \n" 
-  ."--dnsreverse <ip or host or list.txt> : Reverse DNS Lookup\n"
-  ."--dnsresolve <host or ip or list.txt> : DNS Lookup\n"
-  ."--querysearch <query or list.txt> : Search the directory of saved search queries\n"
+  ."--dnsreverse <ip or host or file> : Reverse DNS Lookup\n"
+  ."--dnsresolve <host or ip or file> : DNS Lookup\n"
+  ."--querysearch <query or file> : Search the directory of saved search queries\n"
   ."--query : List the saved search queries\n"
   ."--querytags : List the most popular tags\n"
   ."--services : List all services that Shodan crawls\n"
@@ -52,6 +52,7 @@ use FindBin '$Bin';
   ."--protocols : Sodan used protocols\n"
   ."--ports : Get  list of port numbers that the crawlers are looking for.\n"
   ."--apinfo : API Plan Information\n"
+  ."--tokens : <string or file> String filters and parameters provided to them\n"  
   ."--command : Exploit shodan results with extern command\n\n";
   ltak(); print $c[12]."  SEARCH EXPLOIT: \n".$c[10]
   ."   atscan --bugtraq <string> Exp: atscan --bugtraq joomla -s save.txt\n"
@@ -87,7 +88,7 @@ use FindBin '$Bin';
   
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
-  ."   atscan --dork <dork | dorks.txt> --level <level> --command \"list.txt\" \n"
+  ."   atscan --dork <dork | dorks.txt> --level <level> --command \"file\" \n"
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --HOST\" \n"
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"nmap -sV -p 21,22,80 --HOSTIP\" \n"
   ."   atscan -t <target> --port 80 --udp --command \"nmap -sV -p --PORT --TARGET\" \n" 
@@ -107,17 +108,17 @@ use FindBin '$Bin';
   ."   atscan -d <dork | dorks.txt> -l <level> --ifinurl <string> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> --regex <regex> --valid <string>\n"
   ."   atscan -d <dork | dorks.txt> -l <level> --unique \n"
-  ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> | --valid <list.txt>] \n"
+  ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> | --valid <file>] \n"
   ."   atscan -t <target | targets.txt> [--status <code> | --valid <string> --all] \n"
-  ."   atscan -t <target | targets.txt> [--status <code> | --exclude <string> | --exclude <list.txt>] \n"
-  ."   atscan -t <target | targets.txt> --vshell <url/list.txt>  \n"
+  ."   atscan -t <target | targets.txt> [--status <code> | --exclude <string> | --exclude <file>] \n"
+  ."   atscan -t <target | targets.txt> --vshell <url/file>  \n"
   ."   atscan -d <dork | dorks.txt> -l <level> --exp/expHost <payload> --status <code> | --valid <string> \n"
   ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --status <code> | --valid <string> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--admin | --sql ..] --status <code> | --valid <string> \n"  
   ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replaceFROM \"string \=\> new_string\" --status <code> | --valid <string>\n"
   ."   atscan -d <dorks.txt> -l <level> --replace \"string \=\> new_string\" --exp/expHost <payload> --status <code> | --valid <string>\n"
-  ."   atscan  -d <dorks.txt> --exp <exploit> --data \"username\=\>john\, pass\=\>1234\" --post --vshell <url/list.txt> | -v <string> | --status <code> \n"
+  ."   atscan  -d <dorks.txt> --exp <exploit> --data \"username\=\>john\, pass\=\>1234\" --post --vshell <url/file> | -v <string> | --status <code> \n"
   ."   atscan -d <dork | dorks.txt> -l <level> [--sql | --shost ..] --status <code> | --valid <string> \n\n";
   
   ltak(); print $c[12]."  IP GEOLOCALISATION: \n".$c[10]

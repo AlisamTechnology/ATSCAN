@@ -169,7 +169,7 @@
         <td class="main">
           Set tor proxy for scans [EX: --proxy "socks4://localhost:9050"]<br>
           Set proxy [EX: --proxy "http://12.45.44.2:8080"] <br>
-          Set proxy list [EX: --proxy list.txt] </td>
+          Set proxy list [EX: --proxy file] </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--motor / -m</td>
@@ -177,7 +177,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--proxy-random</td>
-        <td class="main">Random proxy [EX: --proxy-random list.txt] or --proxy-random "socks://localhost:9050"]</td>
+        <td class="main">Random proxy [EX: --proxy-random file] or --proxy-random "socks://localhost:9050"]</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--m-random</td>
@@ -237,7 +237,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--vshell</td>
-        <td class="main"> Validate by url ex: --HOST/shell.php or list.txt</td>
+        <td class="main"> Validate by url ex: --HOST/shell.php or file</td>
       </tr>
       <tr>
         <td width="200px" class="main">--post</td>
@@ -498,6 +498,10 @@
         <td class="main">Shodan Resolve DNS Lookup</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--tokens</td>
+        <td class="main">String filters and parameters</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--querysearch</td>
         <td class="main">Search the directory of saved Shodan search queries</td>
       </tr>
@@ -570,10 +574,10 @@
         &#x25cf; <b>PROXY: </b> <br/>
         Tor: --proxy [proxy] [Ex: --proxy socks://localhost:9050].<br/>
         Proxy: Proxy: --proxy [proxy] Ex: http://12.32.1.5:8080 <br/>
-        or --proxy list.txt Ex: --proxy my_proxies.txt <br/>
+        or --proxy file Ex: --proxy my_proxies.txt <br/>
         <hr>
         &#x25cf; <b>RANDOM: </b> <br/>
-        Random proxy: --proxy-random [proxy  list.txt] <br/>
+        Random proxy: --proxy-random [proxy  file] <br/>
         Random browser: --b-random <br/>
         Random engine: --m-random <br/>
         <hr>
@@ -623,7 +627,7 @@
         <hr>
        &#x25cf; <b>EXTERNAL COMMANDS:</b> <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>
-       atscan --dork [dork / dorks.txt] --level [level] --command "list.txt" <br/>
+       atscan --dork [dork / dorks.txt] --level [level] --command "file" <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --HOST"  <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "nmap -sV -p 21,22,80 --HOSTIP"  <br/>
        atscan -d "index of /lib/scripts/dl-skin.php" -l 20 -m 2 --command "php WP-dl-skin.php-exploit.php --TARGET" <br/>
@@ -642,9 +646,9 @@
        atscan -t [ip/target] --geoloc <br/>
         <hr>
        &#x25cf; <b>SEARCH VALIDATION: </b><br/>
-       atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string/list.txt] <br/>
-       atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string/list.txt] --all <br/>
-       atscan -d [dork / dorks.txt] -l [level] --status [code] / --exclude [string/list.txt] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string/file] <br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string/file] --all <br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / --exclude [string/file] <br/>
        atscan -d [dork / dorks.txt] -l [level] --ifinurl [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --sregex [regex] --valid [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --regex [regex] --valid [string] <br/>
@@ -669,18 +673,19 @@
        atscan --bugtraq [string] --limit 10 <br/> 
         <hr>
        &#x25cf; <b>SHODAN SEARCH</b> <br/> 
-       atscan --shodan --ip [ip or host or list.txt] --apikey [API KEY] <br/>
-       atscan --shodan --search [string or list.txt] --apikey [API KEY] <br/>
-       atscan --shodan --dnsresolve [ip or host or list.txt] --apikey [API KEY] <br/>
-       atscan --shodan --dnsrevese [ip or host or list.txt] --apikey [API KEY] <br/>
-       atscan --shodan --count [query or list.txt] --apikey [API KEY] <br/>
+       atscan --shodan --ip [ip or host or file] --apikey [API KEY] <br/>
+       atscan --shodan --search [string or file] --apikey [API KEY] <br/>
+       atscan --shodan --dnsresolve [ip or host or file] --apikey [API KEY] <br/>
+       atscan --shodan --dnsrevese [ip or host or file] --apikey [API KEY] <br/>
+       atscan --shodan --count [query or file] --apikey [API KEY] <br/>
        atscan --shodan --query --apikey [API KEY] <br/>
-       atscan --shodan --querysearch [query or list.txt] --apikey [API KEY] <br/>
+       atscan --shodan --querysearch [query or file] --apikey [API KEY] <br/>
        atscan --shodan --querytags --apikey [API KEY] <br/>
        atscan --shodan --myip --apikey [API KEY] <br/>
        atscan --shodan --apinfo --apikey [API KEY] <br/>
        atscan --shodan --services --apikey [API KEY] <br/>
-       atscan --shodan --ports --apikey [API KEY] <br/>	   
+       atscan --shodan --ports --apikey [API KEY] <br/>	 
+       atscan --shodan --tokens [string or file] --apikey [API KEY] <br/>	 
         <hr>
        &#x25cf; <b>UPDATE TOOL:</b> <br/> 
        atscan --update <br/>

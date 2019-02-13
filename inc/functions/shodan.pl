@@ -12,13 +12,13 @@ use JSON;
 ## SHODAN
 
 our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
-    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $shoports, $shoprotos, $facets, $pages, $output, $V_IP, $V_RANG, $command, @c);
+    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $shoports, $shoprotos, $shotokens, $facets, $pages, $output, $V_IP, $V_RANG, $command, @c);
 		
 my $nn=0;
 my $noshodanres="No results found|Invalid IP";
 my $base="https://api.shodan.io";
 my @sho_scans=($shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, 
-               $shomyip, $shoapiInfo, $shoports, $shoprotos);
+               $shomyip, $shoapiInfo, $shotokens, $shoports, $shoprotos);
 $facets="" if !$facets;
 $pages=1 if !$pages;
 
@@ -47,7 +47,7 @@ sub check_host_validation {
 	sho_ip($f, $nn) if $sub eq 1;
 	sho_dns_resolve($f, $nn) if $sub eq 2;
 	sho_dns_reverse($f, $nn) if $sub eq 3;
-	sho_ports($f, $nn) if $sub eq 4;
+	sho_tokens($f, $nn) if $sub eq 4;
   }else{ 
 	invalid();
   }
@@ -284,6 +284,42 @@ sub sho_query {
 	  end_array_print("Tags", @tags);
 	}
     if ( $n == $limit ) { last; }
+  }
+  ltak(); 
+}
+
+###########################################################################################
+## TOKENS         #########################################################################
+sub sho_tokens {
+  my @shotokens=@_;
+  sho_print("", "", "", "Determining used filters and parameters for given string..");
+  my $shoRes=getShoResults("$base/shodan/host/search/tokens?key=$shoapikey&query=$shotokens");
+  sleep 1;
+  if ( $shoRes ) {
+    my @shoRes=split(",", $shoRes);
+	my $i=1;
+	ltak();
+	print $c[1];
+    timer(); 
+	print " STRING [$i/".scalar @shotokens."] ($shotokens)\n";
+	for my $f(@shoRes) {
+	  $i++;	  
+      if ( $f =~ /\"string\":\s\"(.*)\"/ ) {
+	    sho_print("", "String", $1, "") if $1;
+      }
+      if ( $f =~ /\"attributes\":\s\{(.*)\}/g ) {
+	    sho_print("", "Attributes", $1, "") if $1;
+      }
+      if ( $f =~ /\"errors\":\s\[(.*)\]/g ) {
+	    sho_print("", "Errors", $1, "") if $1;
+      }
+      if ( $f =~ /\"filters\":\s\[\"(.*)\"\]/g ) {
+	    sho_print("", "Filters", $1, "") if $1;
+      }
+	}
+  }else{
+    print $c[2]."[!] ";
+    no_Result($shotokens);
   }
   ltak(); 
 }
@@ -675,10 +711,10 @@ if ($s) {
         my @shoreverse=build_sho_ip($shoreverse);
         for my $f(@shoreverse) { $nn++; check_host_validation($f, $nn, "3"); }
       }
-      # if ( $shoports ) { 
-        # my @shoports=build_sho_ip($shoports);
-        # for my $f(@shoports) { $nn++; check_host_validation($f, $nn, "4"); }
-      # }
+      if ( $shotokens ) { 
+        my @shotokens=build_sho_ip($shotokens);
+        for my $f(@shotokens) { sho_tokens(@shotokens); }
+      }
       if ( $shoports ) { sho_ports(); }
       if ( $shoprotos ) { sho_protos(); }
       if ( $shoqueryTags ) { sho_query_tags(); }

@@ -80,7 +80,7 @@ our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $
      $shell, $nobanner, $beep, $ifinurl, $noverbose, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $payloads,
      $mrandom, $content, $scriptComplInstall, $scriptCompletion, $scriptInstall, $toolInfo, $config, $freq, $headers, $msource, $ping, $notIn, $expHost, $expIp, $zone, $validShell, $interactive,
      $popup, $all, $repair, $zoneH, $cokie, $bugtraq, $fullHeaders, $geoloc, $deep, $shodan, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, 
-	 $shoresolve, $shoreverse, $shomyip, $shoapiInfo, $shoports, $shoprotos, $shofilters, $facets, $pages);
+	 $shoresolve, $shoreverse, $shomyip, $shoapiInfo, $shoports, $shoprotos, $shotokens, $shofilters, $facets, $pages);
 
 ## ARGUMENTS
 use Getopt::Long qw(GetOptions);
@@ -97,13 +97,13 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'cookies=s'=>\$cokie, 'bugtraq=s'=>\$bugtraq, 'geoloc'=>\$geoloc, 'fullHeaders'=>\$fullHeaders, 'getlinks'=>\$deep, 'shodan'=>\$shodan, 'apikey=s'=>\$shoapikey, 'ip=s'=>\$shoip, 
 						 'count=s'=>\$shocount, 'search=s'=>\$shosearch, 'query'=>\$shoquery, 'querysearch=s'=>\$shoquerySearch, 'querytags'=>\$shoqueryTags, 'services'=>\$shoservices, 
 						 'dnsresolve=s'=>\$shoresolve, 'dnsreverse=s'=>\$shoreverse, 'myip'=>\$shomyip, 'apinfo'=>\$shoapiInfo, 'facets=s'=>\$facets, 'ports'=>\$shoports, 'protocols'=>\$shoprotos, 
-						 'filters'=>\$shofilters, 'pages=s'=>\$pages) or badArgs();
+						 'filters'=>\$shofilters, 'tokens=s'=>\$shotokens, 'pages=s'=>\$pages) or badArgs();
 
 ## CHOMP ARGS STRINGS
 our @toChomp=($Hstatus, $validText, $command, $mmd5, $mencode64, $mdecode64, $port, $Target, $exploit, $p, $proxy, $prandom, $output,
               $replace, $replaceFROM, $dork, $mlevel, $shell, $ifinurl, $motor, $timeout, $limit, $regex, $searchRegex, $data,
               $payloads, $freq, $headers, $msource, $notIn, $expHost, $expIp, $zone, $validShell, $zoneH, $bugtraq, $shoapikey, $shoip, 
-			  $shocount, $shosearch, $shoquerySearch, $shoresolve, $shoreverse, $shofilters, $facets, $pages);
+			  $shocount, $shosearch, $shoquerySearch, $shoresolve, $shoreverse, $shofilters, $shotokens, $facets, $pages);
 for (@toChomp) { chomp ($_) if defined $_; }
 
 ## INCLUDES

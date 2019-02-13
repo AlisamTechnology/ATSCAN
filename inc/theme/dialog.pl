@@ -326,6 +326,7 @@ sub sho_menu {
   ."  --ip          : <ip or host or file> Host Information\n"
   ."  --count       : <query or file> Search Shodan without Results\n"
   ."  --search      : <string or file> Search Shodan\n"
+  ."  --tokens      : <string or file> String filters and parameters\n"
   ."  --dnsreverse  : <ip or host or file> Reverse DNS Lookup\n"
   ."  --dnsresolve  : <host or ip or file> DNS Lookup\n"
   ."  --querysearch : <query or file> List the directory of saved search queries\n"
@@ -341,7 +342,7 @@ sub sho_menu {
   ."  --save        : Output file\n"
   ."  --command     : Exploit shodan results with extern command\n\n";
   
-  print $c[4]."  [!] $c[10]To set proxy and browser random: \' atscan --help\'\ n";
+  print $c[4]."  [!] $c[10]To set proxy and browser random: \'atscan --help\'\n";
   print $c[4]."  [!] $c[10]For more search filters use: atscan --shodan --filters\n";
   print $c[4]."  [!] $c[10]To search exploits use: atscan --bugtraq <string or file>\n";
   print $c[4]."  [!] $c[10]To avoid typing your apikey in each process configure it in the\n      configuration panel: \'atscan --config\' then \'set apikey <your_apikey>\'\n";

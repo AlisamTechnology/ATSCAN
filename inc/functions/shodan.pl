@@ -202,8 +202,9 @@ sub end_array_print {
 sub get_n {
   my $n=$_[0];
   $n++;
-  print "\n"; ltak();
-  print $c[1]; timer();
+  ltak();
+  print $c[1]; 
+  timer();
   return $n;
 }
 
@@ -292,15 +293,16 @@ sub sho_query {
 ## TOKENS         #########################################################################
 sub sho_tokens {
   my @shotokens=@_;
-  sho_print("", "", "", "Determining used filters and parameters for given string..");
+  sho_print("", "", "", "Determining used filters and parameters for given string");
   my $shoRes=getShoResults("$base/shodan/host/search/tokens?key=$shoapikey&query=$shotokens");
   sleep 1;
   if ( $shoRes ) {
     my @shoRes=split(",", $shoRes);
-	my $i=1;
-	ltak();
-	print $c[1];
-    timer(); 
+	my ($i, $n)=1;
+	$n=get_n($n);
+	# ltak();
+	# print $c[1];
+    # timer(); 
 	print " STRING [$i/".scalar @shotokens."] ($shotokens)\n";
 	for my $f(@shoRes) {
 	  $i++;	  

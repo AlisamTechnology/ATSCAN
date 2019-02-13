@@ -132,7 +132,7 @@ sub main3 {
       #########################################################################################
       }elsif ($first1 eq "run") {
         for my $eew(@INTERSCANS) {
-          if ($eew !~ /(advanced|normal|multi|ports|commands|form|nomodule)/) { push @INTERCOMNDSFIN, $eew; }
+          if ($eew !~ /(advanced|normal|multi|ports|commands|form|nomodule|Ports)/) { push @INTERCOMNDSFIN, $eew; }
         }
         push @INTERCOMNDS, @PREFONF;
         push @INTERCOMNDSFIN, @INTERCOMNDS;

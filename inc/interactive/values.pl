@@ -50,23 +50,24 @@ our @ARGUMENTSALL=('status', 'valid', 'vshell', 'zoneH', 'exp', 'proxy', 'proxy-
 
 ## NOT REQUIRE A VALUE
 our @NoValRequierd=('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noverbose', 'update', 'ips', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
-                   'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'zip', 'email', 'ports', 'commands', 'form', 'search', 'normal',
+                   'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'zip', 'email', 'commands', 'form', 'search', 'normal',
                    'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup', 'all', 'geoloc', 'getlinks', 
-				   'query', 'querytags', 'services', 'myip', 'apinfo', 'shodan');
+				   'query', 'querytags', 'services', 'myip', 'apinfo', 'ports', 'Ports', 'shodan');
 
 ## DATA ARGUMENTS
 our @INTERDataScan=('post', 'get', 'data', 'header', 'upload');
 our %INTERDataScan=("post"=>"post methode", "get"=>"get methode", "data"=>"data to post/get", "header"=>"data headers", "upload"=>"data upload");
 
 ## SHODAN
-our @shodan=('proxy', 'proxy-random', 'apikey', 'ip', 'count', 'search', 'query', 'querysearch', 'querytags', 'services', 'dnsresolve', 'dnsreverse', 'myip', 
-             'apinfo', 'ports', 'protocols', 'facets', 'limit', 'pages', 'filters', 'save', 'command');
-our %shodan=("proxy"=>"See help", "proxy-random"=>"See help", "apikey"=>"Shodan Apikey", "ip"=>"ip or host", "count"=>"shodan count", "search"=>"shiodan search", "query"=>"Shodan saved queries", 
-             "querysearch"=>"Shodan dirs queries", "querytags"=>"Shodan popular tags", "services"=>"Shosan services", 
-			 "dnsresolve"=>"Shodan dns resolve", "dnsreverse"=>"Shodan dns reverse", "myip"=>"My ip address", "apinfo"=>"My api info", 
-			 "ports"=>"shodan used ports", "protocols"=>"shodan used protocols", "facets"=>"Shodan search facets", 
-			 "limit"=>"Max results limit", "pages"=>"number result pages", "filters"=>"shodan search parameters", 
-			 "save"=>"Output file", "command"=>"Extern command");
+our @shodan=('apikey', 'ip', 'count', 'search', 'query', 'querysearch', 'querytags', 'services', 'dnsresolve', 'dnsreverse', 'myip', 
+             'apinfo', 'Ports', 'protocols', 'facets', 'limit', 'pages', 'filters', 'save', 'command', 'proxy', 'proxy-random');
+our %shodan=("apikey"=>"Shodan Apikey", "ip"=>"ip or host", "count"=>"shodan count", "search"=>"shiodan search", 
+             "query"=>"Shodan saved queries", "querysearch"=>"Shodan dirs queries", "querytags"=>"Shodan popular tags", 
+			 "services"=>"Shosan services", "dnsresolve"=>"Shodan dns resolve", "dnsreverse"=>"Shodan dns reverse", 
+			 "myip"=>"My ip address", "apinfo"=>"My api info", "Ports"=>"shodan used ports", "protocols"=>"shodan used protocols", 
+			 "facets"=>"Shodan search facets", "limit"=>"Max results limit", "pages"=>"number result pages", 
+			 "filters"=>"shodan api parameters", "save"=>"Output file", "command"=>"Extern command", "proxy"=>"See help", 
+			 "proxy-random"=>"See help");
 	 
 ## SHELL LFI
 our @INTERshell=('shell');

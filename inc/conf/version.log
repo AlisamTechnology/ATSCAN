@@ -1,7 +1,7 @@
 ATSCAN SCANNER VERSION 16.0.0 RELEASE
 =====================================================  
   CHANGES: v16.0.1 13/02/2019
-  - Add proxy to shodan and bugtraq scans.
+  - Add proxy use to missing scans.
   - Add shodan host tokens.
   - Enjoy!
   =================

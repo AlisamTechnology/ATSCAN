@@ -8,7 +8,7 @@ use FindBin '$Bin';
 ###############################################################################
 ## BUGTRAQ
 our($bugtraq, $ua, $limit, $server, @c);
-my (@bugs, @bugId, @bugTitle, @bugDate, @bugLink, @bugWarning, @refer);
+my (@bugId, @bugTitle, @bugDate, @bugLink, @bugWarning, @refer);
 my $e = strftime "%Y.%m.%d.", localtime;
 my $copyPath="$Bin/inc/conf/user/temp.txt";
 my $ser="=" x 39;
@@ -20,6 +20,7 @@ sub sep { print $c[1]." ========================================================
 ###############################################################################
 ###############################################################################
 ## GET BUGS
+our @bugs;
 sub bugs {
   for my $btq(@bugs) {
     $btq=~s/\s/%20/g;

@@ -310,6 +310,7 @@ sub geoloc {
 	}
   }
   my $u="$geoServer/$URL1";
+  ckeck_ext_founc("1");
   my $geoSearch=$ua->get($u);
   $geoSearch->as_string;
   my $geoRes=$geoSearch->content; 

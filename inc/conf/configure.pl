@@ -6,13 +6,13 @@ use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
 ## CLEAR
-if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
+ if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
 ## VERSION
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv,
      $scriptCompletion, $scriptComplInstall, $readme, $uplog, $replace, $replaceFROM, $server, $geoServer);
 
-$Version="16.0.0";
+$Version="16.0.1";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";

@@ -110,6 +110,7 @@ sub doDeepSearch {
   print $c[4]."[!]$c[10] Scraping engine targets...\n";
   for my $link(@links) {
     if (substr($link, -1) eq "\/") { $link=chop($link); }
+	ckeck_ext_founc("1");
     my $linkSearch=$ua->get($link) or die "cannot get $link\n";
     $linkSearch->as_string;
     my $linkRes=$linkSearch->content;

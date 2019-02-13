@@ -62,7 +62,7 @@ my @SCAN_TITLE=("SEARCH ENGINE", "VALIDATION", "Validate by HTTP header is not a
 ## INSTALL / UNINSTALL / UPDATE
 my @ZT=("Copying user components...", "Placing main script...", "Placing components...", "Placing README.md", "Checking others components...", "Moving", "Restauring user files...",
         "Deleting install files...", "Deleting", "Printing update log...", "DATA", "STATUS", "EXCLUDE", "normal", "advanced", "mode", "options", "module", "Module", 
-        "HELP", "help", "DESCRIPTION", "Usage", "Fail to upload target!", "New Identity!", "ZONE-H", "popup argument can only be used with --command argument!", 
+        "HELP", "help", "DESCRIPTION", "Usage", "Fail to upload target!", "Your new identity:", "ZONE-H", "popup argument can only be used with --command argument!", 
         "Usage --replace or --replaceFROM", "You cannot use more than 1 wordlist in data command!", "You cannot use more than 1 wordlist!", "Cannot whrite in",
         "Use --repair command to repair tool if you are getting problems!", "Are you sure to continue with uninsall process? [y/N]:");
 
@@ -341,6 +341,7 @@ sub sho_menu {
   ."  --save        : Output file\n"
   ."  --command     : Exploit shodan results with extern command\n\n";
   
+  print $c[4]."  [!] $c[10]To set proxy and browser random: \' atscan --help\'\ n";
   print $c[4]."  [!] $c[10]For more search filters use: atscan --shodan --filters\n";
   print $c[4]."  [!] $c[10]To search exploits use: atscan --bugtraq <string or file>\n";
   print $c[4]."  [!] $c[10]To avoid typing your apikey in each process configure it in the\n      configuration panel: \'atscan --config\' then \'set apikey <your_apikey>\'\n";

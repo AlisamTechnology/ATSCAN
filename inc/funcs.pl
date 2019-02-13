@@ -13,11 +13,11 @@ use POSIX qw(strftime);
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noverbose,
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex,
      $Hstatus, $content, $msource, $fullHeaders, $geoloc, $deep);
-our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @ErrT,
+our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @connected_proxies, @ErrT,
      @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells, @commands, @bugs);
 
-## USER PRE-CONFIGURATION
-our($userSetting, $proxy, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
+## 
+our($userSetting, $proxy, $system, $agent, $ua, $psx, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
     $method, $checkVersion, $get, $post, $scriptbash, $shodan, $shoapikey);
 
 ## PRINT FILES 
@@ -168,22 +168,6 @@ sub get_frequecy {
 }
 our $start=get_frequecy();
 
-## CURRENT PROXY
-sub get_psx {
-  if (scalar(grep { defined $_} @proxies)>0) {
-    my $fin = 0;
-    my $psx;
-    while(!$fin) {
-      $psx=$proxies[rand @proxies];
-      if ($psx) { $fin = 1; }
-    }
-    return $psx;
-  }
-}
-
-## SET CURRENT PROXY
-our $psx=get_psx();
-
 ## BROWSER
 our (@sys, @vary, @systems);
 binmode STDOUT, ":utf8";
@@ -193,9 +177,6 @@ for my $sys(@sys) {
     push @systems, $ag;
   }
 }
-
-## BROWSER
-our ($system, $agent, $ua);
 
 ## CREATE COOKIES IN DISK
 my $cksFile;
@@ -229,67 +210,111 @@ if (defined $timeout || $timeout) {
   $ua->timeout($timeout);
 }
 
-## SET PROXY
-if ($proxy || $prandom || defined $proxy || defined $prandom) {  
+## CURRENT PROXY
+sub get_psx {
+  return $proxies[rand @proxies];
+}
+sub get_conected_psx {
+  return $connected_proxies[rand @connected_proxies];
+}
+
+## CHECK PROXY CONNECTION
+sub check_proxy_connect {
+  my $psx=shift;
   $ua->proxy([qw/ http https ftp ftps socks4 socks5 /] => $psx); $ua->cookie_jar({ });
+  my $r=$ua->get($ipUrl);
+  return $r->content if $r->is_success;
+}
+
+## CHECK PROXY LIST
+sub check_list_prx {
+  print $c[4]."[!]$c[10] Checking proxy connection...";
+  for my $psx(@proxies) {
+    my $r=check_proxy_connect($psx);
+    if (!$r) { 
+	  print $c[2]."\n    Failed to connect with [$psx]";
+	}else{
+	  push @connected_proxies, $psx;
+	}
+  }
+  print "$c[3] OK\n" if scalar @connected_proxies eq scalar @proxies;
+  if (scalar @connected_proxies < 1) {
+	print $c[2]."\n[!] Cannot connect with any of given proxies!\n"; logoff();
+  }elsif(scalar @connected_proxies < scalar @proxies) {
+	print $c[4]."\n[!] Only running proxies will be used (".scalar @connected_proxies.").\n";
+  }
+  print "\n";
+  sleep 1;
+}
+
+## CHECK CONNECTION
+sub testConnection {
+  print $c[4]."[!] $DT[31]\n";
+  if ($proxy || defined $proxy || $prandom || defined $prandom) {
+    check_list_prx();
+  }else{
+    my $respons=$ua->get($ipUrl);
+    if (!$respons->is_success) {
+      print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff();
+	}
+  }
+}
+
+## CHECK RANDOM PROXY AGENT
+sub  ckeck_ext_founc { 
+  my $pnt=$_[0];
+  if (defined $brandom || $brandom) {
+    if ($freq || defined $freq) { make_freq($pnt); }
+    else{ getNewAgent($pnt); }
+  }
+  if (defined $prandom || $prandom) {
+    if ($freq || defined $freq) { 
+	  make_freq($pnt); 
+	}else{ 
+	  newIdentity($pnt);
+	}
+  }
 }
 
 ## MEKE FREQUENCY RANDOM 
 sub make_freq {
+  my $pnt=$_[0];
+  my $yes;
   if ($freq || defined $freq) {
     my $stop=get_frequecy();
     if ($freq || defined $freq) {
       my $def=$stop - $start; 
       if ($def >= $freq) {
         if (defined $brandom || $brandom) { getNewAgent(); }
-        if (defined $prandom || $prandom) { newIdentity(); }
+        if (defined $prandom || $prandom) { newIdentity($pnt); }
       }
     }
   }
 }
 
-## GET CURRENT IDENTITY
-sub get_ipAddress {
-  my $ipadress;
-  my $fd=0;
-  while (!$fd) {
-    my $r=$ua->get($ipUrl);
-    if ($r->is_success) {
-      if ($r->content=~m/$V_IP/g) { $ipadress="$1"; $fd++; }      
-    }
-  }
-  return $ipadress;
-}
-
-## GET NEW PROXY
-sub getNewproxy {
-  my $currentpsx=$psx;
-  my $newpsx;
-  my $fi=0;
-  while(!$fi) {
-    $newpsx=$proxies[rand @proxies];
-    if ($newpsx ne $psx) {
-      $fi=1;
-    }
-  }
-  return $newpsx;
-}
-
-## RENEW IDENTITY
+## RENEW IDENTITY 
 sub newIdentity {
-  if (defined $prandom || $prandom) {
+  my $pnt=$_[0];
+  my $scalar=scalar @connected_proxies;
+  my $psx=get_conected_psx() if !$psx;
+  if ($scalar eq 1) {
     if ($psx=~/(localhost|127.0.0.1)/) {
-      my $add=get_ipAddress();
-      my $ff=0;
-      while (!$ff) {
+	  my $x=0;
+	  while (!$x) {
         system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;");
-        my $newadd=get_ipAddress();
-        if ($newadd ne $add) { $ff=1; }
-      }
-    }else{
-      my $psx=getNewproxy(); UA();
-    }
+	    my $r=check_proxy_connect($psx);
+	    if ($r) { 
+		  $x++;
+		  print $c[1]."    $ErrT[21] $c[8]  $ZT[24] [$r]\n" if $pnt;
+		}
+	  }
+	}
+  }else{
+	my $newpsx=$psx;
+	$psx=get_conected_psx() while $psx eq $newpsx;
   }
+  $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
+  print $c[1]."    $DS[11] $c[10]  $psx\n" if $pnt;
 }
 
 ## RENEW AGENT
@@ -305,25 +330,6 @@ sub getNewAgent {
   $ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
 }
 
-## CHECK CONNECTION
-sub testConnection {
-  print $c[4]."[!] $DT[31]\n";
-  if ($proxy || $prandom || defined $proxy || defined $prandom) { print $c[4]."[!] $ErrT[20] [$psx].. "; }    
-  my $respons=$ua->get($ipUrl);
-  if (!$respons->is_success) {
-    if ($proxy || $prandom || defined $proxy || defined $prandom) { print "\n"; }
-    print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff();
-  }else{
-    if ($proxy || $prandom || defined $proxy || defined $prandom) { print $c[3]."[!] OK!\n"; ltak(); }
-  }
-}
-
-## UA
-sub UA {
-  $psx=$proxies[rand @proxies];
-  $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
-}
- 
 ## DORKS & TARGETS ARRAYS
 if (defined $mlevel) {
   if (defined $dork) { @dorks=buildArraysLists($dork); }
@@ -381,7 +387,7 @@ if (defined $mlevel) {
 sub compareme {
   my ($same);
   our ($logUrl, $script_bac, $scriptv);
-  my ($response, $html, $status, $serverheader)=getHtml($logUrl, "");
+  my $response=$ua->get($logUrl);
   if ($response->is_success) {
     unlink $script_bac if -e $script_bac;
     printFile($script_bac, $response->decoded_content); 
@@ -772,25 +778,15 @@ sub getHostAndPort {
 
 ## CHECK PROXY RANDOM USE
 sub checkProxyUse1 {
+  my $psx=$_[0];
   my ($ProxyAddr, $ProxyPort);
   if (defined $proxy || $proxy || defined $prandom || $prandom) {
     if (defined $prandom || $prandom) {
-      newIdentity();
+      newIdentity("1");
     }
-    printProxy();
     ($ProxyAddr, $ProxyPort) = getHostAndPort($psx);
   }
   return ($ProxyAddr, $ProxyPort);
-}
-
-## PRINT INFO PROXY
-sub printProxy {
-  if (defined $proxy || defined $prandom || $prandom || $proxy) {
-    if (defined $prandom || $prandom) {
-      print $c[1]."    $ErrT[21] $c[8]  $ZT[24]\n";
-    }
-    print $c[1]."    $DS[11]  $c[10] [$psx]\n";
-  }
 }
 
 ## CHECK SCAN ARGUMENTS

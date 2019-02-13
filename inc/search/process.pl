@@ -4,11 +4,12 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $mrandom, $googleDomain, $prandom, $proxy, $psx, $mlevel, $ifinurl, $unique, $mdom, 
+our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $mrandom, $googleDomain, $prandom, $proxy, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $notIn, $expHost, $mupload,
      $expIp, $popup, $JoomSites, $WpSites, $fullHeaders, $geoloc);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies, @commands, @V_INPUT);
-our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, $noverbose, $timeout, $method, $command, @defaultHeaders, @OTHERS, @ErrT);
+our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, 
+     $noverbose, $timeout, $method, $command, $freq, $ipUrl, @defaultHeaders, @OTHERS, @ErrT);
 
 ## SET ENGINES
 if (defined $mlevel) {
@@ -142,6 +143,7 @@ sub msearch {
         $motor=~s/MYDORK/$dork/g;
         for(my $npages=0;$npages<=$mlevel;$npages+=10) {
           $motor=~s/MYNPAGES/$npages/g;
+          ckeck_ext_founc("");
           my $search=$ua->get("$motor");
           $search->as_string;
           my $Res=$search->content;
@@ -165,15 +167,6 @@ sub printEngineInfo {
   return $motor;
 }
 
-## GET ENGINE RESULTS
-sub goToEngine {
-  my $motor=$_[0];
-  my $search=$ua->get("$motor");
-  $search->as_string;
-  my $Res=$search->content;
-  doSearch($Res, $motor);
-}
-
 ## INFO URL SCAN
 sub printInfoUrl {
   my ($URL1, $data)=@_;
@@ -181,7 +174,6 @@ sub printInfoUrl {
   our ($command, $port);
   if ($o<$limit) {
     if (!defined $noverbose && !$noverbose && !defined $geoloc) {
-      printProxy();
       if (defined $brandom || $brandom) {
         print $c[1]."    $ErrT[21] $c[8]  New agent !\n";
       }
@@ -273,49 +265,44 @@ sub checkWPlugins {
   }  
 }  
 
+##############################
 ## GET HTML
 sub getHtml {
   my ($URL, $data)=@_;
-  my $response;
-  our ($ipUrl, @ErrT, $freq, $start, $date);  
-  if (defined $brandom || $brandom) {
-    if ($freq || defined $freq) { make_freq(); }
-    else{ getNewAgent(); }
-  }    
-  if (defined $prandom || $prandom) {    
-    if ($freq || defined $freq) { make_freq(); }
-    else{ newIdentity(); }
-  }
+  our (@ErrT, $freq, $start, $date);   
+  my ($prox, $re, $ht, $st, $sh, $fh);
+  ckeck_ext_founc("1");
   if ($data) {
     $data=dataFields($data);
     if (defined $post || ($method && $method eq "post")) {
-      $response=$ua->post($URL, content_type => 'application/x-www-form-urlencoded', Content => [$data]);
+      $re=$ua->post($URL, content_type => 'application/x-www-form-urlencoded', Content => [$data]);
     }elsif (defined $mupload || ($mupload && $mupload eq "upload")) {
-      $response=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
+      $re=$ua->post($URL, Content_Type => 'multipart/form-data', Content => [$data]);
     }elsif (defined $get || ($method && $method eq "get")) {
       $URL.="?".$data;
       $URL=~s/\s//g;
-      $response=$ua->get($URL);
+      $re=$ua->get($URL);
     }
   }else{
     if (defined $post || ($method && $method eq "post")) {
-      $response=$ua->post($URL); }
+      $re=$ua->post($URL); }
     elsif (defined $get || ($method && $method eq "get")) {
-      $response=$ua->get($URL);
+      $re=$ua->get($URL);
     }else{
-      $response=$ua->get($URL);
+      $re=$ua->get($URL);
     }
   }
-  my $html=$response->decoded_content;
-  my $status=$response->code;
-  my $serverheader=$response->server;
-  my $fullHeader=$response->headers_as_string;
+  $ht=$re->decoded_content;
+  $st=$re->code;
+  $sh=$re->server;
+  $fh=$re->headers_as_string;    
+  
   if (defined $fullHeaders) {
     my $Hcopy="$Bin/inc/conf/user/HeadersTemp.txt";
     unlink $Hcopy if -e $Hcopy;
-    printFile($Hcopy, $fullHeader);
+    printFile($Hcopy, $fh);
   }
-  return ($response, $html, $status, $serverheader);
+  return ($re, $ht, $st, $sh);
 }
 
 ## GET DATA FORM FIELDS

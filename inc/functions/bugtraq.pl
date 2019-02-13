@@ -27,6 +27,7 @@ sub bugs {
     for(my $npages=1;$npages<=3;$npages+=1) {
       my $u="$server/search/wlb/DESC/AND/$e 1999.1.1/$npages/30/$btq/";
       $u=~s/\s//g;
+	  ckeck_ext_founc("");
       my $bugSearch=$ua->get($u);
       $bugSearch->as_string;
       my $Res=$bugSearch->content;
@@ -124,12 +125,12 @@ sub printBugs {
 sub viewBug {
   my $refer=$_[0];
   my @rer2=split("=>", $refer);
-  #sep();
   print $c[1]." ID     $c[10]$rer2[1]\n";
   print $c[1]." ISSUE  $c[6]$rer2[0]\n";
   print $c[1]." ---------------------------------------------------------------------------\n";  
   my @se;
   my $uw="$server/issue/WLB-$rer2[1]";
+  ckeck_ext_founc("1");
   my $bugView=$ua->get($uw);
   $bugView->as_string;
   my $rBug=$bugView->decoded_content;
@@ -179,7 +180,7 @@ if (scalar(grep { defined $_} @bugTitle)<1) {
   print $c[4]."[!] No results found!\n";
   logoff();
 }else{
-  if (defined $limit) {
+  if ($limit ne 500) {
     print $c[3]."[!] Results limited to [$limit Result\/s]!\n";
   }else{
     print $c[3]."[i] $m Results found!\n";

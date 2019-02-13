@@ -84,6 +84,7 @@ sub advisePages {
 ## GET RESULTS  ###########################################################################
 sub getShoResults {
   my $u=$_[0];
+  ckeck_ext_founc("");
   return $ua->get($u)->decoded_content;
 }
 

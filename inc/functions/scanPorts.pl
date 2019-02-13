@@ -42,7 +42,10 @@ sub scanPorts {
               points() if $c2>1;
               print $c[1]."    $DS[7]    $c[10]$port [$portProtocol]\n $c[1]   $DS[8]    $c[10]$type\n";
               my ($ProxyAddr, $ProxyPort);
-              if (defined $proxy || $proxy || defined $prandom || $prandom) { ($ProxyAddr, $ProxyPort)=checkProxyUse1(); }
+              if (defined $proxy || $proxy || defined $prandom || $prandom) {
+			    my $psx=get_conected_psx();
+     			($ProxyAddr, $ProxyPort)=checkProxyUse1($psx); 
+			  }
               titleSCAN();
               my $socket=IO::Socket::INET->new(ProxyAddr => $ProxyAddr, ProxyPort => $ProxyPort, PeerAddr=> $URL, PeerPort=> $port, Proto=> $type) or $closed1++;
               close($socket) if $socket;

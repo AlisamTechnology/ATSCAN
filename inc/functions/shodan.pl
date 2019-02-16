@@ -166,13 +166,13 @@ sub _json {
 sub sho_print {
   my ($head, $key, $value, $sub)=@_;
   if ($sub) { 
-    print $c[4]."\n[!]$c[10] $sub ...\n\n"; 
+    print $c[4]."\n[!]$c[10] $sub ...\n"; 
 	if (defined $output) { printFile($output, "[+][+] $sub"); }
   }elsif ($head) { 
     print $c[10]."[+] $head: \n";
 	if (defined $output) { printFile($output, "   [+] $head:"); }
   }elsif (!$key) {
-    print $c[10]."    +$c[3] $value \n";
+    print $c[10]."    -$c[3] $value \n";
 	if (defined $output) { printFile($output, "     -$value"); }
   }else{
     print $c[10]."[+] $key:$c[3] $value \n";
@@ -188,10 +188,61 @@ sub end_hash_print {
   for my $f(keys %{$shoRes}) { 
 	if ($shoRes->{$f}) {
 	  my $fi=$shoRes{$f};
-	  $f=~s/_/ /g;
-      $f=ucfirst($f);
+	  $f=do_name($f);
 	  sho_print("", $f, $fi, "");
 	}
+  }
+}
+
+###########################################################################################
+## DO NAME        #########################################################################
+sub do_name {
+  my $name=$_[0];
+  $name=~s/_/ /g;
+  $name=ucfirst($name);
+  return $name;
+}
+
+###########################################################################################
+## LAST PRINT     #########################################################################
+sub last_print {
+  my ($f, $fi)=@_;
+  $f=do_name($f);    
+  if (!$fi) { 
+    print $c[10]."  + $f: \n";
+    if (defined $output) { printFile($output, "   + $f"); }
+  }else{
+    print $c[10]."    $f:$c[3] $fi\n";
+    if (defined $output) { printFile($output, "     $f: $fi"); }
+  }
+}
+
+###########################################################################################
+## VULNERABLITIES    ######################################################################
+sub print_target_vulns {
+  my ($vulns)=$_[0];
+  print $c[4]."[+]$c[10] Vulnerabilities:\n";  
+  my %vulns = %$vulns;
+  for my $f(keys %{$vulns}) {
+	if ($vulns->{$f}) {
+	  print $c[10]."  + $f:\n";
+      if (defined $output) { printFile($output, "  + $f:"); }
+	  my $fi=$vulns{$f};
+	  my $references=$fi->{'references'};
+	  my $verified=$fi->{'verified'};
+	  my $cvss=$fi->{'cvss'};
+	  my $summary=$fi->{'summary'};
+	  if ($references) { 
+	    print $c[10]."    References:\n";
+        if (defined $output) { printFile($output, "    References:"); }
+        my @referencies=@{$fi->{'references'}};
+        foreach my $refer(@referencies) { sho_print("", "", $refer, ""); }
+	  }
+	  if ($verified) { last_print("Verified", "true"); }
+	  if ($cvss) { last_print("Cvss", $cvss); }
+	  if ($summary) { last_print("Summary", $summary); }
+	}
+	print $c[1]."  ............................................\n";
   }
 }
 
@@ -308,9 +359,6 @@ sub sho_tokens {
     my @shoRes=split(",", $shoRes);
 	my ($i, $n)=1;
 	$n=get_n($n);
-	# ltak();
-	# print $c[1];
-    # timer(); 
 	print " STRING [$i/".scalar @shotokens."] ($shotokens)\n";
 	for my $f(@shoRes) {
 	  $i++;	  
@@ -545,7 +593,6 @@ sub sho_search {
 	  sho_ckeck_total($total, "", $target, "1");
 	  print "\n";
       foreach my $found (@founds) {
-	    my $ats="";
 	    $n=get_n($n);
 		if ($limit ne 500) {
 	      print " RESULT [$n/$limit]\n";
@@ -553,51 +600,17 @@ sub sho_search {
 	      print " RESULT [$n/$total]\n";
 		}
 	    sleep 1;
-	    my $in=-1;
-	    my @elements=("IP", "Port", "Product", "Version", "Cps", "Time", "Last update", "Os", "Isp", "Asn", "Hash", "Sitemap hash", "Transport");
-	    my @elements2=("ip_str", "port", "product", "version", "cps", "timestamp", "last_update", "os", "isp", "asn", "hash", "sitemap_hash", "transport");
-		for my $element2(@elements2) {
-	      $in++;
-	      my $key=$found->{$element2};
-		  if ($key) { 
-		    sho_print("", $elements[$in], $key, "");
-			if ($in < 2) { $ats.=":$key"; }
-		  }
-	    }		
-	    my $cpe=$found->{"cpe"};
-	    my $data=$found->{"data"};
-	    my $banner=$found->{"banner"};
-	    my $hostnam2=$found->{"hostnames"};
-	    my $domains=$found->{"domains"};	  
-        my $country=$found->{"location"}{"country_name"};
-	    my $location=$found->{"location"};
-        if ( $country ) { print $c[10]."[+] Country:$c[3] $country\n"; }
-	    if ($hostnam2) {
-          my @hostnames2=@{ $found->{'hostnames'} };
-	      end_array_print("Hostnames", @hostnames2);
-	    }
-	    if ($domains) { 
-	      my @domains=@{ $found->{'domains'} };
-	      end_array_print("Domains", @domains);
-	    }
-	    if ($location) {
-	      my $location=$found->{"location"};
-	      end_hash_print($location);
-	    }
-	    if ( $cpe ) {
-          my @founds5=@{ $found->{'cpe'} };
-	      end_array_print("CPE", @founds5);
-	    }
-        if ( $data ) { sho_print("", "Data", $data, ""); }	  
-        if ( $banner ) { sho_print("", "Banner", $banner, ""); }
-        if ( defined $command ) {  sho_command($ats); }	  
+		check_it($found);
+	     my $vulns=$found->{"vulns"};
+	     if ( $vulns ) {
+	       print_target_vulns($vulns);
+	     }
         if ( $n == $limit ) { last; }
 	  }
       ltak();
     }
   }
 }
-
 ###########################################################################################
 ## SEARCH BY IP OR HOST  ##################################################################
 sub sho_ip {
@@ -619,61 +632,71 @@ sub sho_ip {
 	  my @hostnam=@{ $shoRes->{'hostnames'} };
 	  end_array_print("Hostnames", @hostnam);
 	}
-	print "$c[1]......................................\n";
-    print $c[4]."[!] Getting Data ...\n";
-	sleep 1;
     my $n=0;
     my @founds=@{ $shoRes->{'data'} };
     my $total=scalar @founds;
-	sho_ckeck_total($total, "", $target, "");
     foreach my $found (@founds) {
-      my $ats="";
       $n++;
+	  if ($n eq 1) {
+	    my $vulns=$found->{"vulns"};
+	    if ( $vulns ) {
+	      print_target_vulns($vulns);
+		}
+        ltak();
+        print $c[4]."[!] Getting Data ...\n";
+		sho_ckeck_total($total, "", $target, "");
+	  }
 	  sleep 1;
 	  print "$c[1]......................................\n";
-	  
-	  my $in=-1;
-	  my @elements=("IP", "Port", "Product", "Version", "Cps", "Time", "Last update", "Os", "Isp", "Asn", "Hash", "Sitemap hash", "Transport");
-	  my @elements2=("ip_str", "port", "product", "version", "cps", "timestamp", "last_update", "os", "isp", "asn", "hash", "sitemap_hash", "transport");
-	  for my $element2(@elements2) {
-	    $in++;
-	    my $key=$found->{$element2};
-		if ($key) { 
-		  sho_print("", $elements[$in], $key, "");
-		  if ($in < 2) { $ats.=":$key"; }
-		}
-	  }
-	  my $cpe=$found->{"cpe"};
-	  my $data=$found->{"data"};
-	  my $banner=$found->{"banner"};
-	  my $hostnam2=$found->{"hostnames"};
-	  my $domains=$found->{"domains"};	  
-      my $country=$found->{"location"}{"country_name"};
-	  my $location=$found->{"location"};
-      if ( $country ) { print $c[10]."[+] Country:$c[3] $country\n"; }
-	  if ($hostnam2) {
-        my @hostnames2=@{ $found->{'hostnames'} };
-	    end_array_print("Hostnames", @hostnames2);
-	  }
-	  if ($domains) { 
-	    my @domains=@{ $found->{'domains'} };
-	    end_array_print("Domains", @domains);
-	  }
-	  if ($location) {
-	    my $location=$found->{"location"};
-	    end_hash_print($location);
-	  }
-	  if ( $cpe ) {
-        my @founds5=@{ $found->{'cpe'} };
-	    end_array_print("CPE", @founds5);
-	  }
-      if ( $data ) { sho_print("", "Data", $data, ""); }
-      if ( $banner ) { sho_print("", "Banner", $banner, ""); }	
-      if ( defined $command ) {  sho_command($ats); }	  
+	  check_it($found);
       if ( $n == $limit ) { last; }
     }
     ltak();
   }
+}
+
+###########################################################################################
+##  GET VALUES           ##################################################################
+sub check_it {
+  my $found=shift;
+  my $ats="";
+  my $in=-1;
+  my @elements=("IP", "Port", "Product", "Version", "Cps", "Time", "Last update", "Os", "Isp", "Asn", "Hash", "Sitemap hash", "Transport");
+  my @elements2=("ip_str", "port", "product", "version", "cps", "timestamp", "last_update", "os", "isp", "asn", "hash", "sitemap_hash", "transport");
+  for my $element2(@elements2) {
+	$in++;
+	my $key=$found->{$element2};
+    if ($key) { 
+      sho_print("", $elements[$in], $key, "");
+	  if ($in < 2) { $ats.=":$key"; }
+	}
+  }	
+  my $cpe=$found->{"cpe"};
+  my $data=$found->{"data"};
+  my $banner=$found->{"banner"};
+  my $hostnam2=$found->{"hostnames"};
+  my $domains=$found->{"domains"};	  
+  my $country=$found->{"location"}{"country_name"};
+  my $location=$found->{"location"};
+  if ( $country ) { print $c[10]."[+] Country:$c[3] $country\n"; }
+  if ($hostnam2) {
+    my @hostnames2=@{ $found->{'hostnames'} };
+	end_array_print("Hostnames", @hostnames2);
+  }
+  if ($domains) { 
+	my @domains=@{ $found->{'domains'} };
+	end_array_print("Domains", @domains);
+  }
+  if ($location) {
+	end_hash_print($location);
+  }
+  if ( $cpe ) {
+    my @cpe=@{ $found->{'cpe'} };
+	end_array_print("CPE", @cpe);
+  }
+  if ( $data ) { sho_print("", "Data", $data, ""); }	  
+  if ( $banner ) { sho_print("", "Banner", $banner, ""); }
+  if ( defined $command ) {  sho_command($ats); }	
 }
 
 ###########################################################################################
@@ -699,7 +722,7 @@ if ($s) {
   print $c[11];
   timer();
   print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
-  #testConnection();
+  testConnection();
   ######################################
   if ( $shoip ) {
     my @shoip=build_sho_ip($shoip);

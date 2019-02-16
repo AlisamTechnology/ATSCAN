@@ -350,17 +350,5 @@ sub sho_menu {
   ltak();
 }
 
-sub shodan_help {
-  print $c[11]."[+] SHODAN SEARCH PARAMETERS:\n\n";
-  shosearchqueryhelp();
-  printshohelp();
-  ltak();
-  shosearchfacetshelp();
-  printshohelp();  
-  shoserachpagehelp();
-  shosearchminifyhelp();
-  ltak();
-}
-
 
 1;

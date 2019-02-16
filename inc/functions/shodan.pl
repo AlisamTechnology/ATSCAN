@@ -18,7 +18,7 @@ my $nn=0;
 my $noshodanres="No results found|Invalid IP";
 my $base="https://api.shodan.io";
 my @sho_scans=($shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, 
-               $shomyip, $shoapiInfo, $shotokens, $shoports, $shoprotos);
+               $shomyip, $shoapiInfo, $shotokens, $shoports, $shoprotos, $shofilters);
 $facets="" if !$facets;
 $pages=1 if !$pages;
 
@@ -677,58 +677,70 @@ sub sho_ip {
 }
 
 ###########################################################################################
+## FILTERS      ###########################################################################
+sub shodan_help {
+  print $c[11]."[+] SHODAN SEARCH PARAMETERS:\n\n";
+  shosearchqueryhelp();
+  printshohelp();
+  ltak();
+  shosearchfacetshelp();
+  printshohelp();  
+  shoserachpagehelp();
+  shosearchminifyhelp();
+  ltak();
+}
+
+###########################################################################################
 ###########################################################################################
 ## MAIN      ##############################################################################
 my $s=0;
 for (@sho_scans) { $s++ if defined $_; }
 if ($s) {
-  if (!defined $shofilters) {
-    print $c[11];
-    timer();
-    print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
-    testConnection();
-	######################################
-    if ( $shoip ) {
-      my @shoip=build_sho_ip($shoip);
-      for my $f(@shoip) { $nn++; check_host_validation($f, $nn, "1"); }
-    }else{
-      if ( $shocount ) {
-        my @shocount=buildArraysLists($shocount);
-	    for my $f(@shocount) { $nn++; sho_count($f, $nn); } }
-      if ( $shosearch ) { 
-        my @shosearch=buildArraysLists($shosearch);
-	    for my $f(@shosearch) { $nn++; sho_search($f, $nn); }
-      }
-      if ( $shoquerySearch ) { 
-        my @shoquerySearch=buildArraysLists($shoquerySearch);
-	    for my $f(@shoquerySearch) { $nn++; sho_query_search($f, $nn); }
-      }
-      if ( $shoresolve ) { 
-        my @shoresolve=build_sho_ip($shoresolve);
-        for my $f(@shoresolve) { $nn++; check_host_validation($f, $nn, "2"); }
-      }
-      if ( $shoreverse ) { 
-        my @shoreverse=build_sho_ip($shoreverse);
-        for my $f(@shoreverse) { $nn++; check_host_validation($f, $nn, "3"); }
-      }
-      if ( $shotokens ) { 
-        my @shotokens=build_sho_ip($shotokens);
-        for my $f(@shotokens) { sho_tokens(@shotokens); }
-      }
-      if ( $shoports ) { sho_ports(); }
-      if ( $shoprotos ) { sho_protos(); }
-      if ( $shoqueryTags ) { sho_query_tags(); }
-      if ( $shoquery ) { sho_query(); }
-      if ( $shoservices ) { sho_services(); }
-      if ( $shomyip ) { shomyip(); }
-      if ( $shoapiInfo ) { shoapinfo(); }
-      if ( $shofilters ) { shodan_help(); }
-	  ######################################
-      print $c[3]."[!] Results saved in [$output]\n" if defined $output;
+  print $c[11];
+  timer();
+  print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
+  #testConnection();
+  ######################################
+  if ( $shoip ) {
+    my @shoip=build_sho_ip($shoip);
+    for my $f(@shoip) { $nn++; check_host_validation($f, $nn, "1"); }
+  }else{
+    if ( $shocount ) {
+      my @shocount=buildArraysLists($shocount);
+	  for my $f(@shocount) { $nn++; sho_count($f, $nn); } }
+    if ( $shosearch ) { 
+      my @shosearch=buildArraysLists($shosearch);
+	  for my $f(@shosearch) { $nn++; sho_search($f, $nn); }
     }
+    if ( $shoquerySearch ) { 
+      my @shoquerySearch=buildArraysLists($shoquerySearch);
+	  for my $f(@shoquerySearch) { $nn++; sho_query_search($f, $nn); }
+    }
+    if ( $shoresolve ) { 
+      my @shoresolve=build_sho_ip($shoresolve);
+      for my $f(@shoresolve) { $nn++; check_host_validation($f, $nn, "2"); }
+    }
+    if ( $shoreverse ) { 
+      my @shoreverse=build_sho_ip($shoreverse);
+      for my $f(@shoreverse) { $nn++; check_host_validation($f, $nn, "3"); }
+    }
+    if ( $shotokens ) { 
+      my @shotokens=build_sho_ip($shotokens);
+      for my $f(@shotokens) { sho_tokens(@shotokens); }
+    }
+    if ( $shoports ) { sho_ports(); }
+    if ( $shoprotos ) { sho_protos(); }
+    if ( $shoqueryTags ) { sho_query_tags(); }
+    if ( $shoquery ) { sho_query(); }
+    if ( $shoservices ) { sho_services(); }
+    if ( $shomyip ) { shomyip(); }
+    if ( $shoapiInfo ) { shoapinfo(); }
+    if ( $shofilters ) { shodan_help(); }
+	######################################
+    print $c[3]."[!] Results saved in [$output]\n" if defined $output;
   }
-}else{ 
-  sho_menu(); 
+}else{
+  sho_menu();
 }
 
 ###########################################################################################

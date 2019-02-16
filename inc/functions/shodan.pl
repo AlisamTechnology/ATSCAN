@@ -68,7 +68,7 @@ sub no_Result {
 ## RESULTS LIMIT ##########################################################################
 sub adviseLimit {
   if ($limit eq 500) {
-    print $c[4]."[!] Use --limit to set number of results! ex: --limit 10\n";
+    print $c[4]."[!]$c[10] Use --limit to set number of results! ex: --limit 10\n";
     sleep 1;
   }
 }
@@ -76,7 +76,7 @@ sub adviseLimit {
 ###########################################################################################
 ## RESULTS PAGES  #########################################################################
 sub advisePages {
-  print $c[4]."[!] Use --pages <number pages> to get more page results! ex: --pages 2 \n";
+  print $c[4]."[!]$c[10] Use --pages <number pages> to get more page results! ex: --pages 2 \n";
   sleep 1;
 }
 
@@ -85,7 +85,15 @@ sub advisePages {
 sub getShoResults {
   my $u=$_[0];
   ckeck_ext_founc("");
-  return $ua->get($u)->decoded_content;
+  my $shoRes;
+  my $v_shoRes= $ua->get($u)->decoded_content;
+  if ($v_shoRes=~/\"error\": \"(Invalid IP|Please upgrade your API|Can\'t connect to api)/) {
+    print $c[2]."[!] ERROR: $1\n";
+    ltak();
+  }else{
+    $shoRes=$v_shoRes;
+  }
+  return $shoRes
 }
 
 ###########################################################################################
@@ -94,13 +102,13 @@ sub sho_ckeck_total {
   my($total, $act, $tit, $credit)=@_;
   if ($total > 0) {
     if ($act) {
-      print $c[4]."[!] Listing ($total) of found results! ... \n";
+      print $c[4]."[!]$c[10] Listing ($total) of found results! ... \n";
       print $c[3]."[!] Getting data ...\n";
 	}else{
 	  if ($limit ne 500) {
-	    print $c[4]."[!] Listing ($limit) of found results defined by user! ...\n";
+	    print $c[4]."[!]$c[10] Listing ($limit) of found results defined by user! ...\n";
 	  }else{
-        print $c[4]."[!] Listing ($total) of found results! \n";
+        print $c[4]."[!]$c[10] Listing ($total) of found results! \n";
 	  }
 	  if ($credit) { credit(); }
 	}
@@ -112,7 +120,7 @@ sub sho_ckeck_total {
 ###########################################################################################
 ## CREDITS      ###########################################################################
 sub credit {
-  print $c[4]."[!] Accessing to more results by --page <number> require credit!\n";
+  print $c[4]."[!]$c[10] Accessing to more results by --page <number> require credit!\n";
   sleep 2;
 }
 ###########################################################################################
@@ -527,34 +535,24 @@ sub sho_search {
     my $shoRes=getShoResults("$base/shodan/host/search?key=$shoapikey&query=$target&facets=$facets&page=$npages");
     sleep 1;
     if ($shoRes) {
-      $shoRes=_json($shoRes);
+      $shoRes=_json($shoRes); 
       my $i=$shoRes->{'total'};
       print $c[3]."[+] Total: $i Results found\n" if $i;
 	  sleep 1;
-	
-	  my $in3=-1;
-	  my @elements3=("IP", "Country", "Region", "Postal code", "Org");
-	  my @elements23=("ip", "country_name", "region_name", "postal_code", "org");
-	  for my $element23(@elements23) {
-	    $in3++;
-	    my $key=$shoRes->{$element23};
-        if ($key) { print $c[10]."[+] $elements3[$in3]:$c[3] $key \n"; }
-	  }
-      my $hostnam =$shoRes->{'hostnames'};
-	  if ($hostnam) {
-        my @hostnam=@{ $shoRes->{'hostnames'} };
-	    end_array_print("Hostnames", @hostnam);
-	  }
       my $n=0;
       my @founds=@{ $shoRes->{'matches'} };
       my $total=scalar @founds;
 	  sho_ckeck_total($total, "", $target, "1");
+	  print "\n";
       foreach my $found (@founds) {
 	    my $ats="";
-	   $n=get_n($n);
-	    print " RESULT [$n/$i]\n\n";
+	    $n=get_n($n);
+		if ($limit ne 500) {
+	      print " RESULT [$n/$limit]\n";
+		}else{
+	      print " RESULT [$n/$total]\n";
+		}
 	    sleep 1;
-	  
 	    my $in=-1;
 	    my @elements=("IP", "Port", "Product", "Version", "Cps", "Time", "Last update", "Os", "Isp", "Asn", "Hash", "Sitemap hash", "Transport");
 	    my @elements2=("ip_str", "port", "product", "version", "cps", "timestamp", "last_update", "os", "isp", "asn", "hash", "sitemap_hash", "transport");

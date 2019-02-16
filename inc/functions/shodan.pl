@@ -646,7 +646,7 @@ sub sho_ip {
         print $c[4]."[!] Getting Data ...\n";
 		sho_ckeck_total($total, "", $target, "");
 	  }
-	  sleep 1;
+	  sleep 2;
 	  print "$c[1]......................................\n";
 	  check_it($found);
       if ( $n == $limit ) { last; }

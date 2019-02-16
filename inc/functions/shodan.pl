@@ -722,7 +722,6 @@ if ($s) {
   print $c[11];
   timer();
   print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
-  testConnection();
   ######################################
   if ( $shoip ) {
     my @shoip=build_sho_ip($shoip);

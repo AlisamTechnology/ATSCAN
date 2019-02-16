@@ -9,17 +9,24 @@ use HTTP::Request;
 use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
+#########################################################################################################################
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noverbose,
      $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex,
      $Hstatus, $content, $msource, $fullHeaders, $geoloc, $deep);
-our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @connected_proxies, @ErrT,
-     @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells, @commands, @bugs);
 
-## 
 our($userSetting, $proxy, $system, $agent, $ua, $psx, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
     $method, $checkVersion, $get, $post, $scriptbash, $shodan, $shoapikey);
 
+our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $ping);
+
+our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex,
+        $port, $data, $ping);
+
+our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @connected_proxies, @ErrT,
+     @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells, @commands, @bugs, @shoapikeys);
+
+#########################################################################################################################
 ## PRINT FILES 
 sub printFile {
   my ($File, $context)=@_;
@@ -29,6 +36,7 @@ sub printFile {
   close(FILE);
 }
 
+#########################################################################################################################
 ## CHECK EMPTY FORDERS
 sub is_folder_empty {
   my $dirname = $_[0];
@@ -36,7 +44,8 @@ sub is_folder_empty {
   return scalar(grep { $_ ne "." && $_ ne ".." } readdir($dh)) == 0;
 }
 
-##
+#########################################################################################################################
+## CHECK USER SETTING
 sub checkSetting {
   my $object=$_[0];
   my ($l1, @ans);
@@ -53,6 +62,7 @@ sub checkSetting {
   return $l1;
 }
 
+#########################################################################################################################
 ## CHECK FOR UPDATE
 sub get_lastUpdate {
   my @lastUpdate;
@@ -67,6 +77,7 @@ sub get_lastUpdate {
   return $lastUpdate[0];
 }
 
+#########################################################################################################################
 ## BUILT ARRAYS
 sub buildArraysLists {
   my $buildArrays=$_[0];
@@ -87,6 +98,7 @@ sub buildArraysLists {
   return @buildArrays;
 }
 
+#########################################################################################################################
 ## BUILD PROXIES ARRAY
 sub getProx {
   my $getProx=$_[0];
@@ -95,6 +107,7 @@ sub getProx {
   return @proxies;
 }
 
+#########################################################################################################################
 ## DELETE USER SETTING
 sub deletSetting {
   my @config=get_configuration();
@@ -110,6 +123,7 @@ sub deletSetting {
   close FH;
 }
 
+#########################################################################################################################
 ## CHECK USER CONFIGURATION
 $password=checkSetting("password");
 $interactive=checkSetting("interactive") if !defined $interactive;
@@ -134,202 +148,36 @@ $limit=checkSetting("limit") if !defined $limit;
 $command=checkSetting("command") if !defined $command;
 $dateupdate=checkSetting("update");
 
+#########################################################################################################################
 ## SET PROXY
 if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
 if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
 
+#########################################################################################################################
 ## USER ARRAYS
 if (defined $payloads || $payloads) { @userArraysList=buildArraysLists($payloads); }
 
+#########################################################################################################################
 ## EXTERN COMMANDS ARRAYS
 if (defined $command) { @commands=buildArraysLists($command); }
 
+#########################################################################################################################
 ## EXPLOITS ARRAYS
 if (defined $exploit) { @exploits=buildArraysLists($exploit); }
 if (defined $expHost) { @exploits=buildArraysLists($expHost); }
 if (defined $expIp) { @exploits=buildArraysLists($expIp); }
 
+#########################################################################################################################
 ## SEARCH EXPLOITS ARRAY
 if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
 
+#########################################################################################################################
 ## VALIDATION ARRAYS
 if (defined $validText) { @validTexts=buildArraysLists($validText); }
 if (defined $notIn) { @notIns=buildArraysLists($notIn); }
 if (defined $validShell) { @validShells=buildArraysLists($validShell); }
 
-## MAX POSITIVE SCAN RESULTS
-## Change for more positive scans!!
-$limit="500" if !defined $limit;
-
-## SET RANDOM FREQUENCY START TIME
-sub get_frequecy {
-  my $now = strftime "%H%M%S", localtime;
-  return $now;
-}
-our $start=get_frequecy();
-
-## BROWSER
-our (@sys, @vary, @systems);
-binmode STDOUT, ":utf8";
-for my $sys(@sys) {
-  for my $vary(@vary) {
-    my $ag="$sys) $vary";
-    push @systems, $ag;
-  }
-}
-
-## CREATE COOKIES IN DISK
-my $cksFile;
-if ($cokie) {
-  $cksFile=$cokie;
-}else{
-  $cksFile="$Bin/inc/conf/user/cookies.txt";
-}
-my $cookies = HTTP::Cookies->new(
-    file     => $cksFile,
-    autosave => 1,
-    ignore_discard => 1,
-);
-
-## HEADERS
-@defaultHeaders = ();
-our $headers;
-if (defined $headers) {
-  @defaultHeaders=split (",", $headers);
-  foreach my $hdr(@defaultHeaders) {
-    $ua->push_header($hdr);
-  }
-}
-
-## SET AGENT
-$agent="Mozilla/5.0 (".$systems[rand @systems];
-$ua=LWP::UserAgent->new( agent => $agent);
-$ua->cookie_jar($cookies);
-$ua->env_proxy;
-if (defined $timeout || $timeout) {
-  $ua->timeout($timeout);
-}
-
-## CURRENT PROXY
-sub get_psx {
-  return $proxies[rand @proxies];
-}
-sub get_conected_psx {
-  return $connected_proxies[rand @connected_proxies];
-}
-
-## CHECK PROXY CONNECTION
-sub check_proxy_connect {
-  my $psx=shift;
-  $ua->proxy([qw/ http https ftp ftps socks4 socks5 /] => $psx); $ua->cookie_jar({ });
-  my $r=$ua->get($ipUrl);
-  return $r->content if $r->is_success;
-}
-
-## CHECK PROXY LIST
-sub check_list_prx {
-  print $c[4]."[!]$c[10] Checking proxy connection...";
-  for my $psx(@proxies) {
-    my $r=check_proxy_connect($psx);
-    if (!$r) { 
-	  print $c[2]."\n    Failed to connect with [$psx]";
-	}else{
-	  push @connected_proxies, $psx;
-	}
-  }
-  print "$c[3] OK\n" if scalar @connected_proxies eq scalar @proxies;
-  if (scalar @connected_proxies < 1) {
-	print $c[2]."\n[!] Cannot connect with any of given proxies!\n"; logoff();
-  }elsif(scalar @connected_proxies < scalar @proxies) {
-	print $c[4]."\n[!] Only running proxies will be used (".scalar @connected_proxies.").\n";
-  }
-  print "\n";
-  sleep 1;
-}
-
-## CHECK CONNECTION
-sub testConnection {
-  print $c[4]."[!] $DT[31]\n";
-  if ($proxy || defined $proxy || $prandom || defined $prandom) {
-    check_list_prx();
-  }else{
-    my $respons=$ua->get($ipUrl);
-    if (!$respons->is_success) {
-      print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff();
-	}
-  }
-}
-
-## CHECK RANDOM PROXY AGENT
-sub  ckeck_ext_founc { 
-  my $pnt=$_[0];
-  if (defined $brandom || $brandom) {
-    if ($freq || defined $freq) { make_freq($pnt); }
-    else{ getNewAgent($pnt); }
-  }
-  if (defined $prandom || $prandom) {
-    if ($freq || defined $freq) { 
-	  make_freq($pnt); 
-	}else{ 
-	  newIdentity($pnt);
-	}
-  }
-}
-
-## MEKE FREQUENCY RANDOM 
-sub make_freq {
-  my $pnt=$_[0];
-  my $yes;
-  if ($freq || defined $freq) {
-    my $stop=get_frequecy();
-    if ($freq || defined $freq) {
-      my $def=$stop - $start; 
-      if ($def >= $freq) {
-        if (defined $brandom || $brandom) { getNewAgent(); }
-        if (defined $prandom || $prandom) { newIdentity($pnt); }
-      }
-    }
-  }
-}
-
-## RENEW IDENTITY 
-sub newIdentity {
-  my $pnt=$_[0];
-  my $scalar=scalar @connected_proxies;
-  my $psx=get_conected_psx() if !$psx;
-  if ($scalar eq 1) {
-    if ($psx=~/(localhost|127.0.0.1)/) {
-	  my $x=0;
-	  while (!$x) {
-        system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;");
-	    my $r=check_proxy_connect($psx);
-	    if ($r) { 
-		  $x++;
-		  print $c[1]."    $ErrT[21] $c[8]  $ZT[24] [$r]\n" if $pnt;
-		}
-	  }
-	}
-  }else{
-	my $newpsx=$psx;
-	$psx=get_conected_psx() while $psx eq $newpsx;
-  }
-  $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
-  print $c[1]."    $DS[11] $c[10]  $psx\n" if $pnt;
-}
-
-## RENEW AGENT
-sub getNewAgent {
-  my $currentagent=$agent;
-  my $fin=0;
-  while (!$fin) {
-    $agent="Mozilla/5.0 (".$systems[rand @systems];
-    if ($currentagent ne $agent) {
-      $fin=1;
-    }   
-  }
-  $ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
-}
-
+#########################################################################################################################
 ## DORKS & TARGETS ARRAYS
 if (defined $mlevel) {
   if (defined $dork) { @dorks=buildArraysLists($dork); }
@@ -379,10 +227,203 @@ if (defined $mlevel) {
           }
 	    }
       }
-    }else{ @aTsearch=buildArraysLists($Target); }
+    }else{ 
+	  @aTsearch=buildArraysLists($Target); 
+	}
   }
 }
 
+#########################################################################################################################
+## MAX POSITIVE SCAN RESULTS
+## Change for more positive scans!!
+$limit="500" if !defined $limit;
+
+#########################################################################################################################
+## SET RANDOM FREQUENCY START TIME
+sub get_frequecy {
+  my $now = strftime "%H%M%S", localtime;
+  return $now;
+}
+
+#########################################################################################################################
+## START FREQ
+our $start=get_frequecy();
+#########################################################################################################################
+## BROWSER
+our (@sys, @vary, @systems);
+binmode STDOUT, ":utf8";
+for my $sys(@sys) {
+  for my $vary(@vary) {
+    my $ag="$sys) $vary";
+    push @systems, $ag;
+  }
+}
+
+#########################################################################################################################
+## CREATE COOKIES IN DISK
+my $cksFile;
+if ($cokie) {
+  $cksFile=$cokie;
+}else{
+  $cksFile="$Bin/inc/conf/user/cookies.txt";
+}
+my $cookies = HTTP::Cookies->new(
+    file     => $cksFile,
+    autosave => 1,
+    ignore_discard => 1,
+);
+
+#########################################################################################################################
+## HEADERS
+@defaultHeaders = ();
+our $headers;
+if (defined $headers) {
+  @defaultHeaders=split (",", $headers);
+  foreach my $hdr(@defaultHeaders) {
+    $ua->push_header($hdr);
+  }
+}
+
+#########################################################################################################################
+## SET AGENT
+$agent="Mozilla/5.0 (".$systems[rand @systems];
+$ua=LWP::UserAgent->new( agent => $agent);
+$ua->cookie_jar($cookies);
+$ua->env_proxy;
+if (defined $timeout || $timeout) {
+  $ua->timeout($timeout);
+}
+
+#########################################################################################################################
+## CURRENT PROXY
+sub get_psx {
+  return $proxies[rand @proxies];
+}
+
+sub get_conected_psx {
+  return $connected_proxies[rand @connected_proxies];
+}
+
+#########################################################################################################################
+## CHECK PROXY CONNECTION
+sub check_proxy_connect {
+  my $psx=shift;
+  $ua->proxy([qw/ http https ftp ftps socks4 socks5 /] => $psx); $ua->cookie_jar({ });
+  my $r=$ua->get($ipUrl);
+  return $r->content if $r->is_success;
+}
+
+#########################################################################################################################
+## CHECK PROXY LIST
+sub check_list_prx {
+  print $c[4]."[!]$c[10] Checking proxy connection...";
+  for my $psx(@proxies) {
+    my $r=check_proxy_connect($psx);
+    if (!$r) { 
+	  print $c[2]."\n    Failed to connect with [$psx]";
+	}else{
+	  push @connected_proxies, $psx;
+	}
+  }
+  print "$c[3] OK\n" if scalar @connected_proxies eq scalar @proxies;
+  if (scalar @connected_proxies < 1) {
+	print $c[2]."\n[!] Cannot connect with any of given proxies!\n"; logoff();
+  }elsif(scalar @connected_proxies < scalar @proxies) {
+	print $c[4]."\n[!] Only running proxies will be used (".scalar @connected_proxies.").\n";
+  }
+  print "\n";
+  sleep 1;
+}
+
+#########################################################################################################################
+## CHECK CONNECTION
+sub testConnection {
+  print $c[4]."[!] $DT[31]\n";
+  if ($proxy || defined $proxy || $prandom || defined $prandom) {
+    check_list_prx();
+  }else{
+    my $respons=$ua->get($ipUrl);
+    if (!$respons->is_success) {
+      print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff();
+	}
+  }
+}
+
+#########################################################################################################################
+## CHECK RANDOM PROXY AGENT
+sub  ckeck_ext_founc { 
+  my $pnt=$_[0];
+  if (defined $brandom || $brandom) {
+    if ($freq || defined $freq) { make_freq($pnt); }
+    else{ getNewAgent($pnt); }
+  }
+  if (defined $prandom || $prandom) {
+    if ($freq || defined $freq) { 
+	  make_freq($pnt); 
+	}else{ 
+	  newIdentity($pnt);
+	}
+  }
+}
+
+#########################################################################################################################
+## MEKE FREQUENCY RANDOM 
+sub make_freq {
+  my $pnt=$_[0];
+  my $yes;
+  if ($freq || defined $freq) {
+    my $stop=get_frequecy();
+    if ($freq || defined $freq) {
+      my $def=$stop - $start; 
+      if ($def >= $freq) {
+        if (defined $brandom || $brandom) { getNewAgent(); }
+        if (defined $prandom || $prandom) { newIdentity($pnt); }
+      }
+    }
+  }
+}
+
+#########################################################################################################################
+## RENEW IDENTITY 
+sub newIdentity {
+  my $pnt=$_[0];
+  my $scalar=scalar @connected_proxies;
+  my $psx=get_conected_psx() if !$psx;
+  if ($scalar eq 1) {
+    if ($psx=~/(localhost|127.0.0.1)/) {
+	  my $x=0;
+	  while (!$x) {
+        system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;");
+	    my $r=check_proxy_connect($psx);
+	    if ($r) { 
+		  $x++;
+		  print $c[1]."    $ErrT[21] $c[8]  $ZT[24] [$r]\n" if $pnt;
+		}
+	  }
+	}
+  }else{
+	my $newpsx=$psx;
+	$psx=get_conected_psx() while $psx eq $newpsx;
+  }
+  $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
+  print $c[1]."    $DS[11] $c[10]  $psx\n" if $pnt;
+}
+
+#########################################################################################################################
+## RENEW AGENT
+sub getNewAgent {
+  my $currentagent=$agent;
+  my $fin=0;
+  while (!$fin) {
+    $agent="Mozilla/5.0 (".$systems[rand @systems];
+    if ($currentagent ne $agent) {
+      $fin=1;
+    }   
+  }
+  $ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
+}
+
+#########################################################################################################################
 ## CHECK VERSION LOG
 sub compareme {
   my ($same);
@@ -400,9 +441,11 @@ sub compareme {
   return ($same, $response);
 }
 
+#########################################################################################################################
 ## RETURN NEGATIVE SCAN
 sub negative { ltak(); print $c[4]."[!] $DT[1]\n"; }
 
+#########################################################################################################################
 ## DESCLAIMER
 sub desclaimer {
   our ($nobanner, $checkVersion);
@@ -413,32 +456,39 @@ sub desclaimer {
     if (-e $uplog) { require "$Bin/inc/conf/upad.pl"; }
   }
   mtak(); ptak();
-  if (defined $dork || defined $Target || defined $checkVersion) {    
+  if (defined $dork || defined $Target || defined $checkVersion || defined $shodan || defined $bugtraq || defined $repair) {    
     testConnection();
   }
 }
 
+#########################################################################################################################
 ## BGN SCAN TITLE
 sub scanTitleBgn { print $c[11]."[!] "; timer(); print " ::: $DS[67] "; }
 
+#########################################################################################################################
 ## END SCAN TITLE
 sub scanTitleEnd { print $c[11]." $DS[4] :::\n"; ptak(); }
 
+#########################################################################################################################
 ## GET CLEAN TARGETS DOMAINE
 sub IfDup { my @aTsearch=(); @aTsearch=@aTtargets; @aTtargets=(); }
 
+#########################################################################################################################
 ## GET DOMMAINE AND REMOVE PROTOCOL
 sub removeDupNoProtocol {
   for my $URL(@aTsearch) { $URL=removeProtocol($URL); $URL=~s/www.//s; saveCopy($URL); }
   my @aTsearch=checkDuplicate(@aTsearch); IfDup();
 }
 
+#########################################################################################################################
 ## MEKE SEARCH COPY
 sub makeCopy { my @aTcopy=(); push @aTcopy, @aTsearch; }
 
+#########################################################################################################################
 ## RESTAURE SEARCH COPY
 sub restaureSearch { my @aTsearch=(); push @aTsearch, @aTcopy; @aTcopy=(); }
 
+#########################################################################################################################
 ## REMOVE DUPLICATE DOMAINES WPAFD/JOOMRFI/SUBDOMAINS/ADMIN
 sub removeDupDom { 
   makeCopy();
@@ -446,9 +496,11 @@ sub removeDupDom {
   my @aTsearch=checkDuplicate(@aTsearch); IfDup();
 }
 
+#########################################################################################################################
 ## SAVE NON DUPLICATE DOMAINES
 sub saveCopy { my $URL=$_[0]; push @aTtargets, $URL; }
 
+#########################################################################################################################
 ## REMOVE DUPLICATE RESULTS
 sub checkDuplicate {
   my @array=@_;
@@ -460,6 +512,7 @@ sub checkDuplicate {
   return (@filtered);
 }
 
+#########################################################################################################################
 ## REMOVE URLS PROTOCOL
 sub removeProtocol { 
   my $URL=$_[0];
@@ -468,6 +521,7 @@ sub removeProtocol {
   return $URL;
 }
 
+#########################################################################################################################
 ## GET TARGET PROTOCOL
 sub getTargetProtocol {
   my $URL=$_[0];
@@ -479,6 +533,7 @@ sub getTargetProtocol {
   return $protocol;
 }
 
+#########################################################################################################################
 ## GET PORTS PROTOCOL
 sub portProtocol { 
   my $por=$_[0];
@@ -494,7 +549,7 @@ sub portProtocol {
   }
   return $portProtocol;
 }
-
+#########################################################################################################################
 ## REMOVE QUERY STRING
 sub removeQuery { 
   my $URL=$_[0];
@@ -505,6 +560,7 @@ sub removeQuery {
   return $URL;
 }
 
+#########################################################################################################################
 ## BUILD REPLACE 
 our @replace=($replace, $replaceFROM);
 our @replaceParts;
@@ -519,6 +575,7 @@ sub checkVreplace {
   }
 }
 
+#########################################################################################################################
 ## CHECK TARGETS FOR REPLACE OPTION
 sub control {
   my $URL=$_[0];
@@ -544,6 +601,7 @@ sub control {
   return $URL;
 }
 
+#########################################################################################################################
 ## GET DOMAIN
 sub getHost {
   my $URL=$_[0];
@@ -554,6 +612,7 @@ sub getHost {
   return $URL;
 }
 
+#########################################################################################################################
 ## CLEAN URL
 sub cleanURL {
   my $URL=$_[0];
@@ -563,6 +622,7 @@ sub cleanURL {
   return $URL;
 }
 
+#########################################################################################################################
 ## GET FILTERS
 sub checkFilters {
   my $dorkToCheeck=$_[0];
@@ -576,7 +636,7 @@ sub checkFilters {
   $dorkToCheeck=~s/$pat2//g;
   return ($dorkToCheeck);
 }
-
+#########################################################################################################################
 ## GET FILTRED URLS
 sub filterUr {
   my ($URL, $dorkToCheeck)=@_;
@@ -590,6 +650,7 @@ sub filterUr {
   return $U;
 }
 
+#########################################################################################################################
 ## VALIDATE URL PARTS
 sub validateURL {
   my $vURL=$_[0];
@@ -597,6 +658,7 @@ sub validateURL {
   return $vURL if $vURL=~/([a-zA-Z0-9\-\_]\.)?([a-zA-Z0-9\-\_]\.)[a-zA-Z]/;
 }
 
+#########################################################################################################################
 ## CHECK SCANS HEADERS
 sub checkHeaders {
   my ($ct, $dt, $et)=@_;
@@ -605,9 +667,11 @@ sub checkHeaders {
   if ($et) { removeDupNoProtocol(); }
 }
 
+#########################################################################################################################
 ## COUNT RESULTS
 sub OO { my $o=scalar(grep { defined $_} @aTscans); return $o; }
 
+#########################################################################################################################
 ## END SCAN PROCESS
 sub subfin {
   our $ifend;
@@ -615,16 +679,18 @@ sub subfin {
   if (defined $ifend || $ifend) { print chr(7); }
 }
 
+#########################################################################################################################
 ## COUNT SCAN RESULTS
 sub countResultLists {
-    my $o=OO();
-    if ($o==$limit) { 
-      print $c[3]."[!] $DT[34] ($limit result\/s)!\n";
-    }else{
-      print $c[3]."[!] ".$o." $DT[4]\n";
-    }
+  my $o=OO();
+  if ($o==$limit) { 
+    print $c[3]."[!] $DT[34] ($limit result\/s)!\n";
+  }else{
+    print $c[3]."[!] ".$o." $DT[4]\n";
+  }
 }
 
+#########################################################################################################################
 ## SEARCH REGEX FILTER
 sub doRegex { 
   my $searchRegex=$_[0];
@@ -633,6 +699,7 @@ sub doRegex {
   }
 }
 
+#########################################################################################################################
 ## REPLACE REFERENCIES TARGET HOST HOSTIP
 sub replaceReferencies {
   my ($URL, $ref)=@_;
@@ -654,6 +721,7 @@ sub replaceReferencies {
   return $ref;
 }
 
+#########################################################################################################################
 ## ZONE-H
 sub zoneH {
   my ($URL, $zoneH)=@_;
@@ -681,6 +749,7 @@ sub zoneH {
   }
 }
 
+#########################################################################################################################
 ## EXTRAT INFO PROCESS SCAN
 sub checkExtraInfo { 
   my $URL3=$_[0];
@@ -693,6 +762,7 @@ sub checkExtraInfo {
   return $ip;
 }
 
+#########################################################################################################################
 ## BUILT POSITIVE SCAN RESULTS LIST
 sub saveme { 
   my ($URL1, $sep)=@_;
@@ -703,21 +773,21 @@ sub saveme {
   }
 }
 
+#########################################################################################################################
 ## SCAN TITLE
 sub title { 
   if (defined $output) { my $SCAN_TITLE=$_[0];  printFile("$output", "="x30 ."\n$SCAN_TITLE\n"."="x30); }
 }
 
+#########################################################################################################################
 ## CHECK IF THERE MORE SCANS TO DO
-our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $ping);
-our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex,
-        $port, $data, $ping);
 sub getK {
   our @z;
   my ($x, $y)=@_; my $k=0; splice @z, $x, $y;
   for (@z) { if (defined $_) { $k++; } } return $k;  
 }
 
+#########################################################################################################################
 ## EXTERN COMMAND EXECUTION
 sub checkExternComnd {
   my ($URL1, $command)=@_;
@@ -728,6 +798,7 @@ sub checkExternComnd {
   }
 }
 
+#########################################################################################################################
 ## BUILD EXTERN COMMAND
 sub buildExtCommands {
   my ($URL1, $comnd, $ic, $ic2)=@_;
@@ -737,6 +808,7 @@ sub buildExtCommands {
   print $c[1]. "." x 75 ."\n";
 }
 
+#########################################################################################################################
 ## CHMOD 777
 sub nochmod {
   my ($path, $action)=@_;
@@ -744,10 +816,14 @@ sub nochmod {
   print $c[2]."[!] Couldn't have write permitions: $path !\n";
   if ($action) { logoff(); } 
 }
+
+#########################################################################################################################
+## FILE WRITE PERMISSIONS
 sub cc { sleep(1); print $c[3]."OK\n"; }
 sub bb { sleep(1); print $c[4]."Failed!\n"; }
 sub dd { sleep(1); print $c[4]."[!] $DT[8]\n"; }
 
+#########################################################################################################################
 ## PING IP
 sub checkIsAlive {
   my ($URL, $psx1)=@_;
@@ -768,6 +844,7 @@ sub checkIsAlive {
   return $doping;
 }
 
+#########################################################################################################################
 ## SOCKET PROXY
 sub getHostAndPort {
   my $px=$_[0];
@@ -776,8 +853,9 @@ sub getHostAndPort {
   return ($sk[0], $sk[1]);
 }
 
+#########################################################################################################################
 ## CHECK PROXY RANDOM USE
-sub checkProxyUse1 {
+sub checkPoxyUse1 {
   my $psx=$_[0];
   my ($ProxyAddr, $ProxyPort);
   if (defined $proxy || $proxy || defined $prandom || $prandom) {
@@ -789,6 +867,7 @@ sub checkProxyUse1 {
   return ($ProxyAddr, $ProxyPort);
 }
 
+#########################################################################################################################
 ## CHECK SCAN ARGUMENTS
 sub Targs {
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port,
@@ -799,6 +878,7 @@ sub Targs {
   return $Targ;
 }
 
+#########################################################################################################################
 ## CHECK CPAN MODULES
 sub checkCpanModules {
   eval { require JSON; };
@@ -812,5 +892,7 @@ sub checkCpanModules {
   }
   if($@) { print $c[4]."[!] Failed to install JSON\n"; logoff(); }
 }
+
+#########################################################################################################################
 
 1;

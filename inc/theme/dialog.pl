@@ -337,6 +337,7 @@ sub sho_menu {
   ."  --ports       : Get  list of port numbers that the crawlers are looking for.\n"
   ."  --apinfo      : API Plan Information\n"
   ."  --protocols   : Shodan used protocols\n"
+  ."  --honeyscore  : <ip or host or file> Honeypot score\n"
   ."  --pages       : <number of search pages> \n" 
   ."  --limit       : Max results to list\n"
   ."  --save        : Output file\n"

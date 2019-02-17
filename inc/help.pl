@@ -52,8 +52,10 @@ use FindBin '$Bin';
   ."--protocols : Sodan used protocols\n"
   ."--ports : Get  list of port numbers that the crawlers are looking for.\n"
   ."--apinfo : API Plan Information\n"
-  ."--tokens : <string or file> String filters and parameters provided to them\n"  
+  ."--tokens : <string or file> String filters and parameters provided to them\n" 
+  ."--honeyscor : <ip or host or file> Honeypot score\n"  
   ."--command : Exploit shodan results with extern command\n\n";
+  
   ltak(); print $c[12]."  SEARCH EXPLOIT: \n".$c[10]
   ."   atscan --bugtraq <string> Exp: atscan --bugtraq joomla -s save.txt\n"
   ."   atscan --bugtraq <string [OTHER]string2> \n"

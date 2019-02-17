@@ -534,6 +534,10 @@
         <td class="main"> List all protocols that can be used when performing on-demand Internet scans via Shodan.</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--honeyscore</td>
+        <td class="main"> Calculates honeypot score ranging from 0 (not a honeypot) to 1.0 (is a honeypot) in shodan</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--facets</td>
         <td class="main">Shodan search facets</td>
       </tr>

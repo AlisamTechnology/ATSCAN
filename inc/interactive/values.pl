@@ -60,14 +60,16 @@ our %INTERDataScan=("post"=>"post methode", "get"=>"get methode", "data"=>"data 
 
 ## SHODAN
 our @shodan=('apikey', 'ip', 'count', 'search', 'query', 'querysearch', 'querytags', 'services', 'dnsresolve', 'dnsreverse', 'myip', 
-             'apinfo', 'Ports', 'protocols', 'facets', 'limit', 'pages', 'filters', 'save', 'command', 'proxy', 'proxy-random', 'tokens');
+             'apinfo', 'Ports', 'protocols', 'facets', 'limit', 'pages', 'filters', 'save', 'command', 'proxy', 'proxy-random', 
+			 'tokens', 'honeyscore');
+
 our %shodan=("apikey"=>"Shodan Apikey", "ip"=>"ip or host", "count"=>"shodan count", "search"=>"shiodan search", 
              "query"=>"Shodan saved queries", "querysearch"=>"Shodan dirs queries", "querytags"=>"Shodan popular tags", 
 			 "services"=>"Shosan services", "dnsresolve"=>"Shodan dns resolve", "dnsreverse"=>"Shodan dns reverse", 
 			 "myip"=>"My ip address", "apinfo"=>"My api info", "Ports"=>"shodan used ports", "protocols"=>"shodan used protocols", 
 			 "facets"=>"Shodan search facets", "limit"=>"Max results limit", "pages"=>"number result pages", 
 			 "filters"=>"shodan api parameters", "save"=>"Output file", "command"=>"Extern command", "proxy"=>"See help", 
-			 "proxy-random"=>"See help", "tokens"=>"Filters & parameters");
+			 "proxy-random"=>"See help", "tokens"=>"Filters & parameters", "honeyscore"=>"Honeypot score");
 	 
 ## SHELL LFI
 our @INTERshell=('shell');

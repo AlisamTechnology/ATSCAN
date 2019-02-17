@@ -12,13 +12,14 @@ use JSON;
 ## SHODAN
 
 our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
-    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $shoports, $shoprotos, $shotokens, $facets, $pages, $output, $V_IP, $V_RANG, $command, @c);
+    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $shoports, $shoprotos, $shotokens, $facets, $pages, $output, $V_IP, $V_RANG, 
+	$command, $shohoneyscore, @c);
 		
 my $nn=0;
 my $noshodanres="No results found|Invalid IP";
 my $base="https://api.shodan.io";
 my @sho_scans=($shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, 
-               $shomyip, $shoapiInfo, $shotokens, $shoports, $shoprotos, $shofilters);
+               $shomyip, $shoapiInfo, $shotokens, $shoports, $shoprotos, $shohoneyscore, $shofilters);
 $facets="" if !$facets;
 $pages=1 if !$pages;
 
@@ -407,6 +408,20 @@ sub sho_services {
 
 ###########################################################################################
 ## MY IP ADDRESS  #########################################################################
+sub honeyscore {
+  sho_print("", "", "", "Calculating honeypot probability score");
+  sleep 1;
+  my ($shoRes, $i)=getShoResults("$base/labs/honeyscore/$shohoneyscore?key=$shoapikey");
+  if ( $shoRes ) {
+    sho_print("", "Score", $shoRes, "");
+  }else{
+    no_Result($shohoneyscore);
+  }
+  ltak(); 
+}
+
+###########################################################################################
+## MY IP ADDRESS  #########################################################################
 sub shomyip {
   sho_print("", "", "", "Getting your IP address");
   sleep 1;
@@ -758,6 +773,7 @@ if ($s) {
     if ( $shomyip ) { shomyip(); }
     if ( $shoapiInfo ) { shoapinfo(); }
     if ( $shofilters ) { shodan_help(); }
+	if ( $shohoneyscore ) { honeyscore(); }
 	######################################
     print $c[3]."[!] Results saved in [$output]\n" if defined $output;
   }

@@ -86,7 +86,7 @@
   </tr>
   <tr>
     <td class="main">
-      <a title="Perl Download" href="https://www.perl.org/get.html">Perl Required.</a> <br/>
+      <a title="Perl Download" href="https://www.perl.org/get.html">Perl</a> Required. <br/>
       Works in all platforms.
       Disponible in <a href="https://blackarch.org/">Blackarch</a> and <a href="https://dracos-linux.org/">Dracos</a> Linux.
     </td>

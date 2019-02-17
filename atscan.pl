@@ -47,22 +47,6 @@ use HTTP::Cookies;
 #   Perl required!
 ##########################################################################################################
 
-## CHECK INC DIR 
-if (!-d $Bin."/inc") {
-  print "[!] No components found..\n";
-  print "[!] Downoloading components Please wait..\n";
-  system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
-  if (-e "$Bin/atscan.pl") {
-    system("chmod +x $Bin/atscan.pl");
-    unlink "$Bin/atscan.pl";
-  }
-  mkdir "$Bin/inc", 0755 or die "cannot write in $Bin!";
-  system "sudo cp -r $Bin/atscan_update/* $Bin/";
-  system "rm -rf $Bin/atscan_update";  
-  if (!-d "$Bin/inc") { print "\n[!] Cannot connect to the server!\n"; exit(); }
-  system("chmod +x $Bin/atscan.pl | perl $Bin/atscan.pl --update || atscan --update");
-}
-
 ## ALL ARRAYS
 our (@c, @XSS, @LFI, @RFI, @ADFWP, @ADMIN, @SUBDOMAIN, @UPLOAD, @ZIP, @TT, @OTHERS, @AUTH, @ErrT, @DT, @DS, @cms, @SCAN_TITLE, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE,
      @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_LUA, @E_UNDEFINED, @E_MARIADB, @E_SHELL, @strings, @browserlangs, @googleDomains, @Ids, @MsIds, @sys, @vary, @buildArrays, @dorks, @z, @ZT, 

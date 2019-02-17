@@ -818,7 +818,7 @@ sub nochmod {
 }
 
 #########################################################################################################################
-## FILE WRITE PERMISSIONS
+## FILE WRITE ERRORS
 sub cc { sleep(1); print $c[3]."OK\n"; }
 sub bb { sleep(1); print $c[4]."Failed!\n"; }
 sub dd { sleep(1); print $c[4]."[!] $DT[8]\n"; }

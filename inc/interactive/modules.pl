@@ -196,29 +196,48 @@ sub getExtratArgs {
   our (%INTERshell, %INTERparam, %INTERcommand, %INTERPortScan, %INTERDataScan, %INTERpayload, %INTERdecryp, %INTERtarget, %shodan);
   if ($scn) {
     $scn=~s/--//ig;
-    if ($scn eq "decrypt") { push @ARGUMENTS, @INTERdecryp; %ARGUMENTS=(%ARGUMENTS, %INTERdecryp); }
+    if ($scn eq "decrypt") { 
+	  push @ARGUMENTS, @INTERdecryp; 
+	  %ARGUMENTS=(%ARGUMENTS, %INTERdecryp);
+	}
     else{
       push @ARGUMENTS, @ENGINEARGUMENTS;
       %ARGUMENTS = (%ARGUMENTS, %ENGINEARGUMENTS);
       if ($mod eq $ZT[14]) {
         push @ARGUMENTS, @INTERadvanced;
         %ARGUMENTS=(%ARGUMENTS, %INTERadvanced);
-        if ($scn eq "sql") { push @ARGUMENTS, @INTERparam; %ARGUMENTS=(%ARGUMENTS, %INTERparam); }
-        
+        if ($scn eq "sql") { 
+		  push @ARGUMENTS, @INTERparam; 
+		  %ARGUMENTS=(%ARGUMENTS, %INTERparam);
+		}
         my @AdvArgs=("sql", "lfi", "admin", "joomfri", "shost", "wpafd", "upload", "zip", "shodan");
         if (grep( /^$scn$/, @AdvArgs)) {
           push @ARGUMENTS, @INTERpayload; 
 		  %ARGUMENTS=(%ARGUMENTS, %INTERpayload);
         }
       }
-      if ($scn eq "lfi") { push @ARGUMENTS, @INTERshell; %ARGUMENTS=(%ARGUMENTS, %INTERshell); }
-      if ($scn eq "ports") { push @ARGUMENTS, @INTERPortScan; %ARGUMENTS=(%ARGUMENTS, %INTERPortScan); }  
+      if ($scn eq "lfi") { 
+	    push @ARGUMENTS, @INTERshell; 
+		%ARGUMENTS=(%ARGUMENTS, %INTERshell);
+      }
+      if ($scn eq "ports") { 
+	    push @ARGUMENTS, @INTERPortScan; 
+		%ARGUMENTS=(%ARGUMENTS, %INTERPortScan);
+	  } 
       push @ARGUMENTS, @ARGUMENTSALL;
       %ARGUMENTS = (%ARGUMENTS, %ARGUMENTSALL);
-      	  
-      if ($scn eq "form") { push @ARGUMENTS, @INTERDataScan; %ARGUMENTS=(%ARGUMENTS, %INTERDataScan); }
-      else{ push @ARGUMENTS, @INTERcomnd; %ARGUMENTS=(%ARGUMENTS, %INTERcomnd) }
-      if ($scn eq "shodan") { (@ARGUMENTS, %ARGUMENTS)=(); push @ARGUMENTS, @shodan; %ARGUMENTS=(%ARGUMENTS, %shodan); }
+      if ($scn eq "form") { 
+	    push @ARGUMENTS, @INTERDataScan; 
+		%ARGUMENTS=(%ARGUMENTS, %INTERDataScan);
+	  }else{ 
+	    push @ARGUMENTS, @INTERcomnd; 
+		%ARGUMENTS=(%ARGUMENTS, %INTERcomnd);
+	  }
+      if ($scn eq "shodan") { 
+	    (@ARGUMENTS, %ARGUMENTS)=(); 
+		push @ARGUMENTS, @shodan; 
+		%ARGUMENTS=(%ARGUMENTS, %shodan);
+	  } 
     }
   }
 }

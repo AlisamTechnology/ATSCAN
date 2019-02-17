@@ -63,7 +63,7 @@
 		&#x25cf; Decode / Encode Base64 / MD5<br/> 
     </p></td>
     <td class="main" width="426px"><p>
-        &#x25cf; Shodan Api searach engine. <br/>
+        &#x25cf; Shodan API. <br/>
 		&#x25cf; Ports scan. <br/>
 		&#x25cf; Collect IPs<br/>
 		&#x25cf; Collect E-mails. <br/>

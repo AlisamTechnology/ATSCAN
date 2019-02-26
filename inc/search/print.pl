@@ -7,14 +7,14 @@ use FindBin '$Bin';
 ######################################################################################################################
 our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, $exclude, $expHost, $expIp, $command, $all,
      $data, $validShell, $zoneH, $fullHeaders, $ua, $geoloc, $geoServer, $V_IP, $exploit, $replace, $replaceFROM, $noQuery, 
-	 @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @exclude, @exists, @notExists, @ZT, @validShells);
+	 @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @exclude, @exists, @notExists, @ZT, @validShells, @noList_data);
 
 ######################################################################################################################
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $data)=@_;
   my $o=OO();
-  if ($o<$limit) {
+  if ($o < $limit) {
     if ($data) {
       @data=();
       if ($data=~/WORDLIST:/) {
@@ -29,7 +29,7 @@ sub buildPrint {
             push @list_data, $part_data;
           }
         }
-        if ((scalar(grep { defined $_} @list_data)) > 1 ) { data_alert(); }
+        if ((scalar @list_data) > 1 ) { data_alert(); }
         my $noList_data=join(", ", @noList_data);
         for my $list_data(@list_data) {
           my $dataPath=$list_data;
@@ -47,7 +47,7 @@ sub buildPrint {
         push @data, $data;
       }
       my $i=0;
-      my $iScalar=scalar(grep { defined $_} @data);
+      my $iScalar=scalar @data;
       for my $datas(@data) {
         $i++;
         if ($i > 1) { print "            "; stakScan(); };
@@ -79,7 +79,7 @@ sub printValidated {
 sub titleSCAN {
   my $o=OO();
   my ($html, $status)=@_;
-  if ($o<$limit) {
+  if ($o < $limit) {
     my (@in, @noins)=();
     if (defined $validText) {
       for my $ffff(@validTexts) {
@@ -88,11 +88,11 @@ sub titleSCAN {
         }
       }
       if (defined $all) {
-        if (scalar(grep { defined $_} @in) eq scalar(grep { defined $_} @validTexts)) {
+        if (scalar @in eq scalar @validTexts) {
           printValidated(\@in);
         }             
       }else{
-        if (scalar(grep { defined $_} @in) > 0) {
+        if (scalar @in > 0) {
           printValidated(\@in);
         }
       }
@@ -106,7 +106,7 @@ sub titleSCAN {
           push @noins, $noin;
         }
       }
-      if (scalar(grep { defined $_} @noins) eq 0) {
+      if (scalar @noins eq 0) {
         print $c[1]."    $ZT[12] $c[3]\[$exclude]\n";
       }
     }
@@ -120,36 +120,41 @@ sub noResult { print $c[2]."$DT[1]\n"; }
 
 ######################################################################################################################
 ## CHECK RESULTS TO SCAN
-sub printResults { 
+sub printResults {
   my ($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $data)=@_;
   my $o=OO();
   if ($o<$limit) {
-    if ($result) { validateResult($URL1, $status, $html, $response, $result); }
-	elsif ($reg) { getRegex($URL1, $html, $reg); }
+    if ($result) {
+      titleSCAN($html, $status) if $result && (defined $Hstatus || defined $validText || defined $exclude);
+      validateResult($URL1, $status, $html, $response, $result);
+    }
+    elsif ($reg) {
+      getRegex($URL1, $html, $reg); }
     elsif ($data) {
-      titleSCAN($html, $status); 
-	  formData($URL1, $html, $status, $response); 
+      titleSCAN($html, $status); formData($URL1, $html, $status, $response); 
     }else{
       titleSCAN($html, $status);
       if ($isFilter) {
-        if ($html=~/$filter/) { validateResult($URL1, $status, $html, $response, ""); }
+        if ($html=~/$filter/) {
+          validateResult($URL1, $status, $html, $response, "");
+        }else{ noResult(); }
       }elsif ($reverse) {  
-        if ($status==200) { validateResult($URL1, $status, $html, $response, ""); }
+        if ($status==200) {
+          validateResult($URL1, $status, $html, $response, "");
+        }else{ noResult(); }
       }else{
-        if ($response->is_success) { validateResult($URL1, $status, $html, $response, ""); }
-		else{ noResult(); }
-	  }
+        if ($response->is_success) {
+          validateResult($URL1, $status, $html, $response, "");
+        }else{ noResult(); }
+      }
     }
   }
 }
-
 ######################################################################################################################
 ## VALIDATE RESULTS
 sub validateResult {
   my ($URL1, $status, $html, $response, $result)=@_;
   if ($result && (defined $Hstatus || defined $validText || defined $exclude || defined $validShell)) { titleSCAN($html, $status); }
-  
-  
   my $cV=checkValidation($URL1, $status, $html, $response, $result);
   my @noresult1=($Hstatus, $validText, $exclude, $validShell);
   my @noresult2=($exploit, $expIp, $expHost, $replace, $replaceFROM, $noQuery);
@@ -171,7 +176,7 @@ sub validateResult {
 sub formData {
   my ($URL1, $html, $status, $response)=@_;
   my $o=OO();
-  if ($o<$limit) {
+  if ($o < $limit) {
     my @noresult3=($Hstatus, $validText, $validShell, $exclude);
     my $i3;
     for (@noresult3) { $i3="1" if defined $_; }
@@ -220,7 +225,7 @@ sub checkValidation {
   if (defined $validText) {
     my $validation_number = getValidationParts($html, \@validTexts, "1");
     if (defined $all) {
-      if (scalar(grep { defined $_} @validTexts) eq scalar(grep { defined $_} @exists)) { $cV="1"; }
+      if (scalar @validTexts eq scalar @exists) { $cV="1"; }
     }else{
       if ($validation_number > 0) { $cV="1"; }
     }

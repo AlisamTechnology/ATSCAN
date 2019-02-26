@@ -40,7 +40,7 @@ if (defined $mlevel && (!defined $shodan && !defined $bugtraq)) {
 if (defined $searchRegex) { doRegex($searchRegex); }
 if (scalar @aTsearch > 0) {
   my @aTsearch=checkDuplicate(@aTsearch);
-  print $c[3]."[i] ".scalar(grep { defined $_} @aTsearch)." $DT[4]\n" if !$getlinks;
+  print $c[3]."[i] ".scalar @aTsearch." $DT[4]\n" if !$getlinks;
   my $k=getK(0, 0);
   if (!$k) {
     my @noresults=($command, $validShell, $validText, $zoneH, $Hstatus, $content, $msource, $fullHeaders, $geoloc, $exclude);

@@ -715,7 +715,9 @@ sub checkHeaders {
 
 #########################################################################################################################
 ## COUNT RESULTS
-sub OO { my $o=scalar(grep { defined $_} @aTscans); return $o; }
+sub OO { 
+  return scalar @aTscans;
+}
 
 #########################################################################################################################
 ## END SCAN PROCESS
@@ -813,7 +815,7 @@ sub checkExtraInfo {
 sub saveme { 
   my ($URL1, $sep)=@_;
   my $o=OO();
-  if ($o<$limit) {
+  if ($o < $limit) {
     push @aTscans, $URL1;
     if (defined $output) { printFile("$output", " $URL1"); }
   }

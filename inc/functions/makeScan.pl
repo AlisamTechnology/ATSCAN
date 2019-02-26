@@ -29,7 +29,7 @@ sub makeSscan {
   my $filter=join("|", @filter); 
   @aTsearch=checkDuplicate(@aTsearch);
   if (defined $getlinks) { @aTsearch=doDeepSearch(@aTsearch); }
-  my $lc=scalar(grep { defined $_} @aTsearch);
+  my $lc=scalar @aTsearch;
   my $count=0;
   for my $URL(@aTsearch) {
     $URL=~s/\s+$//;
@@ -71,12 +71,12 @@ sub makeSscan {
         my $pm=0;
         foreach my $arr(@arr) {
           my $o=OO();
-          if ($o<$limit) {
+          if ($o < $limit) {
             $pm++;
             points() if $pm>1;
-            print $c[1]."    $DS[5]  $c[10] [$pm/".scalar(grep { defined $_} @arr)."] $arr"; print $shell if defined $shell; print "\n";
+            print $c[1]."    $DS[5]  $c[10] [$pm/".scalar @arr."] $arr"; print $shell if defined $shell; print "\n";
             if ((defined $exploit || defined $expHost || defined $expIp) || (defined $p)) {
-              getExploitArrScan($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, scalar(grep { defined $_} @arr), $data, "");
+              getExploitArrScan($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, scalar @arr, $data, "");
             }else{
               if ($reverse) {
                 my $protocol=getTargetProtocol($URL);
@@ -135,7 +135,7 @@ sub doDeepSearch {
   }
   @deep=checkDuplicate(@deep);
   push @aTsearch, @deep;
-  print $c[3]."[i] ".scalar(grep { defined $_} @aTsearch)." $DT[4]\n";
+  print $c[3]."[i] ".scalar @aTsearch." $DT[4]\n";
   return @aTsearch;
 }
 

@@ -3,11 +3,11 @@ use strict;
 use warnings;
 ## Copy@right Alisam Technology see License.txt
 
-our (@XSS, @LFI, @RFI, @ADFWP, @ADMIN, @SUBDOMAIN, @UPLOAD, @ZIP);
+our (@XSS, @LFI, @RFI, @ADFWP, @ADMIN);
 
 ## LFI
 my @LFIargs=("passwd.txt", "etc/passwd", "proc/self/environ", "etc/shadow", "etc/group", "etc/security/passwd", "etc/security/group");
-my (@LFI1, @LFI2);
+our (@LFI1, @LFI2);
 for my $LFIargs(@LFIargs) {
   my $arg="/$LFIargs"; push @LFI1, $arg;
   my $arg1="/$arg"; push @LFI1, $arg1;
@@ -131,7 +131,7 @@ for my $ADMINARGS(@ADMINARGS) {
 }
 
 ## SUBDOMAINS
-@SUBDOMAIN=("about.", "webmail.", "abose.", "acme.", "ad.", "admanager.", "admin.", "admins.", "administrador.", "administrateur.", "administrator.", "ads.", "adsense.", "adult.", "adwords.",
+our @SUBDOMAIN=("about.", "webmail.", "abose.", "acme.", "ad.", "admanager.", "admin.", "admins.", "administrador.", "administrateur.", "administrator.", "ads.", "adsense.", "adult.", "adwords.",
             "affiliate.", "affiliatepage.", "afp.", "analytics.", "android.", "shop.", "echop.", "blog.", "tienda.", "answer.", "ap.", "api.", "apis.", "app.", "bank.", "blogs.", "client.",
             "clients.", "community.", "content.", "cpanel.", "dashbord.", "data.", "developer.", "developers.", "dl.", "docs.", "documents.", "download.", "downloads.", "encrypted.",
             "es.", "it.", "en.", "fr.", "ar.", "legal.", "iphone.", "lab.", "labs.", "list.", "lists.", "log.", "logs.", "errors.", "net.", "mysql.", "mysqldomain.", "net.", "network.", "news.",
@@ -140,22 +140,12 @@ for my $ADMINARGS(@ADMINARGS) {
             "system.", "text.", "test.", "webadmin.", "webdisk.", "xhtml.", "xhtrnl.", "xml.");
 
 ## UPLOAD FILES
-@UPLOAD=("/up.php", "/up1.php", "/up/up.php", "/site/up.php", "/vb/up.php", "/forum/up.php", "/blog/up.php", "/upload.php", "/upload1.php", "/upload2.php", "/vb/upload.php",
+our @UPLOAD=("/up.php", "/up1.php", "/up/up.php", "/site/up.php", "/vb/up.php", "/forum/up.php", "/blog/up.php", "/upload.php", "/upload1.php", "/upload2.php", "/vb/upload.php",
          "/forum/upload.php", "/blog/upload.php", "/site/upload.php", "/download.php");
 
 ## ZIP FILES
-@ZIP=("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip", "/vb/backup.zip", "/site/backup.zip", "/backup.zip", "/backup.rar", "/backup.sql", "/vb/vb.zip", "/vb.zip", "/vb.sql",
+our @ZIP=("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip", "/vb/backup.zip", "/site/backup.zip", "/backup.zip", "/backup.rar", "/backup.sql", "/vb/vb.zip", "/vb.zip", "/vb.sql",
       "/vb.rar", "/vb1.zip", "/vb2.zip", "/vbb.zip", "/vb3.zip", "/upload.zip", "/up/upload.zip", "/joomla.zip", "/joomla.rar", "/joomla.sql", "/wordpress.zip", "/wp/wordpress.zip",
       "/blog/wordpress.zip", "/wordpress.rar");
-
-## MENU
-sub get_xss_payloads { return @XSS; }
-sub get_lfi_payloads { return @LFI; }
-sub get_rfi_payloads { return @RFI; }
-sub get_adfwp_payloads { return @ADFWP; }
-sub get_admin_payloads { return @ADMIN; }
-sub get_subdomain_payloads { return @SUBDOMAIN; }
-sub get_upload_payloads { return @UPLOAD; }
-sub get_zip_payloads { return @ZIP; }
 
 1;

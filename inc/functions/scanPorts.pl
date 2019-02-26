@@ -13,7 +13,7 @@ sub scanPorts {
   my $count=0;
   my $closed1=0;
   my $lj;
-  my $lc=scalar(grep { defined $_} @aTsearch);
+  my $lc=scalar @aTsearch;
   my @PORTS=@{ $PORTS };
   my @TYPES=@{ $types };
   if (defined $command) { $lj="1"; }else{ $lj="0"; }
@@ -31,13 +31,13 @@ sub scanPorts {
       my $c1=0;
       foreach my $port(@PORTS) {
         my $o=OO();
-        if ($o<$limit) {
+        if ($o < $limit) {
           $c1++;
           points() if $c1>1;
           my $portProtocol=portProtocol($port);
           my $c2=0;
           foreach my $type(@TYPES) {
-            if ($o<$limit) {
+            if ($o < $limit) {
               $c2++;
               points() if $c2>1;
               print $c[1]."    $DS[7]    $c[10]$port [$portProtocol]\n $c[1]   $DS[8]    $c[10]$type\n";

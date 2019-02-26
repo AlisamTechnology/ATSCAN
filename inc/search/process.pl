@@ -9,7 +9,7 @@ our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $moto
      $expIp, $popup, $JoomSites, $WpSites, $fullHeaders, $geoloc, $apikey, $cx, $shodan, $bugtraq);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies, @commands, @V_INPUT);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, 
-     $noverbose, $timeout, $method, $command, $freq, $ipUrl, @defaultHeaders, @OTHERS, @ErrT);
+     $noverbose, $timeout, $method, $command, $freq, $ipUrl, $exploit, $p, $shell, @exploits, @defaultHeaders, @OTHERS, @ErrT);
 
 #########################################################################################################################
 ## SET ENGINES
@@ -34,6 +34,7 @@ sub buildenginearray {
   if ($mtr=~/7/) { push @motor, $motor7; }
 }
 
+#########################################################################################################################
 ## SET ENGINES
 for my $mot(@motor) {
   $mot=~s/MYBROWSERLANG/$browserLang/g;
@@ -43,6 +44,7 @@ for my $mot(@motor) {
   push @motors, $mot;
 }
 
+#########################################################################################################################
 ## CHECK GOOGLEAPIS CREDENCIALS
 for my $mm(@motors) {
   if ($mm=~/googleapis./) {
@@ -52,6 +54,7 @@ for my $mm(@motors) {
   }
 }
 
+#########################################################################################################################
 ## GET URLS FROM SEARCH ENGINE PAGES
 sub doSearch {
   my ($Res, $motor)=@_;
@@ -62,6 +65,7 @@ sub doSearch {
   }
 }
 
+#########################################################################################################################
 ## GET URLS FROM GOOGLE APIS ENGINE PAGES
 sub doSearchApis {
   my ($Res, $motor)=@_;
@@ -74,7 +78,8 @@ sub doSearchApis {
   }
 }
   
-## 
+#########################################################################################################################
+## EXTRAT CONDITIONS
 sub do_needed {
   my $URL=$_[0];
   utf8::encode($URL);
@@ -96,6 +101,7 @@ sub do_needed {
   }
 }
 
+#########################################################################################################################
 ## PRINT INFO ENGINE
 sub printMotor {
   my @motors=@_;
@@ -114,6 +120,7 @@ sub printMotor {
   print "\n";
 }
 
+#########################################################################################################################
 ## PRINT INFO DORK
 sub printDork {
   my @dor=@_;
@@ -133,6 +140,7 @@ sub printDork {
   ptak();
 }
 
+#########################################################################################################################
 ## ENGINE PROCEDURE
 sub msearch {  
   scanTitleBgn();
@@ -185,6 +193,7 @@ sub msearch {
   }
 } 
 
+#########################################################################################################################
 ## BUILD ENGINE URL
 sub printEngineInfo { 
   my ($dork, $motor, $npages)=@_;
@@ -195,12 +204,13 @@ sub printEngineInfo {
   return $motor;
 }
 
+#########################################################################################################################
 ## INFO URL SCAN
 sub printInfoUrl {
   my ($URL1, $data)=@_;
   my $o=OO();
   our ($command, $port);
-  if ($o<$limit) {
+  if ($o < $limit) {
     if (!defined $noverbose && !$noverbose && !defined $geoloc) {
       if (defined $brandom || $brandom) {
         print $c[1]."    $ErrT[21] $c[8]  New agent !\n";
@@ -223,6 +233,7 @@ sub printInfoUrl {
   }
 }
 
+#########################################################################################################################
 ## BROWES URL
 sub browseUrl {
   my ($URL1, $data)=@_;
@@ -230,7 +241,7 @@ sub browseUrl {
   my ($response, $html, $status, $serverheader, $command, $port, $fullHeader);
   ($response, $html, $status, $serverheader)=getHtml($URL1, $data);
   my $o=OO();
-  if ($o<$limit) {
+  if ($o < $limit) {
     if (!defined $noverbose && !$noverbose && !defined $geoloc) { 
       if ($response->previous) { print $c[1]."    $DS[1]    $c[4]$DT[36]", $response->request->uri, "\n"; }
       my $ips=checkExtraInfo($URL1);
@@ -252,7 +263,7 @@ sub browseUrl {
   return ($response, $status, $html);
 }
 
-
+#########################################################################################################################
 ## FORM DETECTION
 sub checkInputs {
   my $html=$_[0];
@@ -268,6 +279,7 @@ sub checkInputs {
   }
 }
 
+#########################################################################################################################
 ## WP PLUGINS DETECTION
 sub checkWPlugins {
   my $html=$_[0];
@@ -293,7 +305,7 @@ sub checkWPlugins {
   }  
 }  
 
-##############################
+#########################################################################################################################
 ## GET HTML
 sub getHtml {
   my ($URL, $data)=@_;
@@ -333,6 +345,7 @@ sub getHtml {
   return ($re, $ht, $st, $sh);
 }
 
+#########################################################################################################################
 ## GET DATA FORM FIELDS
 sub dataFields {
   my $data=$_[0];
@@ -352,11 +365,12 @@ sub dataFields {
   return $data;
 }
 
+#########################################################################################################################
 ## REGEX SCANS / EMAIL / IP / REGEX
 sub getRegex {
   my ($URL1, $html, $reg)=@_;
   my $o=OO();
-  if ($o<$limit) {
+  if ($o < $limit) {
     if (!defined $searchIps and !defined $eMails) {
       print $c[1]."    $SCAN_TITLE[25]  $c[10]";
       print "$reg] \n";
@@ -365,7 +379,7 @@ sub getRegex {
     my $hssab=0;
     while ($html=~/$reg/g) {
       my $o=OO();
-      if ($o<$limit) {
+      if ($o < $limit) {
         my $validRegex=checkValidation($1, "", $html, "", "");
         if ($validRegex) {     
           $hssab++;
@@ -384,6 +398,7 @@ sub getRegex {
   }
 }
 
+#########################################################################################################################
 ## EXECUTE EXTERN PROCESS COMMANDS
 sub getComnd {
   my ($u, $comnd)=@_;
@@ -423,18 +438,17 @@ sub getComnd {
   print "\n    ";
 }
 
-our ($exploit, $p, $shell, @exploits);
-
+#########################################################################################################################
 ## MAKE SCAN WITH EXPLOIT IN ARRAY
 sub getExploitArrScan{
   my ($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, $pmarr, $data)=@_;
   if (defined $exploit || defined $expHost || defined $expIp) {
-    my $lc=scalar(grep { defined $_} @exploits);
+    my $lc=scalar @exploits;
     my $count3=0;
     for my $exp(@exploits) {
       $exp=~s/\s+$//;
       my $o=OO();
-      if ($o<$limit) {
+      if ($o < $limit) {
 	    $count3++; points() if $count3>1;
         if ($arr) { print $c[1]."    $DS[5]  $c[10] [$pm/$pmarr] $arr\n" if $count3>1; }
         print $c[1]."    $DS[6]$c[10] [$OTHERS[1] $count3/$lc] $exp\n" if !defined $p;
@@ -453,6 +467,7 @@ sub getExploitArrScan{
   }
 }
 
+#########################################################################################################################
 ## MAKE SCAN WITH DEFINED PARAMETERS
 sub getPArrScan{
   my ($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $data)=@_;
@@ -471,12 +486,12 @@ sub getPArrScan{
     my $pc=0;
     foreach my $P(@P) {
       my $o=OO();
-      if ($o<$limit) {
+      if ($o < $limit) {
         $pc++;
         points() if $pc>1;
         if ($exp) { print $c[1]."    $DS[6]$c[10] [$OTHERS[1] $count3/$lc] $exp\n"; }
         if ($arr) { print $c[1]."    $DS[5]  $c[10] [$pm/$pmarr] $arr\n" if $pc>1; }
-		print $c[1]."    $OTHERS[16]  $c[10] [$pc/".scalar(grep { defined $_} @P)."] $P\n";		
+		print $c[1]."    $OTHERS[16]  $c[10] [$pc/".scalar @P."] $P\n";		
 		if ($URL!~/(\?|\&)$P/) { 
 		  print $c[1]."    $DS[4]:   $c[2]$OTHERS[17] [$P]\n";
 		}else{
@@ -494,6 +509,7 @@ sub getPArrScan{
   }
 }          
 
+#########################################################################################################################
 ## MOVE URL TO SCAN
 sub doScan {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $data)=@_;
@@ -505,16 +521,16 @@ sub doScan {
     $URL1=~s/rang\((\d+)\-(\d+)\)/ RPEATR /g;
     for $rangQ(@rangQ) {
       my $o=OO();
-      if ($o<$limit) {
+      if ($o < $limit) {
         $n++; points() if $n>1;
-        doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, scalar(grep { defined $_} @rangQ), $n, $data);
+        doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, scalar @rangQ, $n, $data);
       }
     }
   }elsif ($URL1=~/repeat\((.*)\-(\d+)\)/) {
     $URL1=~s/repeat\((.*)\-(\d+)\)/ RPEATR /g;
     for($i=1;$i<=$2;$i++) {
       my $o=OO();
-      if ($o<$limit) {
+      if ($o < $limit) {
         $n++; points() if $n>1;
         $sl="$1" x $i; doBuild($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $sl, $2, $n, $data);
       }
@@ -522,16 +538,19 @@ sub doScan {
   }else{ buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $data); }
 }
 
-## DO SCAN
+#########################################################################################################################
+## DO BUILD
 sub doBuild {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $rangQ, $nn, $n, $data)=@_;
   my $o=OO();
-  if ($o<$limit) {
+  if ($o < $limit) {
     $URL1=~s/ RPEATR /$rangQ/ig;
     my $PURL1=$URL1;
     print $c[1]."    URL    $c[10] [$n/$nn] $PURL1\n";
     buildPrint($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $data);
   }
 }
+
+#########################################################################################################################
 
 1;

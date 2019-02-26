@@ -106,7 +106,7 @@ sub escape {
 ###############################################################################
 ###############################################################################
 sub printBugs {
-  my $m=scalar(grep { defined $_} @refer);
+  my $m=scalar @refer);
   my $x=0;
   for my $refer(@refer) {
     $x++;
@@ -174,8 +174,8 @@ sub viewBug {
 ###############################################################################
 ## MAIN
 bugs();
-my $m=scalar(grep { defined $_} @bugTitle);
-if (scalar(grep { defined $_} @bugTitle)<1) {
+my $m=scalar @bugTitle);
+if (scalar @bugTitle)<1) {
   print $c[4]."[!] No results found!\n";
   logoff();
 }else{

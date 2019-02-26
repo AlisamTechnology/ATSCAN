@@ -4,5 +4,6 @@ ATSCAN SCANNER VERSION 16.0.3 RELEASE
   - Use dork and target in shodan scan.
   - Add Googleapis search engine.
   - Add random apikey.
+  - Fix when set proxy and apikey.
   - Enjoy!
   =================

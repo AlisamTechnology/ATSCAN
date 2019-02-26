@@ -423,6 +423,7 @@ sub shomyip {
   my ($shoRes, $i)=getShoResults("$base/tools/myip?key=$api_key");
   if ( $shoRes =~ /"(.*)"/ ) {
 	sho_print("", "IP", $1, "");
+	if ( defined $command ) {  sho_command($1); }	
   }else{
     no_Result("your IP");
   }
@@ -456,6 +457,7 @@ sub sho_dns_resolve {
 	  sleep 1;
 	  sho_print("", "Hostname", $1, "");
 	  sho_print("", "IP", $2, "");
+      if ( defined $command ) {  sho_command($2); }	
     }
   }else{
     no_Result($hostnames);
@@ -475,6 +477,7 @@ sub sho_dns_reverse {
 	  sleep 1;
 	  sho_print("", "IP", $1, "");
 	  sho_print("", "Hostname", $2, "");
+      if ( defined $command ) {  sho_command($2); }	
     }
   }else{
     no_Result($ip);

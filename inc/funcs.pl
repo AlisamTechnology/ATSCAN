@@ -367,7 +367,7 @@ sub print_connecttions {
   my ($x, $y, $txt)=@_;
   print "$c[3] OK\n" if $x eq $y;
   if ($x < 1) {
-	print $c[2]."\n[!] Cannot connect with any of given apikeys!\n"; logoff();
+	print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; logoff();
   }elsif($x < $y) {
 	print $c[3]."\n[!] OK! $c[4]Only running $txt in list will be used ($x)!\n";
   }

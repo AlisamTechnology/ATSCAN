@@ -297,16 +297,12 @@ if (defined $timeout || $timeout) {
 
 #########################################################################################################################
 ## CURRENT PROXY
-# sub get_psx {
-  # return $proxies[rand @proxies];
-# }
+sub get_psx {
+  return $proxies[rand @proxies];
+}
 
 sub get_conected_psx {
   return $connected_proxies[rand @connected_proxies];
-}
-
-sub get_conected_apikey {
-  return $connected_apikeys[rand @connected_apikeys];
 }
 
 #########################################################################################################################
@@ -329,6 +325,57 @@ sub check_apikey_connect {
 }
 
 #########################################################################################################################
+## CHECK APIKEY LIST
+sub get_conected_apikey {
+  return $connected_apikeys[rand @connected_apikeys];
+}
+
+#########################################################################################################################
+## CHECK PROXY LIST
+sub check_list_prx {
+  print $c[4]."[!]$c[10] Checking proxy connection...";
+  for my $psx(@proxies) {
+    my $r=check_proxy_connect($psx);
+    if (!$r) { 
+	  print $c[2]."\n[!] Failed to connect with [$psx]";
+	}else{
+	  push @connected_proxies, $psx;
+	}
+  }
+  print_connecttions(scalar @connected_proxies, scalar @proxies);
+}
+
+#########################################################################################################################
+## CHECK APIKEY LIST
+sub check_list_apikey {
+  print $c[4]."[!]$c[10] Checking apikey connection...";
+  for my $apk(@apikeys) {
+    my $r=check_apikey_connect($apk);
+    if ($r!~/(\"Bad Request\"|\"dailyLimitExceeded\"|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) { 
+      push @connected_apikeys, $apk;
+	}else{
+	  print $c[2]."\n[!] Failed to connect with [$apk]";
+	  print $c[4]."\n    Message: [$1]";
+	}
+  }
+  print_connecttions(scalar @connected_apikeys, scalar @apikeys);
+}
+
+#########################################################################################################################
+## PRINT CONNECTIONS RESULT
+sub print_connecttions {
+  my ($x, $y)=@_;
+  print "$c[3] OK\n" if $x eq $y;
+  if ($x < 1) {
+	print $c[2]."\n[!] Cannot connect with any of given apikeys!\n"; logoff();
+  }elsif($x < $y) {
+	print $c[3]."\n[!] OK! $c[4]Only running apikeys will be used ($x)!\n";
+  }
+  print "\n";
+  sleep 1;   
+}
+
+#########################################################################################################################
 ## CHECK CONNECTED API AND PROXY
 sub check_list_connected {
   my ($txt, @array)=@_;
@@ -344,7 +391,7 @@ sub check_list_connected {
       push @connected, $apk;
 	}else{
 	  print $c[2]."\n[!] Failed to connect with [$apk]";
-	  print $c[4]."\n    Message: [$1]";
+	  print $c[4]."\n    Message: [$1]" if defined $apikey;
 	}
   }
   print "$c[3] OK\n" if scalar @connected eq scalar @array;
@@ -362,9 +409,10 @@ sub check_list_connected {
 sub testConnection {
   print $c[4]."[!] $DT[31]\n";
   if ($proxy || defined $proxy || $prandom || defined $prandom) {
-    @connected_proxies=check_list_connected("proxies", @proxies);
+    #@connected_proxies=check_list_connected("proxies", @proxies);
+    check_list_prx();
   }elsif (defined $apikey || $apikey) {
-    @connected_apikeys=check_list_connected("apikeys", @apikeys);
+    check_list_apikey();
   }else{
     my $respons=$ua->get($ipUrl);
     if (!$respons->is_success) {

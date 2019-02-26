@@ -4,29 +4,23 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $mrandom, $googleDomain, $prandom, $proxy, $mlevel, $ifinurl, $unique, $mdom, 
-     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $notIn, $expHost, $mupload,
-     $expIp, $popup, $JoomSites, $WpSites, $fullHeaders, $geoloc);
+our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $motor7, $mrandom, $googleDomain, $prandom, $proxy, $mlevel, $ifinurl, $unique, $mdom, 
+     $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $exclude, $expHost, $mupload,
+     $expIp, $popup, $JoomSites, $WpSites, $fullHeaders, $geoloc, $apikey, $cx, $shodan, $bugtraq);
 our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies, @commands, @V_INPUT);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, 
      $noverbose, $timeout, $method, $command, $freq, $ipUrl, @defaultHeaders, @OTHERS, @ErrT);
 
+#########################################################################################################################
 ## SET ENGINES
-if (defined $mlevel) {
+if (defined $mlevel && (!defined $shodan && !defined $bugtraq)) {
   if (defined $mrandom || $mrandom) { push @motor, $mrand; }
   elsif (defined $motor || $motor) { buildenginearray($motor); }
   else{
     push @motor, $motor1;
   }
-  for my $mot(@motor) {
-    $mot=~s/MYBROWSERLANG/$browserLang/g;
-    $mot=~s/MYGOOGLEDOMAINE/$googleDomain/g;
-    $mot=~s/MYID/$Id/g;
-    $mot=~s/MYMSID/$MsId/g;
-    push @motors, $mot;
-  }
 }
-
+#####################################################
 ## BUILD ENGINE ARRAY
 sub buildenginearray {
   my $mtr=$_[0];
@@ -37,6 +31,25 @@ sub buildenginearray {
   if ($mtr=~/4/) { push @motor, $motor4; }
   if ($mtr=~/5/) { push @motor, $motor5; }
   if ($mtr=~/6/) { push @motor, $motor6; }
+  if ($mtr=~/7/) { push @motor, $motor7; }
+}
+
+## SET ENGINES
+for my $mot(@motor) {
+  $mot=~s/MYBROWSERLANG/$browserLang/g;
+  $mot=~s/MYGOOGLEDOMAINE/$googleDomain/g;
+  $mot=~s/MYID/$Id/g;
+  $mot=~s/MYMSID/$MsId/g;
+  push @motors, $mot;
+}
+
+## CHECK GOOGLEAPIS CREDENCIALS
+for my $mm(@motors) {
+  if ($mm=~/googleapis./) {
+    if (!defined $apikey || !defined $cx) {
+	  _print_apis_alert();
+	}
+  }
 }
 
 ## GET URLS FROM SEARCH ENGINE PAGES
@@ -45,22 +58,40 @@ sub doSearch {
   while($Res=~/$V_SEARCH/g) {
     my $URL=$1;
     if ($motor =~/$googleDomain/) { $URL=~s/\&.*//s; }
-    utf8::encode($URL);
-    $URL = uri_unescape($URL);
-	$URL=decode_entities($URL);
-    $URL=~s/<.*//s;
-    if ($URL!~/$nolisting/) {
-      if (!defined $mindex && (defined $unique or defined $ifinurl || $unique)) {
-        my $dorkToCheeck=checkFilters($dork);
-        $URL=filterUr($URL, $dorkToCheeck);
-      }
-	  if ((defined $mdom) || (defined $expHost) || (defined $expIp) || (defined $WpSites) || (defined $JoomSites)) {               
-		$URL=getHost($URL);
-      }
-      my $vURL=validateURL($URL);
-      if ($vURL) {
-        push @aTsearch, $URL;
-      }
+	$URL=do_needed($URL) if $URL;
+  }
+}
+
+## GET URLS FROM GOOGLE APIS ENGINE PAGES
+sub doSearchApis {
+  my ($Res, $motor)=@_;
+  use JSON;
+  $Res=_json($Res);
+  my @found = @{ $Res->{'items'} };
+  for my $found(@found) {
+	my $link = $found->{'link'};
+	$link=do_needed($link) if $link;
+  }
+}
+  
+## 
+sub do_needed {
+  my $URL=$_[0];
+  utf8::encode($URL);
+  $URL = uri_unescape($URL);
+  $URL=decode_entities($URL);
+  $URL=~s/<.*//s;
+  if ($URL!~/$nolisting/) {
+    if (!defined $mindex && (defined $unique or defined $ifinurl || $unique)) {
+      my $dorkToCheeck=checkFilters($dork);
+      $URL=filterUr($URL, $dorkToCheeck);
+    }
+	if ((defined $mdom) || (defined $expHost) || (defined $expIp) || (defined $WpSites) || (defined $JoomSites)) {               
+      $URL=getHost($URL);
+    }
+    my $vURL=validateURL($URL);
+    if ($vURL) {
+      push @aTsearch, $URL;
     }
   }
 }
@@ -68,19 +99,17 @@ sub doSearch {
 ## PRINT INFO ENGINE
 sub printMotor {
   my @motors=@_;
-  print $c[1]."[::] $DS[29]   ".$c[10];
+  print $c[1]."[::] $DS[29] :  ".$c[10];
   if (defined $mrandom || $mrandom) { print "[$TT[12]\]"; }
   for my $motor(@motors) {
     $motor=~s/MYBROWSERLANG/$browserLang/g;
     $motor=~s/MYGOOGLEDOMAINE/$googleDomain/g;
     my $l2;
-    if ($motor=~/((bing.|google.|ask.|yandex.|sogou.|exalead.)(.*)\/)/) { $l2=$1; $l2=~s/\/.*//s; $l2="[$l2]"; }
-    if ($motor=~/bing/) { print $l2; }
-    if ($motor=~/google/) { print $l2; }
-    if ($motor=~/ask/) { print $l2; }
-    if ($motor=~/yandex/) { print $l2; }
-    if ($motor=~/sogou/) { print $l2; }
-    if ($motor=~/exalead/) { print $l2; }
+    if ($motor=~/((all|bing.|google.|ask.|yandex.|sogou.|exalead.|googleapis.)(.*)\/)/) { 
+	  my $mt=$1;
+	  $mt=~s/\/.*//s;
+	  print "$mt";
+	}
   }
   print "\n";
 }
@@ -89,24 +118,16 @@ sub printMotor {
 sub printDork {
   my @dor=@_;
   if (defined $mindex) {
-    print $c[1]."[::] SCAN    $c[10] [Engine Index]\n";
+    print $c[1]."[::] SCAN   : $c[10] Engine Index\n";
   }  
-  print $c[1]."[::] $DS[0]     $c[10]";     
-  for my $dor(@dor) {
-    if (length $dor>0) {    
-      $dor=~s/\s+$//;
-      $dor=~s/ip%3A//g;
-      print "[$dor] ";
-    }
-  }
-  print "\n";
-  if ($zone) { print $c[1]."[::] ZONE    $c[10] [$zone]\n"; }
-  print $c[1]."[::] $DS[18]   $c[10] [$mlevel]\n";
+  print $c[1]."[::] $DS[0]   : $c[10] $dork\n";     
+  if ($zone) { print $c[1]."[::] ZONE  : $c[10] $zone\n"; }
+  print $c[1]."[::] $DS[18]  : $c[10] $mlevel Page(s)\n";
   if (defined $ifinurl || defined $unique || $unique || defined $searchRegex) {
-    print $c[1]."[::] $SCAN_TITLE[24]   $c[10]";
-    if (defined $ifinurl) { print "[$TT[19]\]"; }
-    if (defined $unique || $unique) { print "[$DS[30]\]"; }
-    if (defined $searchRegex) { print " [$searchRegex]"; }
+    print $c[1]."[::] $SCAN_TITLE[24]  : $c[10]";
+    if (defined $ifinurl) { print "$TT[19] "; }
+    if (defined $unique || $unique) { print "$DS[30] "; }
+    if (defined $searchRegex) { print "$searchRegex "; }
     print "\n"; 
   }
   ptak();
@@ -119,10 +140,9 @@ sub msearch {
   printMotor(@motors);
   printDork(@dorks);
   print $c[4]."[i] $DT[31]\n";
-  $mlevel+=-10 if $mlevel > 9;
-  $mlevel =~ s/(substr $mlevel, -1)/0/g;
+  $mlevel=$mlevel * 10;
   for my $motor(@motors) {
-    for my $dork(@dorks) {     
+    for my $dork(@dorks) {
       if (defined $Target) {
 	    if ($dork=~/$V_IP/) {
 		  $dork="ip%3A$dork";
@@ -141,20 +161,28 @@ sub msearch {
       $dork=~s/^(\+|\s+)//g;
       if (length $dork > 0) {      
         $motor=~s/MYDORK/$dork/g;
-        for(my $npages=0;$npages<=$mlevel;$npages+=10) {
+        for(my $npages=1;$npages<=$mlevel;$npages+=10) {
           $motor=~s/MYNPAGES/$npages/g;
-          ckeck_ext_founc("");
+          if ($motor =~/MYAPIKEY/) {
+		    my $api_key=get_conected_apikey();
+            $motor=~s/MYAPIKEY/$api_key/;
+			$motor=~s/MYCX/$cx/g;
+          }
+		  ckeck_ext_founc("");
           my $search=$ua->get("$motor");
           $search->as_string;
           my $Res=$search->content;
-          doSearch($Res, $motor);         
+		  if ($motor eq 7) {
+            doSearchApis($Res, $motor);  
+		  }else{
+            doSearch($Res, $motor);  
+		  }
           $motor=~s/=$npages/=MYNPAGES/ig;
         }
         $motor=~s/\Q$dork/MYDORK/ig;
       }
     }
   }
-  printSearch();
 } 
 
 ## BUILD ENGINE URL

@@ -6,13 +6,13 @@ use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
 ## CLEAR
- if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
+if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
 ## VERSION
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv,
      $scriptCompletion, $scriptComplInstall, $readme, $uplog, $replace, $replaceFROM, $server, $geoServer);
 
-$Version="16.0.2";
+$Version="16.0.3";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";
@@ -176,10 +176,12 @@ our $motor3="http://www.ask.com/web?q=MYDORK&page=MYNPAGES&qid=MYID";
 our $motor4="http://www.yandex.com/search/?msid=MYMSID&text=MYDORK&lr=25402&p=MYNPAGES";
 our $motor5="http://www.sogou.com/web?query=MYDORK&page=MYNPAGES&ie=utf8";
 our $motor6="https://www.exalead.com/search/web/results/?q=MYDORK&elements_per_page=10&start_index=MYNPAGES";
-our $motorparam="1|2|3|4|5|6|all";
-our @mrands=($motor1, $motor2, $motor3, $motor4, $motor5, $motor6);
+our $motor7="https://www.googleapis.com/customsearch/v1?key=MYAPIKEY&cx=MYCX&q=MYDORK&start=MYNPAGES";
+
+our $motorparam="1|2|3|4|5|6|7|all";
+our @mrands=($motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $motor7);
 our $mrand=$mrands[rand @mrands];
-our @allMotors=($motor1, $motor2, $motor3, $motor4, $motor5, $motor6);
+our @allMotors=($motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $motor7);
 our $pat2='inurl:|intitle:|intext:|allinurl:|index of:|site:(.*)\+|\+site:(.*)';
 our $paylNote="[i] $DT[28]\n";
 

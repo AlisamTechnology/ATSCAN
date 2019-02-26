@@ -11,12 +11,12 @@ use POSIX qw(strftime);
 
 #########################################################################################################################
 ## FUNCTS
-our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noverbose,
-     $V_IP, $expIp, $interactive, $command, $uplog, $validShell, $validText, $notIn, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex,
-     $Hstatus, $content, $msource, $fullHeaders, $geoloc, $deep);
+our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, 
+     $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noverbose, $V_IP, $expIp, $interactive, $command, $uplog, $validShell, 
+	 $validText, $exclude, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex, $Hstatus, $content, $msource, $fullHeaders, $geoloc, $getlinks);
 
 our($userSetting, $proxy, $system, $agent, $ua, $psx, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
-    $method, $checkVersion, $get, $post, $scriptbash, $shodan, $shoapikey);
+    $method, $checkVersion, $get, $post, $scriptbash, $shodan, $apikey, $cx);
 
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $ping);
 
@@ -24,7 +24,7 @@ our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdoma
         $port, $data, $ping);
 
 our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @connected_proxies, @ErrT,
-     @defaultHeaders, @userHeaders, @validTexts, @notIns, @ZT, @validShells, @commands, @bugs, @shoapikeys);
+     @defaultHeaders, @userHeaders, @validTexts, @exclude, @ZT, @validShells, @commands, @bugs, @connected_apikeys, @apikeys);
 
 #########################################################################################################################
 ## PRINT FILES 
@@ -128,7 +128,8 @@ sub deletSetting {
 $password=checkSetting("password");
 $interactive=checkSetting("interactive") if !defined $interactive;
 $proxy=checkSetting("proxy") if !defined $proxy;
-$shoapikey=checkSetting("apikey") if !defined $shoapikey;
+$apikey=checkSetting("apikey") if !defined $apikey;
+$cx=checkSetting("cx") if !defined $cx;
 $prandom=checkSetting("proxy-random") if !defined $prandom;
 $payloads=checkSetting("payload") if !defined $payloads;
 $brandom=checkSetting("b-random") if !defined $brandom;
@@ -159,27 +160,27 @@ if (defined $payloads || $payloads) { @userArraysList=buildArraysLists($payloads
 
 #########################################################################################################################
 ## EXTERN COMMANDS ARRAYS
-if (defined $command) { @commands=buildArraysLists($command); }
+if (defined $command || $command) { @commands=buildArraysLists($command); }
+
+#########################################################################################################################
+## API KEYS
+if (defined $apikey || $apikey) { @apikeys=buildArraysLists($apikey); }
 
 #########################################################################################################################
 ## EXPLOITS ARRAYS
-if (defined $exploit) { @exploits=buildArraysLists($exploit); }
+if (defined $exploit || $exploit) { @exploits=buildArraysLists($exploit); }
 if (defined $expHost) { @exploits=buildArraysLists($expHost); }
 if (defined $expIp) { @exploits=buildArraysLists($expIp); }
 
 #########################################################################################################################
-## SEARCH EXPLOITS ARRAY
-if (defined $bugtraq) { @bugs=buildArraysLists($bugtraq); }
-
-#########################################################################################################################
 ## VALIDATION ARRAYS
 if (defined $validText) { @validTexts=buildArraysLists($validText); }
-if (defined $notIn) { @notIns=buildArraysLists($notIn); }
+if (defined $exclude) { @exclude=buildArraysLists($exclude); }
 if (defined $validShell) { @validShells=buildArraysLists($validShell); }
 
 #########################################################################################################################
 ## DORKS & TARGETS ARRAYS
-if (defined $mlevel) {
+if (defined $mlevel && !defined $shodan) {
   if (defined $dork) { @dorks=buildArraysLists($dork); }
   elsif (defined $Target) {
     if (($Target=~/$V_RANG/)&&($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
@@ -296,12 +297,16 @@ if (defined $timeout || $timeout) {
 
 #########################################################################################################################
 ## CURRENT PROXY
-sub get_psx {
-  return $proxies[rand @proxies];
-}
+# sub get_psx {
+  # return $proxies[rand @proxies];
+# }
 
 sub get_conected_psx {
   return $connected_proxies[rand @connected_proxies];
+}
+
+sub get_conected_apikey {
+  return $connected_apikeys[rand @connected_apikeys];
 }
 
 #########################################################################################################################
@@ -314,25 +319,42 @@ sub check_proxy_connect {
 }
 
 #########################################################################################################################
-## CHECK PROXY LIST
-sub check_list_prx {
-  print $c[4]."[!]$c[10] Checking proxy connection...";
-  for my $psx(@proxies) {
-    my $r=check_proxy_connect($psx);
-    if (!$r) { 
-	  print $c[2]."\n    Failed to connect with [$psx]";
+## CHECK APIKEY CONNECTION
+sub check_apikey_connect {
+  my $api=$_[0];
+  my $u;
+  if (defined $shodan) { $u="https://api.shodan.io/shodan/host/search?key=$api&query=camera"; }  
+  else{ $u="https://www.googleapis.com/customsearch/v1?key=$api&cx=$cx&q=googleapis"; }
+  return $ua->get($u)->decoded_content;
+}
+
+#########################################################################################################################
+## CHECK CONNECTED API AND PROXY
+sub check_list_connected {
+  my ($txt, @array)=@_;
+  print $c[4]."[!]$c[10] Checking $txt connection...";  
+  my (@connected, $r);
+  for my $apk(@array) {
+    if ($txt eq "proxies") {
+      $r=check_proxy_connect($apk);
 	}else{
-	  push @connected_proxies, $psx;
+      $r=check_apikey_connect($apk);	
+	}
+    if ($r!~/(\"Bad Request\"|\"dailyLimitExceeded\"|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) { 
+      push @connected, $apk;
+	}else{
+	  print $c[2]."\n[!] Failed to connect with [$apk]";
+	  print $c[4]."\n    Message: [$1]";
 	}
   }
-  print "$c[3] OK\n" if scalar @connected_proxies eq scalar @proxies;
-  if (scalar @connected_proxies < 1) {
-	print $c[2]."\n[!] Cannot connect with any of given proxies!\n"; logoff();
-  }elsif(scalar @connected_proxies < scalar @proxies) {
-	print $c[4]."\n[!] Only running proxies will be used (".scalar @connected_proxies.").\n";
+  print "$c[3] OK\n" if scalar @connected eq scalar @array;
+  if (scalar @connected < 1) {
+	print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; logoff();
+  }elsif(scalar @connected < scalar @array) {
+	print $c[3]."\n[!] Only running $txt will be used (".scalar @connected.").\n";
   }
   print "\n";
-  sleep 1;
+  return @connected;
 }
 
 #########################################################################################################################
@@ -340,13 +362,16 @@ sub check_list_prx {
 sub testConnection {
   print $c[4]."[!] $DT[31]\n";
   if ($proxy || defined $proxy || $prandom || defined $prandom) {
-    check_list_prx();
+    @connected_proxies=check_list_connected("proxies", @proxies);
+  }elsif (defined $apikey || $apikey) {
+    @connected_apikeys=check_list_connected("apikeys", @apikeys);
   }else{
     my $respons=$ua->get($ipUrl);
     if (!$respons->is_success) {
       print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff();
 	}
   }
+  sleep 1;
 }
 
 #########################################################################################################################
@@ -456,7 +481,7 @@ sub desclaimer {
     if (-e $uplog) { require "$Bin/inc/conf/upad.pl"; }
   }
   mtak(); ptak();
-  if (defined $dork || defined $Target || defined $checkVersion || defined $shodan || defined $bugtraq || defined $repair) {    
+  if (defined $dork || defined $Target || defined $checkVersion || defined $repair || defined $shodan || defined $bugtraq) {    
     testConnection();
   }
 }
@@ -871,11 +896,19 @@ sub checkPoxyUse1 {
 ## CHECK SCAN ARGUMENTS
 sub Targs {
   my @Targs=($xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $validText, $adminPage, $subdomain, $JoomRfi, $WpAfd, $mindex, $port,
-             $mupload, $mzip, $JoomSites, $eMails, $searchIps, $regex, $command, $ping, $interactive, $validShell, $notIn, $repair,
-             $bugtraq, $zoneH, $content, $msource, $fullHeaders, $command, $geoloc, $deep, $shodan);
+             $mupload, $mzip, $JoomSites, $eMails, $searchIps, $regex, $command, $ping, $interactive, $validShell, $exclude, $repair,
+             $bugtraq, $zoneH, $content, $msource, $fullHeaders, $command, $geoloc, $getlinks, $shodan);
   my $Targ=0;
   for (@Targs) { $Targ++ if defined $_; }
   return $Targ;
+}
+
+#########################################################################################################################
+## JSON DECODE 
+sub _json {
+  my $shoRes =$_[0];
+  my $json = JSON->new->allow_nonref;
+  return $json->decode( $shoRes );
 }
 
 #########################################################################################################################

@@ -8,7 +8,7 @@ use FindBin '$Bin';
 sub makeSscan { 
   my ($ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter, $data, $no)=@_;
   our (@c, @DS, @TT, @aTscans, @aTsearch, @userArraysList, @replaceParts, $limit, $payloads, $exploit, $shell, $p, $expHost, $expIp,
-       $replaceFROM, $replace, $deep);
+       $replaceFROM, $replace, $getlinks);
   @aTscans=();
   ptak();
   checkHeaders($ct, $dt, $et);  
@@ -28,9 +28,7 @@ sub makeSscan {
   my @filter=@{ $v_ar };
   my $filter=join("|", @filter); 
   @aTsearch=checkDuplicate(@aTsearch);
-  if (defined $deep) {
-    @aTsearch=doDeepSearch(@aTsearch);
-  }
+  if (defined $getlinks) { @aTsearch=doDeepSearch(@aTsearch); }
   my $lc=scalar(grep { defined $_} @aTsearch);
   my $count=0;
   for my $URL(@aTsearch) {

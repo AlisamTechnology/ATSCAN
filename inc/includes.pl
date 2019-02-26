@@ -16,8 +16,8 @@ else{ mtak(); ptak(); }
 ## CLEAN OUTPUT 
 if (defined $output) { unlink $output if -e $output; }
 if (defined $msource) {
-    $msource=~s/\.(.*)//g;
-    unlink $msource if -d $msource; mkdir $msource, 755;
+  $msource=~s/\.(.*)//g;
+  unlink $msource if -d $msource; mkdir $msource, 755;
 }
 
 ## PASS LOGIN ##
@@ -25,8 +25,7 @@ our $password;
 if ($password) { require "$Bin/inc/functions/log.pl"; }
 
 ## NO ARGUMENTS ##
-our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $bugtraq, $uninstall, $toolInfo, $repair, $config, 
-$interactive, $shodan);
+our @NoArg=($dork, $help, $Target, $mmd5, $mencode64, $checkVersion, $data, $bugtraq, $uninstall, $toolInfo, $repair, $config, $interactive, $shodan);
 my $NoArg=0;
 for (@NoArg) { $NoArg++ if defined $_; }
 if ($NoArg < 1) {
@@ -35,6 +34,7 @@ if ($NoArg < 1) {
   }
 }
 
+#########################################################################################################################
 ## TOOL CONFIGURATION
 require "$Bin/inc/functions/clientConf.pl";
 
@@ -61,7 +61,7 @@ require "$Bin/inc/search/print.pl";
 ## SERACH AND SCANS PROCESS 
 require "$Bin/inc/search/process.pl";
 
-## INDEX
-require "$Bin/inc/index.pl";
+## MENU ########
+require "$Bin/inc/conf/menu.pl";
 
 1;

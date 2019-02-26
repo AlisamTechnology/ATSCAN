@@ -5,16 +5,31 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 our ($Target, $xss, $data, $lfi, $ifinurl, $WpSites, $Hstatus, $adminPage, $subdomain, $eMails, $JoomSites, $command, $mzip, $mupload,
-     $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $mindex, $content, $ping, $replace, $replaceFROM, $validShell, $popup, $zoneH);
-our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, $exploit, $method, @replace, @TT, @SCAN_TITLE,
-     @DT, @OTHERS, @c, @ZT);
+     $port, $JoomRfi, $searchIps, $mlevel, $WpAfd, $mindex, $content, $ping, $replace, $replaceFROM, $validShell, $popup, $zoneH, $shodan, 
+	 $apikey, $cx, $bugtraq);
+our ($regex, $V_IP, $mrandom, $tcp, $udp, $dork, $motor, $searchRegex, $shell, $unique, $post, $limit, $validText, $get, $config, $payloads, 
+     $exploit, $method, @replace, @TT, @SCAN_TITLE, @DT, @OTHERS, @c, @ZT, @motors);
+
+
 
 ## SHODAN
-our ($shodan, $shoapikey);
 if (defined $shodan) {
-  if (!defined $shoapikey) {
-    print $c[4]."[!] A shodan Apikey is required! Ex: --apikey \"h2dS5sjdB78hXFdYuuKy\" \n"; 
+  if (!defined $apikey) {
+    print $c[4]."[!] USAGE: --shodan --apikey <key>\n"; 
 	print $c[4]."[!] You can get an apikey here https://www.shodan.io/\n";
+	logoff();
+  }
+}
+
+## CHECK JSON MODULE
+if (defined $apikey || $apikey) {
+  checkCpanModules();
+}
+
+## BUGTRAQ
+if (defined $bugtraq) {
+  if (!defined $dork) {
+    print $c[4]."[!] USAGE: --bugtraq --dork <dork> --level <level>\n"; 
 	logoff();
   }
 }
@@ -69,7 +84,7 @@ if (defined $replace || defined $replaceFROM) {
 if (defined $mrandom && (!defined $mlevel && !$mlevel)) { print $c[4]."[!] $DT[38]\n"; logoff(); }
 
 ## ARGUMENTS VERIFICATION (LEVEL / PORTS)
-if ((defined $dork)&&(!defined $mlevel && !$mlevel)) { print $c[4]."[!] $DT[40]\n"; logoff(); }
+if ((defined $dork)&&(!defined $mlevel && !$mlevel && !defined $shodan)) { print $c[4]."[!] $DT[40]\n"; logoff(); }
 if ((defined $port) && (!defined $tcp and !defined $udp)) { print $c[4]."$DT[23]\n"; logoff(); }
 
 ## MORE ARGUMENTS PROCESS VERIFICATION
@@ -97,7 +112,7 @@ sub abcd {
   if ($abcd=~/,/) { @abcd=split(", ", $abcd); }
   else{ push @abcd, $abcd; }
   for my $ad(@abcd) {
-    if ($ad!~/(1|2|3|4|5|6|all)/) { print $c[2]."[!] $DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m 1,2,...\n"; logoff(); }
+    if ($ad!~/(1|2|3|4|5|6|7|all)/) { print $c[2]."[!] $DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m 1,2,...\n"; logoff(); }
   }
 }
 

@@ -1,7 +1,7 @@
-ATSCAN SCANNER VERSION 16.0.2 RELEASE
+ATSCAN SCANNER VERSION 16.0.3 RELEASE
 =====================================================  
-  CHANGES: v16.0.2 17/02/2019
-  - Add target vulnerability for shodan scan.
-  - Add shodan honeyspot score.
+  CHANGES: v16.0.3 26/02/2019
+  - Use dork and target in shodan scan.
+  - Add Googleapis search engine.
   - Enjoy!
   =================

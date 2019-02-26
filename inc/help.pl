@@ -24,10 +24,11 @@ use FindBin '$Bin';
   ."   Random agent: --b-random \n"
   ."   Random engine: --m-random \n\n" ;
   ltak(); print $c[12]."  SEARCH ENGINE: \n".$c[10]
+  ."   ENGINES: [Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][Googleapis:7][All:all]\n"
   ."   Search: atscan --dork <dork> --level <level> \n"
   ."   Search target engine inedexes: atscan -d <dork> -l <level> --index\n"
   ."   Search indexes & html links: atscan -d <dork> -l <level> --index --getlinks\n"
-  ."   Set engine: atscan --dork <dork> --level <level> -m [Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][All:all]\n"
+  ."   Set engine: atscan --dork <dork> --level <level> -m 2\n"
   ."   Set selective engines: atscan -d <dork> -l <level> -m 1,2,3..\n"
   ."   Search with many dorks: atscan --dork <dork1 [OTHER]dork2 [OTHER]dork3> --level <level> \n"  
   ."   Search and rand: atscan -d <dork> -l <level> --expHost \"/index.php?id=rang(1-9)\" --sql\n"  
@@ -38,29 +39,35 @@ use FindBin '$Bin';
   ."   Search + collect ips: atscan --dork <dork> --level <level> --ip \n\n";
   
   ltak(); print $c[12]."  SHODAN SEARCH: \n".$c[10]
-  ."--ip <ip or host or file> : Host Information\n"
-  ."--count <query or file> : Search Shodan without Results\n"
-  ."--search <string or file> : Search Shodan\n"
-  ."--pages <number of page results> \n" 
-  ."--dnsreverse <ip or host or file> : Reverse DNS Lookup\n"
-  ."--dnsresolve <host or ip or file> : DNS Lookup\n"
-  ."--querysearch <query or file> : Search the directory of saved search queries\n"
-  ."--query : List the saved search queries\n"
-  ."--querytags : List the most popular tags\n"
-  ."--services : List all services that Shodan crawls\n"
-  ."--myip : My IP Address\n"
-  ."--protocols : Sodan used protocols\n"
-  ."--ports : Get  list of port numbers that the crawlers are looking for.\n"
-  ."--apinfo : API Plan Information\n"
-  ."--tokens : <string or file> String filters and parameters provided to them\n" 
-  ."--honeyscor : <ip or host or file> Honeypot score\n"  
-  ."--command : Exploit shodan results with extern command\n\n";
-  
+  ."   atscan --shodan --apikey <APIKEY> (Apikey)\n"
+  ."   atscan --shodan --target <ip or host or file> (Host Information)\n"
+  ."   atscan --shodan --count <query or file> (Search Shodan without Results)\n"
+  ."   atscan --shodan --dork <string or file> (Dork)\n"
+  ."   atscan --shodan --level <number of results pages> \n" 
+  ."   atscan --shodan --dnsreverse <ip or host or file> (Reverse DNS Lookup)\n"
+  ."   atscan --shodan --dnsresolve <host or ip or file> (DNS Lookup)\n"
+  ."   atscan --shodan --querysearch <query or file> (Search the directory of saved search queries)\n"
+  ."   atscan --shodan --query (List the saved search queries)\n"
+  ."   atscan --shodan --querytags (List the most popular tags)\n"
+  ."   atscan --shodan --services (List all services that Shodan crawls)\n"
+  ."   atscan --shodan --myip (My IP Address)\n"
+  ."   atscan --shodan --protocols (Sodan used protocols)\n"
+  ."   atscan --shodan --ports (Get  list of port numbers that the crawlers are looking for)\n"
+  ."   atscan --shodan --apinfo : API Plan Information\n"
+  ."   atscan --shodan --tokens : <string or file> (String filters and parameters provided to them)\n" 
+  ."   atscan --shodan --honeyscor : <ip or host or file> (Honeypot score)\n"  
+  ."   atscan --shodan --command <extern command> (Exploit shodan results with extern command)\n\n";
+ 
+  ltak(); print $c[12]."  GOOGLEAPIS SEARCH: \n".$c[10]
+  ."   atscan --apikey <APIKEY> --cx <ID> --dork <query>\n"
+  ."   atscan --apikey <APIKEY> --cx <ID> --dork <query> -l 2 -v <string>\n"
+  ."   atscan --apikey <APIKEY> --cx <ID> --dork <query> -l 2 --sql\n"
+  ."   atscan --apikey <APIKEY> --cx <ID> --dork <query>  -l 2 -c <extern command>\n\n";
+ 
   ltak(); print $c[12]."  SEARCH EXPLOIT: \n".$c[10]
-  ."   atscan --bugtraq <string> Exp: atscan --bugtraq joomla -s save.txt\n"
-  ."   atscan --bugtraq <string [OTHER]string2> \n"
-  ."   atscan --bugtraq file.txt \n"
-  ."   atscan --bugtraq <string> --limit 10 \n\n";
+  ."   atscan --bugtraq --dork <string> Ex: atscan --bugtraq -d joomla -l 1\n"
+  ."   atscan --bugtraq --dork <string> -l 1\n"
+  ."   atscan --bugtraq --dork <string> -l 1 --limit 10 \n\n";
   
   ltak(); print $c[12]."  REGULAR EXPRESSIONS: \n".$c[10]
   ."   Regex use: atscan [--dork <dork> | -t <target>] --level <level> --regex <regex>\n"
@@ -78,15 +85,16 @@ use FindBin '$Bin';
   ."   atscan -t <ip> --port \(port start\)-\(port end\) [--udp | --tcp] --command \"your extern command\"\n\n";
   
   ltak(); print $c[12]."  ENCODE / DECODE: \n".$c[10]
-  ."   Generate MD5: --md5 <string> \n"
-  ."   Encode base64: --encode64 <string>  \n"
-  ."   Decode base64: --decode64 <string> \n\n";
+  ."   Generate MD5: atscan --md5 <string> \n"
+  ."   Encode base64: atscan --encode64 <string>  \n"
+  ."   Decode base64: atscan --decode64 <string> \n\n";
+  
   ltak(); print $c[12]."  POST/GET DATA: \n".$c[10]
-  ."  Post data: atscan -t <target> --data \"field1\=\>value1\, field2\=\>value2\, field3\=\>value3\" --post / get / upload\n"
+  ."   Post data: atscan -t <target> --data \"field1\=\>value1\, field2\=\>value2\, field3\=\>value3\" --post / get / upload\n"
   ."             atscan -t <target> --data \"username\=\>john\, pass\=\>1234\" --post / get / upload\n"
   ."             atscan -t <target> --data \"username\=\>john\, pass\=\>WORDLIST:<list path>\" --post / get / upload\n"
-  ."  Post + Exploit: --exp\/expHost <exploit> --data \"username\=\>john\, pass\=\>1234\" -v <string> | --status <code> --post / get / upload\n"
-  ."  Post + Validation: --data \"username\=\>john\, pass\=\>1234\" -v <string> | --status <code> --post / get / upload \n\n";
+  ."   Post + Exploit: --exp\/expHost <exploit> --data \"username\=\>john\, pass\=\>1234\" -v <string> | --status <code> --post / get / upload\n"
+  ."   Post + Validation: --data \"username\=\>john\, pass\=\>1234\" -v <string> | --status <code> --post / get / upload \n\n";
   
   ltak(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"
@@ -97,13 +105,13 @@ use FindBin '$Bin';
   ."   atscan -d \"index of /lib/scripts/dl-skin.php\" -l 20 -m 2 --command \"php WP-dl-skin.php-exploit.php --TARGET\" \n\n";
   
   ltak(); print $c[12]."  MULTIPLE SCANS: \n".$c[10]
-  ."   atscan --dork <dork> --level <10> --sql --lfi --wp ..\n"
-  ."   atscan --dork <dork> --level <10> --replace \"string \=\> new_string\" --exp/expHost <exploit> [--sql | --lfi | --wp |...]\n"
-  ."   atscan -t <ip> --level <10> [--sql | --lfi | --wp |...]\n"
+  ."   atscan --dork <dork> --level <2> --sql --lfi --wp ..\n"
+  ."   atscan --dork <dork> --level <2> --replace \"string \=\> new_string\" --exp/expHost <exploit> [--sql | --lfi | --wp |...]\n"
+  ."   atscan -t <ip> --level <2> [--sql | --lfi | --wp |...]\n"
   ."   atscan -t <targets> [--sql | --lfi | --wp |...]\n\n";
   
   ltak(); print $c[12]."  PAYLOADS USE: \n".$c[10]
-  ."   atscan --dork <dork> --level <10> [--lfi | --sql ..] --payload <payload | payloads.txt> \n\n";
+  ."   atscan --dork <dork> --level <2> [--lfi | --sql ..] --payload <payload | payloads.txt> \n\n";
   
   ltak(); print $c[12]."  SEARCH VALIDATION: \n".$c[10]
   ."   atscan -d <dork | dorks.txt> -l <level> --status <code> | --valid <string> \n"

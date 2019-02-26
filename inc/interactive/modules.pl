@@ -192,8 +192,10 @@ sub checkFirstParts {
 sub getExtratArgs {
   my $scn=$_[0];
   (@ARGUMENTS, %ARGUMENTS)=();
-  our (@INTERshell, @INTERparam, @INTERcommand, @INTERPortScan, @INTERDataScan, @INTERpayload, @INTERdecryp, @INTERtarget, @shodan);
-  our (%INTERshell, %INTERparam, %INTERcommand, %INTERPortScan, %INTERDataScan, %INTERpayload, %INTERdecryp, %INTERtarget, %shodan);
+  our (@INTERshell, @INTERparam, @INTERcommand, @INTERPortScan, @INTERDataScan, @INTERpayload, @INTERdecryp, @INTERtarget, @shodan, 
+      @api, @googleapi, @bugtraq);
+  our (%INTERshell, %INTERparam, %INTERcommand, %INTERPortScan, %INTERDataScan, %INTERpayload, %INTERdecryp, %INTERtarget, %shodan, 
+       %api, %googleapi, %bugtraq);
   if ($scn) {
     $scn=~s/--//ig;
     if ($scn eq "decrypt") { 
@@ -210,7 +212,7 @@ sub getExtratArgs {
 		  push @ARGUMENTS, @INTERparam; 
 		  %ARGUMENTS=(%ARGUMENTS, %INTERparam);
 		}
-        my @AdvArgs=("sql", "lfi", "admin", "joomfri", "shost", "wpafd", "upload", "zip", "shodan");
+        my @AdvArgs=("sql", "lfi", "admin", "joomfri", "shost", "wpafd", "upload", "zip", "bugtraq", "shodan");
         if (grep( /^$scn$/, @AdvArgs)) {
           push @ARGUMENTS, @INTERpayload; 
 		  %ARGUMENTS=(%ARGUMENTS, %INTERpayload);
@@ -233,11 +235,17 @@ sub getExtratArgs {
 	    push @ARGUMENTS, @INTERcomnd; 
 		%ARGUMENTS=(%ARGUMENTS, %INTERcomnd);
 	  }
-      if ($scn eq "shodan") { 
+      if ($scn eq "bugtraq") { 
 	    (@ARGUMENTS, %ARGUMENTS)=(); 
+		push @ARGUMENTS, @bugtraq; 
+		%ARGUMENTS=(%ARGUMENTS, %bugtraq);
+	  }
+      if ($scn eq "shodan") {
+	    (@ARGUMENTS, %ARGUMENTS)=(); 
+		push @ARGUMENTS, @api; 
 		push @ARGUMENTS, @shodan; 
-		%ARGUMENTS=(%ARGUMENTS, %shodan);
-	  } 
+		%ARGUMENTS=(%ARGUMENTS, %api, %shodan);
+	  }
     }
   }
 }

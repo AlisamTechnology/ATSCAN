@@ -7,7 +7,8 @@ use FindBin '$Bin';
 ###############################################################################
 ###############################################################################
 ## BUGTRAQ
-our($bugtraq, $ua, $limit, $server, @c);
+our($ua, @dorks, $dork, $mlevel, $limit, $server, @c);
+if (!defined $dork) { print $c[4]."[!] Usage --bugtraq --dork <dork> --level <level>\n"; logoff(); }
 my (@bugId, @bugTitle, @bugDate, @bugLink, @bugWarning, @refer);
 my $e = strftime "%Y.%m.%d.", localtime;
 my $copyPath="$Bin/inc/conf/user/temp.txt";
@@ -20,11 +21,14 @@ sub sep { print $c[1]." ========================================================
 ###############################################################################
 ###############################################################################
 ## GET BUGS
-our @bugs;
 sub bugs {
-  for my $btq(@bugs) {
+  for my $btq(@dorks) {
+    print $c[11];
+    timer();
+    print " ::: EXPLORING [$btq] ISSUES :::\n";
+    sleep 2;
     $btq=~s/\s/%20/g;
-    for(my $npages=1;$npages<=3;$npages+=1) {
+    for(my $npages=1;$npages<=$mlevel;$npages+=1) {
       my $u="$server/search/wlb/DESC/AND/$e 1999.1.1/$npages/30/$btq/";
       $u=~s/\s//g;
 	  ckeck_ext_founc("");
@@ -171,10 +175,6 @@ sub viewBug {
 ## MAIN
 bugs();
 my $m=scalar(grep { defined $_} @bugTitle);
-print $c[11];
-timer();
-print " ::: EXPLORING [$bugtraq] ISSUES :::\n";
-sleep 2;
 if (scalar(grep { defined $_} @bugTitle)<1) {
   print $c[4]."[!] No results found!\n";
   logoff();

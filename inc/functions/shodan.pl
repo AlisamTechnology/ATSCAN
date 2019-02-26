@@ -2,8 +2,6 @@
 use strict;
 use warnings;
 use FindBin '$Bin';
-
-checkCpanModules();	
 use JSON;	
 ## Copy@right Alisam Technology see License.txt
 
@@ -11,17 +9,19 @@ use JSON;
 ###############################################################################
 ## SHODAN
 
-our($ua, $limit, $shoapikey, $shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
-    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $shoports, $shoprotos, $shotokens, $facets, $pages, $output, $V_IP, $V_RANG, 
-	$command, $shohoneyscore, @c);
+our($ua, $limit, $apikey, $Target, $shocount, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, 
+    $shoreverse, $shomyip, $shoapiInfo, $shofilters, $shoports, $shoprotos, $shotokens, $facets, $output, $V_IP, $V_RANG, 
+	$command, $shohoneyscore, $dork, $mlevel, @dorks, @c);
+my @sho_scans=($Target, $shocount, $dork, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, 
+               $shomyip, $shoapiInfo, $shotokens, $shoports, $shoprotos, $shohoneyscore, $shofilters);
 		
 my $nn=0;
 my $noshodanres="No results found|Invalid IP";
 my $base="https://api.shodan.io";
-my @sho_scans=($shoip, $shocount, $shosearch, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, 
-               $shomyip, $shoapiInfo, $shotokens, $shoports, $shoprotos, $shohoneyscore, $shofilters);
 $facets="" if !$facets;
-$pages=1 if !$pages;
+$mlevel=1 if !$mlevel;
+
+my $api_key=get_conected_apikey();
 
 ###########################################################################################
 ## GET HOST IP  ###########################################################################
@@ -77,7 +77,7 @@ sub adviseLimit {
 ###########################################################################################
 ## RESULTS PAGES  #########################################################################
 sub advisePages {
-  print $c[4]."[!]$c[10] Use --pages <number pages> to get more page results! ex: --pages 2 \n";
+  print $c[4]."[!]$c[10] Use --level <number pages> to get more page results! ex: --level 2\n";
   sleep 1;
 }
 
@@ -88,7 +88,7 @@ sub getShoResults {
   ckeck_ext_founc("");
   my $shoRes;
   my $v_shoRes= $ua->get($u)->decoded_content;
-  if ($v_shoRes=~/\"error\": \"(Invalid IP|Please upgrade your API|Can\'t connect to api)/) {
+  if ($v_shoRes=~/(Invalid IP|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) {
     print $c[2]."[!] ERROR: $1\n";
     ltak();
   }else{
@@ -121,7 +121,7 @@ sub sho_ckeck_total {
 ###########################################################################################
 ## CREDITS      ###########################################################################
 sub credit {
-  print $c[4]."[!]$c[10] Accessing to more results by --page <number> require credit!\n";
+  print $c[4]."[!]$c[10] Accessing to more results by --level <num of results page> require credit!\n";
   sleep 2;
 }
 ###########################################################################################
@@ -152,14 +152,6 @@ sub build_sho_ip {
     @shoipall=buildArraysLists($shoipall);
   }
   return @shoipall;
-}
-
-###########################################################################################
-## JSON DECODE       ######################################################################
-sub _json {
-  my $shoRes =$_[0];
-  my $json = JSON->new->allow_nonref;
-  return $json->decode( $shoRes );
 }
 
 ###########################################################################################
@@ -281,12 +273,12 @@ sub sho_command {
 ## QUERY TAGS     #########################################################################
 sub sho_query_tags {
   sho_print("", "", "", "Searching in shodan query tags");
-  if ($pages eq 1) {advisePages();}
+  if ($mlevel eq 1) {advisePages();}
   sleep 1;
   
   my @founds;
-  for(my $npages=1;$npages<=$pages;$npages+=1) {
-    my $shoRes=getShoResults("$base/shodan/query/tags?key=$shoapikey");
+  for(my $npages=1;$npages<=$mlevel;$npages+=1) {
+    my $shoRes=getShoResults("$base/shodan/query/tags?key=$api_key");
     if ($shoRes) {
       $shoRes=_json($shoRes);
       my @found=@{ $shoRes->{'matches'} };
@@ -313,10 +305,10 @@ sub sho_query_tags {
 ## LIST QUERIES   #########################################################################
 sub sho_query {
   sho_print("", "", "", "Listening the saved search queries");
-  if ($pages eq 1) { advisePages(); }
+  if ($mlevel eq 1) { advisePages(); }
   my @founds;
-  for(my $npages=1;$npages<=$pages;$npages+=1) {
-    my $shoRes=getShoResults("$base/shodan/query?key=$shoapikey&pages=$npages");
+  for(my $npages=1;$npages<=$mlevel;$npages+=1) {
+    my $shoRes=getShoResults("$base/shodan/query?key=$api_key&page=$npages");
     if ($shoRes) {
       $shoRes=_json($shoRes);
       my @found=@{ $shoRes->{'matches'} };
@@ -337,7 +329,10 @@ sub sho_query {
 	for my $element23(@elements23) {
 	  $in1++;
 	  my $key=$found->{$element23};
-      if ($key) { print $c[10]."[+] $elements3[$in1]:$c[3] $key \n"; }
+      if ($key) { 
+	    print $c[10]."[+] $elements3[$in1]:$c[3] $key \n";
+		if (defined $output) { printFile($output, "[+] $elements3[$in1]: $key "); }
+	  }
 	}
     my $tag=$found->{"tags"};
 	if ($tag) {
@@ -354,7 +349,7 @@ sub sho_query {
 sub sho_tokens {
   my @shotokens=@_;
   sho_print("", "", "", "Determining used filters and parameters for given string");
-  my $shoRes=getShoResults("$base/shodan/host/search/tokens?key=$shoapikey&query=$shotokens");
+  my $shoRes=getShoResults("$base/shodan/host/search/tokens?key=$api_key&query=$shotokens");
   sleep 1;
   if ( $shoRes ) {
     my @shoRes=split(",", $shoRes);
@@ -387,7 +382,7 @@ sub sho_tokens {
 ## LIST SERVICES  #########################################################################
 sub sho_services {
   sho_print("", "", "", "Listening all services that Shodan crawls");
-  my $shoRes=getShoResults("$base/shodan/services?key=$shoapikey");
+  my $shoRes=getShoResults("$base/shodan/services?key=$api_key");
   sleep 1;
   if ( $shoRes ) {
     my $n=0;
@@ -411,7 +406,7 @@ sub sho_services {
 sub honeyscore {
   sho_print("", "", "", "Calculating honeypot probability score");
   sleep 1;
-  my ($shoRes, $i)=getShoResults("$base/labs/honeyscore/$shohoneyscore?key=$shoapikey");
+  my ($shoRes, $i)=getShoResults("$base/labs/honeyscore/$shohoneyscore?key=$api_key");
   if ( $shoRes ) {
     sho_print("", "Score", $shoRes, "");
   }else{
@@ -425,7 +420,7 @@ sub honeyscore {
 sub shomyip {
   sho_print("", "", "", "Getting your IP address");
   sleep 1;
-  my ($shoRes, $i)=getShoResults("$base/tools/myip?key=$shoapikey");
+  my ($shoRes, $i)=getShoResults("$base/tools/myip?key=$api_key");
   if ( $shoRes =~ /"(.*)"/ ) {
 	sho_print("", "IP", $1, "");
   }else{
@@ -439,7 +434,7 @@ sub shomyip {
 sub shoapinfo {
   sho_print("", "", "", "Getting your API info");
   sleep 1;
-  my $shoRes=getShoResults("$base/api-info?key=$shoapikey");
+  my $shoRes=getShoResults("$base/api-info?key=$api_key");
   if ($shoRes) {
     $shoRes=_json($shoRes);
     end_hash_print($shoRes);
@@ -455,7 +450,7 @@ sub sho_dns_resolve {
   my ($hostnames, $nn)=@_;
   sho_print("", "", "", "DNS resolve Lookup for [$hostnames]");
   sleep 1;
-  my $shoRes=getShoResults("$base/dns/resolve?hostnames=$hostnames&key=$shoapikey");
+  my $shoRes=getShoResults("$base/dns/resolve?hostnames=$hostnames&key=$api_key");
   if ( $shoRes ) {
     while ( $shoRes =~ /"(.*?)": "(.*?)"/migs ) {
 	  sleep 1;
@@ -474,7 +469,7 @@ sub sho_dns_reverse {
   my ($ip, $nn)=@_;
   sho_print("", "", "", "DNS reverse Lookup for [$ip]");
   sleep 1;
-  my $shoRes=getShoResults("$base/dns/reverse?ips=$ip&key=$shoapikey");
+  my $shoRes=getShoResults("$base/dns/reverse?ips=$ip&key=$api_key");
   if ( $shoRes ) {
     while ( $shoRes =~ /"(.*?)": \["(.*?)"\]/migs ) {
 	  sleep 1;
@@ -493,7 +488,7 @@ sub sho_ports {
   my ($port, $nn)=@_;
   sho_print("", "", "", "Getting all used shodan api Ports");
   sleep 1;
-  my $shoRes=getShoResults("$base/shodan/ports?key=$shoapikey");
+  my $shoRes=getShoResults("$base/shodan/ports?key=$api_key");
   if ( $shoRes ) {
 	my $i=()=$shoRes=~/\Q,/g;
 	sho_print("", "Total ports", $i+1, "");
@@ -512,7 +507,7 @@ sub sho_protos {
   my ($porotols, $nn)=@_;
   sho_print("", "", "", "Listing protocols that can be used when performing on-demand Internet");
   sleep 1;
-  my $shoRes=getShoResults("$base/shodan/protocols?key=$shoapikey");
+  my $shoRes=getShoResults("$base/shodan/protocols?key=$api_key");
   if ( $shoRes ) {
     $shoRes=_json($shoRes);
     end_hash_print($shoRes);
@@ -529,7 +524,7 @@ sub sho_count {
   if ($nn eq 1) { shosearchadvise(); }
   sho_print("", "", "", "Shodan api Search Count for [$query]");
   sleep 1;
-  my $shoRes=getShoResults("$base/shodan/host/count?key=$shoapikey&query=$query&facets=$facets");  
+  my $shoRes=getShoResults("$base/shodan/host/count?key=$api_key&query=$query&facets=$facets");  
   if ($shoRes) {
     $shoRes=_json($shoRes);
     my $i=$shoRes->{'total'};
@@ -547,14 +542,13 @@ sub sho_count {
 sub sho_query_search {
   my ($query, $nn)=@_;
   sho_print("", "", "", "Searching [$query] in saved search queries");
-  shosearchadvise();
-  if ($pages eq 1) { advisePages(); }
+  if ($mlevel eq 1) { advisePages(); }
   if ($nn eq 1) { shosearchadvise(); }
   sleep 1;
   
   my @founds;
-  for(my $npages=1;$npages<=$pages;$npages+=1) {
-    my $shoRes=getShoResults("$base/shodan/query/search?key=$shoapikey&query=$query&pages=$npages");
+  for(my $npages=0;$npages<=$mlevel;$npages+=1) {
+    my $shoRes=getShoResults("$base/shodan/query/search?key=$api_key&query=$query&page=$npages");
     if ($shoRes) {
       $shoRes=_json($shoRes);
       my @found=@{ $shoRes->{'matches'} };
@@ -575,7 +569,10 @@ sub sho_query_search {
 	for my $element23(@elements23) {
 	  $in3++;
 	  my $key=$found->{$element23};
-      if ($key) { print $c[10]."[+] $elements3[$in3]:$c[3] $key \n"; }
+      if ($key) { 
+	    print $c[10]."[+] $elements3[$in3]:$c[3] $key \n";
+	    if (defined $output) { printFile($output, "[+] $elements3[$in3]: $key "); }
+	  }
 	}
 	
     my $tag=$found->{"tags"};
@@ -594,8 +591,8 @@ sub sho_search {
   my ($target, $nn)=@_;  
   sho_print("", "", "", "Searching [$target] in Shodan api search");
   if ($nn eq 1) { shosearchadvise(); adviseLimit(); }
-  for(my $npages=1;$npages<=$pages;$npages+=1) {
-    my $shoRes=getShoResults("$base/shodan/host/search?key=$shoapikey&query=$target&facets=$facets&page=$npages");
+  for(my $npages=1;$npages<=$mlevel;$npages+=1) {
+    my $shoRes=getShoResults("$base/shodan/host/search?key=$api_key&query=$target&facets=$facets&page=$npages");
     sleep 1;
     if ($shoRes) {
       $shoRes=_json($shoRes); 
@@ -616,10 +613,10 @@ sub sho_search {
 		}
 	    sleep 1;
 		check_it($found);
-	     my $vulns=$found->{"vulns"};
-	     if ( $vulns ) {
-	       print_target_vulns($vulns);
-	     }
+	    my $vulns=$found->{"vulns"};
+	    if ( $vulns ) {
+	      print_target_vulns($vulns);
+	    }
         if ( $n == $limit ) { last; }
 	  }
       ltak();
@@ -631,7 +628,7 @@ sub sho_search {
 sub sho_ip {
   my ($target, $nn)=@_; 
   sho_print("", "", "", "Getting [$target] Information");
-  my $shoRes=getShoResults("$base/shodan/host/$target?key=$shoapikey");
+  my $shoRes=getShoResults("$base/shodan/host/$target?key=$api_key");
   if ($shoRes) {
     $shoRes=_json($shoRes);
 	my $in3=-1;
@@ -738,16 +735,16 @@ if ($s) {
   timer();
   print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
   ######################################
-  if ( $shoip ) {
-    my @shoip=build_sho_ip($shoip);
-    for my $f(@shoip) { $nn++; check_host_validation($f, $nn, "1"); }
+  if ( $Target ) {
+    my @dorks=build_sho_ip($Target);
+    for my $f(@dorks) { $nn++; check_host_validation($f, $nn, "1"); }
   }else{
     if ( $shocount ) {
       my @shocount=buildArraysLists($shocount);
 	  for my $f(@shocount) { $nn++; sho_count($f, $nn); } }
-    if ( $shosearch ) { 
-      my @shosearch=buildArraysLists($shosearch);
-	  for my $f(@shosearch) { $nn++; sho_search($f, $nn); }
+    if ( $dork ) { 
+       my @dorks=buildArraysLists($dork);
+	  for my $f(@dorks) { $nn++; sho_search($f, $nn); }
     }
     if ( $shoquerySearch ) { 
       my @shoquerySearch=buildArraysLists($shoquerySearch);

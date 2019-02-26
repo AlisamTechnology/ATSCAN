@@ -4,10 +4,12 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, $notIn, $expHost, $expIp, $command, $all,
-     $data, $validShell, $zoneH, $fullHeaders, $ua, $geoloc, $geoServer, $V_IP, @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @notIns, @exists,
-     @notExists, @ZT, @validShells);
+######################################################################################################################
+our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, $exclude, $expHost, $expIp, $command, $all,
+     $data, $validShell, $zoneH, $fullHeaders, $ua, $geoloc, $geoServer, $V_IP, $exploit, $replace, $replaceFROM, $noQuery, 
+	 @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @exclude, @exists, @notExists, @ZT, @validShells);
 
+######################################################################################################################
 ## BUILD SCAN RESULTS LISTS
 sub buildPrint {
   my ($URL1, $filter, $result, $reverse, $reg, $comnd, $isFilter, $data)=@_;
@@ -60,6 +62,7 @@ sub buildPrint {
   }
 }
 
+######################################################################################################################
 ## PRINT VALIDATED STRINGS
 sub printValidated {
   my $ins=$_[0];
@@ -71,6 +74,7 @@ sub printValidated {
   print "\n";
 }
 
+######################################################################################################################
 ## BUILD SCAN RESULTS LISTS
 sub titleSCAN {
   my $o=OO();
@@ -96,79 +100,79 @@ sub titleSCAN {
     if (defined $Hstatus and ($status=~m/$Hstatus/)) {
       print $c[1]."    $ZT[11]  ".$c[3]."[$DS[13] $Hstatus] \n";
     }
-    if (defined $notIn) {
-      for my $noin(@notIns) {
+    if (defined $exclude) {
+      for my $noin(@exclude) {
         if ($html=~m/\b$noin\b/) {
           push @noins, $noin;
         }
       }
       if (scalar(grep { defined $_} @noins) eq 0) {
-        print $c[1]."    $ZT[12] $c[3]\[$notIn]\n";
+        print $c[1]."    $ZT[12] $c[3]\[$exclude]\n";
       }
     }
     print $c[1]."    $DS[4]    ";
   }
 }
 
+######################################################################################################################
 ## NO RESULTS FOUND
 sub noResult { print $c[2]."$DT[1]\n"; }
 
+######################################################################################################################
 ## CHECK RESULTS TO SCAN
 sub printResults { 
   my ($URL1, $response, $status, $html, $filter, $result, $reverse, $reg, $comnd, $isFilter, $data)=@_;
   my $o=OO();
   if ($o<$limit) {
-    if ($result) {
-      titleSCAN($html, $status) if $result && (defined $Hstatus || defined $validText || defined $notIn);
-      validateResult($URL1, $status, $html, $response, $result);
-    }
-    elsif ($reg) {
-      getRegex($URL1, $html, $reg); }
+    if ($result) { validateResult($URL1, $status, $html, $response, $result); }
+	elsif ($reg) { getRegex($URL1, $html, $reg); }
     elsif ($data) {
-      titleSCAN($html, $status); formData($URL1, $html, $status, $response); 
+      titleSCAN($html, $status); 
+	  formData($URL1, $html, $status, $response); 
     }else{
       titleSCAN($html, $status);
       if ($isFilter) {
-        if ($html=~/$filter/) {
-          validateResult($URL1, $status, $html, $response, "");
-        }else{ noResult(); }
+        if ($html=~/$filter/) { validateResult($URL1, $status, $html, $response, ""); }
       }elsif ($reverse) {  
-        if ($status==200) {
-          validateResult($URL1, $status, $html, $response, "");
-        }else{ noResult(); }
+        if ($status==200) { validateResult($URL1, $status, $html, $response, ""); }
       }else{
-        if ($response->is_success) {
-          validateResult($URL1, $status, $html, $response, "");
-        }else{ noResult(); }
-      }
+        if ($response->is_success) { validateResult($URL1, $status, $html, $response, ""); }
+		else{ noResult(); }
+	  }
     }
   }
 }
 
-our ($exploit, $replace, $noQuery);
-
+######################################################################################################################
 ## VALIDATE RESULTS
 sub validateResult {
   my ($URL1, $status, $html, $response, $result)=@_;
+  if ($result && (defined $Hstatus || defined $validText || defined $exclude || defined $validShell)) { titleSCAN($html, $status); }
+  
+  
   my $cV=checkValidation($URL1, $status, $html, $response, $result);
+  my @noresult1=($Hstatus, $validText, $exclude, $validShell);
+  my @noresult2=($exploit, $expIp, $expHost, $replace, $replaceFROM, $noQuery);
+  my ($i, $i1);
+  for (@noresult1) { $i="1" if defined $_; }
+  for (@noresult2) { $i1="1" if defined $_; }
   if ($cV) {
-    doPrint($URL1, $result, $html);
+    print $c[3]."$URL1\n" unless (($result && !$i) || ($result && $i1 && !$i));
+    if (defined $beep || $beep) { print chr(7); }
+    saveme($URL1, "");
+    checkExtratScan($URL1, $html);
   }else{
-    my @noresult1=($Hstatus, $validText, $notIn);
-    my @noresult2=($exploit, $expIp, $expHost, $replace, $noQuery);
-    my ($i, $i1);
-    for (@noresult1) { $i="1" if defined $_; }
-    for (@noresult2) { $i1="1" if defined $_; }
     noResult() unless (($result && !$i) || ($result && $i1 && !$i));
   }
 }
 
+######################################################################################################################
 ## PRINT POST DATA RESULTS
 sub formData {
   my ($URL1, $html, $status, $response)=@_;
   my $o=OO();
   if ($o<$limit) {
-    my @noresult3=($Hstatus, $validText, $notIn);
+    my @noresult3=($Hstatus, $validText, $validShell, $exclude);
     my $i3;
     for (@noresult3) { $i3="1" if defined $_; }
     if ($i3) {
@@ -176,7 +180,7 @@ sub formData {
     }else{
       if ($status eq "200") {
         if (defined $beep || $beep) { print chr(7); }
-        saveme($URL1);
+        saveme($URL1, "");
         print $c[3]."$URL1\n";
         checkExtratScan($URL1, $html);
       }else{
@@ -186,6 +190,7 @@ sub formData {
   }
 }
 
+######################################################################################################################
 ## GET VALIDATION PARTS
 sub getValidationParts {
   my ($html, $validType, $validRef)=@_;
@@ -205,6 +210,7 @@ sub getValidationParts {
   return $validation_number;
 }
 
+######################################################################################################################
 ## CHECK VALIDATION SEARCH RESULTS / TARGETS LIST
 sub checkValidation {
   my ($URL1, $status, $html, $response, $result)=@_;
@@ -219,13 +225,14 @@ sub checkValidation {
       if ($validation_number > 0) { $cV="1"; }
     }
   }
-  if (defined $notIn) {
-    my $notin_number = getValidationParts($html, \@notIns, "2");
-    if ($notin_number <= 0) { $cV="1"; }
+  if (defined $exclude) {
+    my $exclude_number = getValidationParts($html, \@exclude, "2");
+    if ($exclude_number <= 0) { $cV="1"; }
   }
   return $cV;
 }
 
+######################################################################################################################
 ## SHELL URL VALIDATION
 sub validShell {
   my ($URL1, $validShell)=@_;
@@ -254,23 +261,7 @@ sub validShell {
   }
 }
 
-## PRINT RESULTS
-sub doPrint {
-  my ($URL1, $result, $html)=@_;
-  my $o=OO();
-  if ($o<$limit) {
-    my @noresult1=($Hstatus, $validText, $notIn);
-    my @noresult2=($exploit, $expIp, $expHost, $replace, $noQuery);
-    my ($i, $i1);
-    for (@noresult1) { $i="1" if defined $_; }
-    for (@noresult2) { $i1="1" if defined $_; }    
-    print $c[3]."$URL1\n" unless (($result && !$i) || ($result && $i1 && !$i));
-    if (defined $beep || $beep) { print chr(7); }
-    saveme($URL1, "");
-    checkExtratScan($URL1, $html);
-  }
-}
-
+######################################################################################################################
 ## FULL REQUEST HEADERS
 sub fullRequestHeaders {
   my $Hcopy="$Bin/inc/conf/user/HeadersTemp.txt";
@@ -287,6 +278,7 @@ sub fullRequestHeaders {
   unlink $Hcopy if -e $Hcopy;
 }
 
+######################################################################################################################
 ## EXTRAT USER SCAN
 sub checkExtratScan {
   my ($URL1, $html)=@_;
@@ -298,11 +290,12 @@ sub checkExtratScan {
   if (defined $geoloc) { geoloc($URL1); }  
   if (defined $zoneH) { zoneH($URL1, $zoneH); }
 }
- 
+
+######################################################################################################################
+## GEOLOCALISATION
 sub geoloc {
   my $URL1=$_[0];
   print $c[1]."    GEOLOC  ";
-  
   if ($URL1!~/$V_IP/) {
     my $ips=checkExtraInfo($URL1);
     if ($ips) { 
@@ -314,7 +307,6 @@ sub geoloc {
   my $geoSearch=$ua->get($u);
   $geoSearch->as_string;
   my $geoRes=$geoSearch->content; 
-  
   if ($geoRes=~/AS(\d)/) {
     print $c[1]."....................................................................\n";
 	sleep 2;
@@ -338,6 +330,7 @@ sub geoloc {
   }
 }
 
+######################################################################################################################
 ## PRINT SOURCE CODE
 sub printSource {
   my ($URL1, $html)=@_;
@@ -350,6 +343,7 @@ sub printSource {
   print $c[1]."    Source $c[4] (".length($html)." bytes) Saved to $fl\n";
 }
 
+######################################################################################################################
 ## END SCAN
 sub endScan {
   my $o=OO();
@@ -360,5 +354,7 @@ sub endScan {
     negative();
   }
 }
+
+######################################################################################################################
 
 1;

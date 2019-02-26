@@ -35,12 +35,12 @@ my @ErrT=("LFI:", "MYSQL:", "AFD:", "Microsoft:", "Oracle:", "DB2:", "ODBC:", "P
 my @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\!", "SCAN FINISHED\!", "Unique Result\(s\) Found\!", "No Target list found\!", "[i] The tool is up to date!",
 "Tool updeted with success\!", "Couldn't auto check for updates!", "Exploit\(s\)", "Check Your Connection or Proxy Setting\!", "Your Internet connection seems not active\!",
 "Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://] OR file does not exist!", "Given target file path is not true.",
-"Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![sql\|lfi\|...]", "To have to set level [Ex: --level 10]\!",
+"Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![sql\|lfi\|...]", "You have to set level [Ex: --level 1]\!",
 "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace \"string => new_string\" or --replaceFROM \"string => new_string\"]", "Invalid option\! Ex: t- <ip> --port 80 [--udp | --tcp]",
-"COMMND", "Invalid options\!", "Min level is 10 [--level >=10]", "Engines:[Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][All:all]",
+"COMMND", "Invalid options\!", "Min level is 1 [--level >=1]", "Engines:[Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][All:all]",
 "Tool uses default payloads & validation\! You can use your owns using args!\n    Ex: --exp [payload] -v [string] or --payload [your payloads]", "Some thing wrong!",
 "Failed to renew identity with", "Please wait...", "POST", "is an IP [Use\!: -t <ip> --level 20 <opcion>]", "Limit defined by user reached",
-"Undefined", "Redirect To: ", "Proxy(s)", "Random engine just when using engine!", "Do you want to update tool?", "You have to set scan level [Ex: --level 10]",
+"Undefined", "Redirect To: ", "Proxy(s)", "Random engine just when using engine!", "Do you want to update tool?", "You have to set number of results pages. Ex: --level 2",
 "You have to set shell link! [Ex: http://www.site.co.uk/r57.txt]", "Conflict!! Please change", "file ext to [.txt]!", "found!");
 
 ## SCAN DIALOG TEXT
@@ -134,14 +134,14 @@ sub confHlp {
   ."$c[5]               $c[10] | Set proxy [EX: --proxy \"http://12.45.44.2:8080\"] \n"
   ."$c[5]               $c[10] | Set proxy list [EX: --proxy list.txt] \n"
   ."$c[5] --motor| -m   $c[10] | Set engine motors default bing \n"
-  ."$c[5]               $c[10] | EX: -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all]\n"
+  ."$c[5]               $c[10] | EX: -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][Googleapis:7][All: all]\n"
   ."$c[5] --proxy-random$c[10] | Random proxy \n"
   ."$c[5]               $c[10] | [EX: --proxy-random list.txt] or --proxy-random \"socks://localhost:9050\"]\n"
   ."$c[5] --m-random    $c[10] | Random of all disponibles engines \n"
   ."$c[5] --brandom     $c[10] | Random all disponibles agents \n"
   ."$c[5] --timeout     $c[10] | set browser timeout (in seconds)\n"
   ."$c[5] --freq        $c[10] | Random time frequency (in seconds) \n"
-  ."$c[5] --level | -l  $c[10] | Scan level (+- Number of results to scan) \n"
+  ."$c[5] --level | -l  $c[10] | Scan level (Number of results pages to scan) \n"
   ."$c[5] --zone        $c[10] | Set search engine country \n"
   ."$c[5] --post        $c[10] | Post method \n"
   ."$c[5] --get         $c[10] | Get method \n"
@@ -156,7 +156,6 @@ sub confHlp {
   ."$c[5] --shodan      $c[10] | Shodan search\n"
   ."$c[5] --ip          $c[10] | Host Information\n"
   ."$c[5] --count       $c[10] | Search Shodan without Results\n"
-  ."$c[5] --search      $c[10] | Search Shodan\n"
   ."$c[5] --dnsreverse  $c[10] | Reverse DNS Lookup\n"
   ."$c[5] --dnsresolve  $c[10] | DNS Lookup\n"
   ."$c[5] --querysearch $c[10] | Search the directory of saved search queries\n"
@@ -164,7 +163,7 @@ sub confHlp {
   ."$c[5] --querytags   $c[10] | List the most popular tags\n"
   ."$c[5] --services    $c[10] | List all services that Shodan crawls\n"
   ."$c[5] --myip        $c[10] | My IP Address\n"
-  ."$c[5] --pages       $c[10] | Number of shodan search result pages\n"
+  ."$c[5] --level       $c[10] | Number of shodan search result pages\n"
   ."$c[5] --apinfo      $c[10] | My API Plan Information\n"
   ."$c[5] --protocols   $c[10] | List all protocols that can be used when performing on-demand Internet scans via Shodan\n"
   ."$c[5] --ports       $c[10] | List of port numbers that the crawlers are looking for\n"
@@ -322,10 +321,10 @@ sub sho_menu {
   print $c[11]."[::] SHODAN API MENU:\n";
   ltak();
   print $c[10]
-  ."  --apikey      : Your shodan apikey\n"
-  ."  --ip          : <ip or host or file> Host Information\n"
+  ."  --apikey      : Your apikey\n"
+  ."  --target      : <ip or host or file> Host Information\n"
   ."  --count       : <query or file> Search Shodan without Results\n"
-  ."  --search      : <string or file> Search Shodan\n"
+  ."  --dork        : <string or file> Search Shodan\n"
   ."  --tokens      : <string or file> String filters and parameters\n"
   ."  --dnsreverse  : <ip or host or file> Reverse DNS Lookup\n"
   ."  --dnsresolve  : <host or ip or file> DNS Lookup\n"
@@ -338,17 +337,24 @@ sub sho_menu {
   ."  --apinfo      : API Plan Information\n"
   ."  --protocols   : Shodan used protocols\n"
   ."  --honeyscore  : <ip or host or file> Honeypot score\n"
-  ."  --pages       : <number of search pages> \n" 
+  ."  --level       : <number of search pages> \n" 
   ."  --limit       : Max results to list\n"
   ."  --save        : Output file\n"
   ."  --command     : Exploit shodan results with extern command\n\n";
   
   print $c[4]."  [!] $c[10]To set proxy and browser random: \'atscan --help\'\n";
-  print $c[4]."  [!] $c[10]For more search filters use: atscan --shodan --filters\n";
-  print $c[4]."  [!] $c[10]To search exploits use: atscan --bugtraq <string or file>\n";
+  print $c[4]."  [!] $c[10]About filters: atscan --shodan --apikey <apikey> --filters\n";
+  print $c[4]."  [!] $c[10]To search exploits use: --bugtraq \n";
   print $c[4]."  [!] $c[10]To avoid typing your apikey in each process configure it in the\n      configuration panel: \'atscan --config\' then \'set apikey <your_apikey>\'\n";
   
   ltak();
+}
+
+sub _print_apis_alert {
+  print $c[4]."[|] Usage: --apikey <apikey> --cx <ID> [OPTIONS]\n";
+  print $c[4]."[|] Googleapis require an apikey and ID\n";
+  print $c[4]."[!] Googleapis: https://developers.google.com/custom-search/v1/overview\n";
+  logoff();
 }
 
 

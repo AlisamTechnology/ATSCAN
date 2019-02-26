@@ -2,8 +2,8 @@
 <body>
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
-  <a title="Version 16.0.2" href="https://github.com/AlisamTechnology/ATSCAN/releases">
-     <img src="https://img.shields.io/badge/V%2016.0.2-Release-green.svg">
+  <a title="Version 16.0.3" href="https://github.com/AlisamTechnology/ATSCAN/releases">
+     <img src="https://img.shields.io/badge/V%2016.0.3-Release-green.svg">
   </a>
   <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
@@ -46,8 +46,8 @@
 	&#9733; <b>Description:</b>
   </tr>
   <tr>
-    <td class="main" width="460px"><p>
-	    &#x25cf; Engines: Google, Bing, Ask, Yandex, Sogou, Exalead  <br />
+    <td class="main" width="526px"><p>
+	    &#x25cf; Engines: Google Bing Ask Yandex Sogou Exalead Googleapis Shodan<br />
         &#x25cf; Mass Dork Search<br/>
 		&#x25cf; Multiple instant scans. <br/>
 		&#x25cf; Mass Exploitation <br/>
@@ -62,12 +62,12 @@
         &#x25cf; Find Admin page.<br />
 		&#x25cf; Decode / Encode Base64 / MD5<br/> 
     </p></td>
-    <td class="main" width="426px"><p>
-        &#x25cf; Shodan API. <br/>
+    <td class="main" width="380px"><p>
 		&#x25cf; Ports scan. <br/>
 		&#x25cf; Collect IPs<br/>
 		&#x25cf; Collect E-mails. <br/>
         &#x25cf; Auto detect errors. <br/> 
+        &#x25cf; Auto detect forms. <br/> 		
 		&#x25cf; Auto detect Cms.<br/>
 		&#x25cf; Post data.<br/>
 		&#x25cf; Auto sequence repeater.<br/>
@@ -172,12 +172,20 @@
           Set proxy list [EX: --proxy file] </td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--motor / -m</td>
-        <td class="main">Engines default bing EX: -m [Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][All: all]</td>
-      </tr> 
-      <tr>
         <td width="200px" class="main">--proxy-random</td>
         <td class="main">Random proxy [EX: --proxy-random file] or --proxy-random "socks://localhost:9050"]</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--motor / -m</td>
+        <td class="main">[Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][Googleapis:7][All: all]</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--apikey</td>
+        <td class="main">Apikey</td>
+      </tr> 
+      <tr>
+        <td width="200px" class="main">--cx</td>
+        <td class="main">Googleapis ID</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--m-random</td>
@@ -205,7 +213,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--level / -l</td>
-        <td class="main"> Scan level (+- Number of page results to scan) </td>
+        <td class="main"> Scan level (Number of results pages to scan) </td>
       </tr>
       <tr>
         <td width="200px" class="main">--zone </td>
@@ -474,6 +482,10 @@
         <td class="main">To separate values ex: dork1 [OTHER]DORK2 [OTHER]DORK3</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--googleapi</td>
+        <td class="main">Google Apis</td>
+      </tr>
+      <tr>
         <td width="200px" class="main">--shodan</td>
         <td class="main">Shodan search</td>
       </tr>
@@ -672,13 +684,19 @@
        atscan -t [target / targets.txt] -v [string] --zoneH "notifier => --HOST/index.php" <br/>
         <hr>
        &#x25cf; <b>SEARCH EXPLOITS: </b><br/>
-       atscan --bugtraq [string] EX: atscan --bugtraq wordpress <br/> 
-       atscan --bugtraq file.txt <br/>
-       atscan --bugtraq [string] --limit 10 <br/> 
+       atscan --bugtraq -d [string] -l 1 EX: atscan --bugtraq wordpress -l 1<br/> 
+       atscan --bugtraq -d file.txt -l 1<br/>
+       atscan --bugtraq -d [string] -l 1--limit 10 <br/> 
+        <hr>
+       &#x25cf; <b>GOOGLEAPIS SEARCH</b> <br/> 
+       atscan --dork [string or file] -l 1 --apikey [API KEY] --cx [ID]<br/>
+       atscan --dork [string or file] -l 1 --apikey [API KEY] --cx [ID] -v [string]<br/>
+       atscan --dork [string or file] -l 1 --apikey [API KEY] --cx [ID] --exp [exploit]<br/>
+       atscan --dork [string or file] -l 1 --apikey [API KEY] --cx [ID] [ANY APTION]<br/>
         <hr>
        &#x25cf; <b>SHODAN SEARCH</b> <br/> 
-       atscan --shodan --ip [ip or host or file] --apikey [API KEY] <br/>
-       atscan --shodan --search [string or file] --apikey [API KEY] <br/>
+       atscan --shodan --targget [ip or host or file] --apikey [API KEY] <br/>
+       atscan --shodan --dork [string or file] --apikey [API KEY] <br/>
        atscan --shodan --dnsresolve [ip or host or file] --apikey [API KEY] <br/>
        atscan --shodan --dnsrevese [ip or host or file] --apikey [API KEY] <br/>
        atscan --shodan --count [query or file] --apikey [API KEY] <br/>

@@ -369,7 +369,7 @@ sub print_connecttions {
   if ($x < 1) {
 	print $c[2]."\n[!] Cannot connect with any of given apikeys!\n"; logoff();
   }elsif($x < $y) {
-	print $c[3]."\n[!] OK! $c[4]Only running $txt will be used ($x)!\n";
+	print $c[3]."\n[!] OK! $c[4]Only running $txt in list will be used ($x)!\n";
   }
   print "\n";
   sleep 1;   

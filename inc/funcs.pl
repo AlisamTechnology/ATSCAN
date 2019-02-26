@@ -379,11 +379,13 @@ sub print_connecttions {
 ## CHECK CONNECTION
 sub testConnection {
   print $c[4]."[!] $DT[31]\n";
-  if ($proxy || defined $proxy || $prandom || defined $prandom) {
-    #@connected_proxies=check_list_connected("proxies", @proxies);
-    check_list_prx();
-  }elsif (defined $apikey || $apikey) {
-    check_list_apikey();
+  if (defined $apikey || $apikey || $proxy || defined $proxy || $prandom || defined $prandom) {
+    if ($proxy || defined $proxy || $prandom || defined $prandom) {
+      check_list_prx();
+    }
+    if (defined $apikey || $apikey) {
+      check_list_apikey();
+	}
   }else{
     my $respons=$ua->get($ipUrl);
     if (!$respons->is_success) {

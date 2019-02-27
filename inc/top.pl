@@ -4,6 +4,16 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
+## DELETED TOOTL FILES
+my @deteted_files=(
+                   $Bin."/inc/theme/separators.pl",
+                   $Bin."/inc/theme/colors.pl",
+                   $Bin."/inc/index.pl",
+                   $Bin."/inc/functions/ArgsList.pl"
+				   );
+
+for (@deteted_files) { unlink $_ if -e $_; }
+
 ## ALL ARRAYS
 our (@XSS, @LFI, @RFI, @ADFWP, @ADMIN, @SUBDOMAIN, @UPLOAD, @ZIP, @TT, @OTHERS, @AUTH, @ErrT, @DT, @DS, @cms, @SCAN_TITLE, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE,
      @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_LUA, @E_UNDEFINED, @E_MARIADB, @E_SHELL, @strings, @browserlangs, @googleDomains, @Ids, @MsIds, @sys, @vary, @buildArrays, @dorks, @z, @ZT, 

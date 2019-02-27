@@ -25,8 +25,8 @@ our %SCANS=("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"
            "email"=>"collect emails", "ips"=>"collect ips", "ports"=>"scan ports", "commands"=>"extern command", "form"=>"post/get data", "shodan"=>"Shodan search", "bugtraq"=>"Search exploits", "nomodule"=>"no module will be used");
 
 ## SEARCH ENGINE
-@INTERSearchScans=('unique', 'motor', 'm-random', 'zone');
-%INTERSearchScans=("unique"=>"unique tesults", "motor"=>"engine motor", "m-random"=>"random engine", "zone"=>"search zone");
+@INTERSearchScans=('unique', 'motor', 'mrandom', 'zone');
+%INTERSearchScans=("unique"=>"unique tesults", "motor"=>"engine motor", "mrandom"=>"random engine", "zone"=>"search zone");
 
 ## TARGET
 @INTERtarget=('target');
@@ -41,15 +41,15 @@ our %SCANS=("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"
 %INTERdork=("dork"=>"search dork");
 
 ## ALL ARGUMENTS
-our %ARGUMENTSALL=("cx"=>'Google search ID', "apikey"=>'Apikey', "ping"=>"check is alive", "index"=>"get engine index", "getlinks"=>"Get html links", "status"=>"status code", "valid"=>"content by string", "vshell"=>"validate by url", "zoneH"=>"Upload to Zone-H", "exp"=>"exploit", "proxy"=>"use proxy", "proxy-random"=>"random proxy", "save"=>"output file",
-                   "replace"=>"Exact string replace", "replaceFROM"=>"full string replace", "ifinurl"=>"valid url by string", "noquery"=>"remove query string", "b-random"=>"random browser",
+our %ARGUMENTSALL=("cx"=>'Google search ID', "apikey"=>'Apikey', "ping"=>"check is alive", "index"=>"get engine index", "getlinks"=>"Get html links", "status"=>"status code", "valid"=>"content by string", "vshell"=>"validate by url", "zoneH"=>"Upload to Zone-H", "exp"=>"exploit", "proxy"=>"use proxy", "prandom"=>"random proxy", "save"=>"output file",
+                   "replace"=>"Exact string replace", "replaceFROM"=>"full string replace", "ifinurl"=>"valid url by string", "noquery"=>"remove query string", "brandom"=>"random browser",
                    "content"=>"response content", "expHost"=>"exploit host", "expIp"=>"exploit target ip", "timeout"=>"browser time out",
                    "host"=>"host name", "cookies"=>"cookies output file");
-our @ARGUMENTSALL=("cx", "apikey", 'ping', 'index', 'getlinks', 'status', 'valid', 'vshell', 'zoneH', 'exp', 'proxy', 'proxy-random', 'save', 'replace', 'replaceFROM', 'ifinurl',
-                   'noquery', 'b-random', 'content', 'expHost', 'expIp', 'timeout', 'host', 'cookies');
+our @ARGUMENTSALL=("cx", "apikey", 'ping', 'index', 'getlinks', 'status', 'valid', 'vshell', 'zoneH', 'exp', 'proxy', 'prandom', 'save', 'replace', 'replaceFROM', 'ifinurl',
+                   'noquery', 'brandom', 'content', 'expHost', 'expIp', 'timeout', 'host', 'cookies');
 
 ## NOT REQUIRE A VALUE
-our @NoValRequierd=('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noverbose', 'update', 'ips', 'noquery', 'ifend', 'post', 'get', 'b-random', 'm-random', 'content', 'ping',
+our @NoValRequierd=('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noverbose', 'update', 'ips', 'noquery', 'ifend', 'post', 'get', 'brandom', 'mrandom', 'content', 'ping',
                    'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'zip', 'email', 'commands', 'form', 'normal', 'bugtraq', 
                    'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup', 'all', 'geoloc', 'getlinks', 
 				   'query', 'querytags', 'services', 'myip', 'apinfo', 'ports', 'Ports', 'shodan');
@@ -68,14 +68,14 @@ our %shodan=("target"=>"ip or host", "count"=>"shodan count", "query"=>"Shodan s
 			 "protocols"=>"shodan used protocols", "facets"=>"Shodan search facets", "filters"=>"shodan api parameters", 
 			 "tokens"=>"Filters & parameters", "honeyscore"=>"Honeypot score");
 
-our @api=('apikey', 'level', 'limit', 'dork', 'save', 'command', 'proxy', 'proxy-random');
+our @api=('apikey', 'level', 'limit', 'dork', 'save', 'command', 'proxy', 'prandom');
 
 our %api=("apikey"=>"Apikey", "level"=>"number result pages", "limit"=>"Max results limit", "dork"=>"Query search", "save"=>"Output file", "command"=>"Extern command", 
-          "proxy"=>"See help", "proxy-random"=>"See help");
+          "proxy"=>"See help", "prandom"=>"See help");
 
-our @bugtraq=('level', 'limit', 'dork', 'save', 'command', 'proxy', 'proxy-random');
+our @bugtraq=('level', 'limit', 'dork', 'save', 'command', 'proxy', 'prandom');
 our %bugtraq=("level"=>"number result pages", "limit"=>"Max results limit", "dork"=>"Query search", "save"=>"Output file", "command"=>"Extern command", 
-              "proxy"=>"See help", "proxy-random"=>"See help");
+              "proxy"=>"See help", "prandom"=>"See help");
 
 ## SHELL LFI
 our @INTERshell=('shell');

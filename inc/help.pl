@@ -20,9 +20,9 @@ use FindBin '$Bin';
   ltak(); print $c[12]."  SET HEADERS: \n".$c[10]
   ."   --header \"Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'\"\n\n" ;  
   ltak(); print $c[12]."  RANDOM: \n".$c[10]
-  ."   Random proxy: --proxy-random [proxy | file] \n"
-  ."   Random agent: --b-random \n"
-  ."   Random engine: --m-random \n\n" ;
+  ."   Random proxy: --prandom [proxy | file] \n"
+  ."   Random agent: --brandom \n"
+  ."   Random engine: --mrandom \n\n" ;
   ltak(); print $c[12]."  SEARCH ENGINE: \n".$c[10]
   ."   ENGINES: [Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][Googleapis:7][All:all]\n"
   ."   Search: atscan --dork <dork> --level <level> \n"

@@ -130,10 +130,10 @@ $interactive=checkSetting("interactive") if !defined $interactive;
 $proxy=checkSetting("proxy") if !defined $proxy;
 $apikey=checkSetting("apikey") if !defined $apikey;
 $cx=checkSetting("cx") if !defined $cx;
-$prandom=checkSetting("proxy-random") if !defined $prandom;
+$prandom=checkSetting("prandom") if !defined $prandom;
 $payloads=checkSetting("payload") if !defined $payloads;
-$brandom=checkSetting("b-random") if !defined $brandom;
-$mrandom=checkSetting("m-random") if !defined $mrandom;  
+$brandom=checkSetting("brandom") if !defined $brandom;
+$mrandom=checkSetting("mrandom") if !defined $mrandom;  
 $mlevel=checkSetting("level") if !defined $mlevel;
 $method=checkSetting("method") if !defined $get and !defined $post;
 $zone=checkSetting("zone") if !defined $zone;
@@ -149,17 +149,6 @@ $limit=checkSetting("limit") if !defined $limit;
 $command=checkSetting("command") if !defined $command;
 $dateupdate=checkSetting("update");
 
-
-# my %use_configuration=(\$payloads=>\@payloads, \$command=>\@commands, \$apikey=>\@apikeys, \$exploit=>\@exploits, \$expHost=>\@exploits, 
-                       # \$expIp=>\@exploits, \$validText=>\@validTexts, \$exclude=>\@excludes, \$validShell=>\@validShells);
-# foreach our $key(keys %use_configuration) {
-  # if (defined $key) {
-    # @$use_configuration{$key} = $use_configuration{$key};
-    # @$use_configuration{$key} = $use_configuration{$key} = buildArraysLists($key);
-  # }
-# }
-
-##########################################################################################################################
 ## SET PROXY
  if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
  if (defined $prandom || $prandom) { @proxies=getProx($prandom); }

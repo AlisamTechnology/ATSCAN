@@ -11,8 +11,7 @@ my @deteted_files=(
                    $Bin."/inc/theme/colors.pl",
                    $Bin."/inc/index.pl",
                    $Bin."/inc/functions/ArgsList.pl"
-				   );
-
+	          );
 for (@deteted_files) { unlink $_ if -e $_; }
 
 ## CLEAR

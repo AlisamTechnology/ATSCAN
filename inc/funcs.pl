@@ -23,8 +23,8 @@ our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain,
 our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex,
         $port, $data, $ping);
 
-our (@aTscans, @userArraysList, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @connected_proxies, @ErrT,
-     @defaultHeaders, @userHeaders, @validTexts, @exclude, @ZT, @validShells, @commands, @bugs, @connected_apikeys, @apikeys);
+our (@aTscans, @payloads, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @connected_proxies, @ErrT,
+     @defaultHeaders, @userHeaders, @validTexts, @excludes, @ZT, @validShells, @commands, @bugs, @connected_apikeys, @apikeys);
 
 #########################################################################################################################
 ## PRINT FILES 
@@ -149,14 +149,24 @@ $limit=checkSetting("limit") if !defined $limit;
 $command=checkSetting("command") if !defined $command;
 $dateupdate=checkSetting("update");
 
-#########################################################################################################################
+
+# my %use_configuration=(\$payloads=>\@payloads, \$command=>\@commands, \$apikey=>\@apikeys, \$exploit=>\@exploits, \$expHost=>\@exploits, 
+                       # \$expIp=>\@exploits, \$validText=>\@validTexts, \$exclude=>\@excludes, \$validShell=>\@validShells);
+# foreach our $key(keys %use_configuration) {
+  # if (defined $key) {
+    # @$use_configuration{$key} = $use_configuration{$key};
+    # @$use_configuration{$key} = $use_configuration{$key} = buildArraysLists($key);
+  # }
+# }
+
+##########################################################################################################################
 ## SET PROXY
-if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
-if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
+ if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
+ if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
 
 #########################################################################################################################
 ## USER ARRAYS
-if (defined $payloads || $payloads) { @userArraysList=buildArraysLists($payloads); }
+if (defined $payloads || $payloads) { @payloads=buildArraysLists($payloads); }
 
 #########################################################################################################################
 ## EXTERN COMMANDS ARRAYS
@@ -175,41 +185,28 @@ if (defined $expIp) { @exploits=buildArraysLists($expIp); }
 #########################################################################################################################
 ## VALIDATION ARRAYS
 if (defined $validText) { @validTexts=buildArraysLists($validText); }
-if (defined $exclude) { @exclude=buildArraysLists($exclude); }
+if (defined $exclude) { @excludes=buildArraysLists($exclude); }
 if (defined $validShell) { @validShells=buildArraysLists($validShell); }
 
 #########################################################################################################################
-## DORKS & TARGETS ARRAYS
-if (defined $mlevel && !defined $shodan) {
-  if (defined $dork) { @dorks=buildArraysLists($dork); }
-  elsif (defined $Target) {
-    if (($Target=~/$V_RANG/)&&($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
-      my $startIp=$1.".".$2.".".$3.".".$4;
-      my $endIp=$5.".".$6.".".$7.".".$8;  
-      my (@ip,@newIp,$i,$newIp,$j,$k,$l);
-      @ip=split(/\./,$startIp);
-      for($i=$ip[0];$i<=$5;$i++) { 
-	    $ip[0]=0 if($i == $5);
-        for($j=$ip[1];$j<=$6;$j++) { 
-          $ip[1]=0 if($j == $6);
-          for($k=$ip[2];$k<=$7;$k++) { 
-            $ip[2]=0 if($k == $7);
-            for($l=$ip[3];$l<=$8;$l++) { 
-              $ip[3]=0 if($l == $8);
-              $newIp=join('.',$i,$j,$k,$l);
-              $newIp="ip%3A".$newIp;             
-              push @dorks, $newIp;
-            }
-	      }
-	    }
-      }
-    }else{
-      push @dorks, $Target;
+if (!defined $shodan && !defined $bugtraq) {
+  if (defined $mlevel) {
+    if (defined $dork) { @dorks=buildArraysLists($dork); }
+    elsif (defined $Target) {
+      _build_me($Target, "1");
     }
+  }else{
+    if (defined $Target) {
+      _build_me($Target, "");
+	}
   }
-}else{
-  if (defined $Target) {
-    if (($Target=~/$V_RANG/)&&($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
+}
+
+#########################################################################################################################
+## BUILD DORK AND TARGET ARRAYS 
+sub _build_me {
+  my ($ob, $iflevel)=@_;
+  if (($ob=~/$V_RANG/)&&($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
       my $startIp=$1.".".$2.".".$3.".".$4;
       my $endIp=$5.".".$6.".".$7.".".$8;
       my (@ip,@newIp,$i,$newIp,$j,$k,$l);
@@ -223,13 +220,20 @@ if (defined $mlevel && !defined $shodan) {
             for($l=$ip[3];$l<=$8;$l++) { 
               $ip[3]=0 if($l == $8);
               $newIp=join('.',$i,$j,$k,$l);
-              push @aTsearch, $newIp;
+			  if ($iflevel) {
+                push @dorks, $newIp;
+			  }else{
+                push @aTsearch, $newIp;
+			  }
             }
           }
 	    }
       }
-    }else{ 
-	  @aTsearch=buildArraysLists($Target); 
+  }else{
+    if ($iflevel) {
+	  @dorks=buildArraysLists($ob); 
+	}else{
+	  @aTsearch=buildArraysLists($ob); 
 	}
   }
 }

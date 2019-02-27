@@ -4,7 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our (@SCAN_TITLE, @DS, @TT, @c, @aTscans, @aTsearch, @userArraysList, $limit, @ErrT, $proxy, $V_IP, $prandom, $psx, $command, $port, $udp, $tcp, $ping);
+our (@SCAN_TITLE, @DS, @TT, @c, @aTscans, @aTsearch, @payloads, $limit, @ErrT, $proxy, $V_IP, $prandom, $psx, $command, $port, $udp, $tcp, $ping);
 ## SCAN PORTS
 sub scanPorts {
   my ($PORTS, $types)=@_;

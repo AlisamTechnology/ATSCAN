@@ -103,13 +103,13 @@ sub sho_ckeck_total {
   my($total, $act, $tit, $credit)=@_;
   if ($total > 0) {
     if ($act) {
-      print $c[4]."[!]$c[10] Listing ($total) of found results! ... \n";
+      print $c[3]."[!]$c[10] Listing ($total) of found results! ... \n";
       print $c[3]."[!] Getting data ...\n";
 	}else{
 	  if ($limit ne 500) {
-	    print $c[4]."[!]$c[10] Listing ($limit) of found results defined by user! ...\n";
+	    print $c[3]."[!]$c[10] Listing ($limit) of found results defined by user! ...\n";
 	  }else{
-        print $c[4]."[!]$c[10] Listing ($total) of found results! \n";
+        print $c[3]."[!]$c[10] Listing ($total) of found results! \n";
 	  }
 	  if ($credit) { credit(); }
 	}
@@ -123,35 +123,6 @@ sub sho_ckeck_total {
 sub credit {
   print $c[4]."[!]$c[10] Accessing to more results by --level <num of results page> require credit!\n";
   sleep 2;
-}
-###########################################################################################
-## BUILD ARRAYS  ##########################################################################
-sub build_sho_ip {
-  my $shoipall=$_[0];
-  my @shoipall;
-  if (($shoipall=~/$V_RANG/)&&($1<=255 && $2<=255 && $3<=255 && $4<=255 && $5<=255 && $6<=255 && $7<=255 && $8<=255)) { 
-    my $startIP=$1.".".$2.".".$3.".".$4;
-    my $endIP=$5.".".$6.".".$7.".".$8;
-    my (@ip,@newIP,$i,$newIP,$j,$k,$l);
-    @ip=split(/\./,$startIP);
-    for($i=$ip[0];$i<=$5;$i++) { 
-	  $ip[0]=0 if($i == $5);
-      for($j=$ip[1];$j<=$6;$j++) { 
-        $ip[1]=0 if($j == $6);
-        for($k=$ip[2];$k<=$7;$k++) { 
-          $ip[2]=0 if($k == $7);
-          for($l=$ip[3];$l<=$8;$l++) { 
-            $ip[3]=0 if($l == $8);
-            $newIP=join('.',$i,$j,$k,$l);
-            push @shoipall, $newIP;
-          }
-	    }
-      }
-	}
-  }else{ 
-    @shoipall=buildArraysLists($shoipall);
-  }
-  return @shoipall;
 }
 
 ###########################################################################################
@@ -738,45 +709,33 @@ if ($s) {
   timer();
   print " ::: EXPLORING SHODAN SEARCH ENGINE :::\n";
   ######################################
-  if ( $Target ) {
-    my @dorks=build_sho_ip($Target);
-    for my $f(@dorks) { $nn++; check_host_validation($f, $nn, "1"); }
-  }else{
-    if ( $shocount ) {
-      my @shocount=buildArraysLists($shocount);
-	  for my $f(@shocount) { $nn++; sho_count($f, $nn); } }
-    if ( $dork ) { 
-       my @dorks=buildArraysLists($dork);
-	  for my $f(@dorks) { $nn++; sho_search($f, $nn); }
-    }
-    if ( $shoquerySearch ) { 
-      my @shoquerySearch=buildArraysLists($shoquerySearch);
-	  for my $f(@shoquerySearch) { $nn++; sho_query_search($f, $nn); }
-    }
-    if ( $shoresolve ) { 
-      my @shoresolve=build_sho_ip($shoresolve);
-      for my $f(@shoresolve) { $nn++; check_host_validation($f, $nn, "2"); }
-    }
-    if ( $shoreverse ) { 
-      my @shoreverse=build_sho_ip($shoreverse);
-      for my $f(@shoreverse) { $nn++; check_host_validation($f, $nn, "3"); }
-    }
-    if ( $shotokens ) { 
-      my @shotokens=build_sho_ip($shotokens);
-      for my $f(@shotokens) { sho_tokens(@shotokens); }
-    }
-    if ( $shoports ) { sho_ports(); }
-    if ( $shoprotos ) { sho_protos(); }
-    if ( $shoqueryTags ) { sho_query_tags(); }
-    if ( $shoquery ) { sho_query(); }
-    if ( $shoservices ) { sho_services(); }
-    if ( $shomyip ) { shomyip(); }
-    if ( $shoapiInfo ) { shoapinfo(); }
-    if ( $shofilters ) { shodan_help(); }
-	if ( $shohoneyscore ) { honeyscore(); }
-	######################################
-    print $c[3]."[!] Results saved in [$output]\n" if defined $output;
-  }
+  my @sho_args=($Target, $dork, $shocount, $shoquerySearch, $shoresolve, $shoreverse, $shotokens);
+  for (@sho_args) { 
+    _build_me($_, "1") if defined $_;
+	for my $f(@dorks) {
+	  $nn++;  
+      if ( $Target ) { check_host_validation($f, $nn, "1"); }
+      else{
+        if ( $shocount ) { sho_count($f, $nn); }
+        if ( $dork ) { sho_search($f, $nn); }
+        if ( $shoquerySearch ) { sho_query_search($f, $nn); }
+        if ( $shoresolve ) { check_host_validation($f, $nn, "2"); }
+        if ( $shoreverse ) { check_host_validation($f, $nn, "3"); }
+        if ( $shotokens ) { sho_tokens(@dorks); }
+	  }
+	}
+  }	
+  if ( $shoports ) { sho_ports(); }
+  if ( $shoprotos ) { sho_protos(); }
+  if ( $shoqueryTags ) { sho_query_tags(); }
+  if ( $shoquery ) { sho_query(); }
+  if ( $shoservices ) { sho_services(); }
+  if ( $shomyip ) { shomyip(); }
+  if ( $shoapiInfo ) { shoapinfo(); }
+  if ( $shofilters ) { shodan_help(); };
+  if ( $shohoneyscore ) { honeyscore(); }
+  ######################################
+  print $c[3]."[!] Results saved in [$output]\n" if defined $output;
 }else{
   sho_menu();
 }

@@ -172,8 +172,8 @@
           Set proxy list [EX: --proxy file] </td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--proxy-random</td>
-        <td class="main">Random proxy [EX: --proxy-random file] or --proxy-random "socks://localhost:9050"]</td>
+        <td width="200px" class="main">--prandom</td>
+        <td class="main">Random proxy [EX: --prandom file] or --prandom "socks://localhost:9050"]</td>
       </tr>
       <tr>
         <td width="200px" class="main">--motor / -m</td>
@@ -188,11 +188,11 @@
         <td class="main">Googleapis ID</td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--m-random</td>
+        <td width="200px" class="main">--mrandom</td>
         <td class="main">Random of all disponibles engines</td> 
       </tr> 
       <tr>
-        <td width="200px" class="main">--b-random</td>
+        <td width="200px" class="main">--brandom</td>
         <td class="main">Random all disponibles agents </td>
       </tr>
       <tr>
@@ -593,9 +593,9 @@
         or --proxy file Ex: --proxy my_proxies.txt <br/>
         <hr>
         &#x25cf; <b>RANDOM: </b> <br/>
-        Random proxy: --proxy-random [proxy  file] <br/>
-        Random browser: --b-random <br/>
-        Random engine: --m-random <br/>
+        Random proxy: --prandom [proxy  file] <br/>
+        Random browser: --brandom <br/>
+        Random engine: --mrandom <br/>
         <hr>
        &#x25cf; <b>SET HEADERS:</b> <br>
        atscan --dork [dork / dorks.txt] --level [level] --header "Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'" <br/>

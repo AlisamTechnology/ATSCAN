@@ -38,8 +38,9 @@ if (defined $mlevel && (!defined $shodan && !defined $bugtraq)) {
 }
 
 if (defined $searchRegex) { doRegex($searchRegex); }
+if (!defined $shodan && !defined $bugtraq) {
 if (scalar @aTsearch > 0) {
-  my @aTsearch=checkDuplicate(@aTsearch);
+  @aTsearch=checkDuplicate(@aTsearch);
   print $c[3]."[i] ".scalar @aTsearch." $DT[4]\n" if !$getlinks;
   my $k=getK(0, 0);
   if (!$k) {
@@ -59,7 +60,7 @@ if (scalar @aTsearch > 0) {
   negative();
   logoff();
 }
-
+}
 ## MENU    
 sub Menu {	
   if (defined $WpSites) { WpSites(); }

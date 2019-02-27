@@ -6,13 +6,13 @@ use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
 ## CLEAR
-if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
+#if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
 ## 
 our @TODO=();
 our $validText;
 our @V_VALID=($validText) if defined $validText;
-our (@buildArrays, @dorks, @userArraysList, @exploits, @data, @aTsearch, @aTscans, @aTtargets, @aTcopy, @ports, @motor, @motors, @systems)=();
+our (@buildArrays, @dorks, @payloads, @exploits, @data, @aTsearch, @aTscans, @aTtargets, @aTcopy, @ports, @motor, @motors, @systems)=();
 our (@V_LFI, @V_XSS, @V_AFD, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE, @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_UNDEFINED, @E_MARIADB, @E_SHELL, @DT);
 our (@V_WP, @V_JOOM, @V_TP, @V_SMF, @V_PhpBB, @V_VB, @V_MyBB, @V_CF, @V_DRP, @V_PN, @V_AT, @V_PHPN, @V_MD, @V_ACM, @V_SS, @V_MX, @V_XO, @V_OSC, @V_PSH, @V_BB2, @V_MG, @V_ZC, @V_CC5, @V_OCR);
 our @ERR=(@V_LFI, @V_XSS, @V_AFD, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE, @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_UNDEFINED, @E_MARIADB, @E_SHELL);
@@ -55,7 +55,7 @@ sub timer { my $time=strftime "%H:%M:%S", localtime; print "[$time]"; }
 
 ## DELETE CLEAR LISTS
 sub deleteLists {
-  our (@buildArrays, @dorks, @userArraysList, @exploits, @data, @proxies, @aTsearch, @aTscans, @aTtargets, @aTcopy, @ports, @motor, 
+  our (@buildArrays, @dorks, @payloads, @exploits, @data, @proxies, @aTsearch, @aTscans, @aTtargets, @aTcopy, @ports, @motor, 
   @motors, @systems)=();
   unlink our $script_bac;
 }

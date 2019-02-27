@@ -106,7 +106,7 @@ sub escape {
 ###############################################################################
 ###############################################################################
 sub printBugs {
-  my $m=scalar @refer);
+  my $m=scalar @refer;
   my $x=0;
   for my $refer(@refer) {
     $x++;
@@ -173,9 +173,10 @@ sub viewBug {
 ###############################################################################
 ###############################################################################
 ## MAIN
+_build_me($dork, "1");
 bugs();
-my $m=scalar @bugTitle);
-if (scalar @bugTitle)<1) {
+my $m=scalar @bugTitle;
+if (scalar @bugTitle <1 ) {
   print $c[4]."[!] No results found!\n";
   logoff();
 }else{
@@ -188,7 +189,7 @@ if (scalar @bugTitle)<1) {
 print $c[1]."============================================================================\n" if $m>0;
 sleep 2;
 
-if ($m>0) {
+if ($m > 0) {
   my $x=0;
   for(my $nbugs=0;$nbugs<$m;$nbugs+=1) {
     my $fcc="$bugTitle[$nbugs]=>$bugId[$nbugs]=>$bugWarning[$nbugs]=>$bugDate[$nbugs]";
@@ -200,8 +201,7 @@ if ($m>0) {
   }
   printBugs();
   my $rr;
-      print "\n";
-
+  print "\n";
   while (!$rr or $rr!~/exit/) {
     print $c[4]." [!]$c[10] Type <your option> or \"options\" for help: ";
     $rr=<STDIN>;

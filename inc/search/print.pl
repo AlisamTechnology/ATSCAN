@@ -7,7 +7,7 @@ use FindBin '$Bin';
 ######################################################################################################################
 our ($limit, $get, $post, $Hstatus, $validText, $content, $beep, $output, $msource, $exclude, $expHost, $expIp, $command, $all,
      $data, $validShell, $zoneH, $fullHeaders, $ua, $geoloc, $geoServer, $V_IP, $exploit, $replace, $replaceFROM, $noQuery, 
-	 @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @exclude, @exists, @notExists, @ZT, @validShells, @noList_data);
+	 @c, @DT, @DS, @TT, @aTsearch, @aTscans, @data, @validTexts, @excludes, @exists, @notExists, @ZT, @validShells, @noList_data);
 
 ######################################################################################################################
 ## BUILD SCAN RESULTS LISTS
@@ -101,7 +101,7 @@ sub titleSCAN {
       print $c[1]."    $ZT[11]  ".$c[3]."[$DS[13] $Hstatus] \n";
     }
     if (defined $exclude) {
-      for my $noin(@exclude) {
+      for my $noin(@excludes) {
         if ($html=~m/\b$noin\b/) {
           push @noins, $noin;
         }
@@ -231,7 +231,7 @@ sub checkValidation {
     }
   }
   if (defined $exclude) {
-    my $exclude_number = getValidationParts($html, \@exclude, "2");
+    my $exclude_number = getValidationParts($html, \@excludes, "2");
     if ($exclude_number <= 0) { $cV="1"; }
   }
   return $cV;

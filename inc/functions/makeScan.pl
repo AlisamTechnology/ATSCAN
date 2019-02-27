@@ -7,7 +7,7 @@ use FindBin '$Bin';
 ## MAKE SCAN
 sub makeSscan { 
   my ($ct, $dt, $et, $ar, $v_ar, $title, $paylNote, $result, $reverse, $reg, $comnd, $isFilter, $data, $no)=@_;
-  our (@c, @DS, @TT, @aTscans, @aTsearch, @userArraysList, @replaceParts, $limit, $payloads, $exploit, $shell, $p, $expHost, $expIp,
+  our (@c, @DS, @TT, @aTscans, @aTsearch, @payloads, @replaceParts, $limit, $payloads, $exploit, $shell, $p, $expHost, $expIp,
        $replaceFROM, $replace, $getlinks);
   @aTscans=();
   ptak();
@@ -22,7 +22,7 @@ sub makeSscan {
   my $i4;
   for (@noresults4) { $i4="1" if defined $_; }
   if ($i4) {
-    if (defined $payloads) { @arr=@userArraysList; }
+    if (defined $payloads) { @arr=@payloads; }
     else{ @arr=@{ $ar }; }
   }
   my @filter=@{ $v_ar };

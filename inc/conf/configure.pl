@@ -5,6 +5,16 @@ use FindBin '$Bin';
 use POSIX qw(strftime);
 ## Copy@right Alisam Technology see License.txt
 
+## DELETED TOOTL FILES
+my @deteted_files=(
+                   $Bin."/inc/theme/separators.pl",
+                   $Bin."/inc/theme/colors.pl",
+                   $Bin."/inc/index.pl",
+                   $Bin."/inc/functions/ArgsList.pl"
+				   );
+
+for (@deteted_files) { unlink $_ if -e $_; }
+
 ## CLEAR
 if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 

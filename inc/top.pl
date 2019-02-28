@@ -11,7 +11,8 @@ my @deteted_files=(
                    $Bin."/inc/index.pl",
                    $Bin."/inc/functions/ArgsList.pl",
                    $Bin."/inc/bottom.pl",
-                   $Bin."/inc/header.pl"
+                   $Bin."/inc/header.pl",
+				   $Bin."inc/conf/usr/atscan"
 				   );
 
 for (@deteted_files) { unlink $_ if -e $_; }

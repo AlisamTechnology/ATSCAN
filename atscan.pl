@@ -85,5 +85,3 @@ for (@toChomp) { chomp ($_) if defined $_; }
 ## INCLUDES
 require "$Bin/inc/includes.pl";
 
-## EXIT
-require "$Bin/inc/bottom.pl";

@@ -371,19 +371,17 @@ sub print_connecttions {
 #########################################################################################################################
 ## CHECK CONNECTION
 sub testConnection {
+  our @motors;
+  my $b;
+  for (@motors) { $b=1 if $_=~/googleapis./; }
+  $b=1 if defined $shodan;
   print $c[4]."[!] $DT[31]\n";
-  if (defined $apikey || $apikey || $proxy || defined $proxy || $prandom || defined $prandom) {
-    if ($proxy || defined $proxy || $prandom || defined $prandom) {
-      check_list_prx();
-    }
-    if (defined $apikey || $apikey) {
-      check_list_apikey();
-	}
+  if ($b || $proxy || defined $proxy || $prandom || defined $prandom) {
+    if ($proxy || defined $proxy || $prandom || defined $prandom) { check_list_prx(); }
+    if ($b) { check_list_apikey(); }
   }else{
     my $respons=$ua->get($ipUrl);
-    if (!$respons->is_success) {
-      print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff();
-	}
+    if (!$respons->is_success) { print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff(); }
   }
   sleep 1;
 }

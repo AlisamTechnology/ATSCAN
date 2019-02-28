@@ -39,28 +39,29 @@ if (defined $mlevel && (!defined $shodan && !defined $bugtraq)) {
 
 if (defined $searchRegex) { doRegex($searchRegex); }
 if (!defined $shodan && !defined $bugtraq) {
-if (scalar @aTsearch > 0) {
-  @aTsearch=checkDuplicate(@aTsearch);
-  print $c[3]."[i] ".scalar @aTsearch." $DT[4]\n" if !$getlinks;
-  my $k=getK(0, 0);
-  if (!$k) {
-    my @noresults=($command, $validShell, $validText, $zoneH, $Hstatus, $content, $msource, $fullHeaders, $geoloc, $exclude);
-    my $i;
-    for (@noresults) { $i="1" if defined $_; }
-    if ($i) {
-      ptak(); print $c[11]."[!] ";timer(); print " ::: STARTING SCAN PROCESS.. :::\n";
-      makeSscan("", "", "", \@TODO, \@V_TODO, "", "", "", "", "", "", "", "", "1");
-	}else{
-      makeSscan("", "", "", \@TODO, \@V_TODO, "", "", "1", "", "", "", "", "", "1");
-	}
-  }else{
-    Menu();
+  if (scalar @aTsearch > 0) {
+    @aTsearch=checkDuplicate(@aTsearch);
+    print $c[3]."[i] ".scalar @aTsearch." $DT[4]\n" if !$getlinks;
+    my $k=getK(0, 0);
+    if (!$k) {
+      my @noresults=($command, $validShell, $validText, $zoneH, $Hstatus, $content, $msource, $fullHeaders, $geoloc, $exclude);
+      my $i;
+      for (@noresults) { $i="1" if defined $_; }
+      if ($i) {
+        ptak(); print $c[11]."[!] ";timer(); print " ::: STARTING SCAN PROCESS.. :::\n";
+        makeSscan("", "", "", \@TODO, \@V_TODO, "", "", "", "", "", "", "", "", "1");
+	  }else{
+        makeSscan("", "", "", \@TODO, \@V_TODO, "", "", "1", "", "", "", "", "", "1");
+	  }
+    }else{
+      Menu();
+    }
+  }else{ 
+    negative();
+    logoff();
   }
-}else{ 
-  negative();
-  logoff();
 }
-}
+
 ## MENU    
 sub Menu {	
   if (defined $WpSites) { WpSites(); }
@@ -78,6 +79,10 @@ sub Menu {
   if (defined $port || defined $ping) { ports(); } 
   if (defined $data) { mdata(); }
   }
+}
+
+if (!defined $checkVersion && !defined $help && !defined $uninstall && !defined $toolInfo && !defined $config && !defined $repair) { 
+  subfin(); logoff();
 }
 
 ## GET WORDPRESS SITES

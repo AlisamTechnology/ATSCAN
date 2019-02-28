@@ -13,7 +13,7 @@ use POSIX qw(strftime);
 ## FUNCTS
 our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, 
      $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noverbose, $V_IP, $expIp, $interactive, $command, $uplog, $validShell, 
-	 $validText, $exclude, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex, $Hstatus, $content, $msource, $fullHeaders, $geoloc, $getlinks);
+     $validText, $exclude, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex, $Hstatus, $content, $msource, $fullHeaders, $geoloc, $getlinks);
 
 our($userSetting, $proxy, $system, $agent, $ua, $psx, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
     $method, $checkVersion, $get, $post, $scriptbash, $shodan, $apikey, $cx);
@@ -125,29 +125,29 @@ sub deletSetting {
 
 #########################################################################################################################
 ## CHECK USER CONFIGURATION
-$password=checkSetting("password");
-$interactive=checkSetting("interactive") if !defined $interactive;
-$proxy=checkSetting("proxy") if !defined $proxy;
-$apikey=checkSetting("apikey") if !defined $apikey;
-$cx=checkSetting("cx") if !defined $cx;
-$prandom=checkSetting("prandom") if !defined $prandom;
-$payloads=checkSetting("payload") if !defined $payloads;
-$brandom=checkSetting("brandom") if !defined $brandom;
-$mrandom=checkSetting("mrandom") if !defined $mrandom;  
-$mlevel=checkSetting("level") if !defined $mlevel;
-$method=checkSetting("method") if !defined $get and !defined $post;
-$zone=checkSetting("zone") if !defined $zone;
-$motor=checkSetting("motor") if !defined $motor;
-$nobanner=checkSetting("nobanner") if !defined $nobanner;
-$noverbose=checkSetting("noverbose") if !defined $noverbose;
-$beep=checkSetting("beep") if !defined $beep;
-$ifend=checkSetting("ifend") if !defined $ifend;
-$unique=checkSetting("unique") if !defined $unique;
-$timeout=checkSetting("timeout") if !defined $timeout;
-$freq=checkSetting("freq") if !defined $freq;
-$limit=checkSetting("limit") if !defined $limit;
-$command=checkSetting("command") if !defined $command;
-$dateupdate=checkSetting("update");
+$password    = checkSetting("password");
+$interactive = checkSetting("interactive") if !defined $interactive;
+$proxy       = checkSetting("proxy") if !defined $proxy;
+$apikey      = checkSetting("apikey") if !defined $apikey;
+$cx          = checkSetting("cx") if !defined $cx;
+$prandom     = checkSetting("prandom") if !defined $prandom;
+$payloads    = checkSetting("payload") if !defined $payloads;
+$brandom     = checkSetting("brandom") if !defined $brandom;
+$mrandom     = checkSetting("mrandom") if !defined $mrandom;  
+$mlevel      = checkSetting("level") if !defined $mlevel;
+$method      = checkSetting("method") if !defined $get and !defined $post;
+$zone        = checkSetting("zone") if !defined $zone;
+$motor       = checkSetting("motor") if !defined $motor;
+$nobanner    = checkSetting("nobanner") if !defined $nobanner;
+$noverbose   = checkSetting("noverbose") if !defined $noverbose;
+$beep        = checkSetting("beep") if !defined $beep;
+$ifend       = checkSetting("ifend") if !defined $ifend;
+$unique      = checkSetting("unique") if !defined $unique;
+$timeout     = checkSetting("timeout") if !defined $timeout;
+$freq        = checkSetting("freq") if !defined $freq;
+$limit       = checkSetting("limit") if !defined $limit;
+$command     = checkSetting("command") if !defined $command;
+$dateupdate  = checkSetting("update");
 
 ## SET PROXY
  if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
@@ -284,19 +284,12 @@ $agent="Mozilla/5.0 (".$systems[rand @systems];
 $ua=LWP::UserAgent->new( agent => $agent);
 $ua->cookie_jar($cookies);
 $ua->env_proxy;
-if (defined $timeout || $timeout) {
-  $ua->timeout($timeout);
-}
+if (defined $timeout || $timeout) { $ua->timeout($timeout); }
 
 #########################################################################################################################
 ## CURRENT PROXY
-sub get_psx {
-  return $proxies[rand @proxies];
-}
-
-sub get_conected_psx {
-  return $connected_proxies[rand @connected_proxies];
-}
+sub get_psx { return $proxies[rand @proxies]; }
+sub get_conected_psx { return $connected_proxies[rand @connected_proxies]; }
 
 #########################################################################################################################
 ## CHECK PROXY CONNECTION
@@ -319,9 +312,7 @@ sub check_apikey_connect {
 
 #########################################################################################################################
 ## CHECK APIKEY LIST
-sub get_conected_apikey {
-  return $connected_apikeys[rand @connected_apikeys];
-}
+sub get_conected_apikey { return $connected_apikeys[rand @connected_apikeys]; }
 
 #########################################################################################################################
 ## CHECK PROXY LIST
@@ -330,10 +321,10 @@ sub check_list_prx {
   for my $psx(@proxies) {
     my $r=check_proxy_connect($psx);
     if (!$r) { 
-	  print $c[2]."\n[!] Failed to connect with [$psx]";
-	}else{
-	  push @connected_proxies, $psx;
-	}
+      print $c[2]."\n[!] Failed to connect with [$psx]";
+    }else{
+      push @connected_proxies, $psx;
+    }
   }
   print_connecttions(scalar @connected_proxies, scalar @proxies, "proxies");
 }
@@ -360,9 +351,9 @@ sub print_connecttions {
   my ($x, $y, $txt)=@_;
   print "$c[3] OK\n" if $x eq $y;
   if ($x < 1) {
-	print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; logoff();
+    print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; logoff();
   }elsif($x < $y) {
-	print $c[3]."\n[!] OK! $c[4]Only running $txt in list will be used ($x)!\n";
+    print $c[3]."\n[!] OK! $c[4]Only running $txt in list will be used ($x)!\n";
   }
   print "\n";
   sleep 1;   

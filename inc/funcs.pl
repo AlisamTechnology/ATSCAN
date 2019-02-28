@@ -11,11 +11,11 @@ use POSIX qw(strftime);
 
 #########################################################################################################################
 ## FUNCTS
-our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, 
+our ($payloads, $exploit, $expHost, $data, $level, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, 
      $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noverbose, $V_IP, $expIp, $interactive, $command, $uplog, $validShell, 
-     $validText, $exclude, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex, $Hstatus, $content, $msource, $fullHeaders, $geoloc, $getlinks);
+	 $validText, $exclude, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex, $Hstatus, $content, $msource, $fullHeaders, $geoloc, $getlinks);
 
-our($userSetting, $proxy, $system, $agent, $ua, $psx, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
+our($userSetting, $proxy, $system, $agent, $ua, $psx, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $update, $freq, 
     $method, $checkVersion, $get, $post, $scriptbash, $shodan, $apikey, $cx);
 
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $ping);
@@ -134,8 +134,8 @@ $prandom     = checkSetting("prandom") if !defined $prandom;
 $payloads    = checkSetting("payload") if !defined $payloads;
 $brandom     = checkSetting("brandom") if !defined $brandom;
 $mrandom     = checkSetting("mrandom") if !defined $mrandom;  
-$mlevel      = checkSetting("level") if !defined $mlevel;
-$method      = checkSetting("method") if !defined $get and !defined $post;
+$level       = checkSetting("level") if !defined $level;
+$method      = checkSetting("method") if (!defined $get && !defined $post);
 $zone        = checkSetting("zone") if !defined $zone;
 $motor       = checkSetting("motor") if !defined $motor;
 $nobanner    = checkSetting("nobanner") if !defined $nobanner;
@@ -147,11 +147,12 @@ $timeout     = checkSetting("timeout") if !defined $timeout;
 $freq        = checkSetting("freq") if !defined $freq;
 $limit       = checkSetting("limit") if !defined $limit;
 $command     = checkSetting("command") if !defined $command;
-$dateupdate  = checkSetting("update");
+$update      = checkSetting("update");
 
+#########################################################################################################################
 ## SET PROXY
- if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
- if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
+if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
+if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
 
 #########################################################################################################################
 ## USER ARRAYS
@@ -179,7 +180,7 @@ if (defined $validShell) { @validShells=buildArraysLists($validShell); }
 
 #########################################################################################################################
 if (!defined $shodan && !defined $bugtraq) {
-  if (defined $mlevel) {
+  if (defined $level) {
     if (defined $dork) { @dorks=buildArraysLists($dork); }
     elsif (defined $Target) {
       _build_me($Target, "1");
@@ -235,13 +236,13 @@ $limit="500" if !defined $limit;
 #########################################################################################################################
 ## SET RANDOM FREQUENCY START TIME
 sub get_frequecy {
-  my $now = strftime "%H%M%S", localtime;
-  return $now;
+  return strftime "%H%M%S", localtime;
 }
 
 #########################################################################################################################
 ## START FREQ
 our $start=get_frequecy();
+
 #########################################################################################################################
 ## BROWSER
 our (@sys, @vary, @systems);
@@ -284,12 +285,19 @@ $agent="Mozilla/5.0 (".$systems[rand @systems];
 $ua=LWP::UserAgent->new( agent => $agent);
 $ua->cookie_jar($cookies);
 $ua->env_proxy;
-if (defined $timeout || $timeout) { $ua->timeout($timeout); }
+if (defined $timeout || $timeout) {
+  $ua->timeout($timeout);
+}
 
 #########################################################################################################################
 ## CURRENT PROXY
-sub get_psx { return $proxies[rand @proxies]; }
-sub get_conected_psx { return $connected_proxies[rand @connected_proxies]; }
+sub get_psx {
+  return $proxies[rand @proxies];
+}
+
+sub get_conected_psx {
+  return $connected_proxies[rand @connected_proxies];
+}
 
 #########################################################################################################################
 ## CHECK PROXY CONNECTION
@@ -312,7 +320,9 @@ sub check_apikey_connect {
 
 #########################################################################################################################
 ## CHECK APIKEY LIST
-sub get_conected_apikey { return $connected_apikeys[rand @connected_apikeys]; }
+sub get_conected_apikey {
+  return $connected_apikeys[rand @connected_apikeys];
+}
 
 #########################################################################################################################
 ## CHECK PROXY LIST
@@ -321,10 +331,10 @@ sub check_list_prx {
   for my $psx(@proxies) {
     my $r=check_proxy_connect($psx);
     if (!$r) { 
-      print $c[2]."\n[!] Failed to connect with [$psx]";
-    }else{
-      push @connected_proxies, $psx;
-    }
+	  print $c[2]."\n[!] Failed to connect with [$psx]";
+	}else{
+	  push @connected_proxies, $psx;
+	}
   }
   print_connecttions(scalar @connected_proxies, scalar @proxies, "proxies");
 }
@@ -351,9 +361,9 @@ sub print_connecttions {
   my ($x, $y, $txt)=@_;
   print "$c[3] OK\n" if $x eq $y;
   if ($x < 1) {
-    print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; logoff();
+	print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; logoff();
   }elsif($x < $y) {
-    print $c[3]."\n[!] OK! $c[4]Only running $txt in list will be used ($x)!\n";
+	print $c[3]."\n[!] OK! $c[4]Only running $txt in list will be used ($x)!\n";
   }
   print "\n";
   sleep 1;   
@@ -362,17 +372,19 @@ sub print_connecttions {
 #########################################################################################################################
 ## CHECK CONNECTION
 sub testConnection {
-  our @motors;
-  my $b;
-  for (@motors) { $b=1 if $_=~/googleapis./; }
-  $b=1 if defined $shodan;
   print $c[4]."[!] $DT[31]\n";
-  if ($b || $proxy || defined $proxy || $prandom || defined $prandom) {
-    if ($proxy || defined $proxy || $prandom || defined $prandom) { check_list_prx(); }
-    if ($b) { check_list_apikey(); }
+  if (defined $apikey || $apikey || $proxy || defined $proxy || $prandom || defined $prandom) {
+    if ($proxy || defined $proxy || $prandom || defined $prandom) {
+      check_list_prx();
+    }
+    if (defined $apikey || $apikey) {
+      check_list_apikey();
+	}
   }else{
     my $respons=$ua->get($ipUrl);
-    if (!$respons->is_success) { print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff(); }
+    if (!$respons->is_success) {
+      print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff();
+	}
   }
   sleep 1;
 }
@@ -484,7 +496,7 @@ sub desclaimer {
     if (-e $uplog) { require "$Bin/inc/conf/upad.pl"; }
   }
   mtak(); ptak();
-  if (defined $dork || defined $Target || defined $checkVersion || defined $repair || defined $shodan || defined $bugtraq) {    
+  if (defined $dork || defined $Target || defined $checkVersion || defined $repair || defined $shodan) {    
     testConnection();
   }
 }
@@ -584,8 +596,7 @@ sub removeQuery {
   my $protocol=getTargetProtocol($URL);
   $URL=removeProtocol($URL);
   $URL=~s/=.*/=/g;
-  $URL="$protocol//$URL";	
-  return $URL;
+  return "$protocol//$URL";	
 }
 
 #########################################################################################################################
@@ -608,15 +619,9 @@ sub checkVreplace {
 sub control {
   my $URL=$_[0];
   our @replaceParts;
-  if (defined $noQuery) {
-    $URL=removeQuery($URL);
-  }
-  if (defined $mdom || defined $expHost) {               
-	$URL=getHost($URL);
-  }  
-  if (defined $replace) {
-    $URL=~s/\Q$replaceParts[0]/$replaceParts[1]/ig;
-  }
+  if (defined $noQuery) { $URL=removeQuery($URL); }
+  if (defined $mdom || defined $expHost) { $URL=getHost($URL); }  
+  if (defined $replace) { $URL=~s/\Q$replaceParts[0]/$replaceParts[1]/ig; }
   if (defined $replaceFROM) {
     $URL=~s/$replaceParts[0](.*)//s;
     $URL=~s/$replaceParts[0]//ig;
@@ -636,8 +641,7 @@ sub getHost {
   my $protocol=getTargetProtocol($URL);
   $URL=removeProtocol($URL);   
   $URL=~s/\/.*//s;
-  $URL="$protocol//$URL";
-  return $URL;
+  return "$protocol//$URL";
 }
 
 #########################################################################################################################

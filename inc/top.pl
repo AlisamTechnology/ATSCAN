@@ -12,7 +12,7 @@ my @deteted_files=(
                    $Bin."/inc/functions/ArgsList.pl",
                    $Bin."/inc/bottom.pl",
                    $Bin."/inc/header.pl",
-				   $Bin."inc/conf/usr/atscan"
+				   $Bin."/inc/conf/usr/atscan"
 				   );
 
 for (@deteted_files) { unlink $_ if -e $_; }
@@ -52,8 +52,6 @@ our $sp=" " x 11;
 ## CONFIGURE 
 require "$Bin/inc/conf/configure.pl";
 
-## HEADER
-#require "$Bin/inc/header.pl";
 ## ADVISE
 sub advise {
   if (-e "/usr/bin/atscan") {
@@ -72,7 +70,6 @@ sub banner { require "$Bin/inc/theme/banner.pl"; }
 
 ## BAD ARGUMENTS
 sub badArgs { banner(); advise(); }
-
 
 
 1;

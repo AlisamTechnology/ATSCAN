@@ -11,11 +11,11 @@ use POSIX qw(strftime);
 
 #########################################################################################################################
 ## FUNCTS
-our ($payloads, $exploit, $expHost, $data, $level, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, 
+our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $noQuery, $mdom, $replace, $replaceFROM, $unique, 
      $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noverbose, $V_IP, $expIp, $interactive, $command, $uplog, $validShell, 
 	 $validText, $exclude, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex, $Hstatus, $content, $msource, $fullHeaders, $geoloc, $getlinks);
 
-our($userSetting, $proxy, $system, $agent, $ua, $psx, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $update, $freq, 
+our($userSetting, $proxy, $system, $agent, $ua, $psx, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
     $method, $checkVersion, $get, $post, $scriptbash, $shodan, $apikey, $cx);
 
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $ping);
@@ -134,8 +134,8 @@ $prandom     = checkSetting("prandom") if !defined $prandom;
 $payloads    = checkSetting("payload") if !defined $payloads;
 $brandom     = checkSetting("brandom") if !defined $brandom;
 $mrandom     = checkSetting("mrandom") if !defined $mrandom;  
-$level       = checkSetting("level") if !defined $level;
-$method      = checkSetting("method") if (!defined $get && !defined $post);
+$mlevel      = checkSetting("level") if !defined $mlevel;
+$method      = checkSetting("method") if !defined $get and !defined $post;
 $zone        = checkSetting("zone") if !defined $zone;
 $motor       = checkSetting("motor") if !defined $motor;
 $nobanner    = checkSetting("nobanner") if !defined $nobanner;
@@ -147,12 +147,12 @@ $timeout     = checkSetting("timeout") if !defined $timeout;
 $freq        = checkSetting("freq") if !defined $freq;
 $limit       = checkSetting("limit") if !defined $limit;
 $command     = checkSetting("command") if !defined $command;
-$update      = checkSetting("update");
+$dateupdate  = checkSetting("update");
 
 #########################################################################################################################
 ## SET PROXY
-if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
-if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
+ if (defined $proxy || $proxy) { @proxies=getProx($proxy); }
+ if (defined $prandom || $prandom) { @proxies=getProx($prandom); }
 
 #########################################################################################################################
 ## USER ARRAYS
@@ -180,7 +180,7 @@ if (defined $validShell) { @validShells=buildArraysLists($validShell); }
 
 #########################################################################################################################
 if (!defined $shodan && !defined $bugtraq) {
-  if (defined $level) {
+  if (defined $mlevel) {
     if (defined $dork) { @dorks=buildArraysLists($dork); }
     elsif (defined $Target) {
       _build_me($Target, "1");
@@ -242,7 +242,6 @@ sub get_frequecy {
 #########################################################################################################################
 ## START FREQ
 our $start=get_frequecy();
-
 #########################################################################################################################
 ## BROWSER
 our (@sys, @vary, @systems);
@@ -372,19 +371,17 @@ sub print_connecttions {
 #########################################################################################################################
 ## CHECK CONNECTION
 sub testConnection {
+  our @motors;
+  my $b;
+  for (@motors) { $b=1 if $_=~/googleapis./; }
+  $b=1 if defined $shodan;
   print $c[4]."[!] $DT[31]\n";
-  if (defined $apikey || $apikey || $proxy || defined $proxy || $prandom || defined $prandom) {
-    if ($proxy || defined $proxy || $prandom || defined $prandom) {
-      check_list_prx();
-    }
-    if (defined $apikey || $apikey) {
-      check_list_apikey();
-	}
+  if ($b || $proxy || defined $proxy || $prandom || defined $prandom) {
+    if ($proxy || defined $proxy || $prandom || defined $prandom) { check_list_prx(); }
+    if ($b) { check_list_apikey(); }
   }else{
     my $respons=$ua->get($ipUrl);
-    if (!$respons->is_success) {
-      print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff();
-	}
+    if (!$respons->is_success) { print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff(); }
   }
   sleep 1;
 }
@@ -496,7 +493,7 @@ sub desclaimer {
     if (-e $uplog) { require "$Bin/inc/conf/upad.pl"; }
   }
   mtak(); ptak();
-  if (defined $dork || defined $Target || defined $checkVersion || defined $repair || defined $shodan) {    
+  if (defined $dork || defined $Target || defined $checkVersion || defined $repair || defined $shodan || defined $bugtraq) {    
     testConnection();
   }
 }
@@ -619,9 +616,15 @@ sub checkVreplace {
 sub control {
   my $URL=$_[0];
   our @replaceParts;
-  if (defined $noQuery) { $URL=removeQuery($URL); }
-  if (defined $mdom || defined $expHost) { $URL=getHost($URL); }  
-  if (defined $replace) { $URL=~s/\Q$replaceParts[0]/$replaceParts[1]/ig; }
+  if (defined $noQuery) {
+    $URL=removeQuery($URL);
+  }
+  if (defined $mdom || defined $expHost) {               
+	$URL=getHost($URL);
+  }  
+  if (defined $replace) {
+    $URL=~s/\Q$replaceParts[0]/$replaceParts[1]/ig;
+  }
   if (defined $replaceFROM) {
     $URL=~s/$replaceParts[0](.*)//s;
     $URL=~s/$replaceParts[0]//ig;

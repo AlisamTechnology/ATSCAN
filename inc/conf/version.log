@@ -1,6 +1,6 @@
-ATSCAN SCANNER VERSION 16.0.4 RELEASE
+ATSCAN SCANNER VERSION 16.0.5 RELEASE
 =====================================================  
-  CHANGES: v16.0.4 28/02/2019
+  CHANGES: v16.0.5 01/03/2019
   - Fix conflict user configuration setting.
   - Removed header.pl index.pl colors.pl separators.pl
   - PLEASE REPORT BUGS..!!

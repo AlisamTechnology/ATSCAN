@@ -58,7 +58,7 @@ if (!defined $shodan && !defined $bugtraq) {
     }
   }else{ 
     negative();
-    logoff();
+    exit();
   }
 }
 
@@ -82,7 +82,7 @@ sub Menu {
 }
 
 if (!defined $checkVersion && !defined $help && !defined $uninstall && !defined $toolInfo && !defined $config && !defined $repair) { 
-  subfin(); logoff();
+  subfin(); exit();
 }
 
 ## GET WORDPRESS SITES

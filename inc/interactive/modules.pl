@@ -304,7 +304,7 @@ sub form {
       elsif ($ord eq "usage") { interUsage(); processHeader($process); }
       elsif ($ord eq "back") { back($process); }
       elsif ($ord eq "run" && scalar(@INTERCOMNDS) < 1) { runArg($process); }    
-      elsif ($ord eq "exit") { print "$c[3]\[!] Bey! :)\n"; logoff(); }
+      elsif ($ord eq "exit") { print "$c[3]\[!] Bey! :)\n"; exit(); }
       else{ $ord1=1; }
     }
   }

@@ -21,7 +21,7 @@ our @CMS=(@V_WP, @V_JOOM, @V_TP, @V_SMF, @V_PhpBB, @V_VB, @V_MyBB, @V_CF, @V_DRP
 our ($Version, $logoVersion, $scriptUrl, $logUrl, $ipUrl, $conectUrl, $script, $scriptInstall, $script_bac, $scriptbash, $scriptv,
      $scriptCompletion, $scriptComplInstall, $readme, $uplog, $replace, $replaceFROM, $server, $geoServer, @configuration);
 
-$Version="16.0.5";
+$Version="16.0.6";
 $logoVersion="V $Version";
 $scriptUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl";
 $logUrl="https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log";
@@ -54,12 +54,7 @@ our $fulldate = strftime "%Y%j", localtime;
 sub timer { my $time=strftime "%H:%M:%S", localtime; print "[$time]"; }
 
 ## DELETE CLEAR LISTS
-sub deleteLists {
-  our (@buildArrays, @dorks, @payloads, @exploits, @data, @proxies, @aTsearch, @aTscans, @aTtargets, @aTcopy, @ports, @motor, 
-  @motors, @systems)=();
-  unlink our $script_bac;
-}
-deleteLists();
+unlink $script_bac if -e $script_bac;
 
 ## USER CONFIGUATION
 sub get_configuration {
@@ -105,9 +100,7 @@ our $motor5="http://www.sogou.com/web?query=MYDORK&page=MYNPAGES&ie=utf8";
 our $motor6="https://www.exalead.com/search/web/results/?q=MYDORK&elements_per_page=10&start_index=MYNPAGES";
 our $motor7="https://www.googleapis.com/customsearch/v1?key=MYAPIKEY&cx=MYCX&q=MYDORK&start=MYNPAGES";
 
-our $motorparam="1|2|3|4|5|6|7|all";
 our @mrands=($motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $motor7);
-our $mrand=$mrands[rand @mrands];
 our @allMotors=($motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $motor7);
 our $pat2='inurl:|intitle:|intext:|allinurl:|index of:|site:(.*)\+|\+site:(.*)';
 our $paylNote="[i] $DT[28]\n";

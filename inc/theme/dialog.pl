@@ -37,7 +37,7 @@ our @DT=("Target\(s\) Found", "No Results Found\!", "Error\! Not a Valid Target\
 "Dorks\(s\)", "Results saved in", "Uppss.. Cannot process scan\!", "Possible solutions:", "Target must have protocol [http[s]://] OR file does not exist!", "Given target file path is not true.",
 "Please change list extension to [.txt]!", "You have to set a scan for exploited targets\![sql\|lfi\|...]", "You have to set level [Ex: --level 1]\!",
 "Invalid option\! --ifinurl or --unique needs dork search\!", "Invalid option\! [Ex: --replace \"string => new_string\" or --replaceFROM \"string => new_string\"]", "Invalid option\! Ex: t- <ip> --port 80 [--udp | --tcp]",
-"COMMND", "Invalid options\!", "Min level is 1 [--level >=1]", "Engines:[Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][All:all]",
+"COMMND", "Invalid options\!", "Min level is 1 [--level >=1]", "Engines:[bing][google][ask][yandex][sogou][exalead][googleapis][all]",
 "Tool uses default payloads & validation\! You can use your owns using args!\n    Ex: --exp [payload] -v [string] or --payload [your payloads]", "Some thing wrong!",
 "Failed to renew identity with", "Please wait...", "POST", "is an IP [Use\!: -t <ip> --level 1 <opcion>]", "Limit defined by user reached",
 "Undefined", "Redirect To: ", "Proxy(s)", "Random engine just when using engine!", "Do you want to update tool?", "You have to set number of results pages. Ex: --level 2",
@@ -134,10 +134,10 @@ sub confHlp {
   ."$c[5]               $c[10] | Set proxy [EX: --proxy \"http://12.45.44.2:8080\"] \n"
   ."$c[5]               $c[10] | Set proxy list [EX: --proxy list.txt] \n"
   ."$c[5] --motor| -m   $c[10] | Set engine motors default bing \n"
-  ."$c[5]               $c[10] | EX: -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][Googleapis:7][All: all]\n"
-  ."$c[5] --prandom$c[10] | Random proxy \n"
+  ."$c[5]               $c[10] | EX: -m [bing][google][ask][yandex][sogou][all]\n"
+  ."$c[5] --prandom     $c[10] | Random proxy \n"
   ."$c[5]               $c[10] | [EX: --prandom list.txt] or --prandom \"socks://localhost:9050\"]\n"
-  ."$c[5] --mrandom    $c[10] | Random of all disponibles engines \n"
+  ."$c[5] --mrandom     $c[10] | Random of given engines EX: --mrandom google, ask, bing\n"
   ."$c[5] --brandom     $c[10] | Random all disponibles agents \n"
   ."$c[5] --timeout     $c[10] | set browser timeout (in seconds)\n"
   ."$c[5] --freq        $c[10] | Random time frequency (in seconds) \n"
@@ -353,7 +353,7 @@ sub _print_apis_alert {
   print $c[4]."[|] Usage: --apikey <apikey> --cx <ID> [OPTIONS]\n";
   print $c[4]."[|] Googleapis require an apikey and ID\n";
   print $c[4]."[!] Googleapis: https://developers.google.com/custom-search/v1/overview\n";
-  logoff();
+  exit();
 }
 
 

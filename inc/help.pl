@@ -22,14 +22,14 @@ use FindBin '$Bin';
   ltak(); print $c[12]."  RANDOM: \n".$c[10]
   ."   Random proxy: --prandom [proxy | file] \n"
   ."   Random agent: --brandom \n"
-  ."   Random engine: --mrandom \n\n" ;
+  ."   Random engine: --mrandom [ENGINES]\n\n" ;
   ltak(); print $c[12]."  SEARCH ENGINE: \n".$c[10]
-  ."   ENGINES: [Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][Googleapis:7][All:all]\n"
+  ."   ENGINES: [bing][google][ask][yandex][sogou][exalead][googleapis][all]\n"
   ."   Search: atscan --dork <dork> --level <level> \n"
   ."   Search target engine inedexes: atscan -d <dork> -l <level> --index\n"
   ."   Search indexes & html links: atscan -d <dork> -l <level> --index --getlinks\n"
-  ."   Set engine: atscan --dork <dork> --level <level> -m 2\n"
-  ."   Set selective engines: atscan -d <dork> -l <level> -m 1,2,3..\n"
+  ."   Set engine: atscan --dork <dork> --level <level> -m google\n"
+  ."   Set selective engines: atscan -d <dork> -l <level> -m google,bing,..\n"
   ."   Search with many dorks: atscan --dork <dork1 [OTHER]dork2 [OTHER]dork3> --level <level> \n"  
   ."   Search and rand: atscan -d <dork> -l <level> --expHost \"/index.php?id=rang(1-9)\" --sql\n"  
   ."   Search + output: atscan --dork <dorks.txt> --level <level> --save\n\n"
@@ -102,7 +102,7 @@ use FindBin '$Bin';
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --HOST\" \n"
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"nmap -sV -p 21,22,80 --HOSTIP\" \n"
   ."   atscan -t <target> --port 80 --udp --command \"nmap -sV -p --PORT --TARGET\" \n" 
-  ."   atscan -d \"index of /lib/scripts/dl-skin.php\" -l 20 -m 2 --command \"php WP-dl-skin.php-exploit.php --TARGET\" \n\n";
+  ."   atscan -d \"index of /lib/scripts/dl-skin.php\" -l 20 -m google --command \"php WP-dl-skin.php-exploit.php --TARGET\" \n\n";
   
   ltak(); print $c[12]."  MULTIPLE SCANS: \n".$c[10]
   ."   atscan --dork <dork> --level <2> --sql --lfi --wp ..\n"

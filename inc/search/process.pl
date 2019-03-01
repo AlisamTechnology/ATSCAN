@@ -4,39 +4,60 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($browserLang, $mrand, $motorparam, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $motor7, $mrandom, $googleDomain, $prandom, $proxy, $mlevel, $ifinurl, $unique, $mdom, 
+our ($browserLang, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $motor7, $mrandom, $googleDomain, $prandom, $proxy, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $exclude, $expHost, $mupload,
      $expIp, $popup, $JoomSites, $WpSites, $fullHeaders, $geoloc, $apikey, $cx, $shodan, $bugtraq);
-our (@motor, @TODO, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @mrands, @aTsearch, @proxies, @commands, @V_INPUT);
+our (@TODO, @motor, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @aTsearch, @proxies, @commands, @V_INPUT);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, 
-     $noverbose, $timeout, $method, $command, $freq, $ipUrl, $exploit, $p, $shell, @exploits, @defaultHeaders, @OTHERS, @ErrT);
+     $noverbose, $timeout, $method, $command, $freq, $ipUrl, $exploit, $p, $shell, @exploits, @OTHERS, @ErrT);
+our @mrands = ('bing', 'ask', 'google', 'yandex', 'sogou', 'exalead', 'googleapis');
 
 #########################################################################################################################
 ## SET ENGINES
 if (defined $mlevel && (!defined $shodan && !defined $bugtraq)) {
-  if (defined $mrandom || $mrandom) { push @motor, $mrand; }
-  elsif (defined $motor || $motor) { buildenginearray($motor); }
-  else{
-    push @motor, $motor1;
+  if (defined $mrandom || $mrandom) {
+	_buildMotors($mrandom);
   }
-}
-#####################################################
-## BUILD ENGINE ARRAY
-sub buildenginearray {
-  my $mtr=$_[0];
-  if ($mtr=~/all/) { push @motor, @mrands; }
-  if ($mtr=~/1/) { push @motor, $motor1; }
-  if ($mtr=~/2/) { push @motor, $motor2; }
-  if ($mtr=~/3/) { push @motor, $motor3; }
-  if ($mtr=~/4/) { push @motor, $motor4; }
-  if ($mtr=~/5/) { push @motor, $motor5; }
-  if ($mtr=~/6/) { push @motor, $motor6; }
-  if ($mtr=~/7/) { push @motor, $motor7; }
+  elsif (defined $motor || $motor) {
+	_buildMotors($motor);
+  }else{
+    push @motor, "bing";
+  }
+  replaceEngines(@motor);
 }
 
 #########################################################################################################################
-## SET ENGINES
-for my $mot(@motor) {
+##
+sub _buildMotors {
+  my $ob = $_[0];
+  $ob=~s/\s//g;
+  @motors=();
+  if ($ob =~/all/) {
+	push @motor, @mrands;
+  }else{
+    @motor = split(",", $ob);
+  }
+} 
+
+#########################################################################################################################
+## 
+sub replaceEngines { 
+  my @motor=@_; 
+  for my $mot(@motor) {
+    if ($mot =~/^bing$/) { soubstituteRefs($motor1); }
+    if ($mot =~/^google$/) { soubstituteRefs($motor2); }
+    if ($mot =~/^ask$/) { soubstituteRefs($motor3); }
+    if ($mot =~/^yandex$/) { soubstituteRefs($motor4); }
+    if ($mot =~/^sogu$/) { soubstituteRefs($motor5); }
+    if ($mot =~/^exalead$/) { soubstituteRefs($motor6); }
+    if ($mot =~/^googleapis$/) { soubstituteRefs($motor7); }
+  }
+}
+
+#########################################################################################################################
+##
+sub soubstituteRefs {
+  my $mot = $_[0];
   $mot=~s/MYBROWSERLANG/$browserLang/g;
   $mot=~s/MYGOOGLEDOMAINE/$googleDomain/g;
   $mot=~s/MYID/$Id/g;
@@ -106,7 +127,7 @@ sub do_needed {
 sub printMotor {
   my @motors=@_;
   print $c[1]."[::] $DS[29] :  ".$c[10];
-  if (defined $mrandom || $mrandom) { print "[$TT[12]\]"; }
+  if (defined $mrandom || $mrandom) { print "[$TT[12]\] "; }
   for my $motor(@motors) {
     $motor=~s/MYBROWSERLANG/$browserLang/g;
     $motor=~s/MYGOOGLEDOMAINE/$googleDomain/g;
@@ -114,7 +135,7 @@ sub printMotor {
     if ($motor=~/((all|bing.|google.|ask.|yandex.|sogou.|exalead.|googleapis.)(.*)\/)/) { 
 	  my $mt=$1;
 	  $mt=~s/\/.*//s;
-	  print "$mt";
+	  print "$mt ";
 	}
   }
   print "\n";
@@ -472,6 +493,7 @@ sub getExploitArrScan{
 sub getPArrScan{
   my ($URL, $arr, $filter, $result, $reg, $comnd, $isFilter, $pm, $pmarr, $exp, $lc, $count3, $data)=@_;
   if (defined $p) {
+  $p=~s/\s//g;
     my @P;
     if ($p=~/all/) {
 	  while ($URL=~/((\?|\&).*?)=/g) { 

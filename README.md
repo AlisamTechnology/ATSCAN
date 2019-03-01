@@ -3,7 +3,7 @@
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
   <a title="Version 16.0.4" href="https://github.com/AlisamTechnology/ATSCAN/releases">
-     <img src="https://img.shields.io/badge/V%2016.0.5-Stable-green.svg">
+     <img src="hhttps://img.shields.io/badge/V%2016.0.6-Stable-green.svg">
   </a>
   <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
@@ -177,7 +177,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--motor / -m</td>
-        <td class="main">[Bing:1][Google:2][Ask:3][Yandex:4][Sogou:5][Exalead:6][Googleapis:7][All: all]</td>
+        <td class="main">[bing][google][ask][yandex][sogou][exalead][googleapis][all]</td>
       </tr>
       <tr>
         <td width="200px" class="main">--apikey</td>
@@ -189,7 +189,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main">--mrandom</td>
-        <td class="main">Random of all disponibles engines</td> 
+        <td class="main">Random of given engines</td> 
       </tr> 
       <tr>
         <td width="200px" class="main">--brandom</td>
@@ -595,7 +595,7 @@
         &#x25cf; <b>RANDOM: </b> <br/>
         Random proxy: --prandom [proxy  file] <br/>
         Random browser: --brandom <br/>
-        Random engine: --mrandom <br/>
+        Random engine: --mrandom [ENGINES]<br/>
         <hr>
        &#x25cf; <b>SET HEADERS:</b> <br>
        atscan --dork [dork / dorks.txt] --level [level] --header "Authorization => 'Basic YWRtaW46YWRtaW4', keep_alive => '1'" <br/>
@@ -605,8 +605,8 @@
        Search: atscan --dork [dork] --level [level]  <br/>
        Search: atscan -d [dork] -l [level] --index <br/>
 	   Search: atscan -d [dork] -l [level] --getlinks <br/>
-       Set engine: atscan --dork [dork] --level [level] -m [Bing: 1][Google: 2][Ask: 3][Yandex: 4][Sogou: 5][All: all] <br/>
-       Set selective engines: atscan -d [dork] -l [level] -m 1,2,3.. <br/>
+       Set engine: atscan --dork [dork] --level [level] -m [bing][google][ask][yandex][sogou][all] <br/>
+       Set selective engines: atscan -d [dork] -l [level] -m google,bing,.. <br/>
        Search with many dorks: atscan --dork dork1 [OTHER]dork2 [OTHER]dork3] --level [level]    <br/>
        Search and rand: atscan -d [dork] -l [level] --expHost "/index.php?id=rang(1-9)" --sql   <br/>
        Get target engine index: atscan -t [target] --level [value] --index <br/>
@@ -646,7 +646,7 @@
        atscan --dork [dork / dorks.txt] --level [level] --command "file" <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --HOST"  <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "nmap -sV -p 21,22,80 --HOSTIP"  <br/>
-       atscan -d "index of /lib/scripts/dl-skin.php" -l 20 -m 2 --command "php WP-dl-skin.php-exploit.php --TARGET" <br/>
+       atscan -d "index of /lib/scripts/dl-skin.php" -l 2 -m bing --command "php WP-dl-skin.php-exploit.php --TARGET" <br/>
        atscan --shodan --search [string] --apikey [API KEY] -command [extern_command]<br/>
         <hr>
        &#x25cf; <b>MULTIPLE SCANS: </b><br/>

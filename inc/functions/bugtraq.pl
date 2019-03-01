@@ -8,7 +8,7 @@ use FindBin '$Bin';
 ###############################################################################
 ## BUGTRAQ
 our($ua, @dorks, $dork, $mlevel, $limit, $server, @c);
-if (!defined $dork) { print $c[4]."[!] Usage --bugtraq --dork <dork> --level <level>\n"; logoff(); }
+if (!defined $dork) { print $c[4]."[!] Usage --bugtraq --dork <dork> --level <level>\n"; exit(); }
 my (@bugId, @bugTitle, @bugDate, @bugLink, @bugWarning, @refer);
 my $e = strftime "%Y.%m.%d.", localtime;
 my $copyPath="$Bin/inc/conf/user/temp.txt";
@@ -42,7 +42,7 @@ sub bugs {
         bugWarning($Res);
       }else{
         print "[!]$c[4] Cannot coonect to server. try again in a few minutes!\n";
-        logoff();
+        exit();
       }
     }
   }
@@ -54,7 +54,7 @@ sub bugs {
 sub helpme {
   sep();
   print $c[11]." [+] OPTIONS:\n";
-  print $c[11]."   ID   $c[10] View and save issues. Ex: ID1 or ID2 ID3..\n";
+  print $c[11]."   ID   $c[10] View and save issues. Ex: ID1 or ID2,ID3,..\n";
   print $c[11]."   list $c[10] List issues\n";
   print $c[11]."   exit $c[10] Exit\n";
   sep();
@@ -178,7 +178,7 @@ bugs();
 my $m=scalar @bugTitle;
 if (scalar @bugTitle <1 ) {
   print $c[4]."[!] No results found!\n";
-  logoff();
+  exit();
 }else{
   if ($limit ne 500) {
     print $c[3]."[!] Results limited to [$limit Result\/s]!\n";
@@ -206,8 +206,9 @@ if ($m > 0) {
     print $c[4]." [!]$c[10] Type <your option> or \"options\" for help: ";
     $rr=<STDIN>;
     chomp ($rr);
+	$rr=~s/\s//g;
     print "\n";
-    my @r=split(" ", $rr);
+    my @r=split(",", $rr);
     for my $r(@r) {
       if ($r!~/([0-9]|options|list|exit)/) {
         print $c[4]." [!] Cannot interpret your command!\n";

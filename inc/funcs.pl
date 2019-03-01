@@ -15,7 +15,7 @@ our ($payloads, $exploit, $expHost, $data, $mlevel, $dork, $Target, $V_RANG, $no
      $ifinurl, $pat2, $limit, $port, $output, $ifend, $ipUrl, $noverbose, $V_IP, $expIp, $interactive, $command, $uplog, $validShell, 
 	 $validText, $exclude, $all, $repair, $zoneH, $cokie, $bugtraq, $mindex, $Hstatus, $content, $msource, $fullHeaders, $geoloc, $getlinks);
 
-our($userSetting, $proxy, $system, $agent, $ua, $psx, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
+our($userSetting, $proxy, $system, $ua, $psx, $prandom, $password, $brandom, $mrandom, $zone, $motor, $nobanner, $beep, $timeout, $dateupdate, $freq, 
     $method, $checkVersion, $get, $post, $scriptbash, $shodan, $apikey, $cx);
 
 our ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $searchIps, $eMails, $regex, $ping);
@@ -24,7 +24,7 @@ our @z=($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdoma
         $port, $data, $ping);
 
 our (@aTscans, @payloads, @exploits, @dorks, @aTsearch, @aTcopy, @aTtargets, @c, @OTHERS, @DS, @DT, @TT, @proxies, @connected_proxies, @ErrT,
-     @defaultHeaders, @userHeaders, @validTexts, @excludes, @ZT, @validShells, @commands, @bugs, @connected_apikeys, @apikeys);
+     @userHeaders, @validTexts, @excludes, @ZT, @validShells, @commands, @bugs, @connected_apikeys, @apikeys);
 
 #########################################################################################################################
 ## PRINT FILES 
@@ -242,16 +242,6 @@ sub get_frequecy {
 #########################################################################################################################
 ## START FREQ
 our $start=get_frequecy();
-#########################################################################################################################
-## BROWSER
-our (@sys, @vary, @systems);
-binmode STDOUT, ":utf8";
-for my $sys(@sys) {
-  for my $vary(@vary) {
-    my $ag="$sys) $vary";
-    push @systems, $ag;
-  }
-}
 
 #########################################################################################################################
 ## CREATE COOKIES IN DISK
@@ -266,27 +256,6 @@ my $cookies = HTTP::Cookies->new(
     autosave => 1,
     ignore_discard => 1,
 );
-
-#########################################################################################################################
-## HEADERS
-@defaultHeaders = ();
-our $headers;
-if (defined $headers) {
-  @defaultHeaders=split (",", $headers);
-  foreach my $hdr(@defaultHeaders) {
-    $ua->push_header($hdr);
-  }
-}
-
-#########################################################################################################################
-## SET AGENT
-$agent="Mozilla/5.0 (".$systems[rand @systems];
-$ua=LWP::UserAgent->new( agent => $agent);
-$ua->cookie_jar($cookies);
-$ua->env_proxy;
-if (defined $timeout || $timeout) {
-  $ua->timeout($timeout);
-}
 
 #########################################################################################################################
 ## CURRENT PROXY
@@ -360,7 +329,7 @@ sub print_connecttions {
   my ($x, $y, $txt)=@_;
   print "$c[3] OK\n" if $x eq $y;
   if ($x < 1) {
-	print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; logoff();
+	print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; exit();
   }elsif($x < $y) {
 	print $c[3]."\n[!] OK! $c[4]Only running $txt in list will be used ($x)!\n";
   }
@@ -381,7 +350,7 @@ sub testConnection {
     if ($b) { check_list_apikey(); }
   }else{
     my $respons=$ua->get($ipUrl);
-    if (!$respons->is_success) { print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; logoff(); }
+    if (!$respons->is_success) { print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; exit(); }
   }
   sleep 1;
 }
@@ -444,20 +413,6 @@ sub newIdentity {
   }
   $ua->proxy([qw/ http https ftp ftps /] => $psx); $ua->cookie_jar({ });
   print $c[1]."    $DS[11] $c[10]  $psx\n" if $pnt;
-}
-
-#########################################################################################################################
-## RENEW AGENT
-sub getNewAgent {
-  my $currentagent=$agent;
-  my $fin=0;
-  while (!$fin) {
-    $agent="Mozilla/5.0 (".$systems[rand @systems];
-    if ($currentagent ne $agent) {
-      $fin=1;
-    }   
-  }
-  $ua=LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
 }
 
 #########################################################################################################################
@@ -766,7 +721,7 @@ sub zoneH {
   my $url=replaceReferencies($URL, $zoneD[1]);
   $url=~s/\s//ig;
   my $zoneHurl="http://www.zone-h.org/notify/single";
-  my $ua = LWP::UserAgent->new;
+  ckeck_ext_founc("");
   my $res = $ua->post($zoneHurl,
                   Content => ['defacer' => $zoneD[0],
 				              'domain1' => $url,
@@ -851,7 +806,7 @@ sub nochmod {
   my ($path, $action)=@_;
   sleep(1);
   print $c[2]."[!] Couldn't have write permitions: $path !\n";
-  if ($action) { logoff(); } 
+  if ($action) { exit(); } 
 }
 
 #########################################################################################################################
@@ -935,7 +890,7 @@ sub checkCpanModules {
       system("cpan App::cpanminus && cpanm JSON");
     }
   }
-  if($@) { print $c[4]."[!] Failed to install JSON\n"; logoff(); }
+  if($@) { print $c[4]."[!] Failed to install JSON\n"; exit(); }
 }
 
 #########################################################################################################################

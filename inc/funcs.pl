@@ -347,7 +347,7 @@ sub testConnection {
   print $c[4]."[!] $DT[31]\n";
   if ($b || $proxy || defined $proxy || $prandom || defined $prandom) {
     if ($proxy || defined $proxy || $prandom || defined $prandom) { check_list_prx(); }
-    if ($b) { check_list_apikey(); }
+    if ($b) { checkCpanModules(); check_list_apikey(); }
   }else{
     my $respons=$ua->get($ipUrl);
     if (!$respons->is_success) { print $c[2]."[!] $DT[11]\n[!] $DT[10]\n".$c[4]."[!] $ErrT[23]\n"; exit(); }
@@ -886,11 +886,16 @@ sub checkCpanModules {
     print $c[4]."[!] ERROR! This scan require JSON module! do you want to install? [Y/n]: $c[10]";
     my $re=<STDIN>;
     chomp ($re);
-    if ($re!~/(N|n)/) {
+    if ($re=~/(Y|y)/) {
       system("cpan App::cpanminus && cpanm JSON");
     }
   }
+  eval { require JSON; };
   if($@) { print $c[4]."[!] Failed to install JSON\n"; exit(); }
+  else{
+    print "\n";
+    require "$Bin/inc/Getjson.pl";
+  }
 }
 
 #########################################################################################################################

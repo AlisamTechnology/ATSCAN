@@ -21,11 +21,6 @@ if (defined $shodan) {
   }
 }
 
-## CHECK JSON MODULE
-if (defined $apikey || $apikey) {
-  checkCpanModules();
-}
-
 ## BUGTRAQ
 if (defined $bugtraq) {
   if (!defined $dork) {

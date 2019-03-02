@@ -90,7 +90,6 @@ sub doSearch {
 ## GET URLS FROM GOOGLE APIS ENGINE PAGES
 sub doSearchApis {
   my ($Res, $motor)=@_;
-  use JSON;
   $Res=_json($Res);
   my @found = @{ $Res->{'items'} };
   for my $found(@found) {

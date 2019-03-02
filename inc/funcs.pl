@@ -894,7 +894,7 @@ sub checkCpanModules {
   if($@) { print $c[4]."[!] Failed to install JSON\n"; exit(); }
   else{
     print "\n";
-    require "$Bin/inc/Getjson.pl";
+    require "$Bin/inc/search/Getjson.pl";
   }
 }
 

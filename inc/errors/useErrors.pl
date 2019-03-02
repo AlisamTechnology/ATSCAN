@@ -106,8 +106,8 @@ sub abcd {
   if ($abcd=~/,/) { @abcd=split(", ", $abcd); }
   else{ push @abcd, $abcd; }
   for my $ad(@abcd) {
-    if ($ad!~/(bing|ask|google|yandex|sogou|exalead|googleapis)/) { 
-	  print $c[2]."[!] $DT[25]\n".$c[4]."   $DT[27] \n   $OTHERS[5] -m google,bing,...\n"; exit();
+    if ($ad!~/(bing|ask|google|yandex|sogou|exalead|googleapis|googlecache)/) { 
+	  print $c[2]."[!] $DT[25]\n".$c[4]."   $DT[27] \n   [!] $OTHERS[5] -m google,bing,...\n"; exit();
 	}
   }
 }

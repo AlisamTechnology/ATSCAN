@@ -4,13 +4,13 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
-our ($browserLang, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $motor7, $mrandom, $googleDomain, $prandom, $proxy, $mlevel, $ifinurl, $unique, $mdom, 
+our ($browserLang, $motor, $motor1, $motor2, $motor3, $motor4, $motor5, $motor6, $motor7, $motor8, $mrandom, $googleDomain, $prandom, $proxy, $mlevel, $ifinurl, $unique, $mdom, 
      $searchRegex, $Target, $dork, $ua, $Id, $MsId, $V_SEARCH,$nolisting, $mindex, $headers, $zone, $agent, $exclude, $expHost, $mupload,
      $expIp, $popup, $JoomSites, $WpSites, $fullHeaders, $geoloc, $apikey, $cx, $shodan, $bugtraq);
 our (@TODO, @motor, @V_TODO, @c, @TT, @DS, @DT, @dorks, @SCAN_TITLE, @motors, @aTsearch, @proxies, @commands, @V_INPUT);
 our ($limit, $post, $get, $replace, $output, $data, $noQuery, $V_IP, $replaceFROM, $eMails, $searchIps, $brandom, $validShell, 
      $noverbose, $timeout, $method, $command, $freq, $ipUrl, $exploit, $p, $shell, @exploits, @OTHERS, @ErrT);
-our @mrands = ('bing', 'ask', 'google', 'yandex', 'sogou', 'exalead', 'googleapis');
+our @mrands = ('bing', 'ask', 'google', 'yandex', 'sogou', 'exalead', 'googleapis', 'googleusercontent');
 
 #########################################################################################################################
 ## SET ENGINES
@@ -46,11 +46,12 @@ sub replaceEngines {
   for my $mot(@motor) {
     if ($mot =~/^bing$/) { soubstituteRefs($motor1); }
     if ($mot =~/^google$/) { soubstituteRefs($motor2); }
-    if ($mot =~/^ask$/) { soubstituteRefs($motor3); }
-    if ($mot =~/^yandex$/) { soubstituteRefs($motor4); }
+    if ($mot =~/^googlecache$/) { soubstituteRefs($motor3); }
+    if ($mot =~/^googleapis$/) { soubstituteRefs($motor4); }
     if ($mot =~/^sogu$/) { soubstituteRefs($motor5); }
     if ($mot =~/^exalead$/) { soubstituteRefs($motor6); }
-    if ($mot =~/^googleapis$/) { soubstituteRefs($motor7); }
+    if ($mot =~/^ask$/) { soubstituteRefs($motor7); }
+    if ($mot =~/^yandex$/) { soubstituteRefs($motor8); }
   }
 }
 
@@ -81,8 +82,11 @@ sub doSearch {
   my ($Res, $motor)=@_;
   while($Res=~/$V_SEARCH/g) {
     my $URL=$1;
-    if ($motor =~/$googleDomain/) { $URL=~s/\&.*//s; }
-	$URL=do_needed($URL) if $URL;
+    #if ($motor =~/$googleDomain/) { $URL=~s/\&.*//s; }
+	$URL =~ s/(\&sa=|\&ved=|\&amp\;).*//;
+	if (((substr $URL, -1) ne "-") && ($URL !~/\.\./)){
+      $URL=do_needed($URL) if $URL !~/\.\./;
+	}
   }
 }
 
@@ -131,7 +135,7 @@ sub printMotor {
     $motor=~s/MYBROWSERLANG/$browserLang/g;
     $motor=~s/MYGOOGLEDOMAINE/$googleDomain/g;
     my $l2;
-    if ($motor=~/((all|bing.|google.|ask.|yandex.|sogou.|exalead.|googleapis.)(.*)\/)/) { 
+    if ($motor=~/((all|bing.|google.|ask.|yandex.|sogou.|exalead.|googleapis.|googleusercontent.)(.*)\/)/) { 
 	  my $mt=$1;
 	  $mt=~s/\/.*//s;
 	  print "$mt ";

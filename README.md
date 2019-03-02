@@ -2,8 +2,8 @@
 <body>
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
-  <a title="Version 16.0.4" href="https://github.com/AlisamTechnology/ATSCAN/releases">
-     <img src="hhttps://img.shields.io/badge/V%2016.0.6-Stable-green.svg">
+  <a title="Version 16.0.7" href="https://github.com/AlisamTechnology/ATSCAN/releases">
+     <img src="https://img.shields.io/badge/V16.0.7-Stable-green.svg">
   </a>
   <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
@@ -47,7 +47,7 @@
   </tr>
   <tr>
     <td class="main" width="546px"><p>
-	    &#x25cf; Engines: Google Bing Ask Yandex Sogou Exalead Googleapis Shodan<br />
+	    &#x25cf; Engines: [Google apis cache] Bing Ask Yandex Sogou Exalead Shodan<br />
         &#x25cf; Mass Dork Search<br/>
 		&#x25cf; Multiple instant scans. <br/>
 		&#x25cf; Mass Exploitation <br/>
@@ -177,7 +177,7 @@
       </tr>
       <tr>
         <td width="200px" class="main">--motor / -m</td>
-        <td class="main">[bing][google][ask][yandex][sogou][exalead][googleapis][all]</td>
+        <td class="main">bing google ask yandex sogou exalead googleapis googlecache or all</td>
       </tr>
       <tr>
         <td width="200px" class="main">--apikey</td>
@@ -605,7 +605,7 @@
        Search: atscan --dork [dork] --level [level]  <br/>
        Search: atscan -d [dork] -l [level] --index <br/>
 	   Search: atscan -d [dork] -l [level] --getlinks <br/>
-       Set engine: atscan --dork [dork] --level [level] -m [bing][google][ask][yandex][sogou][all] <br/>
+       Set engine: atscan --dork [dork] --level [level] -m bing or google,ask,yandex or all <br/>
        Set selective engines: atscan -d [dork] -l [level] -m google,bing,.. <br/>
        Search with many dorks: atscan --dork dork1 [OTHER]dork2 [OTHER]dork3] --level [level]    <br/>
        Search and rand: atscan -d [dork] -l [level] --expHost "/index.php?id=rang(1-9)" --sql   <br/>

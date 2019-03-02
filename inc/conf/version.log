@@ -1,7 +1,8 @@
-ATSCAN SCANNER VERSION 16.0.6 RELEASE
+ATSCAN SCANNER VERSION 16.0.7 RELEASE
 =====================================================  
-  CHANGES: v16.0.6 01/03/2019
-  - Chnage all engines random to selected random.
+  CHANGES: v16.0.7 02/03/2019
+  - Fix json error when not needed.
+  - Add google cache engine.
   - oooooOO PLEASE REPORT BUGS OOoooo
   - Enjoy it!
   =================

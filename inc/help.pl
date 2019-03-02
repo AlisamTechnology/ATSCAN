@@ -24,7 +24,7 @@ use FindBin '$Bin';
   ."   Random agent: --brandom \n"
   ."   Random engine: --mrandom [ENGINES]\n\n" ;
   ltak(); print $c[12]."  SEARCH ENGINE: \n".$c[10]
-  ."   ENGINES: [bing][google][ask][yandex][sogou][exalead][googleapis][all]\n"
+  ."   ENGINES: bing google ask yandex sogou exalead googleapis googlecache or all\n"
   ."   Search: atscan --dork <dork> --level <level> \n"
   ."   Search target engine inedexes: atscan -d <dork> -l <level> --index\n"
   ."   Search indexes & html links: atscan -d <dork> -l <level> --index --getlinks\n"

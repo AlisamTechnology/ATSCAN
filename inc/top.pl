@@ -4,6 +4,7 @@ use warnings;
 use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
+#########################################################################################################################
 ## DELETED TOOTL FILES
 my @deteted_files=(
                    $Bin."/inc/theme/separators.pl",
@@ -13,11 +14,13 @@ my @deteted_files=(
                    $Bin."/inc/bottom.pl",
                    $Bin."/inc/header.pl",
 				   $Bin."/inc/conf/usr/atscan",
-				   $Bin."/inc/Getjson.pl",				   
+				   $Bin."/inc/Getjson.pl",
+				   $Bin."/inc/conf/main.pl"
 				   );
 
 for (@deteted_files) { unlink $_ if -e $_; }
 
+#########################################################################################################################
 ## SET COLORS
 ## Negro       0;30     Gris Obscuro  1;30
 ## Azul        0;34     Azul Claro    1;34
@@ -33,6 +36,7 @@ our (@c, @OTHERS, @TT);
 if ($^O!~/Win/) { @c=split / /, $col; }
 else{ $col=" ," x 13; $col.=" "; @c=split /,/, $col; }
 
+#########################################################################################################################
 ## SEPARATORS
 sub mtak { my $sn1="_" x 80; print $c[1]."$sn1\n"; }
 sub dpoints { my $sn2=":" x 66; print $c[1]."    "; timer(); print "$sn2\n"; }
@@ -43,9 +47,11 @@ sub stak { my $sn6="-" x 76; print $c[1]."    $sn6\n"; }
 sub stakScan { my $ee=":" x 68; print $c[1]."$ee\n"; }
 our $sp=" " x 11;
 
+#########################################################################################################################
 ## CONFIGURE 
 require "$Bin/inc/conf/configure.pl";
 
+#########################################################################################################################
 ## ADVISE
 sub advise {
   if (-e "/usr/bin/atscan") {
@@ -56,11 +62,14 @@ sub advise {
   exit();
 }
 
+#########################################################################################################################
 ## BANNER
 sub banner { require "$Bin/inc/theme/banner.pl"; }
 
+#########################################################################################################################
 ## BAD ARGUMENTS
 sub badArgs { banner(); advise(); }
 
+#########################################################################################################################
 
 1;

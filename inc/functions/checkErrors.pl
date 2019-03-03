@@ -5,15 +5,18 @@ use FindBin '$Bin';
 ## Copy@right Alisam Technology see License.txt
 
 ## CHECK IF THERE ANY ERROR IN HTML
-our ($sp, @ERR, @V_XSS, @V_LFI, @V_AFD, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE, @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_LUA, @E_UNDEFINED, @E_MARIADB,
+our ($sp, @V_XSS, @V_LFI, @V_AFD, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE, @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_LUA, @E_UNDEFINED, @E_MARIADB,
      @E_SHELL, @c, @ErrT);
+	 
+my @ERR=(@V_LFI, @V_XSS, @V_AFD, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE, @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_UNDEFINED, @E_MARIADB, @E_SHELL);
+	 
 sub checkErrors { 
   my $html=$_[0];
   my $ERROR=join("|", @ERR);
-  if ($html=~/$ERROR/) {
+  if ($html=~/$ERROR/) {  
+    print $c[1]."    $ErrT[18]$c[4] [!]$c[10]$ErrT[24]\n";
 
     my (@E1, @E2, @E3, @E4, @E5, @E6, @E7, @E8, @E9, @E10, @E11, @E12, @E13, @E14, @E15, @E16, @E17, @E18, @E19);
-    print $c[1]."    $ErrT[18] $c[4]$ErrT[24]\n";
     for my $ERR(@ERR) {
       if ($html=~/$ERR/g) {
         if (grep( /^$ERR$/, @V_LFI)) { push(@E1, $ERR); }
@@ -58,6 +61,10 @@ sub checkErrors {
 }   
 
 ## PRINT HTML ERRORS
-sub printALLerrors { my ($ErrT, $E)=@_; print $c[1]."$sp $c[4]$ErrT ".$c[10]."[$E]"; print "\n"; }
+sub printALLerrors { 
+  my ($ErrT, $E)=@_; 
+  print $c[1]."$sp $c[4]$ErrT ".$c[10]."[$E]"; 
+  print "\n";
+}
 
 1;

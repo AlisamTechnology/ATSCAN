@@ -50,10 +50,6 @@ our @DS=("DORK", "INFO", "SERVER", "HTTP", "SCAN", "PAYLD", "EXPLOIT", "PORT", "
         "Range", "Replace", "Vul Param:", "Upload", "External Command", "Update Version", "E-mails", "Encode Base64", "Decode Base64", "Get host", "Pause Mode", "ADMIN", "PORTS", "SQL",
         "LFI", "RFI", "AFD", "TCP", "UDP", "ZIP", "STARTING", "Md5", "Proxy");
 
-## CMS SCAN TYPES
-our @cms=("CMS", "Wordpress", "Joomla", "Textpattern", "SMF", "PhpBB!", "VBulletin", "MyBB", "CloudFlare", "Post Nuke", "Drupal", "ATutor", "Php Nuke", "Moodle", "Adapt Cms", "Silver Stripe",
-         "Modx", "XOOPS", "Oscommerce", "PrestaShop", "B2evolution", "Smart Solutions", "Zen Cart", "concrete5", "OpenCart");
-
 ## SCAN TITLES
 our @SCAN_TITLE=("SEARCH ENGINE", "VALIDATION", "Validate by HTTP header is not allowed here!\n", "WORDPRESS SITES", "JOOMLA SITES", "SQL", "LOCAL FILE INCLUSION", "JOOMLA REMOTE FILE INCLUSION",
                 "WORDPRESS ARBITRARY FILE DOWNLOAD", "ADMIN PAGE", "SUBDOMAINS", "UPLOAD FILES", "ZIP FILES", "E-MAILS", "WORDPRESS BRUTE FORCE", "JOOMLA BRUTE FORCE", "EXTERN COMMAND SUBPROCESS",
@@ -65,17 +61,6 @@ our @ZT=("Copying user components...", "Placing main script...", "Placing compon
         "HELP", "help", "DESCRIPTION", "Usage", "Fail to upload target!", "Your new identity:", "ZONE-H", "popup argument can only be used with --command argument!", 
         "Usage --replace or --replaceFROM", "You cannot use more than 1 wordlist in data command!", "You cannot use more than 1 wordlist!", "Cannot whrite in",
         "Use --repair command to repair tool if you are getting problems!", "Are you sure to continue with uninsall process? [y/N]:");
-
-## MENU
-# sub get_text_tt { return @TT; }
-# sub get_text_others { return @OTHERS; }
-# sub get_text_auth { return @AUTH; }
-# sub get_text_ErrT { return @ErrT; }
-# sub get_text_dt { return @DT; }
-# sub get_text_ds { return @DS; }
-# sub get_text_cms { return @cms; }
-# sub get_text_zt { return @ZT; }
-# sub get_text_scan_title { return @SCAN_TITLE; }
 
 ## COLORS
 our @c;

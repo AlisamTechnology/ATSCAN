@@ -84,7 +84,7 @@ sub doSearch {
     my $URL=$1;
     #if ($motor =~/$googleDomain/) { $URL=~s/\&.*//s; }
 	$URL =~ s/(\&sa=|\&ved=|\&amp\;).*//;
-	if (((substr $URL, -1) ne "-") && ($URL !~/\.\./)){
+	if ((substr $URL, -1) ne "-"){
       $URL=do_needed($URL) if $URL !~/\.\./;
 	}
   }

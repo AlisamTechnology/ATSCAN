@@ -37,35 +37,4 @@ our @V_TODO=(".", "a", "e", "i", "o", "u", ",");
 our @V_AFD=("DB_NAME", "DB_USER", "DB_PASSWORD");
 our @V_INPUT=("email", "file", "password", "search", "text", "textarea", "url", "tel", "time");
 
-## MENU
-# sub get_validate_wp { return @V_WP; }
-# sub get_validate_joom { return @V_JOOM; }
-# sub get_validate_tp { return @V_TP; }
-# sub get_validate_smf { return @V_SMF; }
-# sub get_validate_phpbb { return @V_PhpBB; }
-# sub get_validate_vb { return @V_VB; }
-# sub get_validate_ourbb { return @V_MyBB; }
-# sub get_validate_cf { return @V_CF; }
-# sub get_validate_drp { return @V_DRP; }
-# sub get_validate_pn { return @V_PN; }
-# sub get_validate_at { return @V_AT; }
-# sub get_validate_phpn { return @V_PHPN; }
-# sub get_validate_md { return @V_MD; }
-# sub get_validate_acm { return @V_ACM; }
-# sub get_validate_ss { return @V_SS; }
-# sub get_validate_mx { return @V_MX; }
-# sub get_validate_xo { return @V_XO; }
-# sub get_validate_osc { return @V_OSC; }
-# sub get_validate_psh { return @V_PSH; }
-# sub get_validate_bb2 { return @V_BB2; }
-# sub get_validate_mg { return @V_MG; }
-# sub get_validate_zc { return @V_ZC; }
-# sub get_validate_cc5 { return @V_CC5; }
-# sub get_validate_ocr { return @V_OCR; }
-# sub get_validate_xss { return @V_XSS; }
-# sub get_validate_lfi { return @V_LFI; }
-# sub get_validate_todo { return @V_TODO; }
-# sub get_validate_afd { return @V_AFD; }
-# sub get_validate_input { return @V_INPUT; }
-
 1;

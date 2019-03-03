@@ -133,9 +133,6 @@ sub mencode64 { scanCode($SCAN_TITLE[18], $mencode64, "", "1", ""); }
 ## DECODE BASE 64
 sub mdecode64 { scanCode($SCAN_TITLE[19], $mdecode64, "", "", "1"); }
 
-## UPDATE SUCCESS
-sub updtd {}
-
 ## USER CONFIGURATION
 sub userconfig { require "$Bin/inc/functions/userConfig.pl"; }
 

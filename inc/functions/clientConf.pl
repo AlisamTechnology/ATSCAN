@@ -26,7 +26,7 @@ sub ClientConfiguration {
     print "+==========================================================================+\n";
     print "| $c[5]proxy       $c[10] | <proxy>      | Proxy                                      |\n";
     print "| $c[5]apikey      $c[10] | <apikey>     | Apikey                                     |\n";
-    print "| $c[5]prandom$c[10] | <proxy_file> | Random proxy                               |\n";
+    print "| $c[5]prandom     $c[10] | <proxy_file> | Random proxy                               |\n";
     print "| $c[5]motor       $c[10] | <motor>      | Search engine                              |\n";
     print "| $c[5]timeout     $c[10] | <timeout>    | Browser time out                           |\n";
     print "| $c[5]level       $c[10] | <level>      | Number of Engine results                   |\n";
@@ -38,8 +38,8 @@ sub ClientConfiguration {
     print "| $c[5]limit       $c[10] | <limit>      | Results limit reach                        |\n";
     print "| $c[5]update      $c[10] | <in days>    | Check for updates frequency                |\n";
     print "| $c[5]command     $c[10] | <command>    | Execute extern command                     |\n";
-    print "| $c[5]brandom    $c[10] | on           | Random browser                             |\n";
-    print "| $c[5]mrandom    $c[10] | on           | Random engine                              |\n";
+    print "| $c[5]brandom     $c[10] | on           | Random browser                             |\n";
+    print "| $c[5]mrandom     $c[10] | on           | Random engine                              |\n";
     print "| $c[5]unique      $c[10] | on           | Unique results                             |\n";
     print "| $c[5]nobanner    $c[10] | on           | Hide tool banner                           |\n";
     print "| $c[5]noverbose   $c[10] | on           | No scan verbose                            |\n";

@@ -84,13 +84,6 @@ require "$Bin/inc/payloads.pl";
 ## LOAD DIALOG TEXT
 require "$Bin/inc/theme/dialog.pl";
 
-## VALIDATION CODE ERRORS
-require "$Bin/inc/errors/codeErrors.pl";
-
-## ENGINE
-require "$Bin/inc/search/engine.pl";
-require "$Bin/inc/functions/validate.pl";
-
 #########################################################################################################################
 ## MAIL VALIDATION
 our ($searchRegex, $regex);

@@ -40,6 +40,8 @@ require "$Bin/inc/functions/clientConf.pl";
 
 ## COMMANDE LINE ERRORS 
 require "$Bin/inc/errors/useErrors.pl";
+## ENGINE
+require "$Bin/inc/search/engine.pl";
 
 ## DEFINE HTML CMS 
 require "$Bin/inc/functions/checkCmsType.pl";

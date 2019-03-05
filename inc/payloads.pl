@@ -148,4 +148,65 @@ our @ZIP=("/backup.tar.gz", "/backup/backup.tar.gz", "/backup/backup.zip", "/vb/
       "/vb.rar", "/vb1.zip", "/vb2.zip", "/vbb.zip", "/vb3.zip", "/upload.zip", "/up/upload.zip", "/joomla.zip", "/joomla.rar", "/joomla.sql", "/wordpress.zip", "/wp/wordpress.zip",
       "/blog/wordpress.zip", "/wordpress.rar");
 
+our @E_MICROSOFT=("Microsoft JET Database", "ADODB.Recordset", "500 - Internal server error", "Microsoft OLE DB Provider", "Unclosed quotes", "ADODB.Command", "ADODB.Field error", "Microsoft VBScript",
+                 "Microsoft OLE DB Provider for SQL Server", "Unclosed quotation mark", "Microsoft OLE DB Provider for Oracle", "Active Server Pages error", "OLE/DB provider returned message",
+                 "OLE DB Provider for ODBC", "error \"800a0d5d\"", "error \"800a000d\"", "Unclosed quotation mark after the character string", "SQL Server", "Warning: odbc_");
+our @E_ORACLE=("ORA-00921: unexpected end of SQL command", "ORA-01756", "ORA-", "Oracle ODBC", "Oracle Error", "Oracle Driver", "Oracle DB2", "error ORA-", "SQL command not properly ended");
+our @E_DB2=("DB2 ODBC", "DB2 error", "DB2 Driver");
+our @E_ODBC=("ODBC SQL", "ODBC DB2", "ODBC Driver", "ODBC Error", "ODBC Microsoft Access", "ODBC Oracle", "ODBC Microsoft Access Driver");
+our @E_POSTGRESQL=("Warning: pg_", "PostgreSql Error:", "function.pg", "Supplied argument is not a valid PostgreSQL result", "PostgreSQL query failed: ERROR: parser: parse error", ": pg_");
+our @E_SYBASE=("Warning: sybase_", "function.sybase", "Sybase result index", "Sybase Error:", "Sybase: Server message:", "sybase_", "ODBC Driver");
+our @E_JBOSSWEB=("java.sql.SQLSyntaxErrorException: ORA-", "org.springframework.jdbc.BadSqlGrammarException:", "javax.servlet.ServletException:", "java.lang.NullPointerException");
+our @E_JDBC=("Error Executing Database Query", "SQLServer JDBC Driver", "JDBC SQL", "JDBC Oracle", "JDBC MySQL", "JDBC error", "JDBC Driver");
+our @E_JAVA=("java.io.IOException: InfinityDB");
+our @E_PHP=("Warning: include", "Fatal error: include", "Warning: require", "Fatal error: require", "ADODB_Exception", "Warning: include", "Warning: require_once", "function.include",
+           "Disallowed Parent Path", "function.require", "Warning: main", "Warning: session_start\(\)", "Warning: getimagesize\(\)", "Warning: array_merge\(\)", "Warning: preg_match\(\)",
+           "GetArray\(\)", "FetchRow\(\)", "Warning: preg_", "Warning: ociexecute\(\)", "Warning: ocifetchstatement\(\)", "PHP Warning:");
+our @E_ASP=("Version Information: Microsoft .NET Framework", "Server.Execute Error", "ASP.NET_SessionId", "ASP.NET is configured to show verbose error messages", "BOF or EOF",
+           "Unclosed quotation mark", "Error converting data type varchar to numeric");
+our @E_LUA=("LuaPlayer ERROR:", "CGILua message", "Lua error");
+our @E_UNDEFINED=("Incorrect syntax near", "Fatal error", "Invalid Querystring", "Input string was not in a correct format", "An illegal character has been found in the statement");
+our @E_MARIADB=("MariaDB server version for the right syntax");
+our @E_SHELL=("c99shell<\/title\>", "C99Shell v", "<form method=\"POST\" action=\"cfexec.cfm\"\>", "<input type=text name=\".CMD\" size=45 value=", "<title\>awen asp.net webshell<\/title\>",
+             "<FORM METHOD=GET ACTION=\"cmdjsp.jsp\"\>", "JSP Backdoor Reverse Shell", "Simple CGI backdoor by DK", "execute command: <input type=\"text\" name=\"c\"\>", "Execute Shell Command",
+             "r57shell<\/title\>", "<title>r57Shell", "heroes1412", "MyShell", "PHP Shell", "PHPShell", "REMVIEW TOOLS", "<title>iTSecTeam<\/title>", "JSP Backdoor Reverse Shell",
+             "<title\>(.*)ernealizm(.*)\/title>", "<title\>JSP Shell<\/title\>", "<title\>KNULL Shell<\/title\>", "<title\>(.*)WSO(.*)<\/title>", "<title>SST Sheller !<\/title\>",
+             "<title\>SyRiAn Sh3ll", "<title\>Mini Php Shell", "<title>ASPX Shell<\/title>", "<title>ZoRBaCK Connect<\/title>", "<title>.+Ani-Shell.+<\/title>",
+             "<title>Stored Procedure Execute<\/title\>", "<title\>:: www.h4ckcity.org :: Coded By 2MzRp & LocalMan ::<\/title\>", "<title\>PhpShell 2.0<\/title\>",
+             "<title\>(.*)NTDaddy(.*)<\/title\>", "<title\>PHP-Terminal");
+
+## HTML VALIDATION
+our @V_WP=("<a href=\"https:\/\/wordpress.org\/\">Proudly powered by WordPress", "<meta name=\"generator\" content=\"WordPress", "\/wp-content\/(.*).js");
+our @V_JOOM=("<meta name=\"generator\" content=\"Joomla");
+our @V_TP=("Powered by <a href=\"http:\/\/www.textpattern.com\" title=\"Textpattern");
+our @V_SMF=("<a href=\"http:\/\/www.simplemachines.org/about/copyright.php\" title=\"Free Forum Software\" target=\"_blank\">SMF");
+our @V_PhpBB=("Powered by <a href=\"http:\/\/www.phpbb.com/\">phpBB");
+our @V_VB=("<a href=\"https:\/\/www.vbulletin.com\" id=\"vbulletinlink\">vBulletin", "vBulletin Solutions\, Inc\. All rights reserved");
+our @V_MyBB=("Powered By <a href=\"http:\/\/www.ourbboard.net\" target=\"_blank\">MyBB");
+our @V_CF=("<a href=\"http:\/\/www.cloudflare.com\/\" target=\"_blank\" style", "DDoS protection by CloudFlare");
+our @V_DRP=("name=\"Generator\" content=\"Drupal");
+our @V_PN=("<meta name=\"generator\" content=\"PostNuke");
+our @V_AT=("<a href=\"/about.php\">About ATutor");
+our @V_PHPN=("<META NAME=\"GENERATOR\" CONTENT=\"PHP-Nuke");
+our @V_MD=("Powered by <a href=\"http:\/\/moodle.org\" title=\"Moodle\">Moodle", "<meta name=\"keywords\" content=\"moodle");
+our @V_ACM=("Powered by <a href=\"http:\/\/www.adaptcms.com\">AdaptCMS");
+our @V_SS=("<meta name=\"generator\" content=\"SilverStripe - http:\/\/silverstripe.org\" \/>");
+our @V_MX=("<a href=\"http:\/\/www.modx.com\" target=\"_blank\"> Powered by MODx");
+our @V_XO=("<meta name=\"generator\" content=\"XOOPS");
+our @V_OSC=("Powered by osCommerce", "<a href=\"http:\/\/www.oscommerce.com\" target=\"_blank\">osCommerce");
+our @V_PSH=("<a class=\"_blank_blank\" href=\"http:\/\/www.prestashop.com\" target=\"_blank", "Software para Ecommerce de PrestaShop");
+our @V_BB2=("<meta name=\"generator\" content=\"b2evolution");
+our @V_MG=("MAGENTO\, INC\. ALL RIGHTS RESERVED", "Magento Ecommerce by Smart Solutions");
+our @V_ZC=("all rights reserved Zen Cart", "<a href=\"http:\/\/www.zen-cart.com\" target=\"_blank\">Zen Cart");
+our @V_CC5=("Powered by concrete5", "<meta name=\"generator\" content=\"concrete");
+our @V_OCR=("Powered By OpenCart");
+our @V_XSS=("You have an error in your SQL", "Warning: oursql_", "Query failed: ERROR", "function.oursql", "MySQL result index", "MySQL Error", "MySQL ODBC", "MySQL Driver", "oursqli.query", "num_rows", "oursql error:",
+           "supplied argument is not a valid MySQL result resource", "on MySQL result index", "Error Executing Database Query", "oursql_", 
+           "Error SQL", "Fatal error: Uncaught exception");
+our @V_LFI=("root:x", "root:x:0:0:", "oursql:x:");
+our @V_TODO=(".", "a", "e", "i", "o", "u", ",");
+our @V_AFD=("DB_NAME", "DB_USER", "DB_PASSWORD");
+our @V_INPUT=("email", "file", "password", "search", "text", "textarea", "url", "tel", "time");
+
+
 1;

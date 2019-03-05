@@ -11,10 +11,12 @@ my @deteted_files=(
                    $Bin."/inc/theme/colors.pl",
                    $Bin."/inc/index.pl",
                    $Bin."/inc/functions/ArgsList.pl",
+                   $Bin."/inc/functions/validate.pl",
                    $Bin."/inc/bottom.pl",
                    $Bin."/inc/header.pl",
 				   $Bin."/inc/conf/usr/atscan",
 				   $Bin."/inc/Getjson.pl",
+				   $Bin."/inc/errors/codeErrors.pl",
 				   $Bin."/inc/conf/main.pl"
 				   );
 

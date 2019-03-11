@@ -18,17 +18,17 @@ desclaimer();
 
 ## SUB MENU
 if (defined $interactive) { interactive(); }
-elsif (defined $toolInfo) { tool(); }
-elsif (defined $help) { help(); }
-elsif (defined $config) { userconfig(); }
-elsif (defined $checkVersion) { checkVersion(); }
-elsif (defined $repair) { repair(); }
-elsif (defined $uninstall) { uninstall(); }
-elsif (defined $mmd5) { mmd5(); }
-elsif (defined $mencode64) { mencode64(); }
-elsif (defined $mdecode64) { mdecode64(); }
-elsif (defined $bugtraq) { bugtraq(); }
-else{ if (defined $shodan) { shodan(); }
+if (defined $toolInfo) { tool(); }
+if (defined $help) { help(); }
+if (defined $config) { userconfig(); }
+if (defined $checkVersion) { checkVersion(); }
+if (defined $repair) { repair(); }
+if (defined $uninstall) { uninstall(); }
+if (defined $mmd5) { mmd5(); }
+if (defined $mencode64) { mencode64(); }
+if (defined $mdecode64) { mdecode64(); }
+if (defined $bugtraq) { bugtraq(); }
+if (defined $shodan) { shodan(); }
 
 ## VERIFY TARGETS AND PRESCAN
 if (defined $mlevel && (!defined $shodan && !defined $bugtraq)) {
@@ -78,7 +78,6 @@ sub Menu {
   if (defined $regex) { Regex(); }
   if (defined $port || defined $ping) { ports(); } 
   if (defined $data) { mdata(); }
-  }
 }
 
 if (!defined $checkVersion && !defined $help && !defined $uninstall && !defined $toolInfo && !defined $config && !defined $repair) { 

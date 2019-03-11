@@ -2,6 +2,8 @@ ATSCAN SCANNER VERSION 16.0.7 RELEASE
 =====================================================  
   CHANGES: v16.0.7 06/03/2019
   - Fix false error detection.
+  CHANGES: 11/03/2019
+  - Fix menu bug.
   - oooooOO PLEASE REPORT BUGS OOoooo
   - Enjoy it!
   =================

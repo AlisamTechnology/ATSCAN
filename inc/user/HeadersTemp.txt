@@ -1,0 +1,32 @@
+Cache-Control: max-age=300
+Connection: close
+Date: Tue, 19 Mar 2019 15:56:42 GMT
+Via: 1.1 varnish
+Accept-Ranges: bytes
+ETag: "38903a5bd8d628326b9e0d2c2a2949f9b986ec61"
+Vary: Authorization,Accept-Encoding
+Content-Length: 267
+Content-Type: text/plain; charset=utf-8
+Expires: Tue, 19 Mar 2019 16:01:42 GMT
+Access-Control-Allow-Origin: *
+Client-Date: Tue, 19 Mar 2019 15:56:42 GMT
+Client-Peer: 151.101.132.133:443
+Client-Response-Num: 1
+Client-SSL-Cert-Issuer: /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert SHA2 High Assurance Server CA
+Client-SSL-Cert-Subject: /C=US/ST=California/L=San Francisco/O=GitHub, Inc./CN=www.github.com
+Client-SSL-Cipher: ECDHE-RSA-AES128-GCM-SHA256
+Client-SSL-Socket-Class: IO::Socket::SSL
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+Source-Age: 245
+Strict-Transport-Security: max-age=31536000
+X-Cache: HIT
+X-Cache-Hits: 1
+X-Content-Type-Options: nosniff
+X-Fastly-Request-ID: 364939c6672fd5b7e95f9bc15087355eac108c11
+X-Frame-Options: deny
+X-Geo-Block-List: 
+X-GitHub-Request-Id: A1D8:385E:26F56:2A589:5C911045
+X-Served-By: cache-mad9425-MAD
+X-Timer: S1553011003.514973,VS0,VE1
+X-XSS-Protection: 1; mode=block
+

@@ -2,8 +2,8 @@
 <body>
 <h1 align="center">ATSCAN SCANNER</h1>
 <p align="center"> 
-  <a title="Version 16.0.7" href="https://github.com/AlisamTechnology/ATSCAN/releases">
-     <img src="https://img.shields.io/badge/V16.0.7-Stable-green.svg">
+  <a title="Version 17.0.0" href="https://github.com/AlisamTechnology/ATSCAN/releases">
+     <img src="https://img.shields.io/badge/V%2017.0.0-Stable-green.svg">
   </a>
   <a title="No issue known"href="https://github.com/AlisamTechnology/ATSCAN/issues">
     <img src="https://img.shields.io/badge/Issues-None-brightgreen.svg">
@@ -300,13 +300,17 @@
         <td class="main"> Validate by string at least 1 is matching</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--all </td>
+        <td width="200px" class="main">--validAll </td>
         <td class="main"> Validate all given strings </td>
       </tr>
       <tr>
         <td width="200px" class="main">--status  </td>
         <td class="main"> Validate by http header status </td>
       </tr> 
+      <tr>
+        <td width="200px" class="main">--server  </td>
+        <td class="main"> Validate by server</td>
+      </tr> 	  
       <tr>
         <td width="200px" class="main">--ifinurl </td>
         <td class="main"> Get targets with exact string matching</td>
@@ -320,6 +324,10 @@
         <td class="main"> Get targets where strings do not exist in html</td>
       </tr>
       <tr>
+        <td width="200px" class="main">--excludeAll </td>
+        <td class="main"> Get targets where all strings do not exist in html</td>
+      </tr>	  
+      <tr>
         <td width="200px" class="main">--unique  </td>
         <td class="main"> Get targets with exact dork matching</td>
       </tr> 
@@ -331,10 +339,6 @@
         <td width="200px" class="main">--replaceFROM  </td>
         <td class="main"> Replace from string to the end of target </td>
       </tr>
-      <tr>
-        <td width="200px" class="main">--payload  </td>
-        <td class="main"> Use your own payloads instead of tool ones</td>
-      </tr> 
       <tr>
         <td width="200px" class="main">--exp / -e </td>
         <td class="main"> Exploit/Payload will be added to full target </td>
@@ -655,15 +659,12 @@
        atscan -t [ip] --level [10] [--sql / --lfi / --wp /...]<br/>
        atscan -t [target] [--sql / --lfi / --wp /...] <br/>
         <hr>
-       &#x25cf; <b>USER PAYLOADS: </b><br/>
-       atscan --dork [dork] --level [10] [--lfi | --sql ..] --payload [payload | payloads.txt] <br/>
-        <hr>
        &#x25cf; <b>IP LOCALISATION: </b><br/>
        atscan -t [ip/target] --geoloc <br/>
         <hr>
        &#x25cf; <b>SEARCH VALIDATION: </b><br/>
        atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string/file] <br/>
-       atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string/file] --all <br/>
+       atscan -d [dork / dorks.txt] -l [level] --status [code] / --valid [string/file] <br/>
        atscan -d [dork / dorks.txt] -l [level] --status [code] / --exclude [string/file] <br/>
        atscan -d [dork / dorks.txt] -l [level] --ifinurl [string] <br/>
        atscan -d [dork / dorks.txt] -l [level] --sregex [regex] --valid [string] <br/>

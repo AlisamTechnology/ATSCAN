@@ -1,0 +1,21 @@
+#
+#  Completion for atscan:
+#
+_atscan() 
+{
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="-v -s -e -h -l -d -p -t -m -c -i --interactive --target --source --motor --config --ping --freq --status --zone --exclude --expHost --expIp --valid --tool --wp --joom --sql --lfi --joomrfi
+    --wpafd --admin --shost --upload --zip --email --command --md5 --encode64 --decode64 --port --index --host --exp --tcp --udp --full --proxy --prandom --help --save --replace --with --dork
+    --level --unique --shell --nobanner --repair --beep --ifinurl --noverbose --time --limit --update --regex --sregex --noquery --ifend --uninstall --post --get --brandom --data --mrandom
+    --content --source --popup --zoneH --tokens --honeyscore --protocols --pages --ports --cookies --bugtraq --fullHeaders --geoloc --getlinks --apikey --ip --count --search --query --querysearch 
+	--querytags --dnsresolve --dnsreverse --myip --apinfo --facets --shodan --validAll --excludeAll --server"
+
+    if [[ ${cur} == -* ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        return 0
+    fi
+}
+complete -F _atscan atscan

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=atscan
+Encoding=UTF-8
+Exec=sh -c "atscan;${SHELL:-bash}"
+Icon=atscan-menu.png
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=03-webapp-analysis;03-01-cms-identification;03-09-web-vulnerability-scanners;
+X-Kali-Package=atscan

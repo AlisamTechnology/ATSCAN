@@ -115,13 +115,13 @@ fi
  sleep 1 && echo "[i] Creating Completion link...                                    [18%]";
  if [ -d "/etc/bash_completion.d" ] ;
  then
-   chmod +x $refdir/inc/conf/atscan;
-   sudo cp $refdir/inc/conf/atscan /etc/bash_completion.d/;
+   chmod +x $refdir/inc/user/atscan;
+   sudo cp $refdir/inc/user/atscan /etc/bash_completion.d/;
  fi
  
  sleep 1 && echo "[i] Setting update files...                                        [30%]";
- echo `date +%Y%j` >> $refdir/inc/conf/uplog.log;
- echo -en "\n" >> $refdir/inc/conf/version.log;
+ echo `date +%Y%j` >> $refdir/inc/user/uplog.log;
+ echo -en "\n" >> $refdir/inc/user/version.log;
 
  sleep 1 && echo "[i] Creating shirt links...                                        [38%]";
  if [ ! -d "/usr/share/applications" ]; 
@@ -130,7 +130,7 @@ fi
  fi
  chmod +x "/usr/share/applications";
 
- sudo cp $refdir/inc/conf/desktop/atscan.desktop /usr/share/applications/;
+ sudo cp $refdir/inc/user/desktop/atscan.desktop /usr/share/applications/;
  if [ ! -e "/usr/share/applications/atscan.desktop" ]; 
  then
    echo "Warning! Failed to add direct access to the applications menu!";  
@@ -160,7 +160,7 @@ fi
    mkdir "/usr/share/icons/hicolor/16x16/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/16x16/apps";
- sudo cp $refdir/inc/conf/desktop/16x16/atscan-menu.png /usr/share/icons/hicolor/16x16/apps/;
+ sudo cp $refdir/inc/user/desktop/16x16/atscan-menu.png /usr/share/icons/hicolor/16x16/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/22x22" ]; 
  then
@@ -172,7 +172,7 @@ fi
    mkdir "/usr/share/icons/hicolor/22x22/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/22x22/apps";
- sudo cp $refdir/inc/conf/desktop/22x22/atscan-menu.png /usr/share/icons/hicolor/22x22/apps/;
+ sudo cp $refdir/inc/user/desktop/22x22/atscan-menu.png /usr/share/icons/hicolor/22x22/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/24x24" ]; 
  then
@@ -184,7 +184,7 @@ fi
    mkdir "/usr/share/icons/hicolor/24x24/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/24x24/apps";
- sudo cp $refdir/inc/conf/desktop/24x24/atscan-menu.png /usr/share/icons/hicolor/24x24/apps/;
+ sudo cp $refdir/inc/user/desktop/24x24/atscan-menu.png /usr/share/icons/hicolor/24x24/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/48x48" ]; 
  then
@@ -196,7 +196,7 @@ fi
    mkdir "/usr/share/icons/hicolor/48x48/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/48x48/apps";
- sudo cp $refdir/inc/conf/desktop/48x48/atscan-menu.png /usr/share/icons/hicolor/48x48/apps/;
+ sudo cp $refdir/inc/user/desktop/48x48/atscan-menu.png /usr/share/icons/hicolor/48x48/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/256x256/" ]; 
  then
@@ -208,7 +208,7 @@ fi
    mkdir "/usr/share/icons/hicolor/256x256//apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/256x256//apps";
- sudo cp $refdir/inc/conf/desktop/256x256//atscan-menu.png /usr/share/icons/hicolor/256x256//apps/;
+ sudo cp $refdir/inc/user/desktop/256x256//atscan-menu.png /usr/share/icons/hicolor/256x256//apps/;
  
  ########################################################################################################################
 
@@ -225,7 +225,7 @@ fi
  chmod +x $refdir/License.txt;
  sudo cp $refdir/License.txt /usr/share/doc/atscan/;
  sleep 1 && echo "[i] Removing install files...                                      [92%]";
- rm $refdir/inc/conf/atscan;
+ rm $refdir/inc/user/atscan;
  rm $refdir/install.sh; 
  if [ -d "$refdir/atscan_install" ];
  then
@@ -233,9 +233,9 @@ fi
  fi
  rm $refdir/README.md;
  rm $refdir/License.txt;
- if [ -d "$refdir/inc/conf/desktop" ]; 
+ if [ -d "$refdir/inc/user/desktop" ]; 
  then
-   rm -r $refdir/inc/conf/desktop;
+   rm -r $refdir/inc/user/desktop;
  fi
  if [ -e "$refdir/atscan" ] || [ -e "$refdir/atscan.pl" ];
  then     
@@ -254,7 +254,7 @@ fi
  if [ "$modeChoice" == "1" ]; 
  then
   sudo sed -i 's/atscan;/atscan --interactive;/g' /usr/share/applications/atscan.desktop;
-  echo "interactive on" >> $refdir/inc/conf/userSetting;
+  echo "interactive on" >> $refdir/inc/user/userSetting;
  fi
  sleep 1 && echo "[i] Tool successfully installed and will start in 3s!..           [100%]";
  sleep 3;

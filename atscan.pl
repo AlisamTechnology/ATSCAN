@@ -251,14 +251,14 @@ Subs::cockies($cookies);
 my $start = Subs::frequency();
 
 ##############################################################################################################################
+## CHECK FOR UPDATE
+use Upad;
+Upad::checkforupdates($ua, $fullHeaders, $dateupdate);
+
 ## UPDATE
 use Update;
 Update::update($ua, $fullHeaders, $repair) if (defined $checkVersion);
 Update::repair($ua, $fullHeaders, $repair) if (defined $repair);
-
-## CHECK FOR UPDATE
-use Upad;
-Upad::checkforupdates($ua, $fullHeaders, $dateupdate);
 
 #############################################################################################################################
 #############################################################################################################################

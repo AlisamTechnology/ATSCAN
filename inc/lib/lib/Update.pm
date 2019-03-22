@@ -73,7 +73,7 @@ sub update {
       close $dle;
     }
 	my $getit = new Getme();
-    my ($redirect, $r, $ht, $stats, $serverh, $fh) = $getit->navget($ua, $scriptUrl, $fullHeaders);
+    my ($redirect, $r, $ht, $stats, $serverh, $fh) = $getit->navget($ua, $scriptUrl, $fullHeaders, "", "");
     if ($stats ne 200) { print "\n"; Print::dd(); exit(); }
    
     #############################################  

@@ -50,7 +50,7 @@ sub INTERdork {
 }
 ## ALL ARGUMENTS
 sub ARGUMENTSALL {
-  return ("cx"=>'Google search ID', "apikey"=>'Apikey', "ping"=>"check is alive", "index"=>"get engine index", "getlinks"=>"Get html links", "status"=>"status code", "valid"=>"content by string", "vshell"=>"validate by url", "zoneH"=>"Upload to Zone-H", "exp"=>"exploit", "proxy"=>"use proxy", "prandom"=>"random proxy", "save"=>"output file",
+  return ("cx"=>'Google search ID', "apikey"=>'Apikey', "ping"=>"check is alive", "getlinks"=>"Get html links", "status"=>"status code", "valid"=>"content by string", "vshell"=>"validate by url", "zoneH"=>"Upload to Zone-H", "exp"=>"exploit", "proxy"=>"use proxy", "prandom"=>"random proxy", "save"=>"output file",
                    "replace"=>"Exact string replace", "replaceFROM"=>"full string replace", "ifinurl"=>"valid url by string", "noquery"=>"remove query string", "brandom"=>"random browser",
                    "content"=>"response content", "expHost"=>"exploit host", "expIp"=>"exploit target ip", "timeout"=>"browser time out", "validAll"=>"valdate all", "excludeAll"=>"exclude all", "server"=>"validate by server",
                    "host"=>"host name", "cookies"=>"cookies output file");
@@ -58,7 +58,7 @@ sub ARGUMENTSALL {
 ## NOT REQUIRE A VALUE
 sub NoValRequierd {
   return ('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noverbose', 'update', 'ips', 'noquery', 'ifend', 'post', 'get', 'brandom', 'content', 'ping',
-                   'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'index', 'wp', 'joom', 'zip', 'email', 'commands', 'form', 'normal', 'bugtraq', 
+                   'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'wp', 'joom', 'zip', 'email', 'commands', 'form', 'normal', 'bugtraq', 
                    'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup', 'all', 'geoloc', 'getlinks', 
 				   'query', 'querytags', 'services', 'myip', 'apinfo', 'ports', 'Ports', 'shodan');
 }

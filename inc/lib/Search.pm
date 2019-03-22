@@ -7,7 +7,7 @@ use Subs;
 use Target;
 ## Copy@right Alisam Technology see License.txt
 my @ISA = qw(Exporter);
-my @EXPORT_OK = qw(msearch);
+my @EXPORT_OK = qw(msearch doDeepSearch);
 
 ##########################################################################################################
 ## FILTER SEARCH RESULTS
@@ -21,31 +21,30 @@ my $nolisting="q=|0day|pastebin|\/\/t.co|google.|youtube.|jsuol.com|.radio.uol.|
                 window.|.devmedia|imasters.|.inspcloud.com|.lycos.com|.scorecardresearch.com|.target.|JQuery.min|Element.location.|document.|exploit-db|packetstormsecurity.|1337day|owasp|
                 .sun.com|mobile10.dtd|onabort=function|inurl.com.br|purl.org|.dartsearch.net|r.cb|.classList.|.pt_BR.|github|microsofttranslator.com|.compete.com|.sogou.com|gmail.|blackle.com|
                 boorow.com|gravatar.com|cookieSet|security|facebook|WindowsLiveTranslator|cache|74.125.153.132|inurl:|Network|adw.sapo|tripadvisor|yandex|Failed|tumblr.|wiki|inciclopedia.|
-                sogoucdn.com|weixin.|snapshot.|cxsecurity.|whois.|exalead.|3ds.|linkedin.|&FORM=PERE|cache:|cache+|googleapis";
+                sogoucdn.com|weixin.|snapshot.|cxsecurity.|whois.|exalead.|3ds.|linkedin.|&FORM=PERE|cache:|cache+|googleapis|tripadvisor.|javascript:void";
+
+my $V_SEARCH = Exploits::V_SEARCH();
 
 ##########################################################################################################
 ## SEARCH
 sub msearch {
-  my ($ua, $dork, $Target, $mlevel, $dorks, $motors, $v_apikey, $cx, $zone, $mindex, $unique, $ifinurl, $searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders) = @_;
+  my ($ua, $dork, $Target, $mlevel, $dorks, $motors, $v_apikey, $cx, $zone, $unique, $ifinurl, $searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders) = @_;
   my @aTsearch;
   my $level = $mlevel * 10;
   for my $engine(@{$motors}) {
     for my $drk(@{$dorks}) {
-      if (defined $Target) {
-	    my $V_IP = Exploits::V_IP();
-	    if ($drk =~ /$V_IP/) {
-		  $drk = "ip%3A$drk";
-		}else{
-	      if (defined $mindex) {
-		    my $hst = new Target();
-			$drk = $hst->host($drk);
-            $drk = Subs::removeProtocol($drk);
-            $drk = $hst->cleanURL($drk);
-            $drk = "site:".$drk;
-		  }
+      # if (defined $Target) {
+	    # my $V_IP = Exploits::V_IP();
+	    # if ($drk =~ /$V_IP/) {
+		  # $drk = "ip%3A$drk";
+		# }
+	    if ($drk =~ /^(http|www)/) {
+		  my $ut = new Target();
+          $drk = $ut->cleanURL($drk);
+		  $drk = "site%3A".$drk;
 		}
-      }
-      if ($zone) { $drk = "site:$zone ".$drk; }
+      # }
+      if ($zone) { $drk = "site%3A$zone ".$drk; }
       $drk =~ s/\s+$//;
       $drk =~ s/ /+/g;
       $drk =~ s/^(\+|\s+)//g;
@@ -57,12 +56,12 @@ sub msearch {
             $engine =~ s/MYAPIKEY/$v_apikey/;
 			$engine =~ s/MYCX/$cx/g;
           }
-		  my $getme = new Getme();
+		  my $getme = new Getme();		  
 		  my $res = $getme->navsearch($ua, $engine, $fullHeaders);
 		  if ($engine eq 7) {
-            @aTsearch = doSearchApis($res, $drk, $engine, $mindex, $unique, $ifinurl, \@{$searchRegexs});  
+            @aTsearch = doSearchApis($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
 		  }else{
-            @aTsearch = doSearch($res, $drk, $engine, $mindex, $unique, $ifinurl, \@{$searchRegexs});  
+            @aTsearch = doSearch($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
 		  }
           $engine =~ s/=$npages/=MYNPAGES/ig;
         }
@@ -76,14 +75,13 @@ sub msearch {
 #########################################################################################################################
 ## GET URLS FROM SEARCH ENGINE PAGES
 sub doSearch {
-  my ($Res, $drk, $motor, $mindex, $unique, $ifinurl, $searchRegexs) = @_;
+  my ($Res, $drk, $motor, $unique, $ifinurl, $searchRegexs) = @_;
   my @aTsearch;
-  my $V_SEARCH = Exploits::V_SEARCH();
   while($Res =~ /$V_SEARCH/g) {
     my $URL = $1;
 	$URL =~ s/(\&sa=|\&ved=|\&amp\;).*//;
 	if ((substr $URL, -1) ne "-"){
-      $URL = do_needed($URL, $drk, $mindex, $unique, $ifinurl, \@{$searchRegexs}) if ($URL !~/\.\./);
+      $URL = do_needed($URL, $drk, $unique, $ifinurl, \@{$searchRegexs}) if ($URL !~/\.\./);
 	  push @aTsearch, $URL if $URL;
 	}
   }
@@ -106,13 +104,13 @@ sub checkSearchRegex {
 #########################################################################################################################
 ## GET URLS FROM GOOGLE APIS ENGINE PAGES
 sub doSearchApis {
-  my ($Res, $drk, $motor, $mindex, $unique, $ifinurl, $searchRegexs) = @_;
+  my ($Res, $drk, $motor, $unique, $ifinurl, $searchRegexs) = @_;
   my @aTsearch;
   $Res = Subs::_json($Res);
   my @found = @{ $Res->{'items'} };
   for my $found(@found) {
 	my $link = $found->{'link'};
-	$link = do_needed($link, $drk, $mindex, $unique, $ifinurl, $searchRegexs) if $link;
+	$link = do_needed($link, $drk, $unique, $ifinurl, $searchRegexs) if $link;
 	push @aTsearch, $link if $link;
   }
   return @aTsearch;
@@ -121,14 +119,14 @@ sub doSearchApis {
 #########################################################################################################################
 ## EXTRAT CONDITIONS
 sub do_needed {
-  my ($URL, $drk, $mindex, $unique, $ifinurl, $searchRegexs) = @_;
+  my ($URL, $drk, $unique, $ifinurl, $searchRegexs) = @_;
   my $url;
   utf8::encode($URL);
   $URL = uri_unescape($URL);
   $URL=decode_entities($URL);
   $URL=~s/<.*//s;
   if ($URL!~/$nolisting/) {
-    if (!defined $mindex && (defined $unique || defined $ifinurl || $unique)) {
+    if (defined $unique || defined $ifinurl || $unique) {
       my $dorkToCheeck = Subs::checkFilters($drk);
       $URL = Subs::filterUr($URL, $dorkToCheeck, $unique, $ifinurl);
     }
@@ -149,6 +147,42 @@ sub do_needed {
     }
   }
   return $url;
+}
+
+############################################################################################################
+## DEEP SEARCH
+sub doDeepSearch {
+  my ($targets, $ua, $fullHeaders, $post, $get) = @_;  
+  my $nodeeplisting="q=|.png|.jepg|.css|.js|jpg|.xml|utm_|doubleclick.|ie=UTF";
+  my @deep;  
+  Print::print_general("4", "[!] Scraping engine targets...");
+  for my $link(@{$targets}) {
+    #if (substr($link, -1) eq "\/") { $link=chop($link); }
+    my $getme = new Getme;
+    my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $link, $fullHeaders, $post, $get);
+    while ($ht =~m/href=\"([^>\"\<\'\(\)\#\,\s]*)/g) {
+	  my $llk=$1;
+	  if ($llk!~/$nolisting/ and $llk!~/$nodeeplisting/) {
+	    if ($llk!~/^https?:\/\//) { 
+		  $llk="$link/$llk";
+        } 
+        my $cllk=$llk;
+	    $llk=Subs::removeProtocol($llk);
+	    $llk=~s/\/\//\//;
+	   if ($cllk=~/^https/) {
+		  $llk="https://$llk";
+	    }else{
+		  $llk="http://$llk";
+	    }
+		my $vURL = Subs::validateURL($llk);
+	    if ($vURL) { push @deep, $llk; }
+	  }
+    }
+  }
+  
+  
+  @deep = Subs::checkDuplicate(@deep);
+  return \@deep;
 }
 
 ##########################################################################################################

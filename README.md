@@ -388,10 +388,6 @@
         <td class="main"> UDP port</td> 
       </tr> 
       <tr>
-        <td width="200px" class="main">--index  </td>
-        <td class="main"> Get target engine index </td>
-      </tr> 
-      <tr>
         <td width="200px" class="main">--getlinks  </td>
         <td class="main"> Get target html links </td>
       </tr> 	  
@@ -607,13 +603,10 @@
         <hr>
       &#x25cf; <b>SEARCH ENGINE: </b> <br/>
        Search: atscan --dork [dork] --level [level]  <br/>
-       Search: atscan -d [dork] -l [level] --index <br/>
 	   Search: atscan -d [dork] -l [level] --getlinks <br/>
        Set engine: atscan --dork [dork] --level [level] -m bing or google,ask,yandex or all <br/>
        Set selective engines: atscan -d [dork] -l [level] -m google,bing,.. <br/>
        Search with many dorks: atscan --dork dork1 [OTHER]dork2 [OTHER]dork3] --level [level]    <br/>
-       Search and rand: atscan -d [dork] -l [level] --expHost "/index.php?id=rang(1-9)" --sql   <br/>
-       Get target engine index: atscan -t [target] --level [value] --index <br/>
        Get Server wordpress sites: atscan -t [target] --wp <br/>
        Search + output: atscan --dork [dorks.txt] --level [level] --save <br/>
        Search + get emails: atscan -d [dorks.txt] -l [level] --email  <br/>

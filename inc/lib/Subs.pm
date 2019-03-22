@@ -106,7 +106,7 @@ sub compareme {
   my ($same);
   use Getme;
   my $getme = new Getme();
-  my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $logUrl, $fullHeaders);
+  my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $logUrl, $fullHeaders, "", "");
   if ($st eq 200) {
     unlink $script_bac if -e $script_bac;
     Print::printFile($script_bac, $ht); 
@@ -164,7 +164,8 @@ sub validateURL {
   my $vURL = $_[0];
   my $hg = new Target();
   $vURL = $hg->cleanURL($vURL);
-  return $vURL if $vURL =~ /([a-zA-Z0-9\-\_]\.)?([a-zA-Z0-9\-\_]\.)[a-zA-Z]/;
+  my $coun = () = $vURL =~ /\./g;
+  return $vURL if $coun > 0;
 }
 
 #########################################################################################################################

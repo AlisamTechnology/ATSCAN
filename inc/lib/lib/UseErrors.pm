@@ -22,7 +22,7 @@ my @TT = Exploits::TT();
 ###########################################################################################################
 ## USE ERRORS
 sub check_arguments1 {
-  my ($mrandom, $motor, $mlevel, $dork, $unique, $mindex, $shodan, $bugtraq) = @_;
+  my ($mrandom, $motor, $mlevel, $dork, $unique, $shodan, $bugtraq) = @_;
   if (defined $mrandom && (!defined $mlevel && !$mlevel)) { print $c[4]."[!] $DT[38]\n"; exit(); }
   if ((!defined $dork) && (defined $unique)) { print $c[4]."[!] $DT[21]\n"; exit(); }
   if (!defined $dork && defined $bugtraq) { print $c[4]."[!] Usage --bugtraq --dork <dork> --level <level>\n"; exit(); }
@@ -34,13 +34,6 @@ sub check_arguments1 {
     if (!defined $mlevel) {
 	  print $c[4]."[!] $DT[20]\n"; exit();
 	}
-  }
-
-  ## CRAWLER
-  if (defined $mindex) {
-    if (!defined $mlevel && !$mlevel) {
-      print $c[4]."[!] $DT[20]\n"; exit();
-    }
   }
 
   ## ARGUMENTS VERIFICATION (LEVEL / PORTS)

@@ -52,7 +52,7 @@ sub bugs {
       my $u = "https://cxsecurity.com/search/wlb/DESC/AND/$e 1999.1.1/$npages/30/$btq/";
       $u=~s/\s//g;
 	  my $getme = new Getme();
-	  my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $u, $fullHeaders);		  
+	  my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $u, $fullHeaders, "", "");		  
       $re = escape($re);
       if ($st eq 200) {
         bugTitle($ht);
@@ -157,7 +157,7 @@ sub viewBug {
   my $uw="https://cxsecurity.com/issue/WLB-$rer2[1]";
    
   my $getme = new Getme();
-  my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $uw, $fullHeaders);		    
+  my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $uw, $fullHeaders, "", "");		    
   if ($ht=~/(\spremex\">.*?)<\/DIV><\/P><P\sclass=\"txt\"/s) {
     my $se=$1;
     $se=~s/$_/$replace{ $_}/g for keys %replace;

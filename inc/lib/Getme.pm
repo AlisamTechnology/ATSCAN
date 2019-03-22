@@ -43,7 +43,6 @@ sub newpsx {
 	    while (!$x) {
           system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;");
 		  use Connect;
-		  
 	      my $r = Connect::check_proxy_connect($ua, $psx);
 	      if ($r) {
 		    $x++;
@@ -82,7 +81,7 @@ sub get_resut {
 ##########################################################################################################
 sub navsearch {
   my ($self, $ua, $engine, $fullHeaders) = @_;
-  my $re = $ua->get($engine);
+  my $re = $ua->get($engine) or Print::advise_connect();
   my $redir = $re->request->uri if ($re->previous);
   my ($ht, $st, $sh, $fh) = get_resut($re, $fullHeaders);
   $self->{ navsearch } = $ht if $st eq 200;
@@ -91,8 +90,8 @@ sub navsearch {
 
 ##########################################################################################################
 sub navget {
-  my ($self, $ua, $url, $fullHeaders) = @_;  
-  my $re = $ua->get($url);
+  my ($self, $ua, $url, $fullHeaders, $post, $get) = @_;  
+  my $re = $post ? $ua->post($url) : $ua->get($url);
   my $redir = $re->request->uri if ($re->previous);
   my ($ht, $st, $sh, $fh) = get_resut($re, $fullHeaders);
   return ($redir, $re, $ht, $st, $sh, $fh) if $st;

@@ -11,7 +11,7 @@ use Subs;
 
 my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(nargs print_Beg print_End print_sub_beg separator separaBlocks print_target print_valid_info 
-                   print_errors print_redirect endscan print_agent exploits_alert
+                   print_errors print_redirect endscan print_agent exploits_alert advise_connect
 				   @c print_geoloc noResult printFile print_zoneH count_targets print_scans print_title_scan
 				   begenscan endscan colors bb cc dd nochmod extern_process);
 
@@ -134,7 +134,7 @@ sub dd { sleep(1); print $c[4]."[!] $DT[8]\n"; }
 ## PRINT INFO
 sub print_info {
   my ($Target, $exploit, $expHost, $expIp, $parametro, $replace, $replaceFROM) = @_;
-  print $c[5]."[::] TARGET     $c[10] [$Target]\n" if ($Target && -e $Target);
+  print $c[5]."[::] TARGET     $c[10] [$Target]\n" if ($Target);
   print $c[5]."[::] EXPLOIT    $c[10] [$exploit]\n" if $exploit;
   print $c[5]."[::] EXP IP     $c[10] [$expIp]\n" if $expIp;
   print $c[5]."[::] EXP HOST   $c[10] [$expHost]\n" if $expHost;
@@ -158,19 +158,27 @@ sub print_valid_info {
 ###########################################################################################################
 ## PRINT INFO
 sub print_info1 {
-  my ($dork, $mlevel, $motor, $mrandom, $mindex, $ifinurl, $unique) = @_;
+  my ($dork, $mlevel, $motor, $mrandom, $ifinurl, $unique, $post, $get, $getlinks) = @_;
   print $c[5]."[::] DORK       $c[10] [$dork]\n" if $dork;
   print $c[5]."[::] LEVEL      $c[10] [$mlevel]\n" if $mlevel;
   print $c[5]."[::] ENGINES    $c[10] [$motor]\n" if $motor;
   print $c[5]."[::] RAND ENG   $c[10] [$mrandom]\n" if $mrandom;
-  print $c[5]."[::] INDEX      $c[10] [Yes]\n" if $mindex;
   print $c[5]."[::] IFINURL    $c[10] [$ifinurl]\n" if $ifinurl;
   print $c[5]."[::] UNIQUE     $c[10] [Yes]\n" if $unique;
+  print $c[5]."[::] METHOD     $c[10] [POST]\n" if $post;
+  print $c[5]."[::] METHOD     $c[10] [GET]\n" if $get;
+  print $c[5]."[::] INDEX      $c[10] [Parser]\n" if $getlinks;
+}
+
+###########################################################################################################
+## SERACH BAD CONNECTION ALERT
+sub advise_connect {
+  print $c[4]." [!] Failed to connect! try again\n";
 }
 
 ###########################################################################################################
 ## WAIT
-sub print_espera { print $c[4]."[!] $DT[31]\n\n";}
+sub print_espera { print $c[4]."[!] $DT[31]\n\n"; }
 
 ###########################################################################################################
 ## TITLE SCAN

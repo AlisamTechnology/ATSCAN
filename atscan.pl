@@ -63,7 +63,7 @@ if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 ##############################################################################################################################
 ## VARIABLES 
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, 
-     $mindex, $mdom, $Target, $exploit, $parametro, $validTextAll, $tcp, $udp, $proxy, $prandom, $help, $output, $replace, $replaceFROM, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, 
+     $mdom, $Target, $exploit, $parametro, $validTextAll, $tcp, $udp, $proxy, $prandom, $help, $output, $replace, $replaceFROM, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, 
 	 $noverbose, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $mrandom, 
 	 $content, $toolInfo, $config, $freq, $headers, $msource, $ping, $exclude, $excludeAll, $expHost, $expIp, $zone, $validShell, $interactive, $popup, $all, $repair, $zoneH, $cookies, 
 	 $bugtraq, $fullHeaders, $geoloc, $getlinks, $shodan, $apikey, $shocount, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, $shomyip, 
@@ -75,7 +75,7 @@ use Getopt::Long qw(GetOptions);
 my %OPT;
 Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText, 'validAll=s'=>\$validTextAll, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'sql'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd,
                          'admin'=>\$adminPage, 'subdomain'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command|c=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64,
-                         'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'index'=>\$mindex, 'host'=>\$mdom, 't|target=s'=>\$Target, 'exp|e=s'=>\$exploit, 'p|param=s'=>\$parametro, 'tcp'=>\$tcp, 'udp'=>\$udp, 
+                         'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'host'=>\$mdom, 't|target=s'=>\$Target, 'exp|e=s'=>\$exploit, 'p|param=s'=>\$parametro, 'tcp'=>\$tcp, 'udp'=>\$udp, 
                          'proxy=s'=>\$proxy, 'prandom=s'=>\$prandom, 'help|h'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'replaceFROM=s'=>\$replaceFROM, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel,
                          'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noverbose'=>\$noverbose, 'm|motor=s'=>\$motor, 'timeout=s'=>\$timeout,
                          'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ips'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'ifend'=>\$ifend,
@@ -142,7 +142,7 @@ Print::separaBlocks();
 ##############################################################################################################################
 ## USAGE ERRORS
 use UseErrors;
-UseErrors::check_arguments1($mrandom, $motor, $mlevel, $dork, $unique, $mindex, $shodan, $bugtraq);
+UseErrors::check_arguments1($mrandom, $motor, $mlevel, $dork, $unique, $shodan, $bugtraq);
 UseErrors::check_arguments2($motor, $mrandom, $Target, $dork, $JoomRfi, $shell);
 UseErrors::check_arguments3($shodan, $bugtraq, $apikey, $popup, $command, $zoneH, $dork, $replace, $replaceFROM);
 UseErrors::check_arguments4($eMails, $port, $ping, $udp, $tcp, $regex, $searchRegex, $searchIps, $Hstatus, $validText, $get, $post, $method, $data, $mupload, $limit);
@@ -282,7 +282,7 @@ $ua = $agento->use_proxy($freq, $start, $ua, \@{$v_proxies}, $prandom, "") if (s
 
 #############################################################################################################################
 ## PRINT PANEL
-Print::print_info1($dork, $mlevel, $motor, $mrandom, $mindex, $ifinurl, $unique);
+Print::print_info1($dork, $mlevel, $motor, $mrandom, $ifinurl, $unique, $post, $get, $getlinks);
 Print::print_info($Target, $exploit, $expHost, $expIp, $parametro, $replace, $replaceFROM);
 Print::print_valid_info($Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer);
 Print::separaBlocks();
@@ -328,7 +328,7 @@ if (!defined $shodan && (scalar @targets < 1)) {
   use Search;
   sleep 1;
   my $v_apikey = $apikeys[rand @{$v_apikeys}];
-  my $search = Search::msearch($ua, $dork, $Target, $mlevel, \@dorks, \@motors, $v_apikey, $cx, $zone, $mindex, $unique, $ifinurl, \@searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders);
+  my $search = Search::msearch($ua, $dork, $Target, $mlevel, \@dorks, \@motors, $v_apikey, $cx, $zone, $unique, $ifinurl, \@searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders);
   @targets = @{$search} if ($search);
 }
 
@@ -336,6 +336,12 @@ if (!defined $shodan && (scalar @targets < 1)) {
 ## PRINT TARGETS RESULTS
 @targets = Subs::checkDuplicate(@targets);
 Print::count_targets(\@targets);
+
+if (defined $getlinks) {
+  my $deep_targets = Search::doDeepSearch(\@targets, $ua, $fullHeaders, $post, $get);
+  push @targets, @{ $deep_targets };
+  Print::count_targets(\@targets);
+}
 
 #############################################################################################################################
 ## PRINT SCAN TITLE
@@ -448,7 +454,7 @@ for my $targ(@targets) {
 	  my $datas = $ut->dataFields($data);
 	  ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navdatapost($ua, $get, $post, $url, $datas, $fullHeaders);
 	}else{
-	  ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $ur, $fullHeaders);
+	  ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $ur, $fullHeaders, $post, $get);
 	}	
 	## CHECK FOR REDIRECTS
 	if ($redirect) { Print::print_redirect($redirect); }
@@ -494,7 +500,7 @@ for my $targ(@targets) {
 	## GEOLOC
 	if (defined $geoloc) {
 	  my $u = "https://www.onyphe.io/api/geoloc/$ips";
-	  my ($redir, $rg, $hg, $sg, $seg, $fg) = $getme->navget($ua, $u, $fullHeaders);
+	  my ($redir, $rg, $hg, $sg, $seg, $fg) = $getme->navget($ua, $u, $fullHeaders, "", "");
 	  Print::print_geoloc($hg) if ($st eq 200);
 	}
 		

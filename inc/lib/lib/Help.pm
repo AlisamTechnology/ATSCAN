@@ -34,8 +34,6 @@ sub help {
   Print::separaBlocks(); print $c[12]."  SEARCH ENGINE: \n".$c[10]
   ."   ENGINES: bing google ask yandex sogou exalead googleapis googlecache or all\n"
   ."   Search: atscan --dork <dork> --level <level> \n"
-  ."   Search target engine inedexes: atscan -d <dork> -l <level> --index\n"
-  ."   Search indexes & html links: atscan -d <dork> -l <level> --index --getlinks\n"
   ."   Set engine: atscan --dork <dork> --level <level> -m google\n"
   ."   Set selective engines: atscan -d <dork> -l <level> -m google,bing,..\n"
   ."   Search with many dorks: atscan --dork <dork1 [OTHER]dork2 [OTHER]dork3> --level <level> \n"  

@@ -136,15 +136,15 @@ sub script {
   if (substr($0, -3) eq '.pl') { $script.=".pl"; }
   return $script;
 }
-sub scriptComplInstall { return "Bin/inc/user/atscan"; }
-sub scriptInstall { return "$Bin/install.sh"; }
+sub scriptComplInstall { return $Bin."/inc/user/atscan"; }
+sub scriptInstall { return $Bin."/install.sh"; }
 sub script_bac { return $Bin."/version_bac.log"; }
-sub uplog { return "$Bin/inc/user/uplog.log"; }
+sub uplog { return $Bin."/inc/user/uplog.log"; }
 sub scriptbash { return "/usr/bin/atscan"; }
 sub scriptCompletion { return "/etc/bash_completion.d"; }
 sub readme { return "/usr/share/doc/atscan"; }
-sub userSetting { return "$Bin/inc/user/userSetting"; }
-sub deskIcon { return "$Bin/inc/user/desktop/"; }
+sub userSetting { return $Bin."/inc/user/userSetting"; }
+sub deskIcon { return $Bin."/inc/user/desktop/"; }
 sub deskIcoConf { return "/usr/share/applications"; }
 
 

@@ -256,17 +256,16 @@ use Update;
 Update::update($ua, $fullHeaders, $repair) if (defined $checkVersion);
 Update::repair($ua, $fullHeaders, $repair) if (defined $repair);
 
+## CHECK FOR UPDATE
+use Upad;
+Upad::checkforupdates($ua, $fullHeaders, $dateupdate);
+
 #############################################################################################################################
 #############################################################################################################################
 ## EXIT SHIRT SCANS
 for ($help, $uninstall, $config, $toolInfo, $checkVersion, $repair, $mmd5, $mencode64, $mdecode64) { exit if defined $_; }
 
 #############################################################################################################################
-#############################################################################################################################
-## CHECK FOR UPDATE
-use Upad;
-Upad::checkforupdates($ua, $dateupdate);
-
 #############################################################################################################################
 ## THIS NEED SCAN RESULT TO BE PRINTED
 for ($exploit, $expIp, $expHost, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, 

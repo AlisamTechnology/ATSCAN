@@ -33,7 +33,9 @@ sub updateAlert  {
         print MN "$fulldate"; close(MN);
       }
     }else{
-      print "  "; Print::dd();
+      print "  "; 
+	  Print::dd();
+	  Print::separaBlocks();
     }
   }  
 }

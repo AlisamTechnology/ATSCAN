@@ -26,18 +26,6 @@ my $script_bac = script_bac();
 my $scriptv = scriptv();
 my $V_IP = Exploits::V_IP();
 
-	##############################################################################
-	if (-d $Bin.'/inc/conf') {
-	  for ('conf', 'theme', 'search', 'functions', 'interactive', 'errors') {
-	    system "rm -rf $Bin/inc/$_" if -d $Bin."/inc/$_";
-	  }
-	  for ('top.pl', 'func.pl', 'includes.pl', 'payloads.pl', 'help.pl') {
-	    unlink $Bin."/inc/$_" if -e $Bin."/inc/$_";
-	  }
-	}
-	##############################################################################
-
-
 #######################################################################################################
 ## COOCKIES
 sub cockies {

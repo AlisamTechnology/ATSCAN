@@ -105,8 +105,8 @@ sub compareme {
   my ($ua, $fullHeaders) = @_;
   my ($same);
   use Getme;
-  my $rr = new Getme();
-  my ($redir, $re, $ht, $st, $sh, $fh) = $rr->navget($ua, $logUrl, $fullHeaders);
+  my $getme = new Getme();
+  my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $logUrl, $fullHeaders);
   if ($st eq 200) {
     unlink $script_bac if -e $script_bac;
     Print::printFile($script_bac, $ht); 
@@ -125,7 +125,7 @@ sub now { return strftime ("%H:%M:%S", localtime); }
 sub fulldate { return strftime ("%Y%j", localtime); }
 sub frequency { return strftime "%H%M%S", localtime; }
 sub scriptUrl { return "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/atscan.pl"; }
-sub logUrl { return "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/conf/version.log"; }
+sub logUrl { return "https://raw.githubusercontent.com/AlisamTechnology/ATSCAN/master/inc/user/version.log"; }
 sub ipUrl { return "http://dynupdate.no-ip.com/ip.php"; }
 sub conectUrl { return "http://www.bing.com"; }
 sub server { return "https://cxsecurity.com"; }

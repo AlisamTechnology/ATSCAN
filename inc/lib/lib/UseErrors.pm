@@ -50,12 +50,10 @@ sub check_arguments1 {
 ##########################################################################################################
 sub check_arguments2 {
   my ($motor, $mrandom, $Target, $dork, $JoomRfi, $shell) = @_;
-
   ## MORE ARGUMENTS PROCESS VERIFICATION
   if ((defined $dork) || (defined $Target)) { 
     if ((defined $JoomRfi) and (!defined $shell)) { print $c[4]."[!] $DT[41]\n"; exit(); }
   }
-
   ## CHECK MOTORS ARGUMENTS
   if (defined $motor || $motor) {
     if (defined $mrandom || $mrandom) {

@@ -54,11 +54,11 @@ sub uninstall {
     }
 	
     print $c[10]."[i] $ZT[8] $Bin/inc... ";
-    system "rm -rf $Bin/inc" if -e $Bin."/inc";
+    system "rm -rf $Bin/inc" if -d $Bin."/inc";
     if (!-d $Bin."/inc") { Print::cc(); }else{ Print::bb(); }
  
     print $c[10]."[i] $ZT[8] $readme... ";
-    system "rm -rf $readme if -d $readme";
+    system "rm -rf $readme" if -d $readme;
     if (!-d $readme) { Print::cc(); }else{ Print::bb(); }
     my $emty = is_folder_empty($Bin);
     if ($emty) {

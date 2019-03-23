@@ -381,11 +381,11 @@ sub ifInterLinuxOpt {
 sub interHelpChek {
   my $process=$_[0];
   print $c[11]."[::] $ZT[19]\n";
-  ltak();
+  Print::separaBlocks();
   if ($process eq "1") { interHelp(); scansArgs(); }
   elsif ($process eq "2") { scansArgs(); }
   elsif ($process eq "3") { interHelp(); }
-  ltak();
+  Print::separaBlocks();
   processHeader($process);
 }
 ##############################################################################################

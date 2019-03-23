@@ -5,7 +5,7 @@ use FindBin '$Bin';
 use Exploits;
 use Exporter;
 use POSIX qw(strftime);
-
+use Dialog;
 ## Copy@right Alisam Technology see License.txt
 
 my @ISA = qw(Exporter);
@@ -150,8 +150,10 @@ sub ClientConfiguration {
           $finish++;
         }elsif ($ps eq "help") {
           print $c[11]."[::] HELP\n";
-          ltak();
-          Kalam::confHlp(); ltak(); print "\n";
+          Print::separaBlocks();
+          Dialog::confHlp(); 
+          Print::separaBlocks();
+		  print "\n";
         }elsif ($ps=~/^(set\s|reset\s|options)/) {
           ($act, $op, $vl)=cleanImput($ps, \@res);
           if (($act && ($act ne "options") && !$op) || ($act eq "set" && !$vl)) {

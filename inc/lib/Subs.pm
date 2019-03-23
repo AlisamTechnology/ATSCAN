@@ -15,7 +15,7 @@ my @EXPORT_OK = qw(compareme getTargetProtocol removeProtocol buildArraysLists b
                    target_urls rang repeat replaceReferencies getProx _json filterUr checkFilters now 
 				   fulldate frequency scriptUrl logUrl ipUrl conectUrl server geoServer scriptv script
 				   scriptComplInstall scriptInstall script_bac uplog scriptbash scriptCompletion readme 
-				   userSetting deskIcon deskIcoConf getComnd make_freq portProtocol cockies);
+				   userSetting deskIcon deskIcoConf getComnd make_freq portProtocol cockies target_urls_repeater);
 
 unlink "$Bin/inc/user/cookies.txt" if -e "$Bin/inc/user/cookies.txt";
 
@@ -25,6 +25,25 @@ my $uplog = uplog();
 my $script_bac = script_bac();
 my $scriptv = scriptv();
 my $V_IP = Exploits::V_IP();
+
+############################################################################################################
+##
+sub target_urls_repeater {
+  my $target_urls = $_[0];
+  my @target_urls = @{$target_urls};
+  my @repeater_urls1;
+  for my $tar(@target_urls) {
+    $tar =~ s/\s//g;
+	my @targets1;
+    if ($tar !~ /^(http|https):\/\//) { $tar = "http://$tar"; }
+    my @repeater1 = repeat($tar) if ($tar =~ /repeat\((.*)\-(\d+)\)/);
+    push @repeater_urls1, @repeater1;
+    my @rang = rang($tar) if ($tar =~ /rang\((\d+)\-(\d+)\)/);
+    push @repeater_urls1, @rang;
+  }
+  push @target_urls, @repeater_urls1;
+  return @target_urls;
+}
 
 #######################################################################################################
 ## COOCKIES

@@ -370,18 +370,8 @@ Print::exploits_alert() if ($jv && !defined $exploit);
 
 ##############################################################################################################################
 ## CHECK TARGET REPEATER AND RANG
-for my $tar(@targets) {
-  $tar =~ s/\s//g;
-  if ($tar !~ /^(http|https):\/\//) { $tar = "http://$tar"; }
-  my @repeater_urls;
-  my @repeater = Subs::repeat($tar) if ($tar =~ /repeat\((.*)\-(\d+)\)/);
-  push @repeater_urls, @repeater;
-  my @rang = Subs::rang($tar) if ($tar =~ /rang\((\d+)\-(\d+)\)/);
-  push @repeater_urls, @rang;
-  push @targets, @repeater_urls;
-}
+@targets = Subs::target_urls_repeater(\@targets);
 
-#############################################################################################################################
 #############################################################################################################################
 ## START SCAN   #############################################################################################################
 my ($i, $in) = 0;

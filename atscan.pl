@@ -55,6 +55,10 @@ use Print;
 use Banner;
 use Exploits;
 use Validate;
+use Checkinputs;
+use Checkcms;
+use Checkplugins;
+use Checkerrors;
 
 ##############################################################################################################################
 ## CLEAR
@@ -427,7 +431,7 @@ for my $targ(@targets) {
 	
 	## GET AGENT
 	$agent = $agento->get_agent($freq, $start, "1") if defined $brandom;
-	Print::print_agent($agent);
+	Print::print_agent($agent) if !$noverbose;
 	
 	## PROXY RANDOM ALERT 
 	$ua = $agento->use_proxy($freq, $start, $ua, \@{$v_proxies}, $prandom, "1") if (defined $prandom);
@@ -439,31 +443,30 @@ for my $targ(@targets) {
 	  ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navdatapost($ua, $get, $post, $url, $datas, $fullHeaders);
 	}else{
 	  ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $ur, $fullHeaders, $post, $get);
-	}	
-	## CHECK FOR REDIRECTS
-	if ($redirect) { Print::print_redirect($redirect); }
+	}
 	
-	## PRINT STATUS AND SERVER NAME
-	my $continue = Print::print_sub_beg($st, $sh);
+	my $continue;
+	if (!$noverbose) {
+	  ## CHECK FOR REDIRECTS
+	  if ($redirect) { Print::print_redirect($redirect); }
+	  
+	  ## PRINT STATUS AND SERVER NAME
+	  $continue = Print::print_sub_beg($st, $sh);
+	  
+	  ## CHECK IMPUTS
+	  Checkinputs::Check_Inputs($ht);
+	  
+	  ## CHECK CMS
+	  Checkcms::checkCms($ht);
+	  
+	  ## CHECK PLUGINS
+	  Checkplugins::checkPlugins($ht);
+	  
+	  ## CHECK ERRORS
+	  Checkerrors::check_Errors($ht);
+	}
 	
-	## CHECK IMPUTS
-	use Checkinputs;
-	Checkinputs::Check_Inputs($ht);
-	
-	## CHECK CMS
-	use Checkcms;
-	Checkcms::checkCms($ht);
-	
-	## CHECK PLUGINS
-	use Checkplugins;
-	Checkplugins::checkPlugins($ht);
-
-	## CHECK ERRORS
-	use Checkerrors;
-	Checkerrors::check_Errors($ht);
-
 	## CHECK FOR VALIDATION
-	
 	my $validate = new Validate();
 	my $validated = 1;
 	$validated = $validate->v_validate($st, $ht, $sh, $xss, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites);

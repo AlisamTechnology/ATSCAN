@@ -356,9 +356,7 @@ for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain,
   
 if (scalar @sc > 0) {
   Print::begen();
-  for (@sc) {
-	Print::print_title_scan($_)
-  }
+  for (@sc) { Print::print_title_scan($_); }
   Print::end();
 }
 
@@ -413,13 +411,13 @@ for my $targ(@targets) {
   my $getme = new Getme();
   my $i = 0;
   for my $ur(@target_urls) {
-    $i++;	
+    $i++;
 	## PRINT URL
-    Print::print_Beg($ur, $i, scalar @exploits, $isscan);
+	Print::print_Beg($ur, $i, scalar @exploits, $isscan);
 
 	## PORTS
 	if (defined $port) {
-      my @v_proxies = @{$v_proxies};
+	  my @v_proxies = @{$v_proxies};
 	  my $psx = $v_proxies[rand @v_proxies] if (defined $proxy);	  
 	  $psx = $getme->newpsx($ua, $freq, $start, $v_proxies, $freq, $start, $psx, $prandom) if (defined $prandom);	  
 	  use Scanport;
@@ -484,9 +482,9 @@ for my $targ(@targets) {
 	}
 		
 	## PRINT SAVE HTML AND HEADERS
-    if (defined $content) {  Print::print_content($ht); }
-    if (defined $msource) { Print::printSource($ur, $ht, $msource); }
-    if (defined $fullHeaders) { Print::fullRequestHeaders(); }  
+	if (defined $content) {  Print::print_content($ht); }
+	if (defined $msource) { Print::printSource($ur, $ht, $msource); }
+	if (defined $fullHeaders) { Print::fullRequestHeaders(); }  
 	
 	## EXTERN COMMANDS
 	if (defined $command && !defined $shodan) {

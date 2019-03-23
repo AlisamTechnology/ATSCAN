@@ -11,19 +11,8 @@ use Exploits;
 ## CONSTRUCTOR
 sub new {
   my $self = {};
-  
-  $self->{ validText };
-  $self->{ validTextAll };
-  $self->{ exclude };
-  $self->{ excludeAll };
-  $self->{ Hstatus };
-  $self->{ validShell };
-  $self->{ validServer };
+  $self->{ v_validate };
   $self->{ get_target_ip };
-  $self->{ v_xss };
-  $self->{ v_wafd };
-  $self->{ v_lfi };
-  
   bless $self, 'Validate';
   return $self;
 }
@@ -31,33 +20,31 @@ sub new {
 ###########################################################################################################
 ## VALIDATE BY SERVER
 sub validServer {
-  my ($self, $validServer, $sh) = @_;
+  my ($validServer, $sh) = @_;
   my @validServer = Subs::buildArrays($validServer);
   my $i = 0;
   for (@validServer) {    
     if ($sh =~ /$_/) { $i++; }
   }  
-  $self->{ validServer } = 1 if $i;
-  return $self->{ validServer };
+  return $i;
 }
 
 ###########################################################################################################
 ## VALIDATE A STRING
 sub validText {
-  my ($self, $validText, $ht) = @_;
+  my ($validText, $ht) = @_;
   my @validTexts = Subs::buildArrays($validText);
   my $i = 0;
   for (@validTexts) {
     if ($ht =~ /$_/) { $i++; }
   }
-  $self->{ validText } = 1 if $i;
-  return $self->{ validText };
+  return $i;
 }
 
 ###########################################################################################################
 ## VALIDATE ALL STRING
 sub validTextAll {
-  my ($self, $validTextAll, $ht) =@_;
+  my ($validTextAll, $ht) =@_;
   my @validTexts = Subs::buildArrays($validTextAll);
   my @all;
   for (@validTexts) {
@@ -65,29 +52,29 @@ sub validTextAll {
 	  push @all, $_;
 	}
   }
+  my $i;
   if (scalar @validTexts eq scalar @all) {
-    $self->{ validTextAll } = 1 if defined $validTextAll;
+    $i++;
   }
-  return $self->{ validTextAll };
+  return $i;
 }
 
 ###########################################################################################################
 ## EXCLUDE A STRING
 sub exclude {
-  my ($self, $exclude, $ht) = @_;
+  my ($exclude, $ht) = @_;
   my @excludes = Subs::buildArrays($exclude);
   my $i = 0;
   for (@excludes) {
     if ($ht !~ /$_/) { $i++; }
   }
-  $self->{ exclude } = 1 if $i;
-  return $self->{ exclude };
+  return $i;
 }
 
 ###########################################################################################################
 ## EXLUDE ALL STRING
 sub excludeAll {
-  my ($self, $excludeAll, $ht) =@_;
+  my ($excludeAll, $ht) =@_;
   my @excludes = Subs::buildArrays($excludeAll);
   my @all;
   for (@excludes) {
@@ -95,23 +82,23 @@ sub excludeAll {
 	  push @all, $_;
 	}
   }
+  my $i;
   if (scalar @excludes eq scalar @all) {
-    $self->{ excludeAll } = 1 if defined $excludeAll;
+    $i++;
   }
-  return $self->{ excludeAll };
+  return $i;
 }
 
 ###########################################################################################################
 ## VALIDATE HTTP CODES
 sub Hstatus {
-  my ($self, $Hstatus, $st) =@_;
+  my ($Hstatus, $st) =@_;
   my @status = Subs::buildArrays($Hstatus);
   my $i = 0;
   for (@status) {
     if ($_ eq $st) { $i++; }
   }
-  $self->{ Hstatus } = 1 if $i;
-  return $self->{ Hstatus };
+  return $i;
 }
 
 ###########################################################################################################
@@ -131,52 +118,89 @@ sub get_target_ip {
 ###########################################################################################################
 ## VALIDATE HTTP CODES
 sub validShell {
-  my ($self, $validShell) = @_;
+  my $validShell = $_[0];
+  my $i = 0;
   my $getme = new Getme();
   my $hell = $getme->nav($_, $validShell, "", "");
   if ($hell->is_success) {
-    $self->{ validShell } = 1 if defined $validShell;
+    $i++;
   }
-  return $self->{ validShell };
+  return $i;
 }
 
 ###########################################################################################################
 ## VALIDATE SQL ERRORS
 sub v_xss {
-  my ($self, $ht) = @_;
+  my $ht = $_[0];
   my @xss = Exploits::V_XSS();
   my $i = 0;
   for (@xss) {
     if ($ht =~ /$_/) { $i++; }
   }
-  $self->{ v_xss } = 1 if $i;
-  return $self->{ v_xss };
+  return $i;
 }
 
 ###########################################################################################################
 ## VALIDATE LFI ERRORS
 sub v_lfi {
-  my ($self, $ht) = @_;
+  my $ht = $_[0];
   my @lfi = Exploits::V_LFI();
   my $i = 0;
   for (@lfi) {
     if ($ht =~ /$_/) { $i++; }
   }
-  $self->{ v_lfi } = 1 if $i;
-  return $self->{ v_lfi };
+  return $i;
 }
 
 ###########################################################################################################
 ## VALIDATE WORDPRESS AFD ERRORS
 sub v_wafd {
-  my ($self, $ht) = @_;
+  my $ht = $_[0];
   my @wafd = Exploits::V_AFD();
   my $i = 0;
   for (@wafd) {
     if ($ht =~ /$_/) { $i++; }
   }
-  $self->{ v_wafd } = 1 if $i;
-  return $self->{ v_wafd };
+  return $i;
+}
+
+sub wps {
+  my $ht = $_[0];
+  my @V_WP = Exploits::V_WP();
+  my $i = 0;
+  for (@V_WP) {
+    if ($ht =~ /$_/) { $i++; }
+  }
+  return $i;
+}
+
+sub jooms {
+  my $ht = $_[0];
+  my @V_JOOM = Exploits::V_JOOM();
+  my $i = 0;
+  for (@V_JOOM) {
+    if ($ht =~ /$_/) { $i++; }
+  }
+  return $i;
+}
+
+sub v_validate {
+  my ($self, $st, $ht, $sh, $xss, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites) = @_;
+  my $validated;
+  $validated = v_xss($ht) if defined $xss;
+  $validated = v_lfi($ht) if defined $lfi;
+  $validated = wps($ht) if defined $WpSites;
+  $validated = jooms($ht) if defined $JoomSites;
+  $validated = v_wafd($ht) if defined $WpAfd;
+  $validated = Hstatus($Hstatus, $st) if defined $Hstatus;
+  $validated = validText($validText, $ht) if defined $validText;
+  $validated = exclude($exclude, $ht) if defined $exclude;
+  $validated = validTextAll($validTextAll, $ht) if defined $validTextAll;
+  $validated = excludeAll($excludeAll, $ht) if defined $excludeAll;
+  $validated = validShell($validShell) if defined $validShell;
+  $validated = validServer($validServer, $sh) if defined $validServer;
+  $self->{ v_validate } = $validated if $validated;
+  return $self->{ v_validate };
 }
 
 ###########################################################################################################

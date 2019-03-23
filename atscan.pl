@@ -270,7 +270,7 @@ for ($help, $uninstall, $config, $toolInfo, $checkVersion, $repair, $mmd5, $menc
 ## THIS NEED SCAN RESULT TO BE PRINTED
 for ($exploit, $expIp, $expHost, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, 
 	 $parametro, $replace, $replaceFROM, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, 
-	 $validShell, $validServer) { 
+	 $validShell, $validServer, $WpSites, $JoomSites) { 
      $isscan = 1 if (defined $_ || $_);
 }
 
@@ -337,6 +337,8 @@ if (!defined $shodan && (scalar @targets < 1)) {
 @targets = Subs::checkDuplicate(@targets);
 Print::count_targets(\@targets);
 
+#############################################################################################################################
+## PARSER
 if (defined $getlinks) {
   my $deep_targets = Search::doDeepSearch(\@targets, $ua, $fullHeaders, $post, $get);
   push @targets, @{ $deep_targets };
@@ -379,9 +381,10 @@ for my $targ(@targets) {
   $i++;
   ## CHECK USER ALTERATION
   my $url = new Target();
-  for ($mdom, $WpAfd, $adminPage, $subdomain, $mzip, $mupload) { $targ = $url->host($targ) if defined $_; }
-  my $ut = new Target();
-  $targ = $ut->cleanURL($targ) if defined $subdomain;
+  for ($mdom, $WpAfd, $adminPage, $JoomRfi, $subdomain, $mzip, $mupload) { 
+    $targ = $url->host($targ) if defined $_; 
+  }
+  $targ = $url->cleanURL($targ) if defined $subdomain;
   $targ = $url->noQuery($targ) if defined $noQuery;
   $targ = $url->replace($targ, $replace) if defined $replace;
   $targ = $url->replaceFROM($targ, $replaceFROM) if defined $replaceFROM;
@@ -389,15 +392,8 @@ for my $targ(@targets) {
   ## CHECK FOR PARAMS
   my @params = Subs::params($targ, $parametro) if (defined $parametro);
   
-  ## BUILD EXPLOITS  
-  if (defined $xss) { @exploits = scalar @exploits > 0 ? @exploits : Exploits::XSS(); }
-  if (defined $lfi) { @exploits = scalar @exploits > 0 ? @exploits : Exploits::LFI(); }
-  if (defined $JoomRfi) { @exploits = scalar @exploits > 0 ? @exploits : Exploits::RFI(); }
-  if (defined $WpAfd) { @exploits = scalar @exploits > 0 ? @exploits : Exploits::ADFWP(); }
-  if (defined $adminPage) { @exploits = scalar @exploits > 0 ? @exploits : Exploits::ADMIN(); }
-  if (defined $subdomain) { @exploits = scalar @exploits > 0 ? @exploits : Exploits::SUBDOMAIN(); }
-  if (defined $mzip) { @exploits = scalar @exploits > 0 ? @exploits : Exploits::ZIP(); }
-  if (defined $mupload) { @exploits = scalar @exploits > 0 ? @exploits : Exploits::UPLOAD(); }
+  ## BUILD EXPLOITS
+  @exploits = Exploits::exploits($xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, \@exploits);
   
   ## PRINTED ALTERATIONS
   my ($pirnted_exp, $pirnted_replace);
@@ -441,7 +437,7 @@ for my $targ(@targets) {
 	## GET URL
 	my ($redirect, $re, $ht, $st, $sh, $fh);	
 	if (defined $data) {
-	  my $datas = $ut->dataFields($data);
+	  my $datas = $url->dataFields($data);
 	  ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navdatapost($ua, $get, $post, $url, $datas, $fullHeaders);
 	}else{
 	  ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $ur, $fullHeaders, $post, $get);
@@ -469,18 +465,10 @@ for my $targ(@targets) {
 	Checkerrors::check_Errors($ht);
 
 	## CHECK FOR VALIDATION
+	
 	my $validate = new Validate();
 	my $validated = 1;
-	$validated = $validate->v_xss($ht) if defined $xss;
-	$validated = $validate->v_lfi($ht) if defined $lfi;
-	$validated = $validate->v_wafd($ht) if defined $WpAfd;
-	$validated = $validate->Hstatus($Hstatus, $st) if defined $Hstatus;
-	$validated = $validate->validText($validText, $ht) if defined $validText;
-	$validated = $validate->exclude($exclude, $ht) if defined $exclude;
-	$validated = $validate->validTextAll($validTextAll, $ht) if defined $validTextAll;
-	$validated = $validate->excludeAll($excludeAll, $ht) if defined $excludeAll;
-	$validated = $validate->validShell($validShell) if defined $validShell;
-	$validated = $validate->validServer($validServer, $sh) if defined $validServer;
+	$validated = $validate->v_validate($st, $ht, $sh, $xss, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites);
 	my $valido = $validated ? 1 : "";
 	$in++;
 	
@@ -489,7 +477,8 @@ for my $targ(@targets) {
 	
 	## GEOLOC
 	if (defined $geoloc) {
-	  my $u = "https://www.onyphe.io/api/geoloc/$ips";
+	  my $sr = Subs::geoSrver();
+	  my $u = "$sr/$ips";
 	  my ($redir, $rg, $hg, $sg, $seg, $fg) = $getme->navget($ua, $u, $fullHeaders, "", "");
 	  Print::print_geoloc($hg) if ($st eq 200);
 	}
@@ -510,7 +499,7 @@ for my $targ(@targets) {
 	  my $hz = $getme->navpost($ua, $zoneH, $ur, $fullHeaders);
 	  Print::print_zoneH($hz) if $hz;
 	}
-	push @aTscans, $ur;
+	push @aTscans, $ur if $valido;
 	last if $in eq $limit;
   }
 }

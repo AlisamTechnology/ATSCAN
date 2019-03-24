@@ -7,7 +7,7 @@ use Exploits;
 use Module;
 
 my @ISA = qw(Exporter);
-my @EXPORT_OK = qw();
+my @EXPORT_OK = qw(interactive);
 
 ## Copy@right Alisam Technology see License.txt
 
@@ -252,7 +252,6 @@ sub checkFirstParts {
 ## BUILD ARGUMENTS ARRAY
 sub getExtratArgs {
   my $scn=$_[0];
-  #my (@ARGUMENTS, %ARGUMENTS);
   my (@INTERshell, @INTERparam, @INTERcommand, @INTERPortScan, @INTERDataScan, @INTERdecryp, @INTERtarget, @shodan, 
       @api, @googleapi, @bugtraq);
   my (%INTERshell, %INTERparam, %INTERcommand, %INTERPortScan, %INTERDataScan, %INTERdecryp, %INTERtarget, %shodan, 
@@ -356,9 +355,16 @@ sub form {
     if ($nnb) {
       system ($ord); processHeader($process); }
     else{
-      if ($ord eq "config") { Clientconfig::ClientConfiguration(); processHeader($process); }
-      elsif ($ord eq "update") { checkVersion(); processHeader($process); }
-      elsif ($ord eq "usage") { interUsage(); processHeader($process); }
+      if ($ord eq "config") { 
+	    Clientconfig::ClientConfiguration();
+		processHeader($process); 
+	  }
+      # elsif ($ord eq "update") {
+	    # use Update;
+	    # Update::update($ua, $fullHeaders, $repair); 
+		# processHeader($process);
+	  # }
+      elsif ($ord eq "usage") { Dialog::interUsage(); processHeader($process); }
       elsif ($ord eq "back") { back($process); }
       elsif ($ord eq "run" && scalar(@INTERCOMNDS) < 1) { runArg($process); }    
       elsif ($ord eq "exit") { print "$c[3]\[!] Bey! :)\n"; exit(); }
@@ -382,9 +388,9 @@ sub interHelpChek {
   my $process=$_[0];
   print $c[11]."[::] $ZT[19]\n";
   Print::separaBlocks();
-  if ($process eq "1") { interHelp(); scansArgs(); }
-  elsif ($process eq "2") { scansArgs(); }
-  elsif ($process eq "3") { interHelp(); }
+  if ($process eq "1") { Dialog::interHelp(); Dialog::scansArgs(); }
+  elsif ($process eq "2") { Dialog::scansArgs(); }
+  elsif ($process eq "3") { Dialog::interHelp(); }
   Print::separaBlocks();
   processHeader($process);
 }

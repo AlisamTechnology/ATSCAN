@@ -15,7 +15,7 @@ my @EXPORT_OK = qw(INTERadvanced INTERcomnd INTERdecryp INTERparam INTERPortScan
 ##############################################################################################
 ## EXTRAT INTERACTIVE OPTIONS
 sub interExtraOpts {
-  return ("config", "usage", "update");
+  return ("config", "usage");
 }
 
 sub interLinuxOpts {
@@ -57,7 +57,7 @@ sub ARGUMENTSALL {
 }
 ## NOT REQUIRE A VALUE
 sub NoValRequierd {
-  return ('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noverbose', 'update', 'ips', 'noquery', 'ifend', 'post', 'get', 'brandom', 'content', 'ping',
+  return ('host', 'tcp', 'udp', 'full', 'unique', 'nobanner', 'beep', 'noverbose', 'ips', 'noquery', 'ifend', 'post', 'get', 'brandom', 'content', 'ping',
                    'HOST', 'PORT', 'HOSTIP', 'TARGET', 'sql', 'lfi', 'wpafd', 'admin', 'wp', 'joom', 'zip', 'email', 'commands', 'form', 'normal', 'bugtraq', 
                    'advanced', 'joomrfi', 'shost', 'email', 'decrypt', 'nomodule', 'popup', 'all', 'geoloc', 'getlinks', 
 				   'query', 'querytags', 'services', 'myip', 'apinfo', 'ports', 'Ports', 'shodan');

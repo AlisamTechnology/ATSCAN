@@ -340,7 +340,7 @@ sub getPreInter {
 sub form {
   my $process=$_[0];
   my ($ord, $ord1);
-  print $c[5]."atscan";
+  print $c[13]."atscan";
   my ($prefix, $interScn)=getPreInter();
   if ($mod) {
     print "$c[11] $interScn($c[13]$mod";
@@ -425,9 +425,7 @@ sub back {
 ##############################################################################################
 ## HELP HEADER
 sub tableOpts {
-  my ($rr, $aa, $zz, $isArg)=@_;
-  print "$zz\n";exit;
-  
+  my ($rr, $aa, $zz, $isArg)=@_;  
   my $pz="$rr ";
   my $keyLength = length($rr) ;
   my $addLenght= 12 - $keyLength;
@@ -555,7 +553,6 @@ sub interactive {
     ($mod, $scn) = main2($mo);
     main3($mod, $scn);
   }
-  exit;
 }
 ##############################################################################################
 ##############################################################################################

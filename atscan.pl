@@ -1,9 +1,8 @@
 #!/usr/bin/perl
 
-## Copy@right Alisam Technology see License.txt  ############################################################################
 #############################################################################################################################
 ## INTRODUCTION #############################################################################################################
-#   This script is Copyright (c) 2015 Alisam Technology
+#   This script is Copyright (c) 2015 Alisam Technology see License.txt
 #   [::] SCRIPT NAME:  atscan scanner
 #   [::] AUTOR:        Ali Mehdioui founder of Alisam Technology.
 #   [::] FB:           https://facebook.com/Alisam.Technology
@@ -60,11 +59,9 @@ use Checkcms;
 use Checkplugins;
 use Checkerrors;
 
-##############################################################################################################################
 ## CLEAR
 if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
-##############################################################################################################################
 ## VARIABLES 
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, 
      $mdom, $Target, $exploit, $parametro, $validTextAll, $tcp, $udp, $proxy, $prandom, $help, $output, $replace, $replaceFROM, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, 
@@ -73,7 +70,6 @@ my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $a
 	 $bugtraq, $fullHeaders, $geoloc, $getlinks, $shodan, $apikey, $shocount, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, $shomyip, 
 	 $shoapiInfo, $shoports, $shoprotos, $shotokens, $shohoneyscore, $shofilters, $facets, $validServer, $cx);
 
-##############################################################################################################################
 ## ARGUMENTS
 use Getopt::Long qw(GetOptions);
 my %OPT;
@@ -93,11 +89,11 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
 
 for (keys %OPT) { chomp $OPT{$_} if defined $OPT{$_}; }
 
-##############################################################################################################################
 ## CHECK USER CONFIGURATION
-my $password     = Clientconfig::checkSetting("password");
-my $dateupdate   = Clientconfig::checkSetting("update");
-my $method       = Clientconfig::checkSetting("method") if !defined $get and !defined $post;
+my ($password, $dateupdate, $method);
+$password        = Clientconfig::checkSetting("password");
+$dateupdate      = Clientconfig::checkSetting("update");
+$method          = Clientconfig::checkSetting("method") if !defined $get and !defined $post;
 $interactive     = Clientconfig::checkSetting("interactive") if !defined $interactive;
 $proxy           = Clientconfig::checkSetting("proxy") if !defined $proxy;
 $apikey          = Clientconfig::checkSetting("apikey") if !defined $apikey;
@@ -120,16 +116,13 @@ $command         = Clientconfig::checkSetting("command") if !defined $command;
 $limit           = 500 if !$limit;
 $dateupdate      = 1 if !$dateupdate;
 
-##############################################################################################################################
 ## BANNER
 Banner::banner() unless (defined $nobanner || $nobanner);
 
-##############################################################################################################################
 ## CHECK LOGIN
 use Login;
 Login::login($password) if ($password);
 
-##############################################################################################################################
 ## CHECK IF A SCAN IS DEFINED
 my $narg = 0;
 for ($dork, $Target, $help, $mmd5, $mdecode64, $mencode64, $config, $interactive, $repair, $checkVersion, $bugtraq, $shodan, $uninstall) {
@@ -137,13 +130,10 @@ for ($dork, $Target, $help, $mmd5, $mdecode64, $mencode64, $config, $interactive
 }
 Print::no_args() unless $narg > 0;
 
-##############################################################################################################################
 ## DISCLEAMER
 Print::discleamer();
 Print::separaBlocks();
 
-##############################################################################################################################
-##############################################################################################################################
 ## USAGE ERRORS
 use UseErrors;
 UseErrors::check_arguments1($mrandom, $motor, $mlevel, $dork, $unique, $shodan, $bugtraq);
@@ -151,32 +141,26 @@ UseErrors::check_arguments2($motor, $mrandom, $Target, $dork, $JoomRfi, $shell);
 UseErrors::check_arguments3($shodan, $bugtraq, $apikey, $popup, $command, $zoneH, $dork, $replace, $replaceFROM);
 UseErrors::check_arguments4($eMails, $port, $ping, $udp, $tcp, $regex, $searchRegex, $searchIps, $Hstatus, $validText, $get, $post, $method, $data, $mupload, $limit);
 
-##############################################################################################################################
 ## INTERACTIVE
 use Interactive;
 Interactive::interactive() if (defined $interactive || $interactive);
 
-##############################################################################################################################
 ## USER CONFIG
 use Clientconfig;
 Clientconfig::ClientConfiguration() if (defined $config);
 
-##############################################################################################################################
 ## UNINSTALL
 use Uninstall;
 Uninstall::unistall() if defined $uninstall;
 
-##############################################################################################################################
 ## TOOL
 use Tool;
 Tool::tool() if defined $toolInfo;
 
-#############################################################################################################################
 ## HELP
 use Help;
 Help::help() if defined $help;
 
-#############################################################################################################################
 ## ENCODE DECODE
 use Encodeme;
 my $cc = 0;
@@ -187,19 +171,15 @@ for ($mmd5, $mencode64, $mdecode64) {
   }
 }
 
-#############################################################################################################################
 ## DEFINE 
 my (@proxies, @exploits, @motors, @target_urls, @dorks, @targets, @aTscans, $isscan);
 
-#############################################################################################################################
 ## PROXY
 for ($proxy, $prandom) { @proxies = Subs::getProx($_) if (defined $_ || $_); }
 
-#############################################################################################################################
 ## APIKEY
 my @apikeys = Subs::buildArrays($apikey) if (defined $apikey || $apikey);
 
-#############################################################################################################################
 ## REGEX
 my @regs = Subs::buildArrays($regex) if (defined $regex || $regex);
 push @regs, Subs::eMails() if defined $eMails;
@@ -207,12 +187,9 @@ push @regs, Subs::searchIps()if defined $searchIps;
 my @searchRegexs = Subs::buildArrays($searchRegex) if defined $searchRegex;
 my @commands = Subs::buildArrays($command) if (defined $command || $command);
 
-#############################################################################################################################
 ## CHECK FOR DEFINED EXPLOITS
 for ($exploit, $expHost, $expIp) { @exploits = Subs::buildArrays($_) if (defined $_ || $_); }
 
-#############################################################################################################################
-#############################################################################################################################
 ## GET TARGETS
 if (!defined $shodan) {
   my $build_dorks = new Target();
@@ -230,31 +207,25 @@ if (!defined $shodan) {
   }
 }
 
-#############################################################################################################################
 ## SET ENGINES
 use Engine;
 my $engine = Engine::get_engine($motor, $mrandom, $mlevel, $shodan, $bugtraq);
 @motors = @{$engine};
 
-#############################################################################################################################
 ## AGENT
 use Getagent;
 my $agento = new Getagent();
 my $agent = $agento->get_agent($freq, "");
 	
-#############################################################################################################################
 ## SET UA
 my $ua = $agento->get_ua($agent, $timeout, $headers, $cookies);
 
-#############################################################################################################################
 ## COCKIES
 Subs::cockies($cookies);
 
-#############################################################################################################################
 ## FREQUENCY START TIME
 my $start = Subs::frequency();
 
-##############################################################################################################################
 ## CHECK FOR UPDATE
 use Upad;
 Upad::checkforupdates($ua, $fullHeaders, $dateupdate);
@@ -264,13 +235,9 @@ use Update;
 Update::update($ua, $fullHeaders, $repair) if (defined $checkVersion);
 Update::repair($ua, $fullHeaders, $repair) if (defined $repair);
 
-#############################################################################################################################
-#############################################################################################################################
 ## EXIT SHIRT SCANS
 for ($help, $uninstall, $config, $toolInfo, $checkVersion, $repair, $mmd5, $mencode64, $mdecode64) { exit if defined $_; }
 
-#############################################################################################################################
-#############################################################################################################################
 ## THIS NEED SCAN RESULT TO BE PRINTED
 for ($exploit, $expIp, $expHost, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, 
 	 $parametro, $replace, $replaceFROM, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, 
@@ -278,29 +245,24 @@ for ($exploit, $expIp, $expHost, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subd
      $isscan = 1 if (defined $_ || $_);
 }
 
-#############################################################################################################################
 ## CONNECTED PROXIES AND APIKEYS
 use Connect;
 my ($v_proxies, $v_apikeys) = Connect::testConnection($ua, $proxy, $prandom, $apikey, $cx, \@motors, \@proxies, \@apikeys, $shodan);
 $ua = $agento->use_proxy($freq, $start, $ua, \@{$v_proxies}, $prandom, "") if (scalar @{$v_proxies} > 0);
 
-#############################################################################################################################
 ## PRINT PANEL
 Print::print_info1($dork, $mlevel, $motor, $mrandom, $ifinurl, $unique, $post, $get, $getlinks);
 Print::print_info($Target, $exploit, $expHost, $expIp, $parametro, $replace, $replaceFROM);
 Print::print_valid_info($Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer);
 Print::separaBlocks();
 
-#############################################################################################################################
 ## WAIT 
 Print::print_espera();
 
-#############################################################################################################################
 ## BUGTRAQ
 use Bugtraq;
 Bugtraq::bugs($ua, $dork, \@dorks, $mlevel, $limit, $fullHeaders) if defined $bugtraq;
 
-#############################################################################################################################
 ## SHODAN API
 if (defined $shodan) {
   my @shos;
@@ -321,8 +283,6 @@ if (defined $shodan) {
   exit;
 }
 
-#############################################################################################################################
-#############################################################################################################################
 ## GET SEARCH
 if (!defined $shodan && (scalar @targets < 1)) {
   Print::begen();
@@ -336,12 +296,10 @@ if (!defined $shodan && (scalar @targets < 1)) {
   @targets = @{$search} if ($search);
 }
 
-#############################################################################################################################
 ## PRINT TARGETS RESULTS
 @targets = Subs::checkDuplicate(@targets);
 Print::count_targets(\@targets);
 
-#############################################################################################################################
 ## PARSER
 if (defined $getlinks) {
   my $deep_targets = Search::doDeepSearch(\@targets, $ua, $fullHeaders, $post, $get);
@@ -349,7 +307,6 @@ if (defined $getlinks) {
   Print::count_targets(\@targets);
 }
 
-#############################################################################################################################
 ## PRINT SCAN TITLE
 my $v = 1;
 my @sc;
@@ -364,7 +321,6 @@ if (scalar @sc > 0) {
   Print::end();
 }
 
-##############################################################################################################################
 ## EXPLOITS ALERT
 my $jv;
 for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip) { 
@@ -372,12 +328,10 @@ for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain,
 }
 Print::exploits_alert() if ($jv && !defined $exploit);
 
-##############################################################################################################################
 ## CHECK TARGET REPEATER AND RANG
 @targets = Subs::target_urls_repeater(\@targets);
 
-#############################################################################################################################
-## START SCAN   #############################################################################################################
+## START SCAN 
 my ($i, $in) = 0;
 for my $targ(@targets) {
   $i++;
@@ -505,8 +459,6 @@ for my $targ(@targets) {
   }
 }
 
-#############################################################################################################################
-## END     ##################################################################################################################
 Print::separator();
 Print::separaBlocks();
 Print::endscan(\@aTscans, $limit);

@@ -252,10 +252,6 @@
         <td class="main"> Use post method </td>
       </tr>
       <tr>
-        <td width="200px" class="main">--upload </td>
-        <td class="main"> Upload method </td>
-      </tr> 
-      <tr>
         <td width="200px" class="main">--get</td>
         <td class="main"> Use get method </td>
       </tr>      
@@ -378,6 +374,10 @@
       <tr>
         <td width="200px" class="main">--shost  </td>
         <td class="main"> Get site subdomains </td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--port </td>
+        <td class="main"> port </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--tcp </td>
@@ -432,7 +432,7 @@
         <td class="main"> Will be replaced by open port in extern command </td>
       </tr> 
       <tr>
-        <td width="200px" class="main">--ip  </td>
+        <td width="200px" class="main">--ips  </td>
         <td class="main"> Collect Ips</td>
       </tr> 
       <tr>
@@ -488,10 +488,6 @@
       <tr>
         <td width="200px" class="main">--shodan</td>
         <td class="main">Shodan search</td>
-      </tr>
-      <tr>
-        <td width="200px" class="main">--ip</td>
-        <td class="main">Shodan Host Information</td>
       </tr>
       <tr>
         <td width="200px" class="main">--count</td>
@@ -611,7 +607,7 @@
        Search + output: atscan --dork [dorks.txt] --level [level] --save <br/>
        Search + get emails: atscan -d [dorks.txt] -l [level] --email  <br/>
        Search + get site emails: atscan --dork site:site.com --level [level] --email  <br/>
-       Search + get ips: atscan --dork [dork] --level [level] --ip  <br/>
+       Search + get ips: atscan --dork [dork] --level [level] --ips  <br/>
         <hr>
        &#x25cf; <b>REGULAR EXPRESSIONS: </b> <br/>
        Regex use: atscan [--dork [dork> / -t [target]] --level [level] --regex [regex] <br/>
@@ -634,9 +630,9 @@
        Decode base64: --decode64 [string] <br/>
         <hr>
        &#x25cf; <b>DATA:</b> <br/>
-       Data: atscan -t [target] --data "field1=>value1, field2=>value2, field3=>value3" [--post / --get / --upload]<br/>
+       Data: atscan -t [target] --data "field1=>value1, field2=>value2, field3=>value3" [--post / --get /]<br/>
        Exploit: --exp/expHost <exploit> --data "field1=>value1, field2=>value2, field3=>value3" --vshell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
-       Wordlist: --data "field1=>value1, field2=>WORDLIST:<wordlist path>" --vshell [shell path] -v [string] / --status [code] [--post / --get / --upload] <br/>
+       Wordlist: --data "field1=>value1, field2=>WORDLIST:<wordlist path>" --vshell [shell path] -v [string] / --status [code] [--post / --get] <br/>
         <hr>
        &#x25cf; <b>EXTERNAL COMMANDS:</b> <br/>
        atscan --dork [dork / dorks.txt] --level [level] --command "curl -v --TARGET" <br/>

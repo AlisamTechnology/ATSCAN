@@ -42,7 +42,7 @@ sub help {
   ."   Search + collect emails: atscan -d <dorks.txt> -l <level> --email \n"
   ."   Search + collect site emails: atscan --dork <site:site.com> --level <level> --email \n"
   ."   Specify emails: atscan -d <dorks.txt> -l <level> --email -v \"\@gmail | \@yahoo ..\"\n"
-  ."   Search + collect ips: atscan --dork <dork> --level <level> --ip \n\n";
+  ."   Search + collect ips: atscan --dork <dork> --level <level> --ips \n\n";
   
   Print::separaBlocks(); print $c[12]."  SHODAN SEARCH: \n".$c[10]
   ."   atscan --shodan --apikey <APIKEY> (Apikey)\n"
@@ -96,11 +96,11 @@ sub help {
   ."   Decode base64: atscan --decode64 <string> \n\n";
   
   Print::separaBlocks(); print $c[12]."  POST/GET DATA: \n".$c[10]
-  ."   Post data: atscan -t <target> --data \"field1\=\>value1\, field2\=\>value2\, field3\=\>value3\" --post / get / upload\n"
-  ."             atscan -t <target> --data \"username\=\>john\, pass\=\>1234\" --post / get / upload\n"
-  ."             atscan -t <target> --data \"username\=\>john\, pass\=\>WORDLIST:<list path>\" --post / get / upload\n"
-  ."   Post + Exploit: --exp\/expHost <exploit> --data \"username\=\>john\, pass\=\>1234\" -v <string> | --status <code> --post / get / upload\n"
-  ."   Post + Validation: --data \"username\=\>john\, pass\=\>1234\" -v <string> | --status <code> --post / get / upload \n\n";
+  ."   Post data: atscan -t <target> --data \"field1\=\>value1\, field2\=\>value2\, field3\=\>value3\" --post / get /\n"
+  ."             atscan -t <target> --data \"username\=\>john\, pass\=\>1234\" --post / get /\n"
+  ."             atscan -t <target> --data \"username\=\>john\, pass\=\>WORDLIST:<list path>\" --post / get / \n"
+  ."   Post + Exploit: --exp\/expHost <exploit> --data \"username\=\>john\, pass\=\>1234\" -v <string> | --status <code> --post / get\n"
+  ."   Post + Validation: --data \"username\=\>john\, pass\=\>1234\" -v <string> | --status <code> --post / get \n\n";
   
   Print::separaBlocks(); print $c[12]."  EXTERNAL COMMANDES: \n".$c[10]
   ."   atscan --dork <dork | dorks.txt> --level <level> --command \"curl -v --TARGET\" \n"

@@ -236,7 +236,7 @@ sub noResult { print $c[2]."$DT[1]\n"; }
 ###########################################################################################################
 ## END SCAN
 sub endscan {
-  my ($list, $limit) = @_;
+  my ($list, $limit, $ifend) = @_;
   if ($limit ne 500) { 
     print $c[3]."[!] $DT[34] ($limit result\/s)!\n";
   }else{
@@ -244,6 +244,7 @@ sub endscan {
   }
   my $now = Subs::now();
   print $c[4]."[$now] $c[10]$DT[3]\n";
+  if (defined $ifend || $ifend) { print chr(7); }
 }
 
 ###########################################################################################################
@@ -274,15 +275,16 @@ sub print_sub_beg {
 #####################################################################################################################
 ## PRINT SCAN RESULT
 sub print_End {
-  my ($url, $st, $ht, $valido, $isscan, $regs, $output) = @_;
+  my ($url, $st, $ht, $valido, $isscan, $regs, $output, $beep) = @_;
   if ($isscan) {
     print $c[1]." SCAN      ";
 	if ($valido && $st eq 200) {
 	  if (scalar @{$regs} > 0) {
-	    print_End1($ht, \@{$regs});
+	    print_End1($ht, \@{$regs}, $beep);
 	  }else{
 	    print $c[3]."$url\n";
 		saveme($url, "", $output);
+		if (defined $beep || $beep) { print chr(7); }
 	  }
     }else{
 	  print $c[2]."No result found!\n";
@@ -293,7 +295,7 @@ sub print_End {
 #####################################################################################################################
 ## PRINT SCAN RESULT
 sub print_End1 {
-  my ($ht, $regs, $output) = @_;
+  my ($ht, $regs, $output, $beep) = @_;
   my $hssab=0;
   for my $reg(@{$regs}) {
     while ($ht=~/$reg/g) {
@@ -301,6 +303,7 @@ sub print_End1 {
       print " | " if $hssab > 1;
       print $c[3]."$1";
       saveme($1, "1", $output);
+	  if (defined $beep || $beep) { print chr(7); }
 	}
   }
   print $c[2]."No result found!\n" if !$hssab;

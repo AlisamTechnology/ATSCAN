@@ -75,7 +75,7 @@ use Getopt::Long qw(GetOptions);
 my %OPT;
 Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText, 'validAll=s'=>\$validTextAll, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'sql'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd,
                          'admin'=>\$adminPage, 'subdomain'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command|c=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64,
-                         'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'host'=>\$mdom, 't|target=s'=>\$Target, 'exp|e=s'=>\$exploit, 'p|param=s'=>\$parametro, 'tcp'=>\$tcp, 'udp'=>\$udp, 
+                         'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'host'=>\$mdom, 't|target=s'=>\$Target, 'exp|e|payload=s'=>\$exploit, 'p|param=s'=>\$parametro, 'tcp'=>\$tcp, 'udp'=>\$udp, 
                          'proxy=s'=>\$proxy, 'prandom=s'=>\$prandom, 'help|h'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'replaceFROM=s'=>\$replaceFROM, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel,
                          'unique'=>\$unique, 'shell=s'=>\$shell, 'nobanner'=>\$nobanner, 'beep'=>\$beep, 'ifinurl=s'=>\$ifinurl, 'noverbose'=>\$noverbose, 'm|motor=s'=>\$motor, 'timeout=s'=>\$timeout,
                          'limit=s'=>\$limit, 'update'=>\$checkVersion, 'ips'=>\$searchIps, 'regex=s'=>\$regex, 'sregex=s'=> \$searchRegex, 'noquery'=> \$noQuery, 'ifend'=>\$ifend,
@@ -428,7 +428,7 @@ for my $targ(@targets) {
 	$in++;
 	
 	## PRINT VALID SCAN
-	Print::print_End($ur, $st, $ht, $valido, $isscan, \@regs, $output) if $continue;
+	Print::print_End($ur, $st, $ht, $valido, $isscan, \@regs, $output, $beep) if $continue;
 	
 	## GEOLOC
 	if (defined $geoloc) {
@@ -461,7 +461,7 @@ for my $targ(@targets) {
 
 Print::separator();
 Print::separaBlocks();
-Print::endscan(\@aTscans, $limit);
+Print::endscan(\@aTscans, $limit, $ifend);
 
 #############################################################################################################################
 #############################################################################################################################

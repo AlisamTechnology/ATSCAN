@@ -133,12 +133,12 @@ sub scansArgs {
   ."$c[5] --zoneH       $c[10] | Upload to Zone-H EX: --zoneH \"notifier => --TARGET\"\n"
   ."$c[5] --cookies     $c[10] | Cookies output file\n"
   ."$c[5] --email       $c[10] | Collect emails \n"
-  ."$c[5] --ip          $c[10] | Collect Ips\n"
+  ."$c[5] --ips         $c[10] | Collect Ips\n"
   ."$c[5] --wpafd       $c[10] | Scan wordpress sites for arbitrary file download\n"
   ."$c[5] --admin       $c[10] | Get site admin page \n"
   ."$c[5] --shost       $c[10] | Get site subdomains \n"
   ."$c[5] --sites       $c[10] | Get ites in the server \n"
-  ."$c[5] --upload      $c[10] | Validate scan by url \n"
+  ."$c[5] --upload      $c[10] | Get upload files \n"
   ."$c[5] --zip         $c[10] | Get zip files \n";
 }
 

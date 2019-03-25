@@ -110,7 +110,7 @@ my ($eMails, $port, $ping, $udp, $tcp, $regex, $searchRegex, $searchIps, $Hstatu
   }
 
   ## ADVISE DATA WITHOUT METHOD
-  if (defined $data and (!defined $post && !defined $get && !defined $mupload && !$method)) { print $c[4]."[!] $TT[16]\n"; exit(); }
+  if (defined $data and (!defined $post && !defined $get && !$method)) { print $c[4]."[!] $TT[16]\n"; exit(); }
 
   ## CHECK PAUSE ARGUMENT
   if (defined $data) {

@@ -29,7 +29,7 @@ sub MODULES {
 ## SCANS
 sub SCANS {
   return ("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"=>"joomla rfi", "wpafd"=>"wp file download", "admin"=>"find admin page", "shost"=>"get subdomains",
-           "wp"=>"get wordpress sites", "joom"=>"get joomla sites", "zip"=>"get zip files", "decrypt"=>"md5/(en/de)code64",
+           "wp"=>"get wordpress sites", "joom"=>"get joomla sites", "upload"=>"get upload files", "zip"=>"get zip files", "decrypt"=>"md5/(en/de)code64",
            "email"=>"collect emails", "ips"=>"collect ips", "ports"=>"scan ports", "commands"=>"extern command", "form"=>"post/get data", "shodan"=>"Shodan search", "bugtraq"=>"Search exploits", "nomodule"=>"no module will be used");
 }
 ## SEARCH ENGINE
@@ -64,7 +64,7 @@ sub NoValRequierd {
 }
 ## DATA ARGUMENTS
 sub INTERDataScan {
-  return ("post"=>"post methode", "get"=>"get methode", "data"=>"data to post/get", "header"=>"data headers", "upload"=>"data upload");
+  return ("post"=>"post methode", "get"=>"get methode", "data"=>"data to post/get", "header"=>"data headers");
 }
 ## SHODAN
 sub shodan {

@@ -100,16 +100,20 @@ sub print_connecttions {
 sub checkCpanModules {
   eval { require JSON; };
   if($@) { 
-    print $c[4]."[!] ERROR! This scan require JSON module! do you want to install? [Y/n]: $c[10]";
+    print $c[4]."[!] OOPS! This scan require JSON module! do you want to install? [Y/n]: $c[10]";
     my $re=<STDIN>;
     chomp ($re);
     if ($re=~/(Y|y)/) {
       system("cpan App::cpanminus && cpanm JSON");
+	  Print::separaBlocks();
     }
   }
   eval { require JSON; };
   if($@) { print $c[4]."[!] Failed to install JSON\n"; exit(); }
-  print "\n";
+  else{
+    print "\n";
+    require "$Bin/inc/user/Getjson.pl";
+  }
 }
 
 #########################################################################################################################

@@ -9,7 +9,7 @@ use POSIX qw(strftime);
 use URI::Escape;
 use HTML::Entities;
 use Subs;
-use JSON;
+#use JSON;
 use Dialog;	
 use open ':std', ':encoding(UTF-8)';
 

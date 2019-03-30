@@ -1,10 +1,7 @@
 ATSCAN SCANNER VERSION 17.0.0 RELEASE
 =====================================================  
-  CHANGES: v17.0.0 25/03/2019
-  - Add some extras.
-  - Fix interactive mode.
-  - Fix repeater.
-  - Add joomla and wordpress scan validation.
+  CHANGES: v17.0.0 30/03/2019
+  - Load json only if needed.
   - oooooOO PLEASE REPORT BUGS OOoooo
   - Enjoy it!
   =================

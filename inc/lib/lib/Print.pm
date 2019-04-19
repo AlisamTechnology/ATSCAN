@@ -236,11 +236,11 @@ sub noResult { print $c[2]."$DT[1]\n"; }
 ###########################################################################################################
 ## END SCAN
 sub endscan {
-  my ($list, $limit, $ifend) = @_;
+  my ($list, $limit, $ifend, $isscan) = @_;
   if ($limit ne 500) { 
     print $c[3]."[!] $DT[34] ($limit result\/s)!\n";
   }else{
-    print $c[3]."[!] ".scalar @{$list}." $DT[4]\n";
+    print $c[3]."[!] ".scalar @{$list}." $DT[4]\n" if $isscan;
   }
   my $now = Subs::now();
   print $c[4]."[$now] $c[10]$DT[3]\n";

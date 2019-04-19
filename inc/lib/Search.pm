@@ -33,17 +33,11 @@ sub msearch {
   my $level = $mlevel * 10;
   for my $engine(@{$motors}) {
     for my $drk(@{$dorks}) {
-      # if (defined $Target) {
-	    # my $V_IP = Exploits::V_IP();
-	    # if ($drk =~ /$V_IP/) {
-		  # $drk = "ip%3A$drk";
-		# }
-	    if ($drk =~ /^(http|www)/) {
-		  my $ut = new Target();
-          $drk = $ut->cleanURL($drk);
-		  $drk = "site%3A".$drk;
-		}
-      # }
+	  if ($drk =~ /^(http|www)/) {
+		my $ut = new Target();
+        $drk = $ut->cleanURL($drk);
+		$drk = "site%3A".$drk;
+      }
       if ($zone) { $drk = "site%3A$zone ".$drk; }
       $drk =~ s/\s+$//;
       $drk =~ s/ /+/g;

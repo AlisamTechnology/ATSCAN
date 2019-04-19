@@ -58,7 +58,7 @@ sub msearch {
           }
 		  my $getme = new Getme();		  
 		  my $res = $getme->navsearch($ua, $engine, $fullHeaders);
-		  if ($engine eq 7) {
+		  if ($engine =~ /googleapis./) {
             @aTsearch = doSearchApis($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
 		  }else{
             @aTsearch = doSearch($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  

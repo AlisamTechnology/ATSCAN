@@ -1,7 +1,7 @@
 ATSCAN SCANNER VERSION 17.0.0 RELEASE
 =====================================================  
-  CHANGES: v17.0.0 30/03/2019
-  - Load json only if needed.
+  CHANGES: v17.0.0 19/04/2019
+  - Fix user config when setting apikeys.
   - oooooOO PLEASE REPORT BUGS OOoooo
   - Enjoy it!
   =================

@@ -11,7 +11,7 @@ use Dialog;
 my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(ClientConfiguration checkSetting);
 my @pars=("set", "reset", "options", "exit");
-my @ser=("proxy", "prandom", "command", "zone", "timeout", "update", "engine", "all", "password", "freq", "level", "method", "interactive", "limit", "apikey", "cx");
+my @ser=("proxy", "prandom", "command", "zone", "timeout", "update", "motor", "all", "password", "freq", "level", "method", "interactive", "limit", "apikey", "cx");
 my @ValueOn=("interactive", "brandom", "mrandom", "unique", "nobanner", "noverbose", "beep", "ifend");
 my @res=(@ser, @ValueOn);
 
@@ -116,7 +116,7 @@ sub ClientConfiguration {
     print "| $c[5]apikey      $c[10] | <apikey>     | Apikey                                     |\n";
     print "| $c[5]cx          $c[10] | <ID>         | Googleapis search ID                       |\n";
     print "| $c[5]prandom     $c[10] | <proxy_file> | Random proxy                               |\n";
-    print "| $c[5]motor       $c[10] | <motor>      | Search engine                              |\n";
+    print "| $c[5]motor       $c[10] | <motor>      | Search engine motor                        |\n";
     print "| $c[5]timeout     $c[10] | <timeout>    | Browser time out                           |\n";
     print "| $c[5]level       $c[10] | <level>      | Number of Engine results                   |\n";
     print "| $c[5]password    $c[10] | <password>   | Set tool password                          |\n";

@@ -60,7 +60,7 @@ use Checkplugins;
 use Checkerrors;
 
 ## CLEAR
-if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
+#if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
 ## VARIABLES 
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, 
@@ -182,8 +182,8 @@ my @apikeys = Subs::buildArrays($apikey) if (defined $apikey || $apikey);
 
 ## REGEX
 my @regs = Subs::buildArrays($regex) if (defined $regex || $regex);
-push @regs, Subs::eMails() if defined $eMails;
-push @regs, Subs::searchIps()if defined $searchIps;
+push @regs, Exploits::V_EMAIL() if defined $eMails;
+push @regs, Exploits::V_IP() if defined $searchIps;
 my @searchRegexs = Subs::buildArrays($searchRegex) if defined $searchRegex;
 my @commands = Subs::buildArrays($command) if (defined $command || $command);
 
@@ -241,7 +241,7 @@ for ($help, $uninstall, $config, $toolInfo, $checkVersion, $repair, $mmd5, $menc
 ## THIS NEED SCAN RESULT TO BE PRINTED
 for ($exploit, $expIp, $expHost, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, 
 	 $parametro, $replace, $replaceFROM, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, 
-	 $validShell, $validServer, $WpSites, $JoomSites) { 
+	 $validShell, $validServer, $WpSites, $JoomSites, $eMails, $searchIps) { 
      $isscan = 1 if (defined $_ || $_);
 }
 
@@ -425,6 +425,7 @@ for my $targ(@targets) {
 	my $validated = 1;
 	$validated = $validate->v_validate($st, $ht, $sh, $xss, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites);
 	my $valido = $validated ? 1 : "";
+	for ($searchIps, $eMails, $regex, $searchRegex) { $valido = 1 if (defined $_ && $st eq 200); }
 	$in++;
 	
 	## PRINT VALID SCAN
@@ -461,7 +462,8 @@ for my $targ(@targets) {
 
 Print::separator();
 Print::separaBlocks();
-Print::endscan(\@aTscans, $limit, $ifend, $isscan);
+my $np = $isscan ? scalar @aTscans : scalar @targets;
+Print::endscan($np, $limit, $ifend, $isscan, $output);
 
 #############################################################################################################################
 #############################################################################################################################

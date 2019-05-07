@@ -30,11 +30,11 @@ sub check_arguments1 {
     if ($mlevel!~/^[0-9,.E]+$/) { print $c[4]."$TT[15]\n"; exit(); }
   }
   
-  if (defined $motor || defined $mrandom) {
-    if (!defined $mlevel) {
-	  print $c[4]."[!] $DT[20]\n"; exit();
-	}
-  }
+  # if (defined $motor || defined $mrandom) {
+    # if (!defined $mlevel) {
+	  # print $c[4]."[!] $DT[20]\n"; exit();
+	# }
+  # }
 
   ## ARGUMENTS VERIFICATION (LEVEL / PORTS)
   if ((defined $dork)&&(!defined $mlevel && !$mlevel && !defined $shodan)) { print $c[4]."[!] $DT[40]\n"; exit(); }

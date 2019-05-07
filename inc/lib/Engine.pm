@@ -80,11 +80,11 @@ sub get_engine {
         }else{
           @motor = split(",", $_);
         }
+	  }else{ 
+	    push @motor, 'bing';
 	  }
     }
 	
-	push @motor, 'bing' if (scalar @motor < 1);
-
     ## build
     for my $mot(@motor) {
       if ($mot =~/^bing$/) { $mot = soubstituteRefs($motor1); }

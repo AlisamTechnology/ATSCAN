@@ -60,7 +60,7 @@ use Checkplugins;
 use Checkerrors;
 
 ## CLEAR
-#if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
+if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
 
 ## VARIABLES 
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, 

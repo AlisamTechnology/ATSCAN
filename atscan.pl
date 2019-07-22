@@ -4,10 +4,9 @@
 ## INTRODUCTION #############################################################################################################
 #   This script is Copyright (c) 2015 Alisam Technology see License.txt
 #   [::] SCRIPT NAME:  atscan scanner
-#   [::] AUTOR:        Ali Mehdioui founder of Alisam Technology.
+#   [::] AUTOR:        Ali Mehdioui founder of Alisam Technology
 #   [::] FB:           https://facebook.com/Alisam.Technology
 #   [::] Twitter:      https://twitter.com/AlisamTechno
-#   [::] Pastebin      http://http://pastebin.com/u/Alisam_Technology
 #   [::] GIT:          https://github.com/AlisamTechnology
 #   [::] YOUTUBE:      http://youtube.com/c/AlisamTechnology
 #
@@ -466,4 +465,4 @@ my $np = $isscan ? scalar @aTscans : scalar @targets;
 Print::endscan($np, $limit, $ifend, $isscan, $output);
 
 #############################################################################################################################
-#############################################################################################################################
+## End ######################################################################################################################

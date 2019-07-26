@@ -124,7 +124,7 @@ Login::login($password) if ($password);
 
 ## CHECK IF A SCAN IS DEFINED
 my $narg = 0;
-for ($dork, $Target, $help, $mmd5, $mdecode64, $mencode64, $config, $interactive, $repair, $checkVersion, $bugtraq, $shodan, $uninstall) {
+for ($toolInfo, $dork, $Target, $help, $mmd5, $mdecode64, $mencode64, $config, $interactive, $repair, $checkVersion, $bugtraq, $shodan, $uninstall) {
   $narg++ if defined $_;
 }
 Print::no_args() unless $narg > 0;

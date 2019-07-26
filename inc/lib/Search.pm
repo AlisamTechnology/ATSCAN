@@ -1,11 +1,14 @@
 package Search;
+
 use URI::Escape;
 use HTML::Entities;
 use strict;
 use Exploits;
 use Subs;
 use Target;
+
 ## Copy@right Alisam Technology see License.txt
+
 my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(msearch doDeepSearch);
 

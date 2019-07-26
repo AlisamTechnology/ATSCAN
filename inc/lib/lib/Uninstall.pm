@@ -15,15 +15,15 @@ my @EXPORT_OK = qw(uninstall);
 
 ## DELETE / UNINSTALL TOOL
 
-my $scriptbash   = Subs::scriptbash();
+my $scriptbash        = Subs::scriptbash();
 my $scriptCompletion  = Subs::scriptCompletion();
-my $readme       = Subs::readme();
-my $script       = Subs::script();
-my @c            = Print::colors();
-my @OTHERS       = Exploits::OTHERS();
-my @DT           = Exploits::DT();
-my @ZT           = Exploits::ZT();
-my @TT           = Exploits::TT();
+my $readme            = Subs::readme();
+my $script            = Subs::script();
+my @c                 = Print::colors();
+my @OTHERS            = Exploits::OTHERS();
+my @DT                = Exploits::DT();
+my @ZT                = Exploits::ZT();
+my @TT                = Exploits::TT();
 
 ######################################################################################################################
 ## UNINSTALL

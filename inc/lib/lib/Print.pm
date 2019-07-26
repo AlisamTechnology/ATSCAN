@@ -1,4 +1,5 @@
 package Print;
+
 use strict;
 use warnings;
 use FindBin '$Bin';
@@ -7,6 +8,7 @@ use HTML::Entities;
 use Exporter;
 use Exploits;
 use Subs;
+
 ## Copy@right Alisam Technology see License.txt
 
 my @ISA = qw(Exporter);

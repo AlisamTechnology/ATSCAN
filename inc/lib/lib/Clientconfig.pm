@@ -1,4 +1,5 @@
 package Clientconfig;
+
 use strict;
 use warnings;
 use FindBin '$Bin';
@@ -6,6 +7,7 @@ use Exploits;
 use Exporter;
 use POSIX qw(strftime);
 use Dialog;
+
 ## Copy@right Alisam Technology see License.txt
 
 my @ISA = qw(Exporter);

@@ -1,4 +1,5 @@
 package Bugtraq;
+
 use strict;
 use warnings;
 use FindBin '$Bin';
@@ -15,14 +16,14 @@ my @EXPORT_OK = qw(bugs);
 
 ## Copy@right Alisam Technology see License.txt
 
-my @c = Print::colors();
-my @ErrT = Exploits::ErrT();
-my @ZT = Exploits::ZT();
-my @DT = Exploits::DT();
-my @DS = Exploits::DS();
-my @AUTH = Exploits::AUTH();
+my @c          = Print::colors();
+my @ErrT       = Exploits::ErrT();
+my @ZT         = Exploits::ZT();
+my @DT         = Exploits::DT();
+my @DS         = Exploits::DS();
+my @AUTH       = Exploits::AUTH();
 my @SCAN_TITLE = Exploits::SCAN_TITLE();
-my @TT = Exploits::TT();
+my @TT         = Exploits::TT();
 
 ###############################################################################
 ###############################################################################

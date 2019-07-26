@@ -1,4 +1,5 @@
 package Login;
+
 use strict;
 use warnings;
 use FindBin '$Bin';
@@ -8,11 +9,11 @@ use Digest::MD5;
 use Exploits;
 
 ## Copy@right Alisam Technology see License.txt
-my @ISA = qw(Exporter);
-my @EXPORT_OK = qw(login);
 
-my @AUTH = Exploits::AUTH();
-my @c    = Print::colors();
+my @ISA       = qw(Exporter);
+my @EXPORT_OK = qw(login);
+my @AUTH      = Exploits::AUTH();
+my @c         = Print::colors();
 
 my $passwd;
 sub questionlog {

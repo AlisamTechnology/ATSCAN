@@ -1,4 +1,5 @@
 package Subs;
+
 use strict;
 use warnings;
 use FindBin '$Bin';
@@ -8,6 +9,7 @@ use Validate;
 use Exploits;
 use POSIX qw(strftime);
 use Print;
+
 ## Copy@right Alisam Technology see License.txt
 
 my @ISA = qw(Exporter);

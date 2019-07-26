@@ -1,4 +1,5 @@
 package Checkinputs;
+
 use strict;
 use Socket;
 use Exploits;
@@ -7,6 +8,7 @@ use Print;
 my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(Check_Inputs);
 my @c = Print::colors();
+
 ## Copy@right Alisam Technology see License.txt
 
 ###########################################################################################################

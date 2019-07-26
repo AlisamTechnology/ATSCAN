@@ -1,10 +1,12 @@
 package Validate;
+
 use strict;
 use Socket;
 use Subs;
 use Getme;
 use Target;
 use Exploits;
+
 ## Copy@right Alisam Technology see License.txt
 
 ###########################################################################################################

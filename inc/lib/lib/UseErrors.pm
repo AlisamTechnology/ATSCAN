@@ -10,14 +10,14 @@ use Print;
 my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(check_arguments1 check_arguments2 check_arguments3 check_arguments4 _print_apis_alert);
 
-my @c = Print::colors();
-my @ErrT = Exploits::ErrT();
-my @ZT = Exploits::ZT();
-my @DT = Exploits::DT();
-my @DS = Exploits::DS();
-my @OTHERS = Exploits::OTHERS();
+my @c          = Print::colors();
+my @ErrT       = Exploits::ErrT();
+my @ZT         = Exploits::ZT();
+my @DT         = Exploits::DT();
+my @DS         = Exploits::DS();
+my @OTHERS     = Exploits::OTHERS();
 my @SCAN_TITLE = Exploits::SCAN_TITLE();
-my @TT = Exploits::TT();
+my @TT         = Exploits::TT();
 
 ###########################################################################################################
 ## USE ERRORS

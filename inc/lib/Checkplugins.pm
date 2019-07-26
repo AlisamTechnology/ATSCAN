@@ -1,12 +1,15 @@
 package Checkplugins;
+
 use strict;
 use Socket;
 use Exploits;
 use Print;
 use Subs;
+
 my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(checkPlugins);
 my @c = Print::colors();
+
 ## Copy@right Alisam Technology see License.txt
 
 ###########################################################################################################

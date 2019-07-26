@@ -1,10 +1,13 @@
 package Getagent;
+
 use FindBin '$Bin';
 use strict;
 use Print;
 use Exploits;
 use Subs;
+
 ## Copy@right Alisam Technology see License.txt
+
 ##########################################################################################################
 ## CONSTRUCTOR
 sub new {

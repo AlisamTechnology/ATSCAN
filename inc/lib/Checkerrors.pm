@@ -1,31 +1,33 @@
 package Checkerrors;
+
 use strict;
 use Socket;
 use Exploits;
 use Print;
+
 my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(check_Errors);
 
 ## Copy@right Alisam Technology see License.txt
 
-my @V_XSS = Exploits::V_XSS(); 
-my @V_LFI = Exploits::V_LFI(); 
-my @V_AFD = Exploits::V_AFD(); 
-my @E_MICROSOFT = Exploits::E_MICROSOFT(); 
-my @E_ORACLE = Exploits::E_ORACLE(); 
-my @E_DB2 = Exploits::E_DB2(); 
-my @E_ODBC = Exploits::E_ODBC(); 
+my @V_XSS        = Exploits::V_XSS(); 
+my @V_LFI        = Exploits::V_LFI(); 
+my @V_AFD        = Exploits::V_AFD(); 
+my @E_MICROSOFT  = Exploits::E_MICROSOFT(); 
+my @E_ORACLE     = Exploits::E_ORACLE(); 
+my @E_DB2        = Exploits::E_DB2(); 
+my @E_ODBC       = Exploits::E_ODBC(); 
 my @E_POSTGRESQL = Exploits::E_POSTGRESQL(); 
-my @E_SYBASE = Exploits::E_SYBASE(); 
-my @E_JBOSSWEB = Exploits::E_JBOSSWEB();
-my @E_JDBC = Exploits::E_JDBC(); 
-my @E_JAVA = Exploits::E_JAVA(); 
-my @E_PHP = Exploits::E_PHP(); 
-my @E_ASP = Exploits::E_ASP(); 
-my @E_LUA = Exploits::E_LUA(); 
-my @E_UNDEFINED = Exploits::E_UNDEFINED(); 
-my @E_MARIADB = Exploits::E_MARIADB(); 
-my @E_SHELL = Exploits::E_SHELL();
+my @E_SYBASE     = Exploits::E_SYBASE(); 
+my @E_JBOSSWEB   = Exploits::E_JBOSSWEB();
+my @E_JDBC       = Exploits::E_JDBC(); 
+my @E_JAVA       = Exploits::E_JAVA(); 
+my @E_PHP        = Exploits::E_PHP(); 
+my @E_ASP        = Exploits::E_ASP(); 
+my @E_LUA        = Exploits::E_LUA(); 
+my @E_UNDEFINED  = Exploits::E_UNDEFINED(); 
+my @E_MARIADB    = Exploits::E_MARIADB(); 
+my @E_SHELL      = Exploits::E_SHELL();
 my @ERR=(@V_LFI, @V_XSS, @V_AFD, @E_MICROSOFT, @E_ORACLE, @E_DB2, @E_ODBC, @E_POSTGRESQL, @E_SYBASE, @E_JBOSSWEB, @E_JDBC, @E_JAVA, @E_PHP, @E_ASP, @E_UNDEFINED, @E_MARIADB, @E_SHELL);
 my @ErrT = Exploits::ErrT();
 

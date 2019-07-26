@@ -1,4 +1,5 @@
 package Connect;
+
 use strict;
 use FindBin '$Bin';
 use Exporter;
@@ -12,13 +13,13 @@ use UseErrors;
 my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(testConnection check_proxy_connect);
 
-my @c = Print::colors();
-my @ErrT = Exploits::ErrT();
-my @ZT = Exploits::ZT();
-my @DT = Exploits::DT();
-my @DS = Exploits::DS();
+my @c      = Print::colors();
+my @ErrT   = Exploits::ErrT();
+my @ZT     = Exploits::ZT();
+my @DT     = Exploits::DT();
+my @DS     = Exploits::DS();
 my @OTHERS = Exploits::OTHERS();
-my @TT = Exploits::TT();
+my @TT     = Exploits::TT();
 
 ##########################################################################################################
 ##########################################################################################################

@@ -1,4 +1,5 @@
 package Encodeme;
+
 use strict;
 use Exploits;
 use Subs;
@@ -6,6 +7,7 @@ use Digest::MD5 qw(md5_hex);
 use MIME::Base64;
 
 ## Copy@right Alisam Technology see License.txt
+
 my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(encodeme);
 

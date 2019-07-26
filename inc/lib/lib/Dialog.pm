@@ -1,16 +1,17 @@
 package Dialog;
+
 use strict;
 use warnings;
 use FindBin '$Bin';
 use Print;
 use Exploits;
 
+## Copy@right Alisam Technology see License.txt
+
 my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(interHelp confHlp hardArgs scansArgs interUsage shofilters printshohelp 
                    shosearchqueryhelp shosearchfacetshelp shoserachpagehelp shosearchminifyhelp 
 				   shosearchadvise _print_apis_alert sho_menu advisePages adviseLimit credit);
-
-## Copy@right Alisam Technology see License.txt
 
 my @c = Print::colors();
 my @ErrT = Exploits::ErrT();

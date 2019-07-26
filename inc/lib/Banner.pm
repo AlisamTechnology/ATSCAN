@@ -1,9 +1,11 @@
 package Banner;
+
 use strict;
 use warnings;
 use FindBin '$Bin';
 use Exporter;
 use Exploits;
+
 ## Copy@right Alisam Technology see License.txt
 
 my @ISA = qw(Exporter);
@@ -16,8 +18,8 @@ sub version {
 }
 #########################################################################################################################
 my $Version = version();
-my @c = Print::colors();
-my @OTHERS = Exploits::OTHERS();
+my @c       = Print::colors();
+my @OTHERS  = Exploits::OTHERS();
 
 #########################################################################################################################
 ## BENNER

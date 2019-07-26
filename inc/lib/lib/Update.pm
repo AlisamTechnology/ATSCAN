@@ -1,4 +1,5 @@
 package Update;
+
 use strict;
 use warnings;
 use FindBin '$Bin';
@@ -15,19 +16,19 @@ my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(update repair);
 
 ## CHECK VERSION AND UPDATE
-my $scriptUrl = Subs::scriptUrl();
-my $script_bac = Subs::script_bac();
-my $script = Subs::script();
-my $logUrl = Subs::logUrl();
-my $scriptv = Subs::scriptv();
-my $scriptInstall = Subs::scriptInstall();
+my $scriptUrl          = Subs::scriptUrl();
+my $script_bac         = Subs::script_bac();
+my $script             = Subs::script();
+my $logUrl             = Subs::logUrl();
+my $scriptv            = Subs::scriptv();
+my $scriptInstall      = Subs::scriptInstall();
 my $scriptComplInstall = Subs::scriptComplInstall();
-my $scriptCompletion = Subs::scriptCompletion();
-my $scriptbash = Subs::scriptbash();
-my $readme = Subs::readme();
-my $uplog = Subs::uplog();
-my $fulldate = Subs::fulldate();
-my $userSetting = Subs::userSetting();
+my $scriptCompletion   = Subs::scriptCompletion();
+my $scriptbash         = Subs::scriptbash();
+my $readme             = Subs::readme();
+my $uplog              = Subs::uplog();
+my $fulldate           = Subs::fulldate();
+my $userSetting        = Subs::userSetting();
 
 my @c = Print::colors();
 my @ErrT = Exploits::ErrT();

@@ -92,7 +92,7 @@ sub get_engine {
       if ($mot =~/^google$/) { $mot = soubstituteRefs($motor2); }
       if ($mot =~/^googlecache$/) { $mot = soubstituteRefs($motor3); }
       if ($mot =~/^googleapis$/) { $mot = soubstituteRefs($motor4); }
-      if ($mot =~/^sogu$/) { $mot = soubstituteRefs($motor5); }
+      if ($mot =~/^sogou$/) { $mot = soubstituteRefs($motor5); }
       if ($mot =~/^exalead$/) { $mot = soubstituteRefs($motor6); }
       if ($mot =~/^ask$/) { $mot = soubstituteRefs($motor7); }
       if ($mot =~/^yandex$/) { $mot = soubstituteRefs($motor8); }	

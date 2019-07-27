@@ -30,12 +30,6 @@ sub check_arguments1 {
     if ($mlevel!~/^[0-9,.E]+$/) { print $c[4]."$TT[15]\n"; exit(); }
   }
   
-  # if (defined $motor || defined $mrandom) {
-    # if (!defined $mlevel) {
-	  # print $c[4]."[!] $DT[20]\n"; exit();
-	# }
-  # }
-
   ## ARGUMENTS VERIFICATION (LEVEL / PORTS)
   if ((defined $dork)&&(!defined $mlevel && !$mlevel && !defined $shodan)) { print $c[4]."[!] $DT[40]\n"; exit(); }
 }
@@ -144,11 +138,12 @@ sub advise_no_file {
 sub abcd {
   my $abcd=$_[0];
   my @abcd;
-  if ($abcd=~/,/) { @abcd=split(", ", $abcd); }
+  if ($abcd=~/,/) { @abcd=split(",", $abcd); }
   else{ push @abcd, $abcd; }
   for my $ad(@abcd) {
+    $ad =~ s/\s//g;
     if ($ad!~/^(bing|ask|google|yandex|sogou|exalead|googleapis|googlecache)$/) { 
-	  print $c[2]."[!] $DT[25]\n".$c[4]."$DT[27] \n[!] $OTHERS[5] -m google,bing,...\n"; exit();
+	  print $c[2]."[!] $DT[25]\n".$c[4]."$DT[27] \n[!] $OTHERS[5] -m \"google,bing,...\"\n"; exit();
 	}
   }
 }

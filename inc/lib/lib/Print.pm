@@ -160,10 +160,11 @@ sub print_valid_info {
 ###########################################################################################################
 ## PRINT INFO
 sub print_info1 {
-  my ($dork, $mlevel, $motor, $mrandom, $ifinurl, $unique, $post, $get, $getlinks) = @_;
+  my ($dork, $mlevel, $motor, $numotors, $mrandom, $ifinurl, $unique, $post, $get, $getlinks) = @_;
   print $c[5]."[::] DORK       $c[10] [$dork]\n" if $dork;
   print $c[5]."[::] LEVEL      $c[10] [$mlevel]\n" if $mlevel;
   print $c[5]."[::] ENGINES    $c[10] [$motor]\n" if $motor;
+  print $c[5]."[::] ENGINES    $c[10] [Default: bing]\n" if (!$motor && $numotors eq 1);
   print $c[5]."[::] RAND ENG   $c[10] [$mrandom]\n" if $mrandom;
   print $c[5]."[::] IFINURL    $c[10] [$ifinurl]\n" if $ifinurl;
   print $c[5]."[::] UNIQUE     $c[10] [Yes]\n" if $unique;

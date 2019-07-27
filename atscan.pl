@@ -59,7 +59,7 @@ use Checkplugins;
 use Checkerrors;
 
 ## CLEAR
-if ($^O!~/Win/) { printf "\033c"; }else{ system("cls"); }
+($^O!~/Win/) ? printf "\033c" : system("cls");
 
 ## VARIABLES 
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, 
@@ -250,7 +250,7 @@ my ($v_proxies, $v_apikeys) = Connect::testConnection($ua, $proxy, $prandom, $ap
 $ua = $agento->use_proxy($freq, $start, $ua, \@{$v_proxies}, $prandom, "") if (scalar @{$v_proxies} > 0);
 
 ## PRINT PANEL
-Print::print_info1($dork, $mlevel, $motor, $mrandom, $ifinurl, $unique, $post, $get, $getlinks);
+Print::print_info1($dork, $mlevel, $motor, scalar @motors, $mrandom, $ifinurl, $unique, $post, $get, $getlinks);
 Print::print_info($Target, $exploit, $expHost, $expIp, $parametro, $replace, $replaceFROM);
 Print::print_valid_info($Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer);
 Print::separaBlocks();

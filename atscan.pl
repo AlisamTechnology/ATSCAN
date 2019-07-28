@@ -349,12 +349,7 @@ for my $targ(@targets) {
   
   ## BUILD EXPLOITS
   @exploits = Exploits::exploits($xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, \@exploits);
-  
-  ## PRINTED ALTERATIONS
-  my ($pirnted_exp, $pirnted_replace);
-  for ($exploit, $expIp, $expHost) { $pirnted_exp = $_ if (defined $_ || $_); }
-  for ($replace, $replaceFROM) { $pirnted_replace = $_ if (defined $_ || $_); }
-  
+    
   ## BUILD URLS
   @target_urls = Subs::target_urls($targ, \@params, \@exploits, $subdomain, $JoomRfi, $shell);
   @target_urls = Subs::checkDuplicate(@target_urls);

@@ -8,7 +8,7 @@ use Print;
 ## Copy@right Alisam Technology see License.txt
 
 my @ISA = qw(Exporter);
-my @EXPORT_OK = qw(check_arguments1 check_arguments2 check_arguments3 check_arguments4 _print_apis_alert);
+my @EXPORT_OK = qw(check_arguments1 check_arguments2 check_arguments3 check_arguments4 _print_apis_alert check_scans);
 
 my @c          = Print::colors();
 my @ErrT       = Exploits::ErrT();
@@ -32,6 +32,17 @@ sub check_arguments1 {
   
   ## ARGUMENTS VERIFICATION (LEVEL / PORTS)
   if ((defined $dork)&&(!defined $mlevel && !$mlevel && !defined $shodan)) { print $c[4]."[!] $DT[40]\n"; exit(); }
+}
+
+###########################################################################################################
+## COUNT SCANS
+sub check_scans {
+ my ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port)=@_;
+ my @scs;
+  for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port) { 
+    push @scs, $_ if defined $_;
+  }
+  if (scalar @scs > 1) { print $c[4]."[!] Multiple scans are not allowed in Version >= 17.0.0!\n"; exit(); }
 }
 
 ##########################################################################################################

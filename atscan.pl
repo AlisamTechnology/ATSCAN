@@ -135,6 +135,7 @@ Print::separaBlocks();
 
 ## USAGE ERRORS
 use UseErrors;
+UseErrors::check_scans($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port);
 UseErrors::check_arguments1($mrandom, $motor, $mlevel, $dork, $unique, $shodan, $bugtraq);
 UseErrors::check_arguments2($motor, $mrandom, $Target, $dork, $JoomRfi, $shell);
 UseErrors::check_arguments3($shodan, $bugtraq, $apikey, $popup, $command, $zoneH, $dork, $replace, $replaceFROM);
@@ -400,18 +401,19 @@ for my $targ(@targets) {
 	  
 	  ## PRINT STATUS AND SERVER NAME
 	  $continue = Print::print_sub_beg($st, $sh);
+	  if ($st ne 500) {
+	    ## CHECK IMPUTS
+	    Checkinputs::Check_Inputs($ht);
 	  
-	  ## CHECK IMPUTS
-	  Checkinputs::Check_Inputs($ht);
+	    ## CHECK CMS
+	    Checkcms::checkCms($ht);
 	  
-	  ## CHECK CMS
-	  Checkcms::checkCms($ht);
+	    ## CHECK PLUGINS
+	    Checkplugins::checkPlugins($ht);
 	  
-	  ## CHECK PLUGINS
-	  Checkplugins::checkPlugins($ht);
-	  
-	  ## CHECK ERRORS
-	  Checkerrors::check_Errors($ht);
+	    ## CHECK ERRORS
+	    Checkerrors::check_Errors($ht);
+	  }
 	}
 	
 	## CHECK FOR VALIDATION

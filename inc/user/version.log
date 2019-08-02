@@ -1,8 +1,7 @@
 ATSCAN SCANNER VERSION 17.0.0 RELEASE
 =====================================================  
-  CHANGES: 29/07/2019
-  - Engine fix.
-  - Some scans fix.
+  CHANGES: 02/08/2019
+  - Separate xss and sqli scans.
   - oooooOO PLEASE REPORT BUGS OOoooo
   - Enjoy it!
   =================

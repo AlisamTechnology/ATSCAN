@@ -348,8 +348,13 @@
         <td class="main"> Exploit will be added to the host ip</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--sql </td>
+        <td width="200px" class="main">--xss </td>
         <td class="main"> Xss scan </td>
+      </tr> 
+      <tr>
+      <tr>
+        <td width="200px" class="main">--sql </td>
+        <td class="main"> Sqli scan </td>
       </tr> 
       <tr>
         <td width="200px" class="main">--lfi </td>

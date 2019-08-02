@@ -191,7 +191,7 @@ sub print_title_scan {
                '1'=>'SEARCH ENGINE', 
 			   '2'=>'WORDPRESS SITES', 
 			   '3'=>'JOOMLA SITES', 
-			   '4'=>'SQL', 
+			   '4'=>'XSS', 
 			   '5'=>'LFI', 
 			   '6'=>'JOOMLA RFI', 
 			   '7'=>'WORDPRESS AFD', 
@@ -203,7 +203,8 @@ sub print_title_scan {
 			   '13'=>'MD5 ENCODE', 
 			   '14'=>'BASE ENCODE 64', 
 			   '15'=>'BASE DECODE 64', 
-			   '16'=>'PORTS'
+			   '16'=>'PORTS', 
+			   '17'=>'SQLI'
 			 );
 			 
   for (keys %refs) {

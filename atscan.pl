@@ -62,7 +62,7 @@ use Checkerrors;
 ($^O!~/Win/) ? printf "\033c" : system("cls");
 
 ## VARIABLES 
-my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, 
+my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, 
      $mdom, $Target, $exploit, $parametro, $validTextAll, $tcp, $udp, $proxy, $prandom, $help, $output, $replace, $replaceFROM, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, 
 	 $noverbose, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $mrandom, 
 	 $content, $toolInfo, $config, $freq, $headers, $msource, $ping, $exclude, $excludeAll, $expHost, $expIp, $zone, $validShell, $interactive, $popup, $all, $repair, $zoneH, $cookies, 
@@ -72,7 +72,7 @@ my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $a
 ## ARGUMENTS
 use Getopt::Long qw(GetOptions);
 my %OPT;
-Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText, 'validAll=s'=>\$validTextAll, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'sql'=>\$xss, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd,
+Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText, 'validAll=s'=>\$validTextAll, 'wp'=>\$WpSites, 'joom'=>\$JoomSites, 'xss'=>\$xss, 'sql'=>\$sql, 'lfi'=>\$lfi, 'joomrfi'=>\$JoomRfi, 'wpafd'=>\$WpAfd,
                          'admin'=>\$adminPage, 'subdomain'=>\$subdomain, 'upload'=>\$mupload, 'zip'=>\$mzip, 'email'=>\$eMails, 'command|c=s'=>\$command, 'md5=s'=>\$mmd5, 'encode64=s'=>\$mencode64,
                          'decode64=s'=>\$mdecode64, 'port=s'=>\$port, 'host'=>\$mdom, 't|target=s'=>\$Target, 'exp|e|payload=s'=>\$exploit, 'p|param=s'=>\$parametro, 'tcp'=>\$tcp, 'udp'=>\$udp, 
                          'proxy=s'=>\$proxy, 'prandom=s'=>\$prandom, 'help|h'=>\$help, 'save|s=s'=>\$output, 'replace=s'=>\$replace, 'replaceFROM=s'=>\$replaceFROM, 'dork|d=s'=>\$dork, 'level|l=s'=>\$mlevel,
@@ -135,7 +135,7 @@ Print::separaBlocks();
 
 ## USAGE ERRORS
 use UseErrors;
-UseErrors::check_scans($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port);
+UseErrors::check_scans($WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port);
 UseErrors::check_arguments1($mrandom, $motor, $mlevel, $dork, $unique, $shodan, $bugtraq);
 UseErrors::check_arguments2($motor, $mrandom, $Target, $dork, $JoomRfi, $shell);
 UseErrors::check_arguments3($shodan, $bugtraq, $apikey, $popup, $command, $zoneH, $dork, $replace, $replaceFROM);
@@ -239,7 +239,7 @@ Update::repair($ua, $fullHeaders, $repair) if (defined $repair);
 for ($help, $uninstall, $config, $toolInfo, $checkVersion, $repair, $mmd5, $mencode64, $mdecode64) { exit if defined $_; }
 
 ## THIS NEED SCAN RESULT TO BE PRINTED
-for ($exploit, $expIp, $expHost, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, 
+for ($exploit, $expIp, $expHost, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, 
 	 $parametro, $replace, $replaceFROM, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, 
 	 $validShell, $validServer, $WpSites, $JoomSites, $eMails, $searchIps) { 
      $isscan = 1 if (defined $_ || $_);
@@ -310,7 +310,7 @@ if (defined $getlinks) {
 ## PRINT SCAN TITLE
 my $v = 1;
 my @sc;
-for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port) { 
+for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port, $sql) { 
   $v++;
   push @sc, $v if defined $_;
 }
@@ -323,7 +323,7 @@ if (scalar @sc > 0) {
 
 ## EXPLOITS ALERT
 my $jv;
-for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip) { 
+for ($WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip) { 
   $jv = 1 if defined $_; 
 }
 Print::exploits_alert() if ($jv && !defined $exploit);
@@ -349,7 +349,7 @@ for my $targ(@targets) {
   my @params = Subs::params($targ, $parametro) if (defined $parametro);
   
   ## BUILD EXPLOITS
-  @exploits = Exploits::exploits($xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, \@exploits);
+  @exploits = Exploits::exploits($xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, \@exploits);
     
   ## BUILD URLS
   @target_urls = Subs::target_urls($targ, \@params, \@exploits, $subdomain, $JoomRfi, $shell);
@@ -419,7 +419,7 @@ for my $targ(@targets) {
 	## CHECK FOR VALIDATION
 	my $validate = new Validate();
 	my $validated = 1;
-	$validated = $validate->v_validate($st, $ht, $sh, $xss, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites);
+	$validated = $validate->v_validate($st, $ht, $sh, $xss, $sql, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites);
 	my $valido = $validated ? 1 : "";
 	for ($searchIps, $eMails, $regex, $searchRegex) { $valido = 1 if (defined $_ && $st eq 200); }
 	$in++;

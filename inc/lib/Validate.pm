@@ -131,12 +131,24 @@ sub validShell {
 }
 
 ###########################################################################################################
-## VALIDATE SQL ERRORS
+## VALIDATE XSS ERRORS
 sub v_xss {
   my $ht = $_[0];
   my @xss = Exploits::V_XSS();
   my $i = 0;
   for (@xss) {
+    if ($ht =~ /$_/) { $i++; }
+  }
+  return $i;
+}
+
+###########################################################################################################
+## VALIDATE SQL ERRORS
+sub v_sql {
+  my $ht = $_[0];
+  my @sql = Exploits::V_SQL();
+  my $i = 0;
+  for (@sql) {
     if ($ht =~ /$_/) { $i++; }
   }
   return $i;
@@ -187,9 +199,10 @@ sub jooms {
 }
 
 sub v_validate {
-  my ($self, $st, $ht, $sh, $xss, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites) = @_;
+  my ($self, $st, $ht, $sh, $xss, $sql, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites) = @_;
   my $validated;
   $validated = v_xss($ht) if defined $xss;
+  $validated = v_sql($ht) if defined $sql;
   $validated = v_lfi($ht) if defined $lfi;
   $validated = wps($ht) if defined $WpSites;
   $validated = jooms($ht) if defined $JoomSites;

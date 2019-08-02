@@ -37,9 +37,9 @@ sub check_arguments1 {
 ###########################################################################################################
 ## COUNT SCANS
 sub check_scans {
- my ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port)=@_;
+ my ($WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port)=@_;
  my @scs;
-  for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port) { 
+  for ($WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port) { 
     push @scs, $_ if defined $_;
   }
   if (scalar @scs > 1) { print $c[4]."[!] Multiple scans are not allowed in Version >= 17.0.0!\n"; exit(); }

@@ -30,7 +30,7 @@ sub MODULES {
 }
 ## SCANS
 sub SCANS {
-  return ("sql"=>"sqli and xss scan", "lfi"=>"local file inclusion", "joomrfi"=>"joomla rfi", "wpafd"=>"wp file download", "admin"=>"find admin page", "shost"=>"get subdomains",
+  return ("xss"=>"xss", "sql"=>"sqli", "lfi"=>"local file inclusion", "joomrfi"=>"joomla rfi", "wpafd"=>"wp file download", "admin"=>"find admin page", "shost"=>"get subdomains",
            "wp"=>"get wordpress sites", "joom"=>"get joomla sites", "upload"=>"get upload files", "zip"=>"get zip files", "decrypt"=>"md5/(en/de)code64",
            "email"=>"collect emails", "ips"=>"collect ips", "ports"=>"scan ports", "commands"=>"extern command", "form"=>"post/get data", "shodan"=>"Shodan search", "bugtraq"=>"Search exploits", "nomodule"=>"no module will be used");
 }

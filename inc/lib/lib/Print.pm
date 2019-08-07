@@ -8,6 +8,7 @@ use HTML::Entities;
 use Exporter;
 use Exploits;
 use Subs;
+use File::Basename;
 
 ## Copy@right Alisam Technology see License.txt
 

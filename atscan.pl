@@ -432,7 +432,7 @@ for my $targ(@targets) {
 	  my $sr = Subs::geoServer();
 	  my $u = "$sr/$ips";
 	  my ($redir, $rg, $hg, $sg, $seg, $fg) = $getme->navget($ua, $u, $fullHeaders, "", "");
-	  Print::print_geoloc($hg) if ($st eq 200);
+	  Print::print_geoloc($hg);
 	}
 		
 	## PRINT SAVE HTML AND HEADERS

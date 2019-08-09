@@ -242,12 +242,16 @@ sub noResult { print $c[2]."$DT[1]\n"; }
 ## END SCAN
 sub endscan {
   my ($np, $limit, $ifend, $isscan, $output) = @_;
-  if ($limit ne 500) { 
-    print $c[3]."[!] $DT[34] ($limit result\/s)!\n";
+  if ($np > 0) {
+    if ($limit ne 500) { 
+      print $c[3]."[!] $DT[34] ($limit result\/s)!\n";
+    }else{
+      print $c[3]."[!] ".$np." $DT[4]\n";
+    }
+    if ($output) { print $c[3]."[!] Results saved in $output\n"; }
   }else{
-    print $c[3]."[!] ".$np." $DT[4]\n";
+    print $c[2]."[!] ".$np." $DT[4]\n";
   }
-  if ($output) { print $c[3]."[!] Results saved in $output\n"; }
   my $now = Subs::now();
   print $c[4]."[$now] $c[10]$DT[3]\n";
   if (defined $ifend || $ifend) { print chr(7); }

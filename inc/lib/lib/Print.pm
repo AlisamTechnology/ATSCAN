@@ -436,6 +436,7 @@ sub print_geoloc {
       }
 	}
   }else{
+ 	print "    "; 
 	noResult();
   }
 }

@@ -241,7 +241,7 @@ for ($help, $uninstall, $config, $toolInfo, $checkVersion, $repair, $mmd5, $menc
 ## THIS NEED SCAN RESULT TO BE PRINTED
 for ($exploit, $expIp, $expHost, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, 
 	 $parametro, $replace, $replaceFROM, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, 
-	 $validShell, $validServer, $WpSites, $JoomSites, $eMails, $searchIps) { 
+	 $validShell, $validServer, $WpSites, $JoomSites, $eMails, $searchIps, $geoloc) { 
      $isscan = 1 if (defined $_ || $_);
 }
 
@@ -429,10 +429,12 @@ for my $targ(@targets) {
 	
 	## GEOLOC
 	if (defined $geoloc) {
-	  my $sr = Subs::geoServer();
-	  my $u = "$sr/$ips";
-	  my ($redir, $rg, $hg, $sg, $seg, $fg) = $getme->navget($ua, $u, $fullHeaders, "", "");
-	  Print::print_geoloc($hg);
+	  if ($st ne 500) {
+	    my $sr = Subs::geoServer();
+	    my $u = "$sr/$ips";
+	    my ($redir, $rg, $hg, $sg, $seg, $fg) = $getme->navget($ua, $u, $fullHeaders, "", "");
+	    Print::print_geoloc($hg);
+	  }
 	}
 		
 	## PRINT SAVE HTML AND HEADERS

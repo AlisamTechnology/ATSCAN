@@ -440,7 +440,7 @@ sub print_geoloc {
       }
 	}
   }else{
- 	print "           "; 
+ 	print "           $c[2]Server is down! "; 
 	noResult();
   }
 }

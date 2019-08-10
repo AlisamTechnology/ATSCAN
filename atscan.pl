@@ -241,7 +241,7 @@ for ($help, $uninstall, $config, $toolInfo, $checkVersion, $repair, $mmd5, $menc
 ## THIS NEED SCAN RESULT TO BE PRINTED
 for ($exploit, $expIp, $expHost, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mzip, $mupload, 
 	 $parametro, $replace, $replaceFROM, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, 
-	 $validShell, $validServer, $WpSites, $JoomSites, $eMails, $searchIps, $geoloc) { 
+	 $validShell, $validServer, $WpSites, $JoomSites, $eMails, $searchIps) { 
      $isscan = 1 if (defined $_ || $_);
 }
 

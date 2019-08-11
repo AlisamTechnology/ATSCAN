@@ -256,7 +256,7 @@ fi
   sudo sed -i 's/atscan;/atscan --interactive;/g' /usr/share/applications/atscan.desktop;
   echo "interactive on" >> $refdir/inc/user/userSetting;
  fi
- sleep 1 && echo "[i] Tool successfully installed and will start in 3s!..           [100%]";
+ sleep 1 && echo "[i] Tool successfully installed! Starting...                      [100%]";
  sleep 3;
  atscan --update;
 else

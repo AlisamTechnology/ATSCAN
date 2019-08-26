@@ -22,7 +22,7 @@
     <img src="https://img.shields.io/badge/Youtube-Follow-red.svg">
   </a> 
 </p> 
-<p align="center"> <b>Advanced Search / Dork / Mass Exploitation Scanner  فاحص متقدم لبحث و استغلال الثغرات بالجملة </b></p>
+<p align="center"> <b>Advanced Mass Search / Dork / Exploitation Scanner  </b></p>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">
   <tr>
     <td align="center"><img title="Legal desclaimer" src="https://imgur.com/7OzJEBI.png"></td>

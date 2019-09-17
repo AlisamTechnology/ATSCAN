@@ -679,7 +679,7 @@
        atscan -t [target / targets.txt] -v [string] --zoneH "notifier => --HOST/index.php" <br/>
         <hr>
        &#x25cf; <b>SEARCH EXPLOITS: </b><br/>
-       atscan --bugtraq -d [string] -l 1 EX: atscan --bugtraq wordpress -l 1<br/> 
+       atscan --bugtraq -d [string] -l 1 EX: atscan --bugtraq -d wordpress -l 1<br/> 
        atscan --bugtraq -d file.txt -l 1<br/>
        atscan --bugtraq -d [string] -l 1--limit 10 <br/> 
         <hr>

@@ -24,7 +24,7 @@ my $nolisting="q=|0day|pastebin|\/\/t.co|google.|youtube.|jsuol.com|.radio.uol.|
                 window.|.devmedia|imasters.|.inspcloud.com|.lycos.com|.scorecardresearch.com|.target.|JQuery.min|Element.location.|document.|exploit-db|packetstormsecurity.|1337day|owasp|
                 .sun.com|mobile10.dtd|onabort=function|inurl.com.br|purl.org|.dartsearch.net|r.cb|.classList.|.pt_BR.|github|microsofttranslator.com|.compete.com|.sogou.com|gmail.|blackle.com|
                 boorow.com|gravatar.com|cookieSet|security|facebook|WindowsLiveTranslator|cache|74.125.153.132|inurl:|Network|adw.sapo|tripadvisor|yandex|Failed|tumblr.|wiki|inciclopedia.|
-                sogoucdn.com|weixin.|snapshot.|cxsecurity.|whois.|exalead.|3ds.|linkedin.|&FORM=PERE|cache:|cache+|googleapis|tripadvisor.|javascript:void";
+                sogoucdn.com|weixin.|snapshot.|cxsecurity.|whois.|exalead.|3ds.|linkedin.|&FORM=PERE|cache:|cache+|googleapis|tripadvisor.|javascript:void|\"title";
 
 my $V_SEARCH = Exploits::V_SEARCH();
 

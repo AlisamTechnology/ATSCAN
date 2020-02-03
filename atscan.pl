@@ -364,97 +364,99 @@ for my $targ(@targets) {
   my $getme = new Getme();
   my $i = 0;
   for my $ur(@target_urls) {
-    $i++;
-	## PRINT URL
-	Print::print_Beg($ur, $i, scalar @exploits, $isscan);
+    if ($ur !~/(\=rang|\=repeat)/) {
+      $i++;
+	  ## PRINT URL
+	  Print::print_Beg($ur, $i, scalar @exploits, $isscan);
 
-	## PORTS
-	if (defined $port) {
-	  my @v_proxies = @{$v_proxies};
-	  my $psx = $v_proxies[rand @v_proxies] if (defined $proxy);	  
-	  $psx = $getme->newpsx($ua, $freq, $start, $v_proxies, $freq, $start, $psx, $prandom) if (defined $prandom);	  
-	  use Scanport;
-	  Scanport::ports($ur, \@commands, $port, $udp, $tcp, $proxy, $prandom, $psx, $ping, $timeout);
-	  exit;
-	}
+	  ## PORTS
+	  if (defined $port) {
+	    my @v_proxies = @{$v_proxies};
+	    my $psx = $v_proxies[rand @v_proxies] if (defined $proxy);	  
+	    $psx = $getme->newpsx($ua, $freq, $start, $v_proxies, $freq, $start, $psx, $prandom) if (defined $prandom);	  
+	    use Scanport;
+	    Scanport::ports($ur, \@commands, $port, $udp, $tcp, $proxy, $prandom, $psx, $ping, $timeout);
+	    exit;
+	  }
 	
-	## GET AGENT
-	$agent = $agento->get_agent($freq, $start, "1") if defined $brandom;
-	Print::print_agent($agent) if !$noverbose;
+	  ## GET AGENT
+	  $agent = $agento->get_agent($freq, $start, "1") if defined $brandom;
+	  Print::print_agent($agent) if !$noverbose;
 	
-	## PROXY RANDOM ALERT 
-	$ua = $agento->use_proxy($freq, $start, $ua, \@{$v_proxies}, $prandom, "1") if (defined $prandom);
+	  ## PROXY RANDOM ALERT 
+	  $ua = $agento->use_proxy($freq, $start, $ua, \@{$v_proxies}, $prandom, "1") if (defined $prandom);
 
-	## GET URL
-	my ($redirect, $re, $ht, $st, $sh, $fh);	
-	if (defined $data) {
-	  my $datas = $url->dataFields($data);
-	  ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navdatapost($ua, $get, $post, $url, $datas, $fullHeaders);
-	}else{
-	  ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $ur, $fullHeaders, $post, $get);
-	}
-	
-	my $continue;
-	if (!$noverbose) {
-	  ## CHECK FOR REDIRECTS
-	  if ($redirect) { Print::print_redirect($redirect); }
-	  
-	  ## PRINT STATUS AND SERVER NAME
-	  $continue = Print::print_sub_beg($st, $sh);
-	  if ($st ne 500) {
-	    ## CHECK IMPUTS
-	    Checkinputs::Check_Inputs($ht);
-	  
-	    ## CHECK CMS
-	    Checkcms::checkCms($ht);
-	  
-	    ## CHECK PLUGINS
-	    Checkplugins::checkPlugins($ht);
-	  
-	    ## CHECK ERRORS
-	    Checkerrors::check_Errors($ht);
+	  ## GET URL
+	  my ($redirect, $re, $ht, $st, $sh, $fh);	
+	  if (defined $data) {
+	    my $datas = $url->dataFields($data);
+	    ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navdatapost($ua, $get, $post, $url, $datas, $fullHeaders);
+	  }else{
+	    ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $ur, $fullHeaders, $post, $get);
 	  }
-	}
 	
-	## CHECK FOR VALIDATION
-	my $validate = new Validate();
-	my $validated = 1;
-	$validated = $validate->v_validate($st, $ht, $sh, $xss, $sql, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites);
-	my $valido = $validated ? 1 : "";
-	for ($searchIps, $eMails, $regex, $searchRegex) { $valido = 1 if (defined $_ && $st eq 200); }
-	$in++;
-	
-	## PRINT VALID SCAN
-	Print::print_End($ur, $st, $ht, $valido, $isscan, \@regs, $output, $beep) if $continue;
-	
-	## GEOLOC
-	if (defined $geoloc) {
-	  if ($st ne 500) {
-	    my $sr = Subs::geoServer();
-	    my $u = "$sr/$ips";
-	    my ($redir, $rg, $hg, $sg, $seg, $fg) = $getme->navget($ua, $u, $fullHeaders, "", "");
-	    Print::print_geoloc($hg);
+	  my $continue;
+	  if (!$noverbose) {
+	    ## CHECK FOR REDIRECTS
+	    if ($redirect) { Print::print_redirect($redirect); }
+	  
+	    ## PRINT STATUS AND SERVER NAME
+	    $continue = Print::print_sub_beg($st, $sh);
+	    if ($st ne 500) {
+	      ## CHECK IMPUTS
+	      Checkinputs::Check_Inputs($ht);
+	  
+	      ## CHECK CMS
+	      Checkcms::checkCms($ht);
+	  
+	      ## CHECK PLUGINS
+	      Checkplugins::checkPlugins($ht);
+	  
+	      ## CHECK ERRORS
+	      Checkerrors::check_Errors($ht);
+	    }
 	  }
-	}
+	
+	  ## CHECK FOR VALIDATION
+	  my $validate = new Validate();
+	  my $validated = 1;
+	  $validated = $validate->v_validate($st, $ht, $sh, $xss, $sql, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites);
+	  my $valido = $validated ? 1 : "";
+	  for ($searchIps, $eMails, $regex, $searchRegex) { $valido = 1 if (defined $_ && $st eq 200); }
+	  $in++;
+	
+	  ## PRINT VALID SCAN
+	  Print::print_End($ur, $st, $ht, $valido, $isscan, \@regs, $output, $beep) if $continue;
+	
+	  ## GEOLOC
+	  if (defined $geoloc) {
+	    if ($st ne 500) {
+	      my $sr = Subs::geoServer();
+	      my $u = "$sr/$ips";
+	      my ($redir, $rg, $hg, $sg, $seg, $fg) = $getme->navget($ua, $u, $fullHeaders, "", "");
+	      Print::print_geoloc($hg);
+	    }
+	  }
 		
-	## PRINT SAVE HTML AND HEADERS
-	if (defined $content) {  Print::print_content($ht); }
-	if (defined $msource) { Print::printSource($ur, $ht, $msource); }
-	if (defined $fullHeaders) { Print::fullRequestHeaders(); }  
+	  ## PRINT SAVE HTML AND HEADERS
+	  if (defined $content) {  Print::print_content($ht); }
+	  if (defined $msource) { Print::printSource($ur, $ht, $msource); }
+	  if (defined $fullHeaders) { Print::fullRequestHeaders(); }  
 	
-	## EXTERN COMMANDS
-	if (defined $command && !defined $shodan) {
-	  my $ext_cmd = Print::checkExternComnd($ur, \@commands);
-	  Print::extern_process($ur, $popup, $ext_cmd);
-	}	
+	  ## EXTERN COMMANDS
+	  if (defined $command && !defined $shodan) {
+	    my $ext_cmd = Print::checkExternComnd($ur, \@commands);
+	    Print::extern_process($ur, $popup, $ext_cmd);
+	  }	
 	
-	## ZONE-H
-	if (defined $zoneH) {
-	  my $hz = $getme->navpost($ua, $zoneH, $ur, $fullHeaders);
-	  Print::print_zoneH($hz) if $hz;
+	  ## ZONE-H
+	  if (defined $zoneH) {
+	    my $hz = $getme->navpost($ua, $zoneH, $ur, $fullHeaders);
+	    Print::print_zoneH($hz) if $hz;
+	  }
+	  push @aTscans, $ur if $valido;
+	  last if $in eq $limit;
 	}
-	push @aTscans, $ur if $valido;
-	last if $in eq $limit;
   }
 }
 

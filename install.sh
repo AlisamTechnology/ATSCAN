@@ -116,7 +116,7 @@ fi
  if [ -d "/etc/bash_completion.d" ] ;
  then
    chmod +x $refdir/inc/user/atscan;
-   sudo cp $refdir/inc/user/atscan /etc/bash_completion.d/;
+   cp $refdir/inc/user/atscan /etc/bash_completion.d/;
  fi
  
  sleep 1 && echo "[i] Setting update files...                                        [30%]";

@@ -110,13 +110,13 @@ fi
  echo "#!/bin/bash 
  perl $refdir/atscan.pl" '${1+"$@"}' > atscan;
  chmod +x atscan;
- sudo cp atscan /usr/bin/;
+ cp atscan /usr/bin/;
  rm atscan;
  sleep 1 && echo "[i] Creating Completion link...                                    [18%]";
  if [ -d "/etc/bash_completion.d" ] ;
  then
    chmod +x $refdir/inc/user/atscan;
-   sudo cp $refdir/inc/user/atscan /etc/bash_completion.d/;
+   cp $refdir/inc/user/atscan /etc/bash_completion.d/;
  fi
  
  sleep 1 && echo "[i] Setting update files...                                        [30%]";
@@ -130,7 +130,7 @@ fi
  fi
  chmod +x "/usr/share/applications";
 
- sudo cp $refdir/inc/user/desktop/atscan.desktop /usr/share/applications/;
+ cp $refdir/inc/user/desktop/atscan.desktop /usr/share/applications/;
  if [ ! -e "/usr/share/applications/atscan.desktop" ]; 
  then
    echo "Warning! Failed to add direct access to the applications menu!";  
@@ -160,7 +160,7 @@ fi
    mkdir "/usr/share/icons/hicolor/16x16/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/16x16/apps";
- sudo cp $refdir/inc/user/desktop/16x16/atscan-menu.png /usr/share/icons/hicolor/16x16/apps/;
+ cp $refdir/inc/user/desktop/16x16/atscan-menu.png /usr/share/icons/hicolor/16x16/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/22x22" ]; 
  then
@@ -172,7 +172,7 @@ fi
    mkdir "/usr/share/icons/hicolor/22x22/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/22x22/apps";
- sudo cp $refdir/inc/user/desktop/22x22/atscan-menu.png /usr/share/icons/hicolor/22x22/apps/;
+ cp $refdir/inc/user/desktop/22x22/atscan-menu.png /usr/share/icons/hicolor/22x22/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/24x24" ]; 
  then
@@ -184,7 +184,7 @@ fi
    mkdir "/usr/share/icons/hicolor/24x24/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/24x24/apps";
- sudo cp $refdir/inc/user/desktop/24x24/atscan-menu.png /usr/share/icons/hicolor/24x24/apps/;
+ cp $refdir/inc/user/desktop/24x24/atscan-menu.png /usr/share/icons/hicolor/24x24/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/48x48" ]; 
  then
@@ -196,7 +196,7 @@ fi
    mkdir "/usr/share/icons/hicolor/48x48/apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/48x48/apps";
- sudo cp $refdir/inc/user/desktop/48x48/atscan-menu.png /usr/share/icons/hicolor/48x48/apps/;
+ cp $refdir/inc/user/desktop/48x48/atscan-menu.png /usr/share/icons/hicolor/48x48/apps/;
  
  if [ ! -d "/usr/share/icons/hicolor/256x256/" ]; 
  then
@@ -208,7 +208,7 @@ fi
    mkdir "/usr/share/icons/hicolor/256x256//apps";  
  fi
  chmod +x "/usr/share/icons/hicolor/256x256//apps";
- sudo cp $refdir/inc/user/desktop/256x256//atscan-menu.png /usr/share/icons/hicolor/256x256//apps/;
+ cp $refdir/inc/user/desktop/256x256//atscan-menu.png /usr/share/icons/hicolor/256x256//apps/;
  
  ########################################################################################################################
 
@@ -220,10 +220,10 @@ fi
  sleep 1 && echo "[i] Copying README.md to /usr/share/doc/atscan...                  [75%]";
  chmod +x "/usr/share/doc/atscan/";
  chmod +x $refdir/README.md;
- sudo cp $refdir/README.md /usr/share/doc/atscan/;
+ cp $refdir/README.md /usr/share/doc/atscan/;
  sleep 1 && echo "[i] Copying License.txt to /usr/share/doc/atscan...                [83%]";
  chmod +x $refdir/License.txt;
- sudo cp $refdir/License.txt /usr/share/doc/atscan/;
+ cp $refdir/License.txt /usr/share/doc/atscan/;
  sleep 1 && echo "[i] Removing install files...                                      [92%]";
  rm $refdir/inc/user/atscan;
  rm $refdir/install.sh; 
@@ -253,7 +253,7 @@ fi
  read modeChoice
  if [ "$modeChoice" == "1" ]; 
  then
-  sudo sed -i 's/atscan;/atscan --interactive;/g' /usr/share/applications/atscan.desktop;
+  sed -i 's/atscan;/atscan --interactive;/g' /usr/share/applications/atscan.desktop;
   echo "interactive on" >> $refdir/inc/user/userSetting;
  fi
  sleep 1 && echo "[i] Tool successfully installed! Starting...                      [100%]";

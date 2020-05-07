@@ -42,7 +42,7 @@ sub newpsx {
       if ($psx=~/(localhost|127.0.0.1)/) {
 	    my $x=0;
 	    while (!$x) {
-          system("[ -z 'pidof tor' ] || pidof tor | xargs sudo kill -HUP -1;");
+          system("[ -z 'pidof tor' ] || pidof tor | xargs kill -HUP -1;");
 		  use Connect;
 	      my $r = Connect::check_proxy_connect($ua, $psx);
 	      if ($r) {

@@ -87,7 +87,7 @@ sub update {
     system("git clone https://github.com/AlisamTechnology/ATSCAN.git $Bin/atscan_update");
     if (!-d "$Bin/atscan_update") { print "\n"; Print::dd(); exit(); }
     print $c[10]."[i] $ZT[2]..\n";
-    system "sudo cp -r $Bin/atscan_update/inc $Bin";
+    system "cp -r $Bin/atscan_update/inc $Bin";
     if (!-d "$Bin/inc") { Print::bb(); exit(); }
     sleep(1);
   
@@ -96,7 +96,7 @@ sub update {
       my @f=("README.md", "License.txt");
       print $c[10]."[i] $ZT[5] License files...\n";
       for my $f(@f) {
-        system "sudo cp -r $Bin/atscan_update/$f /usr/share/doc/atscan/";
+        system "cp -r $Bin/atscan_update/$f /usr/share/doc/atscan/";
         if (!-e "/usr/share/doc/atscan/$f") {
           print $c[4]."$er write to /usr/share/doc/atscan/$f!\n";
         }
@@ -116,7 +116,7 @@ sub update {
         my $scbs="$scriptCompletion/atscan";        
         unlink $scbs if -e $scbs;
         print $c[10]."[i] $ZT[5] bash Completion... \n";
-        system "sudo cp $scriptComplInstall $scriptCompletion/";
+        system "cp $scriptComplInstall $scriptCompletion/";
         if (!-e "$scriptCompletion/atscan") {
           print $c[2]."$er write to $scriptCompletion!\n";
         }
@@ -125,19 +125,19 @@ sub update {
         #############################################
         print $c[10]."[i] Creating desktop entries....\n";
         if (-d "/usr/share/icons/hicolor/16x16/apps/") {
-	      system "sudo cp $Bin/atscan_update/inc/user/desktop/16x16/atscan-menu.png /usr/share/icons/hicolor/16x16/apps/";
+	      system "cp $Bin/atscan_update/inc/user/desktop/16x16/atscan-menu.png /usr/share/icons/hicolor/16x16/apps/";
 	      if (!-e "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png") { print $c[2]."$er write in /usr/share/icons/hicolor/16x16/apps/!\n"; }
 	
-	      system "sudo cp $Bin/atscan_update/inc/user/desktop/22x22/atscan-menu.png /usr/share/icons/hicolor/22x22/apps/";
+	      system "cp $Bin/atscan_update/inc/user/desktop/22x22/atscan-menu.png /usr/share/icons/hicolor/22x22/apps/";
 	      if (!-e "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png") { print $c[2]."$er write in /usr/share/icons/hicolor/22x22/apps/!\n"; }
 	
-	      system "sudo cp $Bin/atscan_update/inc/user/desktop/24x24/atscan-menu.png /usr/share/icons/hicolor/24x24/apps/";
+	      system "cp $Bin/atscan_update/inc/user/desktop/24x24/atscan-menu.png /usr/share/icons/hicolor/24x24/apps/";
 	      if (!-e "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png") { print $c[2]."$er write in /usr/share/icons/hicolor/24x24/apps/!\n"; }
 	
-	      system "sudo cp $Bin/atscan_update/inc/user/desktop/48x48/atscan-menu.png /usr/share/icons/hicolor/48x48/apps/";
+	      system "cp $Bin/atscan_update/inc/user/desktop/48x48/atscan-menu.png /usr/share/icons/hicolor/48x48/apps/";
 	      if (!-e "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png") { print $c[2]."$er write in /usr/share/icons/hicolor/48x48/apps/!\n"; }
 	
-	      system "sudo cp $Bin/atscan_update/inc/user/desktop/256x256/atscan-menu.png /usr/share/icons/hicolor/256x256/apps/";
+	      system "cp $Bin/atscan_update/inc/user/desktop/256x256/atscan-menu.png /usr/share/icons/hicolor/256x256/apps/";
 	      if (!-e "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png") { print $c[2]."$er write in /usr/share/icons/hicolor/256x256/apps/!\n"; }
      
           my @deskFiles=("/usr/share/icons/hicolor/16x16/apps/atscan-menu.png", "/usr/share/icons/hicolor/22x22/apps/atscan-menu.png", "/usr/share/icons/hicolor/24x24/apps/atscan-menu.png",

@@ -78,7 +78,7 @@ sub checkExternComnd {
 sub extern_process {
   my ($u, $popup, $comnd) = @_;
   if (defined $popup) {
-    $comnd="sudo xterm -title '$u' -hold -e '$comnd'";
+    $comnd="xterm -title '$u' -hold -e '$comnd'";
     print "$c[4]            [!] $c[10]Opening process in extern window..\n";
     sleep 2;
     print $c[8]."            ";

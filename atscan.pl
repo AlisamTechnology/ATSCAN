@@ -362,6 +362,7 @@ for my $targ(@targets) {
 
   ## TARGET URLS
   my $getme = new Getme();
+  @target_urls = Subs::target_urls_repeater(\@target_urls);
   my $i = 0;
   for my $ur(@target_urls) {
     if ($ur !~/(\=rang|\=repeat)/) {

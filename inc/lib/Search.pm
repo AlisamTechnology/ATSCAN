@@ -104,12 +104,14 @@ sub checkSearchRegex {
 sub doSearchApis {
   my ($Res, $drk, $motor, $unique, $ifinurl, $searchRegexs) = @_;
   my @aTsearch;
-  $Res = Subs::_json($Res);
-  my @found = @{ $Res->{'items'} };
-  for my $found(@found) {
-	my $link = $found->{'link'};
-	$link = do_needed($link, $drk, $unique, $ifinurl, $searchRegexs) if $link;
-	push @aTsearch, $link if $link;
+  if ($Res) {
+    $Res = Subs::_json($Res);
+    my @found = @{ $Res->{'items'} };
+    for my $found(@found) {
+	  my $link = $found->{'link'};
+	  $link = do_needed($link, $drk, $unique, $ifinurl, $searchRegexs) if $link;
+	  push @aTsearch, $link if $link;
+	}
   }
   return @aTsearch;
 }

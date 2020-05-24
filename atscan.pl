@@ -328,9 +328,6 @@ for ($WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subd
 }
 Print::exploits_alert() if ($jv && !defined $exploit);
 
-## CHECK TARGET REPEATER AND RANG
-@targets = Subs::target_urls_repeater(\@targets);
-
 ## START SCAN 
 my ($i, $in) = 0;
 for my $targ(@targets) {
@@ -362,7 +359,9 @@ for my $targ(@targets) {
 
   ## TARGET URLS
   my $getme = new Getme();
+  ## CHECK TARGET REPEATER AND RANG
   @target_urls = Subs::target_urls_repeater(\@target_urls);
+  
   my $i = 0;
   for my $ur(@target_urls) {
     if ($ur !~/(\=rang|\=repeat)/) {

@@ -16,7 +16,7 @@ my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(nargs print_Beg print_End print_sub_beg separator separaBlocks print_target print_valid_info 
                    print_errors print_redirect endscan print_agent exploits_alert advise_connect
 				   @c print_geoloc noResult printFile print_zoneH count_targets print_scans print_title_scan
-				   begenscan endscan colors bb cc dd nochmod extern_process);
+				   begenscan endscan colors bb cc dd nochmod extern_process print_filters);
 
 ###########################################################################################################
 ## SET COLORS
@@ -479,5 +479,17 @@ sub printFile {
 }
 
 ##########################################################################################################
+## GENERAL PRINT 
+sub print_filters {
+  my $fils = $_[0];
+  my @fils = @{$fils};
+  if (scalar @fils > 0) {
+    print "$c[1] VALID     ";
+    for (@fils) {
+      print "$c[3]\[$_]";
+    }
+    print "\n";
+  }
+}
 
 1;

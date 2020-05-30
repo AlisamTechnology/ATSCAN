@@ -398,11 +398,11 @@
       </tr> 	  
       <tr>
         <td width="200px" class="main">--wp</td>
-        <td class="main"> Wordpress sites in the server</td>
+        <td class="main"> Wordpress site</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--joom  </td>
-        <td class="main"> Joomla sites in the server</td>
+        <td class="main"> Joomla site</td>
       </tr> 
       <tr>
         <td width="200px" class="main">--zip  </td>

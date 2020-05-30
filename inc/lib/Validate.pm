@@ -6,6 +6,7 @@ use Subs;
 use Getme;
 use Target;
 use Exploits;
+use Print;
 
 ## Copy@right Alisam Technology see License.txt
 
@@ -36,9 +37,13 @@ sub validServer {
 sub validText {
   my ($validText, $ht) = @_;
   my @validTexts = Subs::buildArrays($validText);
+  my @fils;
   my $i = 0;
   for (@validTexts) {
-    if ($ht =~ /$_/) { $i++; }
+    if ($ht =~ /$_/) { $i++; push @fils, $_; }
+  }
+  if (scalar @fils > 0) {
+    Print::print_filters(\@fils);
   }
   return $i;
 }
@@ -48,15 +53,16 @@ sub validText {
 sub validTextAll {
   my ($validTextAll, $ht) =@_;
   my @validTexts = Subs::buildArrays($validTextAll);
-  my @all;
+  my @fils;
   for (@validTexts) {
     if ($ht =~ /$_/) {
-	  push @all, $_;
+	  push @fils, $_;
 	}
   }
   my $i;
-  if (scalar @validTexts eq scalar @all) {
+  if (scalar @validTexts eq scalar @fils) {
     $i++;
+	Print::print_filters(\@fils);
   }
   return $i;
 }
@@ -66,9 +72,13 @@ sub validTextAll {
 sub exclude {
   my ($exclude, $ht) = @_;
   my @excludes = Subs::buildArrays($exclude);
+  my @fils;
   my $i = 0;
   for (@excludes) {
-    if ($ht !~ /$_/) { $i++; }
+    if ($ht !~ /$_/) { $i++; push @fils, $_; }
+  }
+  if (scalar @fils > 0) {
+    Print::print_filters(\@fils);
   }
   return $i;
 }
@@ -78,15 +88,16 @@ sub exclude {
 sub excludeAll {
   my ($excludeAll, $ht) =@_;
   my @excludes = Subs::buildArrays($excludeAll);
-  my @all;
+  my @fils;
   for (@excludes) {
     if ($ht !~ /$_/) {
-	  push @all, $_;
+	  push @fils, $_;
 	}
   }
   my $i;
-  if (scalar @excludes eq scalar @all) {
+  if (scalar @excludes eq scalar @fils) {
     $i++;
+    Print::print_filters(\@fils);
   }
   return $i;
 }

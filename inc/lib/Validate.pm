@@ -37,14 +37,17 @@ sub validServer {
 sub validText {
   my ($validText, $ht) = @_;
   my @validTexts = Subs::buildArrays($validText);
-  my @fils;
+  my (@fils, @nofils);
   my $i = 0;
   for (@validTexts) {
-    if ($ht =~ /$_/) { $i++; push @fils, $_; }
+    if ($ht =~ /$_/) { 
+	  $i++; 
+	  push @fils, $_;
+	}else{
+	  push @nofils, $_;
+	}
   }
-  if (scalar @fils > 0) {
-    Print::print_filters(\@fils);
-  }
+  Print::print_filters(\@fils, \@nofils);
   return $i;
 }
 
@@ -53,17 +56,17 @@ sub validText {
 sub validTextAll {
   my ($validTextAll, $ht) =@_;
   my @validTexts = Subs::buildArrays($validTextAll);
-  my @fils;
+  my (@fils, @nofils);
   for (@validTexts) {
     if ($ht =~ /$_/) {
 	  push @fils, $_;
+	}else{
+	  push @nofils, $_;
 	}
   }
   my $i;
-  if (scalar @validTexts eq scalar @fils) {
-    $i++;
-	Print::print_filters(\@fils);
-  }
+  if (scalar @validTexts eq scalar @fils) { $i++; }
+  Print::print_filters(\@fils, \@nofils);
   return $i;
 }
 
@@ -72,14 +75,17 @@ sub validTextAll {
 sub exclude {
   my ($exclude, $ht) = @_;
   my @excludes = Subs::buildArrays($exclude);
-  my @fils;
+  my (@fils, @nofils);
   my $i = 0;
   for (@excludes) {
-    if ($ht !~ /$_/) { $i++; push @fils, $_; }
+    if ($ht !~ /$_/) {
+	  $i++; 
+	  push @fils, $_;
+	}else{
+	  push @nofils, $_;
+	}
   }
-  if (scalar @fils > 0) {
-    Print::print_filters(\@fils);
-  }
+  Print::print_filters(\@fils, \@nofils);
   return $i;
 }
 
@@ -88,17 +94,17 @@ sub exclude {
 sub excludeAll {
   my ($excludeAll, $ht) =@_;
   my @excludes = Subs::buildArrays($excludeAll);
-  my @fils;
+  my (@fils, @nofils);
   for (@excludes) {
     if ($ht !~ /$_/) {
 	  push @fils, $_;
+	}else{
+	  push @nofils, $_;
 	}
   }
   my $i;
-  if (scalar @excludes eq scalar @fils) {
-    $i++;
-    Print::print_filters(\@fils);
-  }
+  if (scalar @excludes eq scalar @fils) { $i++; }
+  Print::print_filters(\@fils, \@nofils);
   return $i;
 }
 
@@ -135,9 +141,7 @@ sub validShell {
   my $i = 0;
   my $getme = new Getme();
   my $hell = $getme->nav($_, $validShell, "", "");
-  if ($hell->is_success) {
-    $i++;
-  }
+  if ($hell->is_success) { $i++; }
   return $i;
 }
 

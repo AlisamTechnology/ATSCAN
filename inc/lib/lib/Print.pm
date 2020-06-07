@@ -151,8 +151,8 @@ sub print_valid_info {
   my ($Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer) = @_; 
   print $c[5]."[::] CODE VAL   $c[10] [$Hstatus]\n" if $Hstatus;
   print $c[5]."[::] VALIDATE   $c[10] [$validText]\n" if $validText;
-  print $c[5]."[::] ALL VALID  $c[10] [$validTextAll]\n" if $validTextAll;
-  print $c[5]."[::] ALL EXCL   $c[10] [$excludeAll]\n" if $excludeAll;
+  print $c[5]."[::] VALID ALL  $c[10] [$validTextAll]\n" if $validTextAll;
+  print $c[5]."[::] EXCL ALL   $c[10] [$excludeAll]\n" if $excludeAll;
   print $c[5]."[::] EXCLUDE    $c[10] [$exclude]\n" if $exclude;
   print $c[5]."[::] VA SHELL   $c[10] [$validShell]\n" if $validShell;
   print $c[5]."[::] VA SERVER  $c[10] [$validServer]\n" if $validServer;
@@ -481,15 +481,18 @@ sub printFile {
 ##########################################################################################################
 ## GENERAL PRINT 
 sub print_filters {
-  my $fils = $_[0];
+  my ($fils, $nofils) = @_;
   my @fils = @{$fils};
-  if (scalar @fils > 0) {
-    print "$c[1] VALID     ";
-    for (@fils) {
-      print "$c[3]\[$_]";
-    }
-    print "\n";
+  my @nofils = @{$nofils};
+  print "$c[1] VALID     ";
+  for (@fils) {
+    print "$c[3]\[$_]";
   }
+  for (@nofils) {
+    print "$c[2]\[$_]";
+  }    
+  print "\n";
 }
+##########################################################################################################
 
 1;

@@ -260,7 +260,7 @@ fi
  sleep 3;
  atscan --update;
 else
- echo "[!] Installation faid!! ";
+ echo "[!] Installation failed!! ";
  exit
 fi
 else

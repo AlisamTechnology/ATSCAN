@@ -57,10 +57,11 @@ sub msearch {
 		  my $getme = new Getme();		  
 		  my $res = $getme->navsearch($ua, $engine, $fullHeaders);
 		  if ($engine =~ /googleapis./) {
-            @aTsearch = doSearchApis($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
+            my @aTsearchs = doSearchApis($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
 		  }else{
-            @aTsearch = doSearch($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
+            my @aTsearchs = doSearch($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
 		  }
+		  push @aTsearch, @aTsearchs;
           $engine =~ s/=$npages/=MYNPAGES/ig;
         }
         $engine =~ s/\Q$dork/MYDORK/ig;
@@ -74,16 +75,16 @@ sub msearch {
 ## GET URLS FROM SEARCH ENGINE PAGES
 sub doSearch {
   my ($Res, $drk, $motor, $unique, $ifinurl, $searchRegexs) = @_;
-  my @aTsearch;
+  my @aTsearchs;
   while($Res =~ /$V_SEARCH/g) {
     my $URL = $1;
 	$URL =~ s/(\&sa=|\&ved=|\&amp\;).*//;
 	if ((substr $URL, -1) ne "-"){
       $URL = do_needed($URL, $drk, $unique, $ifinurl, \@{$searchRegexs}) if ($URL !~/\.\./);
-	  push @aTsearch, $URL if $URL;
+	  push @aTsearchs, $URL if $URL;
 	}
   }
-  return @aTsearch;
+  return @aTsearchs;
 }
 
 #########################################################################################################################

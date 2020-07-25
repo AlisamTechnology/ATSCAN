@@ -19,7 +19,7 @@ my $motor5 = "http://www.sogou.com/web?query=MYDORK&page=MYNPAGES&ie=utf8";
 my $motor6 = "https://www.exalead.com/search/web/results/?q=MYDORK&elements_per_page=10&start_index=MYNPAGES";
 my $motor7 = "http://www.ask.com/web?q=MYDORK&page=MYNPAGES&qid=MYID";
 my $motor8 = "http://www.yandex.com/search/?msid=MYMSID&text=MYDORK&lr=25402&p=MYNPAGES";
-my @mrands = ('bing', 'ask', 'google', 'yandex', 'sogou', 'exalead', 'googleapis', 'googleusercontent');
+my @mrands = ('bing', 'ask', 'google', 'yandex', 'sogou', 'exalead', 'googleusercontent');
 
 ## BROWSER LANGUAGES
 my @browserlangs=("af", "am", "ar-SA", "as", "az-Latn", "be", "bg", "bn-BD", "bn-IN", "bs", "ca", "ca-ES-valencia", "cs", "da", "de", "de-DE", "el", "en-CA", "en-GB", "en-IN", "en-AU",

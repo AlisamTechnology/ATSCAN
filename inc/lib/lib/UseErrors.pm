@@ -153,7 +153,7 @@ sub abcd {
   else{ push @abcd, $abcd; }
   for my $ad(@abcd) {
     $ad =~ s/\s//g;
-    if ($ad!~/^(bing|ask|google|yandex|sogou|exalead|googleapis|googlecache)$/) { 
+    if ($ad!~/^(bing|ask|google|yandex|sogou|exalead|googleapis|googlecache|all)$/) { 
 	  print $c[2]."[!] $DT[25]\n".$c[4]."$DT[27] \n[!] $OTHERS[5] -m \"google,bing,...\"\n"; exit();
 	}
   }

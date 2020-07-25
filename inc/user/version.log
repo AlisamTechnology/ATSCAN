@@ -1,7 +1,7 @@
 ATSCAN SCANNER VERSION 17.0.0 RELEASE
 =====================================================  
-  CHANGES: 07/06/2020
-  - Show validation strings in validation process.
+  CHANGES: 25/07/2020
+  - Fix bug when using all engines.
   - oooooOO PLEASE REPORT BUGS OOoooo
   - Enjoy it!
   =================

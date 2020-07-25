@@ -32,7 +32,7 @@ my $V_SEARCH = Exploits::V_SEARCH();
 ## SEARCH
 sub msearch {
   my ($ua, $dork, $Target, $mlevel, $dorks, $motors, $v_apikey, $cx, $zone, $unique, $ifinurl, $searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders) = @_;
-  my @aTsearch;
+  my (@aTsearch, @aTsearchs);
   my $level = $mlevel * 10;
   for my $engine(@{$motors}) {
     for my $drk(@{$dorks}) {
@@ -57,9 +57,9 @@ sub msearch {
 		  my $getme = new Getme();		  
 		  my $res = $getme->navsearch($ua, $engine, $fullHeaders);
 		  if ($engine =~ /googleapis./) {
-            my @aTsearchs = doSearchApis($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
+            @aTsearchs = doSearchApis($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
 		  }else{
-            my @aTsearchs = doSearch($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
+            @aTsearchs = doSearch($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
 		  }
 		  push @aTsearch, @aTsearchs;
           $engine =~ s/=$npages/=MYNPAGES/ig;

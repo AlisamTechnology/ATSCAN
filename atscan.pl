@@ -390,7 +390,7 @@ for my $targ(@targets) {
 	  my ($redirect, $re, $ht, $st, $sh, $fh);	
 	  if (defined $data) {
 	    my $datas = $url->dataFields($data);
-	    ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navdatapost($ua, $get, $post, $url, $datas, $fullHeaders);
+	    ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navdatapost($ua, $get, $post, $ur, $datas, $fullHeaders);
 	  }else{
 	    ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $ur, $fullHeaders, $post, $get);
 	  }
@@ -445,8 +445,7 @@ for my $targ(@targets) {
 	
 	  ## EXTERN COMMANDS
 	  if (defined $command && !defined $shodan) {
-	    my $ext_cmd = Print::checkExternComnd($ur, \@commands);
-	    Print::extern_process($ur, $popup, $ext_cmd);
+		Print::checkExternComnd($ur, $popup, \@commands);
 	  }	
 	
 	  ## ZONE-H

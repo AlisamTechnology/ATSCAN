@@ -62,30 +62,31 @@ sub bad {
 #########################################################################################################################
 ## EXTERN COMMAND EXECUTION
 sub checkExternComnd {
-  my ($url, $commands)=@_;
+  my ($url, $popup, $commands)=@_;
   my $ic=0;
-  for my $comnd(@{$commands}) {
+  for (@{$commands}) {
+    my $cmdBase = $_;  
     $ic++;
-	$comnd = Subs::replaceReferencies($url, $comnd);
-	print $c[1]." $DT[24]   $c[10] [".$ic."/".scalar(@{$commands})."] [$comnd]\n";
-	$comnd = Subs::getComnd($url, $comnd);
-	return $comnd;
+	$cmdBase = Subs::replaceReferencies($url, $cmdBase);
+	print $c[1]." $DT[24]   $c[10] [".$ic."/".scalar(@{$commands})."] [$cmdBase]\n";
+	$cmdBase = Subs::getComnd($url, $cmdBase);
+	extern_process($url, $popup, $cmdBase);
   }
 }
 
 ###########################################################################################################
 ## EXTERN COMMANDS
 sub extern_process {
-  my ($u, $popup, $comnd) = @_;
+  my ($u, $popup, $ext_cmd) = @_;
   if (defined $popup) {
-    $comnd="xterm -title '$u' -hold -e '$comnd'";
+    $ext_cmd ="xterm -title '$u' -hold -e '$ext_cmd'";
     print "$c[4]            [!] $c[10]Opening process in extern window..\n";
     sleep 2;
     print $c[8]."            ";
-    system("$comnd & ");
+    system("$ext_cmd & ");
   }else{
     print $c[8]."            ";
-    system("$comnd");
+    system("$ext_cmd");
   }
   print $c[1]. "." x 75 ."\n";
 }

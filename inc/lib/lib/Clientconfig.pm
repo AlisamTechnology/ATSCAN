@@ -55,9 +55,9 @@ sub deletSetting {
   my $val=$_[0];
   unlink $userSetting;
   open FH, ">", $userSetting;
-  for my $lines(@config) {
-    if ($lines!~/^$val\s(.*)/) {
-      print FH "$lines";
+  for (@config) {
+    if ($_!~/^$val\s(.*)/) {
+      print FH "$_";
     }
   }
   close FH;
@@ -86,9 +86,9 @@ sub cleanImput {
   my ($ps, $res) = @_;
   my ($act, $op, $vl);
   my @pars2;
-  for my $par(@pars) {
-    if ($ps=~/\b$par\b/) {
-      $act=$par;
+  for (@pars) {
+    if ($ps=~/\b$_\b/) {
+      $act=$_;
       @pars2=split(" ", $ps);
       if (($pars2[1] && (grep /$pars2[1]/, @{$res})) || ($pars2[0] eq "options") || ($pars2[1] eq "exit")) {
         $op=$pars2[1];
@@ -168,8 +168,8 @@ sub ClientConfiguration {
                 print $c[4]."[!] $vl $AUTH[25]\n";
               }else{
                 @confSet=get_configuration();
-                for my $configuration(@confSet) {
-                  if ($configuration=~/$op/) {
+                for (@confSet) {
+                  if ($_=~/$op/) {
                     deletSetting($op);
                   }
                 }
@@ -208,14 +208,14 @@ sub ClientConfiguration {
             }elsif ($act eq "reset") {
               @confReset = get_configuration();
               if ($op eq "all") {        
-                for my $y(@res) {
-                  system "rm $Bin/inc/conf/user/$y.txt" if -e $Bin."/inc/conf/user/$y.txt";
+                for (@res) {
+                  system "rm $Bin/inc/conf/user/$_.txt" if -e $Bin."/inc/conf/user/$_.txt";
                 }
                 unlink $userSetting;
                 open FH, ">", $userSetting;
-                for my $ln(@confReset) {
-                  if ($ln=~/^##/) {
-                    print FH "$ln";
+                for (@confReset) {
+                  if ($_=~/^##/) {
+                    print FH "$_";
                   }
                 }
                 close FH;
@@ -237,12 +237,12 @@ sub ClientConfiguration {
               print $c[10]."+"."=" x 70 ."\n";
               print $c[10]."| $c[11]OPTION                  $c[10] | $c[11]VALUE\n";
               print $c[10]."+"."=" x 70 ."\n";
-              for my $lines2(@confShown) {
-                if ($lines2!~/(##|config)/) {
+              for (@confShown) {
+                if ($_!~/(##|config)/) {
                   $a1++;
-                  my @printConf3=split(" ", $lines2) if (!($lines2=~/^$/));
-                  $lines2=~s/$printConf3[0]\s//ig;
-                  $lines2 =~ s/\s+$//;              
+                  my @printConf3=split(" ", $_) if (!($_=~/^$/));
+                  $_=~s/$printConf3[0]\s//ig;
+                  $_ =~ s/\s+$//;              
                   my $length=length($printConf3[0]);
                   my $addlength = 25 - $length;
                   my $fname=$Bin."/inc/conf/user/$printConf3[0].txt";
@@ -258,7 +258,7 @@ sub ClientConfiguration {
                     if ($printConf3[0] eq "password") {
                       print $c[10]."| ********\n";
                     }else{
-                      print $c[10]."| $lines2\n";
+                      print $c[10]."| $_\n";
                     }
                   }
                 }

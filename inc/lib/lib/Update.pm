@@ -95,10 +95,10 @@ sub update {
     if (-d "/usr/share/doc/atscan") {
       my @f=("README.md", "License.txt");
       print $c[10]."[i] $ZT[5] License files...\n";
-      for my $f(@f) {
-        system "cp -r $Bin/atscan_update/$f /usr/share/doc/atscan/";
-        if (!-e "/usr/share/doc/atscan/$f") {
-          print $c[4]."$er write to /usr/share/doc/atscan/$f!\n";
+      for (@f) {
+        system "cp -r $Bin/atscan_update/$_ /usr/share/doc/atscan/";
+        if (!-e "/usr/share/doc/atscan/$_") {
+          print $c[4]."$er write to /usr/share/doc/atscan/$_!\n";
         }
       }
     }
@@ -158,8 +158,8 @@ sub update {
     if (@userSetting) {
       print $c[10]."[i] $ZT[6]... \n";
       open (FE, '>>', $userSetting) or Print::nochmod($userSetting, "");
-      for my $spss(@userSetting) {
-        print FE "$spss\n";
+      for (@userSetting) {
+        print FE "$_\n";
       }
       close(FE);
     }  
@@ -183,10 +183,10 @@ sub update {
   
     ###############################################
     my @unlinks=($scriptComplInstall, $scriptInstall, $Bin."/README.md", $Bin."/License.txt", $script_bac);
-    for my $unlink(@unlinks) {
-      unlink $unlink if -e $unlink;
-      if (-e $unlink) {
-        print $c[3]."$er remove $unlink!\n";
+    for (@unlinks) {
+      unlink $_ if -e $_;
+      if (-e $_) {
+        print $c[3]."$er remove $_!\n";
       }
     }
     sleep(1);

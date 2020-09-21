@@ -163,7 +163,10 @@ sub print_valid_info {
 ## PRINT INFO
 sub print_info1 {
   my ($dork, $mlevel, $motor, $numotors, $mrandom, $ifinurl, $unique, $post, $get, $getlinks) = @_;
-  print $c[5]."[::] DORK       $c[10] [$dork]\n" if $dork;
+  if ($dork) {
+    $dork =~s/\[OTHER\]/\| /s;
+    print $c[5]."[::] DORK       $c[10] [$dork]\n";
+  }
   print $c[5]."[::] LEVEL      $c[10] [$mlevel]\n" if $mlevel;
   print $c[5]."[::] ENGINES    $c[10] [$motor]\n" if $motor;
   print $c[5]."[::] ENGINES    $c[10] [Default: bing]\n" if (!$motor && $numotors eq 1);
@@ -313,8 +316,8 @@ sub print_End {
 sub print_End1 {
   my ($ht, $regs, $output, $beep) = @_;
   my $hssab=0;
-  for my $reg(@{$regs}) {  
-    while ($ht=~/$reg/g) {
+  for (@{$regs}) {  
+    while ($ht=~/$_/g) {
       $hssab++;
       print " | " if $hssab > 1;
       print $c[3]."$1";
@@ -428,10 +431,10 @@ sub print_geoloc {
 	sleep 2;
 	my @geodata=split(",\"", $html);
 	my @re=('\"', '\{', '\}', '\]');
-	for my $geodata(@geodata) { 
-      for (@re) { $geodata=~s/$_//g if defined $_; }
-	  if ($geodata && $geodata!~/(\@|count:|error:|status:|myip:)/) {
-	    my @zgh=split(":", $geodata);
+	for (@geodata) { 
+      for (@re) { $_=~s/$_//g if defined $_; }
+	  if ($_ && $_!~/(\@|count:|error:|status:|myip:)/) {
+	    my @zgh=split(":", $_);
 		print "$c[10]            - $zgh[0]: ";
 		if ($zgh[1]) {
 		  print "$c[3]$zgh[1]\n";

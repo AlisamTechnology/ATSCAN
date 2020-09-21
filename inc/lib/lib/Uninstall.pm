@@ -35,10 +35,10 @@ sub uninstall {
   chomp ($resp);
   if ($resp=~/(Y|y)/) {
     my @uninstall=($scriptbash, $script, "$scriptCompletion/atscan", "/usr/share/applications/atscan.desktop");
-    for my $mm(@uninstall) {
-      print $c[10]."[i] $ZT[8] $mm... ";
-      unlink $mm if -e $mm;
-      if (!-e $mm) { Print::cc(); }else{ Print::bb(); }
+    for (@uninstall) {
+      print $c[10]."[i] $ZT[8] $_... ";
+      unlink $_ if -e $_;
+      if (!-e $_) { Print::cc(); }else{ Print::bb(); }
     }
     
 	my @deleteIcons=( "/usr/share/icons/hicolor/16x16/apps/atscan-menu.png", 
@@ -47,10 +47,10 @@ sub uninstall {
 					  "/usr/share/icons/hicolor/48x48/apps/atscan-menu.png", 
 					  "/usr/share/icons/hicolor/256x256/apps/atscan-menu.png"
 					 );
-    for my $ico(@deleteIcons) {
-      print $c[10]."[i] $ZT[8] $ico... ";
-      unlink $ico if -e $ico;
-      if (!-e $ico) { Print::cc(); }else{ Print::bb(); }
+    for (@deleteIcons) {
+      print $c[10]."[i] $ZT[8] $_... ";
+      unlink $_ if -e $_;
+      if (!-e $_) { Print::cc(); }else{ Print::bb(); }
     }
 	
     print $c[10]."[i] $ZT[8] $Bin/inc... ";

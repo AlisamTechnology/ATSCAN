@@ -50,12 +50,12 @@ sub check_list_prx {
   my ($ua, $proxies) = @_;
   my @connected_proxies;
   print $c[4]."[!]$c[10] Checking proxy connection...";
-  for my $psx(@{$proxies}) {
-    my $r = check_proxy_connect($ua, $psx);
+  for (@{$proxies}) {
+    my $r = check_proxy_connect($ua, $_);
     if (!$r) { 
-	  print $c[2]."\n[!] Failed to connect with [$psx]";
+	  print $c[2]."\n[!] Failed to connect with [$_]";
 	}else{
-	  push @connected_proxies, $psx;
+	  push @connected_proxies, $_;
 	}
   }
   print_connecttions(scalar @connected_proxies, scalar @{$proxies}, "proxies");
@@ -68,12 +68,12 @@ sub check_list_apikey {
   my ($ua, $apikeys, $cx, $shodan) = @_;
   my @connected_apikeys;
   print $c[4]."[!]$c[10] Checking apikey connection...";
-  for my $apk(@{$apikeys}) {
-    my $r = check_apikey_connect($ua, $apk, $cx, $shodan);
+  for (@{$apikeys}) {
+    my $r = check_apikey_connect($ua, $_, $cx, $shodan);
     if ($r!~/(\"Bad Request\"|\"dailyLimitExceeded\"|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) { 
-      push @connected_apikeys, $apk;
+      push @connected_apikeys, $_;
 	}else{
-	  print $c[2]."\n[!] Failed to connect with [$apk]";
+	  print $c[2]."\n[!] Failed to connect with [$_]";
 	  print $c[4]."\n    Message: [$1]";
 	}
   }

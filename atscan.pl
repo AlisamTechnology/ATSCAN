@@ -194,7 +194,10 @@ for ($exploit, $expHost, $expIp) { @exploits = Subs::buildArrays($_) if (defined
 if (!defined $shodan) {
   my $build_dorks = new Target();
   if (defined $mlevel || $mlevel) {
-    if (defined $dork) { @dorks = Subs::buildArrays($dork); }
+    if (defined $dork) { 
+	  @dorks = Subs::buildArrays($dork);
+	  #for(@dorks) {print "$_ - ";}
+	}
     elsif (defined $Target) {
 	  my $dorks = $build_dorks->_build_me($Target);
       @dorks = @{$dorks};
@@ -228,7 +231,10 @@ my $start = Subs::frequency();
 
 ## CHECK FOR UPDATE
 use Upad;
-Upad::checkforupdates($ua, $fullHeaders, $dateupdate);
+if (defined $dork || defined $Target) {
+  use Upad;
+  Upad::checkforupdates($ua, $fullHeaders, $dateupdate);
+}
 
 ## UPDATE
 use Update;
@@ -363,11 +369,11 @@ for my $targ(@targets) {
   @target_urls = Subs::target_urls_repeater(\@target_urls);
   
   my $i = 0;
-  for my $ur(@target_urls) {
-    if ($ur !~/(\=rang|\=repeat)/) {
+  for (@target_urls) {
+    if ($_ !~/(\=rang|\=repeat)/) {
       $i++;
 	  ## PRINT URL
-	  Print::print_Beg($ur, $i, scalar @exploits, $isscan);
+	  Print::print_Beg($_, $i, scalar @exploits, $isscan);
 
 	  ## PORTS
 	  if (defined $port) {
@@ -375,7 +381,7 @@ for my $targ(@targets) {
 	    my $psx = $v_proxies[rand @v_proxies] if (defined $proxy);	  
 	    $psx = $getme->newpsx($ua, $freq, $start, $v_proxies, $freq, $start, $psx, $prandom) if (defined $prandom);	  
 	    use Scanport;
-	    Scanport::ports($ur, \@commands, $port, $udp, $tcp, $proxy, $prandom, $psx, $ping, $timeout);
+	    Scanport::ports($_, \@commands, $port, $udp, $tcp, $proxy, $prandom, $psx, $ping, $timeout);
 	    exit;
 	  }
 	
@@ -389,10 +395,10 @@ for my $targ(@targets) {
 	  ## GET URL
 	  my ($redirect, $re, $ht, $st, $sh, $fh);	
 	  if (defined $data) {
-	    my $datas = $url->dataFields($data);
-	    ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navdatapost($ua, $get, $post, $ur, $datas, $fullHeaders);
+	    my $datas = $_->dataFields($data);
+	    ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navdatapost($ua, $get, $post, $_, $datas, $fullHeaders);
 	  }else{
-	    ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $ur, $fullHeaders, $post, $get);
+	    ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $_, $fullHeaders, $post, $get);
 	  }
 	
 	  my $continue;
@@ -426,7 +432,7 @@ for my $targ(@targets) {
 	  $in++;
 	
 	  ## PRINT VALID SCAN
-	  Print::print_End($ur, $st, $ht, $valido, $isscan, \@regs, $output, $beep) if $continue;
+	  Print::print_End($_, $st, $ht, $valido, $isscan, \@regs, $output, $beep) if $continue;
 	
 	  ## GEOLOC
 	  if (defined $geoloc) {
@@ -440,20 +446,20 @@ for my $targ(@targets) {
 		
 	  ## PRINT SAVE HTML AND HEADERS
 	  if (defined $content) {  Print::print_content($ht); }
-	  if (defined $msource) { Print::printSource($ur, $ht, $msource); }
+	  if (defined $msource) { Print::printSource($_, $ht, $msource); }
 	  if (defined $fullHeaders) { Print::fullRequestHeaders(); }  
 	
 	  ## EXTERN COMMANDS
 	  if (defined $command && !defined $shodan) {
-		Print::checkExternComnd($ur, $popup, \@commands);
+		Print::checkExternComnd($_, $popup, \@commands);
 	  }	
 	
 	  ## ZONE-H
 	  if (defined $zoneH) {
-	    my $hz = $getme->navpost($ua, $zoneH, $ur, $fullHeaders);
+	    my $hz = $getme->navpost($ua, $zoneH, $_, $fullHeaders);
 	    Print::print_zoneH($hz) if $hz;
 	  }
-	  push @aTscans, $ur if $valido;
+	  push @aTscans, $_ if $valido;
 	  last if $in eq $limit;
 	}
   }

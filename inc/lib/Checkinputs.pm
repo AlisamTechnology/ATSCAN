@@ -17,9 +17,9 @@ sub Check_Inputs {
   my $ht = $_[0];
   my @V_INPUT = Exploits::V_INPUT();
   my $k;
-  for my $input(@V_INPUT) {
+  for (@V_INPUT) {
     my $type="type=";
-    $type.= "\"$input\"";
+    $type.= "\"$_\"";
 	my $k;
 	if ($ht=~/<input(.*)$type/) {
 	  $k = 1;

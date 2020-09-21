@@ -45,9 +45,9 @@ my @c = Print::colors();
 sub checkCms {
   my $ht = $_[0];  
   my $j=1;
-  for my $CMS(@CMS) { 
-    if ( $ht=~/$CMS/ ) { 
-      $type = checkCmsType($CMS); 
+  for (@CMS) { 
+    if ( $ht=~/$_/ ) { 
+      $type = checkCmsType($_); 
 	  print $c[1]." CMS       $c[4]$type \n" if $type;
 	  last;	    
 	} 

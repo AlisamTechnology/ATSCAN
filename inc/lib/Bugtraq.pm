@@ -43,14 +43,14 @@ sub sep { print $c[1]." ========================================================
 ## GET BUGS
 sub bugs {
   my ($ua, $dork, $dorks, $mlevel, $limit, $fullHeaders) = @_;
-  for my $btq(@{$dorks}) {
+  for (@{$dorks}) {
     print $c[11];
     my $now = Subs::now();
-    print "[$now] ::: EXPLORING [$btq] ISSUES :::\n";
+    print "[$now] ::: EXPLORING [$_] ISSUES :::\n";
     sleep 2;
-    $btq=~s/\s/%20/g;
+    $_=~s/\s/%20/g;
     for(my $npages=1;$npages<=$mlevel;$npages+=1) {
-      my $u = "https://cxsecurity.com/search/wlb/DESC/AND/$e 1999.1.1/$npages/30/$btq/";
+      my $u = "https://cxsecurity.com/search/wlb/DESC/AND/$e 1999.1.1/$npages/30/$_/";
       $u=~s/\s//g;
 	  my $getme = new Getme();
 	  my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $u, $fullHeaders, "", "");		  
@@ -130,12 +130,12 @@ sub escape {
 sub printBugs {
   my $m=scalar @refer;
   my $x=0;
-  for my $refer(@refer) {
+  for (@refer) {
     $x++;
     print "$c[1] ";
     my $now = Subs::now();
     print "[$now][$x/$m]\n";
-    my @rer=split("=>", $refer);
+    my @rer=split("=>", $_);
     print $c[1]." ISSUE  $c[6]$rer[0]\n";
     print $c[1]." ID     $c[10]$rer[1]\n";
     print $c[1]." RISK   $c[10]$rer[2]\n";

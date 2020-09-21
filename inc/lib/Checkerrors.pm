@@ -39,46 +39,46 @@ sub check_Errors {
   if ($ht =~ /$ERROR/) {
     Print::title_errors();
     my (@E1, @E2, @E3, @E4, @E5, @E6, @E7, @E8, @E9, @E10, @E11, @E12, @E13, @E14, @E15, @E16, @E17, @E18, @E19);
-    for my $ERR(@ERR) {
-      if ($ht=~/$ERR/g) {
-        if (grep( /^$ERR$/, @V_LFI)) { push(@E1, $ERR); }
-        if (grep( /^$ERR$/, @V_XSS)) { push(@E2, $ERR); }
-        if (grep( /^$ERR$/, @V_AFD)) { push(@E3, $ERR); }
-        if (grep( /^$ERR$/, @E_MICROSOFT)) { push(@E4, $ERR); }
-        if (grep( /^$ERR$/, @E_ORACLE)) { push(@E5, $ERR); }
-        if (grep( /^$ERR$/, @E_DB2)) { push(@E6, $ERR); }
-        if (grep( /^$ERR$/, @E_ODBC)) { push(@E7, $ERR); }
-        if (grep( /^$ERR$/, @E_POSTGRESQL)) { push(@E8, $ERR); }
-        if (grep( /^$ERR$/, @E_SYBASE)) { push(@E9, $ERR); }
-        if (grep( /^$ERR$/, @E_JBOSSWEB)) { push(@E10, $ERR); }
-        if (grep( /^$ERR$/, @E_JDBC)) { push(@E11, $ERR); }
-        if (grep( /^$ERR$/, @E_JAVA)) { push(@E12, $ERR); }
-        if (grep( /^$ERR$/, @E_PHP)) { push(@E13, $ERR); }
-        if (grep( /^$ERR$/, @E_ASP)) { push(@E14, $ERR); }
-        if (grep( /^$ERR$/, @E_LUA)) { push(@E15, $ERR); }
-        if (grep( /^$ERR$/, @E_UNDEFINED)) { push(@E16, $ERR); }
-        if (grep( /^$ERR$/, @E_MARIADB)) { push(@E17, $ERR); }
-        if (grep( /^$ERR$/, @E_SHELL)) { push(@E18, $ERR); }
+    for (@ERR) {
+      if ($ht=~/$_/g) {
+        if (grep( /^$_$/, @V_LFI)) { push(@E1, $_); }
+        if (grep( /^$_$/, @V_XSS)) { push(@E2, $_); }
+        if (grep( /^$_$/, @V_AFD)) { push(@E3, $_); }
+        if (grep( /^$_$/, @E_MICROSOFT)) { push(@E4, $_); }
+        if (grep( /^$_$/, @E_ORACLE)) { push(@E5, $_); }
+        if (grep( /^$_$/, @E_DB2)) { push(@E6, $_); }
+        if (grep( /^$_$/, @E_ODBC)) { push(@E7, $_); }
+        if (grep( /^$_$/, @E_POSTGRESQL)) { push(@E8, $_); }
+        if (grep( /^$_$/, @E_SYBASE)) { push(@E9, $_); }
+        if (grep( /^$_$/, @E_JBOSSWEB)) { push(@E10, $_); }
+        if (grep( /^$_$/, @E_JDBC)) { push(@E11, $_); }
+        if (grep( /^$_$/, @E_JAVA)) { push(@E12, $_); }
+        if (grep( /^$_$/, @E_PHP)) { push(@E13, $_); }
+        if (grep( /^$_$/, @E_ASP)) { push(@E14, $_); }
+        if (grep( /^$_$/, @E_LUA)) { push(@E15, $_); }
+        if (grep( /^$_$/, @E_UNDEFINED)) { push(@E16, $_); }
+        if (grep( /^$_$/, @E_MARIADB)) { push(@E17, $_); }
+        if (grep( /^$_$/, @E_SHELL)) { push(@E18, $_); }
       }
     }
-    if (@E1) { for my $E(@E1) { Print::print_errors($ErrT[0], $E); } }    
-    if (@E2) { for my $E(@E2) { Print::print_errors($ErrT[1], $E); } }
-    if (@E3) { for my $E(@E3) { Print::print_errors($ErrT[2], $E); } }
-    if (@E4) { for my $E(@E4) { Print::print_errors($ErrT[3], $E); } }
-    if (@E5) { for my $E(@E5) { Print::print_errors($ErrT[4], $E); } }
-    if (@E6) { for my $E(@E6) { Print::print_errors($ErrT[5], $E); } }
-    if (@E7) { for my $E(@E7) { Print::print_errors($ErrT[6], $E); } }
-    if (@E8) { for my $E(@E8) { Print::print_errors($ErrT[7], $E); } }
-    if (@E9) { for my $E(@E9) { Print::print_errors($ErrT[8], $E); } }
-    if (@E10) { for my $E(@E10) { Print::print_errors($ErrT[9], $E); } }
-    if (@E11) { for my $E(@E11) { Print::print_errors($ErrT[10], $E); } }
-    if (@E12) { for my $E(@E12) { Print::print_errors($ErrT[11], $E); } }
-    if (@E13) { for my $E(@E13) { Print::print_errors($ErrT[12], $E); } }
-    if (@E14) { for my $E(@E14) { Print::print_errors($ErrT[13], $E); } }
-    if (@E15) { for my $E(@E15) { Print::print_errors($ErrT[14], $E); } }
-    if (@E16) { for my $E(@E16) { Print::print_errors($ErrT[15], $E); } }
-    if (@E17) { for my $E(@E17) { Print::print_errors($ErrT[16], $E); } }
-    if (@E18) { for my $E(@E18) { Print::print_errors($ErrT[17], $E); } }
+    if (@E1) { for (@E1) { Print::print_errors($ErrT[0], $_); } }    
+    if (@E2) { for (@E2) { Print::print_errors($ErrT[1], $_); } }
+    if (@E3) { for (@E3) { Print::print_errors($ErrT[2], $_); } }
+    if (@E4) { for (@E4) { Print::print_errors($ErrT[3], $_); } }
+    if (@E5) { for (@E5) { Print::print_errors($ErrT[4], $_); } }
+    if (@E6) { for (@E6) { Print::print_errors($ErrT[5], $_); } }
+    if (@E7) { for (@E7) { Print::print_errors($ErrT[6], $_); } }
+    if (@E8) { for (@E8) { Print::print_errors($ErrT[7], $_); } }
+    if (@E9) { for (@E9) { Print::print_errors($ErrT[8], $_); } }
+    if (@E10) { for (@E10) { Print::print_errors($ErrT[9], $_); } }
+    if (@E11) { for (@E11) { Print::print_errors($ErrT[10], $_); } }
+    if (@E12) { for (@E12) { Print::print_errors($ErrT[11], $_); } }
+    if (@E13) { for (@E13) { Print::print_errors($ErrT[12], $_); } }
+    if (@E14) { for (@E14) { Print::print_errors($ErrT[13], $_); } }
+    if (@E15) { for (@E15) { Print::print_errors($ErrT[14], $_); } }
+    if (@E16) { for (@E16) { Print::print_errors($ErrT[15], $_); } }
+    if (@E17) { for (@E17) { Print::print_errors($ErrT[16], $_); } }
+    if (@E18) { for (@E18) { Print::print_errors($ErrT[17], $_); } }
   }
 }   
 

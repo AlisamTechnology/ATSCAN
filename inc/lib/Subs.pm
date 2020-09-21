@@ -34,13 +34,13 @@ sub target_urls_repeater {
   my $target_urls = $_[0];
   my @target_urls = @{$target_urls};
   my @repeater_urls1;
-  for my $tar(@target_urls) {
-    $tar =~ s/\s//g;
+  for (@target_urls) {
+    $_ =~ s/\s//g;
 	my @targets1;
-    if ($tar !~ /^(http|https):\/\//) { $tar = "http://$tar"; }
-    my @repeater1 = repeat($tar) if ($tar =~ /repeat\((.*)\-(\d+)\)/);
+    if ($_ !~ /^(http|https):\/\//) { $_ = "http://$_"; }
+    my @repeater1 = repeat($_) if ($_ =~ /repeat\((.*)\-(\d+)\)/);
     push @repeater_urls1, @repeater1;
-    my @rang = rang($tar) if ($tar =~ /rang\((\d+)\-(\d+)\)/);
+    my @rang = rang($_) if ($_ =~ /rang\((\d+)\-(\d+)\)/);
     push @repeater_urls1, @rang;
   }
   push @target_urls, @repeater_urls1;
@@ -69,9 +69,9 @@ sub portProtocol {
   '554'=>'RTSP', '902'=>'ISS-REALSECURE', '912'=>'APEX-MESH', '995'=>'POP3-SSL', '993'=>'IMAP-SSL', '2086'=>'WHM/CPANEL', '2087'=>'WHM/CPANEL', '2082'=>'CPANEL', '2083'=>'CPANEL',
   '2869'=>'ICSLAP', '3306'=>'MYSQL', '5357'=>'WSDAPI', '8443'=>'PLESK', '10000'=>'VIRTUALMIN/WEBMIN');
   my $portProtocol="UNKNOWN";
-  for my $key (keys %proto) {
-    if ($key eq $por) {
-      $portProtocol=$proto{$key};
+  for (keys %proto) {
+    if ($_ eq $por) {
+      $portProtocol=$proto{$_};
     }
   }
   return $portProtocol;
@@ -233,8 +233,8 @@ sub getTargetProtocol {
   my $URL = $_[0];
   my $protocol = "";
   my @protocols = ('http:', 'https:', 'ftp:', 'ftps:', 'socks:', 'socks4:', 'socks5:');
-  for my $targetProtocol(@protocols) {
-    if (index($URL, $targetProtocol) != -1) { $protocol = $targetProtocol; }
+  for (@protocols) {
+    if (index($URL, $_) != -1) { $protocol = $_; }
   }
   return $protocol;
 }
@@ -263,7 +263,7 @@ sub buildArrays {
     }
   }else{
     $buildArrays =~ s/\s+$//g;
-    $buildArrays =~ s/^\[OTHER]//g;
+    $buildArrays =~ s/^\[OTHER\]//g;
     @buildArrays = split /\[OTHER\]/, $buildArrays;
   }
   return @buildArrays;
@@ -309,19 +309,19 @@ sub target_urls {
   my ($url, $params, $exploits, $subdomain, $JoomRFI, $shell) = @_;
   my @target_urls;
   if (scalar @{$exploits} > 0) {
-    for my $exp(@{$exploits}) {
+    for (@{$exploits}) {
 	  my $tg = $url;
 	  if (defined $subdomain) {
-	    $tg = "$exp".$tg;
+	    $tg = "$_".$tg;
 	  }elsif (defined $JoomRFI) {
-	    $tg = $tg."$exp".$shell;
+	    $tg = $tg."$_".$shell;
 	  }else{
-	    $tg = $tg."$exp";
+	    $tg = $tg."$_";
 	  }
 	  push @target_urls, $tg;
       if (scalar @{$params} > 0) {
 	    for my $param(@{$params}) {
-	      my @add = check_params($tg, $exp, $param);
+	      my @add = check_params($tg, $_, $param);
 		  push @target_urls, @add;
 		}
 	  }
@@ -375,10 +375,10 @@ sub rang {
   my @add;
   if ($url =~ /rang\((\d+)\-(\d+)\)/) {
     my @rangQ = ($1 .. $2);
-    for my $rangQ(@rangQ) {
+    for (@rangQ) {
 	  my $rng = new Target();
 	  $url = $rng->noQuery($url);
-	  $url.= $rangQ;
+	  $url.= $_;
 	  push @add, $url;
 	}
   }

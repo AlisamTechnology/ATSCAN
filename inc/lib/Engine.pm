@@ -86,16 +86,16 @@ sub get_engine {
 	push @motor, "bing" if (scalar @motor < 1);
 	
     ## build
-    for my $mot(@motor) {
-      if ($mot =~/^bing$/) { $mot = soubstituteRefs($motor1); }
-      if ($mot =~/^google$/) { $mot = soubstituteRefs($motor2); }
-      if ($mot =~/^googlecache$/) { $mot = soubstituteRefs($motor3); }
-      if ($mot =~/^googleapis$/) { $mot = soubstituteRefs($motor4); }
-      if ($mot =~/^sogou$/) { $mot = soubstituteRefs($motor5); }
-      if ($mot =~/^exalead$/) { $mot = soubstituteRefs($motor6); }
-      if ($mot =~/^ask$/) { $mot = soubstituteRefs($motor7); }
-      if ($mot =~/^yandex$/) { $mot = soubstituteRefs($motor8); }	
-	  push @motors, $mot;
+    for (@motor) {
+      if ($_ =~/^bing$/) { $_ = soubstituteRefs($motor1); }
+      if ($_ =~/^google$/) { $_ = soubstituteRefs($motor2); }
+      if ($_ =~/^googlecache$/) { $_ = soubstituteRefs($motor3); }
+      if ($_ =~/^googleapis$/) { $_ = soubstituteRefs($motor4); }
+      if ($_ =~/^sogou$/) { $_ = soubstituteRefs($motor5); }
+      if ($_ =~/^exalead$/) { $_ = soubstituteRefs($motor6); }
+      if ($_ =~/^ask$/) { $_ = soubstituteRefs($motor7); }
+      if ($_ =~/^yandex$/) { $_ = soubstituteRefs($motor8); }	
+	  push @motors, $_;
 	}
   }
 

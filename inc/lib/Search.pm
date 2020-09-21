@@ -28,49 +28,48 @@ my $nolisting="q=|0day|pastebin|\/\/t.co|google.|youtube.|jsuol.com|.radio.uol.|
 
 my $V_SEARCH = Exploits::V_SEARCH();
 
-##########################################################################################################
 ## SEARCH
 sub msearch {
   my ($ua, $dork, $Target, $mlevel, $dorks, $motors, $v_apikey, $cx, $zone, $unique, $ifinurl, $searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders) = @_;
   my (@aTsearch, @aTsearchs);
   my $level = $mlevel * 10;
-  for my $engine(@{$motors}) {
-    for my $drk(@{$dorks}) {
-	  if ($drk =~ /^(http|www)/) {
+  for my $engine(@{$motors}) {  
+    for (@{$dorks}) {	
+	  if ($_ =~ /^(http|www)/) {
 		my $ut = new Target();
-        $drk = $ut->cleanURL($drk);
-		$drk = "site%3A".$drk;
+        $_ = $ut->cleanURL($_);
+		$_ = "site%3A".$_;
       }
-      if ($zone) { $drk = "site%3A$zone ".$drk; }
-      $drk =~ s/\s+$//;
-      $drk =~ s/ /+/g;
-      $drk =~ s/^(\+|\s+)//g;
-      if (length $drk > 0) {      
-        $engine =~ s/MYDORK/$drk/g;
+      if ($zone) { $_ = "site%3A$zone ".$_; }
+      $_ =~ s/\s+$//;
+      $_ =~ s/ /+/g;
+      $_ =~ s/^(\+|\s+)//g;
+      if (length $_ > 0) {      
+        $engine =~ s/MYDORK/$_/g;
         for(my $npages=1;$npages<=$level;$npages+=10) {
           $engine =~ s/MYNPAGES/$npages/g;
           if ($engine =~ /MYAPIKEY/) {
             $engine =~ s/MYAPIKEY/$v_apikey/;
 			$engine =~ s/MYCX/$cx/g;
           }
-		  		  
+		  
 		  my $getme = new Getme();		  
 		  my $res = $getme->navsearch($ua, $engine, $fullHeaders);
 		  if ($engine =~ /googleapis./) {
-            @aTsearchs = doSearchApis($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
+            @aTsearchs = doSearchApis($res, $_, $engine, $unique, $ifinurl, \@{$searchRegexs});  
 		  }else{
-            @aTsearchs = doSearch($res, $drk, $engine, $unique, $ifinurl, \@{$searchRegexs});  
+            @aTsearchs = doSearch($res, $_, $engine, $unique, $ifinurl, \@{$searchRegexs});  
 		  }
 		  push @aTsearch, @aTsearchs;
           $engine =~ s/=$npages/=MYNPAGES/ig;
         }
-        $engine =~ s/\Q$dork/MYDORK/ig;
+        $engine =~ s/\Q$_/MYDORK/ig;
       }
     }
   }  
   return \@aTsearch;
 }
-
+###############################################################################################################
 #########################################################################################################################
 ## GET URLS FROM SEARCH ENGINE PAGES
 sub doSearch {
@@ -92,8 +91,8 @@ sub doSearch {
 sub checkSearchRegex {
   my ($u, $searchRegexs) = @_;
   my $vu;
-  for my $reg(@{$searchRegexs}) {
-    if ($u =~ /$reg/g) {
+  for (@{$searchRegexs}) {
+    if ($u =~ /$_/g) {
 	  $vu = $u; last;
 	}
   }
@@ -108,8 +107,8 @@ sub doSearchApis {
   if ($Res) {
     $Res = Subs::_json($Res);
     my @found = @{ $Res->{'items'} };
-    for my $found(@found) {
-	  my $link = $found->{'link'};
+    for (@found) {
+	  my $link = $_->{'link'};
 	  $link = do_needed($link, $drk, $unique, $ifinurl, $searchRegexs) if $link;
 	  push @aTsearch, $link if $link;
 	}
@@ -133,8 +132,8 @@ sub do_needed {
     }
 	my $vURL;
 	if (scalar @{$searchRegexs} > 0) {
-	  for my $reg(@{$searchRegexs}) {
-	    if ($URL =~ /$reg/) {
+	  for (@{$searchRegexs}) {
+	    if ($URL =~ /$_/) {
 		  $vURL = $URL;
 		}
 	  }
@@ -157,15 +156,14 @@ sub doDeepSearch {
   my $nodeeplisting="q=|.png|.jepg|.css|.js|jpg|.xml|utm_|doubleclick.|ie=UTF";
   my @deep;  
   Print::print_general("4", "[!] Scraping engine targets...");
-  for my $link(@{$targets}) {
-    #if (substr($link, -1) eq "\/") { $link=chop($link); }
+  for (@{$targets}) {
     my $getme = new Getme;
-    my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $link, $fullHeaders, $post, $get);
+    my ($redir, $re, $ht, $st, $sh, $fh) = $getme->navget($ua, $_, $fullHeaders, $post, $get);
     while ($ht =~m/href=\"([^>\"\<\'\(\)\#\,\s]*)/g) {
 	  my $llk=$1;
 	  if ($llk!~/$nolisting/ and $llk!~/$nodeeplisting/) {
 	    if ($llk!~/^https?:\/\//) { 
-		  $llk="$link/$llk";
+		  $llk="$_/$llk";
         } 
         my $cllk=$llk;
 	    $llk=Subs::removeProtocol($llk);

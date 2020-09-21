@@ -126,11 +126,11 @@ sub sho_print {
 sub end_hash_print {
   my ($shoRes, $output)=@_;
   my %shoRes = %$shoRes;	
-  for my $f(keys %{$shoRes}) { 
-	if ($shoRes->{$f}) {
-	  my $fi=$shoRes{$f};
-	  $f=do_name($f);
-	  sho_print("", $f, $fi, "", $output);
+  for (keys %{$shoRes}) { 
+	if ($shoRes->{$_}) {
+	  my $fi=$shoRes{$_};
+	  $_=do_name($_);
+	  sho_print("", $_, $fi, "", $output);
 	}
   }
 }
@@ -164,11 +164,11 @@ sub print_target_vulns {
   my ($vulns, $output)=$_[0];
   print $c[4]."[+]$c[10] Vulnerabilities:\n";  
   my %vulns = %$vulns;
-  for my $f(keys %{$vulns}) {
-	if ($vulns->{$f}) {
-	  print $c[10]."  + $f:\n";
-      if (defined $output) { Print::printFile($output, "  + $f:"); }
-	  my $fi=$vulns{$f};
+  for (keys %{$vulns}) {
+	if ($vulns->{$_}) {
+	  print $c[10]."  + $_:\n";
+      if (defined $output) { Print::printFile($output, "  + $_:"); }
+	  my $fi=$vulns{$_};
 	  my $references=$fi->{'references'};
 	  my $verified=$fi->{'verified'};
 	  my $cvss=$fi->{'cvss'};
@@ -279,9 +279,9 @@ sub sho_query {
 	my $in1=-1;
 	my @elements3=("Title", "Descrition", "Votes", "Time", "Query");
 	my @elements23=("title", "description", "votes", "timestamp", "query");
-	for my $element23(@elements23) {
+	for (@elements23) {
 	  $in1++;
-	  my $key=$found->{$element23};
+	  my $key=$found->{$_};
       if ($key) { 
 	    print $c[10]."[+] $elements3[$in1]:$c[3] $key \n";
 		if (defined $output) { Print::printFile($output, "[+] $elements3[$in1]: $key "); }
@@ -539,9 +539,9 @@ sub sho_query_search {
 	my $in3=-1;
 	my @elements3=("Title", "Descrition", "Votes", "Time", "Query");
 	my @elements23=("title", "description", "votes", "timestamp", "query");
-	for my $element23(@elements23) {
+	for (@elements23) {
 	  $in3++;
-	  my $key=$found->{$element23};
+	  my $key=$found->{$_};
       if ($key) { 
 	    print $c[10]."[+] $elements3[$in3]:$c[3] $key \n";
 	    if (defined $output) { Print::printFile($output, "[+] $elements3[$in3]: $key "); }
@@ -612,9 +612,9 @@ sub sho_ip {
 	my $in3=-1;
 	my @elements3=("IP", "Country", "Region", "Postal code", "Org");
 	my @elements23=("ip_str", "country_name", "region_name", "postal_code", "org");
-	for my $element23(@elements23) {
+	for (@elements23) {
 	  $in3++;
-	  my $key=$shoRes->{$element23};
+	  my $key=$shoRes->{$_};
       if ($key) { sho_print("", $elements3[$in3], $key, "", $output); }
 	}
     my $hostnam =$shoRes->{'hostnames'};
@@ -653,9 +653,9 @@ sub check_it {
   my $in=-1;
   my @elements=("IP", "Port", "Product", "Version", "Cps", "Time", "Last update", "Os", "Isp", "Asn", "Hash", "Sitemap hash", "Transport");
   my @elements2=("ip_str", "port", "product", "version", "cps", "timestamp", "last_update", "os", "isp", "asn", "hash", "sitemap_hash", "transport");
-  for my $element2(@elements2) {
+  for (@elements2) {
 	$in++;
-	my $key=$found->{$element2};
+	my $key=$found->{$_};
     if ($key) { 
       sho_print("", $elements[$in], $key, "", $output);
 	  if ($in < 2) { $ats.=":$key"; }

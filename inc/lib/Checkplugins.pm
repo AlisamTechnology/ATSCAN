@@ -18,10 +18,10 @@ sub checkPlugins {
   my $ht = $_[0];  
   my @plugins;
   my @base = ("plugins", "themes");
-  for my $base(@base) {
-    while ($ht =~ /\/wp-content\/$base\/(.*?)(\/)/g) {
-	  $1 =~ s/\/wp-content\/$base\//$base/g;
-	  my $chop = $base;
+  for (@base) {
+    while ($ht =~ /\/wp-content\/$_\/(.*?)(\/)/g) {
+	  $1 =~ s/\/wp-content\/$_\//$_/g;
+	  my $chop = $_;
 	  chop($chop);
 	  my $fullPlug = "$chop => $1";
 	  push @plugins, $fullPlug;
@@ -30,8 +30,8 @@ sub checkPlugins {
   if (scalar @plugins > 0) {
     @plugins = Subs::checkDuplicate(@plugins);
     print $c[1]." PLUGINS$c[4]   [!]$c[10] Plugins detected!\n";
-    for my $plugin(@plugins) {
-	  print $c[10]."             - $plugin\n";
+    for (@plugins) {
+	  print $c[10]."             - $_\n";
     }
   }
 }

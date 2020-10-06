@@ -16,7 +16,7 @@ my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(nargs print_Beg print_End print_sub_beg separator separaBlocks print_target print_valid_info 
                    print_errors print_redirect endscan print_agent exploits_alert advise_connect
 				   @c print_geoloc noResult printFile print_zoneH count_targets print_scans print_title_scan
-				   begenscan endscan colors bb cc dd nochmod extern_process print_filters);
+				   begenscan endscan colors bb cc dd nochmod extern_process print_filters Conclure);
 
 ###########################################################################################################
 ## SET COLORS
@@ -497,6 +497,18 @@ sub print_filters {
   }    
   print "\n";
 }
-##########################################################################################################
 
+##########################################################################################################
+## SCAN FINISHED
+sub Conclure {
+  my ($limit, $ifend, $isscan, $output, $aTscans, $targets) = @_;
+  separator();
+  separaBlocks();
+  my $np = $isscan ? $aTscans : $targets;
+  endscan($np, $limit, $ifend, $isscan, $output);
+  exit;
+}
+
+##########################################################################################################
+##########################################################################################################
 1;

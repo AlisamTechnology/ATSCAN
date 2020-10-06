@@ -368,12 +368,12 @@ for my $targ(@targets) {
   ## CHECK TARGET REPEATER AND RANG
   @target_urls = Subs::target_urls_repeater(\@target_urls);
   
-  my $i = 0;
+  my $i0 = 0;
   for (@target_urls) {
     if ($_ !~/(\=rang|\=repeat)/) {
-      $i++;
+      $i0++;
 	  ## PRINT URL
-	  Print::print_Beg($_, $i, scalar @exploits, $isscan);
+	  Print::print_Beg($_, $i0, scalar @exploits, $isscan);
 
 	  ## PORTS
 	  if (defined $port) {

@@ -365,6 +365,7 @@ for my $targ(@targets) {
 
   ## TARGET URLS
   my $getme = new Getme();
+  
   ## CHECK TARGET REPEATER AND RANG
   @target_urls = Subs::target_urls_repeater(\@target_urls);
   
@@ -430,7 +431,7 @@ for my $targ(@targets) {
 	  my $valido = $validated ? 1 : "";
 	  for ($searchIps, $eMails, $regex, $searchRegex) { $valido = 1 if (defined $_ && $st eq 200); }
 	  $in++;
-	
+	  	
 	  ## PRINT VALID SCAN
 	  Print::print_End($_, $st, $ht, $valido, $isscan, \@regs, $output, $beep) if $continue;
 	
@@ -460,15 +461,12 @@ for my $targ(@targets) {
 	    Print::print_zoneH($hz) if $hz;
 	  }
 	  push @aTscans, $_ if $valido;
-	  last if $in eq $limit;
+	  Print::Conclure($limit, $ifend, $isscan, $output, scalar @aTscans, scalar @targets) if $in eq $limit;
 	}
   }
 }
 
-Print::separator();
-Print::separaBlocks();
-my $np = $isscan ? scalar @aTscans : scalar @targets;
-Print::endscan($np, $limit, $ifend, $isscan, $output);
+Print::Conclure($limit, $ifend, $isscan, $output, scalar @aTscans, scalar @targets) if $limit eq 500;
 
 #############################################################################################################################
 ## End ######################################################################################################################

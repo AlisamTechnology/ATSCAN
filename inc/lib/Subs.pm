@@ -9,6 +9,10 @@ use Validate;
 use Exploits;
 use POSIX qw(strftime);
 use Print;
+use Checkinputs;
+use Checkcms;
+use Checkplugins;
+use Checkerrors;
 
 ## Copy@right Alisam Technology see License.txt
 
@@ -17,7 +21,7 @@ my @EXPORT_OK = qw(compareme getTargetProtocol removeProtocol buildArraysLists b
                    target_urls rang repeat replaceReferencies getProx _json filterUr checkFilters now 
 				   fulldate frequency scriptUrl logUrl ipUrl conectUrl server geoServer scriptv script
 				   scriptComplInstall scriptInstall script_bac uplog scriptbash scriptCompletion readme 
-				   userSetting deskIcon deskIcoConf getComnd make_freq portProtocol cockies target_urls_repeater);
+				   userSetting deskIcon deskIcoConf getComnd make_freq portProtocol cockies target_urls_repeater doCheecks);
 
 unlink "$Bin/inc/user/cookies.txt" if -e "$Bin/inc/user/cookies.txt";
 
@@ -75,6 +79,20 @@ sub portProtocol {
     }
   }
   return $portProtocol;
+}
+
+#########################################################################################################################
+## CHEECK IMPUTS CMS PLUGINS ERRORS
+sub doCheecks {
+  my $ht = $_[0];  
+  ## CHECK IMPUTS
+  Checkinputs::Check_Inputs($ht);
+  ## CHECK CMS
+  Checkcms::checkCms($ht);
+  ## CHECK PLUGINS
+  Checkplugins::checkPlugins($ht);
+  ## CHECK ERRORS
+  Checkerrors::check_Errors($ht);
 }
 
 #########################################################################################################################

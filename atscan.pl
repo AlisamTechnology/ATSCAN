@@ -53,10 +53,6 @@ use Print;
 use Banner;
 use Exploits;
 use Validate;
-use Checkinputs;
-use Checkcms;
-use Checkplugins;
-use Checkerrors;
 
 ## CLEAR
 ($^O!~/Win/) ? printf "\033c" : system("cls");
@@ -283,9 +279,9 @@ if (defined $shodan) {
   my @v_apikeys = @{$v_apikeys};
   use Shodan;
   Shodan::shodan($ua, $dork, $Target, $mlevel, $limit, $fullHeaders, $output, $shocount, $shoquery, 
-					$shoreverse, $shoapiInfo, $shoports, $shoprotos, $shotokens, $shohoneyscore, 
-					$shofilters, $shomyip, $facets, $shoquerySearch, $shoqueryTags, $shoservices, 
-					$shoresolve, \@shos, $v_apikeys[rand @v_apikeys], \@commands, $popup);
+                 $shoreverse, $shoapiInfo, $shoports, $shoprotos, $shotokens, $shohoneyscore, $shofilters, 
+				 $shomyip, $facets, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, \@shos, 
+				 $v_apikeys[rand @v_apikeys], \@commands, $popup);
   exit;
 }
 
@@ -368,7 +364,6 @@ for my $targ(@targets) {
   
   ## CHECK TARGET REPEATER AND RANG
   @target_urls = Subs::target_urls_repeater(\@target_urls);
-  
   my $i0 = 0;
   for (@target_urls) {
     if ($_ !~/(\=rang|\=repeat)/) {
@@ -381,7 +376,8 @@ for my $targ(@targets) {
 	    my @v_proxies = @{$v_proxies};
 	    my $psx = $v_proxies[rand @v_proxies] if (defined $proxy);	  
 	    $psx = $getme->newpsx($ua, $freq, $start, $v_proxies, $freq, $start, $psx, $prandom) if (defined $prandom);	  
-	    use Scanport;
+	    
+		use Scanport;
 	    Scanport::ports($_, \@commands, $port, $udp, $tcp, $proxy, $prandom, $psx, $ping, $timeout);
 	    exit;
 	  }
@@ -409,19 +405,9 @@ for my $targ(@targets) {
 	  
 	    ## PRINT STATUS AND SERVER NAME
 	    $continue = Print::print_sub_beg($st, $sh);
-	    if ($st ne 500) {
-	      ## CHECK IMPUTS
-	      Checkinputs::Check_Inputs($ht);
-	  
-	      ## CHECK CMS
-	      Checkcms::checkCms($ht);
-	  
-	      ## CHECK PLUGINS
-	      Checkplugins::checkPlugins($ht);
-	  
-	      ## CHECK ERRORS
-	      Checkerrors::check_Errors($ht);
-	    }
+	    
+		## CHEECK IMPUTS CMS PLUGINS ERRORS
+		Subs::doCheecks($ht) if ($st ne 500);
 	  }
 	
 	  ## CHECK FOR VALIDATION
@@ -429,6 +415,7 @@ for my $targ(@targets) {
 	  my $validated = 1;
 	  $validated = $validate->v_validate($st, $ht, $sh, $xss, $sql, $lfi, $WpAfd, $Hstatus, $validText, $validTextAll, $exclude, $excludeAll, $validShell, $validServer, $WpSites, $JoomSites);
 	  my $valido = $validated ? 1 : "";
+	  
 	  for ($searchIps, $eMails, $regex, $searchRegex) { $valido = 1 if (defined $_ && $st eq 200); }
 	  $in++;
 	  	
@@ -446,9 +433,7 @@ for my $targ(@targets) {
 	  }
 		
 	  ## PRINT SAVE HTML AND HEADERS
-	  if (defined $content) {  Print::print_content($ht); }
-	  if (defined $msource) { Print::printSource($_, $ht, $msource); }
-	  if (defined $fullHeaders) { Print::fullRequestHeaders(); }  
+	  Print::savedHtml($content, $msource, $fullHeaders, $ht, $_);
 	
 	  ## EXTERN COMMANDS
 	  if (defined $command && !defined $shodan) {
@@ -466,6 +451,7 @@ for my $targ(@targets) {
   }
 }
 
+## END SCANS
 Print::Conclure($limit, $ifend, $isscan, $output, scalar @aTscans, scalar @targets) if $limit eq 500;
 
 #############################################################################################################################

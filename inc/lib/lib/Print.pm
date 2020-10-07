@@ -16,7 +16,7 @@ my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(nargs print_Beg print_End print_sub_beg separator separaBlocks print_target print_valid_info 
                    print_errors print_redirect endscan print_agent exploits_alert advise_connect
 				   @c print_geoloc noResult printFile print_zoneH count_targets print_scans print_title_scan
-				   begenscan endscan colors bb cc dd nochmod extern_process print_filters Conclure);
+				   begenscan endscan colors bb cc dd nochmod extern_process print_filters Conclure savedHtml);
 
 ###########################################################################################################
 ## SET COLORS
@@ -499,6 +499,15 @@ sub print_filters {
 }
 
 ##########################################################################################################
+## PRINT SAVE HTML AND HEADERS
+sub savedHtml {
+  my ($content, $msource, $fullHeaders, $ht, $TrU) = @_;
+  if (defined $content) { print_content($ht); }
+  if (defined $msource) { printSource($TrU, $ht, $msource); }
+  if (defined $fullHeaders) { fullRequestHeaders(); }  
+}
+
+##########################################################################################################
 ## SCAN FINISHED
 sub Conclure {
   my ($limit, $ifend, $isscan, $output, $aTscans, $targets) = @_;
@@ -511,4 +520,5 @@ sub Conclure {
 
 ##########################################################################################################
 ##########################################################################################################
+
 1;

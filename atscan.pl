@@ -85,28 +85,19 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
 for (keys %OPT) { chomp $OPT{$_} if defined $OPT{$_}; }
 
 ## CHECK USER CONFIGURATION
+my @confItems = ("update", "interactive", "proxy", "apikey", "cx", "prandom", "brandom", "mrandom", 
+                 "level", "zone", "motor", "nobanner", "noverbose", "beep", "ifend", "unique", "timeout", 
+				  "freq", "limit", "command");
+				  
+my $its = 0;
+for ($dateupdate, $interactive, $proxy, $apikey, $cx, $prandom, $brandom, $mrandom, $mlevel, $zone, 
+  $motor, $nobanner, $noverbose, $beep, $ifend, $unique, $timeout, $freq, $limit, $command) { 
+  $_ = Clientconfig::checkSetting($confItems[$its]);
+  $its++
+}
 $password        = Clientconfig::checkSetting("password");
 $dateupdate      = Clientconfig::checkSetting("update");
 $method          = Clientconfig::checkSetting("method") if !defined $get and !defined $post;
-$interactive     = Clientconfig::checkSetting("interactive") if !defined $interactive;
-$proxy           = Clientconfig::checkSetting("proxy") if !defined $proxy;
-$apikey          = Clientconfig::checkSetting("apikey") if !defined $apikey;
-$cx              = Clientconfig::checkSetting("cx") if !defined $cx;
-$prandom         = Clientconfig::checkSetting("prandom") if !defined $prandom;
-$brandom         = Clientconfig::checkSetting("brandom") if !defined $brandom;
-$mrandom         = Clientconfig::checkSetting("mrandom") if !defined $mrandom;  
-$mlevel          = Clientconfig::checkSetting("level") if !defined $mlevel;
-$zone            = Clientconfig::checkSetting("zone") if !defined $zone;
-$motor           = Clientconfig::checkSetting("motor") if !defined $motor;
-$nobanner        = Clientconfig::checkSetting("nobanner") if !defined $nobanner;
-$noverbose       = Clientconfig::checkSetting("noverbose") if !defined $noverbose;
-$beep            = Clientconfig::checkSetting("beep") if !defined $beep;
-$ifend           = Clientconfig::checkSetting("ifend") if !defined $ifend;
-$unique          = Clientconfig::checkSetting("unique") if !defined $unique;
-$timeout         = Clientconfig::checkSetting("timeout") if !defined $timeout;
-$freq            = Clientconfig::checkSetting("freq") if !defined $freq;
-$limit           = Clientconfig::checkSetting("limit") if !defined $limit;
-$command         = Clientconfig::checkSetting("command") if !defined $command;
 $limit           = 500 if !$limit;
 $dateupdate      = 1 if !$dateupdate;
 
@@ -146,7 +137,7 @@ Clientconfig::ClientConfiguration() if (defined $config);
 
 ## UNINSTALL
 use Uninstall;
-Uninstall::unistall() if defined $uninstall;
+Uninstall::uninstall() if defined $uninstall;
 
 ## TOOL
 use Tool;

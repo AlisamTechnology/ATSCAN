@@ -63,7 +63,7 @@ my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpA
 	 $noverbose, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $mrandom, 
 	 $content, $toolInfo, $config, $freq, $headers, $msource, $ping, $exclude, $excludeAll, $expHost, $expIp, $zone, $validShell, $interactive, $popup, $all, $repair, $zoneH, $cookies, 
 	 $bugtraq, $fullHeaders, $geoloc, $getlinks, $shodan, $apikey, $shocount, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, $shomyip, 
-	 $shoapiInfo, $shoports, $shoprotos, $shotokens, $shohoneyscore, $shofilters, $facets, $validServer, $cx);
+	 $shoapiInfo, $shoports, $shoprotos, $shotokens, $shohoneyscore, $shofilters, $facets, $validServer, $cx, $password, $dateupdate, $method);
 
 ## ARGUMENTS
 use Getopt::Long qw(GetOptions);
@@ -85,7 +85,6 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
 for (keys %OPT) { chomp $OPT{$_} if defined $OPT{$_}; }
 
 ## CHECK USER CONFIGURATION
-my ($password, $dateupdate, $method);
 $password        = Clientconfig::checkSetting("password");
 $dateupdate      = Clientconfig::checkSetting("update");
 $method          = Clientconfig::checkSetting("method") if !defined $get and !defined $post;
@@ -192,7 +191,6 @@ if (!defined $shodan) {
   if (defined $mlevel || $mlevel) {
     if (defined $dork) { 
 	  @dorks = Subs::buildArrays($dork);
-	  #for(@dorks) {print "$_ - ";}
 	}
     elsif (defined $Target) {
 	  my $dorks = $build_dorks->_build_me($Target);

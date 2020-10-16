@@ -87,12 +87,12 @@ for (keys %OPT) { chomp $OPT{$_} if defined $OPT{$_}; }
 ## CHECK USER CONFIGURATION
 my @confItems = ("update", "interactive", "proxy", "apikey", "cx", "prandom", "brandom", "mrandom", 
                  "level", "zone", "motor", "nobanner", "noverbose", "beep", "ifend", "unique", "timeout", 
-				  "freq", "limit", "command");
+				 "freq", "limit", "command");
 				  
 my $its = 0;
 for ($dateupdate, $interactive, $proxy, $apikey, $cx, $prandom, $brandom, $mrandom, $mlevel, $zone, 
   $motor, $nobanner, $noverbose, $beep, $ifend, $unique, $timeout, $freq, $limit, $command) { 
-  $_ = Clientconfig::checkSetting($confItems[$its]);
+  $_ = Clientconfig::checkSetting($confItems[$its]) if !defined $_;
   $its++
 }
 $password        = Clientconfig::checkSetting("password");
@@ -127,35 +127,8 @@ UseErrors::check_arguments2($motor, $mrandom, $Target, $dork, $JoomRfi, $shell);
 UseErrors::check_arguments3($shodan, $bugtraq, $apikey, $popup, $command, $zoneH, $dork, $replace, $replaceFROM);
 UseErrors::check_arguments4($eMails, $port, $ping, $udp, $tcp, $regex, $searchRegex, $searchIps, $Hstatus, $validText, $get, $post, $method, $data, $mupload, $limit);
 
-## INTERACTIVE
-use Interactive;
-Interactive::interactive() if (defined $interactive || $interactive);
-
-## USER CONFIG
-use Clientconfig;
-Clientconfig::ClientConfiguration() if (defined $config);
-
-## UNINSTALL
-use Uninstall;
-Uninstall::uninstall() if defined $uninstall;
-
-## TOOL
-use Tool;
-Tool::tool() if defined $toolInfo;
-
-## HELP
-use Help;
-Help::help() if defined $help;
-
-## ENCODE DECODE
-use Encodeme;
-my $cc = 0;
-for ($mmd5, $mencode64, $mdecode64) {
-  if (defined $_) {
-    $cc++;
-    Encodeme::encodeme($_, $cc);
-  }
-}
+use ClientMenu;
+ClientMenu::check_clientMenu($interactive, $config, $uninstall, $toolInfo, $help, $mmd5, $mencode64, $mdecode64);
 
 ## DEFINE 
 my (@proxies, @exploits, @motors, @target_urls, @dorks, @targets, @aTscans, $isscan);
@@ -215,16 +188,7 @@ Subs::cockies($cookies);
 my $start = Subs::frequency();
 
 ## CHECK FOR UPDATE
-use Upad;
-if (defined $dork || defined $Target) {
-  use Upad;
-  Upad::checkforupdates($ua, $fullHeaders, $dateupdate);
-}
-
-## UPDATE
-use Update;
-Update::update($ua, $fullHeaders, $repair) if (defined $checkVersion);
-Update::repair($ua, $fullHeaders, $repair) if (defined $repair);
+ClientMenu::check_clientUpdate($dork, $Target, $ua, $fullHeaders, $dateupdate, $checkVersion, $repair);
 
 ## EXIT SHIRT SCANS
 for ($help, $uninstall, $config, $toolInfo, $checkVersion, $repair, $mmd5, $mencode64, $mdecode64) { exit if defined $_; }

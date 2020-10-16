@@ -19,9 +19,9 @@ sub encodeme {
   my ($string, $scan)=@_;
   Print::separator();
   print $c[1]." $OTHERS[4]   $c[10]$string\n";
-  if ($scan eq "1") { print "$c[3]".Digest::MD5->md5_hex($string)."\n"; }
-  if ($scan eq "2") { print "$c[3]".encode_base64($string)."\n"; }
-  if ($scan eq "3") { print "$c[3]".decode_base64($string)."\n"; }
+  if ($scan eq "1") { print "$c[1] md5 => $c[3]".Digest::MD5->md5_hex($string)."\n"; }
+  if ($scan eq "2") { print "$c[1] ENCODE BASE64 => $c[3]".encode_base64($string)."\n"; }
+  if ($scan eq "3") { print "$c[1] DECODE BASE64 => $c[3]".decode_base64($string)."\n"; }
   Print::separator();
 }
 

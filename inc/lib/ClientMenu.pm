@@ -44,9 +44,9 @@ sub check_clientMenu {
   ## ENCODE DECODE
   my $cc = 0;
   for ($mmd5, $mencode64, $mdecode64) {
+    $cc++;
     if (defined $_) {
 	  use Encodeme;
-	  $cc++;
       Encodeme::encodeme($_, $cc);
     }
   }

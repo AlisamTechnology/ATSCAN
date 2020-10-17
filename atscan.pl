@@ -59,11 +59,11 @@ use Validate;
 
 ## VARIABLES 
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, 
-     $mdom, $Target, $exploit, $parametro, $validTextAll, $tcp, $udp, $proxy, $prandom, $help, $output, $replace, $replaceFROM, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, 
-	 $noverbose, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $mrandom, 
-	 $content, $toolInfo, $config, $freq, $headers, $msource, $ping, $exclude, $excludeAll, $expHost, $expIp, $zone, $validShell, $interactive, $popup, $all, $repair, $zoneH, $cookies, 
-	 $bugtraq, $fullHeaders, $geoloc, $getlinks, $shodan, $apikey, $shocount, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, $shomyip, 
-	 $shoapiInfo, $shoports, $shoprotos, $shotokens, $shohoneyscore, $shofilters, $facets, $validServer, $cx, $password, $dateupdate, $method);
+    $mdom, $Target, $exploit, $parametro, $validTextAll, $tcp, $udp, $proxy, $prandom, $help, $output, $replace, $replaceFROM, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, 
+	$noverbose, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $mrandom, 
+	$content, $toolInfo, $config, $freq, $headers, $msource, $ping, $exclude, $excludeAll, $expHost, $expIp, $zone, $validShell, $interactive, $popup, $all, $repair, $zoneH, $cookies, 
+	$bugtraq, $fullHeaders, $geoloc, $getlinks, $shodan, $apikey, $shocount, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, $shomyip, 
+	$shoapiInfo, $shoports, $shoprotos, $shotokens, $shohoneyscore, $shofilters, $facets, $validServer, $cx, $password, $dateupdate, $method);
 
 ## ARGUMENTS
 use Getopt::Long qw(GetOptions);
@@ -127,10 +127,26 @@ UseErrors::check_arguments2($motor, $mrandom, $Target, $dork, $JoomRfi, $shell);
 UseErrors::check_arguments3($shodan, $bugtraq, $apikey, $popup, $command, $zoneH, $dork, $replace, $replaceFROM);
 UseErrors::check_arguments4($eMails, $port, $ping, $udp, $tcp, $regex, $searchRegex, $searchIps, $Hstatus, $validText, $get, $post, $method, $data, $mupload, $limit);
 
+## PRINT SCAN TITLE
+my $v = 1;
+my @sc;
+for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port, $sql) { 
+  $v++;
+  push @sc, $v if defined $_;
+}
+  
+if (scalar @sc > 0) {
+  Print::begen();
+  for (@sc) { Print::print_title_scan($_); }
+  Print::end();
+}
+
+
+## CLIENT MENU
 use ClientMenu;
 ClientMenu::check_clientMenu($interactive, $config, $uninstall, $toolInfo, $help, $mmd5, $mencode64, $mdecode64);
 
-## DEFINE 
+## DEFINE ARRAYS
 my (@proxies, @exploits, @motors, @target_urls, @dorks, @targets, @aTscans, $isscan);
 
 ## PROXY
@@ -187,7 +203,7 @@ Subs::cockies($cookies);
 ## FREQUENCY START TIME
 my $start = Subs::frequency();
 
-## CHECK FOR UPDATE
+## TOOL CHECKS
 ClientMenu::check_clientUpdate($dork, $Target, $ua, $fullHeaders, $dateupdate, $checkVersion, $repair);
 
 ## EXIT SHIRT SCANS
@@ -262,21 +278,6 @@ if (defined $getlinks) {
   Print::count_targets(\@targets);
 }
 
-## PRINT SCAN TITLE
-my $v = 1;
-my @sc;
-for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port, $sql) { 
-  $v++;
-  push @sc, $v if defined $_;
-}
-  
-if (scalar @sc > 0) {
-  Print::begen();
-  for (@sc) { Print::print_title_scan($_); }
-  Print::end();
-}
-
-## EXPLOITS ALERT
 my $jv;
 for ($WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip) { 
   $jv = 1 if defined $_; 

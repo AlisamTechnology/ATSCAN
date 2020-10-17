@@ -33,42 +33,58 @@ sub msearch {
   my ($ua, $dork, $Target, $mlevel, $dorks, $motors, $v_apikey, $cx, $zone, $unique, $ifinurl, $searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders) = @_;
   my (@aTsearch, @aTsearchs);
   my $level = $mlevel * 10;
-  for my $engine(@{$motors}) {  
-    for (@{$dorks}) {	
-	  if ($_ =~ /^(http|www)/) {
-		my $ut = new Target();
-        $_ = $ut->cleanURL($_);
-		$_ = "site%3A".$_;
-      }
-      if ($zone) { $_ = "site%3A$zone ".$_; }
-      $_ =~ s/\s+$//;
-      $_ =~ s/ /+/g;
-      $_ =~ s/^(\+|\s+)//g;
-      if (length $_ > 0) {      
-        $engine =~ s/MYDORK/$_/g;
+  for my $engine(@{$motors}) {
+    if ($engine =~ /MYAPIKEY/) {
+    $engine =~ s/MYAPIKEY/$v_apikey/;
+	$engine =~ s/MYCX/$cx/g;
+    }
+
+	my @engParts = split("MYDORK", $engine);
+    for (@{$dorks}) {
+	  $_ = takeZone($_, $zone);
+      if (length $_ > 0) {
+        my $dorkTaken = $engParts[0];
+		$dorkTaken .= $_;
+		$dorkTaken .= $engParts[1];		
+		
+		my @dorkTaken = split("MYNPAGES", $dorkTaken);
         for(my $npages=1;$npages<=$level;$npages+=10) {
-          $engine =~ s/MYNPAGES/$npages/g;
-          if ($engine =~ /MYAPIKEY/) {
-            $engine =~ s/MYAPIKEY/$v_apikey/;
-			$engine =~ s/MYCX/$cx/g;
-          }
+          my $numPgs = $dorkTaken[0];
+		  $numPgs .= $npages;
+		  $numPgs .= $dorkTaken[1];
 		  
 		  my $getme = new Getme();		  
-		  my $res = $getme->navsearch($ua, $engine, $fullHeaders);
-		  if ($engine =~ /googleapis./) {
-            @aTsearchs = doSearchApis($res, $_, $engine, $unique, $ifinurl, \@{$searchRegexs});  
+		  my $res = $getme->navsearch($ua, $numPgs, $fullHeaders);
+		  if ($numPgs =~ /googleapis./) {
+            @aTsearchs = doSearchApis($res, $_, $numPgs, $unique, $ifinurl, \@{$searchRegexs});  
 		  }else{
-            @aTsearchs = doSearch($res, $_, $engine, $unique, $ifinurl, \@{$searchRegexs});  
+            @aTsearchs = doSearch($res, $_, $numPgs, $unique, $ifinurl, \@{$searchRegexs});  
 		  }
 		  push @aTsearch, @aTsearchs;
-          $engine =~ s/=$npages/=MYNPAGES/ig;
         }
-        $engine =~ s/\Q$_/MYDORK/ig;
       }
     }
   }  
   return \@aTsearch;
 }
+
+###############################################################################################################
+#########################################################################################################################
+## ZONE
+sub takeZone {
+  my ($dk, $zone) = @_;
+  if ($dk =~/^(http|www)/) {
+	my $ut = new Target();
+    $dk = $ut->cleanURL($dk);
+    $dk = "site%3A".$dk;
+  }
+  if ($zone) { $dk = "site%3A$zone ".$dk; }
+  $dk =~ s/\s+$//;
+  $dk =~ s/ /+/g;
+  $dk =~ s/^(\+|\s+)//g;
+  return $dk
+}	
+
 ###############################################################################################################
 #########################################################################################################################
 ## GET URLS FROM SEARCH ENGINE PAGES
@@ -78,7 +94,7 @@ sub doSearch {
   while($Res =~ /$V_SEARCH/g) {
     my $URL = $1;
 	$URL =~ s/(\&sa=|\&ved=|\&amp\;).*//;
-	if ((substr $URL, -1) ne "-"){
+	if ((substr $URL, -1) ne "-" && (substr $URL, -1) ne "."){
       $URL = do_needed($URL, $drk, $unique, $ifinurl, \@{$searchRegexs}) if ($URL !~/\.\./);
 	  push @aTsearchs, $URL if $URL;
 	}

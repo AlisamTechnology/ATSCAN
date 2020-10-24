@@ -31,14 +31,15 @@ my $V_SEARCH = Exploits::V_SEARCH();
 ## SEARCH
 sub msearch {
   my ($ua, $dork, $Target, $mlevel, $dorks, $motors, $v_apikey, $cx, $zone, $unique, $ifinurl, $searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders) = @_;
-  my (@aTsearch, @aTsearchs);
+  my @aTsearch;
   my $level = $mlevel * 10;
   for my $engine(@{$motors}) {
     if ($engine =~ /MYAPIKEY/) {
-    $engine =~ s/MYAPIKEY/$v_apikey/;
-	$engine =~ s/MYCX/$cx/g;
+      $engine =~ s/MYAPIKEY/$v_apikey/;
+	  $engine =~ s/MYCX/$cx/g;
     }
-
+	
+	## ADD DORK
 	my @engParts = split("MYDORK", $engine);
     for (@{$dorks}) {
 	  $_ = takeZone($_, $zone);
@@ -47,12 +48,15 @@ sub msearch {
 		$dorkTaken .= $_;
 		$dorkTaken .= $engParts[1];		
 		
+		## ADD PAGE NUMBER
 		my @dorkTaken = split("MYNPAGES", $dorkTaken);
         for(my $npages=1;$npages<=$level;$npages+=10) {
           my $numPgs = $dorkTaken[0];
 		  $numPgs .= $npages;
 		  $numPgs .= $dorkTaken[1];
 		  
+		  ## GET ENGINE RESULTS
+		  my @aTsearchs;
 		  my $getme = new Getme();		  
 		  my $res = $getme->navsearch($ua, $numPgs, $fullHeaders);
 		  if ($numPgs =~ /googleapis./) {

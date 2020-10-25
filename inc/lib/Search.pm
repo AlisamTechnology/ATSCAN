@@ -28,6 +28,7 @@ my $nolisting="q=|0day|pastebin|\/\/t.co|google.|youtube.|jsuol.com|.radio.uol.|
 
 my $V_SEARCH = Exploits::V_SEARCH();
 
+##########################################################################################################
 ## SEARCH
 sub msearch {
   my ($ua, $dork, $Target, $mlevel, $dorks, $motors, $v_apikey, $cx, $zone, $unique, $ifinurl, $searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders) = @_;
@@ -38,7 +39,7 @@ sub msearch {
       $engine =~ s/MYAPIKEY/$v_apikey/;
 	  $engine =~ s/MYCX/$cx/g;
     }
-	
+
 	## ADD DORK
 	my @engParts = split("MYDORK", $engine);
     for (@{$dorks}) {
@@ -47,6 +48,11 @@ sub msearch {
         my $dorkTaken = $engParts[0];
 		$dorkTaken .= $_;
 		$dorkTaken .= $engParts[1];		
+		
+		## MULTI
+		if ((scalar @{$motors} > 1) || (scalar @{$dorks} > 1)) {
+		  Print::multiSearch($engine, $_);
+		}
 		
 		## ADD PAGE NUMBER
 		my @dorkTaken = split("MYNPAGES", $dorkTaken);
@@ -68,11 +74,10 @@ sub msearch {
         }
       }
     }
-  }  
+  }
   return \@aTsearch;
 }
 
-###############################################################################################################
 #########################################################################################################################
 ## ZONE
 sub takeZone {
@@ -89,7 +94,6 @@ sub takeZone {
   return $dk
 }	
 
-###############################################################################################################
 #########################################################################################################################
 ## GET URLS FROM SEARCH ENGINE PAGES
 sub doSearch {
@@ -198,7 +202,6 @@ sub doDeepSearch {
 	  }
     }
   }
-  
   
   @deep = Subs::checkDuplicate(@deep);
   return \@deep;

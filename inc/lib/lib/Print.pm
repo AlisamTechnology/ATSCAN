@@ -16,7 +16,8 @@ my @ISA = qw(Exporter);
 my @EXPORT_OK = qw(nargs print_Beg print_End print_sub_beg separator separaBlocks print_target print_valid_info 
                    print_errors print_redirect endscan print_agent exploits_alert advise_connect
 				   @c print_geoloc noResult printFile print_zoneH count_targets print_scans print_title_scan
-				   begenscan endscan colors bb cc dd nochmod extern_process print_filters Conclure savedHtml);
+				   begenscan endscan colors bb cc dd nochmod extern_process print_filters Conclure savedHtml 
+				   multiSearch);
 
 ###########################################################################################################
 ## SET COLORS
@@ -57,6 +58,34 @@ sub bad {
   use Banner;
   Banner::banner();
   no_args();
+}
+
+#########################################################################################################################
+## MULTI ENGINE
+sub multiSearch {
+  my ($eng, $dork) = @_;
+  if ($eng =~/bing./) { printEngName("1", $dork); }
+  if ($eng =~/google./) { printEngName("2", $dork); }
+  if ($eng =~/googlecache./) { printEngName("3", $dork); }
+  if ($eng =~/googleapis./) { printEngName("4", $dork); }
+  if ($eng =~/sogou./) { printEngName("5", $dork); }
+  if ($eng =~/exalead./) { printEngName("6", $dork); }
+  if ($eng =~/ask./) { printEngName("7", $dork); }
+  if ($eng =~/yandex./) { printEngName("8", $dork); }	
+}
+
+#########################################################################################################################
+## PRINT ENGINE NAME
+sub printEngName {
+  my ($eng, $dork) = @_;
+  my %engs = ("1"=>"BING", "2"=>"GOOGLE", "3"=>"GOOGLE CACHE", "4"=>"GOOGLEAPIS", "5"=>"SOGOU", 
+              "6"=>"EXALEAD", "7"=>"ASK", "8"=>"YANDEX");
+  for (keys %engs) { 
+    if ($_ eq $eng) {
+	  print $c[1]."[+] Searching [$dork] in $engs{$_}..\n";
+	}
+	sleep 1;
+  }
 }
 
 #########################################################################################################################

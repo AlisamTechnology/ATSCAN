@@ -17,7 +17,7 @@ my @EXPORT_OK = qw(nargs print_Beg print_End print_sub_beg separator separaBlock
                    print_errors print_redirect endscan print_agent exploits_alert advise_connect
 				   @c print_geoloc noResult printFile print_zoneH count_targets print_scans print_title_scan
 				   begenscan endscan colors bb cc dd nochmod extern_process print_filters Conclure savedHtml 
-				   multiSearch);
+				   multiSearch prntScanTitle);
 
 ###########################################################################################################
 ## SET COLORS
@@ -58,6 +58,24 @@ sub bad {
   use Banner;
   Banner::banner();
   no_args();
+}
+
+###########################################################################################################
+## PRINT SCAN TITLE
+sub prntScanTitle {
+  my ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port, $sql) = @_;
+  my $v = 1;
+  my @sc;
+  for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port, $sql) { 
+    $v++;
+    push @sc, $v if defined $_;
+  }
+  
+  if (scalar @sc > 0) {
+    begen();
+    for (@sc) { print_title_scan($_); }
+    end();
+  }
 }
 
 #########################################################################################################################

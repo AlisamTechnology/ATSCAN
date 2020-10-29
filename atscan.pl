@@ -127,21 +127,6 @@ UseErrors::check_arguments2($motor, $mrandom, $Target, $dork, $JoomRfi, $shell);
 UseErrors::check_arguments3($shodan, $bugtraq, $apikey, $popup, $command, $zoneH, $dork, $replace, $replaceFROM);
 UseErrors::check_arguments4($eMails, $port, $ping, $udp, $tcp, $regex, $searchRegex, $searchIps, $Hstatus, $validText, $get, $post, $method, $data, $mupload, $limit);
 
-## PRINT SCAN TITLE
-my $v = 1;
-my @sc;
-for ($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port, $sql) { 
-  $v++;
-  push @sc, $v if defined $_;
-}
-  
-if (scalar @sc > 0) {
-  Print::begen();
-  for (@sc) { Print::print_title_scan($_); }
-  Print::end();
-}
-
-
 ## CLIENT MENU
 use ClientMenu;
 ClientMenu::check_clientMenu($interactive, $config, $uninstall, $toolInfo, $help, $mmd5, $mencode64, $mdecode64);
@@ -277,7 +262,10 @@ if (defined $getlinks) {
   push @targets, @{ $deep_targets };
   Print::count_targets(\@targets);
 }
+## PRINT SCAN TITLE
+Print::prntScanTitle($WpSites, $JoomSites, $xss, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $mmd5, $mencode64, $mdecode64, $port, $sql);
 
+## EXPLOIT ALERT
 my $jv;
 for ($WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip) { 
   $jv = 1 if defined $_; 

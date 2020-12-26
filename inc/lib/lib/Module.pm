@@ -55,7 +55,7 @@ sub ARGUMENTSALL {
   return ("cx"=>'Google search ID', "apikey"=>'Apikey', "ping"=>"check is alive", "getlinks"=>"Get html links", "status"=>"status code", "valid"=>"content by string", "vshell"=>"validate by url", "zoneH"=>"Upload to Zone-H", "exp"=>"exploit", "proxy"=>"use proxy", "prandom"=>"random proxy", "save"=>"output file",
                    "replace"=>"Exact string replace", "replaceFROM"=>"full string replace", "ifinurl"=>"valid url by string", "noquery"=>"remove query string", "brandom"=>"random browser",
                    "content"=>"response content", "expHost"=>"exploit host", "expIp"=>"exploit target ip", "timeout"=>"browser time out", "validAll"=>"valdate all", "excludeAll"=>"exclude all", "server"=>"validate by server",
-                   "host"=>"host name", "cookies"=>"cookies output file");
+                   "host"=>"host name", "setCookie"=>"cookie file", "saveCookie"=>"cookie output file");
 }
 ## NOT REQUIRE A VALUE
 sub NoValRequierd {

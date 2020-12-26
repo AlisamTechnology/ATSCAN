@@ -70,7 +70,7 @@ sub check_list_apikey {
   print $c[4]."[!]$c[10] Checking apikey connection...";
   for (@{$apikeys}) {
     my $r = check_apikey_connect($ua, $_, $cx, $shodan);
-    if ($r!~/(Request contains an invalid argument|Requested entity was not found|API key not valid|\"Bad Request\"|\"dailyLimitExceeded\"|DDoS protection|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) {  
+    if ($r!~/(Queries\' and limit \'Queries per day|Request contains an invalid argument|Requested entity was not found|API key not valid|\"Bad Request\"|\"dailyLimitExceeded\"|DDoS protection|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) {  
 	  push @connected_apikeys, $_;
 	}else{
 	  if (length($_) > 0) {

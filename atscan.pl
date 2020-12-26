@@ -178,12 +178,12 @@ my $engine = Engine::get_engine($motor, $mrandom, $mlevel, $shodan, $bugtraq);
 use Getagent;
 my $agento = new Getagent();
 my $agent = $agento->get_agent($freq, "");
-	
-## SET UA
-my $ua = $agento->get_ua($agent, $timeout, $headers, $cookies);
 
 ## COCKIES
-Subs::cockies($cookies);
+my $cookie = Subs::cockies($cookies);
+	
+## SET UA
+my $ua = $agento->get_ua($agent, $timeout, $headers, $cookie);
 
 ## FREQUENCY START TIME
 my $start = Subs::frequency();

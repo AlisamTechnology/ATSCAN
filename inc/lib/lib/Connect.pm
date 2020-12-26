@@ -39,7 +39,7 @@ sub check_apikey_connect {
   my ($ua, $api, $cx, $shodan) = @_;
   my $u;
   if (defined $shodan) { $u="https://api.shodan.io/shodan/host/search?key=$api&query=camera"; }  
-  else{ $u="https://www.googleapis.com/customsearch/v1?key=$api&cx=$cx&q=googleapis"; }
+  else{ $u="https://www.googleapis.com/customsearch/v1?key=$api&cx=$cx&q=camera"; }
   return $ua->get($u)->decoded_content;
 }
 
@@ -70,12 +70,12 @@ sub check_list_apikey {
   print $c[4]."[!]$c[10] Checking apikey connection...";
   for (@{$apikeys}) {
     my $r = check_apikey_connect($ua, $_, $cx, $shodan);
-    if ($r!~/(\"Bad Request\"|\"dailyLimitExceeded\"|DDoS protection|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) { 
-      
+    if ($r!~/(Request contains an invalid argument|Requested entity was not found|API key not valid|\"Bad Request\"|\"dailyLimitExceeded\"|DDoS protection|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) {  
 	  push @connected_apikeys, $_;
 	}else{
-	  print $c[2]."\n[!] Failed to connect with [$_]";
-	  print $c[4]."\n    Message: [$1]";
+	  if (length($_) > 0) {
+	  print $c[2]."\n[!] Failed to connect using key:$c[10]\[$_]";
+	  print $c[4]."\n    Message: [$1]"; }
 	}
   }
   print_connecttions(scalar @connected_apikeys, scalar @{$apikeys}, "apikeys");
@@ -88,7 +88,7 @@ sub print_connecttions {
   my ($x, $y, $txt)=@_;
   print "$c[3] OK\n" if ($x > 0 && $x eq $y);
   if ($x < 1) {
-	print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; 
+	$y > 1 ? print $c[2]."\n[!] Cannot connect with any of given $txt!\n" : print "\n"; 
 	Print::separaBlocks();
 	exit();
   }elsif($x > 0 && $x < $y) {

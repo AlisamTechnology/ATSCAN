@@ -70,8 +70,9 @@ sub check_list_apikey {
   print $c[4]."[!]$c[10] Checking apikey connection...";
   for (@{$apikeys}) {
     my $r = check_apikey_connect($ua, $_, $cx, $shodan);
-    if ($r!~/(\"Bad Request\"|\"dailyLimitExceeded\"|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) { 
-      push @connected_apikeys, $_;
+    if ($r!~/(\"Bad Request\"|\"dailyLimitExceeded\"|DDoS protection|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) { 
+      
+	  push @connected_apikeys, $_;
 	}else{
 	  print $c[2]."\n[!] Failed to connect with [$_]";
 	  print $c[4]."\n    Message: [$1]";
@@ -87,7 +88,9 @@ sub print_connecttions {
   my ($x, $y, $txt)=@_;
   print "$c[3] OK\n" if ($x > 0 && $x eq $y);
   if ($x < 1) {
-	print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; exit();
+	print $c[2]."\n[!] Cannot connect with any of given $txt!\n"; 
+	Print::separaBlocks();
+	exit();
   }elsif($x > 0 && $x < $y) {
 	print $c[3]."\n[!] OK! $c[4]Only running $txt in list will be used ($x)!\n";
   }
@@ -121,7 +124,6 @@ sub checkCpanModules {
 ## CHECK CONNECTION
 sub testConnection {
   my ($ua, $proxy, $prandom, $apikey, $cx, $motors, $proxies, $apikeys, $shodan) = @_;
-  
   my $b = 0;
   my (@connected_proxies, @connected_apikeys);
   for (@{$motors}) { 

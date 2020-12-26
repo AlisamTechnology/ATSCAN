@@ -465,8 +465,12 @@
         <td class="main"> Upload to Zone-H</td>
       </tr>
       <tr>
-        <td width="200px" class="main">--cookies</td>
+        <td width="200px" class="main">--saveCookie</td>
         <td class="main">Cookies output file</td>
+      </tr>
+      <tr>
+        <td width="200px" class="main">--setCookies</td>
+        <td class="main">Cookie file</td>
       </tr>
       <tr>
         <td width="200px" class="main">--email  </td>

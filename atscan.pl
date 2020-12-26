@@ -61,9 +61,9 @@ use Validate;
 my ($Hstatus, $validText, $WpSites, $JoomSites, $xss, $sql, $lfi, $JoomRfi, $WpAfd, $adminPage, $subdomain, $mupload, $mzip, $eMails, $command, $mmd5, $mencode64, $mdecode64, $port, 
     $mdom, $Target, $exploit, $parametro, $validTextAll, $tcp, $udp, $proxy, $prandom, $help, $output, $replace, $replaceFROM, $dork, $mlevel, $unique, $shell, $nobanner, $beep, $ifinurl, 
 	$noverbose, $motor, $timeout, $limit, $checkVersion, $searchIps, $regex, $searchRegex, $noQuery, $ifend, $uninstall, $post, $get, $brandom, $data, $mrandom, 
-	$content, $toolInfo, $config, $freq, $headers, $msource, $ping, $exclude, $excludeAll, $expHost, $expIp, $zone, $validShell, $interactive, $popup, $all, $repair, $zoneH, $cookies, 
+	$content, $toolInfo, $config, $freq, $headers, $msource, $ping, $exclude, $excludeAll, $expHost, $expIp, $zone, $validShell, $interactive, $popup, $all, $repair, $zoneH, 
 	$bugtraq, $fullHeaders, $geoloc, $getlinks, $shodan, $apikey, $shocount, $shoquery, $shoquerySearch, $shoqueryTags, $shoservices, $shoresolve, $shoreverse, $shomyip, 
-	$shoapiInfo, $shoports, $shoprotos, $shotokens, $shohoneyscore, $shofilters, $facets, $validServer, $cx, $password, $dateupdate, $method);
+	$shoapiInfo, $shoports, $shoprotos, $shotokens, $shohoneyscore, $shofilters, $facets, $validServer, $cx, $password, $dateupdate, $method, $saveCookie, $setCookie);
 
 ## ARGUMENTS
 use Getopt::Long qw(GetOptions);
@@ -77,7 +77,7 @@ Getopt::Long::GetOptions(\%OPT, 'status=s'=>\$Hstatus, 'valid|v=s'=>\$validText,
                          'uninstall'=> \$uninstall, 'post'=>\$post, 'get'=>\$get, 'brandom'=>\$brandom, 'data=s'=>\$data, 'mrandom=s'=>\$mrandom, 'content'=>\$content,
                          'tool|?'=>\$toolInfo, 'config'=>\$config, 'freq=s'=>\$freq, 'header=s'=>\$headers, 'source=s'=>\$msource, 'ping'=>\$ping, 'exclude=s'=>\$exclude, 'excludeAll=s'=>\$excludeAll, 'expHost=s'=>\$expHost,
                          'expIp=s'=>\$expIp, 'zone=s'=>\$zone, 'interactive|i'=>\$interactive, 'vshell=s'=>\$validShell, 'popup'=>\$popup, 'all'=>\$all, 'repair'=>\$repair, 'zoneH=s'=>\$zoneH,
-                         'cookies=s'=>\$cookies, 'bugtraq'=>\$bugtraq, 'geoloc'=>\$geoloc, 'fullHeaders'=>\$fullHeaders, 'getlinks'=>\$getlinks, 'shodan'=>\$shodan, 'apikey=s'=>\$apikey, 
+                         'setCookie=s'=>\$setCookie, 'saveCookie=s'=>\$saveCookie, 'bugtraq'=>\$bugtraq, 'geoloc'=>\$geoloc, 'fullHeaders'=>\$fullHeaders, 'getlinks'=>\$getlinks, 'shodan'=>\$shodan, 'apikey=s'=>\$apikey, 
 						 'count=s'=>\$shocount, 'query'=>\$shoquery, 'querysearch=s'=>\$shoquerySearch, 'querytags'=>\$shoqueryTags, 'services'=>\$shoservices, 
 						 'dnsresolve=s'=>\$shoresolve, 'dnsreverse=s'=>\$shoreverse, 'myip'=>\$shomyip, 'apinfo'=>\$shoapiInfo, 'facets=s'=>\$facets, 'ports'=>\$shoports, 'protocols'=>\$shoprotos, 
 						 'filters'=>\$shofilters, 'tokens=s'=>\$shotokens, 'server=s'=>\$validServer, 'honeyscore=s'=>\$shohoneyscore, 'cx=s'=>\$cx) or Print::bad();
@@ -178,12 +178,9 @@ my $engine = Engine::get_engine($motor, $mrandom, $mlevel, $shodan, $bugtraq);
 use Getagent;
 my $agento = new Getagent();
 my $agent = $agento->get_agent($freq, "");
-
-## COCKIES
-my $cookie = Subs::cockies($cookies);
 	
 ## SET UA
-my $ua = $agento->get_ua($agent, $timeout, $headers, $cookie);
+my $ua = $agento->get_ua($agent, $timeout, $headers, $setCookie, $saveCookie);
 
 ## FREQUENCY START TIME
 my $start = Subs::frequency();
@@ -248,7 +245,7 @@ if (!defined $shodan && (scalar @targets < 1)) {
   use Search;
   sleep 1;
   my $v_apikey = $apikeys[rand @{$v_apikeys}];
-  my $search = Search::msearch($ua, $dork, $Target, $mlevel, \@dorks, \@motors, $v_apikey, $cx, $zone, $unique, $ifinurl, \@searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders);
+  my $search = Search::msearch($ua, $dork, $Target, $mlevel, \@dorks, \@motors, $v_apikey, $cx, $zone, $unique, $ifinurl, \@searchRegexs, $agent, $timeout, $headers, $fullHeaders);
   @targets = @{$search} if ($search);
 }
 
@@ -332,8 +329,8 @@ for my $targ(@targets) {
 	  $ua = $agento->use_proxy($freq, $start, $ua, \@{$v_proxies}, $prandom, "1") if (defined $prandom);
 
 	  ## GET URL
-	  my ($redirect, $re, $ht, $st, $sh, $fh);	
-	  if (defined $data) {
+	  my ($redirect, $re, $ht, $st, $sh, $fh);
+      if (defined $data) {
 	    my $datas = $_->dataFields($data);
 	    ($redirect, $re, $ht, $st, $sh, $fh) = $getme->navdatapost($ua, $get, $post, $_, $datas, $fullHeaders);
 	  }else{

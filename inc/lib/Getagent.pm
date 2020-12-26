@@ -5,6 +5,7 @@ use strict;
 use Print;
 use Exploits;
 use Subs;
+use HTTP::Cookies;
 
 ## Copy@right Alisam Technology see License.txt
 
@@ -85,9 +86,10 @@ sub get_agent {
 ##########################################################################################################
 ## GET UA
 sub get_ua {
-  my ($self, $agent, $timeout, $headers, $cookies) = @_;
+  my ($self, $agent, $timeout, $headers, $setCookie, $saveCookie) = @_; 
+  my $cookie_jar = Subs::cockies($setCookie, $saveCookie);  
   my $ua = LWP::UserAgent->new( agent => $agent);
-  $cookies ? $ua->cookie_jar($cookies) : $ua->cookie_jar => HTTP::Cookies->new();
+  $ua->cookie_jar( $cookie_jar );   
   $ua->env_proxy;
   if (defined $timeout || $timeout) {
     $ua->timeout($timeout);

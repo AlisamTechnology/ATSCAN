@@ -31,7 +31,7 @@ my $V_SEARCH = Exploits::V_SEARCH();
 ##########################################################################################################
 ## SEARCH
 sub msearch {
-  my ($ua, $dork, $Target, $mlevel, $dorks, $motors, $v_apikey, $cx, $zone, $unique, $ifinurl, $searchRegexs, $agent, $timeout, $headers, $cookies, $fullHeaders) = @_;
+  my ($ua, $dork, $Target, $mlevel, $dorks, $motors, $v_apikey, $cx, $zone, $unique, $ifinurl, $searchRegexs, $agent, $timeout, $headers, $fullHeaders) = @_;
   my @aTsearch;
   my $level = $mlevel * 10;
   for my $engine(@{$motors}) {

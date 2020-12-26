@@ -23,8 +23,6 @@ my @EXPORT_OK = qw(compareme getTargetProtocol removeProtocol buildArraysLists b
 				   scriptComplInstall scriptInstall script_bac uplog scriptbash scriptCompletion readme 
 				   userSetting deskIcon deskIcoConf getComnd make_freq portProtocol cockies target_urls_repeater doCheecks);
 
-unlink "$Bin/inc/user/cookies.txt" if -e "$Bin/inc/user/cookies.txt";
-
 my $userSetting = userSetting();  
 my $logUrl = logUrl();
 my $uplog = uplog();
@@ -54,15 +52,23 @@ sub target_urls_repeater {
 #######################################################################################################
 ## COOCKIES
 sub cockies {
+  my ($setCookie, $saveCookie) = @_;
   use HTTP::Cookies;
-  my $cookies = $_[0];
-  my $coockies_file = $cookies ? $cookies : "$Bin/inc/user/cookies.txt";
-  my $cookie = HTTP::Cookies->new(
-									file     => $coockies_file, 
-									autosave => 1,
-									ignore_discard => 1
-                                  );
-  return $cookie;
+  my $cookie_jar;
+  if (defined $saveCookie) {
+	$cookie_jar = HTTP::Cookies->new(
+									  file     => $saveCookie, 
+									  autosave => 1,
+									  ignore_discard => 1
+                                     );
+  }elsif (defined $setCookie) {
+	$cookie_jar = HTTP::Cookies->new(
+									  file     => $setCookie, 
+                                     );
+  }else{
+    $cookie_jar = HTTP::Cookies->new();
+  }
+  return $cookie_jar;
 }
 
 #######################################################################################################

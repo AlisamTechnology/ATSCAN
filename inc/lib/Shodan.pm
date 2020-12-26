@@ -70,8 +70,7 @@ sub getShoResults {
   my $shoRes;
   my $getme = new Getme();
   my $v_shoRes = $getme->navsearch($ua, $surl, $fullHeaders);
-
-  if ($v_shoRes=~/(Invalid IP|Please upgrade your API|Can\'t connect to api|DDoS protection|This server could not verify that you are authorized)/) {
+  if ($v_shoRes=~/(Invalid IP|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) {
     print $c[2]."[!] ERROR: $1\n";
     Print::separaBlocks();
   }else{

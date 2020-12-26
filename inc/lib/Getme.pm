@@ -83,13 +83,11 @@ sub get_resut {
 sub navsearch {
   my ($self, $ua, $engine, $fullHeaders) = @_;
   my $re = $ua->get($engine) or Print::advise_connect();
-  my $redir = $re->request->uri if ($re->previous);
+  my $redir = $re->request->uri if ($re->previous);  
   my ($ht, $st, $sh, $fh) = get_resut($re, $fullHeaders);
   $self->{ navsearch } = $ht; #if $st eq 200;
   return $self->{ navsearch };
 } 
-
-
 
 ##########################################################################################################
 sub navget {

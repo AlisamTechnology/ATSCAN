@@ -85,9 +85,9 @@ sub get_agent {
 ##########################################################################################################
 ## GET UA
 sub get_ua {
-  my ($self, $agent, $timeout, $headers, $cookies) = @_; 
-  my $ua = LWP::UserAgent->new( agent => $agent, cookie_jar => HTTP::Cookies->new());
-  $ua->cookie_jar($cookies);
+  my ($self, $agent, $timeout, $headers, $cookies) = @_;
+  my $ua = LWP::UserAgent->new( agent => $agent);
+  $cookies ? $ua->cookie_jar($cookies) : $ua->cookie_jar => HTTP::Cookies->new();
   $ua->env_proxy;
   if (defined $timeout || $timeout) {
     $ua->timeout($timeout);

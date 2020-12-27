@@ -165,10 +165,8 @@ sub do_needed {
 	  $vURL = $URL;
 	}
 	
-    my $vURL2 = Subs::validateURL($URL);
-    if ($vURL2) {
-      $url = $URL;
-    }
+    my $vURL2 = Subs::validateURL($vURL);
+	$url = $vURL if ($vURL2);
   }
   return $url;
 }

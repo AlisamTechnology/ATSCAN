@@ -69,13 +69,15 @@ sub check_list_apikey {
   my @connected_apikeys;
   print $c[4]."[!]$c[10] Checking apikey connection...";
   for (@{$apikeys}) {
-    my $r = check_apikey_connect($ua, $_, $cx, $shodan);
-    if ($r!~/(Queries\' and limit \'Queries per day|Request contains an invalid argument|Requested entity was not found|API key not valid|\"Bad Request\"|\"dailyLimitExceeded\"|DDoS protection|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) {  
+    my $r = check_apikey_connect($ua, $_, $cx, $shodan);	
+    if ($r!~/Ray ID: <code>(.*)<\/code>|(Queries\' and limit \'Queries per day|Request contains an invalid argument|Requested entity was not found|API key not valid|\"Bad Request\"|\"dailyLimitExceeded\"|Please upgrade your API|Can\'t connect to api|This server could not verify that you are authorized)/) {  
 	  push @connected_apikeys, $_;
 	}else{
 	  if (length($_) > 0) {
-	  print $c[2]."\n[!] Failed to connect using key:$c[10]\[$_]";
-	  print $c[4]."\n    Message: [$1]"; }
+	    print $c[2]."\n[!] Failed to connect using key:$c[10]\[$_]";
+	    print $c[4]."\n    Message: [$1]";
+		print $c[4]." => CloudFlare DDoS protection Ray ID !" if $r=~/Ray ID: <code>(.*)<\/code>/;
+	  }
 	}
   }
   print_connecttions(scalar @connected_apikeys, scalar @{$apikeys}, "apikeys");

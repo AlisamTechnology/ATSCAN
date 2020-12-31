@@ -74,9 +74,12 @@ sub check_list_apikey {
 	  push @connected_apikeys, $_;
 	}else{
 	  if (length($_) > 0) {
-	    print $c[2]."\n[!] Failed to connect using key:$c[10]\[$_]";
-	    print $c[4]."\n    Message: [$1]";
-		print $c[4]." => CloudFlare DDoS protection Ray ID !" if $r=~/Ray ID: <code>(.*)<\/code>/;
+		if ($r=~/Ray ID: <code>(.*)<\/code>/) {  
+		  print $c[4]."\n[!] The host seems to be protected by CloudFlare!";
+		}else{
+	      print $c[2]."\n[!] Failed to connect using key:$c[10]\[$_]";
+	      print $c[4]."\n    Message: [$1]";
+		}
 	  }
 	}
   }

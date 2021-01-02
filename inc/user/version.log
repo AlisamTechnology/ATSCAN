@@ -1,7 +1,7 @@
 ATSCAN SCANNER VERSION 17.0.1 RELEASE
 =====================================================  
-  CHANGES: 26/12/2020
-  - Fix shodan null result error.
+  CHANGES: 02/01/2021
+  - Fix some errors.
   - Add save and set cookies.
   - oooooOO PLEASE REPORT BUGS OOoooo
   =================

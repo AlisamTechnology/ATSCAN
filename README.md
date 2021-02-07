@@ -18,9 +18,6 @@
   <a title="Follow us in Facebook" href="https://www.facebook.com/Alisam.Technology/">
     <img src="https://img.shields.io/badge/Facebook-Follow-blue.svg">
   </a>
-  <a title="Follow us in Youtube" href="https://www.youtube.com/c/AlisamTechnology">
-    <img src="https://img.shields.io/badge/Youtube-Follow-red.svg">
-  </a> 
 </p> 
 <p align="center"> <b>Advanced Mass Search / Dork / Exploitation Scanner  </b></p>
 <table border="0" cellpadding="2" cellspacing="2" width="100%">

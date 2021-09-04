@@ -480,7 +480,7 @@
       </tr> 
       <tr>
         <td width="200px" class="main"> repeat(txt-y) </td>
-           <td class="main">EX: --expHost "/index.php?id=repeat(../-9)wp-config.php" --sql OR -t "site.com/index.php?id=../wp-config.php"<br>
+           <td class="main">EX: --expHost "/index.php?id=repeat(../-9)wp-config.php" --status 200 OR -t "site.com/index.php?id=../wp-config.php"<br>
            In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times </td>
       </tr>       
       <tr>

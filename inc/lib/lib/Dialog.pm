@@ -65,7 +65,7 @@ sub interHelp {
   ."$c[5]               $c[10] | Ex: site.com/index.php?id=string] \n"  
   ."$c[5] rang(x-y)     $c[10] | EX: --exp/expHost \"/index.php?id=rang(1-9)\" --sql OR -t \"site.com/index.php?id=rang(1-9)\" --sql\n"
   ."$c[5]               $c[10] | site.com/index.php?id=1->9 \n"
-  ."$c[5] repeat(txt-y) $c[10] | EX: --exp/expHost \"/index.php?id=repeat(../-9)wp-config.php\" --sql OR -t \"site.com/index.php?id=../wp-config.php\"\n"
+  ."$c[5] repeat(txt-y) $c[10] | EX: --exp/expHost \"/index.php?id=repeat(../-9)wp-config.php\" --status 200 OR -t \"site.com/index.php?id=../wp-config.php\"\n"
   ."$c[5]               $c[10] | In site.com/index.php?id=../wp-config.php then site.com/index.php?id=../../wp-config.php 9 times\n"
   ."$c[5] [OTHER]       $c[10] | To separate all others values (dork exploit proxy target..) \n"
   ."$c[5]               $c[10] | Ex: --dork \"dork1 [OTHER]DORK2 [OTHER]DORK3\"\n";

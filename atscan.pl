@@ -6,9 +6,7 @@
 #   [::] SCRIPT NAME:  atscan scanner
 #   [::] AUTOR:        Ali Mehdioui founder of Alisam Technology
 #   [::] FB:           https://facebook.com/Alisam.Technology
-#   [::] Twitter:      https://twitter.com/AlisamTechno
 #   [::] GIT:          https://github.com/AlisamTechnology
-#   [::] YOUTUBE:      http://youtube.com/c/AlisamTechnology
 #
 ## DESCRIPTION ##############################################################################################################
 #   Tool to scan engines, dorks and sites for commun errors and vulnerabilities.

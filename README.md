@@ -591,7 +591,7 @@
       <table border="0" cellpadding="2" cellspacing="5" width="100%"><tr><td>  
         &#x25cf; <b>PROXY: </b> <br/>
         Tor: --proxy [proxy] [Ex: --proxy socks://localhost:9050].<br/>
-        Proxy: --proxy [proxy] Ex: http://12.32.1.5:8080 <br/>
+        Proxy: --proxy [proxy] Ex: --proxy http://12.32.1.5:8080 <br/>
         or --proxy file Ex: --proxy my_proxies.txt <br/>
         <hr>
         &#x25cf; <b>RANDOM: </b> <br/>
